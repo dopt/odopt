@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "useUnknownInCatchVariables": true,
     "allowJs": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "incremental": true
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "useUnknownInCatchVariables": true
   },
   "exclude": ["node_modules", ".yarn"]
 }
