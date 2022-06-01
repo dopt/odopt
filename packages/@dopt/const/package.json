@@ -1,7 +1,7 @@
 {
-  "name": "@bodo/tokens",
+  "name": "@dopt/const",
   "version": "0.0.0",
-  "description": "Bodo Design System: Tokens Component",
+  "description": "A package containing constants to be used throughout the monorepo",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -14,28 +14,19 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "clean": "shx rm -rf ./dist",
     "dev": "yarn run build --watch src",
     "format": "prettier --w .",
     "formatcheck": "npx check-formatting",
     "lint": "eslint .",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required pacakge scripts": ""
+    "☝️ required package scripts": ""
   },
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "@radix-ui/colors": "0.1.8",
-    "@react-aria/interactions": "3.9.0",
-    "@react-aria/utils": "3.13.0",
-    "@react-types/shared": "3.13.0"
-  },
-  "peerDependencies": {
-    "react": "18.1.0"
-  },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
@@ -44,6 +35,7 @@
     "esbuild": "0.14.42",
     "esbuild-jest": "0.5.0",
     "eslint": "8.16.0",
+    "eslint-plugin-react": "7.30.0",
     "jest": "28.1.0",
     "prettier": "2.6.2",
     "shx": "0.3.4",
