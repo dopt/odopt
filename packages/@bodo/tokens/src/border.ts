@@ -4,6 +4,7 @@ export const borderStyles = {
 };
 
 export const radii = {
+  '0x': '0px',
   '1x': '8px',
   '2x': '16px',
   '3x': '24px',
