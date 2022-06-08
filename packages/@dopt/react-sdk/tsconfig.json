@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "declaration": true,
+    "jsx": "react-jsx",
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "target": "esnext"
+  },
+  "exclude": ["**/node_modules", "**/dist", "**/tsup.config.ts"],
+  "include": ["**/*.ts", "**/*.tsx"]
+}
