@@ -55,10 +55,13 @@ Having integrated the Provider you can now access Dopt Model State from anywhere
 ```ts
 interface Block {
   active: boolean;
+  started: boolean;
+  finished: boolean;
 }
 interface Methods {
   done: () => void;
   exit: () => void;
+  start: () => void;
 }
 declare const useDopt: (modelReferenceId: string) => [Block, Methods];
 ```
