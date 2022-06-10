@@ -1,3 +1,3 @@
-export { DoptProvider } from './provider';
-export { DoptContext } from './context';
-export { useDopt } from './hooks/use-dopt-model';
+export { DoptProvider } from '@/provider';
+export { DoptContext } from '@/context';
+export { useDopt } from '@/use-dopt';
