@@ -1,5 +1,6 @@
 export interface Block {
   /*readonly*/ active: boolean;
+  /*readonly*/ finished?: boolean;
 }
 
 export interface Blocks {
@@ -8,7 +9,7 @@ export interface Blocks {
 
 export interface Methods {
   get: (identifier: string) => void;
-  done: (identifier: string) => void;
+  finish: (identifier: string) => void;
   exit: (identifier: string) => void;
 }
 
