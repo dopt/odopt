@@ -1,46 +1,110 @@
 import React from 'react';
-import { DoptContext } from './context';
+import { DoptContext } from '@/context';
 
-import { ProviderConfig, State } from './types';
+import { ProviderConfig, Methods, Block } from '@/types';
 
-import client from './client';
+import client from '@/client';
+
+const generateblockIntentHandler = (
+  userId: string,
+  apiKey: string,
+  method: keyof Methods,
+  beforeRequest: (identifier: string) => void,
+  afterRequest: (response: {
+    block: Block;
+    updated: { [identifier: string]: Block };
+  }) => void
+) => {
+  return async (identifier: string) => {
+    beforeRequest(identifier);
+    afterRequest(
+      await client(`/users/${userId}/block/${identifier}/${method}`, apiKey, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    );
+  };
+};
 
 class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
   constructor(props: ProviderConfig) {
     super(props);
 
-    this.state = {
-      userId: undefined,
-      models: {},
+    const { userId, apiKey } = props;
+
+    const initialRequests: { [identifier: string]: Promise<Block> } = {};
+
+    const manuallySetBlockToInActive = (identifier: string) => {
+      this.setState({
+        blocks: {
+          ...this.state.blocks,
+          [identifier]: { active: false },
+        },
+      });
     };
-  }
 
-  initializeModels = async () => {
-    const models = await client(`/users/${this.props.userId}/states`);
+    this.state = {
+      blocks: {},
+      methods: {
+        get: async (identifier) => {
+          const { blocks } = this.state;
 
-    this.setState({
-      userId: this.props.userId,
-      ...models,
-      setState: async (key: string, newState: Partial<State>) => {
-        const model = await client(
-          `/users/${this.props.userId}/states/${key}`,
-          {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newState),
+          if (!blocks[identifier]) {
+            manuallySetBlockToInActive(identifier);
           }
-        );
-        this.setState({ [key]: model });
 
-        const models = await client(`/users/${this.props.userId}/states`);
-
-        this.setState({ ...models });
+          if (!initialRequests[identifier]) {
+            const blockRequest = client(
+              `/users/${userId}/block/${identifier}`,
+              apiKey
+            );
+            initialRequests[identifier] = blockRequest;
+            const { active } = await blockRequest;
+            this.setState({
+              blocks: {
+                ...this.state.blocks,
+                [identifier]: { active },
+              },
+            });
+          }
+        },
+        done: generateblockIntentHandler(
+          userId,
+          apiKey,
+          'done',
+          manuallySetBlockToInActive,
+          ({ updated }) =>
+            this.setState({
+              blocks: {
+                ...this.state.blocks,
+                ...updated,
+              },
+            })
+        ),
+        stop: generateblockIntentHandler(
+          userId,
+          apiKey,
+          'stop',
+          manuallySetBlockToInActive,
+          () => {}
+        ),
+        skip: generateblockIntentHandler(
+          userId,
+          apiKey,
+          'skip',
+          manuallySetBlockToInActive,
+          ({ updated }) =>
+            this.setState({
+              blocks: {
+                ...this.state.blocks,
+                ...updated,
+              },
+            })
+        ),
       },
-    });
-  };
-
-  async componentDidMount() {
-    await this.initializeModels();
+    };
   }
 
   render() {
