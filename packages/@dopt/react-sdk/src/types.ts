@@ -9,8 +9,7 @@ export interface Blocks {
 export interface Methods {
   get: (identifier: string) => void;
   done: (identifier: string) => void;
-  stop: (identifier: string) => void;
-  skip: (identifier: string) => void;
+  exit: (identifier: string) => void;
 }
 
 export interface ProviderConfig {

@@ -5,8 +5,7 @@ import { Block } from '@/types';
 
 export interface Methods {
   done: () => void;
-  stop: () => void;
-  skip: () => void;
+  exit: () => void;
 }
 
 const useDopt = (identifier: string): [Block, Methods] => {
@@ -17,10 +16,9 @@ const useDopt = (identifier: string): [Block, Methods] => {
   }
 
   const done = useCallback(() => methods.done(identifier), [identifier]);
-  const stop = useCallback(() => methods.stop(identifier), [identifier]);
-  const skip = useCallback(() => methods.skip(identifier), [identifier]);
+  const exit = useCallback(() => methods.exit(identifier), [identifier]);
 
-  return [blocks[identifier] || false, { done, stop, skip }];
+  return [blocks[identifier] || false, { done, exit }];
 };
 
 export { useDopt };
