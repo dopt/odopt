@@ -1,10 +1,9 @@
 import React from 'react';
-import { Models } from './types';
+import { Blocks, Methods } from '@/types';
 
 type DoptContext = {
-  userId: string | undefined;
-  models: Models;
-  [key: string]: any;
+  blocks: Blocks;
+  methods: Methods;
 };
 
 const DoptContext = React.createContext<DoptContext>({} as DoptContext);

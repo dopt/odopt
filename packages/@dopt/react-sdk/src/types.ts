@@ -1,16 +1,20 @@
-export interface State {
-  readonly active: boolean;
-  started: boolean;
-  finished: boolean;
-  stopped: boolean;
-  exited: boolean;
-  paused: boolean;
+export interface Block {
+  /*readonly*/ active: boolean;
 }
 
-export interface Models {
-  [identifier: string]: State;
+export interface Blocks {
+  [identifier: string]: Block;
 }
+
+export interface Methods {
+  get: (identifier: string) => void;
+  done: (identifier: string) => void;
+  stop: (identifier: string) => void;
+  skip: (identifier: string) => void;
+}
+
 export interface ProviderConfig {
   userId: string;
+  apiKey: string;
   children: React.ReactNode;
 }
