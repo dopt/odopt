@@ -83,25 +83,12 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
               },
             })
         ),
-        stop: generateblockIntentHandler(
+        exit: generateblockIntentHandler(
           userId,
           apiKey,
-          'stop',
+          'exit',
           manuallySetBlockToInActive,
           () => {}
-        ),
-        skip: generateblockIntentHandler(
-          userId,
-          apiKey,
-          'skip',
-          manuallySetBlockToInActive,
-          ({ updated }) =>
-            this.setState({
-              blocks: {
-                ...this.state.blocks,
-                ...updated,
-              },
-            })
         ),
       },
     };
