@@ -1,29 +1,30 @@
 import { ChecklistItem, ChecklistProgress } from '@research.io/checklist';
-import { useDopt } from '@dopt/react';
+import { useDopt, groupStats } from '@dopt/react';
 
 const Checklist = () => {
   const [calendarIntegration] = useDopt('calendar-integration-100dae3');
-  const [scheduleMeeting] = useDopt('schedule-meeting-a40ea81');
+  const [scheduleMeeting, { start }] = useDopt('schedule-meeting-a40ea81');
   const [interview] = useDopt('interview-038dd7b');
 
-  const steps = [calendarIntegration, scheduleMeeting, interview];
-
-  const totalSteps = steps.length;
-  const finishedSteps = steps.filter(({ finished }) => finished).length;
-  const progress = (finishedSteps / totalSteps) * 100;
+  const { percentageDone, numFinished, total } = groupStats(
+    calendarIntegration,
+    scheduleMeeting,
+    interview
+  );
 
   return (
     <div>
       <h3>👋 Welcome to Ethnio!</h3>
       <p>Get started by completing these quick steps.</p>
-      <ChecklistProgress value={progress} />
-      {finishedSteps} / {totalSteps}
+      <ChecklistProgress value={percentageDone} />
+      {numFinished} / {total}
       <ChecklistItem
         label="Set up calendar integration"
         value={calendarIntegration.finished ? 100 : 0}
       />
       <ChecklistItem
         label="Schedule first interview"
+        onClick={start}
         value={scheduleMeeting.finished ? 100 : 0}
       />
       <ChecklistItem

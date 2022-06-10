@@ -70,11 +70,46 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
             });
           }
         },
+        start: generateblockIntentHandler(
+          userId,
+          apiKey,
+          'start',
+          (identifier) =>
+            this.setState({
+              blocks: {
+                ...this.state.blocks,
+                [identifier]: {
+                  ...this.state.blocks[identifier],
+                  started: true,
+                  active: true,
+                  finished: false,
+                },
+              },
+            }),
+          ({ updated }) =>
+            this.setState({
+              blocks: {
+                ...this.state.blocks,
+                ...updated,
+              },
+            })
+        ),
         finish: generateblockIntentHandler(
           userId,
           apiKey,
           'finish',
-          manuallySetBlockToInActive,
+          (identifier) =>
+            this.setState({
+              blocks: {
+                ...this.state.blocks,
+                [identifier]: {
+                  ...this.state.blocks[identifier],
+                  started: true,
+                  active: false,
+                  finished: true,
+                },
+              },
+            }),
           ({ updated }) =>
             this.setState({
               blocks: {
