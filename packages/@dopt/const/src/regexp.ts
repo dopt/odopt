@@ -1,5 +1,5 @@
 /**
- * RegExp for switchboard users creating a new account
+ * RegExp for dopt users creating a new account
  * 1. at least one lower case character
  * 2. at least one upper case character
  * 3. at least one numeric character
