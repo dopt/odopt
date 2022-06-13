@@ -6,7 +6,7 @@ Dopt is a growth-focused platform. For developers, this means a set of APIs and 
 
 ## Getting Started
 
-The Dopt React SDK offers a convient framework-native client for accessing Dopt's Model API, allowing you to bind user journey state (defined in Switchboard) to your UI.
+The Dopt React SDK offers a convient framework-native client for accessing Dopt's Model API, allowing you to bind user journey state (defined in Dopt) to your UI.
 
 ### Installation
 
@@ -79,7 +79,7 @@ const WelcomeModal = () => {
       <ModalContent>
         <ModalCloseButton onClick={exit} />
         <ModalBody>
-          I'm a modal whose existence/visibility is controlled by Switchboard
+          I'm a modal whose existence/visibility is controlled by Dopt
         </ModalBody>
         <ModalFooter>
           <Button onClick={done}>Continue</Button>
