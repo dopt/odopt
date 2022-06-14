@@ -33,7 +33,7 @@ fc: formatcheck
 formatcheck: ## [@alias fc] Runs formatcheck target for each package
 c: clean
 clean: ## [@alias c]Runs clean target for each package
-test typecheck lint format formatcheck clean:
+test typecheck build lint format formatcheck clean:
 	npx turbo run $@;
 
 n: nuke
