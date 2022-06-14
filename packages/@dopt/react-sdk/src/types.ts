@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface Block {
   /*readonly*/ active: boolean;
   /*readonly*/ finished?: boolean;
