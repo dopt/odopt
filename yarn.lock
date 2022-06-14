@@ -447,6 +447,7 @@ __metadata:
   dependencies:
     "@dopt/check-formatting": "workspace:*"
     "@dopt/config": "workspace:*"
+    "@types/react": 18.0.10
     "@typescript-eslint/eslint-plugin": 5.27.0
     "@typescript-eslint/parser": 5.27.0
     esbuild: 0.14.42
@@ -1016,6 +1017,31 @@ __metadata:
   version: 2.6.3
   resolution: "@types/prettier@npm:2.6.3"
   checksum: e1836699ca189fff6d2a73dc22e028b6a6f693ed1180d5998ac29fa197caf8f85aa92cb38db642e4a370e616b451cb5722ad2395dab11c78e025a1455f37d1f0
+  languageName: node
+  linkType: hard
+
+"@types/prop-types@npm:*":
+  version: 15.7.5
+  resolution: "@types/prop-types@npm:15.7.5"
+  checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.0.10":
+  version: 18.0.10
+  resolution: "@types/react@npm:18.0.10"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 333c99bd46cc2190ec6f6e4f3fa6cdee07e1d4d028fb2bd895d3927d9de6e86ede57befdc79d9acbfb7b1c058091bf3b38b8de3703f83e0f8cd8d15d7457b3d8
+  languageName: node
+  linkType: hard
+
+"@types/scheduler@npm:*":
+  version: 0.16.2
+  resolution: "@types/scheduler@npm:0.16.2"
+  checksum: b6b4dcfeae6deba2e06a70941860fb1435730576d3689225a421280b7742318d1548b3d22c1f66ab68e414f346a9542f29240bc955b6332c5b11e561077583bc
   languageName: node
   linkType: hard
 
@@ -1988,6 +2014,13 @@ __metadata:
     shebang-command: ^2.0.0
     which: ^2.0.1
   checksum: 671cc7c7288c3a8406f3c69a3ae2fc85555c04169e9d611def9a675635472614f1c0ed0ef80955d5b6d4e724f6ced67f0ad1bb006c2ea643488fcfef994d7f52
+  languageName: node
+  linkType: hard
+
+"csstype@npm:^3.0.2":
+  version: 3.1.0
+  resolution: "csstype@npm:3.1.0"
+  checksum: 644e986cefab86525f0b674a06889cfdbb1f117e5b7d1ce0fc55b0423ecc58807a1ea42ecc75c4f18999d14fc42d1d255f84662a45003a52bb5840e977eb2ffd
   languageName: node
   linkType: hard
 

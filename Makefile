@@ -12,29 +12,29 @@ help:			## Show this help.
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[1;96m%-15s\033[0m \033[1;97m%s\033[0m\n", $$1, $$2}'
 
 i: install
-install: ## [@alias i] Installs all deps for the monorepo
+install: ## [@alias i]  Installs all deps for the monorepo
 	yarn; 
 
 u: uninstall
-uninstall: ## [@alias u] Removes all node_modules dirs
+uninstall: ## [@alias u]  Removes all node_modules dirs
 	find . -name 'node_modules' -type d -prune -exec echo '{}' \;  -exec rm -rf {} \;
 
 b: build
-build: ## [@alias b] Builds all packages topologically
+build: ## [@alias b]  Builds all packages topologically
 t: test
-test: ## [@alias t] Run test target for each package
+test: ## [@alias t]  Run test target for each package
 tc: typecheck
 typecheck: ## [@alias tc] Run typecheck target for each package
 l: lint
-lint: ## [@alias l] Run lint target for each package
+lint: ## [@alias l]  Run lint target for each package
 f: format
-format: ## [@alias f] Runs format target for each package
+format: ## [@alias f]  Runs format target for each package
 fc: formatcheck
 formatcheck: ## [@alias fc] Runs formatcheck target for each package
 c: clean
-clean: ## [@alias c]Runs clean target for each package
+clean: ## [@alias c]  Runs clean target for each package
 test typecheck build lint format formatcheck clean:
 	npx turbo run $@;
 
 n: nuke
-nuke: clean uninstall ## [@alias n] Removes clean and install for each package
+nuke: clean uninstall ## [@alias n]  Removes clean and install for each package
