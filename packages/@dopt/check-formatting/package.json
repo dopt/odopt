@@ -1,0 +1,21 @@
+{
+  "name": "@dopt/check-formatting",
+  "version": "0.0.0",
+  "description": "A CLI for generating packages in the Dopt monorepo",
+  "bin": "./bin/run.sh",
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "echo \"@dopt/check-formatting does not require build\"; exit 0;",
+    "clean": "echo \"@dopt/check-formatting does not require clean\"; exit 0;",
+    "dev": "echo \"@dopt/check-formatting does not require dev\"; exit 0;",
+    "format": "echo \"@dopt/check-formatting does not require test\"; exit 0;",
+    "formatcheck": "echo \"@dopt/check-formatting does not require formatcheck\"; exit 0;",
+    "lint": "echo \"@dopt/check-formatting does not require lint\"; exit 0;",
+    "test": "echo \"@dopt/check-formatting does not require test\"; exit 0;",
+    "typecheck": "echo \"@dopt/check-formatting does not require typecheck\"; exit 0;",
+    "☝️ required package scripts": ""
+  },
+  "files": [
+    "dist"
+  ]
+}
