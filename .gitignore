@@ -1,0 +1,16 @@
+node_modules
+/.yarn/*
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+dist/
+.turbo
+
+
+.env.*.local
+
+#turbo
+out/
+
+.vscode/settings.json
