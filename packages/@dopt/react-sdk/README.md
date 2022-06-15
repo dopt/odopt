@@ -59,9 +59,10 @@ interface Block {
   finished: boolean;
 }
 interface Methods {
-  done: () => void;
-  exit: () => void;
   start: () => void;
+  finish: () => void;
+  stop: () => void;
+  exit: () => void;
 }
 declare const useDopt: (modelReferenceId: string) => [Block, Methods];
 ```
