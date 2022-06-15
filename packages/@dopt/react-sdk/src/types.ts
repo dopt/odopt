@@ -12,9 +12,31 @@ export interface Blocks {
 
 export interface Methods {
   get: (identifier: string) => void;
-  finish: (identifier: string) => void;
-  exit: (identifier: string) => void;
+  /*
+   * Sets `started` to true iff `active` is true
+   */
   start: (identifier: string) => void;
+  /*
+   * Sets `finished` to true.
+   * Has the following side-effects
+   * - `active` is set to false
+   */
+  finish: (identifier: string) => void;
+  /*
+   * Sets `stopped` to true.
+   * Has the following side-effects
+   * - `active` is set to false
+   * - children nodes are not set to active (equivalent
+   *   to stopping this path in the journey)
+   */
+  stop: (identifier: string) => void;
+  /*
+   * Sets `exited` to true.
+   * Has the following side-effects
+   * - `active` is set to false
+   * - stops all active paths in the journey.
+   */
+  exit: (identifier: string) => void;
 }
 
 export interface ProviderConfig {
