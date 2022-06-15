@@ -27,4 +27,8 @@ git pull dopt main --allow-unrelated-histories;
 git push origin main;
 
 popd;
+
+rm -rf ./odopt;
+rm -rf ./dopt;
+
 popd;
