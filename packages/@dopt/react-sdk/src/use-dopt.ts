@@ -4,9 +4,10 @@ import { DoptContext } from '@/context';
 import { Block } from '@/types';
 
 export interface Methods {
-  finish: () => void;
-  exit: () => void;
   start: () => void;
+  finish: () => void;
+  stop: () => void;
+  exit: () => void;
 }
 
 const useDopt = (identifier: string): [Block, Methods] => {
@@ -16,11 +17,15 @@ const useDopt = (identifier: string): [Block, Methods] => {
     methods.get(identifier);
   }
 
-  const finish = useCallback(() => methods.finish(identifier), [identifier]);
-  const exit = useCallback(() => methods.exit(identifier), [identifier]);
   const start = useCallback(() => methods.start(identifier), [identifier]);
+  const finish = useCallback(() => methods.finish(identifier), [identifier]);
+  const stop = useCallback(() => methods.stop(identifier), [identifier]);
+  const exit = useCallback(() => methods.exit(identifier), [identifier]);
 
-  return [blocks[identifier] || false, { finish, exit, start }];
+  return [
+    blocks[identifier] || { active: false },
+    { start, finish, stop, exit },
+  ];
 };
 
 export { useDopt };
