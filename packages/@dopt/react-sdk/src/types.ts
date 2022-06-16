@@ -4,6 +4,7 @@ export interface Block {
   /*readonly*/ active: boolean;
   /*readonly*/ finished?: boolean;
   /*readonly*/ started?: boolean;
+  /*readonly*/ stopped?: boolean;
 }
 
 export interface Blocks {
@@ -31,7 +32,7 @@ export interface Methods {
    */
   stop: (identifier: string) => void;
   /*
-   * Sets `exited` to true.
+   * Sets `stopped` to true.
    * Has the following side-effects
    * - `active` is set to false
    * - stops all active paths in the journey.
