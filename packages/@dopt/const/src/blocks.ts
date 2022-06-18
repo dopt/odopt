@@ -2,7 +2,7 @@ export type BlockType =
   | 'BooleanBlock'
   | 'SwitchBlock'
   | 'EmailBlock'
-  | 'ExitBlock'
+  | 'FinishBlock'
   | 'EntryBlock'
   | 'ModelBlock'
   | 'WaitBlock'
