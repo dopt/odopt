@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { DoptContext } from '@/context';
 
 import { ProviderConfig, Methods, Block } from '@/types';
@@ -28,7 +28,7 @@ const generateblockIntentHandler = (
   };
 };
 
-class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
+class DoptProvider extends Component<ProviderConfig, DoptContext> {
   constructor(props: ProviderConfig) {
     super(props);
 
