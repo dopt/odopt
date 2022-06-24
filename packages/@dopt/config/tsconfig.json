@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.base.json",
+  "extends": "@dopt/tsconfig/base.json",
   "compilerOptions": {
     "noEmit": false,
     "rootDir": "./src",
