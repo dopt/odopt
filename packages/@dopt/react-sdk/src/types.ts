@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ReactNode } from 'react';
 
 export interface Block {
   /*readonly*/ active: boolean;
@@ -43,5 +43,5 @@ export interface Methods {
 export interface ProviderConfig {
   userId: string;
   apiKey: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
