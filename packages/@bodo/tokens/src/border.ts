@@ -1,6 +1,7 @@
 export const borderStyles = {
   none: 'none',
   solid: 'solid',
+  dashed: 'dashed',
 };
 
 export const radii = {
