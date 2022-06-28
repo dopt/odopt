@@ -14,7 +14,7 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "build": "tsup",
     "clean": "shx rm -rf ./dist",
     "dev": "yarn run build --watch src",
     "format": "prettier --w .",
@@ -33,7 +33,6 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@dopt/tsconfig": "workspace:*",
     "@types/react": "18.0.14",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",

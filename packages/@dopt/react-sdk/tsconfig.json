@@ -1,5 +1,5 @@
 {
-  "extends": "@dopt/tsconfig/base.json",
+  "extends": "@dopt/config/tsconfig/base.json",
   "compilerOptions": {
     "declaration": true,
     "jsx": "react-jsx",
@@ -10,9 +10,9 @@
     "rootDir": "./src",
     "sourceMap": true,
     "target": "esnext",
-    "baseUrl": "./",
-    "paths": { "@/*": ["src/*"] }
+    "baseUrl": "./src",
+    "paths": { "@/*": ["./*"] }
   },
-  "exclude": ["**/node_modules", "**/dist", "**/tsup.config.ts", "usecases/**"],
+  "exclude": ["**/node_modules", "**/dist", "tsup.config.ts", "usecases/**"],
   "include": ["**/*.ts", "**/*.tsx"]
 }

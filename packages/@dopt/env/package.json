@@ -17,10 +17,10 @@
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "clean": "shx rm -rf ./dist",
     "dev": "yarn run build --watch src",
-    "format": "prettier --w .",
-    "formatcheck": "npx check-formatting",
-    "lint": "eslint .",
-    "test": "jest",
+    "format": "",
+    "formatcheck": "",
+    "lint": "",
+    "test": "",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": ""
   },
@@ -28,16 +28,8 @@
     "dist"
   ],
   "devDependencies": {
-    "@dopt/check-formatting": "workspace:*",
-    "@dopt/tsconfig": "workspace:*",
-    "@typescript-eslint/eslint-plugin": "5.29.0",
-    "@typescript-eslint/parser": "5.29.0",
     "esbuild": "0.14.47",
-    "esbuild-jest": "0.5.0",
     "eslint": "8.18.0",
-    "eslint-plugin-react": "7.30.0",
-    "jest": "28.1.1",
-    "prettier": "2.7.1",
     "shx": "0.3.4",
     "tsup": "6.1.2",
     "typescript": "4.7.4"
