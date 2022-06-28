@@ -1,5 +1,5 @@
 {
-  "extends": "@dopt/tsconfig/react-library.json",
+  "extends": "@dopt/config/tsconfig/react-library.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src"
