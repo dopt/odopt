@@ -10,13 +10,14 @@
       "require": "./dist/index.js",
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./tsconfig/*.json": "./tsconfig/*.json"
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "tsup-node src/index.ts --target ESNext --format cjs,esm --dts --clean",
+    "build": "tsup-node",
     "clean": "shx rm -rf ./dist",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --clean --watch src",
+    "dev": "yarn run build --watch src",
     "format": "prettier --w .",
     "formatcheck": "npx check-formatting",
     "lint": "eslint .",
@@ -25,12 +26,15 @@
     "☝️ required package scripts": ""
   },
   "files": [
-    "dist"
+    "dist",
+    "./tsconfig/base.json",
+    "./tsconfig/node16.json",
+    "./tsconfig/nextjs.json",
+    "./tsconfig/react-library.json"
   ],
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/env": "workspace:*",
-    "@dopt/tsconfig": "workspace:*",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
     "@vanilla-extract/css": "1.7.2",
