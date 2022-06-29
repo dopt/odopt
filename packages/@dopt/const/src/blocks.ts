@@ -7,3 +7,5 @@ export type BlockType =
   | 'ModelBlock'
   | 'WaitBlock'
   | 'WebhookBlock';
+
+export const CHARACTER_LIMIT_NAME = 100;
