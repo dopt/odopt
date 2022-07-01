@@ -27,17 +27,17 @@ const Checklist = () => {
       <ChecklistItem
         label="Set up calendar integration"
         onClick={calendarIntegrationActions.start}
-        finished={calendarIntegration.finished}
+        completed={calendarIntegration.completed}
       />
       <ChecklistItem
         label="Schedule first interview"
         onClick={scheduleMeetingActions.start}
-        finished={scheduleMeeting.finished}
+        completed={scheduleMeeting.completed}
       />
       <ChecklistItem
         label="Complete interview"
         onClick={interviewActions.start}
-        finished={interview.finished}
+        completed={interview.completed}
       />
     </div>
   );

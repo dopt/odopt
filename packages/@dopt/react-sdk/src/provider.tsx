@@ -18,8 +18,9 @@ const generateblockIntentHandler = (
   return async (identifier: string) => {
     beforeRequest(identifier);
     afterRequest(
-      await client(`/users/${userId}/block/${identifier}/${method}`, apiKey, {
+      await client(`/user/${userId}/block/${identifier}/${method}`, apiKey, {
         method: 'POST',
+        body: '{}',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -57,7 +58,7 @@ class DoptProvider extends Component<ProviderConfig, DoptContext> {
 
           if (!initialRequests[identifier]) {
             const blockRequest = client(
-              `/users/${userId}/block/${identifier}`,
+              `/user/${userId}/block/${identifier}`,
               apiKey
             );
             initialRequests[identifier] = blockRequest;
@@ -82,7 +83,7 @@ class DoptProvider extends Component<ProviderConfig, DoptContext> {
                   ...this.state.blocks[identifier],
                   started: true,
                   active: true,
-                  finished: false,
+                  completed: false,
                 },
               },
             }),
@@ -94,10 +95,10 @@ class DoptProvider extends Component<ProviderConfig, DoptContext> {
               },
             })
         ),
-        finish: generateblockIntentHandler(
+        complete: generateblockIntentHandler(
           userId,
           apiKey,
-          'finish',
+          'complete',
           (identifier) =>
             this.setState({
               blocks: {
@@ -106,7 +107,7 @@ class DoptProvider extends Component<ProviderConfig, DoptContext> {
                   ...this.state.blocks[identifier],
                   started: true,
                   active: false,
-                  finished: true,
+                  completed: true,
                 },
               },
             }),
