@@ -1,7 +1,7 @@
 import { useContext, useCallback } from 'react';
-import { DoptContext } from '@/context';
+import { DoptContext } from './context';
 
-import { Block } from '@/types';
+import { Block } from './types';
 
 export interface Methods {
   start: () => void;

@@ -1,4 +1,4 @@
-import { Block } from '@/types';
+import { Block } from '../types';
 
 const groupStats = (...blocks: Block[]) => {
   const total = blocks.length;

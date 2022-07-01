@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import { DoptContext } from '@/context';
+import { DoptContext } from './context';
 
-import { ProviderConfig, Methods, Block } from '@/types';
+import { ProviderConfig, Methods, Block } from './types';
 
-import client from '@/client';
+import client from './client';
 
 const generateblockIntentHandler = (
   userId: string,
