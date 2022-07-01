@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Blocks, Methods } from '@/types';
+import { Blocks, Methods } from './types';
 
 type DoptContext = {
   blocks: Blocks;
