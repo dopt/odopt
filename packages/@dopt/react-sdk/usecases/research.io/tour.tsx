@@ -57,12 +57,12 @@ const ScheduleFirstInterviewCard = () => {
 };
 
 const NewInterviewForm = ({ onCreateInterviewHandler }) => {
-  const [_, { finish }] = useDopt('schedule-first-interview-10zdae3');
+  const [_, { complete }] = useDopt('schedule-first-interview-10zdae3');
 
   const decoratedHandler = useCallback(
     (...args) => {
       onCreateInterviewHandler(...args);
-      finish();
+      complete();
     },
     [onCreateInterviewHandler]
   );
@@ -80,10 +80,12 @@ const NewInterviewForm = ({ onCreateInterviewHandler }) => {
 };
 
 const FirstInterviewScheduledCard = () => {
-  const [{ active }, { finish }] = useDopt('first-interview-scheduled-a42e481');
+  const [{ active }, { complete }] = useDopt(
+    'first-interview-scheduled-a42e481'
+  );
 
   if (active) {
-    useEffect(() => finish);
+    useEffect(() => complete);
   }
 
   return (
@@ -93,7 +95,7 @@ const FirstInterviewScheduledCard = () => {
         <Text>
           Nice! Your candidate just got an invite to your first interview.
         </Text>
-        <ButtonLink onClick={finish}>Dismiss</ButtonLink>
+        <ButtonLink onClick={complete}>Dismiss</ButtonLink>
       </Card>
     )
   );

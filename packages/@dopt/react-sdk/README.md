@@ -56,11 +56,11 @@ Having integrated the Provider you can now access Dopt Model State from anywhere
 interface Block {
   active: boolean;
   started: boolean;
-  finished: boolean;
+  completed: boolean;
 }
 interface Methods {
   start: () => void;
-  finish: () => void;
+  complete: () => void;
   stop: () => void;
   exit: () => void;
 }

@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 export interface Block {
   /*readonly*/ active: boolean;
-  /*readonly*/ finished?: boolean;
+  /*readonly*/ completed?: boolean;
   /*readonly*/ started?: boolean;
   /*readonly*/ stopped?: boolean;
 }
@@ -18,11 +18,11 @@ export interface Methods {
    */
   start: (identifier: string) => void;
   /*
-   * Sets `finished` to true.
+   * Sets `completed` to true.
    * Has the following side-effects
    * - `active` is set to false
    */
-  finish: (identifier: string) => void;
+  complete: (identifier: string) => void;
   /*
    * Sets `stopped` to true.
    * Has the following side-effects
