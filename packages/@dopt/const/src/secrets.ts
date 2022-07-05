@@ -28,6 +28,9 @@ const serverSecrets = Object.freeze([
   '*.JWT_SECRET',
   '*.POSTGRES_PASSWD',
   '*.DATABASE_URL',
+  '*.POSTGRES_URL',
+  '*.POSTGRES_DB',
+  '*.POSTGRES_USER',
   '*.csrfToken',
 ]);
 
