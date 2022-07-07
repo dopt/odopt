@@ -28,7 +28,6 @@
     "dist"
   ],
   "dependencies": {
-    "@radix-ui/colors": "0.1.8",
     "@react-aria/interactions": "3.9.1",
     "@react-aria/utils": "3.13.1",
     "@react-types/shared": "3.13.1"
