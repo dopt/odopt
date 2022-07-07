@@ -10,10 +10,7 @@ const generateblockIntentHandler = (
   apiKey: string,
   method: keyof Methods,
   beforeRequest: (identifier: string) => void,
-  afterRequest: (response: {
-    block: Block;
-    updated: { [identifier: string]: Block };
-  }) => void
+  afterRequest: (response: { block: Block; updated: Block[] }) => void
 ) => {
   return async (identifier: string) => {
     beforeRequest(identifier);
@@ -27,6 +24,19 @@ const generateblockIntentHandler = (
       })
     );
   };
+};
+
+const updatedBlocksIdentifierMap = (
+  updated: Block[]
+): { [identifier: string]: Block } => {
+  const updateBlocksMap: { [identifier: string]: Block } = {};
+  updated.forEach((block: Block) => {
+    let uuid = block.uuid;
+    if (uuid !== undefined) {
+      updateBlocksMap[uuid] = block;
+    }
+  });
+  return updateBlocksMap;
 };
 
 class DoptProvider extends Component<ProviderConfig, DoptContext> {
@@ -91,7 +101,7 @@ class DoptProvider extends Component<ProviderConfig, DoptContext> {
             this.setState({
               blocks: {
                 ...this.state.blocks,
-                ...updated,
+                ...updatedBlocksIdentifierMap(updated),
               },
             })
         ),
@@ -115,7 +125,7 @@ class DoptProvider extends Component<ProviderConfig, DoptContext> {
             this.setState({
               blocks: {
                 ...this.state.blocks,
-                ...updated,
+                ...updatedBlocksIdentifierMap(updated),
               },
             })
         ),
@@ -128,7 +138,7 @@ class DoptProvider extends Component<ProviderConfig, DoptContext> {
             this.setState({
               blocks: {
                 ...this.state.blocks,
-                ...updated,
+                ...updatedBlocksIdentifierMap(updated),
               },
             })
         ),
@@ -141,7 +151,7 @@ class DoptProvider extends Component<ProviderConfig, DoptContext> {
             this.setState({
               blocks: {
                 ...this.state.blocks,
-                ...updated,
+                ...updatedBlocksIdentifierMap(updated),
               },
             })
         ),
