@@ -5,6 +5,7 @@ export interface Block {
   /*readonly*/ completed?: boolean;
   /*readonly*/ started?: boolean;
   /*readonly*/ stopped?: boolean;
+  /*readonly*/ uuid?: string;
 }
 
 export interface Blocks {
