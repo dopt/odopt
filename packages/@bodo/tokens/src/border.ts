@@ -12,3 +12,8 @@ export const radii = {
   '4x': '32px',
   round: '9999px',
 };
+
+export const borderWidth = {
+  '1x': '1px',
+  '2x': '2px',
+};
