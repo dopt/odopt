@@ -1,40 +1,36 @@
 export const fonts = {
-  sans: 'Inter, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
-  mono: '',
+  sans: 'Inter V, Inter, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif',
+  mono: 'VCTRMono, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace',
 };
 
 export const fontSizes = {
-  '12px': {
-    fontSize: 12,
-    lineHeight: 16,
+  base: {
+    fontSize: '16px',
+    lineHeight: '24px',
   },
-  '14px': {
-    fontSize: 14,
-    lineHeight: 20,
+  xs: {
+    fontSize: '12px',
+    lineHeight: '16px',
   },
-  '16px': {
-    fontSize: 16,
-    lineHeight: 24,
+  sm: {
+    fontSize: '14px',
+    lineHeight: '20px',
   },
-  '18px': {
-    fontSize: 18,
-    lineHeight: 28,
+  md: {
+    fontSize: '18px',
+    lineHeight: '28px',
   },
-  '20px': {
-    fontSize: 20,
-    lineHeight: 28,
+  lg: {
+    fontSize: '22px',
+    lineHeight: '32px',
   },
-  '24px': {
-    fontSize: 24,
-    lineHeight: 32,
+  xl: {
+    fontSize: '28px',
+    lineHeight: '40px',
   },
-  '30px': {
-    fontSize: 30,
-    lineHeight: 36,
-  },
-  '36px': {
-    fontSize: 36,
-    lineHeight: 40,
+  '2xl': {
+    fontSize: '36px',
+    lineHeight: '52px',
   },
 };
 
