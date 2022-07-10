@@ -1,6 +1,8 @@
+import { interFontFamily, vctrmonoFontFamily } from '@bodo/font';
+
 export const fonts = {
-  sans: 'Inter V, Inter, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif',
-  mono: 'VCTRMono, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace',
+  sans: `${interFontFamily}, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif`,
+  mono: `${vctrmonoFontFamily}, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace`,
 };
 
 export const fontSizes = {
@@ -35,10 +37,14 @@ export const fontSizes = {
 };
 
 export const fontWeights = {
+  thin: '100',
+  extraLight: '200',
   light: '300',
   regular: '400',
   medium: '500',
   semiBold: '600',
   bold: '700',
   extraBold: '800',
+  black: '900',
+  extraBlack: '950',
 };
