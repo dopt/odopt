@@ -28,13 +28,7 @@
     "dist"
   ],
   "dependencies": {
-    "@bodo/font": "workspace:*",
-    "@react-aria/interactions": "3.9.1",
-    "@react-aria/utils": "3.13.1",
-    "@react-types/shared": "3.13.1"
-  },
-  "peerDependencies": {
-    "react": "18.2.0"
+    "@bodo/font": "workspace:*"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
