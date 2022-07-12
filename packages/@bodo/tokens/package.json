@@ -33,8 +33,10 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
+    "@types/chroma-js": "2.1.4",
     "@typescript-eslint/eslint-plugin": "5.30.5",
     "@typescript-eslint/parser": "5.30.5",
+    "chroma-js": "2.4.2",
     "esbuild": "0.14.48",
     "esbuild-jest": "0.5.0",
     "eslint": "8.19.0",

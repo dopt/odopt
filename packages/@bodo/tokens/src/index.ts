@@ -2,6 +2,7 @@ import { borderStyles, radii, borderWidths } from './border';
 import { breakpoints } from './breakpoints';
 import { colors } from './color';
 import { opacity } from './opacity';
+import { shadows } from './shadow';
 import { space } from './space';
 import { fontSizes, fontWeights, fonts } from './typography';
 
@@ -15,6 +16,7 @@ export const tokens = {
   fontWeights,
   opacity,
   radii,
+  shadows,
   space,
 };
 
