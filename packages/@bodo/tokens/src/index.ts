@@ -1,4 +1,4 @@
-import { borderStyles, radii, borderWidth } from './border';
+import { borderStyles, radii, borderWidths } from './border';
 import { breakpoints } from './breakpoints';
 import { colors } from './color';
 import { opacity } from './opacity';
@@ -7,7 +7,7 @@ import { fontSizes, fontWeights, fonts } from './typography';
 
 export const tokens = {
   borderStyles,
-  borderWidth,
+  borderWidths,
   breakpoints,
   colors,
   fonts,
