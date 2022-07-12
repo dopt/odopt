@@ -5,15 +5,16 @@ export const borderStyles = {
 };
 
 export const radii = {
-  '0x': '0px',
-  '1x': '8px',
-  '2x': '16px',
-  '3x': '24px',
-  '4x': '32px',
-  round: '9999px',
+  0: '0',
+  1: '4px',
+  2: '8px',
+  3: '12px',
+  4: '16px',
+  round: '100%',
 };
 
-export const borderWidth = {
-  '1x': '1px',
-  '2x': '2px',
+export const borderWidths = {
+  0: '0',
+  1: '1px',
+  2: '2px',
 };
