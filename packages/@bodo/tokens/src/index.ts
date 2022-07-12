@@ -5,6 +5,7 @@ import { opacity } from './opacity';
 import { shadows } from './shadow';
 import { space } from './space';
 import { fontSizes, fontWeights, fonts } from './typography';
+import { zIndexes } from './zindex';
 
 export const tokens = {
   borderStyles,
@@ -18,6 +19,7 @@ export const tokens = {
   radii,
   shadows,
   space,
+  zIndexes,
 };
 
 export type { Breakpoint } from './breakpoints';
