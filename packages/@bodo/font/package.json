@@ -12,8 +12,10 @@
       "types": "./dist/index.d.ts"
     },
     "./styles": "./dist/index.css",
+    "./styles/degular": "./dist/degular.css.css",
+    "./styles/degular-display": "./dist/degular-display.css.css",
     "./styles/inter": "./dist/inter.css.css",
-    "./styles/vctrmono": "./dist/vctrmono.css.css"
+    "./styles/vctr-mono": "./dist/vctr-mono.css.css"
   },
   "scripts": {
     "👇required package scripts": "",
