@@ -28,7 +28,7 @@
     "dist"
   ],
   "devDependencies": {
-    "esbuild": "0.14.48",
+    "esbuild": "0.14.49",
     "eslint": "8.19.0",
     "shx": "0.3.4",
     "tsup": "6.1.3",
