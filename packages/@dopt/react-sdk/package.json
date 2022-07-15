@@ -1,5 +1,6 @@
 {
   "name": "@dopt/react",
+  "opensource": true,
   "version": "0.0.0",
   "description": "An SDK for accessing/mainpulating Dopt Journey Blocks",
   "main": "./dist/index.js",
