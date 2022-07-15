@@ -111,6 +111,7 @@ export const colors = {
     black: '#000',
     white: '#fff',
     transparent: 'transparent',
+    inherit: 'inherit',
   },
   light: {
     ...blurple,
