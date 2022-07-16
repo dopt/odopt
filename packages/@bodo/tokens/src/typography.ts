@@ -44,6 +44,10 @@ export const fontSizes = {
     fontSize: '36px',
     lineHeight: '52px',
   },
+  '3xl': {
+    fontSize: '64px',
+    lineHeight: '84px',
+  },
 };
 
 export const fontWeights = {
