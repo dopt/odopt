@@ -1,9 +1,11 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
 export interface Block {
   /*readonly*/ active: boolean;
-  /*readonly*/ finished?: boolean;
+  /*readonly*/ completed?: boolean;
   /*readonly*/ started?: boolean;
+  /*readonly*/ stopped?: boolean;
+  /*readonly*/ uuid?: string;
 }
 
 export interface Blocks {
@@ -17,11 +19,11 @@ export interface Methods {
    */
   start: (identifier: string) => void;
   /*
-   * Sets `finished` to true.
+   * Sets `completed` to true.
    * Has the following side-effects
    * - `active` is set to false
    */
-  finish: (identifier: string) => void;
+  complete: (identifier: string) => void;
   /*
    * Sets `stopped` to true.
    * Has the following side-effects
@@ -31,7 +33,7 @@ export interface Methods {
    */
   stop: (identifier: string) => void;
   /*
-   * Sets `exited` to true.
+   * Sets `stopped` to true.
    * Has the following side-effects
    * - `active` is set to false
    * - stops all active paths in the journey.
@@ -42,5 +44,5 @@ export interface Methods {
 export interface ProviderConfig {
   userId: string;
   apiKey: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }

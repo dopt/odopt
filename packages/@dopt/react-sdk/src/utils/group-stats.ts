@@ -1,12 +1,12 @@
-import { Block } from '@/types';
+import { Block } from '../types';
 
 const groupStats = (...blocks: Block[]) => {
   const total = blocks.length;
 
-  const finished = blocks.filter(({ finished }) => finished);
+  const completed = blocks.filter(({ completed }) => completed);
   const started = blocks.filter(({ started }) => started);
 
-  const numFinished = finished.length;
+  const numFinished = completed.length;
   const numStarted = started.length;
 
   const percentageStarted = (numStarted / length) * 100;
@@ -15,7 +15,7 @@ const groupStats = (...blocks: Block[]) => {
   return {
     total,
     started,
-    finished,
+    completed,
     numStarted,
     numFinished,
     percentageStarted,
