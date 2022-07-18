@@ -1,5 +1,5 @@
-import { execSync } from 'child_process';
+import findWorkspaceRoot from 'find-yarn-workspace-root';
 
-const TOPOFTREE = execSync('git rev-parse --show-toplevel').toString().trim();
+const TOPOFTREE = findWorkspaceRoot() as string;
 
 export { TOPOFTREE };
