@@ -1,25 +1,23 @@
-import React from 'react';
-import { DoptContext } from '@/context';
+import { Component } from 'react';
+import { DoptContext } from './context';
 
-import { ProviderConfig, Methods, Block } from '@/types';
+import { ProviderConfig, Methods, Block } from './types';
 
-import client from '@/client';
+import client from './client';
 
 const generateblockIntentHandler = (
   userId: string,
   apiKey: string,
   method: keyof Methods,
   beforeRequest: (identifier: string) => void,
-  afterRequest: (response: {
-    block: Block;
-    updated: { [identifier: string]: Block };
-  }) => void
+  afterRequest: (response: { block: Block; updated: Block[] }) => void
 ) => {
   return async (identifier: string) => {
     beforeRequest(identifier);
     afterRequest(
-      await client(`/users/${userId}/block/${identifier}/${method}`, apiKey, {
+      await client(`/user/${userId}/block/${identifier}/${method}`, apiKey, {
         method: 'POST',
+        body: '{}',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -28,7 +26,20 @@ const generateblockIntentHandler = (
   };
 };
 
-class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
+const updatedBlocksIdentifierMap = (
+  updated: Block[]
+): { [identifier: string]: Block } => {
+  const updateBlocksMap: { [identifier: string]: Block } = {};
+  updated.forEach((block: Block) => {
+    let uuid = block.uuid;
+    if (uuid !== undefined) {
+      updateBlocksMap[uuid] = block;
+    }
+  });
+  return updateBlocksMap;
+};
+
+class DoptProvider extends Component<ProviderConfig, DoptContext> {
   constructor(props: ProviderConfig) {
     super(props);
 
@@ -57,7 +68,7 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
 
           if (!initialRequests[identifier]) {
             const blockRequest = client(
-              `/users/${userId}/block/${identifier}`,
+              `/user/${userId}/block/${identifier}`,
               apiKey
             );
             initialRequests[identifier] = blockRequest;
@@ -82,7 +93,7 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
                   ...this.state.blocks[identifier],
                   started: true,
                   active: true,
-                  finished: false,
+                  completed: false,
                 },
               },
             }),
@@ -90,14 +101,14 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
             this.setState({
               blocks: {
                 ...this.state.blocks,
-                ...updated,
+                ...updatedBlocksIdentifierMap(updated),
               },
             })
         ),
-        finish: generateblockIntentHandler(
+        complete: generateblockIntentHandler(
           userId,
           apiKey,
-          'finish',
+          'complete',
           (identifier) =>
             this.setState({
               blocks: {
@@ -106,7 +117,7 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
                   ...this.state.blocks[identifier],
                   started: true,
                   active: false,
-                  finished: true,
+                  completed: true,
                 },
               },
             }),
@@ -114,7 +125,7 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
             this.setState({
               blocks: {
                 ...this.state.blocks,
-                ...updated,
+                ...updatedBlocksIdentifierMap(updated),
               },
             })
         ),
@@ -127,7 +138,7 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
             this.setState({
               blocks: {
                 ...this.state.blocks,
-                ...updated,
+                ...updatedBlocksIdentifierMap(updated),
               },
             })
         ),
@@ -140,7 +151,7 @@ class DoptProvider extends React.Component<ProviderConfig, DoptContext> {
             this.setState({
               blocks: {
                 ...this.state.blocks,
-                ...updated,
+                ...updatedBlocksIdentifierMap(updated),
               },
             })
         ),
