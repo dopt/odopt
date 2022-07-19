@@ -3,7 +3,6 @@ import { env, inProd } from '@dopt/env';
 import { defineConfig, Options } from 'tsup';
 
 const node = ({ entry, watch = false, ...rest }: Options) => {
-  //@ts-ignore
   return defineConfig(() => ({
     entry,
     watch,
