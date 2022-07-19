@@ -5,6 +5,7 @@ export interface Block {
   /*readonly*/ completed?: boolean;
   /*readonly*/ started?: boolean;
   /*readonly*/ stopped?: boolean;
+  /*readonly*/ exited?: boolean;
   /*readonly*/ uuid?: string;
 }
 
@@ -44,5 +45,6 @@ export interface Methods {
 export interface ProviderConfig {
   userId: string;
   apiKey: string;
+  mockBlocks?: Blocks;
   children: ReactNode;
 }
