@@ -5,7 +5,6 @@ import { defineConfig, Options } from 'tsup';
 import { vanillaExtractPlugin } from '@vanilla-extract/esbuild-plugin';
 
 const react = ({ entry, watch = false, ...rest }: Options) => {
-  //@ts-ignore
   return defineConfig(() => ({
     entry,
     watch,
