@@ -1,4 +1,4 @@
-const URL_PREFIX = `http://localhost:7070/api`;
+const URL_PREFIX = `http://localhost:7070`;
 
 export default async function client(
   url: string,
