@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 16",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "lib": ["es2021"],
+    "target": "esnext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "esnext"
+  }
+}
