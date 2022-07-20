@@ -34,7 +34,7 @@
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@types/chroma-js": "2.1.4",
-    "@types/jest": "28.1.5",
+    "@types/jest": "28.1.6",
     "@typescript-eslint/eslint-plugin": "5.30.7",
     "@typescript-eslint/parser": "5.30.7",
     "chroma-js": "2.4.2",
