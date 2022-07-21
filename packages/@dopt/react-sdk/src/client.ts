@@ -42,7 +42,7 @@ export const createIntentApi = (userId: string, apiKey: string) => {
     };
 
   const getBlockApi = async (identifier: string): Promise<Blocks> => {
-    if (!blockRequests[identifier]) {
+    if (!(identifier in blockRequests)) {
       const blockRequest = client(
         `/user/${userId}/block/${identifier}`,
         apiKey
