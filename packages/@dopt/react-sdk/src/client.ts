@@ -1,6 +1,11 @@
-const URL_PREFIX = `http://localhost:7070`;
+const URL_PREFIX = `https://blocks.dopt.com`;
 
-export default async function client(
+import { Methods, Blocks, Block } from './types';
+import { updatedBlocksAsMap } from './utils';
+
+const blockRequests: { [identifier: string]: Promise<Block> } = {};
+
+export async function client(
   url: string,
   apiKey: string,
   options?: { [key: string]: any }
@@ -13,3 +18,53 @@ export default async function client(
     },
   }).then((response) => response.json());
 }
+
+export const createIntentApi = (userId: string, apiKey: string) => {
+  const intentApi =
+    (method: keyof Methods) =>
+    async (identifier: string): Promise<Blocks> => {
+      const { block, updated } = await client(
+        `/user/${userId}/block/${identifier}/${method}`,
+        apiKey,
+        {
+          method: 'POST',
+          body: '{}',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return {
+        [identifier]: block,
+        ...updatedBlocksAsMap(updated),
+      };
+    };
+
+  const getBlockApi = async (identifier: string): Promise<Blocks> => {
+    if (!blockRequests[identifier]) {
+      const blockRequest = client(
+        `/user/${userId}/block/${identifier}`,
+        apiKey
+      );
+      blockRequests[identifier] = blockRequest;
+      const block = await blockRequest;
+      return {
+        [identifier]: block,
+      };
+    } else {
+      const block = await blockRequests[identifier];
+      return {
+        [identifier]: block,
+      };
+    }
+  };
+
+  return {
+    get: getBlockApi,
+    complete: intentApi('complete'),
+    exit: intentApi('exit'),
+    start: intentApi('start'),
+    stop: intentApi('stop'),
+  };
+};
