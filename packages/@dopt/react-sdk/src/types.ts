@@ -2,11 +2,11 @@ import { ReactNode } from 'react';
 
 export interface Block {
   /*readonly*/ active: boolean;
-  /*readonly*/ completed?: boolean;
-  /*readonly*/ started?: boolean;
-  /*readonly*/ stopped?: boolean;
-  /*readonly*/ exited?: boolean;
-  /*readonly*/ uuid?: string;
+  /*readonly*/ completed: boolean;
+  /*readonly*/ started: boolean;
+  /*readonly*/ stopped: boolean;
+  /*readonly*/ exited: boolean;
+  /*readonly*/ uuid: string;
 }
 
 export interface Blocks {
@@ -42,9 +42,19 @@ export interface Methods {
   exit: (identifier: string) => void;
 }
 
-export interface ProviderConfig {
+export interface Mocks {
+  blocks: Blocks;
+}
+
+export interface BaseProviderConfig {
+  children?: ReactNode;
+}
+
+export interface ProviderConfig extends BaseProviderConfig {
   userId: string;
   apiKey: string;
-  mockBlocks?: Blocks;
-  children: ReactNode;
+}
+
+export interface MockProviderConfig extends BaseProviderConfig {
+  mocks?: Mocks;
 }
