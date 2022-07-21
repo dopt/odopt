@@ -1,4 +1,4 @@
-import { useContext, useCallback } from 'react';
+import { useContext, useCallback, useEffect } from 'react';
 import { DoptContext } from './context';
 
 import { Block } from './types';
@@ -12,18 +12,15 @@ export interface Methods {
 
 const useDopt = (identifier: string): [Block, Methods] => {
   const { blocks, methods } = useContext(DoptContext);
-
-  if (!blocks[identifier]) {
-    methods.get(identifier);
-  }
-
-  const start = useCallback(() => methods.start(identifier), [identifier]);
-  const complete = useCallback(
-    () => methods.complete(identifier),
-    [identifier]
-  );
-  const stop = useCallback(() => methods.stop(identifier), [identifier]);
-  const exit = useCallback(() => methods.exit(identifier), [identifier]);
+  useEffect(() => {
+    if (!(identifier in blocks)) {
+      methods.get(identifier);
+    }
+  }, [identifier]);
+  const start = useCallback(() => methods.start(identifier), []);
+  const complete = useCallback(() => methods.complete(identifier), []);
+  const stop = useCallback(() => methods.stop(identifier), []);
+  const exit = useCallback(() => methods.exit(identifier), []);
 
   return [
     blocks[identifier] || { active: false },
