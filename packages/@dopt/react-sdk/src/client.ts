@@ -53,7 +53,10 @@ export const createIntentApi = (userId: string, apiKey: string) => {
         [identifier]: block,
       };
     } else {
-      return {};
+      const block = await blockRequests[identifier];
+      return {
+        [identifier]: block,
+      };
     }
   };
 
