@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 
 export interface Block {
-  /*readonly*/ active: boolean;
-  /*readonly*/ completed: boolean;
-  /*readonly*/ started: boolean;
-  /*readonly*/ stopped: boolean;
-  /*readonly*/ exited: boolean;
-  /*readonly*/ uuid: string;
+  readonly active: boolean;
+  readonly completed: boolean;
+  readonly started: boolean;
+  readonly stopped: boolean;
+  readonly exited: boolean;
+  readonly uuid: string;
 }
 
 export interface Blocks {
@@ -14,31 +14,14 @@ export interface Blocks {
 }
 
 export interface Methods {
+  /** @internal */
   get: (identifier: string) => void;
-  /*
-   * Sets `started` to true iff `active` is true
-   */
   start: (identifier: string) => void;
-  /*
-   * Sets `completed` to true.
-   * Has the following side-effects
-   * - `active` is set to false
-   */
+  /** @internal */
   complete: (identifier: string) => void;
-  /*
-   * Sets `stopped` to true.
-   * Has the following side-effects
-   * - `active` is set to false
-   * - children nodes are not set to active (equivalent
-   *   to stopping this path in the journey)
-   */
+  /** @internal */
   stop: (identifier: string) => void;
-  /*
-   * Sets `stopped` to true.
-   * Has the following side-effects
-   * - `active` is set to false
-   * - stops all active paths in the journey.
-   */
+  /** @internal */
   exit: (identifier: string) => void;
 }
 
@@ -50,11 +33,23 @@ export interface BaseProviderConfig {
   children?: ReactNode;
 }
 
+/**
+ * Providing this configuration to the {@link DoptProvider} allows
+ * for the {@link useDopt}Hook and {@link withDopt}HOC to fetch
+ * relevant data from the Dopt API.
+ */
 export interface ProviderConfig extends BaseProviderConfig {
   userId: string;
   apiKey: string;
 }
 
+/**
+ * Providing this configuration to the {@link MockDoptProvider} allows
+ * for local/offline testing of Dopt in your product.
+ */
 export interface MockProviderConfig extends BaseProviderConfig {
+  /**
+   * A user provided javascript object for mocking {@link Blocks}
+   */
   mocks?: Mocks;
 }

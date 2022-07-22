@@ -1,12 +1,8 @@
 # Dopt's React SDK
 
-## Dopt Overview
-
-Dopt is a growth-focused platform. For developers, this means a set of APIs and SDKs that help you build growth experience e.g. tailored onboarding, feature discovery, and announcements.
-
 ## Getting Started
 
-The Dopt React SDK offers a convient framework-native client for accessing Dopt's Model API, allowing you to bind user journey state (defined in Dopt) to your UI.
+The Dopt React SDK offers a convient framework-native client for accessing Dopt's Block Model API, allowing you to bind user journey state (defined in Dopt) to your UI.
 
 ### Installation
 
@@ -26,8 +22,8 @@ npm install @dopt/react
 
 To configure the Dopt Provider you will need
 
-1. A public API key
-1. A user ID (user being an end-user you've identified to us)
+1. An API key (generated in Dopt)
+1. A user ID (user being an end-user you've identified to Dopt)
 
 ### Usage
 
@@ -36,13 +32,13 @@ To configure the Dopt Provider you will need
 You can initialize Dopt in your App by integrating the `<DoptProvider />` as follows:
 
 ```js
-import { DoptProvider } from "@dopt/blocks-react";
-import AcmeApp from "./AcmeApp";
+import { DoptProvider } from "@dopt/react";
+import Application from "./application";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <DoptProvider userId={userId} apiKey={apiKey}>
-    <AcmeApp />
+    <Application />
   </DoptProvider>,
   rootElement
 );
@@ -50,43 +46,46 @@ ReactDOM.render(
 
 #### Accessing Model State
 
-Having integrated the Provider you can now access Dopt Model State from anywhere in your app (`<AcmeApp />` in this example) using our provided hook, described by the following types.
-
-```ts
-interface Block {
-  active: boolean;
-  started: boolean;
-  completed: boolean;
-}
-interface Methods {
-  start: () => void;
-  complete: () => void;
-  stop: () => void;
-  exit: () => void;
-}
-declare const useDopt: (modelReferenceId: string) => [Block, Methods];
-```
+Having integrated the Provider you can now access Dopt Model State from anywhere in your app (`<Application />` in this example) using our the [useDopt](./src/use-dopt.ts) Hook or [withDopt](./src/with-dopt.tsx) HOC.
 
 #### Example Usage
 
-```js
+Using the [useDopt](./src/use-dopt.ts) Hook.
+
+```ts
 import { useDopt } from "@dopt/react";
+import { Modal } from "@your-company/modal";
 
-const WelcomeModal = () => {
-  const [{ active }, { done, exit }] = useDopt("welcome-cf7230a");
-
+export function Application() {
+  const [{ active }, { complete }] = useDopt("HNWvcT78tyTwygnbzU6SW");
   return (
-    <Modal isOpen={active}>
-      <ModalContent>
-        <ModalCloseButton onClick={exit} />
-        <ModalBody>
-          I'm a modal whose existence/visibility is controlled by Dopt
-        </ModalBody>
-        <ModalFooter>
-          <Button onClick={done}>Continue</Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+    <main>
+      <Modal
+        isOpen={active}
+        title="👏 Welcome to your first journey!"
+        footerItems={{
+          primaryActions: [{ label: "Got it", onClick: complete }],
+        }}
+      >
+        <Text>This is your onboarding experience!</Text>
+      </Modal>
+    </main>
   );
-};
+}
+```
+
+Using the [withDopt](./src/with-dopt.tsx) HOC
+
+```ts
+import { withDopt } from "@dopt/react";
+import { WelcomeModal } from "./welcome-modal";
+
+export function Application() {
+  const WelcomeModalWithDopt = withDopt(WelcomeModal, "j0zExxZDVKCPXPzB2ZgpW");
+  return (
+    <main>
+      <WelcomeModalWithDopt />
+    </main>
+  );
+}
 ```
