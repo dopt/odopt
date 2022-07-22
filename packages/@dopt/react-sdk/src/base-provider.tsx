@@ -10,32 +10,56 @@ import { isMockProviderProps } from './utils';
  * The BaseProvider (exposed as DoptProvder) can currently be configured
  * to support two distinct usages
  *
- * Offline/Local Development w/ {@link MockProviderConfig}
+ *
+ * Using {@link ProviderConfig}
  * @example
  * ```ts
- * <DoptProvider mocks={{ blocks }}>{children}</DoptProvider>
+ *  import { DoptProvider } from '@dopt/react';
+ *  import Application from './application';
+ *
+ *  export function Index() {
+ *    return (
+ *      <DoptProvider userId={userId} apikey={apiKey}>
+ *        <Application />
+ *      </DoptProvider>
+ *    );
+ *  }
  * ```
  *
- *
- * Usage against Dopt APIs w/ {@link ProviderConfig}
+ * Using {@link MockProviderConfig}
  * @example
  * ```ts
- * <DoptProvider userId={234519632} apiKey="1gp6xz725i">
- *  {children}
- * </DoptProvider>
+ *  import { DoptProvider } from '@dopt/react';
+ *  import Application from './application';
+ *
+ *  const blocks: Blocks = {
+ *    'HNWvcT78tyTwygnbzU6SW': {
+ *      active: true,
+ *      started: false,
+ *      completed: false,
+ *      stopped: false,
+ *      exited: false,
+ *    },
+ *  };
+ *
+ *  export function Index() {
+ *    return (
+ *      <DoptProvider mocks={{ blocks }}>
+ *        <Application />
+ *      </DoptProvider>
+ *    );
+ *  }
  * ```
  *
- * Currently, offline/local development supports mocking individual
- * blocks. In all likelihood we will expand this usage to support
- * mocking blocks and edges to support local/offline development
- * that more closely mirrors API usage.
  *
  * @param props - {@link ProviderConfig} | {@link MockProviderConfig}
  * @returns props is {@link MockProviderConfig} ? {@link MockDoptProvider} : {@link DoptProvider}
  *
  * @alpha
  */
-export function BaseDoptProvider(props: ProviderConfig | MockProviderConfig) {
+export function BaseDoptProvider(
+  props: ProviderConfig | MockProviderConfig
+): ReturnType<typeof MockDoptProvider> | ReturnType<typeof DoptProvider> {
   if (isMockProviderProps(props)) {
     return <MockDoptProvider {...props} />;
   } else {
