@@ -1,8 +1,8 @@
 {
   "name": "@dopt/react",
   "opensource": true,
-  "version": "0.0.0",
-  "description": "An SDK for accessing/mainpulating Dopt Journey Blocks",
+  "version": "0.0.2",
+  "description": "An SDK for accessing and transitioning a Journey's Model Blocks in Dopt",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

@@ -5,6 +5,13 @@ import { Methods, Blocks, MockProviderConfig, Block } from './types';
 const validIntentState = ({ active, completed, stopped, exited }: Block) =>
   active && !completed && !stopped && !exited;
 
+/**
+ * A mock implementation of the {@link DoptProvider} for local/offline testing.
+ *
+ * @see {@link BaseDoptProvider}
+ *
+ * @alpha
+ */
 export function MockDoptProvider(props: MockProviderConfig) {
   const { mocks = { blocks: {} } } = props;
   const [blocks, setBlocks] = useState<Blocks>({ ...mocks.blocks });

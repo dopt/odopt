@@ -5,6 +5,14 @@ import { ProviderConfig, Blocks, Methods } from './types';
 
 import { createIntentApi } from './client';
 
+/**
+ * A React Context Provider for accessing Journey Model
+ * Block state.
+ *
+ * @see {@link BaseDoptProvider}
+ *
+ * @alpha
+ */
 export function DoptProvider(props: ProviderConfig) {
   const { userId, apiKey, children } = props;
 
