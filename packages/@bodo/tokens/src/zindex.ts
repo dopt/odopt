@@ -12,6 +12,7 @@ export const zIndexes = {
   menu: '100',
   popover: '200',
   modal: '300',
+  toast: '400',
   bottom: '-9999',
   top: '9999',
   auto: 'auto',
