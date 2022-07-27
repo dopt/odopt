@@ -31,16 +31,16 @@
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@types/jest": "28.1.6",
-    "@typescript-eslint/eslint-plugin": "5.30.7",
-    "@typescript-eslint/parser": "5.30.7",
-    "esbuild": "0.14.49",
+    "@typescript-eslint/eslint-plugin": "5.31.0",
+    "@typescript-eslint/parser": "5.31.0",
+    "esbuild": "0.14.50",
     "esbuild-jest": "0.5.0",
     "eslint": "8.20.0",
     "eslint-plugin-react": "7.30.1",
     "jest": "28.1.3",
     "prettier": "2.7.1",
     "shx": "0.3.4",
-    "tsup": "6.1.3",
+    "tsup": "6.2.0",
     "typescript": "4.7.4"
   }
 }
