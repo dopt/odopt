@@ -5,3 +5,4 @@ export * from './operations';
 export * from './blocks';
 export * from './journey-moves';
 export * from './client-side-messages';
+export * from './product-links';
