@@ -3,6 +3,7 @@
   "opensource": true,
   "version": "0.0.3",
   "description": "An SDK for accessing and transitioning a Journey's Model Blocks in Dopt",
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
