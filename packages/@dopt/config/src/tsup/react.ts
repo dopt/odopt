@@ -12,7 +12,7 @@ const react = ({ entry, watch = false, ...rest }: Options) => {
     format: ['esm', 'cjs'],
     inject: ['./.react-jsx-inject.ts'],
     target: env({ dev: 'ESNext', prod: 'ES2020' }),
-    sourcemap: inProd(),
+    sourcemap: 'inline',
     minify: inProd(),
     esbuildPlugins: [
       vanillaExtractPlugin({
