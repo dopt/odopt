@@ -17,3 +17,5 @@ export const LEARN_MORE_USER_LINK =
 
 export const ENTRY_CONDITION_LINK =
   'https://switchboard.notion.site/Dopt-Documentation-41e813b7b33f4c12acb867fe11b6f930#f22d885d52eb4fce834b75ac10899df0';
+
+export const MAILTO_SUPPORT = 'mailto:support@dopt.com';
