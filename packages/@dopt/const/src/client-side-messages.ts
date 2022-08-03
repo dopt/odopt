@@ -1,3 +1,4 @@
+import { BlockType } from './blocks';
 export const SAVE_FAIL_MSG = 'Could not save block. Please try again.';
 export const DELETE_FAIL_MSG = 'Could not delete block. Please try again.';
 export const RESET_FAIL_MSG = 'Could not reset journey. Please try again.';
@@ -10,9 +11,19 @@ export const TRY_AGAIN_MSG = 'Please try again';
 export const EXP_END_OF_INPUT_MSG =
   'Expected expression but end of input found.';
 export const LOGOUT_FAIL_MSG = 'Could not log out';
-export const LOGIN_FAIL_MSG = 'Coud not log in. Please try again.';
+export const LOGIN_FAIL_MSG = 'Could not log in. Please try again.';
 export const SIGNUP_FAIL_MSG = 'Could not sign up. Please try again.';
 export const GENERATE_APIKEY_FAIL_MSG =
   'Could not generate API key. Please try again.';
 export const FETCH_APIKEY_FAIL_MSG =
   'Could not find API key. Please try again.';
+export const USER_FACING_BLOCK_NAMES: Record<BlockType, string> = {
+  EntryBlock: 'Entry Trigger',
+  ModelBlock: 'Model',
+  FinishBlock: 'Finish',
+  SwitchBlock: 'Switch',
+  BooleanBlock: 'Boolean',
+  EmailBlock: 'Email',
+  WaitBlock: 'Wait',
+  WebhookBlock: 'Webhook',
+};
