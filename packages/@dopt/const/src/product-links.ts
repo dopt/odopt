@@ -22,3 +22,9 @@ export const RESET_USER_API_LINK =
   'https://www.notion.so/switchboard/Dopt-Documentation-41e813b7b33f4c12acb867fe11b6f930#46d9a2d8b23746f1840475b4e28125d3';
 
 export const MAILTO_SUPPORT = 'mailto:support@dopt.com';
+
+export const WEBSITE_HOMEPAGE_LINK = 'https://www.dopt.com/';
+
+export const TERMS_AND_CONDITIONS_LINK = 'https://switchboard.cc/terms';
+
+export const PRIVACY_POLICY_LINK = 'https://switchboard.cc/privacy';
