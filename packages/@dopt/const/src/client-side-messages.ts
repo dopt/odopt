@@ -1,4 +1,3 @@
-import { BlockType } from './blocks';
 export const SAVE_FAIL_MSG = 'Could not save block. Please try again.';
 export const DELETE_FAIL_MSG = 'Could not delete block. Please try again.';
 export const RESET_FAIL_MSG = 'Could not reset journey. Please try again.';
@@ -17,13 +16,3 @@ export const GENERATE_APIKEY_FAIL_MSG =
   'Could not generate API key. Please try again.';
 export const FETCH_APIKEY_FAIL_MSG =
   'Could not find API key. Please try again.';
-export const USER_FACING_BLOCK_NAMES: Record<BlockType, string> = {
-  EntryBlock: 'Entry Trigger',
-  ModelBlock: 'Model',
-  FinishBlock: 'Finish',
-  SwitchBlock: 'Switch',
-  BooleanBlock: 'Boolean',
-  EmailBlock: 'Email',
-  WaitBlock: 'Wait',
-  WebhookBlock: 'Webhook',
-};
