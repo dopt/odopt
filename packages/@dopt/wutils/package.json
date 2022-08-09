@@ -28,6 +28,7 @@
     "dist"
   ],
   "dependencies": {
+    "@dopt/env": "workspace:*",
     "find-nearest-package-json": "2.0.1"
   },
   "devDependencies": {
