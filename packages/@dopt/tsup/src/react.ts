@@ -3,8 +3,14 @@ import { env, inProd } from '@dopt/env';
 import { defineConfig, Options } from 'tsup';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/esbuild-plugin';
+import { importPackageStyles } from '@dopt/esbuild-plugins';
 
-const react = ({ entry, watch = false, ...rest }: Options) => {
+const react = ({
+  addImportPackageStylesPlugin = true,
+  entry,
+  watch = false,
+  ...rest
+}: Options & { addImportPackageStylesPlugin?: boolean }) => {
   //@ts-ignore
   return defineConfig(() => ({
     entry,
@@ -19,6 +25,7 @@ const react = ({ entry, watch = false, ...rest }: Options) => {
       vanillaExtractPlugin({
         identifiers: env({ dev: 'debug', prod: 'short' }),
       }),
+      ...(addImportPackageStylesPlugin ? [importPackageStyles()] : []),
     ],
     clean: true,
     onSuccess: `
