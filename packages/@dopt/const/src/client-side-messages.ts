@@ -16,3 +16,14 @@ export const GENERATE_APIKEY_FAIL_MSG =
   'Could not generate API key. Please try again.';
 export const FETCH_APIKEY_FAIL_MSG =
   'Could not find API key. Please try again.';
+
+export const ADD_BLOCK_FAIL_MSG = 'Could not add block';
+export const MOVE_BLOCK_FAIL_MSG = 'Could not move block';
+export const CONNECT_EDGE_FAIL_MSG = 'Could not connect blocks';
+export const DELETE_EDGE_FAIL_MSG = 'Could not delete edge';
+
+export const LOAD_BLOCK_FAIL_MSG = 'Could not load block. Please try again.';
+export const SAVE_BLOCK_FAIL_MSG = 'Could not save block. Please try again.';
+
+export const renameFailMessage = (model: string) =>
+  `Could not rename ${model}. Please try again.`;
