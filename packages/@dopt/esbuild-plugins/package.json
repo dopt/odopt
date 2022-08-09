@@ -1,7 +1,7 @@
 {
-  "name": "@bodo/font",
+  "name": "@dopt/esbuild-plugins",
   "version": "0.0.0",
-  "description": "Bodo Design System: Font Component",
+  "description": "A CLI for generating packages in the Dopt monorepo",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -10,12 +10,7 @@
       "require": "./dist/index.js",
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
-    },
-    "./styles": "./dist/index.css",
-    "./styles/degular": "./dist/degular.css.css",
-    "./styles/degular-display": "./dist/degular-display.css.css",
-    "./styles/inter": "./dist/inter.css.css",
-    "./styles/vctr-mono": "./dist/vctr-mono.css.css"
+    }
   },
   "scripts": {
     "👇required package scripts": "",
@@ -27,24 +22,29 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required pacakge scripts": ""
+    "☝️ required package scripts": ""
   },
   "files": [
     "dist"
   ],
+  "peerDependencies": {
+    "esbuild": "0.14.54"
+  },
+  "dependencies": {
+    "@dopt/env": "workspace:*",
+    "@dopt/topoftree": "workspace:*",
+    "@dopt/wutils": "workspace:*"
+  },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@dopt/tsup": "workspace:*",
     "@types/jest": "28.1.6",
     "@typescript-eslint/eslint-plugin": "5.32.0",
     "@typescript-eslint/parser": "5.32.0",
-    "@vanilla-extract/css": "1.7.2",
-    "@vanilla-extract/esbuild-plugin": "2.1.0",
-    "@vanilla-extract/sprinkles": "1.4.1",
     "esbuild": "0.14.54",
     "esbuild-jest": "0.5.0",
     "eslint": "8.21.0",
+    "eslint-plugin-react": "7.30.1",
     "jest": "28.1.3",
     "prettier": "2.7.1",
     "shx": "0.3.4",
