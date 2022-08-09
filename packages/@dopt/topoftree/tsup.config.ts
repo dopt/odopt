@@ -22,5 +22,4 @@ const node = ({ entry, watch = false, ...rest }: Options) => {
     ...rest,
   }));
 };
-
-export default node({ entry: ['src/index.ts'] });
+export default node({ entry: ['src/index.ts', 'src/cli.ts'] });

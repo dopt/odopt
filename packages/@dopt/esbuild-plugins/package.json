@@ -1,9 +1,7 @@
 {
-  "name": "@dopt/react",
-  "opensource": true,
-  "version": "0.0.3",
-  "description": "An SDK for accessing and transitioning a Journey's Model Blocks in Dopt",
-  "license": "MIT",
+  "name": "@dopt/esbuild-plugins",
+  "version": "0.0.0",
+  "description": "A CLI for generating packages in the Dopt monorepo",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -30,14 +28,17 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "esbuild": "0.14.54"
+  },
+  "dependencies": {
+    "@dopt/env": "workspace:*",
+    "@dopt/topoftree": "workspace:*",
+    "@dopt/wutils": "workspace:*"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@dopt/tsup": "workspace:*",
     "@types/jest": "28.1.6",
-    "@types/react": "18.0.15",
     "@typescript-eslint/eslint-plugin": "5.32.0",
     "@typescript-eslint/parser": "5.32.0",
     "esbuild": "0.14.54",
