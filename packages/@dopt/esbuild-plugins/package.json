@@ -1,7 +1,7 @@
 {
-  "name": "@dopt/wutils",
+  "name": "@dopt/esbuild-plugins",
   "version": "0.0.0",
-  "description": "Yarn workspace utilities",
+  "description": "A CLI for generating packages in the Dopt monorepo",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -27,9 +27,13 @@
   "files": [
     "dist"
   ],
+  "peerDependencies": {
+    "esbuild": "0.14.54"
+  },
   "dependencies": {
     "@dopt/env": "workspace:*",
-    "find-nearest-package-json": "2.0.1"
+    "@dopt/topoftree": "workspace:*",
+    "@dopt/wutils": "workspace:*"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",

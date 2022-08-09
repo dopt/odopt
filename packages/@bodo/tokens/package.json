@@ -28,16 +28,17 @@
     "dist"
   ],
   "dependencies": {
-    "@bodo/font": "workspace:*"
+    "@bodo/font": "workspace:*",
+    "chroma-js": "2.4.2"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
+    "@dopt/tsup": "workspace:*",
     "@types/chroma-js": "2.1.4",
     "@types/jest": "28.1.6",
     "@typescript-eslint/eslint-plugin": "5.32.0",
     "@typescript-eslint/parser": "5.32.0",
-    "chroma-js": "2.4.2",
     "esbuild": "0.14.54",
     "esbuild-jest": "0.5.0",
     "eslint": "8.21.0",
