@@ -37,7 +37,7 @@
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
     "@types/jest": "28.1.6",
-    "@types/react": "18.0.15",
+    "@types/react": "18.0.17",
     "@typescript-eslint/eslint-plugin": "5.32.0",
     "@typescript-eslint/parser": "5.32.0",
     "esbuild": "0.14.54",
