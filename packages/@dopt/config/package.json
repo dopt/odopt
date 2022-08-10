@@ -42,7 +42,7 @@
     "@vanilla-extract/esbuild-plugin": "2.1.0",
     "@vanilla-extract/private": "1.0.3",
     "@vanilla-extract/sprinkles": "1.4.1",
-    "esbuild": "0.14.54",
+    "esbuild": "0.15.0",
     "esbuild-jest": "0.5.0",
     "eslint": "8.21.0",
     "jest": "28.1.3",
