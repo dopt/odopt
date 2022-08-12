@@ -24,7 +24,7 @@ npm install @dopt/react
 
 To configure the Dopt Provider you will need
 
-1. An API key (generated in Dopt)
+1. A Block API key (generated in Dopt)
 1. A user ID (user being an end-user you've identified to Dopt)
 
 ### Usage
@@ -39,7 +39,7 @@ import Application from "./application";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
-  <DoptProvider userId={userId} apiKey={apiKey}>
+  <DoptProvider userId={userId} apiKey={blockAPIKey}>
     <Application />
   </DoptProvider>,
   rootElement
