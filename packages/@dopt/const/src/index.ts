@@ -9,3 +9,4 @@ export * from './client-side-messages';
 export * from './product-links';
 export * from './session';
 export * from './date';
+export * from './environments';
