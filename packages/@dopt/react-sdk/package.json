@@ -1,16 +1,16 @@
 {
   "name": "@dopt/react",
   "opensource": true,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "An SDK for accessing and transitioning a Journey's Model Blocks in Dopt",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
     }
   },
