@@ -1,7 +1,7 @@
 {
   "name": "@dopt/react",
   "opensource": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "An SDK for accessing and transitioning a Journey's Model Blocks in Dopt",
   "license": "MIT",
   "main": "./dist/index.cjs.js",
@@ -36,6 +36,7 @@
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
+    "@swc/core": "1.2.237",
     "@types/jest": "28.1.6",
     "@types/react": "18.0.17",
     "@typescript-eslint/eslint-plugin": "5.32.0",
