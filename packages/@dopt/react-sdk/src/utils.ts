@@ -14,3 +14,14 @@ export function updatedBlocksAsMap(updated: Block[]) {
     return blocks;
   }, {});
 }
+
+export function getBlockDefaultState(identifier: string) {
+  return {
+    active: false,
+    completed: false,
+    exited: false,
+    started: false,
+    stopped: false,
+    uuid: identifier,
+  };
+}
