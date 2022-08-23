@@ -2,6 +2,7 @@ import { useContext, useCallback, useEffect } from 'react';
 import { DoptContext } from './context';
 
 import { Block } from './types';
+import { getBlockDefaultState } from './utils';
 
 /**
  * Methods corresponding to an intent-based API for
@@ -106,7 +107,7 @@ const useDopt = (identifier: string): [Block, Methods] => {
   const exit = useCallback(() => methods.exit(identifier), []);
 
   return [
-    blocks[identifier] || { active: false },
+    blocks[identifier] || getBlockDefaultState(identifier),
     { start, complete, stop, exit },
   ];
 };
