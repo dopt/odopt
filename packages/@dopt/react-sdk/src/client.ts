@@ -1,4 +1,4 @@
-const URL_PREFIX = `http://localhost:7070`;
+const URL_PREFIX = `https://blocks.dopt.com`;
 
 import { Methods, Blocks, Block } from './types';
 import { getBlockDefaultState, updatedBlocksAsMap } from './utils';
