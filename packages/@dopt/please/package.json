@@ -1,0 +1,48 @@
+{
+  "name": "@dopt/please",
+  "version": "0.0.0",
+  "description": "A CLI for generating packages in the Dopt monorepo",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "bin": "./cli.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "tsup",
+    "clean": "shx rm -rf ./dist",
+    "dev": "pnpm run build --watch src",
+    "format": "prettier --w .",
+    "formatcheck": "pnpm exec check-formatting",
+    "lint": "eslint .",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "☝️ required package scripts": ""
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@dopt/check-formatting": "workspace:*",
+    "@dopt/config": "workspace:*",
+    "@dopt/tsup": "workspace:*",
+    "@types/jest": "28.1.6",
+    "@typescript-eslint/eslint-plugin": "5.32.0",
+    "@typescript-eslint/parser": "5.32.0",
+    "esbuild": "0.15.0",
+    "esbuild-jest": "0.5.0",
+    "eslint": "8.21.0",
+    "eslint-plugin-react": "7.30.1",
+    "jest": "28.1.3",
+    "prettier": "2.7.1",
+    "shx": "0.3.4",
+    "tsup": "6.2.1",
+    "typescript": "4.7.4"
+  }
+}
