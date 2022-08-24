@@ -1,4 +1,13 @@
-import { env, inProd } from '@dopt/env';
+const isProd = () => process.env.NODE_ENV === 'production';
+const inProd = isProd;
+
+interface Config<T, Y> {
+  prod: T;
+  dev: Y;
+}
+function env<T, Y>({ prod, dev }: Config<T, Y>): T | Y {
+  return isProd() ? prod : dev;
+}
 
 import { defineConfig, Options } from 'tsup';
 
