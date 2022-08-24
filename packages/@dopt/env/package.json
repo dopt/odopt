@@ -16,11 +16,11 @@
     "👇required package scripts": "",
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "clean": "shx rm -rf ./dist",
-    "dev": "yarn run build --watch src",
-    "format": "",
-    "formatcheck": "",
-    "lint": "",
-    "test": "",
+    "dev": "pnpm run build --watch src",
+    "format": "echo \"@dopt/env does not require format\"; exit 0;",
+    "formatcheck": "echo \"@dopt/env does not require formatcheck\"; exit 0;",
+    "lint": "echo \"@dopt/env does not require lint\"; exit 0;",
+    "test": "echo \"@dopt/env does not require lint\"; exit 0;",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": ""
   },
@@ -28,6 +28,8 @@
     "dist"
   ],
   "devDependencies": {
+    "@dopt/config": "workspace:*",
+    "@types/node": "17.0.21",
     "esbuild": "0.15.0",
     "eslint": "8.21.0",
     "shx": "0.3.4",
