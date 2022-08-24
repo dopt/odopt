@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "bin": "./dist/cli.js",
+  "bin": "./cli.js",
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -17,9 +17,9 @@
     "👇required package scripts": "",
     "build": "tsup",
     "clean": "shx rm -rf ./dist",
-    "dev": "yarn run build --watch src",
+    "dev": "pnpm run build --watch src",
     "format": "prettier --w .",
-    "formatcheck": "npx check-formatting",
+    "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
@@ -30,6 +30,7 @@
   ],
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
+    "@dopt/env": "workspace:*",
     "@dopt/config": "workspace:*",
     "@types/jest": "28.1.6",
     "@typescript-eslint/eslint-plugin": "5.32.0",
@@ -44,8 +45,5 @@
     "tsup": "6.2.1",
     "typescript": "4.7.4"
   },
-  "dependencies": {
-    "@dopt/env": "workspace:*",
-    "find-yarn-workspace-root": "2.0.0"
-  }
+  "dependencies": {}
 }
