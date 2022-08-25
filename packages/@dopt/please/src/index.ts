@@ -4,12 +4,12 @@ import fs from 'fs';
 import path from 'path';
 
 import { execSync } from 'child_process';
-import { getWorkspacesSync } from '@dopt/wutils';
+import { getPackagesSync } from '@dopt/wutils';
 
 import { concurrently } from 'concurrently';
 
 const TOPOFTREE = execSync('git rev-parse --show-toplevel').toString().trim();
-const workspaces = getWorkspacesSync();
+const packages = getPackagesSync();
 
 type SupportedPackageScripts = 'dev' | 'run' | 'debug';
 type Name = `@${string}/${string}`;
@@ -26,10 +26,10 @@ export async function please(args: CommaSeparatedCliAargs<CliArg>[]) {
 
   args.forEach((arg) => {
     const [packageScript, packageList] = arg.split(':');
-    const packages = packageList.split(',') as Name[];
+    const packageArgs = packageList.split(',') as Name[];
 
-    packages.forEach((pkg) => {
-      const match = workspaces.find(({ name }) => name === pkg);
+    packageArgs.forEach((pkg) => {
+      const match = packages.find(({ name }) => name === pkg);
 
       if (!match) {
         throw new Error(
@@ -72,7 +72,7 @@ export async function please(args: CommaSeparatedCliAargs<CliArg>[]) {
 
     switch (packageScript) {
       case 'run':
-        packages.forEach((pkg) => {
+        packageArgs.forEach((pkg) => {
           commands.push([
             `${pkg}:${packageScript}`,
             `pnpm --filter ${pkg} run run`,
@@ -80,7 +80,7 @@ export async function please(args: CommaSeparatedCliAargs<CliArg>[]) {
         });
         break;
       case 'dev':
-        packages.forEach((pkg) => {
+        packageArgs.forEach((pkg) => {
           commands.push([
             `${pkg}:${packageScript}`,
             `pnpm --filter ${pkg} run dev`,
@@ -88,7 +88,7 @@ export async function please(args: CommaSeparatedCliAargs<CliArg>[]) {
         });
         break;
       case 'debug':
-        packages.forEach((pkg) => {
+        packageArgs.forEach((pkg) => {
           commands.push([
             `${pkg}:${packageScript}`,
             `pnpm --filter ${pkg} run debug`,
