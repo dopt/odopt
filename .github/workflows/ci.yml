@@ -6,8 +6,8 @@ on:
     paths:
       - 'packages/**'
       - 'package.json'
-      - 'yarn.lock'
-      - '.yarnrc.yml'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
       - '.github/workflows/*'
   pull_request:
     type:
@@ -17,8 +17,8 @@ on:
     paths:
       - 'packages/**'
       - 'package.json'
-      - 'yarn.lock'
-      - '.yarnrc.yml'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
       - '.github/workflows/*'
 jobs:
   test:
@@ -30,18 +30,10 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Restore yarn cache
-        uses: actions/cache@v3
-        id: yarn-cache
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.2
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
-          restore-keys: |
-            yarn-cache-folder-
+          version: 7.9.3
 
       - name: Restore Turbo Cache
         id: turbo-cache
@@ -59,12 +51,3 @@ jobs:
       - name: Build monorepo
         run: |
           make build;
-
-          #- name: Typecheck workspaces
-          #  run: |
-          #    make typecheck;
-
-          #- name: Lint workspaces
-          #  run: |
-          #    make lint;
-

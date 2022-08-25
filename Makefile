@@ -13,7 +13,7 @@ help:			## Show this help.
 
 i: install
 install: ## [@alias i]  Installs all deps for the monorepo
-	yarn; 
+	pnpm install; 
 
 u: uninstall
 uninstall: ## [@alias u]  Removes all node_modules dirs
@@ -34,7 +34,7 @@ formatcheck: ## [@alias fc] Runs formatcheck target for each package
 c: clean
 clean: ## [@alias c]  Runs clean target for each package
 test typecheck build lint format formatcheck clean:
-	npx turbo run $@;
+	pnpm exec turbo run $@;
 
 n: nuke
 nuke: clean uninstall ## [@alias n]  Removes clean and install for each package
