@@ -16,9 +16,9 @@
     "👇required package scripts": "",
     "build": "tsup",
     "clean": "shx rm -rf ./dist",
-    "dev": "yarn run build --watch src",
+    "dev": "pnpm run build --watch src",
     "format": "prettier --w .",
-    "formatcheck": "npx check-formatting",
+    "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
@@ -29,7 +29,12 @@
   ],
   "dependencies": {
     "@dopt/env": "workspace:*",
-    "find-nearest-package-json": "2.0.1"
+    "@dopt/topoftree": "workspace:*",
+    "@pnpm/find-workspace-dir": "^4.0.2",
+    "@pnpm/find-workspace-packages": "^4.0.27",
+    "@pnpm/logger": "^4.0.0",
+    "find-nearest-package-json": "2.0.1",
+    "pnpm": "^7.9.0"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
