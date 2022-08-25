@@ -4,10 +4,8 @@ import path from 'path';
 import { getWorkspacesSync } from '@dopt/wutils';
 import { TOPOFTREE } from '@dopt/topoftree';
 
-const workspaces = getWorkspacesSync();
-
 export function getLibraryMap() {
-  return workspaces.reduce((memo, { name, location }) => {
+  return getWorkspacesSync().reduce((memo, { name, location }) => {
     const packageRoot = `${TOPOFTREE}/${location}`;
 
     const { exports = {} } = JSON.parse(

@@ -18,9 +18,9 @@
     "👇required package scripts": "",
     "build": "tsup",
     "clean": "shx rm -rf ./dist",
-    "dev": "yarn run build --watch src",
+    "dev": "pnpm run build --watch src",
     "format": "prettier --w .",
-    "formatcheck": "npx check-formatting",
+    "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
@@ -50,5 +50,8 @@
     "shx": "0.3.4",
     "tsup": "6.2.1",
     "typescript": "4.7.4"
+  },
+  "dependencies": {
+    "regenerator-runtime": "^0.13.9"
   }
 }

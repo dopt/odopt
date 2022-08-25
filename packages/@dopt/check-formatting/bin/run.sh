@@ -45,5 +45,5 @@ else
   FILES='.'
 fi
 
-echo $FILES | xargs npx prettier --ignore-unknown --check 
+echo $FILES | xargs pnpm exec prettier --ignore-unknown --check 
 

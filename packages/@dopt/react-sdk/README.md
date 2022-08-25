@@ -14,6 +14,12 @@ Via Yarn:
 yarn add @dopt/react
 ```
 
+Via pnpm:
+
+```
+pnpm add @dopt/react
+```
+
 Via NPM:
 
 ```bash

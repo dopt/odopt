@@ -1,30 +1,55 @@
-import util from 'util';
-import { exec as e, execSync } from 'child_process';
+import { execSync } from 'child_process';
 //@ts-ignore
 import { findNearestPackageJsonSync } from 'find-nearest-package-json';
-const exec = util.promisify(e);
+
+import findWorkspacePackages from '@pnpm/find-workspace-packages';
+import findWorkspaceDir from '@pnpm/find-workspace-dir';
+
+import { TOPOFTREE } from '@dopt/topoftree';
+
+async function findWorkspaceRoot() {
+  return await findWorkspaceDir(process.cwd());
+}
 
 async function getWorkspaces() {
-  const { stdout } = await exec('yarn workspaces list --json');
-  const blobs: string[] = stdout.trim().split('\n');
-  blobs.shift(); // remove top-level workspace
-  return blobs.map((str) => JSON.parse(str).location);
+  const workspaceDir = await findWorkspaceRoot();
+  if (workspaceDir == undefined) {
+    throw new Error('Unable to locate pnpm workspace root');
+  }
+  const workspacePacakges = await findWorkspacePackages(
+    (await findWorkspaceDir(process.cwd())) || ''
+  );
+
+  return workspacePacakges.slice(1);
 }
 
 async function getWorkspaceNames() {
   const workspaces = await getWorkspaces();
-  return workspaces.map(({ name }) => name);
+  return workspaces.map(({ manifest }) => manifest.name);
 }
 
 async function getWorkspaceLocations() {
   const workspaces = await getWorkspaces();
-  return workspaces.map(({ location }) => location);
+  return workspaces.map(({ dir }) => dir.replace(`${TOPOFTREE}/`, ''));
 }
 
-function getWorkspacesSync() {
-  const result = execSync('yarn workspaces list --json');
-  const blobs: string[] = result.toString().trim().split('\n');
-  return blobs.map((str) => JSON.parse(str));
+type PackageDef = {
+  name: string;
+  version: string;
+  location: string;
+  path: string;
+  private: boolean;
+};
+function getWorkspacesSync(): Omit<PackageDef, 'path'>[] {
+  return JSON.parse(execSync('pnpm ls -r --depth -1 --json').toString())
+    .map((pkg: Omit<PackageDef, 'location'>) => {
+      const { path, ...rest } = pkg;
+
+      const location = path.replace(`${TOPOFTREE}/`, '');
+
+      return { location, ...rest };
+    })
+    .slice(1);
 }
 
 function getWorkspaceNamesSync() {
