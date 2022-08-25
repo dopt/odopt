@@ -28,6 +28,9 @@
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "concurrently": "7.3.0"
+  },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
