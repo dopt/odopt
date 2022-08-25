@@ -11,7 +11,7 @@ async function findWorkspaceRoot() {
   return await findWorkspaceDir(process.cwd());
 }
 
-async function getWorkspaces() {
+async function getPackages() {
   const workspaceDir = await findWorkspaceRoot();
   if (workspaceDir == undefined) {
     throw new Error('Unable to locate pnpm workspace root');
@@ -23,14 +23,14 @@ async function getWorkspaces() {
   return workspacePacakges.slice(1);
 }
 
-async function getWorkspaceNames() {
-  const workspaces = await getWorkspaces();
-  return workspaces.map(({ manifest }) => manifest.name);
+async function getPackageNames() {
+  const packages = await getPackages();
+  return packages.map(({ manifest }) => manifest.name);
 }
 
-async function getWorkspaceLocations() {
-  const workspaces = await getWorkspaces();
-  return workspaces.map(({ dir }) => dir.replace(`${TOPOFTREE}/`, ''));
+async function getPackageLocations() {
+  const packages = await getPackages();
+  return packages.map(({ dir }) => dir.replace(`${TOPOFTREE}/`, ''));
 }
 
 type PackageDef = {
@@ -40,7 +40,7 @@ type PackageDef = {
   path: string;
   private: boolean;
 };
-function getWorkspacesSync(): Omit<PackageDef, 'path'>[] {
+function getPackagesSync(): Omit<PackageDef, 'path'>[] {
   return JSON.parse(execSync('pnpm ls -r --depth -1 --json').toString())
     .map((pkg: Omit<PackageDef, 'location'>) => {
       const { path, ...rest } = pkg;
@@ -52,15 +52,15 @@ function getWorkspacesSync(): Omit<PackageDef, 'path'>[] {
     .slice(1);
 }
 
-function getWorkspaceNamesSync() {
-  return getWorkspacesSync().map(({ name }) => name);
+function getPackageNamesSync() {
+  return getPackagesSync().map(({ name }) => name);
 }
 
-function getWorkspaceLocationsSync() {
-  return getWorkspacesSync().map(({ location }) => location);
+function getPackageLocationsSync() {
+  return getPackagesSync().map(({ location }) => location);
 }
 
-function getAffectedWorkspacesForStagedFiles() {
+function getAffectedPackagesForStagedFiles() {
   return execSync(
     "git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g'"
   )
@@ -71,7 +71,7 @@ function getAffectedWorkspacesForStagedFiles() {
     .map((file) => findNearestPackageJsonSync(file).data.name);
 }
 
-function getAffectedWorkspacesToStagedFilesMapping() {
+function getAffectedPackagesToStagedFilesMapping() {
   return execSync(
     "git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g'"
   )
@@ -90,16 +90,16 @@ function getAffectedWorkspacesToStagedFilesMapping() {
     }, {} as Record<string, string[]>);
 }
 
-const GLOBAL_SCOPES = ['all', 'app', 'service', 'package', 'deps'];
+const GLOBAL_SCOPES = ['all', 'app', 'service', 'package', 'deps', 'dopt'];
 
 export {
-  getAffectedWorkspacesForStagedFiles,
-  getAffectedWorkspacesToStagedFilesMapping,
-  getWorkspaces,
-  getWorkspaceNames,
-  getWorkspaceLocations,
-  getWorkspacesSync,
-  getWorkspaceNamesSync,
-  getWorkspaceLocationsSync,
+  getAffectedPackagesForStagedFiles,
+  getAffectedPackagesToStagedFilesMapping,
+  getPackages,
+  getPackageNames,
+  getPackageLocations,
+  getPackagesSync,
+  getPackageNamesSync,
+  getPackageLocationsSync,
   GLOBAL_SCOPES,
 };
