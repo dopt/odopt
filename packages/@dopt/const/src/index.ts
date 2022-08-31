@@ -10,3 +10,4 @@ export * from './product-links';
 export * from './session';
 export * from './date';
 export * from './environments';
+export * from './error';
