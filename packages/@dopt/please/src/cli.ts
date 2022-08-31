@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-import { please, CommaSeparatedCliAargs, CliArg } from '.';
+import { please } from '.';
 
-const args = process.argv.slice(2) as CommaSeparatedCliAargs<CliArg>[];
-
-please([...args]);
+please([...process.argv.slice(2)]);
