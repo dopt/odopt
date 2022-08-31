@@ -1,115 +1,64 @@
 #! /usr/bin/env node
 
-import fs from 'fs';
-import path from 'path';
+import {
+  getPackages,
+  collectMonorepoContextualExamples,
+  findWorkspaceRoot,
+} from './pnpm-workspace-utils';
 
-import { execSync } from 'child_process';
-import { getPackagesSync } from '@dopt/wutils';
+import { HELP_FLAGS } from './const';
+
+import { helpText } from './help-text';
+
+import { parse } from './args-parser';
+
+import { findMatchingPackages } from './find-matching-packages';
 
 import { concurrently } from 'concurrently';
 
-const TOPOFTREE = execSync('git rev-parse --show-toplevel').toString().trim();
-const packages = getPackagesSync();
+type Name = `${string}`;
+type Command = `pnpm --filter ${Name} run ${string}`;
 
-type SupportedPackageScripts = 'dev' | 'run' | 'debug';
-type Name = `@${string}/${string}`;
-type Command = `pnpm --filter ${Name} run ${SupportedPackageScripts}`;
+export async function please(args: string[]) {
+  const packages = await getPackages();
+  const workspaceRoot = await findWorkspaceRoot();
 
-export type CliArg = `${SupportedPackageScripts}:${Name}`;
-export type CommaSeparatedCliAargs<S extends CliArg> = `${S}${'' | `,${S}`}`;
-
-export async function please(args: CommaSeparatedCliAargs<CliArg>[]) {
-  /*
-   * The list of commands we will run concurrently
-   */
+  if (args.some((arg) => HELP_FLAGS.includes(arg))) {
+    console.log(helpText(collectMonorepoContextualExamples(packages)));
+    process.exit(0);
+  }
   const commands: [Name, Command][] = [];
 
-  args.forEach((arg) => {
-    const [packageScript, packageList] = arg.split(':');
-    const packageArgs = packageList.split(',') as Name[];
+  const parsedArgs = parse(args);
 
-    packageArgs.forEach((pkg) => {
-      const match = packages.find(({ name }) => name === pkg);
+  parsedArgs.forEach(([packageScript, targetPackages]) => {
+    const matchingPackages = findMatchingPackages(packages, targetPackages);
 
-      if (!match) {
+    matchingPackages.forEach((matchingPackage) => {
+      const { scripts = {}, name: packageName } = matchingPackage.manifest;
+
+      if (!scripts[packageScript]) {
         throw new Error(
-          `UNKNOWN_PACKAGE: cannot locate package "${pkg}" in monorepo.`
+          `MISSING_PACKAGE_SCRIPT: "${packageName}" has no ${packageScript} script`
         );
       }
 
-      const packageRoot = `${TOPOFTREE}/${match.location}`;
-
-      const { scripts = {} } = JSON.parse(
-        fs.readFileSync(path.join(packageRoot, 'package.json'), {
-          encoding: 'utf8',
-        })
-      );
-
-      switch (packageScript) {
-        case 'run':
-          if (!scripts.run) {
-            throw new Error(
-              `MISSING_PACKAGE_SCRIPT: "${pkg}" has no script "run".`
-            );
-          }
-          break;
-        case 'dev':
-          if (!scripts.dev) {
-            throw new Error(
-              `MISSING_PACKAGE_SCRIPT: "${pkg}" has no script "dev".`
-            );
-          }
-          break;
-        case 'debug':
-          if (!scripts.debug) {
-            throw new Error(
-              `MISSING_PACKAGE_SCRIPT: "${pkg}" has no script "debug".`
-            );
-          }
-          break;
-      }
+      commands.push([
+        `${packageName}:${packageScript}`,
+        `pnpm --filter ${packageName} run ${packageScript}`,
+      ]);
     });
-
-    switch (packageScript) {
-      case 'run':
-        packageArgs.forEach((pkg) => {
-          commands.push([
-            `${pkg}:${packageScript}`,
-            `pnpm --filter ${pkg} run run`,
-          ]);
-        });
-        break;
-      case 'dev':
-        packageArgs.forEach((pkg) => {
-          commands.push([
-            `${pkg}:${packageScript}`,
-            `pnpm --filter ${pkg} run dev`,
-          ]);
-        });
-        break;
-      case 'debug':
-        packageArgs.forEach((pkg) => {
-          commands.push([
-            `${pkg}:${packageScript}`,
-            `pnpm --filter ${pkg} run debug`,
-          ]);
-        });
-        break;
-    }
   });
 
   const { result, commands: spawned } = concurrently(
     commands.map(([name, command]) => ({ command, name })),
     {
-      cwd: TOPOFTREE,
+      cwd: workspaceRoot,
     }
   );
 
-  //@ts-ignore
   spawned.map(({ stdout, stderr }) => {
-    //@ts-ignore
     stdout.subscribe((data) => process.stdout.write(data.toString()));
-    //@ts-ignore
     stderr.subscribe((data) => process.stderr.write(data.toString()));
   });
 

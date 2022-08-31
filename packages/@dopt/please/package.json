@@ -29,7 +29,12 @@
     "dist"
   ],
   "dependencies": {
-    "concurrently": "7.3.0"
+    "@pnpm/find-workspace-dir": "^4.0.2",
+    "@pnpm/find-workspace-packages": "^4.0.27",
+    "@types/micromatch": "^4.0.2",
+    "chalk": "4.1.2",
+    "concurrently": "7.3.0",
+    "micromatch": "^4.0.5"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
