@@ -4,16 +4,17 @@ import {
   getPackages,
   collectMonorepoContextualExamples,
   findWorkspaceRoot,
-} from './pnpm-workspace-utils';
+} from './pnpm';
 
 import { HELP_FLAGS } from './const';
 
-import { helpText } from './help-text';
+import { getNColors } from './colors';
 
-import { parse } from './args-parser';
+import { helpText } from './help';
 
-import { findMatchingPackages } from './find-matching-packages';
-import { packageNameToColor } from './pnpm-workspace-utils';
+import { parse } from './parse';
+
+import { findMatchingPackages } from './match';
 
 import concurrently from 'concurrently';
 
@@ -30,25 +31,23 @@ export async function please(args: string[]) {
   }
   const commands: [Name, Command][] = [];
 
-  const parsedArgs = parse(args);
+  parse(args).forEach(([packageScript, targetPackages]) => {
+    findMatchingPackages(packages, targetPackages).forEach(
+      (matchingPackage) => {
+        const { scripts = {}, name: packageName } = matchingPackage.manifest;
 
-  parsedArgs.forEach(([packageScript, targetPackages]) => {
-    const matchingPackages = findMatchingPackages(packages, targetPackages);
+        if (!scripts[packageScript]) {
+          throw new Error(
+            `MISSING_PACKAGE_SCRIPT: "${packageName}" has no ${packageScript} script`
+          );
+        }
 
-    matchingPackages.forEach((matchingPackage) => {
-      const { scripts = {}, name: packageName } = matchingPackage.manifest;
-
-      if (!scripts[packageScript]) {
-        throw new Error(
-          `MISSING_PACKAGE_SCRIPT: "${packageName}" has no ${packageScript} script`
-        );
+        commands.push([
+          `${packageName}:${packageScript}`,
+          `pnpm --filter ${packageName} run ${packageScript}`,
+        ]);
       }
-
-      commands.push([
-        `${packageName}:${packageScript}`,
-        `pnpm --filter ${packageName} run ${packageScript}`,
-      ]);
-    });
+    );
   });
 
   const { length } = commands
@@ -63,9 +62,7 @@ export async function please(args: string[]) {
     {
       cwd: workspaceRoot,
       prefix: '{name}',
-      prefixColors: commands.map(([name]) =>
-        packageNameToColor(name.split(':')[0])
-      ),
+      prefixColors: getNColors(commands.length),
     }
   );
 
