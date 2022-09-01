@@ -13,8 +13,9 @@ import { helpText } from './help-text';
 import { parse } from './args-parser';
 
 import { findMatchingPackages } from './find-matching-packages';
+import { packageNameToColor } from './pnpm-workspace-utils';
 
-import { concurrently } from 'concurrently';
+import concurrently from 'concurrently';
 
 type Name = `${string}`;
 type Command = `pnpm --filter ${Name} run ${string}`;
@@ -50,17 +51,23 @@ export async function please(args: string[]) {
     });
   });
 
-  const { result, commands: spawned } = concurrently(
-    commands.map(([name, command]) => ({ command, name })),
+  const { length } = commands
+    .map((c) => c[0])
+    .reduce((a, b) => (a.length > b.length ? a : b));
+
+  const { result } = concurrently(
+    commands.map(([name, command]) => ({
+      command,
+      name: name.padEnd(length),
+    })),
     {
       cwd: workspaceRoot,
+      prefix: '{name}',
+      prefixColors: commands.map(([name]) =>
+        packageNameToColor(name.split(':')[0])
+      ),
     }
   );
-
-  spawned.map(({ stdout, stderr }) => {
-    stdout.subscribe((data) => process.stdout.write(data.toString()));
-    stderr.subscribe((data) => process.stderr.write(data.toString()));
-  });
 
   result.then(
     () => process.exit(0),
