@@ -1,6 +1,5 @@
 import findWorkspacePackages, { Project } from '@pnpm/find-workspace-packages';
 import findWorkspaceDir from '@pnpm/find-workspace-dir';
-import ColorHash from 'color-hash';
 
 import { TARGET_EXAMPLE_PACKAGE_SCRIPTS } from './const';
 
@@ -52,10 +51,6 @@ export function groupByPackageScripts(packages: Project[]) {
 
     return rollup;
   }, {});
-}
-
-export function packageNameToColor(name: string) {
-  return new ColorHash().hex(name);
 }
 
 export function collectMonorepoContextualExamples(packages: Project[]) {
