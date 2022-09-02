@@ -29,7 +29,3 @@ export const DEFAULT_BLOCK_DESC: Record<BlockType, string> = {
   WaitBlock: 'Wait',
   WebhookBlock: 'Webhook',
 };
-
-export const CHARACTER_LIMIT_NAME = 100;
-
-export const BLOCK_NAME_LENGTH_MSG = `Name can't be more than ${CHARACTER_LIMIT_NAME} characters`;
