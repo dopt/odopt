@@ -10,7 +10,7 @@ export type BlockType =
 
 export const DEFAULT_BLOCK_NAMES: Record<BlockType, string> = {
   EntryBlock: 'Entry trigger',
-  ModelBlock: 'Model',
+  ModelBlock: 'Step',
   FinishBlock: 'Finish',
   SwitchBlock: 'Switch',
   BooleanBlock: 'Boolean',
