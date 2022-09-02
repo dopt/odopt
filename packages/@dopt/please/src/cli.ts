@@ -2,4 +2,4 @@
 
 import { please } from '.';
 
-please([...process.argv.slice(2)]);
+please(`please ${process.argv.slice(2).join(' ')}`);
