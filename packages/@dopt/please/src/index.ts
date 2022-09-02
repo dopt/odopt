@@ -12,7 +12,7 @@ import { getNColors } from './colors';
 
 import { helpText } from './help';
 
-import { parse } from './parse';
+import { help, parse } from './parse';
 
 import { findMatchingPackages } from './match';
 
@@ -21,17 +21,22 @@ import concurrently from 'concurrently';
 type Name = `${string}`;
 type Command = `pnpm --filter ${Name} run ${string}`;
 
-export async function please(args: string[]) {
+export async function please(args: string) {
   const packages = await getPackages();
   const workspaceRoot = await findWorkspaceRoot();
 
-  if (args.some((arg) => HELP_FLAGS.includes(arg))) {
+  const helpArgs = help(args);
+
+  if (helpArgs.some((arg) => HELP_FLAGS.includes(arg))) {
     console.log(helpText(collectMonorepoContextualExamples(packages)));
     process.exit(0);
   }
+
   const commands: [Name, Command][] = [];
 
-  parse(args).forEach(([packageScript, targetPackages]) => {
+  const cliArgs = parse(args);
+
+  cliArgs.forEach(([packageScript, targetPackages]) => {
     findMatchingPackages(packages, targetPackages).forEach(
       (matchingPackage) => {
         const { scripts = {}, name: packageName } = matchingPackage.manifest;
@@ -70,4 +75,44 @@ export async function please(args: string[]) {
     () => process.exit(0),
     () => process.exit(1)
   );
+}
+
+import { IParseOptions, parse as peggyParse } from './parser';
+
+export type { IParseOptions } from './parser';
+export { SyntaxError } from './parser';
+
+export type ParseFunction = (
+  input: string,
+  options?: IParseOptions
+) => [object | null, Error | null];
+
+export interface AstNode {
+  type?: AstType;
+  value: string | number;
+  ast?: boolean;
+  children?: AstNode[] | null;
+}
+
+export enum AstType {
+  ARGUMENT = 'argument',
+  ARGUMENT_LIST = 'argumentList',
+  SYM = 'symbol',
+  PACKAGE_LITERAL = 'packageLiteral',
+  PACKAGE_GLOB = 'packageGlob',
+  WHITESPACE = 'whitespace',
+}
+
+export function _parse(
+  input: string,
+  options?: IParseOptions
+  //@ts-ignore
+): [AstNode | null, Error | null] {
+  try {
+    const ast: AstNode = peggyParse(input, options);
+    if (ast) return [ast, null];
+  } catch (err) {
+    //@ts-ignore
+    return [null, err];
+  }
 }
