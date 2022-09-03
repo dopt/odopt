@@ -10,6 +10,21 @@ import { parse, help } from './parse';
         out: [['a', ['@a/a']]],
       },
       {
+        it: 'can parse single kebab-case command + single-package arguments',
+        in: 'please a-a:@a/a',
+        out: [['a-a', ['@a/a']]],
+      },
+      {
+        it: 'can parse single kebab-case command + single-package arguments',
+        in: 'please a-a:@a/a-a',
+        out: [['a-a', ['@a/a-a']]],
+      },
+      {
+        it: 'can parse single snake-case command + single-package arguments',
+        in: 'please a_a:@a/a_a',
+        out: [['a_a', ['@a/a_a']]],
+      },
+      {
         it: 'can parse multi-single-package-commands',
         in: 'please a:@a/a b:@b/b',
         out: [

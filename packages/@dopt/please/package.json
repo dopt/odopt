@@ -1,6 +1,6 @@
 {
   "name": "@dopt/please",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A CLI for generating packages in the Dopt monorepo",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
