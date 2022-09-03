@@ -44,7 +44,7 @@ pkg_glob
 // Terminals
 
 command 
-= a:[A-Za-z_] b:[A-Za-z_0-9]* {
+= a:[A-Za-z_] b:[A-Za-z_0-9-]* {
     return ast.node(1, types.COMMAND, text());
   }
 
