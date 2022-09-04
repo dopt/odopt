@@ -2,6 +2,7 @@
   "name": "@dopt/please",
   "version": "0.0.1",
   "description": "A CLI for generating packages in the Dopt monorepo",
+  "opensource": true,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
