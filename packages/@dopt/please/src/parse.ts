@@ -6,7 +6,8 @@ export function parse(input: string): [string, string[]][] {
   try {
     parsed = parser.parse(input);
   } catch (e) {
-    console.log(e);
+    console.log('No valid (read parseable) arguments to please found');
+    process.exit(1);
   }
 
   const commands = parsed.children[0].children;
