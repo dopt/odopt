@@ -16,7 +16,7 @@ This involved the following
 1. Create a new tmux window, cd to App Server, run `pnpm run dev`
 1. Create a new tmux window, cd to App Client, run `pnpm run dev`
 
-I now have four terminals. I've not even started coding yet. I haven't opened the app in the browser. I need matrix-level monitors to observce the output of these commands while developing. What gives?!
+I now have four terminals. I've not even started coding yet. I haven't opened the app in the browser. I need matrix-level monitors to observe the output of these commands while developing. What gives?!
 
 Introducing `please`. A concise CLI for running arbitrary package scripts on arbitrary packages with interleaved output. The above debacle is transofmred into the following command
 
