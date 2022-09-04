@@ -1,5 +1,3 @@
-#! /usr/bin/env node
-
 import {
   getPackages,
   collectMonorepoContextualExamples,
@@ -75,44 +73,4 @@ export async function please(args: string) {
     () => process.exit(0),
     () => process.exit(1)
   );
-}
-
-import { IParseOptions, parse as peggyParse } from './parser';
-
-export type { IParseOptions } from './parser';
-export { SyntaxError } from './parser';
-
-export type ParseFunction = (
-  input: string,
-  options?: IParseOptions
-) => [object | null, Error | null];
-
-export interface AstNode {
-  type?: AstType;
-  value: string | number;
-  ast?: boolean;
-  children?: AstNode[] | null;
-}
-
-export enum AstType {
-  ARGUMENT = 'argument',
-  ARGUMENT_LIST = 'argumentList',
-  SYM = 'symbol',
-  PACKAGE_LITERAL = 'packageLiteral',
-  PACKAGE_GLOB = 'packageGlob',
-  WHITESPACE = 'whitespace',
-}
-
-export function _parse(
-  input: string,
-  options?: IParseOptions
-  //@ts-ignore
-): [AstNode | null, Error | null] {
-  try {
-    const ast: AstNode = peggyParse(input, options);
-    if (ast) return [ast, null];
-  } catch (err) {
-    //@ts-ignore
-    return [null, err];
-  }
 }
