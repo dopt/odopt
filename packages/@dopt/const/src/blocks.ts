@@ -20,9 +20,9 @@ export const DEFAULT_BLOCK_NAMES: Record<BlockType, string> = {
 };
 
 export const DEFAULT_BLOCK_DESC: Record<BlockType, string> = {
-  EntryBlock: 'How users enter into the journey',
+  EntryBlock: 'How users enter into the flow',
   ModelBlock: 'Define state for an experience',
-  FinishBlock: 'Define when the journey is finished',
+  FinishBlock: 'Define when the flow is finished',
   SwitchBlock: 'Switch',
   BooleanBlock: 'Boolean',
   EmailBlock: 'Email',

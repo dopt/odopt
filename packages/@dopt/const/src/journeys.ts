@@ -1,7 +1,7 @@
 export const DEFAULT_JOURNEY_DESC = 'Add a description';
 
 export const JOURNEY_IDENTIFIER_DESC =
-  'This will be used to reference this journey and cannot be changed.';
+  'This will be used to reference this flow and cannot be changed.';
 
 export const CHARACTER_LIMIT = 100;
 export const URL_SAFE_REGEX = /^[\w.~-]*$/;

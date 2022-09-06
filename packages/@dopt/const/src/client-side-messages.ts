@@ -1,6 +1,6 @@
 export const SAVE_FAIL_MSG = 'Could not save block. Please try again.';
 export const DELETE_FAIL_MSG = 'Could not delete block. Please try again.';
-export const RESET_FAIL_MSG = 'Could not reset journey. Please try again.';
+export const RESET_FAIL_MSG = 'Could not reset flow. Please try again.';
 export const INVALID_EMAIL_MSG =
   'Your email address is not allowed. Please try a different one.';
 export const REGENERATE_APIKEY_FAIL_MSG =
@@ -16,8 +16,7 @@ export const GENERATE_APIKEY_FAIL_MSG =
   'Could not generate API key. Please try again.';
 export const FETCH_APIKEY_FAIL_MSG =
   'Could not find API key. Please try again.';
-export const JOURNEY_CTA_FAIL_MSG =
-  'Could not create journey. Please try again.';
+export const JOURNEY_CTA_FAIL_MSG = 'Could not create flow. Please try again.';
 
 export const ADD_BLOCK_FAIL_MSG = 'Could not add block';
 export const MOVE_BLOCK_FAIL_MSG = 'Could not move block';
