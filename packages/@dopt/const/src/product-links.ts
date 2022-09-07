@@ -25,6 +25,4 @@ export const MAILTO_SUPPORT = 'mailto:support@dopt.com';
 
 export const WEBSITE_HOMEPAGE_LINK = 'https://www.dopt.com/';
 
-export const TERMS_AND_CONDITIONS_LINK = 'https://switchboard.cc/terms';
-
 export const PRIVACY_POLICY_LINK = 'https://switchboard.cc/privacy';
