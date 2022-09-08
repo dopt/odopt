@@ -1,3 +1,3 @@
-## Env
+## @dopt/env
 
-Some guidance for writing great READMEs can be found (here)[https://www.makeareadme.com/]
+An simple set of utilities for accessing the current `NODE_ENV` or configuring based on it.
