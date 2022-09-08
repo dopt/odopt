@@ -28,3 +28,6 @@ export const SAVE_BLOCK_FAIL_MSG = 'Could not save block. Please try again.';
 
 export const renameFailMessage = (model: string) =>
   `Could not rename ${model}. Please try again.`;
+
+export const enableFailMessage = (action: string) =>
+  `Could not ${action} flow. Please try again.`;
