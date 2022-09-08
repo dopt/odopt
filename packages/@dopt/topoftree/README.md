@@ -1,3 +1,3 @@
-## Topoftree
+## @dopt/topoftree
 
-Some guidance for writing great READMEs can be found (here)[https://www.makeareadme.com/]
+A simple utility function and CLI for accessing the workspace root directory (e.g. the top of our repository).
