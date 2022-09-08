@@ -1,46 +1,72 @@
 # odopt: Open Dopt
 
-This is a polyglot monorepo that houses Dopt's open source code.
+Welcome to Odopt! A monorepo of Dopt's open source packages.
+
+## Disclaimer
+
+The [pull requests](https://github.com/dopt/odopt/pulls?q=is%3Apr+is%3Aclosed) and [commit history](https://github.com/dopt/odopt/commits/main) for this repository may look a bit odd. The reason is that we are syncing commits to open source packages in our primary/closed-source repository to this repository. While slightly complex to get setup, we love that this approach allows us to easily open source packages we think folks would benefit from while still enjoying the benefits of development in a monorepo. Additionally, we are going to generate quite a few SDKs for working with our APIs - all of which will be open source.
 
 ## Structure
 
-We utilize [yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) to set up our package architecture. The root [package.json](https://github.com/dopt/dopt/blob/main/package.json) defines our workspaces.
+We use [pnpm](https://pnpmpkg.com/) at Dopt. We switched from yarn to pnpm a year into developing because of how many times we'd been bit by phantom depdencies. We ❤️ the strictness and can't complain about the speed gains.
 
-```json5
-{
-  "name": "odopt",
-  "workspaces": {
-    "packages": [
-      "packages/**/*"
-    ]
-}
+We utilize [pnpm workspaces](https://pnpm.io/workspaces). The [pnpm-workspace.yaml](https://github.com/dopt/odopt/blob/main/pnpm-workspace.yaml) defines the root of our workspace and allows us to define/constrain where packages can live in the monorepo. For odopt it looks something like this
+
+```yaml
+packages:
+  - "packages/**/*"
 ```
 
-The package manager ([yarn](https://yarnpkg.com/)) and our build tool ([turbo](https://turborepo.org/docs)) will scan those directories and look for children `package.json`. Their content is used to define our package topology.
+Our package manager ([pnpm](https://pnpmpkg.com/)) and our build tool ([turbo](https://turborepo.org/docs)) will scan those directories and look for children `package.json` files. Their dependencies are used to define our workspace's topology.
 
-We have one primary workspace in our monorepo, namely [./packages](./README.md#packages).
+While our private repository is app-centric in structure e.g.
 
 ```
-.
-└── packages      (packages open source packages)
-    ├── react-sdk   (our design system)
-    └── ...         (etc)
+├── apps          (apps that live on dopt.com)
+├── services      (services used by app(s))
+└── packages      (packages shared by apps)
+```
+
+this repository will be more package-centric i.e.
+
+```
+└── packages      (packages open sourced from dopt)
+```
+
+Any children directories of the packages directory correspond to package scopes
+
+```
+└── packages
+    └── @dopt
+```
+
+and their children correspond to packages themselves
+
+```
+└── packages
+    ├── @dopt
+    ├─────── react-sdk
+    ├─────── esbuild-plugins
+    ├─────── please
+    └─────── ...
 ```
 
 #### Pacakges
 
-- [packages/react-sdk](./packages/@dopt/react-sdk): our React SDK. [README](./packages/@dopt/react-sdk/README.md)
+- [@dopt/react-sdk](./packages/@dopt/react-sdk): our React SDK for accessing/manipulating user flow state. [README](./packages/@dopt/react-sdk/README.md)
+- [@dopt/please](./packages/@dopt/please): a CLI for developing in monorepos - not building them. [README](./packages/@dopt/please/README.md)
+- [@dopt/esbuild-plugins](./packages/@dopt/esbuild-plugins): esbuild plugins we've built in the process of developing dopt. [README](./packages/@dopt/esbuild-plugins/README.md)
 
 ## Contributing
 
 #### General Prerequisites
 
 1. Install make
-1. [Install nvm](https://github.com/nvm-sh/nvm)
+1. [Install fnm](https://github.com/Schniz/fnm)
 1. [Install husky](https://typicode.github.io/husky/#/)
    https://typicode.github.io/husky/#/
-   - `npx husky install`
-1. [Install yarn](https://classic.yarnpkg.com/lang/en/docs/install)
+   - `pnpm --filter @dopt/cli exec husky install`
+1. [Install pnpm](https://pnpm.io/installation)
 
 #### General Setup
 
@@ -51,22 +77,24 @@ cd odopt;
 
 #### Development
 
-Configure your shell to use the correct node version.
+Node version management
 
 ```bash
-  nvm use
+#first time
+$ fnm use `cat .nvmrc`
+
+#subsequently
+$ fnm use
 ```
 
 Install all the dependencies of the monorepo
 
 ```bash
-  make install
-```
+# install all dependencies in monorepo
+$ pnpm i;
 
-Build all packages
-
-```bash
-  make build
+# build monorepo
+$ make build;
 ```
 
 If for any reason you need to start fresh you can run the following
