@@ -1,9 +1,10 @@
 ## @dopt/config
 
-Shared package configuration.
+Shared configuration for Dopt packages.
 
-Today this contains configuration for
+Today this contains shared/common configuration for
 
+1. Typescript Config
 1. Linting
 1. Formatting
 1. Testing
@@ -13,22 +14,18 @@ this package e.g.
 
 ```
 "devDependencies": {
-  "@dopt/config": "workspace: *",
+  "@dopt/config": "workspace:*",
   ...
 }
 ```
 
-Which will allow for extension of configuration contained here e.g. in your package's `.prettierrc.js`
+Which allows for extension of configuration contained here e.g. in your package's `.prettierrc.js`
 
-```
-const { prettier } = require('@dopt/config');
+```typescript
+const { prettier } = require("@dopt/config");
 module.exports = {
   ...prettier,
 };
-
 ```
 
-This is wired up by default if you use the various package generators
-
-1. [@dopt/package-generator](../package-generator)
-1. [@dopt/bodo-component-generator](../bodo-component-generator)
+The dependency on this package is wired up by default when using our package generator [@dopt/pkgen](../pkgen).
