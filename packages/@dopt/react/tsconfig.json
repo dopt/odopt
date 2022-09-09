@@ -1,0 +1,25 @@
+{
+  "extends": "@dopt/config/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "declarationMap": false,
+    "declaration": true,
+    "declarationDir": "./types",
+    "jsx": "react-jsx",
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
+    "noEmit": false,
+    "outDir": "./dist",
+    "paths": { "@/*": ["./*"] },
+    "rootDir": "./src",
+    "target": "es5"
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "rollup.types.ts",
+    "rollup.config.ts",
+    "tsup.config.ts",
+    "usecases/**"
+  ],
+  "include": ["**/*.ts", "**/*.tsx"]
+}
