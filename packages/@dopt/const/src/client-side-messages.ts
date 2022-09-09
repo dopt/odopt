@@ -1,4 +1,4 @@
-export const SAVE_FAIL_MSG = 'Could not save block. Please try again.';
+export const SAVE_BLOCK_FAIL_MSG = 'Could not save block. Please try again.';
 export const DELETE_FAIL_MSG = 'Could not delete block. Please try again.';
 export const RESET_FAIL_MSG = 'Could not reset flow. Please try again.';
 export const INVALID_EMAIL_MSG =
@@ -23,8 +23,8 @@ export const MOVE_BLOCK_FAIL_MSG = 'Could not move block';
 export const CONNECT_EDGE_FAIL_MSG = 'Could not connect blocks';
 export const DELETE_EDGE_FAIL_MSG = 'Could not delete edge';
 
-export const LOAD_BLOCK_FAIL_MSG = 'Could not load block. Please try again.';
-export const SAVE_BLOCK_FAIL_MSG = 'Could not save block. Please try again.';
+export const TARGETING_SAVE_FAIL =
+  'Could not save targeting rules. Please try again.';
 
 export const renameFailMessage = (model: string) =>
   `Could not rename ${model}. Please try again.`;

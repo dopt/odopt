@@ -13,7 +13,7 @@ export const LEARN_MORE_USER_LINK =
   'https://docs.dopt.com/using-dopt#identify-users';
 
 export const TARGETING_RULES_LINK =
-  'https://docs.dopt.com/concepts#start-blocks';
+  'https://docs.dopt.com/concepts#targeting-rules-expression-language';
 
 export const RESET_USER_API_LINK = 'https://docs.dopt.com/using-dopt#live';
 
