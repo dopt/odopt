@@ -11,3 +11,4 @@ export * from './session';
 export * from './date';
 export * from './environments';
 export * from './error';
+export * from './version';
