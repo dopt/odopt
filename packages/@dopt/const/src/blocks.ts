@@ -9,7 +9,7 @@ export type BlockType =
   | 'WebhookBlock';
 
 export const DEFAULT_BLOCK_NAMES: Record<BlockType, string> = {
-  EntryBlock: 'Start Block',
+  EntryBlock: 'Start',
   ModelBlock: 'Step',
   FinishBlock: 'Finish',
   SwitchBlock: 'Switch',
