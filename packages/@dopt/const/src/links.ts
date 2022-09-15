@@ -1,5 +1,7 @@
 export const DOCS_LINK = 'https://docs.dopt.com/';
 
+export const DOCS_API_LINK = 'https://dopt.readme.io/';
+
 export const REACT_SDK_LINK = 'https://react-sdk-docs.vercel.app/index.html';
 
 export const LEARN_MORE_FLOWS_LINK = 'https://docs.dopt.com/concepts#flows';
@@ -41,5 +43,8 @@ export const CAREERS_LINK =
 export const TWITTER_LINK = 'https://twitter.com/doptcom';
 
 export const GITHUB_LINK = 'https://github.com/dopt';
+
+export const GITHUB_REACT_SDK_LINK =
+  'https://github.com/dopt/odopt/tree/main/packages/%40dopt/react-sdk';
 
 export const LINKEDIN_LINK = 'https://www.linkedin.com/company/dopt/';
