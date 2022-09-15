@@ -36,7 +36,7 @@ export const STATUS_LINK = 'https://status.dopt.com/';
 export const BETA_SIGN_UP_LINK = 'https://39r8t85dp9b.typeform.com/to/iC9Djp16';
 
 export const CAREERS_LINK =
-  'https://switchboard.notion.site/Careers-Dopt-baf8816069fe42f284a678e0f9541570';
+  'https://dopt.notion.site/Careers-Dopt-baf8816069fe42f284a678e0f9541570';
 
 export const TWITTER_LINK = 'https://twitter.com/doptcom';
 
