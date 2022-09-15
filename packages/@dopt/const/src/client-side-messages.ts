@@ -1,6 +1,8 @@
 export const SAVE_BLOCK_FAIL_MSG = 'Could not save block. Please try again.';
 export const DELETE_FAIL_MSG = 'Could not delete block. Please try again.';
 export const RESET_FAIL_MSG = 'Could not reset flow. Please try again.';
+export const VERSION_RESTORE_FAIL_MSG =
+  'Could not restore version. Please try again.';
 export const INVALID_EMAIL_MSG =
   'Your email address is not allowed. Please try a different one.';
 export const REGENERATE_APIKEY_FAIL_MSG =
