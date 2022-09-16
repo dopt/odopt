@@ -21,6 +21,8 @@ export const RESET_USER_API_LINK = 'https://docs.dopt.com/using-dopt#live';
 
 export const MAILTO_SUPPORT = 'mailto:support@dopt.com';
 
+export const MAILTO_CAREERS = 'mailto:careers@dopt.com';
+
 export const WEBSITE_HOMEPAGE_LINK = 'https://www.dopt.com/';
 
 export const WEBSITE_ABOUT_LINK = 'https://www.dopt.com/about';
