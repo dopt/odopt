@@ -26,7 +26,7 @@ export const CONNECT_EDGE_FAIL_MSG = 'Could not connect blocks';
 export const DELETE_EDGE_FAIL_MSG = 'Could not delete edge';
 
 export const JOURNEY_COMMIT_DESC =
-  'A new version of this journey will be created once you commit these changes.';
+  'A new version of this flow will be created once you commit these changes.';
 
 export const JOURNEY_COMMIT_FAIL_MSG =
   'Could not create commit. Please try again.';
