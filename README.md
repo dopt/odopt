@@ -45,7 +45,7 @@ and their children correspond to packages themselves
 ```
 └── packages
     ├── @dopt
-    ├─────── react-sdk
+    ├─────── react
     ├─────── esbuild-plugins
     ├─────── please
     └─────── ...
@@ -53,7 +53,7 @@ and their children correspond to packages themselves
 
 #### Pacakges
 
-- [@dopt/react-sdk](./packages/@dopt/react-sdk): our React SDK for accessing/manipulating user flow state. [README](./packages/@dopt/react-sdk/README.md)
+- [@dopt/react](./packages/@dopt/react): our React SDK for accessing/manipulating user flow state. [README](./packages/@dopt/react/README.md)
 - [@dopt/please](./packages/@dopt/please): a CLI for developing in monorepos - not building them. [README](./packages/@dopt/please/README.md)
 - [@dopt/esbuild-plugins](./packages/@dopt/esbuild-plugins): esbuild plugins we've built in the process of developing dopt. [README](./packages/@dopt/esbuild-plugins/README.md)
 
