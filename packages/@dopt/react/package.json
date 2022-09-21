@@ -1,7 +1,7 @@
 {
   "name": "@dopt/react",
   "opensource": true,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "An SDK for accessing and transitioning a Journey's Model Blocks in Dopt",
   "license": "MIT",
   "main": "./dist/index.cjs.js",
@@ -18,7 +18,7 @@
     "👇required package scripts": "",
     "build": "rollup -c; rm -rf ./dist/types",
     "clean": "shx rm -rf ./dist",
-    "dev": "rollup -cw",
+    "dev": "rollup -cw --no-watch.clearScreen",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
