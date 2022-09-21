@@ -16,7 +16,7 @@ import { getBlockDefaultState } from './utils';
  * ```
  *
  */
-export interface Methods {
+export interface Intentions {
   /**
    * Signals that the experience this {@link Block} powers has
    * begun.  A noop if the {@link Block} isn't active.
@@ -94,17 +94,31 @@ export interface Methods {
  *
  * @alpha
  */
-const useDopt = (identifier: string): [Block, Methods] => {
-  const { blocks, methods } = useContext(DoptContext);
+const useDopt = (identifier: string): [block: Block, intent: Intentions] => {
+  const { loading, blocks, intentions } = useContext(DoptContext);
+
   useEffect(() => {
-    if (!(identifier in blocks)) {
-      methods.get(identifier);
+    if (!loading && !(identifier in blocks)) {
+      intentions.get(identifier);
     }
-  }, [identifier]);
-  const start = useCallback(() => methods.start(identifier), []);
-  const complete = useCallback(() => methods.complete(identifier), []);
-  const stop = useCallback(() => methods.stop(identifier), []);
-  const exit = useCallback(() => methods.exit(identifier), []);
+  }, [identifier, loading, intentions]);
+
+  const start = useCallback(
+    () => !loading && intentions.start(identifier),
+    [loading]
+  );
+  const complete = useCallback(
+    () => !loading && intentions.complete(identifier),
+    [loading]
+  );
+  const stop = useCallback(
+    () => !loading && intentions.stop(identifier),
+    [loading]
+  );
+  const exit = useCallback(
+    () => !loading && intentions.exit(identifier),
+    [loading]
+  );
 
   return [
     blocks[identifier] || getBlockDefaultState(identifier),
