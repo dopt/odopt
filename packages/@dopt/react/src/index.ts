@@ -3,7 +3,7 @@ export { DoptContext } from './context';
 export { useDopt } from './use-dopt';
 export { withDopt } from './with-dopt';
 
-export type { Methods } from './use-dopt';
+export type { Intentions } from './use-dopt';
 export type {
   Block,
   Blocks,
