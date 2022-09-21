@@ -39,8 +39,8 @@ export function withDopt<T>(
   const displayName = Component.displayName || Component.name || 'Component';
 
   const ComponentWithDopt = (props: Omit<T, keyof WithDoptProps>) => {
-    const [block, methods] = useDopt(identifier);
-    return <Component {...(props as T)} block={block} methods={methods} />;
+    const [block, intent] = useDopt(identifier);
+    return <Component {...(props as T)} block={block} intent={intent} />;
   };
 
   ComponentWithDopt.displayName = `withDopt(${displayName}, ${identifier})`;

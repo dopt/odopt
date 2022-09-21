@@ -208,49 +208,6 @@ importers:
       tsup: 6.2.1_n3obitu6di6pdud4pbyvsw4j4i
       typescript: 4.7.4
 
-  packages/@dopt/react-sdk:
-    specifiers:
-      '@dopt/check-formatting': workspace:*
-      '@dopt/config': workspace:*
-      '@dopt/tsup': workspace:*
-      '@swc/core': 1.2.237
-      '@types/jest': 28.1.6
-      '@types/react': 18.0.17
-      '@typescript-eslint/eslint-plugin': 5.32.0
-      '@typescript-eslint/parser': 5.32.0
-      esbuild: 0.15.0
-      esbuild-jest: 0.5.0
-      eslint: 8.21.0
-      eslint-plugin-react: 7.30.1
-      jest: 29.0.0
-      prettier: 2.7.1
-      react: '>=16.8.0'
-      regenerator-runtime: ^0.13.9
-      shx: 0.3.4
-      tsup: 6.2.1
-      typescript: 4.7.4
-    dependencies:
-      react: 18.2.0
-      regenerator-runtime: 0.13.9
-    devDependencies:
-      '@dopt/check-formatting': link:../check-formatting
-      '@dopt/config': link:../config
-      '@dopt/tsup': link:../tsup
-      '@swc/core': 1.2.237
-      '@types/jest': 28.1.6
-      '@types/react': 18.0.17
-      '@typescript-eslint/eslint-plugin': 5.32.0_iosr3hrei2tubxveewluhu5lhy
-      '@typescript-eslint/parser': 5.32.0_qugx7qdu5zevzvxaiqyxfiwquq
-      esbuild: 0.15.0
-      esbuild-jest: 0.5.0_esbuild@0.15.0
-      eslint: 8.21.0
-      eslint-plugin-react: 7.30.1_eslint@8.21.0
-      jest: 29.0.0
-      prettier: 2.7.1
-      shx: 0.3.4
-      tsup: 6.2.1_n3obitu6di6pdud4pbyvsw4j4i
-      typescript: 4.7.4
-
   packages/@dopt/topoftree:
     specifiers:
       '@dopt/check-formatting': workspace:*
