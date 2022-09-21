@@ -19,7 +19,14 @@ import { isMockProviderProps } from './utils';
  *
  *  export function Index() {
  *    return (
- *      <DoptProvider userId={userId} apikey={blockAPIKey}>
+ *      <DoptProvider
+ *        userId={userId}
+ *         apikey={blockAPIKey}
+ *         flowVersions={{
+ *          onboardingFlow: 3,
+ *          upgradeFlow: 1
+ *         }}
+ *      >
  *        <Application />
  *      </DoptProvider>
  *    );
