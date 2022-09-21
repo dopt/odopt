@@ -32,6 +32,7 @@ To configure the Dopt Provider you will need
 
 1. A Block API key (generated in Dopt)
 1. A user ID (user being an end-user you've identified to Dopt)
+1. The flow identifiers and versions you want your end-users to experience
 
 ### Usage
 
@@ -45,7 +46,11 @@ import Application from "./application";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
-  <DoptProvider userId={userId} apiKey={blockAPIKey}>
+  <DoptProvider
+    flowVersion={{ "user-onboarding": 2, "upsell-flow": 4 }}
+    userId={userId}
+    apiKey={blockAPIKey}
+  >
     <Application />
   </DoptProvider>,
   rootElement

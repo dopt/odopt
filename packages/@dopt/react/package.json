@@ -18,7 +18,7 @@
     "👇required package scripts": "",
     "build": "rollup -c; rm -rf ./dist/types",
     "clean": "shx rm -rf ./dist",
-    "dev": "rollup -cw",
+    "dev": "rollup -cw --no-watch.clearScreen",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",

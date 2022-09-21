@@ -1,6 +1,6 @@
 const URL_PREFIX = `https://blocks.dopt.com`;
 
-import { Methods, Blocks, Block } from './types';
+import { Intentions, Blocks, Block, BlockIdentifier } from './types';
 import { getBlockDefaultState, updatedBlocksAsMap } from './utils';
 
 import { errorHandler } from './error-handler';
@@ -10,7 +10,7 @@ const blockRequests: { [identifier: string]: Promise<Block> } = {};
 export async function client(
   url: string,
   apiKey: string,
-  options?: { [key: string]: any }
+  options?: RequestInit
 ) {
   const response = await fetch(`${URL_PREFIX}${url}`, {
     ...options,
@@ -27,12 +27,47 @@ export async function client(
   return await response.json();
 }
 
-export const createIntentApi = (userId: string, apiKey: string) => {
+export function blocksApi(apiKey: string, uid: string) {
+  return {
+    async fetchBlockIdentifiersForFlowVersion(
+      journeyIdentifier: string,
+      version: number
+    ): Promise<BlockIdentifier[]> {
+      return await client(
+        `/blocks?journeyIdentifier=${journeyIdentifier}&version=${version}`,
+        apiKey
+      );
+    },
+
+    async fetchBlock(bid: string, version: number) {
+      if (!(bid in blockRequests)) {
+        const blockRequest = client(
+          `/block/${bid}?version=${version}&endUserIdentifier=${uid}`,
+          apiKey
+        );
+        blockRequests[bid] = blockRequest;
+        const block = await blockRequest;
+        return {
+          [bid]: block || getBlockDefaultState(bid),
+        };
+      } else {
+        const block = await blockRequests[bid];
+        return {
+          [bid]: block || getBlockDefaultState(bid),
+        };
+      }
+    },
+
+    intent: createIntentApi(apiKey, uid),
+  };
+}
+
+export const createIntentApi = (apiKey: string, uid: string) => {
   const intentApi =
-    (method: keyof Methods) =>
-    async (identifier: string): Promise<Blocks> => {
+    (intention: keyof Intentions) =>
+    async (bid: string, vid: number): Promise<Blocks> => {
       const response = await client(
-        `/user/${userId}/block/${identifier}/${method}`,
+        `/block/${bid}/${intention}?version=${vid}&endUserIdentifier=${uid}`,
         apiKey,
         {
           method: 'POST',
@@ -46,34 +81,14 @@ export const createIntentApi = (userId: string, apiKey: string) => {
       if (response && response.block && response.updated) {
         const { block, updated } = response;
         return {
-          [identifier]: block,
+          [bid]: block,
           ...updatedBlocksAsMap(updated),
         };
       }
       return {};
     };
 
-  const getBlockApi = async (identifier: string): Promise<Blocks> => {
-    if (!(identifier in blockRequests)) {
-      const blockRequest = client(
-        `/user/${userId}/block/${identifier}`,
-        apiKey
-      );
-      blockRequests[identifier] = blockRequest;
-      const block = await blockRequest;
-      return {
-        [identifier]: block || getBlockDefaultState(identifier),
-      };
-    } else {
-      const block = await blockRequests[identifier];
-      return {
-        [identifier]: block || getBlockDefaultState(identifier),
-      };
-    }
-  };
-
   return {
-    get: getBlockApi,
     complete: intentApi('complete'),
     exit: intentApi('exit'),
     start: intentApi('start'),
