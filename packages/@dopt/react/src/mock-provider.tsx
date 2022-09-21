@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DoptContext } from './context';
-import { Methods, Blocks, MockProviderConfig, Block } from './types';
+import { Intentions, Blocks, MockProviderConfig, Block } from './types';
 
 const validIntentState = ({ active, completed, stopped, exited }: Block) =>
   active && !completed && !stopped && !exited;
@@ -33,7 +33,7 @@ export function MockDoptProvider(props: MockProviderConfig) {
     }
   }
 
-  const methods: Methods = {
+  const intentions: Intentions = {
     get: () => {},
     start: (identifier) => updateState(blocks, identifier, { started: true }),
     complete: (identifier) =>
@@ -56,7 +56,8 @@ export function MockDoptProvider(props: MockProviderConfig) {
   return (
     <DoptContext.Provider
       value={{
-        methods,
+        loading: false,
+        intentions,
         blocks,
       }}
     >

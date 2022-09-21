@@ -13,7 +13,9 @@ export interface Blocks {
   [identifier: string]: Block;
 }
 
-export interface Methods {
+export type BlockIdentifier = Pick<Block, 'uuid'>;
+
+export interface Intentions {
   /** @internal */
   get: (identifier: string) => void;
   start: (identifier: string) => void;
@@ -41,6 +43,7 @@ export interface BaseProviderConfig {
 export interface ProviderConfig extends BaseProviderConfig {
   userId: string;
   apiKey: string;
+  flowVersions: Record<string, number>;
 }
 
 /**
