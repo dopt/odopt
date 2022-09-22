@@ -1,6 +1,6 @@
 export type UserProps = {
   id: number;
-  workspaceId: string;
+  workspaceIdLegacy: string;
   iat: number;
   exp: number;
 };
