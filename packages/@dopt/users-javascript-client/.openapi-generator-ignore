@@ -1,0 +1,8 @@
+src/docs/**
+src/test/**
+src/.babelrc
+src/.travis.yml
+src/mocha.opts
+src/package.json
+src/README.md
+src/.openapi-generator-ignore
