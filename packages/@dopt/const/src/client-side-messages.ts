@@ -30,8 +30,7 @@ export const JOURNEY_COMMIT_DESC =
 
 export const JOURNEY_COMMIT_FAIL_MSG =
   'Could not create commit. Please try again.';
-export const TARGETING_SAVE_FAIL =
-  'Could not save targeting rules. Please try again.';
+export const TARGETING_SAVE_FAIL = 'Could not save changes. Please try again.';
 
 export const renameFailMessage = (model: string) =>
   `Could not rename ${model}. Please try again.`;
