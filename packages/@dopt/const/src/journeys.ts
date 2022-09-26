@@ -20,3 +20,8 @@ export const ENABLE_JOURNEY_MSG =
 
 export const ENABLED_DISPLAY_STR = 'Enabled';
 export const DISABLED_DISPLAY_STR = 'Disabled';
+
+export enum MIGRATION_STRATEGY {
+  reset = 'Reset',
+  exit = 'Exit',
+}
