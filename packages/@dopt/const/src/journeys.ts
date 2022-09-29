@@ -23,5 +23,6 @@ export const DISABLED_DISPLAY_STR = 'Disabled';
 
 export enum MIGRATION_STRATEGY {
   reset = 'Reset',
+  restart = 'Restart',
   exit = 'Exit',
 }
