@@ -10,7 +10,7 @@ build: generate/users-javascript-client
 generate/users-javascript-client: # Generates users-javascript-client
 	rm -r spec; \
 	rm -r src; \
-	mkdir spec && cp ../../../services/@users/service/spec/external/open-api-spec.json spec/; \
+	mkdir spec && cp ../api-manifest/spec/users-service/open-api-spec.json spec/; \
 	docker run --rm -v "${PWD}:/local" --user=`id -u`:`id -g` \
 	  openapitools/openapi-generator-cli:v6.1.0 generate -i /local/spec/open-api-spec.json -g javascript -o /local/src \
     --ignore-file-override=/local/.openapi-generator-ignore \
