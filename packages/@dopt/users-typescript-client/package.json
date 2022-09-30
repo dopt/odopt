@@ -14,7 +14,7 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "make build",
+    "build": "./build.sh",
     "clean": "shx rm -rf ./dist",
     "dev": "echo \"@dopt/users-typescript-client does not require dev\"; exit 0;",
     "format": "echo \"@dopt/users-typescript-client does not require formatting\"; exit 0;",
@@ -32,6 +32,7 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
+    "@dopt/api-manifest": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
     "@types/request": "^2.48.8",

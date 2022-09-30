@@ -30,6 +30,7 @@
     "superagent": "^8.0.0"
   },
   "devDependencies": {
+    "@dopt/api-manifest": "workspace:*",
     "rollup": "2.77.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "shx": "0.3.4"
