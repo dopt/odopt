@@ -1,6 +1,7 @@
 {
   "name": "@dopt/users-typescript-client",
-  "version": "0.0.0",
+  "opensource": true,
+  "version": "0.0.1",
   "description": "auto generated user service typescript client",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
