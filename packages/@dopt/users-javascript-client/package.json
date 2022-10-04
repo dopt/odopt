@@ -12,7 +12,7 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "make build",
+    "build": "./build.sh",
     "clean": "shx rm -rf ./dist",
     "dev": "echo \"@dopt/users-javascript-client does not require dev\"; exit 0;",
     "format": "echo \"@dopt/users-javascript-client does not require formatting\"; exit 0;",
