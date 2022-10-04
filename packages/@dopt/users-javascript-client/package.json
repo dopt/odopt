@@ -1,0 +1,39 @@
+{
+  "name": "@dopt/users-javascript-client",
+  "opensource": true,
+  "version": "0.0.1",
+  "description": "auto generated user service javascript client",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.esm.js"
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "./build.sh",
+    "clean": "shx rm -rf ./dist",
+    "dev": "echo \"@dopt/users-javascript-client does not require dev\"; exit 0;",
+    "format": "echo \"@dopt/users-javascript-client does not require formatting\"; exit 0;",
+    "formatcheck": "echo \"@dopt/users-javascript-client does not require formatcheck\"; exit 0;",
+    "lint": "echo \"@dopt/users-javascript-client does not require lint\"; exit 0;",
+    "test": "echo \"@dopt/users-javascript-client does not require test\"; exit 0;",
+    "typecheck": "echo \"@dopt/users-javascript-client does not require typecheck\"; exit 0;",
+    "☝️ required package scripts": ""
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "querystring": "^0.2.1",
+    "superagent": "^8.0.1"
+  },
+  "devDependencies": {
+    "@dopt/api-manifest": "workspace:*",
+    "rollup": "2.79.1",
+    "rollup-plugin-peer-deps-external": "2.2.4",
+    "shx": "0.3.4"
+  }
+}
