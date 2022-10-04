@@ -47,7 +47,7 @@ import Application from "./application";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <DoptProvider
-    flowVersion={{ "user-onboarding": 2, "upsell-flow": 4 }}
+    flowVersions={{ "user-onboarding": 2, "upsell-flow": 4 }}
     userId={userId}
     apiKey={blockAPIKey}
   >
