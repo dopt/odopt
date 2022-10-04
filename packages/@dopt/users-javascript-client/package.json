@@ -1,6 +1,7 @@
 {
   "name": "@dopt/users-javascript-client",
-  "version": "0.0.0",
+  "opensource": true,
+  "version": "0.0.1",
   "description": "auto generated user service javascript client",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
