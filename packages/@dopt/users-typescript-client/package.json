@@ -1,0 +1,44 @@
+{
+  "name": "@dopt/users-typescript-client",
+  "opensource": true,
+  "version": "0.0.1",
+  "description": "auto generated user service typescript client",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "./build.sh",
+    "clean": "shx rm -rf ./dist",
+    "dev": "echo \"@dopt/users-typescript-client does not require dev\"; exit 0;",
+    "format": "echo \"@dopt/users-typescript-client does not require formatting\"; exit 0;",
+    "formatcheck": "echo \"@dopt/users-typescript-client does not require formatcheck\"; exit 0;",
+    "lint": "echo \"@dopt/users-typescript-client does not require lint\"; exit 0;",
+    "test": "echo \"@dopt/users-typescript-client does not require test\"; exit 0;",
+    "typecheck": "echo \"@dopt/users-typescript-client does not require typecheck\"; exit 0;",
+    "☝️ required package scripts": ""
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "axios": "^0.27.2",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@dopt/api-manifest": "workspace:*",
+    "@dopt/config": "workspace:*",
+    "@dopt/tsup": "workspace:*",
+    "@types/request": "^2.48.8",
+    "shx": "0.3.4",
+    "tsup": "6.2.3",
+    "typescript": "4.8.4"
+  }
+}
