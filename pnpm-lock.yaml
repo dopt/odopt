@@ -167,7 +167,7 @@ importers:
     specifiers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
-      '@rollup/plugin-typescript': 8.3.3
+      '@rollup/plugin-typescript': 8.5.0
       '@types/jest': 29.1.1
       '@types/react': 18.0.21
       '@types/rollup-plugin-peer-deps-external': ^2.2.1
@@ -190,7 +190,7 @@ importers:
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
-      '@rollup/plugin-typescript': 8.3.3_hafrwlgfjmvsm7253l3bfjzhnq
+      '@rollup/plugin-typescript': 8.5.0_hafrwlgfjmvsm7253l3bfjzhnq
       '@types/jest': 29.1.1
       '@types/react': 18.0.21
       '@types/rollup-plugin-peer-deps-external': 2.2.1
@@ -304,13 +304,13 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/tsup': workspace:*
       '@types/request': ^2.48.8
-      axios: ^0.27.2
+      axios: ^1.0.0
       request: ^2.88.2
       shx: 0.3.4
       tsup: 6.2.3
       typescript: 4.8.4
     dependencies:
-      axios: 0.27.2
+      axios: 1.0.0
       request: 2.88.2
     devDependencies:
       '@dopt/api-manifest': link:../api-manifest
@@ -2735,8 +2735,8 @@ packages:
       write-yaml-file: 4.2.0
     dev: false
 
-  /@rollup/plugin-typescript/8.3.3_hafrwlgfjmvsm7253l3bfjzhnq:
-    resolution: {integrity: sha512-55L9SyiYu3r/JtqdjhwcwaECXP7JeJ9h1Sg1VWRJKIutla2MdZQodTgcCNybXLMCnqpNLEhS2vGENww98L1npg==}
+  /@rollup/plugin-typescript/8.5.0_hafrwlgfjmvsm7253l3bfjzhnq:
+    resolution: {integrity: sha512-wMv1/scv0m/rXx21wD2IsBbJFba8wGF3ErJIr6IKRfRj49S85Lszbxb4DCo8iILpluTjk2GAAu9CoZt4G3ppgQ==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
       rollup: ^2.14.0
@@ -3755,11 +3755,12 @@ packages:
     resolution: {integrity: sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==}
     dev: false
 
-  /axios/0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+  /axios/1.0.0:
+    resolution: {integrity: sha512-SsHsGFN1qNPFT5QhSoSD37SHDfGyLSW5AESmyLk2JeCMHv5g0I9g0Hz/zQHx2KNe0jGXh2q2hAm7OdkXm360CA==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -7898,6 +7899,10 @@ packages:
 
   /proto-list/1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
+    dev: false
+
+  /proxy-from-env/1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
     dev: false
 
   /psl/1.9.0:
