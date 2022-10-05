@@ -11,8 +11,8 @@ export const LEARN_MORE_USERS_LINK = 'https://docs.dopt.com/concepts#users';
 export const LEARN_MORE_APIKEY_LINK =
   'https://docs.dopt.com/using-dopt#create-an-api-key';
 
-export const LEARN_MORE_USER_LINK =
-  'https://docs.dopt.com/using-dopt#identify-users';
+export const DOCS_IDENTIFYING_USERS_LINK =
+  'https://docs.dopt.com/guides/identifying-users';
 
 export const TARGETING_RULES_LINK =
   'https://docs.dopt.com/concepts#targeting-rules-expression-language';
@@ -49,3 +49,9 @@ export const GITHUB_REACT_SDK_LINK =
   'https://github.com/dopt/odopt/tree/main/packages/%40dopt/react-sdk';
 
 export const LINKEDIN_LINK = 'https://www.linkedin.com/company/dopt/';
+
+export const DOCS_ENVIRONMENTS_LINK =
+  'https://docs.dopt.com/concepts/environments';
+
+export const DOCS_SEGEMENT_INTEGRATION_LINK =
+  'https://docs.dopt.com/integrations/segment-integration';
