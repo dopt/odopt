@@ -167,7 +167,7 @@ importers:
     specifiers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
-      '@rollup/plugin-typescript': 8.3.3
+      '@rollup/plugin-typescript': 8.5.0
       '@types/jest': 29.1.1
       '@types/react': 18.0.21
       '@types/rollup-plugin-peer-deps-external': ^2.2.1
@@ -190,7 +190,7 @@ importers:
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
-      '@rollup/plugin-typescript': 8.3.3_hafrwlgfjmvsm7253l3bfjzhnq
+      '@rollup/plugin-typescript': 8.5.0_hafrwlgfjmvsm7253l3bfjzhnq
       '@types/jest': 29.1.1
       '@types/react': 18.0.21
       '@types/rollup-plugin-peer-deps-external': 2.2.1
@@ -2735,8 +2735,8 @@ packages:
       write-yaml-file: 4.2.0
     dev: false
 
-  /@rollup/plugin-typescript/8.3.3_hafrwlgfjmvsm7253l3bfjzhnq:
-    resolution: {integrity: sha512-55L9SyiYu3r/JtqdjhwcwaECXP7JeJ9h1Sg1VWRJKIutla2MdZQodTgcCNybXLMCnqpNLEhS2vGENww98L1npg==}
+  /@rollup/plugin-typescript/8.5.0_hafrwlgfjmvsm7253l3bfjzhnq:
+    resolution: {integrity: sha512-wMv1/scv0m/rXx21wD2IsBbJFba8wGF3ErJIr6IKRfRj49S85Lszbxb4DCo8iILpluTjk2GAAu9CoZt4G3ppgQ==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
       rollup: ^2.14.0
