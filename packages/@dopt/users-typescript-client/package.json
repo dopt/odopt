@@ -29,7 +29,7 @@
     "dist"
   ],
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^1.0.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
