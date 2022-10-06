@@ -1,5 +1,11 @@
 # @dopt/users-typescript-client
 
+## 0.0.2
+
+### Patch Changes
+
+- 525528f5: docs(@dopt/users-typescript-client) add README
+
 ## 0.0.1
 
 ### Patch Changes
