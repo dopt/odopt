@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-The Dopt React SDK offers a convient framework-native client for accessing Dopt's Block Model API, allowing you to bind user journey state (defined in Dopt) to your UI.
+The Dopt React SDK offers a convenient framework-native client for accessing Dopt's Block Model API, allowing you to bind user journey state (defined in Dopt) to your UI.
 
 Check out our [type doc](https://paka.dev/npm/@dopt/react) for source code level documentation!
 
@@ -10,13 +10,13 @@ Check out our [type doc](https://paka.dev/npm/@dopt/react) for source code level
 
 Via Yarn:
 
-```
+```bash
 yarn add @dopt/react
 ```
 
 Via pnpm:
 
-```
+```bash
 pnpm add @dopt/react
 ```
 
