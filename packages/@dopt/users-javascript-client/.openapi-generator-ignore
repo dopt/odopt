@@ -6,3 +6,4 @@ src/mocha.opts
 src/package.json
 src/README.md
 src/.openapi-generator-ignore
+src/git_push.sh
