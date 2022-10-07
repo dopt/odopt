@@ -4,20 +4,21 @@ export const DOCS_API_LINK = 'https://dopt.readme.io/';
 
 export const REACT_SDK_LINK = 'https://react-sdk-docs.vercel.app/index.html';
 
-export const LEARN_MORE_FLOWS_LINK = 'https://docs.dopt.com/concepts#flows';
+export const DOCS_FLOWS_LINK = 'https://docs.dopt.com/concepts/flows';
 
-export const LEARN_MORE_USERS_LINK = 'https://docs.dopt.com/concepts#users';
+export const DOCS_USERS_LINK = 'https://docs.dopt.com/concepts/users';
 
-export const LEARN_MORE_APIKEY_LINK =
-  'https://docs.dopt.com/using-dopt#create-an-api-key';
+export const DOCS_CREATE_API_KEYS_LINK =
+  'https://docs.dopt.com/getting-started/#create-api-keys';
 
 export const DOCS_IDENTIFYING_USERS_LINK =
   'https://docs.dopt.com/guides/identifying-users';
 
-export const TARGETING_RULES_LINK =
-  'https://docs.dopt.com/concepts#targeting-rules-expression-language';
+export const DOCS_TARGETING_RULES_EXPRESSION_LANGUAGE_LINK =
+  'https://docs.dopt.com/guides/targeting-rules#targeting-rules-expression-language';
 
-export const RESET_USER_API_LINK = 'https://docs.dopt.com/using-dopt#live';
+export const DOCS_RESET_USER_API_LINK =
+  'https://docs.dopt.com/guides/user-flow-state#resetting-user-flow-states';
 
 export const MAILTO_SUPPORT = 'mailto:support@dopt.com';
 
@@ -46,7 +47,7 @@ export const TWITTER_LINK = 'https://twitter.com/doptcom';
 export const GITHUB_LINK = 'https://github.com/dopt';
 
 export const GITHUB_REACT_SDK_LINK =
-  'https://github.com/dopt/odopt/tree/main/packages/%40dopt/react-sdk';
+  'https://github.com/dopt/odopt/tree/main/packages/%40dopt/react';
 
 export const LINKEDIN_LINK = 'https://www.linkedin.com/company/dopt/';
 
