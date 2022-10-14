@@ -20,7 +20,7 @@ importers:
   packages/@dopt/config:
     specifiers:
       '@dopt/check-formatting': workspace:*
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0
       '@typescript-eslint/parser': 5.39.0
       '@vanilla-extract/css': 1.9.1
@@ -38,7 +38,7 @@ importers:
       typescript: 4.8.4
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
       '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
       '@vanilla-extract/css': 1.9.1
@@ -80,7 +80,7 @@ importers:
       '@dopt/env': workspace:*
       '@dopt/topoftree': workspace:*
       '@dopt/wutils': workspace:*
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0
       '@typescript-eslint/parser': 5.39.0
       esbuild: 0.15.10
@@ -99,7 +99,7 @@ importers:
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
       '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
       esbuild: 0.15.10
@@ -119,7 +119,7 @@ importers:
       '@dopt/tsup': workspace:*
       '@pnpm/find-workspace-dir': ^4.0.2
       '@pnpm/find-workspace-packages': ^4.0.39
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@types/micromatch': ^4.0.2
       '@typescript-eslint/eslint-plugin': 5.39.0
       '@typescript-eslint/parser': 5.39.0
@@ -148,7 +148,7 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/tsup': link:../tsup
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
       '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
       esbuild: 0.15.10
@@ -168,7 +168,7 @@ importers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
       '@rollup/plugin-typescript': 8.3.3
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@types/react': 18.0.21
       '@types/rollup-plugin-peer-deps-external': ^2.2.1
       '@typescript-eslint/eslint-plugin': 5.39.0
@@ -191,7 +191,7 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@rollup/plugin-typescript': 8.3.3_hafrwlgfjmvsm7253l3bfjzhnq
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@types/react': 18.0.21
       '@types/rollup-plugin-peer-deps-external': 2.2.1
       '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
@@ -213,7 +213,7 @@ importers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
       '@dopt/env': workspace:*
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0
       '@typescript-eslint/parser': 5.39.0
       esbuild: 0.15.10
@@ -229,7 +229,7 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/env': link:../env
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
       '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
       esbuild: 0.15.10
@@ -248,7 +248,7 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/env': workspace:*
       '@dopt/esbuild-plugins': workspace:*
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0
       '@typescript-eslint/parser': 5.39.0
       '@vanilla-extract/esbuild-plugin': 2.2.0
@@ -269,7 +269,7 @@ importers:
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
       '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
       esbuild: 0.15.10
@@ -330,7 +330,7 @@ importers:
       '@pnpm/find-workspace-dir': ^4.0.2
       '@pnpm/find-workspace-packages': ^4.0.39
       '@pnpm/logger': ^4.0.0
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0
       '@typescript-eslint/parser': 5.39.0
       esbuild: 0.15.10
@@ -355,7 +355,7 @@ importers:
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
-      '@types/jest': 29.1.1
+      '@types/jest': 29.1.2
       '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
       '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
       esbuild: 0.15.10
@@ -863,13 +863,6 @@ packages:
       '@jest/types': 29.1.2
       '@types/node': 18.7.13
       jest-mock: 29.1.2
-    dev: true
-
-  /@jest/expect-utils/29.0.0:
-    resolution: {integrity: sha512-odQ+cjUpui6++a9Ua/oWn7CG0Af+EZe9weWZbfUQHTg7C3K9PCb0AnD4X7nyAe4WjfeZmVVyG5SJELMQaUbCtg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      jest-get-type: 29.0.0
     dev: true
 
   /@jest/expect-utils/29.1.2:
@@ -2878,11 +2871,11 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/29.1.1:
-    resolution: {integrity: sha512-U9Ey07dGWl6fUFaIaUQUKWG5NoKi/zizeVQCGV8s4nSU0jPgqphVZvS64+8BtWYvrc3ZGw6wo943NSYPxkrp/g==}
+  /@types/jest/29.1.2:
+    resolution: {integrity: sha512-y+nlX0h87U0R+wsGn6EBuoRWYyv3KFtwRNP3QWp9+k2tJ2/bqcGS3UxD7jgT+tiwJWWq3UsyV4Y+T6rsMT4XMg==}
     dependencies:
-      expect: 29.0.0
-      pretty-format: 29.0.0
+      expect: 29.1.2
+      pretty-format: 29.1.2
     dev: true
 
   /@types/json-buffer/3.0.0:
@@ -5177,17 +5170,6 @@ packages:
       - supports-color
     dev: true
 
-  /expect/29.0.0:
-    resolution: {integrity: sha512-OKAHGwaBqZ6I7bas0cnrrvomEL2d0yp2XXYQhhnVHfaqDaKStUBxjWtlGu/uI2tBqwb9sBMvaS41DSJFsRRJHQ==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      '@jest/expect-utils': 29.0.0
-      jest-get-type: 29.0.0
-      jest-matcher-utils: 29.0.0
-      jest-message-util: 29.0.0
-      jest-util: 29.0.0
-    dev: true
-
   /expect/29.1.2:
     resolution: {integrity: sha512-AuAGn1uxva5YBbBlXb+2JPxJRuemZsmlGcapPXWNSBNsQtAULfjioREGBWuI0EOvYUKjDnrCy8PW5Zlr1md5mw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -6366,16 +6348,6 @@ packages:
       - supports-color
     dev: true
 
-  /jest-diff/29.0.0:
-    resolution: {integrity: sha512-erkuYf1dQBHow3XJmS+bH6t9TZ0GwrSdQGauN8sTqyZlFByOjRadmHgTTcAHINeeSwxzGHN2ob3PXVvZphD7XQ==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      chalk: 4.1.2
-      diff-sequences: 29.0.0
-      jest-get-type: 29.0.0
-      pretty-format: 29.1.2
-    dev: true
-
   /jest-diff/29.1.2:
     resolution: {integrity: sha512-4GQts0aUopVvecIT4IwD/7xsBaMhKTYoM4/njE/aVw9wpw+pIUVp8Vab/KnSzSilr84GnLBkaP3JLDnQYCKqVQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -6471,16 +6443,6 @@ packages:
       pretty-format: 29.1.2
     dev: true
 
-  /jest-matcher-utils/29.0.0:
-    resolution: {integrity: sha512-HtCxFHI8lQSbN1RppFjtl6DIrS+x4d3lOhpJljVxFEXob4lxlKon3FunW0XoGxNSvIoD00AfTFspnufpOqszrg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      chalk: 4.1.2
-      jest-diff: 29.0.0
-      jest-get-type: 29.0.0
-      pretty-format: 29.1.2
-    dev: true
-
   /jest-matcher-utils/29.1.2:
     resolution: {integrity: sha512-MV5XrD3qYSW2zZSHRRceFzqJ39B2z11Qv0KPyZYxnzDHFeYZGJlgGi0SW+IXSJfOewgJp/Km/7lpcFT+cgZypw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -6489,21 +6451,6 @@ packages:
       jest-diff: 29.1.2
       jest-get-type: 29.0.0
       pretty-format: 29.1.2
-    dev: true
-
-  /jest-message-util/29.0.0:
-    resolution: {integrity: sha512-4U0RdNV0TBTgVGzEchjryEpq4sqLO3gUQT7TEIbO5+q0K5MuiofOPcXk4GLpWviWByMRJjliQNMuzJ4YGT+oGQ==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      '@babel/code-frame': 7.18.6
-      '@jest/types': 29.1.2
-      '@types/stack-utils': 2.0.1
-      chalk: 4.1.2
-      graceful-fs: 4.2.10
-      micromatch: 4.0.5
-      pretty-format: 29.1.2
-      slash: 3.0.0
-      stack-utils: 2.0.5
     dev: true
 
   /jest-message-util/29.1.2:
@@ -6686,18 +6633,6 @@ packages:
       graceful-fs: 4.2.10
       is-ci: 2.0.0
       micromatch: 4.0.5
-    dev: true
-
-  /jest-util/29.0.0:
-    resolution: {integrity: sha512-HMjW/pkFgi34LGKumjNDK03DYonV+nPMNUZ63rZX8PFdBkdIWUtOCEiaa7sAJkWrw5MyMVzSpa22NcOJjoQ3JQ==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      '@jest/types': 29.1.2
-      '@types/node': 18.7.13
-      chalk: 4.1.2
-      ci-info: 3.3.2
-      graceful-fs: 4.2.10
-      picomatch: 2.3.1
     dev: true
 
   /jest-util/29.1.2:
@@ -7823,15 +7758,6 @@ packages:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
     engines: {node: '>=6'}
     dev: false
-
-  /pretty-format/29.0.0:
-    resolution: {integrity: sha512-tMkFRn1vxRwZdiDETcveuNeonRKDg4doOvI+iyb1sOAtxYioGzRicqnsr+d3C/lLv9hBiM/2lDBi5ilR81h2bQ==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      '@jest/schemas': 29.0.0
-      ansi-styles: 5.2.0
-      react-is: 18.2.0
-    dev: true
 
   /pretty-format/29.1.2:
     resolution: {integrity: sha512-CGJ6VVGXVRP2o2Dorl4mAwwvDWT25luIsYhkyVQW32E4nL+TgW939J7LlKT/npq5Cpq6j3s+sy+13yk7xYpBmg==}
