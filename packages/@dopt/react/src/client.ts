@@ -1,11 +1,10 @@
-const URL_PREFIX = `https://blocks.dopt.com`;
-
 import { Intentions, Blocks, Block, BlockIdentifier } from './types';
 import { getBlockDefaultState, updatedBlocksAsMap } from './utils';
 
 import { errorHandler } from './error-handler';
 
 const blockRequests: { [identifier: string]: Promise<Block> } = {};
+const URL_PREFIX = process.env.URL_PREFIX;
 
 export async function client(
   url: string,
