@@ -1,9 +1,2 @@
-src/docs/**
-src/test/**
-src/.babelrc
-src/.travis.yml
-src/mocha.opts
-src/package.json
-src/README.md
-src/.openapi-generator-ignore
 src/git_push.sh
+src/.openapi-generator-ignore
