@@ -2,7 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import externalizePeerDeps from 'rollup-plugin-peer-deps-external';
 import dts from 'rollup-plugin-dts';
 
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 
 const config = [
   {

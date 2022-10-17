@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@dopt/api-manifest": "workspace:*",
-    "rollup": "2.79.1",
+    "rollup": "3.2.2",
     "rollup-plugin-peer-deps-external": "2.2.4",
     "shx": "0.3.4"
   }
