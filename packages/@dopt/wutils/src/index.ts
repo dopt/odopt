@@ -2,8 +2,8 @@ import { execSync } from 'child_process';
 //@ts-ignore
 import { findNearestPackageJsonSync } from 'find-nearest-package-json';
 
-import findWorkspacePackages from '@pnpm/find-workspace-packages';
-import findWorkspaceDir from '@pnpm/find-workspace-dir';
+import { findWorkspacePackages } from '@pnpm/find-workspace-packages';
+import { findWorkspaceDir } from '@pnpm/find-workspace-dir';
 
 import { TOPOFTREE } from '@dopt/topoftree';
 
