@@ -1,5 +1,5 @@
 import findWorkspacePackages, { Project } from '@pnpm/find-workspace-packages';
-import findWorkspaceDir from '@pnpm/find-workspace-dir';
+import { findWorkspaceDir } from '@pnpm/find-workspace-dir';
 
 import { TARGET_EXAMPLE_PACKAGE_SCRIPTS } from './const';
 
