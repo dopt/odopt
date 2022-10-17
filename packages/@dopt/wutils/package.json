@@ -30,7 +30,7 @@
   "dependencies": {
     "@dopt/env": "workspace:*",
     "@dopt/topoftree": "workspace:*",
-    "@pnpm/find-workspace-dir": "^4.0.2",
+    "@pnpm/find-workspace-dir": "^5.0.0",
     "@pnpm/find-workspace-packages": "^4.0.39",
     "@pnpm/logger": "^4.0.0",
     "find-nearest-package-json": "2.0.1",
