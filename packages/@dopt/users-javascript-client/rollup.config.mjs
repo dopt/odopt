@@ -1,6 +1,6 @@
 import externalizePeerDeps from 'rollup-plugin-peer-deps-external';
 
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 
 const config = [
   {
@@ -16,7 +16,7 @@ const config = [
       },
     ],
     plugins: [externalizePeerDeps()],
-    external:['querystring', 'superagent']
+    external: ['querystring', 'superagent'],
   },
 ];
 
