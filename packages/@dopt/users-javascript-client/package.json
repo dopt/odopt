@@ -1,14 +1,16 @@
 {
   "name": "@dopt/users-javascript-client",
   "opensource": true,
-  "version": "0.0.2",
-  "description": "auto generated user service javascript client",
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.esm.js",
+  "version": "0.0.1",
+  "description": "A generated JavaScript API client for Dopt's users API",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs.js",
-      "import": "./dist/index.esm.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
@@ -27,13 +29,16 @@
     "dist"
   ],
   "dependencies": {
-    "querystring": "^0.2.1",
-    "superagent": "^8.0.1"
+    "axios": "^1.0.0",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@dopt/api-manifest": "workspace:*",
-    "rollup": "3.2.2",
-    "rollup-plugin-peer-deps-external": "2.2.4",
-    "shx": "0.3.4"
+    "@dopt/config": "workspace:*",
+    "@dopt/tsup": "workspace:*",
+    "@types/request": "^2.48.8",
+    "shx": "0.3.4",
+    "tsup": "6.2.3",
+    "typescript": "4.8.4"
   }
 }
