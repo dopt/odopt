@@ -24,7 +24,9 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepare": "pnpm build",
+    "prepublishOnly": "pnpm test"
   },
   "files": [
     "dist"
