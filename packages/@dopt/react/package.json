@@ -22,7 +22,7 @@
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
-    "test": "jest",
+    "test": "dotenv-flow -- jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
     "prepare": "pnpm build",
