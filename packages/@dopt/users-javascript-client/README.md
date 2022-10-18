@@ -1,4 +1,4 @@
-# Dopt Users JavaScript Client
+# Dopt's Users Javascript Client
 
 ## Getting Started
 
@@ -36,54 +36,48 @@ To configure the Users JavaScript Client you will need
 
 #### Initialization
 
-```javascript
-import DoptUsersApi from '@dopt/users-javascript-client';
+```typescript
+import { IdentifyApi, Configuration } from '@dopt/users-javascript-client';
 
-let defaultClient = DoptUsersApi.ApiClient.instance;
-// Configure API key authorization: ApiKeyAuth
-let ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
-ApiKeyAuth.apiKey = 'USERS_API_KEY';
-
-let doptUsersClient = new DoptUsersApi.IdentifyApi();
+const doptUsersClient = new IdentifyApi(
+  new Configuration({
+    apiKey: 'USERS_API_KEY',
+  })
+);
 ```
 
 #### Example Usage
 
 Using the `identify` API.
 
-```javascript
-let identifier = 'identifier_example'; // String
-let opts = {
-  'requestBody': {key: 'value'} // {String: String | Number | Boolean | Null}
-};
-doptUsersClient.identify(identifier, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
+```typescript
+const identifier = 'identifier_example';
+const properties = {
+  stringExample: 'string',
+  numberExample: 12345,
+  booleanExample: true,
+  nullExample: null,
+}
+
+doptUsersClient.identify(identifier, properties)
 ```
 
 Using the `identifyBulk` API.
 
-```javascript
-let identifyBulkUser_1 = {
+```typescript
+import { IdentifyBulkRequestBodyInner } from '@dopt/users-javascript-client';
+
+const identifyBulkRequestBody: IdentifyBulkRequestBodyInner[] = []
+const identifyBulkUser_1 = {
   '__dopt_identifier': 'identifier_example_1',
   key: 'value',
-};
-let identifyBulkUser_2 = {
+}
+identifyBulkRequestBody.push(identifyBulkUser_1)
+const identifyBulkUser_2 = {
   '__dopt_identifier': 'identifier_example_2',
   key: 'value',
 }
-let opts = {
-  'identifyBulkRequestBodyInner': [identifyBulkUser_1, identifyBulkUser_2] // [IdentifyBulkRequestBodyInner]
-};
-doptUsersClient.identifyBulk(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
+identifyBulkRequestBody.push(identifyBulkUser_2)
+
+doptUsersClient.identifyBulk([])
 ```

@@ -8,19 +8,18 @@ GENERATOR_JAR=openapi-generator-cli-${GENERATOR_VERSION}.jar
 EXTERNAL_SPEC_LOCATION=../api-manifest/spec/users-service/open-api-spec.json
 
 build-java: generate/users-javascript-client-java
-	pnpm rollup -c
+	pnpm exec tsup src/index.ts --dts --clean
 
 build-docker: generate/users-javascript-client-docker
-	pnpm rollup -c
+	pnpm exec tsup src/index.ts --dts --clean
 
 generate/users-javascript-client-java:
 	rm -rf spec; \
 	rm -rf src; \
 	mkdir spec && cp $(EXTERNAL_SPEC_LOCATION) spec/; \
 	wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/$(GENERATOR_VERSION)/$(GENERATOR_JAR) -O $(GENERATOR_JAR); \
-	exec java -jar $(GENERATOR_JAR) generate -i spec/open-api-spec.json -g javascript -o src \
-		--ignore-file-override=/local/.openapi-generator-ignore \
-		--additional-properties=sourceFolder=/; \
+	exec java -jar $(GENERATOR_JAR) generate -i spec/open-api-spec.json -g typescript-axios -o src \
+		--ignore-file-override=/local/.openapi-generator-ignore; \
 	rm -r openapi-generator-cli.jar;
 
 generate/users-javascript-client-docker:
@@ -28,6 +27,5 @@ generate/users-javascript-client-docker:
 	rm -rf src; \
 	mkdir spec && cp $(EXTERNAL_SPEC_LOCATION) spec/; \
 	docker run --rm -v "${PWD}:/local" --user=`id -u`:`id -g` \
-		openapitools/openapi-generator-cli:v$(GENERATOR_VERSION) generate -i /local/spec/open-api-spec.json -g javascript -o /local/src \
-    --ignore-file-override=/local/.openapi-generator-ignore \
-		--additional-properties=sourceFolder=/
+		openapitools/openapi-generator-cli:v$(GENERATOR_VERSION) generate -i /local/spec/open-api-spec.json -g typescript-axios -o /local/src \
+		--ignore-file-override=/local/.openapi-generator-ignore;
