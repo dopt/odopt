@@ -4,7 +4,7 @@ import { getBlockDefaultState, updatedBlocksAsMap } from './utils';
 import { errorHandler } from './error-handler';
 
 const blockRequests: { [identifier: string]: Promise<Block> } = {};
-const URL_PREFIX = process.env.URL_PREFIX;
+export const URL_PREFIX = process.env.URL_PREFIX;
 
 export async function client(
   url: string,
