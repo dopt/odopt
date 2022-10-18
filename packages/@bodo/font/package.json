@@ -1,6 +1,7 @@
 {
   "name": "@bodo/font",
   "version": "0.0.0",
+  "private": true,
   "description": "Bodo Design System: Font Component",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
