@@ -1,5 +1,11 @@
 # @dopt/users-javascript-client
 
+## 0.0.3
+
+### Patch Changes
+
+- feat(@dopt/users-javascript-client) use typescript-axios openapi generation
+
 ## 0.0.2
 
 ### Patch Changes
