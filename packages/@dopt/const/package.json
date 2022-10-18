@@ -1,6 +1,7 @@
 {
   "name": "@dopt/const",
   "version": "0.0.0",
+  "private": true,
   "description": "A package containing constants to be used throughout the monorepo",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

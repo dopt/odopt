@@ -1,7 +1,7 @@
 {
   "name": "@dopt/react",
-  "opensource": true,
   "version": "0.0.9",
+  "private": false,
   "description": "An SDK for accessing and transitioning a Journey's Model Blocks in Dopt",
   "license": "MIT",
   "main": "./dist/index.cjs.js",
