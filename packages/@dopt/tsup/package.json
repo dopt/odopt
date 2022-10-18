@@ -1,6 +1,7 @@
 {
   "name": "@dopt/tsup",
   "version": "0.0.0",
+  "private": true,
   "description": "A CLI for generating packages in the Dopt monorepo",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

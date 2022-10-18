@@ -1,6 +1,7 @@
 {
   "name": "@bodo/tokens",
   "version": "0.0.0",
+  "private": true,
   "description": "Bodo Design System: Tokens Component",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
