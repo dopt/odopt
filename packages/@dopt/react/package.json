@@ -18,7 +18,7 @@
     "👇required package scripts": "",
     "build": "dotenv-flow -- rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types",
     "clean": "shx rm -rf ./dist",
-    "dev": "rollup -cw --no-watch.clearScreen",
+    "dev": "NODE_ENV=development rollup -w --config rollup.config.ts --configPlugin typescript --no-watch.clearScreen",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
