@@ -32,14 +32,23 @@ export function blocksApi(apiKey: string, uid: string | undefined) {
       journeyIdentifier: string,
       version: number
     ): Promise<BlockIdentifier[]> {
-      return await client(
+      const blockIdentifiers = await client(
         `/blocks?journeyIdentifier=${journeyIdentifier}&version=${version}`,
         apiKey
       );
+      if (blockIdentifiers && blockIdentifiers.length === 0) {
+        console.warn(
+          `[Dopt] An error occurred while fetching blocks for Flow
+            Identifier: ${journeyIdentifier}
+            Version:  ${version}
+         Please confirm that a flow with this identifier and version exists in your Dopt workspace.`
+        );
+      }
+      return blockIdentifiers;
     },
 
     async fetchBlock(bid: string, version: number) {
-      if (!uid) {
+      if (!uid || version === undefined) {
         return {
           [bid]: getBlockDefaultState(bid),
         };
