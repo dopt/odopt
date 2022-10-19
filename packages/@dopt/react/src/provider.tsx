@@ -6,8 +6,7 @@ import { ProviderConfig, Blocks, Intentions } from './types';
 import { blocksApi } from './client';
 
 /**
- * A React Context Provider for accessing Flow Model
- * Block state.
+ * A React context provider for accessing block state.
  *
  * @see {@link BaseDoptProvider}
  *
@@ -56,7 +55,7 @@ export function DoptProvider(props: ProviderConfig) {
   }, [JSON.stringify(flowVersions)]);
 
   /*
-   * Update the initial loading state iff
+   * Update the initial loading state if
    * the blocks have been correctly fetched.
    */
   useEffect(() => {
@@ -74,7 +73,7 @@ export function DoptProvider(props: ProviderConfig) {
   const intentions: Intentions = useMemo(() => {
     /*
      * The loading state is a function of whether versionByFlowId
-     * exists..so in theory the || isn't necessary.
+     * exists, so in theory the `||` isn't necessary.
      */
     if (loading || !versionByFlowId) {
       return {

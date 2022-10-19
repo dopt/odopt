@@ -2,7 +2,7 @@
 
 /**
  * Hypertext Transfer Protocol (HTTP) response status codes.
- * @see {@link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes}
+ * @see {@link https://developer.mozilla.org/docs/Web/HTTP/Status}
  */
 export const HttpStatusCodeRanges = {
   InformationalResponses: (status: number): boolean => {
