@@ -38,9 +38,9 @@ export function blocksApi(apiKey: string, uid: string | undefined) {
       );
       if (blockIdentifiers && blockIdentifiers.length === 0) {
         console.warn(
-          `[Dopt] An error occurred while fetching blocks for Flow
+          `[Dopt] An error occurred while fetching blocks for a flow
             Identifier: ${journeyIdentifier}
-            Version:  ${version}
+            Version: ${version}
          Please confirm that a flow with this identifier and version exists in your Dopt workspace.`
         );
       }
