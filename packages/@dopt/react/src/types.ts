@@ -41,7 +41,7 @@ export interface BaseProviderConfig {
  * relevant data from the Dopt API.
  */
 export interface ProviderConfig extends BaseProviderConfig {
-  userId: string;
+  userId: string | undefined;
   apiKey: string;
   flowVersions: Record<string, number>;
 }
