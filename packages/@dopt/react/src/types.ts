@@ -37,8 +37,8 @@ export interface BaseProviderConfig {
 
 /**
  * Providing this configuration to the {@link DoptProvider} allows
- * for the {@link useDopt}Hook and {@link withDopt}HOC to fetch
- * relevant data from the Dopt API.
+ * for the {@link useDopt} hook and {@link withDopt} HOC to fetch
+ * relevant data from the Dopt blocks API.
  */
 export interface ProviderConfig extends BaseProviderConfig {
   userId: string | undefined;
@@ -52,7 +52,7 @@ export interface ProviderConfig extends BaseProviderConfig {
  */
 export interface MockProviderConfig extends BaseProviderConfig {
   /**
-   * A user provided javascript object for mocking {@link Blocks}
+   * A user provided JavaScript object for mocking {@link Blocks}
    */
   mocks?: Mocks;
 }
