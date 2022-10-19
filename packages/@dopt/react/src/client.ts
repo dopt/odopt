@@ -26,7 +26,7 @@ export async function client(
   return await response.json();
 }
 
-export function blocksApi(apiKey: string, uid: string) {
+export function blocksApi(apiKey: string, uid: string | undefined) {
   return {
     async fetchBlockIdentifiersForFlowVersion(
       journeyIdentifier: string,
@@ -39,21 +39,27 @@ export function blocksApi(apiKey: string, uid: string) {
     },
 
     async fetchBlock(bid: string, version: number) {
-      if (!(bid in blockRequests)) {
-        const blockRequest = client(
-          `/block/${bid}?version=${version}&endUserIdentifier=${uid}`,
-          apiKey
-        );
-        blockRequests[bid] = blockRequest;
-        const block = await blockRequest;
+      if (!uid) {
         return {
-          [bid]: block || getBlockDefaultState(bid),
+          [bid]: getBlockDefaultState(bid),
         };
       } else {
-        const block = await blockRequests[bid];
-        return {
-          [bid]: block || getBlockDefaultState(bid),
-        };
+        if (!(bid in blockRequests)) {
+          const blockRequest = client(
+            `/block/${bid}?version=${version}&endUserIdentifier=${uid}`,
+            apiKey
+          );
+          blockRequests[bid] = blockRequest;
+          const block = await blockRequest;
+          return {
+            [bid]: block || getBlockDefaultState(bid),
+          };
+        } else {
+          const block = await blockRequests[bid];
+          return {
+            [bid]: block || getBlockDefaultState(bid),
+          };
+        }
       }
     },
 
@@ -61,7 +67,7 @@ export function blocksApi(apiKey: string, uid: string) {
   };
 }
 
-export const createIntentApi = (apiKey: string, uid: string) => {
+export const createIntentApi = (apiKey: string, uid: string | undefined) => {
   const intentApi =
     (intention: keyof Intentions) =>
     async (bid: string, vid: number): Promise<Blocks> => {
@@ -84,7 +90,9 @@ export const createIntentApi = (apiKey: string, uid: string) => {
           ...updatedBlocksAsMap(updated),
         };
       }
-      return {};
+      return {
+        [bid]: getBlockDefaultState(bid),
+      };
     };
 
   return {
