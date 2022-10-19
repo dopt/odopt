@@ -1,16 +1,16 @@
 import { DoptContext } from './context';
 
-import { useDopt } from './use-dopt';
+import { Block } from './types';
+import { useDopt, Intentions } from './use-dopt';
 
 export interface WithDoptProps extends DoptContext {}
 
 /**
- * A React HOC for accessing a Journey's Model Block State and
- * methods corresponding to an intent-based API for maniuplating
- * said state.
+ * A React HOC for accessing block state and methods corresponding
+ * to an intent-based API for maniuplating said state.
  *
  * @example
- * ```ts
+ * ```tsx
  *  import { withDopt } from '@dopt/react';
  *  import { WelcomeModal } from './welcome-modal';
  *
@@ -24,11 +24,10 @@ export interface WithDoptProps extends DoptContext {}
  *  }
  * ```
  *
- * @param Component - the React Component you with to inject Dopt props into
- * @param identifier - the "Reference Id" for some Journey Model Block
- * @returns ComponentWidthDopt - the original component with {@link Block | block} and {@link Methods | methods }
+ * @param Component - the React component you with to inject Dopt props into
+ * @param identifier - the reference ID for some step block
+ * @returns The original component with {@link Block | block} and {@link Intentions | intent}
  * props injected in
- *
  *
  * @alpha
  */
