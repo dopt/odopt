@@ -13,9 +13,9 @@ import { blocksApi } from './client';
  *
  * @alpha
  */
+
 export function DoptProvider(props: ProviderConfig) {
   const { userId, apiKey, flowVersions, children } = props;
-
   const [loading, setLoading] = useState<boolean>(true);
 
   const [blocks, setBlocks] = useState<Blocks>({});
@@ -53,7 +53,7 @@ export function DoptProvider(props: ProviderConfig) {
           `);
         });
     })();
-  }, [flowVersions]);
+  }, [JSON.stringify(flowVersions)]);
 
   /*
    * Update the initial loading state iff
@@ -108,7 +108,7 @@ export function DoptProvider(props: ProviderConfig) {
           .exit(identifier, versionByFlowId[identifier])
           .then(updateBlockState),
     };
-  }, [versionByFlowId, loading]);
+  }, [versionByFlowId, loading, intent]);
 
   return (
     <DoptContext.Provider
