@@ -21,7 +21,7 @@
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required pacakge scripts": ""
   },
