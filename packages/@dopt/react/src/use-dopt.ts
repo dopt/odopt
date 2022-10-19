@@ -101,23 +101,29 @@ const useDopt = (identifier: string): [block: Block, intent: Intentions] => {
     if (!loading && !(identifier in blocks)) {
       intentions.get(identifier);
     }
-  }, [identifier, loading, intentions]);
+  }, [identifier, loading]);
+
+  useEffect(() => {
+    if (!loading) {
+      intentions.get(identifier);
+    }
+  }, [intentions, loading]);
 
   const start = useCallback(
     () => !loading && intentions.start(identifier),
-    [loading]
+    [loading, intentions]
   );
   const complete = useCallback(
     () => !loading && intentions.complete(identifier),
-    [loading]
+    [loading, intentions]
   );
   const stop = useCallback(
     () => !loading && intentions.stop(identifier),
-    [loading]
+    [loading, intentions]
   );
   const exit = useCallback(
     () => !loading && intentions.exit(identifier),
-    [loading]
+    [loading, intentions]
   );
 
   return [
