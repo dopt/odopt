@@ -13,7 +13,7 @@ import { isMockProviderProps } from './utils';
  *
  * Using {@link ProviderConfig}
  * @example
- * ```ts
+ * ```tsx
  *  import { DoptProvider } from '@dopt/react';
  *  import Application from './application';
  *
@@ -21,11 +21,11 @@ import { isMockProviderProps } from './utils';
  *    return (
  *      <DoptProvider
  *        userId={userId}
- *         apikey={blockAPIKey}
- *         flowVersions={{
+ *        apikey={blockAPIKey}
+ *        flowVersions={{
  *          onboardingFlow: 3,
  *          upgradeFlow: 1
- *         }}
+ *        }}
  *      >
  *        <Application />
  *      </DoptProvider>

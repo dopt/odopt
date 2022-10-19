@@ -2,8 +2,8 @@ import { createContext } from 'react';
 import { Blocks, Intentions } from './types';
 
 /**
- * The context accessible through either the {@link useDopt}Hook
- * or the {@link withDopt}HOC
+ * The context accessible either through the {@link useDopt} hook
+ * or the {@link withDopt} HOC
  */
 type DoptContext = {
   loading: boolean;
