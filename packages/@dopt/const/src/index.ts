@@ -14,3 +14,5 @@ export * from './error';
 export * from './version';
 export * from './onboarding';
 export * from './numbers';
+export * from './socket/index';
+export * from './api-key';
