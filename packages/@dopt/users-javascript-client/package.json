@@ -1,7 +1,7 @@
 {
   "name": "@dopt/users-javascript-client",
-  "opensource": true,
   "version": "0.0.3",
+  "private": false,
   "description": "A generated JavaScript API client for Dopt's users API",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

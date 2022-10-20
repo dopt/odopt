@@ -7,19 +7,19 @@ import { getBlockDefaultState } from './utils';
 /**
  * Methods corresponding to an intent-based API for
  * signaling state transitions of a block. These methods
- * have side effects i.e. journey transitions are a function
- * of block transitions, expressed through the following
+ * have side effects (i.e., flow transitions are a function
+ * of block transitions) expressed through the following
  * pseudo code:
  *
  * ```ts
- * journey.transition(blockState, intent)
+ * flow.transition(blockState, intent)
  * ```
  *
  */
 export interface Intentions {
   /**
    * Signals that the experience this {@link Block} powers has
-   * begun.  A noop if the {@link Block} isn't active.
+   * begun. A noop if the {@link Block} isn't active.
    *
    * @modifies
    *
@@ -29,8 +29,8 @@ export interface Intentions {
   start: () => void;
   /**
    * Signals that the experience this {@link Block} powers has
-   * finished.  A noop if the {@link Block} isn't active. Results
-   * in a journey transition.
+   * finished. A noop if the {@link Block} isn't active. Results
+   * in a flow transition.
    *
    * @modifies
    *
@@ -41,7 +41,7 @@ export interface Intentions {
   /**
    * Signals that the experience this {@link Block} powers
    * has been ended prematurely and/or not finished. Ends
-   * progress for this branch in the jouurney.
+   * progress for this branch in the flow.
    *
    * @modifies
    *
@@ -50,7 +50,7 @@ export interface Intentions {
    */
   stop: () => void;
   /**
-   * Signals an end of the entire journey.
+   * Signals an end of the entire flow.
    * @modifies
    *
    * Sets {@link Block.exited} to true
@@ -60,37 +60,34 @@ export interface Intentions {
 }
 
 /**
- * A React Hook for accessing a Journey's Model Block State and
+ * A React hook for accessing a flow's block state and
  * methods corresponding to an intent-based API for maniuplating
  * said state.
  *
  * @example
- * ```ts
- *  import { useDopt } from '@dopt/react';
- *  import { Modal } from '@your-company/modal';
+ * ```tsx
+ * import { useDopt } from "@dopt/react";
+ * import { Modal } from "@your-company/modal";
  *
- *  export function Application() {
- *    const [{ active }, { complete }] = useDopt('HNWvcT78tyTwygnbzU6SW');
- *    return (
- *      <main>
- *        <Modal
- *          isOpen={active}
- *          title="👏 Welcome to your first journey!"
- *          footerItems={{
- *            primaryActions: [{ label: 'Got it', onClick: complete }],
- *          }}
- *        >
- *          <Text>
- *            This is your onboarding experience!
- *          </Text>
- *        </Modal>
- *      </main>
- *    );
- *  }
+ * export function Application() {
+ *   const [
+ *     { active, completed, started, stopped, exited },
+ *     { start, complete, stop, exit },
+ *   ] = useDopt("HNWvcT78tyTwygnbzU6SW");
+ *   return (
+ *     <main>
+ *       <Modal isOpen={active}>
+ *         <h1>👏 Welcome to our app!</h1>
+ *         <p>This is your onboarding experience!</p>
+ *         <button onClick={complete}>Close me</button>
+ *       </Modal>
+ *     </main>
+ *   );
+ * }
  * ```
  *
- * @param identifier - the "Reference Id" for some Journey Model Block
- * @returns [{@link Block}, {@link Methods}] - The state of the Block for
+ * @param identifier - the reference ID for some step block
+ * @returns [{@link Block}, {@link Intentions}] the state of the block and methods to manipulate said state
  *
  * @alpha
  */
@@ -101,23 +98,29 @@ const useDopt = (identifier: string): [block: Block, intent: Intentions] => {
     if (!loading && !(identifier in blocks)) {
       intentions.get(identifier);
     }
-  }, [identifier, loading, intentions]);
+  }, [identifier, loading]);
+
+  useEffect(() => {
+    if (!loading) {
+      intentions.get(identifier);
+    }
+  }, [intentions, loading]);
 
   const start = useCallback(
     () => !loading && intentions.start(identifier),
-    [loading]
+    [loading, intentions]
   );
   const complete = useCallback(
     () => !loading && intentions.complete(identifier),
-    [loading]
+    [loading, intentions]
   );
   const stop = useCallback(
     () => !loading && intentions.stop(identifier),
-    [loading]
+    [loading, intentions]
   );
   const exit = useCallback(
     () => !loading && intentions.exit(identifier),
-    [loading]
+    [loading, intentions]
   );
 
   return [
