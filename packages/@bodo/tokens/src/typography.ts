@@ -16,37 +16,50 @@ export const fonts = {
 };
 
 export const fontSizes = {
-  base: {
+  /** 16px / 24px */
+  root: {
     fontSize: '16px',
-    lineHeight: '24px',
+    lineHeight: '1.5rem',
   },
+  /** 16px / 24px */
+  base: {
+    fontSize: '1rem',
+    lineHeight: '1.5rem',
+  },
+  /** 12px / 16px */
   xs: {
-    fontSize: '12px',
-    lineHeight: '16px',
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
   },
+  /** 14px / 20px */
   sm: {
-    fontSize: '14px',
-    lineHeight: '20px',
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
   },
+  /** 18px / 28px */
   md: {
-    fontSize: '18px',
-    lineHeight: '28px',
+    fontSize: '1.125rem',
+    lineHeight: '1.75rem',
   },
+  /** 22px / 32px */
   lg: {
-    fontSize: '22px',
-    lineHeight: '32px',
+    fontSize: '1.375rem',
+    lineHeight: '2rem',
   },
+  /** 28px / 40px */
   xl: {
-    fontSize: '28px',
-    lineHeight: '40px',
+    fontSize: '1.75rem',
+    lineHeight: '2.5rem',
   },
+  /** 36px / 52px */
   '2xl': {
-    fontSize: '36px',
-    lineHeight: '52px',
+    fontSize: '2.25rem',
+    lineHeight: '3.25rem',
   },
+  /** 64px / 84px */
   '3xl': {
-    fontSize: '64px',
-    lineHeight: '84px',
+    fontSize: '4rem',
+    lineHeight: '5.25rem',
   },
 };
 
