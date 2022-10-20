@@ -1,6 +1,7 @@
 {
   "name": "@dopt/wutils",
   "version": "0.0.0",
+  "private": true,
   "description": "Yarn workspace utilities",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -39,7 +40,7 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@types/jest": "29.1.2",
+    "@types/jest": "29.2.0",
     "@typescript-eslint/eslint-plugin": "5.39.0",
     "@typescript-eslint/parser": "5.39.0",
     "esbuild": "0.15.10",

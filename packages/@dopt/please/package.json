@@ -1,8 +1,8 @@
 {
   "name": "@dopt/please",
   "version": "0.0.1",
+  "private": false,
   "description": "A CLI for generating packages in the Dopt monorepo",
-  "opensource": true,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -42,7 +42,7 @@
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
-    "@types/jest": "29.1.2",
+    "@types/jest": "29.2.0",
     "@typescript-eslint/eslint-plugin": "5.39.0",
     "@typescript-eslint/parser": "5.39.0",
     "esbuild": "0.15.10",
