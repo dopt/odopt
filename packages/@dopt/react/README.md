@@ -33,8 +33,8 @@ pnpm add @dopt/react
 To configure the Dopt provider you will need
 
 1. A blocks API key (generated in Dopt)
-1. A user ID (user being an end-user you've identified to Dopt)
 1. The flow identifiers and versions you want your end-users to experience
+1. (Optional) A user ID (user being an end-user you've identified to Dopt)
 
 ### Usage
 
@@ -49,15 +49,17 @@ import Application from "./application";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <DoptProvider
-    flowVersions={{ "user-onboarding": 2, "upsell-flow": 4 }}
     userId={userId}
     apiKey={blockAPIKey}
+    flowVersions={{ "user-onboarding": 2, "upsell-flow": 4 }}
   >
     <Application />
   </DoptProvider>,
   rootElement
 );
 ```
+
+**Note:** If `userId` is `undefined`, all state values will default to `false`.
 
 #### Accessing block state
 
