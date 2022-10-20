@@ -16,3 +16,4 @@ export * from './onboarding';
 export * from './numbers';
 export * from './socket/index';
 export * from './api-key';
+export * from './name-fields';
