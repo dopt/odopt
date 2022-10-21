@@ -19,7 +19,7 @@
     "rollup.types.ts",
     "rollup.config.ts",
     "tsup.config.ts",
-    "usecases/**"
+    "src/__tests__/*"
   ],
   "include": ["**/*.ts", "**/*.tsx"]
 }
