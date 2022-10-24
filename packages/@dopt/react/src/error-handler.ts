@@ -1,18 +1,19 @@
+import { Logger } from '@dopt/logger';
 import HttpStatusCodeRanges from './http-status-code';
 
-export async function errorHandler(response: Response) {
+export async function errorHandler(response: Response, log: Logger) {
   const error = await response.clone().json();
   const errorTemplate = `${(error.code || '').toUpperCase()} : ${
     error.details
   }`;
   switch (true) {
     case HttpStatusCodeRanges.ClientErrorResponses(response.status):
-      console.error(errorTemplate);
+      log.error(errorTemplate);
       break;
     case HttpStatusCodeRanges.ServerErrorResponses(response.status):
-      console.warn(errorTemplate);
+      log.warn(errorTemplate);
       break;
     default:
-      console.log(response.text());
+      log.log(response.text());
   }
 }
