@@ -1,18 +1,18 @@
-import {
-  interFontFamily,
-  degularDisplayFontFamily,
-  degularFontFamily,
-  vctrMonoFontFamily,
-} from '@bodo/font';
+export const fontFamilies = {
+  degular: 'degular',
+  degularDisplay: 'degular display',
+  inter: 'inter var',
+  vctrMono: 'vctr mono',
+};
 
 const sansSystemFontFamilyStack =
   '-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif';
 
 export const fonts = {
-  sans: `${degularFontFamily}, ${sansSystemFontFamilyStack}`,
-  sansDisplay: `${degularDisplayFontFamily}, ${sansSystemFontFamilyStack}`,
-  sansText: `${interFontFamily}, ${sansSystemFontFamilyStack}`,
-  mono: `${vctrMonoFontFamily}, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace`,
+  sans: `${fontFamilies.degular}, ${sansSystemFontFamilyStack}`,
+  sansDisplay: `${fontFamilies.degularDisplay}, ${sansSystemFontFamilyStack}`,
+  sansText: `${fontFamilies.inter}, ${sansSystemFontFamilyStack}`,
+  mono: `${fontFamilies.vctrMono}, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace`,
 };
 
 export const fontSizes = {
