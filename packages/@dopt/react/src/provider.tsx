@@ -15,7 +15,7 @@ import { blocksApi } from './client';
 
 export function DoptProvider(props: ProviderConfig) {
   const { userId, apiKey, flowVersions, children, logLevel } = props;
-  const log = new Logger({ logLevel, prefix: '[@dopt/react]' });
+  const log = new Logger({ logLevel, prefix: '@dopt/react' });
   const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
   const [versionByFlowId, setVersionByFlowId] =
@@ -27,7 +27,7 @@ export function DoptProvider(props: ProviderConfig) {
   );
 
   useEffect(() => {
-    log.info('Provider Mounted');
+    log.info('Provider mounted');
   }, []);
 
   useEffect(() => {
