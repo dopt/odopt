@@ -1,5 +1,5 @@
 import * as log from 'loglevel';
-import chalk from 'chalk';
+import { style } from './style';
 
 /**
  * The Logger class defines the `getInstance` method that lets clients access
@@ -27,14 +27,11 @@ export type LoggerProps = {
   logLevel?: LogLevels;
   prefix?: string;
 };
-const error = chalk.bold.red;
-const warning = chalk.hex('#FFA500');
-const information = chalk.bold.blueBright;
 export class Logger {
   private static instance: Logger;
-  // Default log level is 'info'
-  private logLevel = 'info';
-  private prefix = '[Dopt]';
+  // Default log level is 'silent'
+  private logLevel = 'silent';
+  private prefix = 'Dopt';
   private baseLogger = log.getLogger(this.prefix);
   /**
    * The Logger's constructor gets called with the `new` operator,
@@ -43,8 +40,9 @@ export class Logger {
    */
   constructor({ logLevel, prefix }: LoggerProps) {
     if (!Logger.instance) {
-      this.logLevel = logLevel ? logLevel : 'info';
+      this.logLevel = logLevel ? logLevel : 'silent';
       this.prefix = prefix ? prefix : this.prefix;
+      this.prefix = style.prefix(` ${this.prefix} `);
       this.baseLogger = log;
       this.baseLogger.setLevel(this.logLevel as log.LogLevelDesc);
       Logger.instance = this;
@@ -57,19 +55,23 @@ export class Logger {
    * executed on its instance.
    */
   public log(...msg: any[]) {
-    this.baseLogger.log([this.prefix, ...msg]);
+    this.baseLogger.log(this.prefix, ...msg);
   }
 
   public debug(...msg: any[]) {
-    this.baseLogger.debug([this.prefix, ...msg]);
+    this.baseLogger.debug(this.prefix, style.debugTitle('[Debug]'), ...msg);
   }
   public error(...msg: any[]) {
-    this.baseLogger.error(error(this.prefix + msg));
+    this.baseLogger.error(
+      this.prefix,
+      style.errorTitle('[Error]'),
+      style.errorBody(...msg)
+    );
   }
   public warn(...msg: any[]) {
-    this.baseLogger.warn(warning(this.prefix + msg));
+    this.baseLogger.warn(this.prefix, style.warnTitle('[Warn]'), ...msg);
   }
   public info(...msg: any[]) {
-    this.baseLogger.info(information(this.prefix + msg));
+    this.baseLogger.info(this.prefix, style.infoTitle('[Info]'), ...msg);
   }
 }
