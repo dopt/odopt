@@ -5,7 +5,7 @@ SHELL := /bin/bash
 GENERATOR_VERSION=6.1.0
 GENERATOR_JAR=openapi-generator-cli-${GENERATOR_VERSION}.jar
 
-EXTERNAL_SPEC_LOCATION=../api-manifest/spec/users-service/open-api-spec.json
+EXTERNAL_SPEC_LOCATION=../users-api-manifest/spec/open-api-spec.json
 
 build-java: generate/users-javascript-client-java
 	rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types
