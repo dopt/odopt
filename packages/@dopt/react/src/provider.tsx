@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 import { DoptContext } from './context';
-
+import { Logger } from '@dopt/logger';
 import { ProviderConfig, Blocks, Intentions } from './types';
 
 import { blocksApi } from './client';
@@ -14,17 +14,21 @@ import { blocksApi } from './client';
  */
 
 export function DoptProvider(props: ProviderConfig) {
-  const { userId, apiKey, flowVersions, children } = props;
+  const { userId, apiKey, flowVersions, children, logLevel } = props;
+  const log = new Logger({ logLevel, prefix: '[@dopt/react]' });
   const [loading, setLoading] = useState<boolean>(true);
-
   const [blocks, setBlocks] = useState<Blocks>({});
   const [versionByFlowId, setVersionByFlowId] =
     useState<Record<string, number>>();
 
   const { fetchBlock, fetchBlockIdentifiersForFlowVersion, intent } = useMemo(
-    () => blocksApi(apiKey, userId),
+    () => blocksApi(apiKey, userId, log),
     [userId, apiKey]
   );
+
+  useEffect(() => {
+    log.info('Provider Mounted');
+  }, []);
 
   useEffect(() => {
     (async function () {
@@ -84,7 +88,6 @@ export function DoptProvider(props: ProviderConfig) {
         exit: () => {},
       };
     }
-
     return {
       get: (identifier) =>
         fetchBlock(identifier, versionByFlowId[identifier]).then(
@@ -115,6 +118,7 @@ export function DoptProvider(props: ProviderConfig) {
         loading,
         blocks,
         intentions,
+        log,
       }}
     >
       {children}
