@@ -29,7 +29,6 @@
     "dist"
   ],
   "dependencies": {
-    "@bodo/font": "workspace:*",
     "chroma-js": "2.4.2"
   },
   "devDependencies": {
