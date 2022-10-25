@@ -4,7 +4,7 @@ import { colors } from './color';
 import { opacity } from './opacity';
 import { shadows } from './shadow';
 import { space } from './space';
-import { fontSizes, fontWeights, fonts } from './typography';
+import { fontSizes, fontWeights, fonts, fontFamilies } from './typography';
 import { zIndexes } from './zindex';
 
 export const tokens = {
@@ -13,6 +13,7 @@ export const tokens = {
   breakpoints,
   colors,
   fonts,
+  fontFamilies,
   fontSizes,
   fontWeights,
   opacity,
