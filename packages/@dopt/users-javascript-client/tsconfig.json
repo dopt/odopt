@@ -3,11 +3,14 @@
   "compilerOptions": {
     "noEmit": false,
     "rootDir": "./src",
+    "declarationMap": false,
+    "declaration": true,
+    "declarationDir": "./types",
     "outDir": "./dist",
     "strictPropertyInitialization": false,
     "isolatedModules": false,
-    "target": "ESNext"
+    "target": "es5"
   },
-  "exclude": ["**/node_modules", "**/dist", "tsup.config.ts"],
+  "exclude": ["**/node_modules", "**/dist", "rollup.config.ts"],
   "include": ["**/*.ts", "**/*.tsx"]
 }
