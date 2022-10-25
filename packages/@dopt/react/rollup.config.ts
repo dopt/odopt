@@ -25,6 +25,8 @@ const config = [
             ? 'https://blocks.dopt.com'
             : 'http://localhost:7070'
         ),
+        'process.env.PKG_VERSION': JSON.stringify(pkg.version),
+        'process.env.PKG_NAME': JSON.stringify(pkg.name),
         preventAssignment: true,
       }),
       typescript({
