@@ -1,5 +1,10 @@
 import { Intentions, Blocks, Block, BlockIdentifier } from './types';
-import { getBlockDefaultState, updatedBlocksAsMap } from './utils';
+import {
+  getBlockDefaultState,
+  updatedBlocksAsMap,
+  PKG_VERSION,
+  PKG_NAME,
+} from './utils';
 
 import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
@@ -23,6 +28,8 @@ export async function client({
     headers: {
       ...options?.headers,
       'x-api-key': apiKey,
+      'x-pkg-version': PKG_VERSION,
+      'x-pkg-name': PKG_NAME,
     },
   });
   if (!response.ok) {
