@@ -50,10 +50,10 @@ export function blocksApi(
       });
       if (blockIdentifiers && blockIdentifiers.length === 0) {
         log.warn(
-          `[Dopt] An error occurred while fetching blocks for a flow
-            Identifier: ${journeyIdentifier}
-            Version: ${version}
-         Please confirm that a flow with this identifier and version exists in your Dopt workspace.`
+          `An error occurred while fetching blocks for a flow
+  Identifier: ${journeyIdentifier}
+  Version: ${version}
+Please confirm that a flow with this identifier and version exists in your Dopt workspace.`
         );
       }
       return blockIdentifiers;
