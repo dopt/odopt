@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DoptContext } from './context';
 import { Intentions, Blocks, MockProviderConfig, Block } from './types';
-
+import { Logger } from '@dopt/logger';
 const validIntentState = ({ active, completed, stopped, exited }: Block) =>
   active && !completed && !stopped && !exited;
 
@@ -13,9 +13,15 @@ const validIntentState = ({ active, completed, stopped, exited }: Block) =>
  * @alpha
  */
 export function MockDoptProvider(props: MockProviderConfig) {
-  const { mocks = { blocks: {} } } = props;
+  const { mocks = { blocks: {} }, logLevel } = props;
   const [blocks, setBlocks] = useState<Blocks>({ ...mocks.blocks });
-
+  const log = new Logger(
+    logLevel
+      ? { logLevel }
+      : {
+          logLevel: 'debug',
+        }
+  );
   function updateState(
     blocks: Blocks,
     identifier: string,
@@ -59,6 +65,7 @@ export function MockDoptProvider(props: MockProviderConfig) {
         loading: false,
         intentions,
         blocks,
+        log,
       }}
     >
       {props.children}
