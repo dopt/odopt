@@ -1,6 +1,5 @@
 import * as log from 'loglevel';
-import { style } from './style';
-
+import { nodeStyle, browserStyle } from './style';
 /**
  * The Logger class defines the `getInstance` method that lets clients access
  * the unique Logger instance.
@@ -27,6 +26,9 @@ export type LoggerProps = {
   logLevel?: LogLevels;
   prefix?: string;
 };
+
+const IS_BROWSER =
+  typeof window !== 'undefined' && typeof window.document !== 'undefined';
 export class Logger {
   private static instance: Logger;
   // Default log level is 'silent'
@@ -42,7 +44,6 @@ export class Logger {
     if (!Logger.instance) {
       this.logLevel = logLevel ? logLevel : 'silent';
       this.prefix = prefix ? prefix : this.prefix;
-      this.prefix = style.prefix(` ${this.prefix} `);
       this.baseLogger = log;
       this.baseLogger.setLevel(this.logLevel as log.LogLevelDesc);
       Logger.instance = this;
@@ -55,23 +56,65 @@ export class Logger {
    * executed on its instance.
    */
   public log(...msg: any[]) {
-    this.baseLogger.log(this.prefix, ...msg);
+    IS_BROWSER
+      ? this.baseLogger.log(`%c${this.prefix}`, browserStyle.prefix(), ...msg)
+      : this.baseLogger.log(nodeStyle.prefix(this.prefix), ...msg);
   }
 
   public debug(...msg: any[]) {
-    this.baseLogger.debug(this.prefix, style.debugTitle('[Debug]'), ...msg);
+    IS_BROWSER
+      ? this.baseLogger.debug(
+          `%c${this.prefix} %c[Debug]`,
+          browserStyle.prefix(),
+          browserStyle.debugTitle(),
+          ...msg
+        )
+      : this.baseLogger.debug(
+          nodeStyle.prefix(this.prefix),
+          nodeStyle.debugTitle('[Debug]'),
+          ...msg
+        );
   }
   public error(...msg: any[]) {
-    this.baseLogger.error(
-      this.prefix,
-      style.errorTitle('[Error]'),
-      style.errorBody(...msg)
-    );
+    IS_BROWSER
+      ? this.baseLogger.error(
+          `%c${this.prefix} %c[Error]%c${msg}`,
+          browserStyle.prefix(),
+          browserStyle.errorTitle(),
+          browserStyle.errorBody()
+        )
+      : this.baseLogger.error(
+          nodeStyle.prefix(this.prefix),
+          nodeStyle.errorTitle('[Error]'),
+          nodeStyle.errorBody(...msg)
+        );
   }
   public warn(...msg: any[]) {
-    this.baseLogger.warn(this.prefix, style.warnTitle('[Warn]'), ...msg);
+    IS_BROWSER
+      ? this.baseLogger.warn(
+          `%c${this.prefix} %c[Warn]`,
+          browserStyle.prefix(),
+          browserStyle.warnTitle(),
+          ...msg
+        )
+      : this.baseLogger.warn(
+          nodeStyle.prefix(this.prefix),
+          nodeStyle.warnTitle('[Warn]'),
+          ...msg
+        );
   }
   public info(...msg: any[]) {
-    this.baseLogger.info(this.prefix, style.infoTitle('[Info]'), ...msg);
+    IS_BROWSER
+      ? this.baseLogger.info(
+          `%c${this.prefix} %c[Info]`,
+          browserStyle.prefix(),
+          browserStyle.infoTitle(),
+          ...msg
+        )
+      : this.baseLogger.info(
+          nodeStyle.prefix(this.prefix),
+          nodeStyle.infoTitle('[Info]'),
+          ...msg
+        );
   }
 }
