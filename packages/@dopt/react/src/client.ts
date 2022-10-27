@@ -1,10 +1,5 @@
 import { Intentions, Blocks, Block, BlockIdentifier } from './types';
-import {
-  getBlockDefaultState,
-  updatedBlocksAsMap,
-  PKG_VERSION,
-  PKG_NAME,
-} from './utils';
+import { getBlockDefaultState, PKG_VERSION, PKG_NAME } from './utils';
 
 import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
@@ -117,11 +112,10 @@ export const createIntentApi = (
         log,
       });
 
-      if (response && response.block && response.updated) {
-        const { block, updated } = response;
+      if (response && response.block) {
+        const { block } = response;
         return {
           [bid]: block,
-          ...updatedBlocksAsMap(updated),
         };
       }
       return {
