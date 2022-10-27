@@ -2,10 +2,9 @@ import { useMemo, useState, useEffect } from 'react';
 import { DoptContext } from './context';
 import { Logger } from '@dopt/logger';
 import { ProviderConfig, Blocks, Intentions } from './types';
-
 import { PKG_NAME } from './utils';
-
 import { blocksApi } from './client';
+import { setupSocket } from './socket';
 
 /**
  * A React context provider for accessing block state.
@@ -20,11 +19,16 @@ export function DoptProvider(props: ProviderConfig) {
   const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
   const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
+  const [blocksWatched, setBlocksWatched] = useState<Set<string>>(new Set());
   const [versionByFlowId, setVersionByFlowId] =
     useState<Record<string, number>>();
 
   const { fetchBlock, fetchBlockIdentifiersForFlowVersion, intent } = useMemo(
     () => blocksApi(apiKey, userId, log),
+    [userId, apiKey]
+  );
+  const socket = useMemo(
+    () => setupSocket(apiKey, userId, log),
     [userId, apiKey]
   );
 
@@ -61,6 +65,12 @@ export function DoptProvider(props: ProviderConfig) {
     })();
   }, [JSON.stringify(flowVersions)]);
 
+  useEffect(() => {
+    socket?.on('blocks', (updatedBlocks) => {
+      updateBlockState(updatedBlocks);
+    });
+  }, [socket]);
+
   /*
    * Update the initial loading state if
    * the blocks have been correctly fetched.
@@ -76,6 +86,21 @@ export function DoptProvider(props: ProviderConfig) {
       ...prevBlocks,
       ...updated,
     }));
+
+  useEffect(() => {
+    const newBlocks = new Set<string>();
+    blocksWatched.forEach((block) => newBlocks.add(block));
+    for (let bid in versionByFlowId) {
+      if (!blocksWatched.has(`${bid}_${versionByFlowId[bid]}`)) {
+        socket?.emit('watch', bid, versionByFlowId[bid]);
+        socket?.on(`${bid}_${versionByFlowId[bid]}`, (block) => {
+          updateBlockState(block);
+        });
+        newBlocks.add(`${bid}_${versionByFlowId[bid]}`);
+      }
+    }
+    setBlocksWatched(newBlocks);
+  }, [JSON.stringify(versionByFlowId)]);
 
   const intentions: Intentions = useMemo(() => {
     /*
@@ -97,21 +122,13 @@ export function DoptProvider(props: ProviderConfig) {
           updateBlockState
         ),
       start: (identifier) =>
-        intent
-          .start(identifier, versionByFlowId[identifier])
-          .then(updateBlockState),
+        intent.start(identifier, versionByFlowId[identifier]),
       complete: (identifier) =>
-        intent
-          .complete(identifier, versionByFlowId[identifier])
-          .then(updateBlockState),
+        intent.complete(identifier, versionByFlowId[identifier]),
       stop: (identifier) =>
-        intent
-          .stop(identifier, versionByFlowId[identifier])
-          .then(updateBlockState),
+        intent.stop(identifier, versionByFlowId[identifier]),
       exit: (identifier) =>
-        intent
-          .exit(identifier, versionByFlowId[identifier])
-          .then(updateBlockState),
+        intent.exit(identifier, versionByFlowId[identifier]),
     };
   }, [versionByFlowId, loading, intent]);
 
