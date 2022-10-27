@@ -61,7 +61,7 @@ export interface Intentions {
 
 /**
  * A React hook for accessing a flow's block state and
- * methods corresponding to an intent-based API for maniuplating
+ * methods corresponding to an intent-based API for manipulating
  * said state.
  *
  * @example
