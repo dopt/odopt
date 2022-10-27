@@ -4,7 +4,13 @@ import chalk, { type ChalkFunction } from 'chalk';
 const colors = tokens.colors.light;
 
 const commonBrowserStyles = {
-  'font-weight': 'bold',
+  'font-family': 'system-ui',
+  'padding-top': '1px',
+  'padding-bottom': '2px',
+  'font-size': '13',
+  'border-radius': '2px',
+  'font-weight': '600',
+  'letter-spacing': '2px',
   color: 'white',
 };
 export const nodeStyle: Record<string, ChalkFunction> = {
@@ -17,6 +23,9 @@ export const nodeStyle: Record<string, ChalkFunction> = {
 };
 
 export const browserStyle: Record<string, () => string> = {
+  default: browserStyles({
+    ...commonBrowserStyles,
+  }),
   prefix: browserStyles({
     ...commonBrowserStyles,
     background: colors.blurple500,

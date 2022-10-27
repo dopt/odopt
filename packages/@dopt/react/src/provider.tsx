@@ -3,6 +3,8 @@ import { DoptContext } from './context';
 import { Logger } from '@dopt/logger';
 import { ProviderConfig, Blocks, Intentions } from './types';
 
+import { PKG_NAME } from './utils';
+
 import { blocksApi } from './client';
 
 /**
@@ -15,7 +17,7 @@ import { blocksApi } from './client';
 
 export function DoptProvider(props: ProviderConfig) {
   const { userId, apiKey, flowVersions, children, logLevel } = props;
-  const log = new Logger({ logLevel, prefix: '@dopt/react' });
+  const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
   const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
   const [versionByFlowId, setVersionByFlowId] =
@@ -27,7 +29,8 @@ export function DoptProvider(props: ProviderConfig) {
   );
 
   useEffect(() => {
-    log.info('Provider mounted');
+    log.info('<DoptProvider /> mounted');
+    return () => log.info('<DoptProvider /> unmounted');
   }, []);
 
   useEffect(() => {

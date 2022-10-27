@@ -64,8 +64,9 @@ export class Logger {
   public debug(...msg: any[]) {
     IS_BROWSER
       ? this.baseLogger.debug(
-          `%c${this.prefix} %c[Debug]`,
+          `%c${this.prefix}%c %c[Debug]`,
           browserStyle.prefix(),
+          browserStyle.default(),
           browserStyle.debugTitle(),
           ...msg
         )
@@ -78,8 +79,9 @@ export class Logger {
   public error(...msg: any[]) {
     IS_BROWSER
       ? this.baseLogger.error(
-          `%c${this.prefix} %c[Error]%c${msg}`,
+          `%c${this.prefix}%c %c[Error]%c${msg}`,
           browserStyle.prefix(),
+          browserStyle.default(),
           browserStyle.errorTitle(),
           browserStyle.errorBody()
         )
@@ -92,8 +94,9 @@ export class Logger {
   public warn(...msg: any[]) {
     IS_BROWSER
       ? this.baseLogger.warn(
-          `%c${this.prefix} %c[Warn]`,
+          `%c${this.prefix}%c %c[Warn]`,
           browserStyle.prefix(),
+          browserStyle.default(),
           browserStyle.warnTitle(),
           ...msg
         )
@@ -106,8 +109,9 @@ export class Logger {
   public info(...msg: any[]) {
     IS_BROWSER
       ? this.baseLogger.info(
-          `%c${this.prefix} %c[Info]`,
+          `%c${this.prefix}%c %c[Info]`,
           browserStyle.prefix(),
+          browserStyle.default(),
           browserStyle.infoTitle(),
           ...msg
         )
