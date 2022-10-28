@@ -19,6 +19,7 @@ export function DoptProvider(props: ProviderConfig) {
   const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
   const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
+  const [isConnected, setIsConnected] = useState<boolean>(false);
   const [versionByFlowId, setVersionByFlowId] =
     useState<Record<string, number>>();
 
@@ -26,10 +27,25 @@ export function DoptProvider(props: ProviderConfig) {
     () => blocksApi(apiKey, userId, log),
     [userId, apiKey]
   );
-  const socket = useMemo(
-    () => setupSocket(apiKey, userId, log),
-    [userId, apiKey]
-  );
+  const socket = useMemo(() => {
+    return setupSocket(apiKey, userId, log, setIsConnected);
+  }, [apiKey, userId]);
+
+  useEffect(() => {
+    async function fetchAllBlock(
+      versionByFlowId: Record<string, number>
+    ): Promise<void> {
+      for (const identifier in versionByFlowId) {
+        await fetchBlock(identifier, versionByFlowId[identifier]).then(
+          updateBlockState
+        );
+      }
+      setLoading(false);
+    }
+    if (versionByFlowId) {
+      fetchAllBlock(versionByFlowId);
+    }
+  }, [userId, versionByFlowId, fetchBlock]);
 
   useEffect(() => {
     log.info('<DoptProvider /> mounted');
@@ -64,16 +80,6 @@ export function DoptProvider(props: ProviderConfig) {
     })();
   }, [JSON.stringify(flowVersions)]);
 
-  /*
-   * Update the initial loading state if
-   * the blocks have been correctly fetched.
-   */
-  useEffect(() => {
-    if (versionByFlowId) {
-      setLoading(false);
-    }
-  }, [versionByFlowId]);
-
   const updateBlockState = (updated: Blocks) =>
     setBlocks((prevBlocks) => ({
       ...prevBlocks,
@@ -81,19 +87,18 @@ export function DoptProvider(props: ProviderConfig) {
     }));
 
   useEffect(() => {
-    socket?.on('blocks', (updatedBlocks) => {
-      updateBlockState(updatedBlocks);
-    });
-  }, [socket, updateBlockState]);
-
-  useEffect(() => {
-    for (let bid in versionByFlowId) {
-      socket?.emit('watch', bid, versionByFlowId[bid]);
-      socket?.on(`${bid}_${versionByFlowId[bid]}`, (block) => {
-        updateBlockState(block);
+    if (isConnected) {
+      socket?.on('blocks', (updatedBlocks) => {
+        updateBlockState(updatedBlocks);
       });
+      for (let bid in versionByFlowId) {
+        socket?.emit('watch', bid, versionByFlowId[bid]);
+        socket?.on(`${bid}_${versionByFlowId[bid]}`, (block) => {
+          updateBlockState(block);
+        });
+      }
     }
-  }, [JSON.stringify(versionByFlowId)]);
+  }, [JSON.stringify(versionByFlowId), isConnected]);
 
   const intentions: Intentions = useMemo(() => {
     /*
@@ -102,7 +107,6 @@ export function DoptProvider(props: ProviderConfig) {
      */
     if (loading || !versionByFlowId) {
       return {
-        get: () => {},
         start: () => {},
         complete: () => {},
         stop: () => {},
@@ -110,10 +114,6 @@ export function DoptProvider(props: ProviderConfig) {
       };
     }
     return {
-      get: (identifier) =>
-        fetchBlock(identifier, versionByFlowId[identifier]).then(
-          updateBlockState
-        ),
       start: (identifier) =>
         intent.start(identifier, versionByFlowId[identifier]),
       complete: (identifier) =>
