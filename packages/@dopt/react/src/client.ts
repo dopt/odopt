@@ -4,7 +4,6 @@ import { getBlockDefaultState, PKG_VERSION, PKG_NAME } from './utils';
 import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
 
-const blockRequests: { [identifier: string]: Promise<Block> } = {};
 export const URL_PREFIX = process.env.URL_PREFIX;
 
 export async function client({
@@ -78,32 +77,24 @@ Please confirm that a flow with this identifier and version exists in your Dopt 
           [bid]: getBlockDefaultState(bid),
         };
       } else {
-        if (!(bid in blockRequests)) {
-          const blockRequest = client({
-            url: `/block/${bid}?version=${version}&endUserIdentifier=${uid}`,
-            apiKey,
-            log,
-          });
-          blockRequests[bid] = blockRequest;
-          const block = await blockRequest;
-          if (block) {
-            log.info(
-              `Details for Block<{ id : ${bid} }> for Flow<{ version : ${version} }> fetched successfully.`
-            );
-          } else {
-            log.error(
-              `An error occurred in fetching Block<{ id : ${bid} }>  for Flow<{ version : ${version} }>, setting block state to its defaults.`
-            );
-          }
-          return {
-            [bid]: block || getBlockDefaultState(bid),
-          };
+        const blockRequest = client({
+          url: `/block/${bid}?version=${version}&endUserIdentifier=${uid}`,
+          apiKey,
+          log,
+        });
+        const block = await blockRequest;
+        if (block) {
+          log.info(
+            `Details for Block<{ id : ${bid} }> for Flow<{ version : ${version} }> fetched successfully.`
+          );
         } else {
-          const block = await blockRequests[bid];
-          return {
-            [bid]: block || getBlockDefaultState(bid),
-          };
+          log.error(
+            `An error occurred in fetching Block<{ id : ${bid} }>  for Flow<{ version : ${version} }>, setting block state to its defaults.`
+          );
         }
+        return {
+          [bid]: block || getBlockDefaultState(bid),
+        };
       }
     },
 

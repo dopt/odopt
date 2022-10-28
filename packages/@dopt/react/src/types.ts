@@ -17,8 +17,6 @@ export interface Blocks {
 export type BlockIdentifier = Pick<Block, 'uuid'>;
 
 export interface Intentions {
-  /** @internal */
-  get: (identifier: string) => void;
   start: (identifier: string) => void;
   /** @internal */
   complete: (identifier: string) => void;
