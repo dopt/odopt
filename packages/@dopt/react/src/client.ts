@@ -51,12 +51,12 @@ export function blocksApi(
       });
       if (blockIdentifiers && blockIdentifiers.length === 0) {
         log.warn(
-          `An error occurred while fetching blocks for a flow for FlowVersions<{ ${journeyIdentifier} : ${version} }>
-Please confirm that a flow with this identifier and version exists in your Dopt workspace.`
+          `No blocks were found for FlowVersions<{"${journeyIdentifier}":${version}}>
+ Please confirm that a flow with this identifier and version exists in your Dopt workspace.`
         );
       } else {
         log.info(
-          `${blockIdentifiers.length} blocks identifiers fetched for FlowVersions<{ ${journeyIdentifier} : ${version} }>`
+          `${blockIdentifiers.length} blocks identifiers fetched for FlowVersions<{"${journeyIdentifier}":${version}}>`
         );
       }
       return blockIdentifiers;
@@ -66,11 +66,13 @@ Please confirm that a flow with this identifier and version exists in your Dopt 
       if (!uid || version === undefined) {
         if (!uid) {
           log.info(
-            `'userId' is undefined while fetching the Block<{ id : ${bid} }>, setting block state to its defaults.`
+            `Call to \`useDopt('${bid}')\` is returing default values until the \`usedId\` prop is defined.`
           );
-        } else {
+        }
+        if (version === undefined) {
           log.warn(
-            `Flow version is undefined/wrong while fetching the Block<{ id : ${bid} }>, setting block state to its defaults.`
+            `Call to \`useDopt('${bid}')\` cannot be satisfied. Returning default values. 
++The Block<{ id : ${bid} }> does not appear to exist in any of the flows specified in the \`flowVersions\` prop.`
           );
         }
         return {
@@ -85,8 +87,9 @@ Please confirm that a flow with this identifier and version exists in your Dopt 
         const block = await blockRequest;
         if (block) {
           log.info(
-            `Details for Block<{ id : ${bid} }> for Flow<{ version : ${version} }> fetched successfully.`
+            `Block<{"uuid":"${bid}","active":${block.active}}> for Flow<{"version":${version}}> fetched successfully.`
           );
+          log.debug(`${'\n'}${JSON.stringify(block, null, 2)}`);
         } else {
           log.error(
             `An error occurred in fetching Block<{ id : ${bid} }>  for Flow<{ version : ${version} }>, setting block state to its defaults.`
@@ -110,6 +113,11 @@ export const createIntentApi = (
   const intentApi =
     (intention: keyof Intentions) =>
     async (bid: string, vid: number): Promise<Blocks> => {
+      log.info(`Calling ${intention} on Block<{"uuid":"${bid}"}>`);
+      log.debug(
+        `/block/${bid}/${intention}?version=${vid}&endUserIdentifier=${uid}`
+      );
+
       const response = await client({
         url: `/block/${bid}/${intention}?version=${vid}&endUserIdentifier=${uid}`,
         apiKey,
@@ -124,18 +132,19 @@ export const createIntentApi = (
       });
 
       if (response && response.block) {
-        log.info(
-          `Block<{ id : ${bid} }> successfully  "${
-            intention === 'complete' ? intention + 'd' : intention + 'ed'
-          }" the intention`
-        );
         const { block } = response;
+        log.info(
+          `Block<{"uuid":"${bid}"}> successfully "${
+            intention === 'complete' ? intention + 'd' : intention + 'ed'
+          }"`
+        );
+        log.debug(`${'\n'}${JSON.stringify(block, null, 2)}`);
         return {
           [bid]: block,
         };
       }
       log.error(
-        `Block<{ id : ${bid} }> failed to trigger the intention "${intention}"`
+        `Block<{"uuid":"${bid}"}> failed to trigger the intention "${intention}"`
       );
       return {
         [bid]: getBlockDefaultState(bid),
