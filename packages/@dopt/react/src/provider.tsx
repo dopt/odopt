@@ -1,9 +1,10 @@
 import { useMemo, useState, useEffect } from 'react';
 import { DoptContext } from './context';
-
+import { Logger } from '@dopt/logger';
 import { ProviderConfig, Blocks, Intentions } from './types';
-
+import { PKG_NAME } from './utils';
 import { blocksApi } from './client';
+import { setupSocket } from './socket';
 
 /**
  * A React context provider for accessing block state.
@@ -14,17 +15,26 @@ import { blocksApi } from './client';
  */
 
 export function DoptProvider(props: ProviderConfig) {
-  const { userId, apiKey, flowVersions, children } = props;
+  const { userId, apiKey, flowVersions, children, logLevel } = props;
+  const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
   const [loading, setLoading] = useState<boolean>(true);
-
   const [blocks, setBlocks] = useState<Blocks>({});
   const [versionByFlowId, setVersionByFlowId] =
     useState<Record<string, number>>();
 
   const { fetchBlock, fetchBlockIdentifiersForFlowVersion, intent } = useMemo(
-    () => blocksApi(apiKey, userId),
+    () => blocksApi(apiKey, userId, log),
     [userId, apiKey]
   );
+  const socket = useMemo(
+    () => setupSocket(apiKey, userId, log),
+    [userId, apiKey]
+  );
+
+  useEffect(() => {
+    log.info('<DoptProvider /> mounted');
+    return () => log.info('<DoptProvider /> unmounted');
+  }, []);
 
   useEffect(() => {
     (async function () {
@@ -46,8 +56,8 @@ export function DoptProvider(props: ProviderConfig) {
           });
         })
         .catch((error) => {
-          throw new Error(`
-            The following error: "${error}" occurred while fetching blocks for the 
+          log.error(`
+            An error occurred while fetching blocks for the  
             flow versions specified: \`${JSON.stringify(flowVersions)}\`
           `);
         });
@@ -70,6 +80,21 @@ export function DoptProvider(props: ProviderConfig) {
       ...updated,
     }));
 
+  useEffect(() => {
+    socket?.on('blocks', (updatedBlocks) => {
+      updateBlockState(updatedBlocks);
+    });
+  }, [socket, updateBlockState]);
+
+  useEffect(() => {
+    for (let bid in versionByFlowId) {
+      socket?.emit('watch', bid, versionByFlowId[bid]);
+      socket?.on(`${bid}_${versionByFlowId[bid]}`, (block) => {
+        updateBlockState(block);
+      });
+    }
+  }, [JSON.stringify(versionByFlowId)]);
+
   const intentions: Intentions = useMemo(() => {
     /*
      * The loading state is a function of whether versionByFlowId
@@ -84,28 +109,19 @@ export function DoptProvider(props: ProviderConfig) {
         exit: () => {},
       };
     }
-
     return {
       get: (identifier) =>
         fetchBlock(identifier, versionByFlowId[identifier]).then(
           updateBlockState
         ),
       start: (identifier) =>
-        intent
-          .start(identifier, versionByFlowId[identifier])
-          .then(updateBlockState),
+        intent.start(identifier, versionByFlowId[identifier]),
       complete: (identifier) =>
-        intent
-          .complete(identifier, versionByFlowId[identifier])
-          .then(updateBlockState),
+        intent.complete(identifier, versionByFlowId[identifier]),
       stop: (identifier) =>
-        intent
-          .stop(identifier, versionByFlowId[identifier])
-          .then(updateBlockState),
+        intent.stop(identifier, versionByFlowId[identifier]),
       exit: (identifier) =>
-        intent
-          .exit(identifier, versionByFlowId[identifier])
-          .then(updateBlockState),
+        intent.exit(identifier, versionByFlowId[identifier]),
     };
   }, [versionByFlowId, loading, intent]);
 
@@ -115,6 +131,7 @@ export function DoptProvider(props: ProviderConfig) {
         loading,
         blocks,
         intentions,
+        log,
       }}
     >
       {children}
