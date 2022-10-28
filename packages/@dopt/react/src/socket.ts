@@ -9,6 +9,7 @@ export function setupSocket(
   setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
 ): Socket | undefined {
   if (userId) {
+    log.debug('Initializing socket connection.');
     const socket = io(URL_PREFIX + `/client?endUserIdentifier=${userId}`, {
       transports: ['websocket'],
       withCredentials: true,
@@ -20,15 +21,20 @@ export function setupSocket(
       log.error(error);
     });
     socket.on('connect', () => {
+      log.debug('Socket connected.');
       setIsConnected(true);
     });
     socket.on('disconnect', (reason: string) => {
+      log.debug('Socket disconnected.');
       setIsConnected(false);
       if (reason === 'io server disconnect') {
-        // the disconnection was initiated by the server, you need to reconnect manually
+        log.debug(
+          'Disconnection was initiated by the server, trying to reconnect manually'
+        );
         socket.connect();
+      } else {
+        log.debug('Socket reconnecting automatically.');
       }
-      // else the socket will automatically try to reconnect
     });
     return socket;
   }
