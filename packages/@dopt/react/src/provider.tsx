@@ -57,8 +57,8 @@ export function DoptProvider(props: ProviderConfig) {
           });
         })
         .catch((error) => {
-          throw new Error(`
-            The following error: "${error}" occurred while fetching blocks for the 
+          log.error(`
+            An error occurred while fetching blocks for the 
             flow versions specified: \`${JSON.stringify(flowVersions)}\`
           `);
         });

@@ -52,10 +52,12 @@ export function blocksApi(
       });
       if (blockIdentifiers && blockIdentifiers.length === 0) {
         log.warn(
-          `An error occurred while fetching blocks for a flow
-  Identifier: ${journeyIdentifier}
-  Version: ${version}
+          `An error occurred while fetching blocks for a flow for FlowVersions<{ ${journeyIdentifier} : ${version} }>
 Please confirm that a flow with this identifier and version exists in your Dopt workspace.`
+        );
+      } else {
+        log.info(
+          `${blockIdentifiers.length} blocks identifiers fetched for FlowVersions<{ ${journeyIdentifier} : ${version} }>`
         );
       }
       return blockIdentifiers;
@@ -63,6 +65,15 @@ Please confirm that a flow with this identifier and version exists in your Dopt 
 
     async fetchBlock(bid: string, version: number) {
       if (!uid || version === undefined) {
+        if (!uid) {
+          log.info(
+            `'userId' is undefined while fetching the Block<{ id : ${bid} }>, setting block state to its defaults.`
+          );
+        } else {
+          log.warn(
+            `Flow version is undefined/wrong while fetching the Block<{ id : ${bid} }>, setting block state to its defaults.`
+          );
+        }
         return {
           [bid]: getBlockDefaultState(bid),
         };
@@ -75,6 +86,15 @@ Please confirm that a flow with this identifier and version exists in your Dopt 
           });
           blockRequests[bid] = blockRequest;
           const block = await blockRequest;
+          if (block) {
+            log.info(
+              `Details for Block<{ id : ${bid} }> for Flow<{ version : ${version} }> fetched successfully.`
+            );
+          } else {
+            log.error(
+              `An error occurred in fetching Block<{ id : ${bid} }>  for Flow<{ version : ${version} }>, setting block state to its defaults.`
+            );
+          }
           return {
             [bid]: block || getBlockDefaultState(bid),
           };
@@ -113,11 +133,19 @@ export const createIntentApi = (
       });
 
       if (response && response.block) {
+        log.info(
+          `Block<{ id : ${bid} }> successfully  "${
+            intention === 'complete' ? intention + 'd' : intention + 'ed'
+          }" the intention`
+        );
         const { block } = response;
         return {
           [bid]: block,
         };
       }
+      log.error(
+        `Block<{ id : ${bid} }> failed to trigger the intention "${intention}"`
+      );
       return {
         [bid]: getBlockDefaultState(bid),
       };
