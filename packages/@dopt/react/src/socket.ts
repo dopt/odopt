@@ -14,10 +14,10 @@ export function setupSocket(
         'x-api-key': apiKey,
       },
     });
-    socket.on('error', (error) => {
+    socket.on('error', (error: string) => {
       log.error(error);
     });
-    socket.on('disconnect', (reason) => {
+    socket.on('disconnect', (reason: string) => {
       if (reason === 'io server disconnect') {
         // the disconnection was initiated by the server, you need to reconnect manually
         socket.connect();
