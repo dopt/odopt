@@ -19,7 +19,6 @@ export function DoptProvider(props: ProviderConfig) {
   const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
   const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
-  const [blocksWatched, setBlocksWatched] = useState<Set<string>>(new Set());
   const [versionByFlowId, setVersionByFlowId] =
     useState<Record<string, number>>();
 
@@ -58,18 +57,12 @@ export function DoptProvider(props: ProviderConfig) {
         })
         .catch((error) => {
           log.error(`
-            An error occurred while fetching blocks for the 
+            An error occurred while fetching blocks for the  
             flow versions specified: \`${JSON.stringify(flowVersions)}\`
           `);
         });
     })();
   }, [JSON.stringify(flowVersions)]);
-
-  useEffect(() => {
-    socket?.on('blocks', (updatedBlocks) => {
-      updateBlockState(updatedBlocks);
-    });
-  }, [socket]);
 
   /*
    * Update the initial loading state if
@@ -88,18 +81,18 @@ export function DoptProvider(props: ProviderConfig) {
     }));
 
   useEffect(() => {
-    const newBlocks = new Set<string>();
-    blocksWatched.forEach((block) => newBlocks.add(block));
+    socket?.on('blocks', (updatedBlocks) => {
+      updateBlockState(updatedBlocks);
+    });
+  }, [socket, updateBlockState]);
+
+  useEffect(() => {
     for (let bid in versionByFlowId) {
-      if (!blocksWatched.has(`${bid}_${versionByFlowId[bid]}`)) {
-        socket?.emit('watch', bid, versionByFlowId[bid]);
-        socket?.on(`${bid}_${versionByFlowId[bid]}`, (block) => {
-          updateBlockState(block);
-        });
-        newBlocks.add(`${bid}_${versionByFlowId[bid]}`);
-      }
+      socket?.emit('watch', bid, versionByFlowId[bid]);
+      socket?.on(`${bid}_${versionByFlowId[bid]}`, (block) => {
+        updateBlockState(block);
+      });
     }
-    setBlocksWatched(newBlocks);
   }, [JSON.stringify(versionByFlowId)]);
 
   const intentions: Intentions = useMemo(() => {
