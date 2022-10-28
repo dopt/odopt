@@ -1,3 +1,4 @@
+import { Logger } from '@dopt/logger';
 import { createContext } from 'react';
 import { Blocks, Intentions } from './types';
 
@@ -9,6 +10,7 @@ type DoptContext = {
   loading: boolean;
   blocks: Blocks;
   intentions: Intentions;
+  log: Logger;
 };
 
 const DoptContext = createContext<DoptContext>({} as DoptContext);
