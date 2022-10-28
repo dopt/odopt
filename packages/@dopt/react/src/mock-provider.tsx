@@ -40,7 +40,6 @@ export function MockDoptProvider(props: MockProviderConfig) {
   }
 
   const intentions: Intentions = {
-    get: () => {},
     start: (identifier) => updateState(blocks, identifier, { started: true }),
     complete: (identifier) =>
       updateState(blocks, identifier, {

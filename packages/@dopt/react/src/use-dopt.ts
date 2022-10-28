@@ -1,4 +1,4 @@
-import { useContext, useCallback, useEffect } from 'react';
+import { useContext, useCallback } from 'react';
 import { DoptContext } from './context';
 
 import { Block } from './types';
@@ -93,19 +93,6 @@ export interface Intentions {
  */
 const useDopt = (identifier: string): [block: Block, intent: Intentions] => {
   const { loading, blocks, intentions } = useContext(DoptContext);
-
-  useEffect(() => {
-    if (!loading && !(identifier in blocks)) {
-      intentions.get(identifier);
-    }
-  }, [identifier, loading]);
-
-  useEffect(() => {
-    if (!loading) {
-      intentions.get(identifier);
-    }
-  }, [intentions, loading]);
-
   const start = useCallback(
     () => !loading && intentions.start(identifier),
     [loading, intentions]
