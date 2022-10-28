@@ -23,6 +23,14 @@ export function DoptProvider(props: ProviderConfig) {
   const [versionByFlowId, setVersionByFlowId] =
     useState<Record<string, number>>();
 
+  useEffect(() => {
+    if (userId === undefined) {
+      log.info(
+        'The `userId` prop is undefined. The SDK will partially initialize, returning defaults for any requested blocks until the `userId` prop becomes defined.'
+      );
+    }
+  }, [userId]);
+
   const { fetchBlock, fetchBlockIdentifiersForFlowVersion, intent } = useMemo(
     () => blocksApi(apiKey, userId, log),
     [userId, apiKey]
@@ -48,8 +56,8 @@ export function DoptProvider(props: ProviderConfig) {
   }, [userId, versionByFlowId, fetchBlock]);
 
   useEffect(() => {
-    log.info('<DoptProvider /> mounted');
-    return () => log.info('<DoptProvider /> unmounted');
+    log.debug('<DoptProvider /> mounted');
+    return () => log.debug('<DoptProvider /> unmounted');
   }, []);
 
   useEffect(() => {
@@ -89,6 +97,13 @@ export function DoptProvider(props: ProviderConfig) {
   useEffect(() => {
     if (isConnected) {
       socket?.on('blocks', (updatedBlocks) => {
+        log.debug(
+          `The following blocks were updated and pushed from the server.\n${Object.values(
+            updatedBlocks
+          )
+            .map((block) => JSON.stringify(block, null, 2))
+            .join('\n')}`
+        );
         updateBlockState(updatedBlocks);
       });
       for (let bid in versionByFlowId) {
