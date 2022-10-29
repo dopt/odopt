@@ -1,9 +1,15 @@
 {
-  "extends": "@dopt/config/tsconfig/react-library.json",
+  "extends": "@dopt/config/tsconfig/base.json",
+
   "compilerOptions": {
+    "declarationMap": false,
+    "declaration": true,
+    "declarationDir": "./types",
+    "noEmit": false,
+    "rootDir": "./src",
     "outDir": "./dist",
-    "rootDir": "./src"
+    "target": "es5"
   },
-  "exclude": ["**/node_modules", "**/dist", "**/tsup.config.ts"],
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "exclude": ["**/node_modules", "**/dist", "tsup.config.ts"],
+  "include": ["**/*.ts", "**/*.tsx"]
 }
