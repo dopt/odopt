@@ -23,6 +23,8 @@ export function DoptProvider(props: ProviderConfig) {
   const [blocks, setBlocks] = useState<Blocks>({});
   const [blockVersions, setBlockVersions] = useState<Record<string, number>>();
 
+  const [socketReady, setSocketReady] = useState<boolean>(false);
+
   useEffect(() => {
     if (userId === undefined) {
       log.info(
@@ -129,7 +131,16 @@ export function DoptProvider(props: ProviderConfig) {
   );
 
   useEffect(() => {
-    if (!socket || !blockVersions) {
+    if (!socket) {
+      return;
+    }
+    socket.on('ready', () => {
+      setSocketReady(true);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    if (!socket || !socketReady || !blockVersions) {
       return;
     }
 
@@ -147,7 +158,6 @@ export function DoptProvider(props: ProviderConfig) {
     for (let bid in blockVersions) {
       socket?.emit('watch', bid, blockVersions[bid]);
 
-      // TODO - jm - understand why this bind necessary?
       socket?.on(`${bid}_${blockVersions[bid]}`, (block) => {
         updateBlockState(block);
       });
@@ -158,7 +168,7 @@ export function DoptProvider(props: ProviderConfig) {
         );
       }
     }
-  }, [JSON.stringify(blockVersions), socket]);
+  }, [JSON.stringify(blockVersions), socket, socketReady]);
 
   const intentions: Intentions = useMemo(() => {
     /*
