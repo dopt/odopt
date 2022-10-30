@@ -2,7 +2,7 @@
   "name": "@dopt/logger",
   "version": "0.0.0",
   "description": "A logger package with configuration to set severity loglevel for your standard console logs",
-  "private": true,
+  "private": false,
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -51,7 +51,7 @@
     "typescript": "4.8.4"
   },
   "dependencies": {
-    "@bodo/tokens": "workspace:*",
+    "@bodo/tokens": "0.0.0",
     "chalk": "4.1.2",
     "loglevel": "1.8.0"
   }
