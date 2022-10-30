@@ -1,7 +1,7 @@
 {
   "name": "@bodo/tokens",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "Bodo Design System: Tokens Component",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
