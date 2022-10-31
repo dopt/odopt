@@ -36,7 +36,7 @@ export interface BaseProviderConfig {
 
 /**
  * Providing this configuration to the {@link DoptProvider} allows
- * for the {@link useDopt} hook and {@link withDopt} HOC to fetch
+ * for the {@link useBlock} hook and {@link withBlock} HOC to fetch
  * relevant data from the Dopt blocks API.
  */
 export interface ProviderConfig extends BaseProviderConfig {
