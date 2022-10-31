@@ -63,21 +63,21 @@ ReactDOM.render(
 
 ### Accessing block state
 
-Having integrated the provider, you can now access Dopt block state from anywhere in your app (`<Application />` in this example) using the [useDopt](./src/use-dopt.ts) hook or [withDopt](./src/with-dopt.tsx) HOC.
+Having integrated the provider, you can now access Dopt block state from anywhere in your app (`<Application />` in this example) using the [useBlock](./src/use-block.ts) hook or [withBlock](./src/with-block.tsx) HOC.
 
 ### Example usage
 
-Using the [useDopt](./src/use-dopt.ts) hook.
+Using the [useBlock](./src/use-block.ts) hook.
 
 ```tsx
-import { useDopt } from "@dopt/react";
+import { useBlock } from "@dopt/react";
 import { Modal } from "@your-company/modal";
 
 export function Application() {
   const [
     { active, completed, started, stopped, exited },
     { start, complete, stop, exit },
-  ] = useDopt("HNWvcT78tyTwygnbzU6SW");
+  ] = useBlock("HNWvcT78tyTwygnbzU6SW");
   return (
     <main>
       <Modal isOpen={active}>
@@ -90,14 +90,14 @@ export function Application() {
 }
 ```
 
-Using the [withDopt](./src/with-dopt.tsx) HOC
+Using the [withBlock](./src/with-dopt.tsx) HOC
 
 ```tsx
-import { withDopt } from "@dopt/react";
+import { withBlock } from "@dopt/react";
 import { WelcomeModal } from "./welcome-modal";
 
 export function Application() {
-  const WelcomeModalWithDopt = withDopt(WelcomeModal, "j0zExxZDVKCPXPzB2ZgpW");
+  const WelcomeModalWithDopt = withBlock(WelcomeModal, "j0zExxZDVKCPXPzB2ZgpW");
   return (
     <main>
       <WelcomeModalWithDopt />

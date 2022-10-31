@@ -66,12 +66,12 @@ export function blocksApi(
       if (!uid || version === undefined) {
         if (!uid) {
           log.info(
-            `Call to \`useDopt('${bid}')\` is returing default values until the \`usedId\` prop is defined.`
+            `Call to \`useBlock('${bid}')\` is returing default values until the \`usedId\` prop is defined.`
           );
         }
         if (version === undefined) {
           log.warn(
-            `Call to \`useDopt('${bid}')\` cannot be satisfied. Returning default values. 
+            `Call to \`useBlock('${bid}')\` cannot be satisfied. Returning default values. 
 +The Block<{ id : ${bid} }> does not appear to exist in any of the flows specified in the \`flowVersions\` prop.`
           );
         }

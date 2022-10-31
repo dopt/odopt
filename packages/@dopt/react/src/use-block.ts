@@ -66,14 +66,14 @@ export interface Intentions {
  *
  * @example
  * ```tsx
- * import { useDopt } from "@dopt/react";
+ * import { useBlock } from "@dopt/react";
  * import { Modal } from "@your-company/modal";
  *
  * export function Application() {
  *   const [
  *     { active, completed, started, stopped, exited },
  *     { start, complete, stop, exit },
- *   ] = useDopt("HNWvcT78tyTwygnbzU6SW");
+ *   ] = useBlock("HNWvcT78tyTwygnbzU6SW");
  *   return (
  *     <main>
  *       <Modal isOpen={active}>
@@ -91,7 +91,7 @@ export interface Intentions {
  *
  * @alpha
  */
-const useDopt = (identifier: string): [block: Block, intent: Intentions] => {
+const useBlock = (identifier: string): [block: Block, intent: Intentions] => {
   const { loading, blocks, intentions } = useContext(DoptContext);
   const start = useCallback(
     () => !loading && intentions.start(identifier),
@@ -116,4 +116,16 @@ const useDopt = (identifier: string): [block: Block, intent: Intentions] => {
   ];
 };
 
-export { useDopt };
+/**
+ * A React hook for accessing a flow's block state and
+ * methods corresponding to an intent-based API for manipulating
+ * said state.
+ *
+ * @param identifier - the reference ID for some step block
+ * @returns [{@link Block}, {@link Intentions}] the state of the block and methods to manipulate said state
+ *
+ * @deprecated
+ */
+const useDopt = useBlock;
+
+export { useBlock, useDopt };
