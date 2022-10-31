@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { render } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
-import { DoptProvider, useDopt } from '../';
+import { DoptProvider, useBlock } from '../';
 
 describe('Tests the DoptProvider initialization', () => {
   const unmockedFetch = global.fetch;
@@ -44,7 +44,7 @@ describe('Tests the DoptProvider initialization', () => {
     userId: string | undefined;
     updateUserId: (doptUserId: string) => void;
   }): JSX.Element {
-    const [block] = useDopt('myblockid');
+    const [block] = useBlock('myblockid');
 
     useEffect(() => {
       setTimeout(() => {
@@ -71,7 +71,7 @@ describe('Tests the DoptProvider initialization', () => {
     );
   };
 
-  test('Verify useDopt hooks work with userID prop lifecycle', async () => {
+  test('Verify useBlock hooks work with userID prop lifecycle', async () => {
     const { getByText } = render(<TestApp />);
 
     expect(() => getByText(/ON/)).toThrow();
