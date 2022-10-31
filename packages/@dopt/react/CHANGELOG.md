@@ -2,7 +2,7 @@
 
 ## 0.1.9
 
-- Make the `userId` prop on the `<DoptProvider />` support being `undefined` to create an easier contract when trying to initialize the SDK. If `undefined` the SDK will initialize partially, only making requests that don't require the `userId` and returning default values for blocks being accessed via the `useDopt` hook.
+- Make the `userId` prop on the `<DoptProvider />` support being `undefined` to create an easier contract when trying to initialize the SDK. If `undefined` the SDK will initialize partially, only making requests that don't require the `userId` and returning default values for blocks being accessed via the `useBlock` hook.
 - Add logging to help developers understand when the `<DoptProvider />` has potentially been misconfigured.
 
 ## 0.0.9
