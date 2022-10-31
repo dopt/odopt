@@ -1,7 +1,7 @@
-import { tokens } from '@bodo/tokens';
+import { colors as tokens } from './color';
 import chalk, { type ChalkFunction } from 'chalk';
 
-const colors = tokens.colors.light;
+const colors = tokens.light;
 
 const commonBrowserStyles = {
   'font-family': 'system-ui',
