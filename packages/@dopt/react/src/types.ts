@@ -1,3 +1,4 @@
+import { LoggerProps } from '@dopt/logger';
 import { ReactNode } from 'react';
 
 export interface Block {
@@ -16,8 +17,6 @@ export interface Blocks {
 export type BlockIdentifier = Pick<Block, 'uuid'>;
 
 export interface Intentions {
-  /** @internal */
-  get: (identifier: string) => void;
   start: (identifier: string) => void;
   /** @internal */
   complete: (identifier: string) => void;
@@ -37,12 +36,13 @@ export interface BaseProviderConfig {
 
 /**
  * Providing this configuration to the {@link DoptProvider} allows
- * for the {@link useDopt} hook and {@link withDopt} HOC to fetch
+ * for the {@link useBlock} hook and {@link withBlock} HOC to fetch
  * relevant data from the Dopt blocks API.
  */
 export interface ProviderConfig extends BaseProviderConfig {
   userId: string | undefined;
   apiKey: string;
+  logLevel?: LoggerProps['logLevel'];
   flowVersions: Record<string, number>;
 }
 
@@ -55,4 +55,5 @@ export interface MockProviderConfig extends BaseProviderConfig {
    * A user provided JavaScript object for mocking {@link Blocks}
    */
   mocks?: Mocks;
+  logLevel?: LoggerProps['logLevel'];
 }
