@@ -1,16 +1,15 @@
 {
   "extends": "@dopt/config/tsconfig/base.json",
+
   "compilerOptions": {
-    "noEmit": false,
-    "rootDir": "./src",
     "declarationMap": false,
     "declaration": true,
     "declarationDir": "./types",
+    "noEmit": false,
+    "rootDir": "./src",
     "outDir": "./dist",
-    "strictPropertyInitialization": false,
-    "isolatedModules": false,
     "target": "es5"
   },
-  "exclude": ["**/node_modules", "**/dist", "rollup.config.ts"],
+  "exclude": ["**/node_modules", "**/dist", "tsup.config.ts"],
   "include": ["**/*.ts", "**/*.tsx"]
 }
