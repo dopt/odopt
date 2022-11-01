@@ -1,29 +1,34 @@
-import { Intentions, Blocks, Block, BlockIdentifier } from './types';
-import { getBlockDefaultState, PKG_VERSION, PKG_NAME } from './utils';
+import { Intentions, Blocks, BlockIdentifier } from './types';
+import { getBlockDefaultState } from './utils';
 
 import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
-
-export const URL_PREFIX = process.env.URL_PREFIX;
+import { Block } from './types';
 
 export async function client({
   url,
   apiKey,
   options,
   log,
+  urlPrefix,
+  packageVersion,
+  packageName,
 }: {
   url: string;
   apiKey: string;
   log: Logger;
   options?: RequestInit;
+  urlPrefix: string;
+  packageVersion: string;
+  packageName: string;
 }) {
-  const response = await fetch(`${URL_PREFIX}${url}`, {
+  const response = await fetch(`${urlPrefix}${url}`, {
     ...options,
     headers: {
       ...options?.headers,
       'x-api-key': apiKey,
-      'x-pkg-version': PKG_VERSION,
-      'x-pkg-name': PKG_NAME,
+      'x-pkg-version': packageVersion,
+      'x-pkg-name': packageName,
     },
   });
   if (!response.ok) {
@@ -37,7 +42,12 @@ export async function client({
 export function blocksApi(
   apiKey: string,
   uid: string | undefined,
-  log: Logger
+  log: Logger,
+  config: {
+    urlPrefix: string;
+    packageVersion: string;
+    packageName: string;
+  }
 ) {
   return {
     async fetchBlockIdentifiersForFlowVersion(
@@ -48,6 +58,7 @@ export function blocksApi(
         url: `/blocks?journeyIdentifier=${journeyIdentifier}&version=${version}`,
         apiKey,
         log,
+        ...config,
       });
       if (blockIdentifiers && blockIdentifiers.length === 0) {
         log.warn(
@@ -62,7 +73,7 @@ export function blocksApi(
       return blockIdentifiers;
     },
 
-    async fetchBlock(bid: string, version: number) {
+    async fetchBlock(bid: string, version: number): Promise<Block> {
       if (!uid || version === undefined) {
         if (!uid) {
           log.info(
@@ -75,14 +86,13 @@ export function blocksApi(
 +The Block<{ id : ${bid} }> does not appear to exist in any of the flows specified in the \`flowVersions\` prop.`
           );
         }
-        return {
-          [bid]: getBlockDefaultState(bid),
-        };
+        return Promise.resolve(getBlockDefaultState(bid));
       } else {
         const blockRequest = client({
           url: `/block/${bid}?version=${version}&endUserIdentifier=${uid}`,
           apiKey,
           log,
+          ...config,
         });
         const block = await blockRequest;
         if (block) {
@@ -95,24 +105,27 @@ export function blocksApi(
             `An error occurred in fetching Block<{ id : ${bid} }>  for Flow<{ version : ${version} }>, setting block state to its defaults.`
           );
         }
-        return {
-          [bid]: block || getBlockDefaultState(bid),
-        };
+        return block || Promise.resolve(getBlockDefaultState(bid));
       }
     },
 
-    intent: createIntentApi(apiKey, uid, log),
+    intent: createIntentApi(apiKey, uid, log, config),
   };
 }
 
 export const createIntentApi = (
   apiKey: string,
   uid: string | undefined,
-  log: Logger
+  log: Logger,
+  config: {
+    urlPrefix: string;
+    packageVersion: string;
+    packageName: string;
+  }
 ) => {
   const intentApi =
     (intention: keyof Intentions) =>
-    async (bid: string, vid: number): Promise<Blocks> => {
+    async (bid: string, vid: number): Promise<Block> => {
       log.info(`Calling ${intention} on Block<{"uuid":"${bid}"}>`);
       log.debug(
         `/block/${bid}/${intention}?version=${vid}&endUserIdentifier=${uid}`
@@ -129,6 +142,7 @@ export const createIntentApi = (
           },
         },
         log,
+        ...config,
       });
 
       if (response && response.block) {
@@ -139,16 +153,12 @@ export const createIntentApi = (
           }"`
         );
         log.debug(`${'\n'}${JSON.stringify(block, null, 2)}`);
-        return {
-          [bid]: block,
-        };
+        return Promise.resolve(block);
       }
       log.error(
         `Block<{"uuid":"${bid}"}> failed to trigger the intention "${intention}"`
       );
-      return {
-        [bid]: getBlockDefaultState(bid),
-      };
+      return Promise.resolve(getBlockDefaultState(bid));
     };
 
   return {
