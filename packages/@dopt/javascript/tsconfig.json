@@ -1,0 +1,15 @@
+{
+  "extends": "@dopt/config/tsconfig/base.json",
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "downlevelIteration": true,
+    "noEmit": false,
+    "rootDir": "./src",
+    "declarationMap": false,
+    "declaration": true,
+    "declarationDir": "./types",
+    "outDir": "./dist"
+  },
+  "exclude": ["**/node_modules", "**/dist", "tsup.config.ts"],
+  "include": ["**/*.ts", "**/*.tsx"]
+}

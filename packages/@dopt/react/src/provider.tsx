@@ -1,10 +1,16 @@
 import { useMemo, useState, useEffect, useCallback } from 'react';
-import { DoptContext } from './context';
+
 import { Logger } from '@dopt/logger';
-import { ProviderConfig, Blocks, Intentions } from './types';
-import { PKG_NAME } from './utils';
-import { blocksApi } from './client';
-import { setupSocket } from './socket';
+import {
+  blocksApi,
+  Blocks,
+  Intentions,
+  setupSocket,
+} from '@dopt/javascript-common';
+
+import { DoptContext } from './context';
+import { ProviderConfig } from './types';
+import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 
 /**
  * A React context provider for accessing block state.
@@ -42,7 +48,12 @@ export function DoptProvider(props: ProviderConfig) {
    * Create the Blocks API Client
    */
   const { fetchBlock, fetchBlockIdentifiersForFlowVersion, intent } = useMemo(
-    () => blocksApi(apiKey, userId, log),
+    () =>
+      blocksApi(apiKey, userId, log, {
+        urlPrefix: URL_PREFIX,
+        packageVersion: PKG_VERSION,
+        packageName: PKG_NAME,
+      }),
     [userId, apiKey]
   );
 
@@ -51,7 +62,7 @@ export function DoptProvider(props: ProviderConfig) {
    *
    */
   const socket = useMemo(() => {
-    return setupSocket(apiKey, userId, log);
+    return setupSocket(apiKey, userId, log, URL_PREFIX);
   }, [apiKey, userId]);
 
   /*
@@ -96,8 +107,8 @@ export function DoptProvider(props: ProviderConfig) {
       blockVersions: Record<string, number>
     ): Promise<void> {
       for (const identifier in blockVersions) {
-        await fetchBlock(identifier, blockVersions[identifier]).then(
-          updateBlockState
+        await fetchBlock(identifier, blockVersions[identifier]).then((block) =>
+          updateBlockState({ [identifier]: block })
         );
       }
       setLoading(false);

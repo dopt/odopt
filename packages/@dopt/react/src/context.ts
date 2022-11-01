@@ -1,6 +1,6 @@
 import { Logger } from '@dopt/logger';
 import { createContext } from 'react';
-import { Blocks, Intentions } from './types';
+import { Blocks, Intentions } from '@dopt/javascript-common';
 
 /**
  * The context accessible either through the {@link useBlock} hook
