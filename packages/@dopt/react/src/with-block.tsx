@@ -1,7 +1,6 @@
 import { DoptContext } from './context';
 
-import { Block } from './types';
-import { useBlock, Intentions } from './use-block';
+import { useBlock } from './use-block';
 
 export interface WithDoptProps extends DoptContext {}
 
