@@ -33,7 +33,20 @@ class Block {
   }
 
   complete() {
-    return this.intents.complete(this.identifier, this.version);
+    return this.intents.complete(this.identifier, this.version, () => {
+      const block = store.getState()[this.identifier];
+      return [
+        block,
+        () => {
+          store.setState({
+            [this.identifier]: Object.assign(block, {
+              active: false,
+              completed: true,
+            }),
+          });
+        },
+      ];
+    });
   }
 
   exit() {
@@ -41,7 +54,20 @@ class Block {
   }
 
   stop() {
-    return this.intents.stop(this.identifier, this.version);
+    return this.intents.stop(this.identifier, this.version, () => {
+      const block = store.getState()[this.identifier];
+      return [
+        block,
+        () => {
+          store.setState({
+            [this.identifier]: Object.assign(block, {
+              active: false,
+              stopped: true,
+            }),
+          });
+        },
+      ];
+    });
   }
 
   subscribe(listener: (block: BlockType) => void) {

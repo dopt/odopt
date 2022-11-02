@@ -21,7 +21,14 @@ import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
  */
 
 export function DoptProvider(props: ProviderConfig) {
-  const { userId, apiKey, flowVersions, children, logLevel } = props;
+  const {
+    userId,
+    apiKey,
+    flowVersions,
+    children,
+    logLevel,
+    optimisticUpdates = true,
+  } = props;
 
   const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
@@ -50,6 +57,7 @@ export function DoptProvider(props: ProviderConfig) {
   const { fetchBlock, fetchBlockIdentifiersForFlowVersion, intent } = useMemo(
     () =>
       blocksApi(apiKey, userId, log, {
+        optimisticUpdates,
         urlPrefix: URL_PREFIX,
         packageVersion: PKG_VERSION,
         packageName: PKG_NAME,
@@ -198,11 +206,37 @@ export function DoptProvider(props: ProviderConfig) {
       start: (identifier) =>
         intent.start(identifier, blockVersions[identifier]),
       complete: (identifier) =>
-        intent.complete(identifier, blockVersions[identifier]),
-      stop: (identifier) => intent.stop(identifier, blockVersions[identifier]),
+        intent.complete(identifier, blockVersions[identifier], () => {
+          return [
+            blocks[identifier],
+            () => {
+              updateBlockState({
+                [identifier]: Object.assign(blocks[identifier], {
+                  active: false,
+                  completed: true,
+                }),
+              });
+            },
+          ];
+        }),
+
+      stop: (identifier) =>
+        intent.stop(identifier, blockVersions[identifier], () => {
+          return [
+            blocks[identifier],
+            () => {
+              updateBlockState({
+                [identifier]: Object.assign(blocks[identifier], {
+                  active: false,
+                  stopped: true,
+                }),
+              });
+            },
+          ];
+        }),
       exit: (identifier) => intent.exit(identifier, blockVersions[identifier]),
     };
-  }, [blockVersions, loading, intent]);
+  }, [blockVersions, loading, intent, blocks]);
 
   return (
     <DoptContext.Provider
