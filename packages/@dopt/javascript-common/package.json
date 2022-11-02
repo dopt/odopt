@@ -1,14 +1,18 @@
 {
-  "name": "@dopt/react",
-  "version": "0.2.1",
+  "name": "@dopt/javascript-common",
+  "version": "0.0.0",
+  "description": "",
   "private": false,
-  "description": "An SDK for accessing and transitioning block state in Dopt",
-  "license": "MIT",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "node": {
+        "require": "./dist/index.cjs.js",
+        "import": "./dist/index.mjs",
+        "types": "./dist/index.d.ts"
+      },
       "require": "./dist/index.cjs.js",
       "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
@@ -22,49 +26,34 @@
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
-    "test": "pnpm test:jest; pnpm test:sh",
+    "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": "",
-    "prepublishOnly": "NODE_ENV=production pnpm build;",
-    "test:jest": "jest",
-    "test:sh": "./src/__tests__/environment-aware-builds.sh"
+    "☝️ required package scripts": ""
   },
   "files": [
     "dist"
   ],
-  "peerDependencies": {
-    "react": ">=16.8.0"
-  },
   "dependencies": {
     "@dopt/logger": "0.0.1",
-    "@dopt/javascript-common": "0.0.0",
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@rollup/plugin-replace": "^5.0.0",
-    "@rollup/plugin-typescript": "8.3.3",
-    "@testing-library/jest-dom": "5.16.5",
-    "@testing-library/react": "13.4.0",
     "@types/jest": "29.2.1",
-    "@types/react": "18.0.24",
-    "@types/react-dom": "18.0.8",
     "@types/rollup-plugin-peer-deps-external": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "5.39.0",
     "@typescript-eslint/parser": "5.39.0",
     "eslint": "8.24.0",
-    "eslint-plugin-react": "7.31.8",
-    "jest": "29.1.2",
-    "jest-environment-jsdom": "^29.2.1",
-    "prettier": "2.7.1",
+    "@rollup/plugin-typescript": "8.3.3",
     "rollup": "3.2.2",
     "rollup-plugin-dts": "5.0.0",
     "rollup-plugin-peer-deps-external": "2.2.4",
+    "jest": "29.1.2",
+    "prettier": "2.7.1",
     "shx": "0.3.4",
-    "ts-jest": "^29.0.3",
     "tslib": "^2.4.0",
-    "tsup": "6.2.3",
     "typescript": "4.8.4"
   }
 }

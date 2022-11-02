@@ -1,8 +1,7 @@
 import { useContext, useCallback } from 'react';
 import { DoptContext } from './context';
 
-import { Block } from './types';
-import { getBlockDefaultState } from './utils';
+import { Block, getBlockDefaultState } from '@dopt/javascript-common';
 
 /**
  * Methods corresponding to an intent-based API for

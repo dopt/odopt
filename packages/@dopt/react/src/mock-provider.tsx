@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DoptContext } from './context';
-import { Intentions, Blocks, MockProviderConfig, Block } from './types';
+import { Intentions, Blocks, Block } from '@dopt/javascript-common';
+import { MockProviderConfig } from './types';
 import { Logger } from '@dopt/logger';
 const validIntentState = ({ active, completed, stopped, exited }: Block) =>
   active && !completed && !stopped && !exited;
