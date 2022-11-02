@@ -1,6 +1,6 @@
 {
   "name": "@dopt/users-javascript-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "description": "A generated JavaScript API client for Dopt's users API",
   "main": "./dist/index.cjs.js",
