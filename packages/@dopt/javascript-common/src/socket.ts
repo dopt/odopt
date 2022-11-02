@@ -1,11 +1,11 @@
-export const URL_PREFIX = process.env.URL_PREFIX;
 import { Logger } from '@dopt/logger';
 import { io, Socket } from 'socket.io-client';
 
 export function setupSocket(
   apiKey: string,
   userId: string | undefined,
-  log: Logger
+  log: Logger,
+  urlPrefix: string
 ): Socket | undefined {
   if (!userId) {
     return undefined;
@@ -13,7 +13,7 @@ export function setupSocket(
 
   log.debug('Initializing socket connection.');
 
-  const socket = io(URL_PREFIX + `/client?endUserIdentifier=${userId}`, {
+  const socket = io(urlPrefix + `/client?endUserIdentifier=${userId}`, {
     transports: ['websocket'],
     withCredentials: true,
     auth: {
