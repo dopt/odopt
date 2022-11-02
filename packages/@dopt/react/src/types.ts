@@ -21,6 +21,7 @@ export interface ProviderConfig extends BaseProviderConfig {
   apiKey: string;
   logLevel?: LoggerProps['logLevel'];
   flowVersions: Record<string, number>;
+  optimisticUpdates?: boolean;
 }
 
 /**
