@@ -1,4 +1,4 @@
-import { Intentions, Blocks, BlockIdentifier } from './types';
+import { Intentions, BlockIdentifier } from './types';
 import { getBlockDefaultState } from './utils';
 
 import { errorHandler } from './error-handler';
@@ -44,6 +44,7 @@ export function blocksApi(
   uid: string | undefined,
   log: Logger,
   config: {
+    optimisticUpdates: boolean;
     urlPrefix: string;
     packageVersion: string;
     packageName: string;
@@ -118,6 +119,7 @@ export const createIntentApi = (
   uid: string | undefined,
   log: Logger,
   config: {
+    optimisticUpdates: boolean;
     urlPrefix: string;
     packageVersion: string;
     packageName: string;
@@ -125,11 +127,30 @@ export const createIntentApi = (
 ) => {
   const intentApi =
     (intention: keyof Intentions) =>
-    async (bid: string, vid: number): Promise<Block> => {
+    async (
+      bid: string,
+      vid: number,
+      optimisticUpdate?: () => [Block, () => void]
+    ): Promise<Block> => {
       log.info(`Calling ${intention} on Block<{"uuid":"${bid}"}>`);
       log.debug(
         `/block/${bid}/${intention}?version=${vid}&endUserIdentifier=${uid}`
       );
+
+      if (config.optimisticUpdates && optimisticUpdate) {
+        switch (intention) {
+          case 'complete':
+          case 'stop':
+            const [block, update] = optimisticUpdate();
+            if (block && block.active) {
+              log.info(
+                `Optimistically updating block state for Block<{"uuid":"${bid}"}>`
+              );
+              update();
+            }
+            break;
+        }
+      }
 
       const response = await client({
         url: `/block/${bid}/${intention}?version=${vid}&endUserIdentifier=${uid}`,

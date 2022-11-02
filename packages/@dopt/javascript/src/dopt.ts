@@ -12,6 +12,7 @@ export interface Config {
   apiKey: string;
   logLevel?: LoggerProps['logLevel'];
   flowVersions: Record<string, number>;
+  optimisticUpdates?: boolean;
 }
 
 import { store } from './store';
@@ -26,16 +27,24 @@ class Dopt {
   public _initializaedPromise: Promise<void>;
 
   private logger: Logger;
+  private optimisticUpdates?: boolean;
 
   private blocksApi: ReturnType<typeof blocksApi>;
   private blockVersions: Map<string, number>;
   private socket: Socket | undefined;
 
-  constructor({ apiKey, userId, logLevel, flowVersions }: Config) {
+  constructor({
+    apiKey,
+    userId,
+    logLevel,
+    flowVersions,
+    optimisticUpdates = true,
+  }: Config) {
     this.apiKey = apiKey;
     this.userId = userId;
     this.flowVersions = flowVersions;
     this.logLevel = logLevel;
+    this.optimisticUpdates = optimisticUpdates;
 
     this.logger = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
@@ -53,7 +62,14 @@ class Dopt {
     // Merge any updated properties into the instance
     Object.assign(this, config);
 
-    const { apiKey, blockVersions, userId, flowVersions, logger } = this;
+    const {
+      apiKey,
+      blockVersions,
+      userId,
+      flowVersions,
+      logger,
+      optimisticUpdates = true,
+    } = this;
 
     if (!userId) {
       logger.info(
@@ -68,6 +84,7 @@ class Dopt {
     });
 
     this.blocksApi = blocksApi(apiKey, userId, logger, {
+      optimisticUpdates,
       urlPrefix: URL_PREFIX,
       packageVersion: PKG_VERSION,
       packageName: PKG_NAME,
