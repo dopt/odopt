@@ -114,12 +114,15 @@ export function DoptProvider(props: ProviderConfig) {
     async function fetchAllBlock(
       blockVersions: Record<string, number>
     ): Promise<void> {
-      for (const identifier in blockVersions) {
-        await fetchBlock(identifier, blockVersions[identifier]).then((block) =>
-          updateBlockState({ [identifier]: block })
-        );
-      }
-      setLoading(false);
+      Promise.all(
+        Object.entries(blockVersions).map(([identifier, version]) =>
+          fetchBlock(identifier, version).then((block) =>
+            updateBlockState({ [block.uuid]: block })
+          )
+        )
+      ).then(() => {
+        setLoading(false);
+      });
     }
     if (blockVersions) {
       fetchAllBlock(blockVersions);
