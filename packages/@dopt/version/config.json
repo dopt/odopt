@@ -1,0 +1,8 @@
+{
+  "linked": [
+    ["@dopt/users-javascript-client", "@users/service"],
+    ["@dopt/react", "@blocks/service"]
+  ],
+  "baseBranch": "main",
+  "include": []
+}
