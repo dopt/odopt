@@ -1,7 +1,7 @@
 {
   "name": "@dopt/check-formatting",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "A CLI for generating packages in the Dopt monorepo",
   "bin": "./bin/run.sh",
   "scripts": {
