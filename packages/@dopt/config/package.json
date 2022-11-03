@@ -1,7 +1,7 @@
 {
   "name": "@dopt/config",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "Shared configuration",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

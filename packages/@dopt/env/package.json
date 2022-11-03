@@ -1,7 +1,7 @@
 {
   "name": "@dopt/env",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "A CLI for generating packages in the Dopt monorepo",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
