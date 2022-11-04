@@ -497,6 +497,49 @@ importers:
       tsup: 6.2.3_typescript@4.8.4
       typescript: 4.8.4
 
+  packages/@dopt/version:
+    specifiers:
+      '@dopt/check-formatting': workspace:*
+      '@dopt/config': workspace:*
+      '@dopt/topoftree': workspace:*
+      '@dopt/tsup': workspace:*
+      '@dopt/wutils': workspace:*
+      '@pnpm/types': ^8.8.0
+      '@types/jest': 29.2.1
+      '@typescript-eslint/eslint-plugin': 5.39.0
+      '@typescript-eslint/parser': 5.39.0
+      esbuild: 0.15.10
+      esbuild-jest: 0.5.0
+      eslint: 8.24.0
+      eslint-plugin-react: 7.31.8
+      jest: 29.1.2
+      pnpm: ^7.12.2
+      prettier: 2.7.1
+      shx: 0.3.4
+      tsup: 6.2.3
+      typescript: 4.8.4
+    dependencies:
+      '@dopt/topoftree': link:../topoftree
+      '@dopt/wutils': link:../wutils
+    devDependencies:
+      '@dopt/check-formatting': link:../check-formatting
+      '@dopt/config': link:../config
+      '@dopt/tsup': link:../tsup
+      '@pnpm/types': 8.8.0
+      '@types/jest': 29.2.1
+      '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
+      '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
+      esbuild: 0.15.10
+      esbuild-jest: 0.5.0_esbuild@0.15.10
+      eslint: 8.24.0
+      eslint-plugin-react: 7.31.8_eslint@8.24.0
+      jest: 29.1.2
+      pnpm: 7.12.2
+      prettier: 2.7.1
+      shx: 0.3.4
+      tsup: 6.2.3_typescript@4.8.4
+      typescript: 4.8.4
+
   packages/@dopt/wutils:
     specifiers:
       '@dopt/check-formatting': workspace:*
@@ -2286,6 +2329,11 @@ packages:
     resolution: {integrity: sha512-2j4ldzfOQNa3EZfJEmJrBQefE+OWBMgAoWWnVeXi5B7itVHRcg27Np+q0FxzuZE//O0N44WKH4WJG53sBsUqCQ==}
     engines: {node: '>=14.6'}
     dev: false
+
+  /@pnpm/types/8.8.0:
+    resolution: {integrity: sha512-IKUpbWRHDB9C4Yy4UeBpeYhU7eIsLj50jF5HNRUkbJnM0CWHPLxX9TGCI+ov8pgGeTP1t1g0GPDHD6en9D8LxQ==}
+    engines: {node: '>=14.6'}
+    dev: true
 
   /@pnpm/which-version-is-pinned/4.0.0:
     resolution: {integrity: sha512-XqZqdxgX7vqxiMX+REsN6lfZ9TR2FQhhaaClA6ymFAVjhuMzJidDDVibqAx5nlfoSqeBklJEZxYXYnU7LjghlA==}
@@ -7465,7 +7513,6 @@ packages:
     resolution: {integrity: sha512-8QvnKANKN+YZXDmVYGI7zRJysdKldZI+w3AYnxu9IwtnLv1x6WuzrJr0nxMcTeuUAT908RjDqK+/6KJB9wNqxA==}
     engines: {node: '>=14.6'}
     hasBin: true
-    dev: false
 
   /posix-character-classes/0.1.1:
     resolution: {integrity: sha512-xTgYBc3fuo7Yt7JbiuFxSYGToMoz8fLoE6TC9Wx1P/u+LfeThMOAqmuyECnlBaaJb+u1m9hHiXUEtwW4OzfUJg==}
