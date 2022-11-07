@@ -21,6 +21,7 @@
   "scripts": {
     "👇required package scripts": "",
     "build": "./build.sh",
+    "buildversion": "make build-version",
     "clean": "shx rm -rf ./dist",
     "dev": "echo \"@dopt/users-javascript-client does not require dev\"; exit 0;",
     "format": "echo \"@dopt/users-javascript-client does not require formatting\"; exit 0;",
