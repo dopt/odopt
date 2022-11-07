@@ -1,7 +1,7 @@
 {
   "name": "@dopt/wutils",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "Yarn workspace utilities",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
