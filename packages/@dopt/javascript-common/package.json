@@ -46,7 +46,7 @@
     "@typescript-eslint/eslint-plugin": "5.42.0",
     "@typescript-eslint/parser": "5.42.0",
     "eslint": "8.27.0",
-    "@rollup/plugin-typescript": "8.5.0",
+    "@rollup/plugin-typescript": "8.3.3",
     "rollup": "3.2.5",
     "rollup-plugin-dts": "5.0.0",
     "rollup-plugin-peer-deps-external": "2.2.4",
