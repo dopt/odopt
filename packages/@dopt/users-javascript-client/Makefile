@@ -6,11 +6,15 @@ GENERATOR_VERSION=6.1.0
 GENERATOR_JAR=openapi-generator-cli-${GENERATOR_VERSION}.jar
 
 EXTERNAL_SPEC_LOCATION=../users-api-manifest/spec/open-api-spec.json
+SERVICE_SPEC_LOCATION=../../../services/@users/service/spec/external/open-api-spec.json
 
 build-java: generate/users-javascript-client-java
 	rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types
 
 build-docker: generate/users-javascript-client-docker
+	rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types
+
+build-version: generate/users-javascript-client-docker-local
 	rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types
 
 generate/users-javascript-client-java:
@@ -26,6 +30,14 @@ generate/users-javascript-client-docker:
 	rm -rf spec; \
 	rm -rf src; \
 	mkdir spec && cp $(EXTERNAL_SPEC_LOCATION) spec/; \
+	docker run --rm -v "${PWD}:/local" --user=`id -u`:`id -g` \
+		openapitools/openapi-generator-cli:v$(GENERATOR_VERSION) generate -i /local/spec/open-api-spec.json -g typescript-axios -o /local/src \
+		--ignore-file-override=/local/.openapi-generator-ignore;
+
+generate/users-javascript-client-docker-local:
+	rm -rf spec; \
+	rm -rf src; \
+	mkdir spec && cp $(SERVICE_SPEC_LOCATION) spec/; \
 	docker run --rm -v "${PWD}:/local" --user=`id -u`:`id -g` \
 		openapitools/openapi-generator-cli:v$(GENERATOR_VERSION) generate -i /local/spec/open-api-spec.json -g typescript-axios -o /local/src \
 		--ignore-file-override=/local/.openapi-generator-ignore;
