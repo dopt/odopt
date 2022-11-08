@@ -1,8 +1,25 @@
 # Changelog
 
-## 0.1.9
+## 0.2.2
 
-- Make the `userId` prop on the `<DoptProvider />` support being `undefined` to create an easier contract when trying to initialize the SDK. If `undefined` the SDK will initialize partially, only making requests that don't require the `userId` and returning default values for blocks being accessed via the `useBlock` hook.
+- Fetch blocks in parallel to improve performance
+
+## 0.2.1
+
+- Add support for `optimisticUpdates`
+- Integrate [@dopt/javascript-common](https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript-common)
+
+## 0.2.0
+
+- Add support for `logLevel` and logger messages
+- Include SDK version in request header
+- Add socket support
+- Add `useBlock` and `withBlock`
+- Mark `useDopt` and `withDopt` as deprecated
+
+## 0.1.0
+
+- Make the `userId` prop on the `<DoptProvider />` support being `undefined` to create an easier contract when trying to initialize the SDK. If `undefined` the SDK will initialize partially, only making requests that don't require the `userId` and returning default values for blocks being accessed via the `useDopt` hook.
 - Add logging to help developers understand when the `<DoptProvider />` has potentially been misconfigured.
 
 ## 0.0.9

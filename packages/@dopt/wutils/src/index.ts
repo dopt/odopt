@@ -68,7 +68,9 @@ function getAffectedPackagesForStagedFiles() {
     .trim()
     .split('\n')
     .filter((f) => f)
-    .map((file) => findNearestPackageJsonSync(file).data.name);
+    .map(
+      (file) => findNearestPackageJsonSync(`${TOPOFTREE}/${file}`).data.name
+    );
 }
 
 function getAffectedPackagesToStagedFilesMapping() {
@@ -93,6 +95,7 @@ function getAffectedPackagesToStagedFilesMapping() {
 const GLOBAL_SCOPES = ['all', 'app', 'service', 'package', 'deps', 'dopt'];
 
 export {
+  findWorkspaceRoot,
   getAffectedPackagesForStagedFiles,
   getAffectedPackagesToStagedFilesMapping,
   getPackages,
