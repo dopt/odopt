@@ -1,6 +1,12 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { DoptContext } from './context';
-import { Intentions, Blocks, Block } from '@dopt/javascript-common';
+import {
+  BlockIntentions,
+  Blocks,
+  Block,
+  FlowIntentions,
+  Flows,
+} from '@dopt/javascript-common';
 import { MockProviderConfig } from './types';
 import { Logger } from '@dopt/logger';
 const validIntentState = ({ active, completed, stopped, exited }: Block) =>
@@ -16,6 +22,7 @@ const validIntentState = ({ active, completed, stopped, exited }: Block) =>
 export function MockDoptProvider(props: MockProviderConfig) {
   const { mocks = { blocks: {} }, logLevel } = props;
   const [blocks, setBlocks] = useState<Blocks>({ ...mocks.blocks });
+  const [flows] = useState<Flows>({});
   const log = new Logger(
     logLevel
       ? { logLevel }
@@ -40,7 +47,13 @@ export function MockDoptProvider(props: MockProviderConfig) {
     }
   }
 
-  const intentions: Intentions = {
+  const flowIntentions: FlowIntentions = useMemo(() => {
+    return {
+      reset: () => {},
+    };
+  }, []);
+
+  const blockIntentions: BlockIntentions = {
     start: (identifier) => updateState(blocks, identifier, { started: true }),
     complete: (identifier) =>
       updateState(blocks, identifier, {
@@ -63,8 +76,10 @@ export function MockDoptProvider(props: MockProviderConfig) {
     <DoptContext.Provider
       value={{
         loading: false,
-        intentions,
+        blockIntentions,
         blocks,
+        flows,
+        flowIntentions,
         log,
       }}
     >
