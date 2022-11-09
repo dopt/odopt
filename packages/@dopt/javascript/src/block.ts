@@ -3,7 +3,7 @@ import { blocksApi, getBlockDefaultState } from '@dopt/javascript-common';
 
 export interface Props {
   identifier: string;
-  intents: ReturnType<typeof blocksApi>['intent'];
+  intents: ReturnType<typeof blocksApi>['blockIntent'];
   logger: Logger;
   version: number;
 }

@@ -179,7 +179,7 @@ class Dopt {
       logger,
       identifier,
       version,
-      intents: this.blocksApi.intent,
+      intents: this.blocksApi.blockIntent,
     });
   }
 
