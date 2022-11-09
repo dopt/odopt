@@ -15,7 +15,7 @@ import { Block, getBlockDefaultState } from '@dopt/javascript-common';
  * ```
  *
  */
-export interface Intentions {
+export interface BlockIntentions {
   /**
    * Signals that the experience this {@link Block} powers has
    * begun. A noop if the {@link Block} isn't active.
@@ -86,27 +86,29 @@ export interface Intentions {
  * ```
  *
  * @param identifier - the reference ID for some step block
- * @returns [{@link Block}, {@link Intentions}] the state of the block and methods to manipulate said state
+ * @returns [{@link Block}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
  *
  * @alpha
  */
-const useBlock = (identifier: string): [block: Block, intent: Intentions] => {
-  const { loading, blocks, intentions } = useContext(DoptContext);
+const useBlock = (
+  identifier: string
+): [block: Block, intent: BlockIntentions] => {
+  const { loading, blocks, blockIntentions } = useContext(DoptContext);
   const start = useCallback(
-    () => !loading && intentions.start(identifier),
-    [loading, intentions]
+    () => !loading && blockIntentions.start(identifier),
+    [loading, blockIntentions]
   );
   const complete = useCallback(
-    () => !loading && intentions.complete(identifier),
-    [loading, intentions]
+    () => !loading && blockIntentions.complete(identifier),
+    [loading, blockIntentions]
   );
   const stop = useCallback(
-    () => !loading && intentions.stop(identifier),
-    [loading, intentions]
+    () => !loading && blockIntentions.stop(identifier),
+    [loading, blockIntentions]
   );
   const exit = useCallback(
-    () => !loading && intentions.exit(identifier),
-    [loading, intentions]
+    () => !loading && blockIntentions.exit(identifier),
+    [loading, blockIntentions]
   );
 
   return [
@@ -121,7 +123,7 @@ const useBlock = (identifier: string): [block: Block, intent: Intentions] => {
  * said state.
  *
  * @param identifier - the reference ID for some step block
- * @returns [{@link Block}, {@link Intentions}] the state of the block and methods to manipulate said state
+ * @returns [{@link Block}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
  *
  * @deprecated
  */

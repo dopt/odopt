@@ -21,7 +21,7 @@
     "format": "echo \"@dopt/env does not require format\"; exit 0;",
     "formatcheck": "echo \"@dopt/env does not require formatcheck\"; exit 0;",
     "lint": "echo \"@dopt/env does not require lint\"; exit 0;",
-    "test": "echo \"@dopt/env does not require lint\"; exit 0;",
+    "test": "echo \"@dopt/env does not require test\"; exit 0;",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": ""
   },
