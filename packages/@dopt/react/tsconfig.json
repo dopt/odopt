@@ -16,7 +16,7 @@
   "exclude": [
     "node_modules",
     "dist",
-    "rollup.types.ts",
+    "rollup.test.config.ts",
     "rollup.config.ts",
     "tsup.config.ts",
     "src/__tests__/*"
