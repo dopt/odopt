@@ -61,7 +61,7 @@ ReactDOM.render(
 
 **Note:** If `userId` is `undefined`, all state values will default to `false`.
 
-### Accessing block state
+### Accessing block state and intentions
 
 Having integrated the provider, you can now access Dopt block state from anywhere in your app (`<Application />` in this example) using the [useBlock](./src/use-block.ts) hook or [withBlock](./src/with-block.tsx) HOC.
 
@@ -101,6 +101,48 @@ export function Application() {
   return (
     <main>
       <WelcomeModalWithDopt />
+    </main>
+  );
+}
+```
+
+### Accessing flow state and intentions
+
+You can also access Dopt flow state from anywhere in your app (`<Application />` in this example) using the [useFlow](./src/use-flow.ts) hook or [withFlow](./src/with-flow.tsx) HOC.
+
+### Example usage
+
+Using the [useFlow](./src/use-flow.ts) hook.
+
+```tsx
+import { useFlow } from "@dopt/react";
+import { Modal } from "@your-company/modal";
+
+export function Application() {
+  const [flow, intent] = useFlow("new-user-onboarding", 1);
+  return (
+    <main>
+      <Modal>
+        <h1>👏 Your onboarding has finished!</h1>
+        <p>Want to reset? click the button below.</p>
+        <button onClick={intent.reset}>Reset onboarding</button>
+      </Modal>
+    </main>
+  );
+}
+```
+
+Using the [withFlow](./src/with-dopt.tsx) HOC
+
+```tsx
+import { withFlow } from "@dopt/react";
+import { Modal } from "@your-company/modal";
+
+export function Application() {
+  const WelcomeModalWithFlow = withFlow(Modal, "new-user-onboarding", 1);
+  return (
+    <main>
+      <WelcomeModalWithFlow />
     </main>
   );
 }
