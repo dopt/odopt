@@ -1,4 +1,4 @@
-import { Intentions, BlockIdentifier } from './types';
+import { BlockIntentions, BlockIdentifier, FlowIntentions } from './types';
 import { getBlockDefaultState } from './utils';
 
 import { errorHandler } from './error-handler';
@@ -36,7 +36,11 @@ export async function client({
     return;
   }
 
-  return await response.json();
+  if (response.status === 204) {
+    return response;
+  }
+
+  return response.json();
 }
 
 export function blocksApi(
@@ -110,9 +114,58 @@ export function blocksApi(
       }
     },
 
-    intent: createIntentApi(apiKey, uid, log, config),
+    blockIntent: createIntentApi(apiKey, uid, log, config),
+    flowIntent: createFlowIntentApi(apiKey, uid, log, config),
   };
 }
+
+export const createFlowIntentApi = (
+  apiKey: string,
+  uid: string | undefined,
+  logger: Logger,
+  config: {
+    optimisticUpdates: boolean;
+    urlPrefix: string;
+    packageVersion: string;
+    packageName: string;
+  }
+) => {
+  const intentApi =
+    (intention: keyof FlowIntentions) =>
+    async (fid: string, fvid: number): Promise<void> => {
+      logger.info(`Calling ${intention} on Flow<{...}>`);
+      logger.debug(
+        `/flow/${fid}/version/${fvid}/${intention}?endUserIdentifier=${uid}`
+      );
+
+      const response = await client({
+        url: `/flow/${fid}/version/${fvid}/${intention}?endUserIdentifier=${uid}`,
+        apiKey,
+        options: {
+          method: 'POST',
+          body: '{}',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+        log: logger,
+        ...config,
+      });
+
+      if (response && response.ok) {
+        logger.info(`Flow<{...}> successfully "${intention}ed"`);
+        return Promise.resolve();
+      }
+      logger.error(
+        `Flow<{...}> failed to trigger the intention "${intention}"`
+      );
+      return Promise.reject();
+    };
+
+  return {
+    reset: intentApi('reset'),
+  };
+};
 
 export const createIntentApi = (
   apiKey: string,
@@ -126,7 +179,7 @@ export const createIntentApi = (
   }
 ) => {
   const intentApi =
-    (intention: keyof Intentions) =>
+    (intention: keyof BlockIntentions) =>
     async (
       bid: string,
       vid: number,
