@@ -35,7 +35,7 @@
   ],
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
-    "@types/jest": "29.2.1",
+    "@types/jest": "29.2.2",
     "@typescript-eslint/eslint-plugin": "5.42.0",
     "@typescript-eslint/parser": "5.42.0",
     "@vanilla-extract/css": "1.9.1",
