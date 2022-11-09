@@ -2,10 +2,12 @@ import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import { Logger } from '@dopt/logger';
 import {
-  blocksApi,
+  BlockIntentions,
   Blocks,
-  Intentions,
+  Flows,
+  blocksApi,
   setupSocket,
+  FlowIntentions,
 } from '@dopt/javascript-common';
 
 import { DoptContext } from './context';
@@ -34,9 +36,27 @@ export function DoptProvider(props: ProviderConfig) {
 
   const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
-  const [blockVersions, setBlockVersions] = useState<Record<string, number>>();
+  const [flows, setFlows] = useState<Flows>({});
+  const [blockVersions, setBlockVersions] =
+    useState<Record<string, [string, number]>>();
 
   const [socketReady, setSocketReady] = useState<boolean>(false);
+
+  useEffect(() => {
+    setFlows(
+      Object.entries(flowVersions).reduce<Flows>(
+        (memo, [flowName, flowVersion]) => {
+          memo[flowName] = {};
+          memo[flowName][flowVersion] = {
+            name: flowName,
+            version: flowVersion,
+          };
+          return memo;
+        },
+        {}
+      )
+    );
+  }, [flowVersions]);
 
   useEffect(() => {
     if (userId === undefined) {
@@ -54,7 +74,12 @@ export function DoptProvider(props: ProviderConfig) {
   /*
    * Create the Blocks API Client
    */
-  const { fetchBlock, fetchBlockIdentifiersForFlowVersion, intent } = useMemo(
+  const {
+    fetchBlock,
+    fetchBlockIdentifiersForFlowVersion,
+    blockIntent,
+    flowIntent,
+  } = useMemo(
     () =>
       blocksApi(apiKey, userId, log, {
         optimisticUpdates,
@@ -92,10 +117,26 @@ export function DoptProvider(props: ProviderConfig) {
             ...Object.fromEntries(
               responses
                 .map((response, i) =>
-                  response.map(({ uuid }) => [uuid, flowIdVersionTuples[i][1]])
+                  response.map(({ uuid }) => [uuid, flowIdVersionTuples[i]])
                 )
                 .flat()
             ),
+          });
+
+          responses.map((response, i) => {
+            const [flowName, flowVersion] = flowIdVersionTuples[i];
+
+            setFlows((prevFlows) => ({
+              ...prevFlows,
+              ...{
+                [flowName]: {
+                  [flowVersion]: {
+                    name: flowName,
+                    version: flowVersion,
+                  },
+                },
+              },
+            }));
           });
         })
         .catch((error) => {
@@ -105,20 +146,20 @@ export function DoptProvider(props: ProviderConfig) {
           `);
         });
     })();
-  }, [JSON.stringify(flowVersions)]);
+  }, [flowVersions]);
 
   /*
    * Fetch the Blocks Versions for the specified flows.
    */
   useEffect(() => {
     async function fetchAllBlock(
-      blockVersions: Record<string, number>
+      blockVersions: Record<string, [string, number]>
     ): Promise<void> {
       Promise.all(
-        Object.entries(blockVersions).map(([identifier, version]) =>
-          fetchBlock(identifier, version).then((block) =>
-            updateBlockState({ [block.uuid]: block })
-          )
+        Object.entries(blockVersions).map(([identifier, [, version]]) =>
+          fetchBlock(identifier, version).then((block) => {
+            updateBlockState({ [block.uuid]: block });
+          })
         )
       ).then(() => {
         setLoading(false);
@@ -178,21 +219,21 @@ export function DoptProvider(props: ProviderConfig) {
     }
 
     for (let bid in blockVersions) {
-      socket?.emit('watch', bid, blockVersions[bid]);
+      socket?.emit('watch', bid, blockVersions[bid][1]);
 
-      socket?.on(`${bid}_${blockVersions[bid]}`, (block) => {
+      socket?.on(`${bid}_${blockVersions[bid][1]}`, (block) => {
         updateBlockState(block);
       });
 
-      if (socket?.listeners(`${bid}_${blockVersions[bid]}`).length > 1) {
+      if (socket?.listeners(`${bid}_${blockVersions[bid][1]}`).length > 1) {
         log.error(
-          `Socket listeners to \`${bid}_${blockVersions[bid]}\` are growing unexpectly.`
+          `Socket listeners to \`${bid}_${blockVersions[bid][1]}\` are growing unexpectly.`
         );
       }
     }
   }, [JSON.stringify(blockVersions), socket, socketReady]);
 
-  const intentions: Intentions = useMemo(() => {
+  const blockIntentions: BlockIntentions = useMemo(() => {
     /*
      * The loading state is a function of whether blockVersions
      * exists, so in theory the `||` isn't necessary.
@@ -207,9 +248,9 @@ export function DoptProvider(props: ProviderConfig) {
     }
     return {
       start: (identifier) =>
-        intent.start(identifier, blockVersions[identifier]),
+        blockIntent.start(identifier, blockVersions[identifier][1]),
       complete: (identifier) =>
-        intent.complete(identifier, blockVersions[identifier], () => {
+        blockIntent.complete(identifier, blockVersions[identifier][1], () => {
           return [
             blocks[identifier],
             () => {
@@ -224,7 +265,7 @@ export function DoptProvider(props: ProviderConfig) {
         }),
 
       stop: (identifier) =>
-        intent.stop(identifier, blockVersions[identifier], () => {
+        blockIntent.stop(identifier, blockVersions[identifier][1], () => {
           return [
             blocks[identifier],
             () => {
@@ -237,16 +278,35 @@ export function DoptProvider(props: ProviderConfig) {
             },
           ];
         }),
-      exit: (identifier) => intent.exit(identifier, blockVersions[identifier]),
+      exit: (identifier) =>
+        blockIntent.exit(identifier, blockVersions[identifier][1]),
     };
-  }, [blockVersions, loading, intent, blocks]);
+  }, [blockVersions, loading, blockIntent, blocks]);
+
+  const flowIntentions: FlowIntentions = useMemo(() => {
+    /*
+     * The loading state is a function of whether blockVersions
+     * exists, so in theory the `||` isn't necessary.
+     */
+    if (loading || !blockVersions) {
+      return {
+        reset: () => {},
+      };
+    }
+
+    return {
+      reset: (name, version) => flowIntent.reset(name, version),
+    };
+  }, [loading, flows, blockVersions]);
 
   return (
     <DoptContext.Provider
       value={{
         loading,
+        flows,
+        flowIntentions,
         blocks,
-        intentions,
+        blockIntentions,
         log,
       }}
     >
