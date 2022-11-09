@@ -41,7 +41,7 @@
   "devDependencies": {
     "@dopt/users-api-manifest": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@rollup/plugin-typescript": "8.5.0",
+    "@rollup/plugin-typescript": "8.3.3",
     "@types/request": "^2.48.8",
     "rollup": "3.2.5",
     "rollup-plugin-dts": "5.0.0",
