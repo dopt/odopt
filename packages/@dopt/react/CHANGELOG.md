@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Add `useFlow` and `withFlow` for accessing the flow state and methods on the flow.
+- Expose `reset` method on the flow that will reset state of the flow and automatically restart it.
+
 ## 0.2.2
 
 - Fetch blocks in parallel to improve performance
