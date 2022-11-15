@@ -266,7 +266,7 @@ importers:
       eslint: 8.27.0
       eslint-plugin-react: 7.31.10
       jest: 29.3.1
-      loglevel: 1.8.0
+      loglevel: 1.8.1
       prettier: 2.7.1
       rollup: 3.2.5
       rollup-plugin-dts: 5.0.0
@@ -276,7 +276,7 @@ importers:
       typescript: 4.8.4
     dependencies:
       chalk: 4.1.2
-      loglevel: 1.8.0
+      loglevel: 1.8.1
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
@@ -6814,8 +6814,8 @@ packages:
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
-  /loglevel/1.8.0:
-    resolution: {integrity: sha512-G6A/nJLRgWOuuwdNuA6koovfEV1YpqqAG4pRUlFaz3jj2QNZ8M4vBqnVA+HBTmU/AMNUtlOsMmSpF6NyOjztbA==}
+  /loglevel/1.8.1:
+    resolution: {integrity: sha512-tCRIJM51SHjAayKwC+QAg8hT8vg6z7GSgLJKGvzuPb1Wc+hLzqtuVLxp6/HzSPOozuK+8ErAhy7U/sVzw8Dgfg==}
     engines: {node: '>= 0.6.0'}
     dev: false
 
