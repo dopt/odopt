@@ -28,7 +28,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm build;"
   },
   "files": [
     "dist"
