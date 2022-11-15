@@ -70,6 +70,18 @@ export function MockDoptProvider(props: MockProviderConfig) {
         active: false,
         exited: true,
       }),
+    prev: (identifier) =>
+      updateState(blocks, identifier, {
+        active: false,
+      }),
+    next: (identifier) =>
+      updateState(blocks, identifier, {
+        active: false,
+      }),
+    goto: (identifier) =>
+      updateState(blocks, identifier, {
+        active: false,
+      }),
   };
 
   return (
