@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils';
 
 import { DoptProvider, useBlock } from '../';
 
-describe('Tests the DoptProvider initialization', () => {
+xdescribe('Tests the DoptProvider initialization', () => {
   const unmockedFetch = global.fetch;
 
   beforeAll(() => {
