@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+- Remove deprecated `useDopt` hook and `withDopt` HOC
+
 ## 0.3.0
 
 - Add `useFlow` and `withFlow` for accessing the flow state and methods on the flow.
