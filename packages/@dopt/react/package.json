@@ -22,7 +22,7 @@
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
-    "test": "pnpm test:jest; pnpm test:sh",
+    "test": "pnpm test:jest && pnpm test:sh",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
     "prepublishOnly": "NODE_ENV=production pnpm build;",
