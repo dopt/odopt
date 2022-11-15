@@ -1,7 +1,7 @@
 export { BaseDoptProvider as DoptProvider } from './base-provider';
 export { DoptContext } from './context';
-export { useBlock, useDopt } from './use-block';
-export { withBlock, withDopt } from './with-block';
+export { useBlock } from './use-block';
+export { withBlock } from './with-block';
 export { useFlow } from './use-flow';
 export { withFlow } from './with-flow';
 

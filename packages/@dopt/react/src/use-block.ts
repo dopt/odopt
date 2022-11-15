@@ -117,16 +117,4 @@ const useBlock = (
   ];
 };
 
-/**
- * A React hook for accessing a flow's block state and
- * methods corresponding to an intent-based API for manipulating
- * said state.
- *
- * @param identifier - the reference ID for some step block
- * @returns [{@link Block}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
- *
- * @deprecated
- */
-const useDopt = useBlock;
-
-export { useBlock, useDopt };
+export { useBlock };
