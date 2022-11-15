@@ -21,6 +21,16 @@ export interface BlockIntentions {
   stop: (identifier: string) => void;
   /** @internal */
   exit: (identifier: string) => void;
+  /** @internal */
+  prev: (identifier: string) => void;
+  /** @internal */
+  next: (identifier: string) => void;
+  /** @internal */
+  goto: (identifier: string) => void;
+}
+
+export interface Group extends Block {
+  readonly blocks: Block[];
 }
 
 export interface Flow {
