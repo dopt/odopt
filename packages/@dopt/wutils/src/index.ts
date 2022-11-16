@@ -60,6 +60,19 @@ function getPackageLocationsSync() {
   return getPackagesSync().map(({ location }) => location);
 }
 
+function getAffectedPackagesForChangedFiles() {
+  return execSync(
+    "git diff origin/main --name-only --diff-filter=ACMR | sed 's| |\\ |g'"
+  )
+    .toString()
+    .trim()
+    .split('\n')
+    .filter((f) => f)
+    .map(
+      (file) => findNearestPackageJsonSync(`${TOPOFTREE}/${file}`).data.name
+    );
+}
+
 function getAffectedPackagesForStagedFiles() {
   return execSync(
     "git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g'"
@@ -96,6 +109,7 @@ const GLOBAL_SCOPES = ['all', 'app', 'service', 'package', 'deps', 'dopt'];
 
 export {
   findWorkspaceRoot,
+  getAffectedPackagesForChangedFiles,
   getAffectedPackagesForStagedFiles,
   getAffectedPackagesToStagedFilesMapping,
   getPackages,
