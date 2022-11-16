@@ -165,7 +165,7 @@ importers:
     specifiers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
-      '@dopt/javascript-common': 0.0.0
+      '@dopt/javascript-common': 0.0.1
       '@dopt/logger': 0.0.1
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 8.3.3
@@ -387,7 +387,7 @@ importers:
     specifiers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
-      '@dopt/javascript-common': 0.0.0
+      '@dopt/javascript-common': 0.0.1
       '@dopt/logger': 0.0.1
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 8.3.3
