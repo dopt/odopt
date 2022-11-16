@@ -240,5 +240,8 @@ export const createIntentApi = (
     exit: intentApi('exit'),
     start: intentApi('start'),
     stop: intentApi('stop'),
+    prev: intentApi('prev'),
+    next: intentApi('next'),
+    goto: intentApi('goto'),
   };
 };
