@@ -1,17 +1,17 @@
-export type BlockType =
+export type BlockTable =
   | 'FinishBlock'
   | 'EntryBlock'
   | 'ModelBlock'
   | 'SetBlock';
 
-export const DEFAULT_BLOCK_NAMES: Record<BlockType, string> = {
+export const DEFAULT_BLOCK_NAMES: Record<BlockTable, string> = {
   EntryBlock: 'Start',
   ModelBlock: 'Step',
   FinishBlock: 'Finish',
   SetBlock: 'Set',
 };
 
-export const DEFAULT_BLOCK_DESC: Record<BlockType, string> = {
+export const DEFAULT_BLOCK_DESC: Record<BlockTable, string> = {
   EntryBlock: 'How users enter into the flow',
   ModelBlock: 'Define state for an experience',
   FinishBlock: 'Define when the flow is finished',
