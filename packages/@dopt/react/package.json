@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": false,
   "description": "An SDK for accessing and transitioning block state in Dopt",
   "license": "MIT",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@dopt/logger": "0.0.1",
-    "@dopt/javascript-common": "0.0.0",
+    "@dopt/javascript-common": "0.0.1",
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
