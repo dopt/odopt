@@ -244,6 +244,9 @@ export function DoptProvider(props: ProviderConfig) {
         complete: () => {},
         stop: () => {},
         exit: () => {},
+        prev: () => {},
+        next: () => {},
+        goto: () => {},
       };
     }
     return {
@@ -280,6 +283,12 @@ export function DoptProvider(props: ProviderConfig) {
         }),
       exit: (identifier) =>
         blockIntent.exit(identifier, blockVersions[identifier][1]),
+      prev: (identifier) =>
+        blockIntent.prev(identifier, blockVersions[identifier][1]),
+      next: (identifier) =>
+        blockIntent.next(identifier, blockVersions[identifier][1]),
+      goto: (identifier) =>
+        blockIntent.goto(identifier, blockVersions[identifier][1]),
     };
   }, [blockVersions, loading, blockIntent, blocks]);
 
