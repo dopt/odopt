@@ -1,11 +1,16 @@
-export interface Flow {
-  readonly kind: 'flow';
-  readonly type: 'flow';
-  readonly uid: string;
-  readonly sid: string;
-  readonly version: number;
-  readonly state: {
-    exited: boolean;
-    completed: boolean;
-  };
-}
+import { Static, Type } from '@sinclair/typebox';
+
+export const Flow = Type.Object({
+  kind: Type.Readonly(Type.Literal('flow')),
+  type: Type.Readonly(Type.Literal('flow')),
+  uid: Type.Readonly(Type.String()),
+  sid: Type.Readonly(Type.String()),
+  version: Type.Readonly(Type.Number()),
+  state: Type.Readonly(
+    Type.Object({
+      exited: Type.Boolean(),
+      completed: Type.Boolean(),
+    })
+  ),
+});
+export type Flow = Static<typeof Flow>;

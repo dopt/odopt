@@ -4,7 +4,7 @@ import { UndirectedEdge } from './undirected';
 export * from './directed';
 export * from './undirected';
 
-import { BlockType as Block } from '../block';
+import { Block } from '../block';
 
 export type Edges = (
   | DirectedEdge<Block | undefined, Block | undefined>

@@ -1,16 +1,16 @@
 import { Type, Static } from '@sinclair/typebox';
 
 export const FlowIntent = Type.Union([
-  Type.Literal('start'),
+  Type.Literal('complete'),
   Type.Literal('exit'),
-  Type.Literal('stop'),
   Type.Literal('reset'),
+  Type.Literal('start'),
 ]);
 
 export const BlockIntent = Type.Union([
   Type.Literal('complete'),
-  Type.Literal('prev'),
   Type.Literal('next'),
+  Type.Literal('prev'),
 ]);
 
 export type FlowIntent = Static<typeof FlowIntent>;
