@@ -1,5 +1,6 @@
-import type { Block } from './';
+import { Type } from '@sinclair/typebox';
 
-export interface Entry extends Block<'entry'> {
-  expression: string;
-}
+export const EntryProps = Type.Object({
+  type: Type.Readonly(Type.Literal('entry')),
+  expression: Type.Function([], Type.Promise(Type.Boolean())),
+});
