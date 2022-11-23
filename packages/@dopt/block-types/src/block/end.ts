@@ -1,3 +1,5 @@
-import type { Block } from './';
+import { Type } from '@sinclair/typebox';
 
-export type End = Block<'end'>;
+export const EndProps = Type.Object({
+  type: Type.Readonly(Type.Literal('end')),
+});

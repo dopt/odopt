@@ -1,3 +1,5 @@
-import type { Block } from './';
+import { Type } from '@sinclair/typebox';
 
-export type Model = Block<'model'>;
+export const ModelProps = Type.Object({
+  type: Type.Readonly(Type.Literal('model')),
+});
