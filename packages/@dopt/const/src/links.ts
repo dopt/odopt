@@ -4,21 +4,21 @@ export const DOCS_API_LINK = 'https://dopt.readme.io/';
 
 export const REACT_SDK_LINK = 'https://react-sdk-docs.vercel.app/index.html';
 
-export const DOCS_FLOWS_LINK = 'https://docs.dopt.com/concepts/flows';
+export const DOCS_FLOWS_LINK = 'https://docs.dopt.com/concepts/flows/';
 
-export const DOCS_USERS_LINK = 'https://docs.dopt.com/concepts/users';
+export const DOCS_USERS_LINK = 'https://docs.dopt.com/concepts/users/';
 
 export const DOCS_CREATE_API_KEYS_LINK =
   'https://docs.dopt.com/getting-started/#create-api-keys';
 
 export const DOCS_IDENTIFYING_USERS_LINK =
-  'https://docs.dopt.com/guides/identifying-users';
+  'https://docs.dopt.com/guides/identifying-users/';
 
 export const DOCS_TARGETING_RULES_EXPRESSION_LANGUAGE_LINK =
-  'https://docs.dopt.com/guides/targeting-rules#targeting-rules-expression-language';
+  'https://docs.dopt.com/guides/targeting-rules/#targeting-rules-expression-language';
 
 export const DOCS_RESET_USER_API_LINK =
-  'https://docs.dopt.com/guides/user-flow-state#resetting-user-flow-states';
+  'https://docs.dopt.com/guides/user-flow-state/#resetting-user-flow-states';
 
 export const MAILTO_SUPPORT = 'mailto:support@dopt.com';
 
@@ -52,7 +52,7 @@ export const GITHUB_REACT_SDK_LINK =
 export const LINKEDIN_LINK = 'https://www.linkedin.com/company/dopt/';
 
 export const DOCS_ENVIRONMENTS_LINK =
-  'https://docs.dopt.com/concepts/environments';
+  'https://docs.dopt.com/concepts/environments/';
 
 export const DOCS_SEGEMENT_INTEGRATION_LINK =
-  'https://docs.dopt.com/integrations/segment-integration';
+  'https://docs.dopt.com/integrations/segment-integration/';
