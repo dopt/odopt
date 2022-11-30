@@ -35,7 +35,7 @@
     "@pnpm/find-workspace-packages": "^5.0.0",
     "@types/micromatch": "^4.0.2",
     "chalk": "4.1.2",
-    "concurrently": "7.5.0",
+    "concurrently": "7.6.0",
     "micromatch": "^4.0.5"
   },
   "devDependencies": {
