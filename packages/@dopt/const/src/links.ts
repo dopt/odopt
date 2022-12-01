@@ -7,12 +7,16 @@ export const REACT_SDK_LINK = 'https://react-sdk-docs.vercel.app/index.html';
 export const DOCS_FLOWS_LINK = 'https://docs.dopt.com/concepts/flows/';
 
 export const DOCS_USERS_LINK = 'https://docs.dopt.com/concepts/users/';
+export const DOCS_GROUPS_LINK = 'https://docs.dopt.com/concepts/groups/';
 
 export const DOCS_CREATE_API_KEYS_LINK =
   'https://docs.dopt.com/getting-started/#create-api-keys';
 
 export const DOCS_IDENTIFYING_USERS_LINK =
   'https://docs.dopt.com/guides/identifying-users/';
+
+export const DOCS_IDENTIFYING_GROUPS_LINK =
+  'https://docs.dopt.com/guides/identifying-groups/';
 
 export const DOCS_TARGETING_RULES_EXPRESSION_LANGUAGE_LINK =
   'https://docs.dopt.com/guides/targeting-rules/#targeting-rules-expression-language';
