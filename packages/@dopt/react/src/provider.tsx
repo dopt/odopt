@@ -56,7 +56,7 @@ export function DoptProvider(props: ProviderConfig) {
         {}
       )
     );
-  }, [flowVersions]);
+  }, [JSON.stringify(flowVersions)]);
 
   useEffect(() => {
     if (userId === undefined) {
@@ -146,7 +146,7 @@ export function DoptProvider(props: ProviderConfig) {
           `);
         });
     })();
-  }, [flowVersions]);
+  }, [JSON.stringify(flowVersions)]);
 
   /*
    * Fetch the Blocks Versions for the specified flows.
