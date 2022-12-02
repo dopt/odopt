@@ -32,10 +32,9 @@ export function setupSocket(
   socket.on('disconnect', (reason: string) => {
     log.debug('Socket disconnected.');
     if (reason === 'io server disconnect') {
-      log.debug(
-        'Disconnection was initiated by the server, trying to reconnect manually'
+      log.error(
+        'Disconnection was initiated by the server, something went wrong.'
       );
-      socket.connect();
     } else {
       log.debug('Socket reconnecting automatically.');
     }
