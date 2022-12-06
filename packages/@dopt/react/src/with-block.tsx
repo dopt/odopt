@@ -25,7 +25,7 @@ export interface WithDoptProps extends DoptContext {}
  *
  * @param Component - the React component you with to inject Dopt props into
  * @param identifier - the reference ID for some step block
- * @returns The original component with {@link Block | block} and {@link Intentions | intent}
+ * @returns The original component with {@link Block | block} and {@link BlockIntentions | intent}
  * props injected in
  *
  * @alpha
