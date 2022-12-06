@@ -1,12 +1,14 @@
 # Dopt React SDK
 
-## Getting Started
+## Getting started
 
-The Dopt React SDK offers a convenient framework-native client for accessing Dopt's blocks API, allowing you to bind user journey state (defined in Dopt) to your UI.
+The Dopt React SDK is a framework-specific client for accessing Dopt's blocks API, allowing you to bind user flow state defined in Dopt to your UI to build onboarding and engagement flows.
 
-Check out our [type doc](https://paka.dev/npm/@dopt/react) for source code level documentation!
+The SDK lives in our open-source monorepo [odopt](https://github.com/dopt/odopt).
 
-For a more in-depth guide, check out the [React SDK guide](https://docs.dopt.com/guides/react-sdk) in our docs.
+It is published to npm as [`@dopt/react`](https://www.npmjs.com/package/@dopt/react).
+
+Check out our [TypeDoc docs](https://docs.dopt.com/sdks/react/modules/) for source code level documentation. For a more in-depth guide, check out the [React SDK guide](https://docs.dopt.com/guides/react-sdk/) in our docs.
 
 ## Installation
 
@@ -166,3 +168,11 @@ The `DoptProvider` accepts a `logLevel` prop that allows you to set the minimum 
 ### Optimistic updates (experimental)
 
 The `DoptProvider` accepts a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when an intent method is called. This defaults to `true`.
+
+## Feedback
+
+Looking to provide feedback or report a bug? [Open an issue](https://github.com/dopt/odopt/issues/new?title=[@dopt/react]%20) or contact us at [support@dopt.com](mailto:support@dopt.com).
+
+## Contributing
+
+All contributions are welcome! Feel free to open a [pull request](https://github.com/dopt/odopt/compare).
