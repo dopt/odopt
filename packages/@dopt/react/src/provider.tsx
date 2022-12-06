@@ -21,7 +21,6 @@ import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
  *
  * @alpha
  */
-
 export function DoptProvider(props: ProviderConfig) {
   const {
     userId,
