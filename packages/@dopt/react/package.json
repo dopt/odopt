@@ -1,8 +1,14 @@
 {
   "name": "@dopt/react",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "private": false,
   "description": "An SDK for accessing and transitioning block state in Dopt",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/react"
+  },
   "license": "MIT",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
@@ -16,7 +22,7 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types; pnpm run typedoc:markdown",
     "clean": "shx rm -rf ./dist",
     "dev": "NODE_ENV=development rollup -w --config rollup.config.ts --configPlugin typescript --no-watch.clearScreen",
     "format": "prettier --w .",
@@ -27,10 +33,12 @@
     "☝️ required package scripts": "",
     "prepublishOnly": "NODE_ENV=production pnpm build;",
     "test:jest": "jest",
-    "test:sh": "./src/__tests__/environment-aware-builds.sh"
+    "test:sh": "./src/__tests__/environment-aware-builds.sh",
+    "typedoc:markdown": "typedoc --options typedoc.markdown.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "docs"
   ],
   "peerDependencies": {
     "react": ">=16.8.0"
@@ -65,6 +73,8 @@
     "ts-jest": "^29.0.3",
     "tslib": "^2.4.0",
     "tsup": "6.5.0",
+    "typedoc": "0.23.21",
+    "typedoc-plugin-markdown": "3.13.6",
     "typescript": "4.9.3"
   }
 }
