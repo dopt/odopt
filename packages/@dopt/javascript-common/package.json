@@ -35,8 +35,6 @@
   ],
   "dependencies": {
     "@dopt/logger": "0.0.1",
-    "@dopt/mercator": "0.0.0",
-    "@dopt/block-types": "0.0.0",
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
