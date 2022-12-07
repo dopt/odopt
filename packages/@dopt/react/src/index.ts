@@ -7,7 +7,7 @@ export { withFlow } from './with-flow';
 
 export { URL_PREFIX as BASE_URL } from './utils';
 
-export type { Block, Blocks } from '@dopt/javascript-common';
+export type { Blocks } from '@dopt/javascript-common';
 export type { BlockIntentions } from './use-block';
 export type { FlowIntentions } from './use-flow';
 export type {
