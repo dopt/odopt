@@ -1,38 +1,10 @@
-import type { Block, Flow } from '@dopt/block-types';
-
-export function getDefaultBlockState(uid: string): Block {
+export function getBlockDefaultState(identifier: string) {
   return {
-    kind: 'block',
-    type: 'model',
-    uid,
-    sid: uid,
-    version: -1,
-    state: {
-      active: false,
-      completed: false,
-    },
+    active: false,
+    completed: false,
+    exited: false,
+    started: false,
+    stopped: false,
+    uuid: identifier,
   };
 }
-
-export function getDefaultFlowState(sid: string, version: number): Flow {
-  return {
-    kind: 'flow',
-    type: 'flow',
-    uid: sid,
-    sid,
-    version,
-    state: {
-      started: false,
-      exited: false,
-      completed: false,
-    },
-  };
-}
-
-export const INTENT_POST_OPTIONS = {
-  method: 'POST',
-  body: '{}',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};

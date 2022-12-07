@@ -52,7 +52,7 @@ xdescribe('Tests the DoptProvider initialization', () => {
       }, 2000);
     });
 
-    if (block.state.active) {
+    if (block.active) {
       return <div>ON</div>;
     }
     return <div>OFF</div>;
