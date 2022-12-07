@@ -1,7 +1,8 @@
 import { useContext, useCallback } from 'react';
 import { DoptContext } from './context';
 
-import { Flow } from '@dopt/javascript-common';
+import type { Flow } from '@dopt/block-types';
+import { getDefaultFlowState } from '@dopt/javascript-common';
 
 export interface FlowIntentions {
   reset: () => void;
@@ -40,15 +41,30 @@ export interface FlowIntentions {
 const useFlow = (
   name: string,
   version: number
-): [flow: Flow, intent: FlowIntentions] => {
-  const { loading, flows, flowIntentions } = useContext(DoptContext);
+): [flow: Partial<Flow>, intent: FlowIntentions] => {
+  const { loading, flows, flowBlocks, blocks, flowIntention } =
+    useContext(DoptContext);
 
   const reset = useCallback(
-    () => !loading && flowIntentions.reset(name, version),
-    [loading, flowIntentions, name, version]
+    () => !loading && flowIntention.reset(name, version),
+    [loading, flowIntention, name, version]
   );
 
-  return [flows[name][version], { reset }];
+  if (loading || !flows.get([name, version])) {
+    return [getDefaultFlowState(name, version), { reset }];
+  }
+
+  const flow = flows.get([name, version]);
+  const updated =
+    (flowBlocks.get([name, version]) || []).map((uid) => blocks[uid]) || [];
+
+  return [
+    {
+      ...flow,
+      blocks: updated,
+    },
+    { reset },
+  ];
 };
 
 export { useFlow };
