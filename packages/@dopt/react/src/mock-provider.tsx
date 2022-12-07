@@ -1,16 +1,17 @@
 import { useMemo, useState } from 'react';
 import { DoptContext } from './context';
 import {
-  BlockIntentions,
+  BlockIntention,
   Blocks,
-  Block,
-  FlowIntentions,
+  FlowIntention,
   Flows,
 } from '@dopt/javascript-common';
+import type { Block } from '@dopt/block-types';
 import { MockProviderConfig } from './types';
 import { Logger } from '@dopt/logger';
-const validIntentState = ({ active, completed, stopped, exited }: Block) =>
-  active && !completed && !stopped && !exited;
+import { Mercator } from '@dopt/mercator';
+
+const validIntentState = ({ state }: Block) => state.active && !state.completed;
 
 /**
  * A mock implementation of the {@link DoptProvider} for local/offline testing.
@@ -22,7 +23,7 @@ const validIntentState = ({ active, completed, stopped, exited }: Block) =>
 export function MockDoptProvider(props: MockProviderConfig) {
   const { mocks = { blocks: {} }, logLevel } = props;
   const [blocks, setBlocks] = useState<Blocks>({ ...mocks.blocks });
-  const [flows] = useState<Flows>({});
+  const [flows] = useState<Flows>(new Mercator());
   const log = new Logger(
     logLevel
       ? { logLevel }
@@ -37,6 +38,7 @@ export function MockDoptProvider(props: MockProviderConfig) {
   ) {
     const block = blocks[identifier];
     if (block && validIntentState(block)) {
+      //@ts-ignore
       setBlocks({
         ...blocks,
         [identifier]: {
@@ -47,51 +49,45 @@ export function MockDoptProvider(props: MockProviderConfig) {
     }
   }
 
-  const flowIntentions: FlowIntentions = useMemo(() => {
+  const flowIntention: FlowIntention = useMemo(() => {
     return {
-      reset: () => {},
+      reset: async () => {},
+      complete: async () => {},
+      start: async () => {},
+      exit: async () => {},
     };
   }, []);
 
-  const blockIntentions: BlockIntentions = {
-    start: (identifier) => updateState(blocks, identifier, { started: true }),
-    complete: (identifier) =>
+  const blockIntention: BlockIntention = {
+    complete: async (identifier) =>
       updateState(blocks, identifier, {
+        //@ts-ignore
         active: false,
         completed: true,
       }),
-    stop: (identifier) =>
+    next: async (identifier) =>
       updateState(blocks, identifier, {
+        //@ts-ignore
         active: false,
-        stopped: true,
+        completed: true,
       }),
-    exit: (identifier) =>
+    prev: async (identifier) =>
       updateState(blocks, identifier, {
+        //@ts-ignore
         active: false,
-        exited: true,
-      }),
-    prev: (identifier) =>
-      updateState(blocks, identifier, {
-        active: false,
-      }),
-    next: (identifier) =>
-      updateState(blocks, identifier, {
-        active: false,
-      }),
-    goto: (identifier) =>
-      updateState(blocks, identifier, {
-        active: false,
+        completed: true,
       }),
   };
 
   return (
     <DoptContext.Provider
+      //@ts-ignore
       value={{
         loading: false,
-        blockIntentions,
+        blockIntention,
         blocks,
         flows,
-        flowIntentions,
+        flowIntention,
         log,
       }}
     >
