@@ -1,10 +1,13 @@
 import { Logger } from '@dopt/logger';
 import { createContext } from 'react';
+
+import type { Mercator } from '@dopt/mercator';
+import type { Flow, Block } from '@dopt/block-types';
 import {
   Flows,
   Blocks,
-  BlockIntentions,
-  FlowIntentions,
+  BlockIntention,
+  FlowIntention,
 } from '@dopt/javascript-common';
 
 /**
@@ -14,9 +17,10 @@ import {
 type DoptContext = {
   loading: boolean;
   flows: Flows;
-  flowIntentions: FlowIntentions;
+  flowBlocks: Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>;
+  flowIntention: FlowIntention;
   blocks: Blocks;
-  blockIntentions: BlockIntentions;
+  blockIntention: BlockIntention;
   log: Logger;
 };
 
