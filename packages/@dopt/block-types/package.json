@@ -1,8 +1,8 @@
 {
   "name": "@dopt/block-types",
   "version": "0.0.0",
-  "description": "A CLI for generating packages in the Dopt monorepo",
-  "private": true,
+  "description": "Schema/Type definitions for objects surfaced through the Block API",
+  "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
