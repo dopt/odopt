@@ -1,17 +1,13 @@
 import { useMemo, useState, useEffect, useCallback } from 'react';
 
-import type { Block, Flow } from '@dopt/block-types';
-
-import { Mercator } from '@dopt/mercator';
-
 import { Logger } from '@dopt/logger';
 import {
+  BlockIntentions,
   Blocks,
   Flows,
-  BlockIntention,
   blocksApi,
   setupSocket,
-  FlowIntention,
+  FlowIntentions,
 } from '@dopt/javascript-common';
 
 import { DoptContext } from './context';
@@ -39,11 +35,27 @@ export function DoptProvider(props: ProviderConfig) {
 
   const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
-  const [flows, setFlows] = useState<Flows>(new Mercator());
-  const [flowBlocks, setFlowBlocks] = useState<
-    Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>
-  >(new Mercator());
+  const [flows, setFlows] = useState<Flows>({});
+  const [blockVersions, setBlockVersions] =
+    useState<Record<string, [string, number]>>();
+
   const [socketReady, setSocketReady] = useState<boolean>(false);
+
+  useEffect(() => {
+    setFlows(
+      Object.entries(flowVersions).reduce<Flows>(
+        (memo, [flowName, flowVersion]) => {
+          memo[flowName] = {};
+          memo[flowName][flowVersion] = {
+            name: flowName,
+            version: flowVersion,
+          };
+          return memo;
+        },
+        {}
+      )
+    );
+  }, [JSON.stringify(flowVersions)]);
 
   useEffect(() => {
     if (userId === undefined) {
@@ -61,7 +73,12 @@ export function DoptProvider(props: ProviderConfig) {
   /*
    * Create the Blocks API Client
    */
-  const { getFlow, flowIntent, blockIntent } = useMemo(
+  const {
+    fetchBlock,
+    fetchBlockIdentifiersForFlowVersion,
+    blockIntent,
+    flowIntent,
+  } = useMemo(
     () =>
       blocksApi(apiKey, userId, log, {
         optimisticUpdates,
@@ -80,80 +97,46 @@ export function DoptProvider(props: ProviderConfig) {
     return setupSocket(apiKey, userId, log, URL_PREFIX);
   }, [apiKey, userId]);
 
+  /*
+   * Fetch the block identifiers for flows passed in
+   * via the `flowVersions` prop. This allows us to
+   * construct URLs correcltly by connecting the blocks
+   * to a specific flow version.
+   */
   useEffect(() => {
-    // Avoid any fetching until the user is defined
-    if (!userId) {
-      return;
-    }
-
     (async function () {
-      /*
-       * Fetch all Flows based on the **in parallel**
-       * provided (Flow['uid'], Flow['version'])
-       * tuples (via the `flowVersions` props)
-       */
+      const flowIdVersionTuples = Object.entries(flowVersions);
       Promise.all(
-        Object.entries(flowVersions).map(([uid, version]) =>
-          getFlow({ uid, version })
+        flowIdVersionTuples.map(([flowId, flowVersion]) =>
+          fetchBlockIdentifiersForFlowVersion(flowId, flowVersion)
         )
       )
-        .then((flows) => {
-          flows.forEach((flow) => {
-            if (!flow.state.started) {
-              flowIntent({
-                uid: flow.uid,
-                version: flow.version,
-                intent: 'start',
-              });
-            }
-            /*
-             * Update the Flows in React state
-             */
-            setFlows((prev) => {
-              return new Mercator(
-                Array.from(prev.set([flow.sid, flow.version], flow).entries())
-              );
-            });
-
-            /*
-             * Extract the Flow's associated Blocks
-             */
-            const blocks = flow.blocks?.reduce<Record<Block['uid'], Block>>(
-              (memo, block) => {
-                memo[block.uid] = block;
-                return memo;
-              },
-              {}
-            );
-
-            /*
-             * Create a mapping from a flow to its blocks
-             */
-            setFlowBlocks((prev) => {
-              return new Mercator(
-                Array.from(
-                  prev.set(
-                    [flow.sid, flow.version],
-                    flow.blocks?.map(({ uid }) => uid) || []
-                  )
+        .then((responses) => {
+          setBlockVersions({
+            ...Object.fromEntries(
+              responses
+                .map((response, i) =>
+                  response.map(({ uuid }) => [uuid, flowIdVersionTuples[i]])
                 )
-              );
-            });
-
-            /*
-             * Update the Block in React state
-             */
-            setBlocks((prevBlocks) => ({
-              ...prevBlocks,
-              ...blocks,
-            }));
+                .flat()
+            ),
           });
 
-          /*
-           * If we've made it here we can safely progress i.e. the
-           * SDK has initialized correctly.
-           */
-          setLoading(false);
+          responses.map((response, i) => {
+            const [flowName, flowVersion] = flowIdVersionTuples[i];
+
+            setFlows((prevFlows) => ({
+              ...prevFlows,
+              ...{
+                [flowName]: {
+                  [flowVersion]: {
+                    name: flowName,
+                    version: flowVersion,
+                  },
+                },
+              },
+            }));
+          });
         })
         .catch((error) => {
           log.error(`
@@ -162,24 +145,38 @@ export function DoptProvider(props: ProviderConfig) {
           `);
         });
     })();
-  }, [JSON.stringify(flowVersions), userId]);
+  }, [JSON.stringify(flowVersions)]);
+
+  /*
+   * Fetch the Blocks Versions for the specified flows.
+   */
+  useEffect(() => {
+    async function fetchAllBlock(
+      blockVersions: Record<string, [string, number]>
+    ): Promise<void> {
+      Promise.all(
+        Object.entries(blockVersions).map(([identifier, [, version]]) =>
+          fetchBlock(identifier, version).then((block) => {
+            updateBlockState({ [block.uuid]: block });
+          })
+        )
+      ).then(() => {
+        setLoading(false);
+      });
+    }
+    if (blockVersions) {
+      fetchAllBlock(blockVersions);
+    }
+  }, [userId, blockVersions, fetchBlock]);
 
   const updateBlockState = useCallback(
-    (updated: Record<Block['uid'], Block>) =>
+    (updated: Blocks) =>
       setBlocks((prevBlocks) => ({
         ...prevBlocks,
         ...updated,
       })),
     []
   );
-
-  const updateFlowState = useCallback((flow: Flow) => {
-    setFlows((preFlows) => {
-      return new Mercator(
-        Array.from(preFlows.set([flow.sid, flow.version], flow).entries())
-      );
-    });
-  }, []);
 
   const socketCallback = useCallback(
     (updatedBlocks: any) => {
@@ -205,100 +202,119 @@ export function DoptProvider(props: ProviderConfig) {
   }, [socket]);
 
   useEffect(() => {
-    if (!socket) {
+    if (!socket || !socketReady || !blockVersions) {
       return;
     }
 
-    if (!socketReady) {
-      return;
-    }
-
-    socket.on('blocks', socketCallback);
-    socket.on('flow', updateFlowState);
+    /*
+     * If we execute the binding below more than once
+     * we are in trouble (e.g. leaking memory, unexpected behavior)
+     */
+    socket?.on('blocks', socketCallback);
 
     // Log a warning if we end up in the situation above
-    if (socket.listeners('blocks').length > 1) {
+    if (socket?.listeners('blocks').length > 1) {
       log.warn('Socket listeners to `blocks` are growing unexpectly.');
     }
 
-    if (socket.listeners('flow').length > 1) {
-      log.warn('Socket listeners to `flow` are growing unexpectly.');
-    }
+    for (let bid in blockVersions) {
+      socket?.emit('watch', bid, blockVersions[bid][1]);
 
-    for (let uid in blocks) {
-      const version = blocks[uid].version;
-
-      socket.emit('watch:block', uid, version);
-
-      socket.on(`${uid}_${version}`, (block) => {
+      socket?.on(`${bid}_${blockVersions[bid][1]}`, (block) => {
         updateBlockState(block);
       });
 
-      if (socket.listeners(`${uid}_${version}`).length > 1) {
+      if (socket?.listeners(`${bid}_${blockVersions[bid][1]}`).length > 1) {
         log.error(
-          `Socket listeners to \`${uid}_${version}\` are growing unexpectly.`
+          `Socket listeners to \`${bid}_${blockVersions[bid][1]}\` are growing unexpectly.`
         );
       }
     }
+  }, [JSON.stringify(blockVersions), socket, socketReady]);
 
-    flows.forEach(({ uid, version }) => {
-      socket.emit('watch:flow', uid, version);
-      socket.on(`${uid}_${version}`, updateFlowState);
-    });
-  }, [
-    JSON.stringify(Object.keys(blocks).sort()),
-    JSON.stringify(Array.from(flows.keys())),
-    socket,
-    socketReady,
-  ]);
-
-  const blockIntention: BlockIntention = useMemo(() => {
-    if (loading) {
+  const blockIntentions: BlockIntentions = useMemo(() => {
+    /*
+     * The loading state is a function of whether blockVersions
+     * exists, so in theory the `||` isn't necessary.
+     */
+    if (loading || !blockVersions) {
       return {
-        complete: async () => {},
-        prev: async () => {},
-        next: async () => {},
+        start: () => {},
+        complete: () => {},
+        stop: () => {},
+        exit: () => {},
+        prev: () => {},
+        next: () => {},
+        goto: () => {},
+      };
+    }
+    return {
+      start: (identifier) =>
+        blockIntent.start(identifier, blockVersions[identifier][1]),
+      complete: (identifier) =>
+        blockIntent.complete(identifier, blockVersions[identifier][1], () => {
+          return [
+            blocks[identifier],
+            () => {
+              updateBlockState({
+                [identifier]: Object.assign(blocks[identifier], {
+                  active: false,
+                  completed: true,
+                }),
+              });
+            },
+          ];
+        }),
+
+      stop: (identifier) =>
+        blockIntent.stop(identifier, blockVersions[identifier][1], () => {
+          return [
+            blocks[identifier],
+            () => {
+              updateBlockState({
+                [identifier]: Object.assign(blocks[identifier], {
+                  active: false,
+                  stopped: true,
+                }),
+              });
+            },
+          ];
+        }),
+      exit: (identifier) =>
+        blockIntent.exit(identifier, blockVersions[identifier][1]),
+      prev: (identifier) =>
+        blockIntent.prev(identifier, blockVersions[identifier][1]),
+      next: (identifier) =>
+        blockIntent.next(identifier, blockVersions[identifier][1]),
+      goto: (identifier) =>
+        blockIntent.goto(identifier, blockVersions[identifier][1]),
+    };
+  }, [blockVersions, loading, blockIntent, blocks]);
+
+  const flowIntentions: FlowIntentions = useMemo(() => {
+    /*
+     * The loading state is a function of whether blockVersions
+     * exists, so in theory the `||` isn't necessary.
+     */
+    if (loading || !blockVersions) {
+      return {
+        reset: () => {},
       };
     }
 
     return {
-      complete: (uid) =>
-        blockIntent({ uid, version: blocks[uid].version, intent: 'complete' }),
-      next: (uid) =>
-        blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
-      prev: (uid) =>
-        blockIntent({ uid, version: blocks[uid].version, intent: 'prev' }),
+      reset: (name, version) => flowIntent.reset(name, version),
     };
-  }, [loading, blockIntent, blocks]);
-
-  const flowIntention: FlowIntention = useMemo(() => {
-    if (loading) {
-      return {
-        start: async () => {},
-        reset: async () => {},
-        complete: async () => {},
-        exit: async () => {},
-      };
-    }
-
-    return {
-      start: (uid, version) => flowIntent({ uid, version, intent: 'start' }),
-      reset: (uid, version) => flowIntent({ uid, version, intent: 'reset' }),
-      complete: (uid, version) =>
-        flowIntent({ uid, version, intent: 'complete' }),
-      exit: (uid, version) => flowIntent({ uid, version, intent: 'exit' }),
-    };
-  }, [loading, flows]);
+  }, [loading, flows, blockVersions]);
 
   return (
     <DoptContext.Provider
       value={{
         loading,
-        flowBlocks,
         flows,
-        flowIntention,
+        flowIntentions,
         blocks,
-        blockIntention,
+        blockIntentions,
         log,
       }}
     >
