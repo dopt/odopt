@@ -3,7 +3,7 @@ import { Base } from './base';
 
 export const EntryProps = Type.Object({
   type: Type.Readonly(Type.Literal('entry')),
-  expression: Type.Optional(Type.Function([], Type.Promise(Type.Boolean()))),
+  expression: Type.Function([], Type.Promise(Type.Boolean())),
 });
 
 export const Entry = Type.Intersect([Base, EntryProps]);

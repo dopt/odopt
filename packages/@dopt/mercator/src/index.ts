@@ -3,14 +3,6 @@ import { EntriesIterator, KeysIterator } from './iterators';
 export class Mercator<K, V> implements Map<K, V> {
   private map = new Map<string, V>();
 
-  constructor(iterable?: [K, V][]) {
-    if (iterable) {
-      iterable.forEach(([k, v]) => {
-        this.set(k, v);
-      });
-    }
-  }
-
   [Symbol.toStringTag] = '[object Map]';
 
   set(key: K, value: V): this {
