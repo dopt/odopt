@@ -1,6 +1,6 @@
 {
   "name": "@dopt/mercator",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An ES6 Map implementation for when your keys are arrays or objects",
   "private": false,
   "main": "./dist/index.js",
