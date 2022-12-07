@@ -1,7 +1,9 @@
 import { useContext, useCallback } from 'react';
 import { DoptContext } from './context';
 
-import { Block, getBlockDefaultState } from '@dopt/javascript-common';
+import { getDefaultBlockState } from '@dopt/javascript-common';
+
+import type { Block } from '@dopt/block-types';
 
 /**
  * Methods corresponding to an intent-based API for
@@ -18,16 +20,6 @@ import { Block, getBlockDefaultState } from '@dopt/javascript-common';
 export interface BlockIntentions {
   /**
    * Signals that the experience this {@link Block} powers has
-   * begun. A noop if the {@link Block} isn't active.
-   *
-   * @modifies
-   *
-   * Sets {@link Block.started} to true
-   * Sets {@link Block.active} to true
-   */
-  start: () => void;
-  /**
-   * Signals that the experience this {@link Block} powers has
    * finished. A noop if the {@link Block} isn't active. Results
    * in a flow transition.
    *
@@ -37,25 +29,6 @@ export interface BlockIntentions {
    * Sets {@link Block.active} to false
    */
   complete: () => void;
-  /**
-   * Signals that the experience this {@link Block} powers
-   * has been ended prematurely and/or not finished. Ends
-   * progress for this branch in the flow.
-   *
-   * @modifies
-   *
-   * Sets {@link Block.stopped} to true
-   * Sets {@link Block.active} to false
-   */
-  stop: () => void;
-  /**
-   * Signals an end of the entire flow.
-   * @modifies
-   *
-   * Sets {@link Block.exited} to true
-   * Sets {@link Block.active} to false
-   */
-  exit: () => void;
 }
 
 /**
@@ -93,28 +66,17 @@ export interface BlockIntentions {
 const useBlock = (
   identifier: string
 ): [block: Block, intent: BlockIntentions] => {
-  const { loading, blocks, blockIntentions } = useContext(DoptContext);
-  const start = useCallback(
-    () => !loading && blockIntentions.start(identifier),
-    [loading, blockIntentions]
-  );
+  const { loading, blocks, blockIntention } = useContext(DoptContext);
   const complete = useCallback(
-    () => !loading && blockIntentions.complete(identifier),
-    [loading, blockIntentions]
-  );
-  const stop = useCallback(
-    () => !loading && blockIntentions.stop(identifier),
-    [loading, blockIntentions]
-  );
-  const exit = useCallback(
-    () => !loading && blockIntentions.exit(identifier),
-    [loading, blockIntentions]
+    () => !loading && blockIntention.complete(identifier),
+    [loading, blockIntention]
   );
 
-  return [
-    blocks[identifier] || getBlockDefaultState(identifier),
-    { start, complete, stop, exit },
-  ];
+  if (loading || !blocks[identifier]) {
+    return [getDefaultBlockState(identifier), { complete }];
+  }
+
+  return [blocks[identifier], { complete }];
 };
 
 export { useBlock };

@@ -1,5 +1,5 @@
 import { Logger } from '@dopt/logger';
-import { blocksApi, getBlockDefaultState } from '@dopt/javascript-common';
+import { blocksApi, getDefaultBlocksState } from '@dopt/javascript-common';
 
 export interface Props {
   identifier: string;
@@ -28,7 +28,8 @@ class Block {
 
   state() {
     return (
-      store.getState()[this.identifier] || getBlockDefaultState(this.identifier)
+      store.getState()[this.identifier] ||
+      getDefaultBlocksState(this.identifier)
     );
   }
 

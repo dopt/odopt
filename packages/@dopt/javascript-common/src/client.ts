@@ -1,9 +1,10 @@
-import { BlockIntentions, BlockIdentifier, FlowIntentions } from './types';
-import { getBlockDefaultState } from './utils';
+import { INTENT_POST_OPTIONS } from './utils';
+
+import { Flow, Block, FlowIntent, BlockIntent } from '@dopt/block-types';
 
 import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
-import { Block } from './types';
+//import { Block } from './types';
 
 export async function client({
   url,
@@ -43,9 +44,26 @@ export async function client({
   return response.json();
 }
 
+type UserIdentifier = {
+  userIdentifier: string | undefined;
+};
+type Version = {
+  version: number;
+};
+
+type BlockParams = Pick<Block, 'uid' | 'version'>;
+type FlowParams = Pick<Flow, 'uid' | 'version'>;
+type BlockIntentParams = BlockParams & { intent: BlockIntent };
+type FlowIntentParams = FlowParams & { intent: FlowIntent };
+
+const queryParams =
+  ({ userIdentifier }: UserIdentifier) =>
+  ({ version }: Version) =>
+    `version=${version}&userIdentifier=${userIdentifier}`;
+
 export function blocksApi(
   apiKey: string,
-  uid: string | undefined,
+  userIdentifier: UserIdentifier['userIdentifier'],
   log: Logger,
   config: {
     optimisticUpdates: boolean;
@@ -54,194 +72,52 @@ export function blocksApi(
     packageName: string;
   }
 ) {
+  const query = queryParams({ userIdentifier });
+
   return {
-    async fetchBlockIdentifiersForFlowVersion(
-      journeyIdentifier: string,
-      version: number
-    ): Promise<BlockIdentifier[]> {
-      const blockIdentifiers = await client({
-        url: `/blocks?journeyIdentifier=${journeyIdentifier}&version=${version}`,
+    async getFlow({ uid, version }: FlowParams): Promise<Flow> {
+      return (await client({
+        url: `/v1/flow/${uid}?include[block]=true&${query({
+          version,
+        })}`,
         apiKey,
         log,
         ...config,
-      });
-      if (blockIdentifiers && blockIdentifiers.length === 0) {
-        log.warn(
-          `No blocks were found for FlowVersions<{"${journeyIdentifier}":${version}}>
- Please confirm that a flow with this identifier and version exists in your Dopt workspace.`
-        );
-      } else {
-        log.info(
-          `${blockIdentifiers.length} blocks identifiers fetched for FlowVersions<{"${journeyIdentifier}":${version}}>`
-        );
-      }
-      return blockIdentifiers;
+      })) as Flow;
     },
-
-    async fetchBlock(bid: string, version: number): Promise<Block> {
-      if (!uid || version === undefined) {
-        if (!uid) {
-          log.info(
-            `Call to \`useBlock('${bid}')\` is returing default values until the \`usedId\` prop is defined.`
-          );
-        }
-        if (version === undefined) {
-          log.warn(
-            `Call to \`useBlock('${bid}')\` cannot be satisfied. Returning default values. 
-+The Block<{ id : ${bid} }> does not appear to exist in any of the flows specified in the \`flowVersions\` prop.`
-          );
-        }
-        return Promise.resolve(getBlockDefaultState(bid));
-      } else {
-        const blockRequest = client({
-          url: `/block/${bid}?version=${version}&endUserIdentifier=${uid}`,
-          apiKey,
-          log,
-          ...config,
-        });
-        const block = await blockRequest;
-        if (block) {
-          log.info(
-            `Block<{"uuid":"${bid}","active":${block.active}}> for Flow<{"version":${version}}> fetched successfully.`
-          );
-          log.debug(`${'\n'}${JSON.stringify(block, null, 2)}`);
-        } else {
-          log.error(
-            `An error occurred in fetching Block<{ id : ${bid} }>  for Flow<{ version : ${version} }>, setting block state to its defaults.`
-          );
-        }
-        return block || Promise.resolve(getBlockDefaultState(bid));
-      }
+    async getBlock({ uid, version }: BlockParams): Promise<Block> {
+      return (await client({
+        url: `/v1/block/${uid}?${query({ version })}`,
+        apiKey,
+        log,
+        ...config,
+      })) as Block;
     },
-
-    blockIntent: createIntentApi(apiKey, uid, log, config),
-    flowIntent: createFlowIntentApi(apiKey, uid, log, config),
+    async flowIntent({
+      uid,
+      version,
+      intent,
+    }: FlowIntentParams): Promise<void> {
+      return (await client({
+        url: `/v1/flow/${uid}/${intent}?${query({ version })}`,
+        apiKey,
+        log,
+        options: INTENT_POST_OPTIONS,
+        ...config,
+      })) as void;
+    },
+    async blockIntent({
+      uid,
+      version,
+      intent,
+    }: BlockIntentParams): Promise<void> {
+      return (await client({
+        url: `/v1/block/${uid}/${intent}?${query({ version })}`,
+        apiKey,
+        log,
+        options: INTENT_POST_OPTIONS,
+        ...config,
+      })) as void;
+    },
   };
 }
-
-export const createFlowIntentApi = (
-  apiKey: string,
-  uid: string | undefined,
-  logger: Logger,
-  config: {
-    optimisticUpdates: boolean;
-    urlPrefix: string;
-    packageVersion: string;
-    packageName: string;
-  }
-) => {
-  const intentApi =
-    (intention: keyof FlowIntentions) =>
-    async (fid: string, fvid: number): Promise<void> => {
-      logger.info(`Calling ${intention} on Flow<{...}>`);
-      logger.debug(
-        `/flow/${fid}/version/${fvid}/${intention}?endUserIdentifier=${uid}`
-      );
-
-      const response = await client({
-        url: `/flow/${fid}/version/${fvid}/${intention}?endUserIdentifier=${uid}`,
-        apiKey,
-        options: {
-          method: 'POST',
-          body: '{}',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-        log: logger,
-        ...config,
-      });
-
-      if (response && response.ok) {
-        logger.info(`Flow<{...}> successfully "${intention}ed"`);
-        return Promise.resolve();
-      }
-      logger.error(
-        `Flow<{...}> failed to trigger the intention "${intention}"`
-      );
-      return Promise.reject();
-    };
-
-  return {
-    reset: intentApi('reset'),
-  };
-};
-
-export const createIntentApi = (
-  apiKey: string,
-  uid: string | undefined,
-  log: Logger,
-  config: {
-    optimisticUpdates: boolean;
-    urlPrefix: string;
-    packageVersion: string;
-    packageName: string;
-  }
-) => {
-  const intentApi =
-    (intention: keyof BlockIntentions) =>
-    async (
-      bid: string,
-      vid: number,
-      optimisticUpdate?: () => [Block, () => void]
-    ): Promise<Block> => {
-      log.info(`Calling ${intention} on Block<{"uuid":"${bid}"}>`);
-      log.debug(
-        `/block/${bid}/${intention}?version=${vid}&endUserIdentifier=${uid}`
-      );
-
-      if (config.optimisticUpdates && optimisticUpdate) {
-        switch (intention) {
-          case 'complete':
-          case 'stop':
-            const [block, update] = optimisticUpdate();
-            if (block && block.active) {
-              log.info(
-                `Optimistically updating block state for Block<{"uuid":"${bid}"}>`
-              );
-              update();
-            }
-            break;
-        }
-      }
-
-      const response = await client({
-        url: `/block/${bid}/${intention}?version=${vid}&endUserIdentifier=${uid}`,
-        apiKey,
-        options: {
-          method: 'POST',
-          body: '{}',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-        log,
-        ...config,
-      });
-
-      if (response && response.block) {
-        const { block } = response;
-        log.info(
-          `Block<{"uuid":"${bid}"}> successfully "${
-            intention === 'complete' ? intention + 'd' : intention + 'ed'
-          }"`
-        );
-        log.debug(`${'\n'}${JSON.stringify(block, null, 2)}`);
-        return Promise.resolve(block);
-      }
-      log.error(
-        `Block<{"uuid":"${bid}"}> failed to trigger the intention "${intention}"`
-      );
-      return Promise.resolve(getBlockDefaultState(bid));
-    };
-
-  return {
-    complete: intentApi('complete'),
-    exit: intentApi('exit'),
-    start: intentApi('start'),
-    stop: intentApi('stop'),
-    prev: intentApi('prev'),
-    next: intentApi('next'),
-    goto: intentApi('goto'),
-  };
-};
