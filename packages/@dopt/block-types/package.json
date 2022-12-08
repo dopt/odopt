@@ -1,7 +1,7 @@
 {
-  "name": "@dopt/mercator",
-  "version": "0.0.1",
-  "description": "An ES6 Map implementation for when your keys are arrays or objects",
+  "name": "@dopt/block-types",
+  "version": "0.0.0",
+  "description": "Schema/Type definitions for objects surfaced through the Block API",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -28,6 +28,9 @@
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "@sinclair/typebox": "0.25.10"
+  },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
