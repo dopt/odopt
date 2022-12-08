@@ -4,6 +4,8 @@ export type BlockTable =
   | 'ModelBlock'
   | 'SetBlock';
 
+export type BlockType = 'Entry' | 'Model' | 'Finish' | 'Set' | 'Element';
+
 export const DEFAULT_BLOCK_NAMES: Record<BlockTable, string> = {
   EntryBlock: 'Start',
   ModelBlock: 'Step',
