@@ -2,7 +2,14 @@
   "name": "@dopt/tsup",
   "version": "0.0.0",
   "private": false,
-  "description": "A CLI for generating packages in the Dopt monorepo",
+  "description": "Shared tsup configuration",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/tsup",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/tsup"
+  },
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

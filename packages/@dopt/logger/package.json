@@ -2,6 +2,13 @@
   "name": "@dopt/logger",
   "version": "0.0.1",
   "description": "A logger package with configuration to set severity loglevel for your standard console logs",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/logger",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/logger"
+  },
+  "license": "MIT",
   "private": false,
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
