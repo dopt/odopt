@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "private": false,
   "description": "A package to copy and store our external specs from GCP",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/api-manifest",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/api-manifest"
+  },
+  "license": "MIT",
   "scripts": {
     "👇required package scripts": "",
     "build": "./get-specs.sh",
