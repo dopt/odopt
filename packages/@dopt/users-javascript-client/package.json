@@ -3,6 +3,13 @@
   "version": "0.0.5",
   "private": false,
   "description": "A generated JavaScript API client for Dopt's users API",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/users-javascript-client",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/users-javascript-client"
+  },
+  "license": "MIT",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",

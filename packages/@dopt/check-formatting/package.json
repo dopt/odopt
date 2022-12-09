@@ -2,7 +2,14 @@
   "name": "@dopt/check-formatting",
   "version": "0.0.0",
   "private": false,
-  "description": "A CLI for generating packages in the Dopt monorepo",
+  "description": "A CLI for checking whether a package's files are formatted correctly",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/check-formatting",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/check-formatting"
+  },
+  "license": "MIT",
   "bin": "./bin/run.sh",
   "scripts": {
     "👇required package scripts": "",
