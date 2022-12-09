@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "private": false,
   "description": "Bodo Design System: Tokens Component",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40bodo/tokens",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@bodo/tokens"
+  },
+  "license": "MIT",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
