@@ -1,78 +1,37 @@
-import { Logger } from '@dopt/logger';
-import { blocksApi, getDefaultBlocksState } from '@dopt/javascript-common';
+import { blocksApi } from '@dopt/javascript-common';
+import { Block as BlockType, BlockIntent } from '@dopt/block-types';
 
-export interface Props {
-  identifier: string;
-  intents: ReturnType<typeof blocksApi>['blockIntent'];
-  logger: Logger;
-  version: number;
+import { blockStore } from './store';
+
+interface Props {
+  intent: ReturnType<typeof blocksApi>['blockIntent'];
+  block: BlockType;
 }
 
-import { Block as BlockType } from '@dopt/javascript-common';
-
-import { store } from './store';
-
 class Block {
-  public identifier: Props['identifier'];
+  private intent: Props['intent'];
+  private block: Props['block'];
 
-  private logger: Props['logger'];
-  private intents: Props['intents'];
-  private version: Props['version'];
-
-  constructor({ identifier, intents, logger, version }: Props) {
-    this.identifier = identifier;
-    this.intents = intents;
-    this.version = version;
-    this.logger = logger;
+  constructor({ block, intent }: Props) {
+    this.intent = intent;
+    this.block = block;
   }
 
-  state() {
-    return (
-      store.getState()[this.identifier] ||
-      getDefaultBlocksState(this.identifier)
-    );
+  private _intent(intent: BlockIntent) {
+    const { uid, version } = this.block;
+    return this.intent({ uid, version, intent });
+  }
+
+  state(): BlockType['state'] {
+    return this.block.state;
   }
 
   complete() {
-    return this.intents.complete(this.identifier, this.version, () => {
-      const block = store.getState()[this.identifier];
-      return [
-        block,
-        () => {
-          store.setState({
-            [this.identifier]: Object.assign(block, {
-              active: false,
-              completed: true,
-            }),
-          });
-        },
-      ];
-    });
-  }
-
-  exit() {
-    return this.intents.complete(this.identifier, this.version);
-  }
-
-  stop() {
-    return this.intents.stop(this.identifier, this.version, () => {
-      const block = store.getState()[this.identifier];
-      return [
-        block,
-        () => {
-          store.setState({
-            [this.identifier]: Object.assign(block, {
-              active: false,
-              stopped: true,
-            }),
-          });
-        },
-      ];
-    });
+    return this._intent('complete');
   }
 
   subscribe(listener: (block: BlockType) => void) {
-    store.subscribe((blocks) => blocks[this.identifier], listener);
+    blockStore.subscribe((blocks) => blocks[this.block.uid], listener);
   }
 }
 
