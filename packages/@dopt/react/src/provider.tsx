@@ -262,8 +262,22 @@ export function DoptProvider(props: ProviderConfig) {
     }
 
     return {
-      complete: (uid) =>
-        blockIntent({ uid, version: blocks[uid].version, intent: 'complete' }),
+      complete: (uid) => {
+        optimisticUpdates &&
+          updateBlockState({
+            [uid]: Object.assign(blocks[uid], {
+              state: {
+                active: false,
+                completed: true,
+              },
+            }),
+          });
+        return blockIntent({
+          uid,
+          version: blocks[uid].version,
+          intent: 'complete',
+        });
+      },
       next: (uid) =>
         blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
       prev: (uid) =>
