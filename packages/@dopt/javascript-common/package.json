@@ -2,6 +2,13 @@
   "name": "@dopt/javascript-common",
   "version": "0.0.2",
   "description": "",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript-common",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/javascript-common"
+  },
+  "license": "MIT",
   "private": false,
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",

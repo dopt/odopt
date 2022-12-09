@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "private": false,
   "description": "A CLI for generating packages in the Dopt monorepo",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/topoftree",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/topoftree"
+  },
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

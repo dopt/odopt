@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "private": false,
   "description": "Yarn workspace utilities",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/wutils",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/wutils"
+  },
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
