@@ -3,8 +3,19 @@ import { Logger, LoggerProps } from '@dopt/logger';
 import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 
 import { Block as BlockClass } from './block';
+import { Flow as FlowClass } from './flow';
 
-import { blocksApi, Blocks, Block, setupSocket } from '@dopt/javascript-common';
+import { Mercator } from '@dopt/mercator';
+
+import type { Block, Flow } from '@dopt/block-types';
+
+import {
+  blocksApi,
+  Blocks,
+  setupSocket,
+  getDefaultBlockState,
+  getDefaultFlowState,
+} from '@dopt/javascript-common';
 import { Socket } from 'socket.io-client';
 
 export interface Config {
@@ -15,7 +26,7 @@ export interface Config {
   optimisticUpdates?: boolean;
 }
 
-import { store } from './store';
+import { blockStore, flowStore } from './store';
 
 class Dopt {
   private userId?: Config['userId'];
@@ -30,7 +41,7 @@ class Dopt {
   private optimisticUpdates?: boolean;
 
   private blocksApi: ReturnType<typeof blocksApi>;
-  private blockVersions: Map<string, number>;
+  private flowBlocks: Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>;
   private socket: Socket | undefined;
 
   constructor({
@@ -48,7 +59,7 @@ class Dopt {
 
     this.logger = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
-    this.blockVersions = new Map();
+    this.flowBlocks = new Mercator();
 
     this._initialized = false;
     this.initialize();
@@ -64,7 +75,7 @@ class Dopt {
 
     const {
       apiKey,
-      blockVersions,
+      flowBlocks,
       userId,
       flowVersions,
       logger,
@@ -95,23 +106,37 @@ class Dopt {
       this.socket?.on('ready', () => resolve());
     });
 
-    const { fetchBlock, fetchBlockIdentifiersForFlowVersion } = this.blocksApi;
-
-    const flowIdVersionTuples = Object.entries(flowVersions);
+    const { getFlow, flowIntent } = this.blocksApi;
 
     await Promise.all(
-      flowIdVersionTuples.map(([flowId, flowVersion]) =>
-        fetchBlockIdentifiersForFlowVersion(flowId, flowVersion)
-      )
+      Object.entries(flowVersions).map(([uid, version]) => {
+        return getFlow({ uid, version });
+      })
     )
-      .then((responses) => {
-        responses.map((response, i) => {
-          response.forEach(({ uuid }) =>
-            blockVersions.set(uuid, flowIdVersionTuples[i][1])
+      .then((flows: Flow[]) => {
+        flows.forEach((flow) => {
+          if (!flow.state.started) {
+            flowIntent({
+              uid: flow.uid,
+              version: flow.version,
+              intent: 'start',
+            });
+          }
+
+          flowStore.setState((flowMap) => {
+            return flowMap.set([flow.uid, flow.version], flow);
+          });
+
+          this.flowBlocks.set(
+            [flow.sid, flow.version],
+            flow.blocks?.map(({ uid }) => uid) || []
           );
+
+          flow.blocks?.forEach((block) => {
+            blockStore.setState({ [block.uid]: block });
+          });
         });
       })
-
       .catch(() => {
         logger.error(`
             An error occurred while fetching blocks for the  
@@ -119,34 +144,34 @@ class Dopt {
           `);
       });
 
-    await Promise.all(
-      Array.from(blockVersions).map(async ([blockIdentifier, blockVersion]) =>
-        fetchBlock(blockIdentifier, blockVersion)
-          .then((block: Block) => {
-            store.setState({ [block.uuid]: block });
-          })
-          .catch(() => {
-            logger.error(`
-              An error occurred while fetching Block<{"uuid":"${blockIdentifier}","version":"${blockVersion}"}>
-          `);
-          })
-      )
-    ).catch(() => {
-      logger.error(`TODO: jm`);
-    });
-
     socketReadyPromise.then(() => {
       this.socket?.on('blocks', (blocks: Blocks) => {
-        store.setState(blocks);
+        blockStore.setState(blocks);
       });
 
-      for (const [bid, version] of blockVersions) {
-        this.socket?.emit('watch', bid, version);
-
-        this.socket?.on(`${bid}_${version}`, (blocks: Blocks) => {
-          store.setState(blocks);
+      this.socket?.on('flow', (flow: Flow) => {
+        flowStore.setState((flows) => {
+          return flows.set([flow.uid, flow.version], flow);
         });
-      }
+      });
+
+      Object.values(blockStore.getState()).forEach(({ uid, version }) => {
+        this.socket?.emit('watch:block', uid, version);
+
+        this.socket?.on(`${uid}_${version}`, (blocks: Blocks) => {
+          blockStore.setState(blocks);
+        });
+      });
+
+      Object.entries(flowVersions).forEach(([uid, version]) => {
+        this.socket?.emit('watch:flow', uid, version);
+        this.socket?.on(`${uid}_${version}`, (flow: Flow) => {
+          flowStore.setState((flows) => {
+            return flows.set([flow.uid, flow.version], flow);
+          });
+        });
+      });
+
       initializedPromiseResolver();
       this._initialized = true;
     });
@@ -154,38 +179,69 @@ class Dopt {
     return this._initializaedPromise;
   }
 
-  public block(identifier: string) {
-    const { blockVersions, logger } = this;
+  public flow(uid: Flow['uid'], version: Flow['version']) {
+    const {
+      logger,
+      flowBlocks,
+      blocksApi: { flowIntent: intent },
+    } = this;
+    if (!this._initialized) {
+      logger.error(
+        `Accessing flow prior to initialization will return default flow states.`
+      );
+      return;
+    }
+    const flow =
+      flowStore.getState().get([uid, version]) ||
+      getDefaultFlowState(uid, version);
+
+    return new FlowClass({
+      intent,
+      flow,
+      flowBlocks,
+    });
+  }
+
+  public flows() {
+    const {
+      flowBlocks,
+      blocksApi: { flowIntent: intent },
+    } = this;
+    return Array.from(flowStore.getState().entries()).map(([, flow]) => {
+      return new FlowClass({
+        intent,
+        flow,
+        flowBlocks,
+      });
+    });
+  }
+
+  public block(uid: string) {
+    const {
+      logger,
+      blocksApi: { blockIntent: intent },
+    } = this;
 
     if (!this._initialized) {
       logger.error(
         `Accessing blocks prior to initialization will return default block states.`
       );
-      return;
     }
 
-    const version = blockVersions.get(identifier);
-    if (!version) {
-      logger.warn(
-        `Could not find a Block<{"uuid":"${identifier}"}>. Confirm that the specified flow versions have this block.`
-      );
-      return;
-    }
-
-    // we can "safely" cast here
-    version as number;
+    const block = blockStore.getState()[uid] || getDefaultBlockState(uid);
 
     return new BlockClass({
-      logger,
-      identifier,
-      version,
-      intents: this.blocksApi.blockIntent,
+      intent,
+      block,
     });
   }
 
   public blocks() {
-    return Array.from(this.blockVersions).map(([identifier]) => {
-      return this.block(identifier);
+    return Object.entries(blockStore.getState()).map(([, block]) => {
+      return new BlockClass({
+        intent: this.blocksApi.blockIntent,
+        block,
+      });
     });
   }
 }
