@@ -1,23 +1,26 @@
-import { INTENT_POST_OPTIONS } from './utils';
+import {
+  getDefaultBlockState,
+  getDefaultFlowState,
+  INTENT_POST_OPTIONS,
+} from './utils';
 
 import { Flow, Block, FlowIntent, BlockIntent } from '@dopt/block-types';
 
 import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
-//import { Block } from './types';
 
 export async function client({
   url,
   apiKey,
   options,
-  log,
+  logger,
   urlPrefix,
   packageVersion,
   packageName,
 }: {
   url: string;
   apiKey: string;
-  log: Logger;
+  logger: Logger;
   options?: RequestInit;
   urlPrefix: string;
   packageVersion: string;
@@ -33,7 +36,7 @@ export async function client({
     },
   });
   if (!response.ok) {
-    errorHandler(response, log);
+    errorHandler(response, logger);
     return;
   }
 
@@ -64,7 +67,7 @@ const queryParams =
 export function blocksApi(
   apiKey: string,
   userIdentifier: UserIdentifier['userIdentifier'],
-  log: Logger,
+  logger: Logger,
   config: {
     optimisticUpdates: boolean;
     urlPrefix: string;
@@ -76,48 +79,106 @@ export function blocksApi(
 
   return {
     async getFlow({ uid, version }: FlowParams): Promise<Flow> {
-      return (await client({
+      const flow = (await client({
         url: `/v1/flow/${uid}?include[block]=true&${query({
           version,
         })}`,
         apiKey,
-        log,
+        logger,
         ...config,
       })) as Flow;
+
+      if (flow) {
+        logger.info(
+          `Flow<{"sid":"${uid}","version":${version}}> fetched successfully.`
+        );
+        logger.debug(`${'\n'}${JSON.stringify(flow, null, 2)}`);
+      } else {
+        logger.error(
+          `An error occurred while fetching Flow<{"sid":"${uid}","version":${version}}>, setting flow state to its defaults.`
+        );
+      }
+
+      return flow || getDefaultFlowState(uid, version);
     },
     async getBlock({ uid, version }: BlockParams): Promise<Block> {
-      return (await client({
+      const block = (await client({
         url: `/v1/block/${uid}?${query({ version })}`,
         apiKey,
-        log,
+        logger,
         ...config,
       })) as Block;
+
+      if (block) {
+        logger.info(
+          `Block<{"uid":"${uid}","version":${version}}> fetched successfully.`
+        );
+        logger.debug(`${'\n'}${JSON.stringify(block, null, 2)}`);
+      } else {
+        logger.error(
+          `An error occurred while fetching Block<{"uid":"${uid}","version":${version}}>, setting block state to its defaults.`
+        );
+      }
+
+      return block || getDefaultBlockState(uid, version);
     },
     async flowIntent({
       uid,
       version,
       intent,
     }: FlowIntentParams): Promise<void> {
-      return (await client({
+      logger.info(
+        `Calling \`${intent}\` on Flow<{"sid":"${uid}","version":${version}}>`
+      );
+      logger.debug(`/v1/flow/${uid}/${intent}?${query({ version })}`);
+
+      const response = await client({
         url: `/v1/flow/${uid}/${intent}?${query({ version })}`,
         apiKey,
-        log,
+        logger,
         options: INTENT_POST_OPTIONS,
         ...config,
-      })) as void;
+      });
+
+      if (response && response.ok) {
+        logger.info(
+          `Calling \`${intent}\` on Flow<{"sid":"${uid}","version":${version}}> was successful.`
+        );
+        return Promise.resolve();
+      }
+      logger.error(
+        `Calling \`${intent}\` on Flow<{"sid":"${uid}","version":${version}}> failed.`
+      );
+      return Promise.reject();
     },
     async blockIntent({
       uid,
       version,
       intent,
     }: BlockIntentParams): Promise<void> {
-      return (await client({
+      logger.info(
+        `Calling \`${intent}\` on Block<{"uid":"${uid}","version":${version}}>`
+      );
+      logger.debug(`/v1/block/${uid}/${intent}?${query({ version })}`);
+
+      const response = await client({
         url: `/v1/block/${uid}/${intent}?${query({ version })}`,
         apiKey,
-        log,
+        logger,
         options: INTENT_POST_OPTIONS,
         ...config,
-      })) as void;
+      });
+
+      if (response && response.ok) {
+        logger.info(
+          `Calling \`${intent}\` on  Block<{"uid":"${uid}","version":${version}}> was successful.`
+        );
+        return Promise.resolve();
+      }
+      logger.info(
+        `Calling \`${intent}\` on  Block<{"uid":"${uid}","version":${version}}> failed.`
+      );
+      return Promise.reject();
     },
   };
 }

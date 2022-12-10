@@ -200,10 +200,12 @@ importers:
 
   packages/@dopt/javascript:
     specifiers:
+      '@dopt/block-types': 0.0.0
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
       '@dopt/javascript-common': 0.0.2
       '@dopt/logger': 0.0.1
+      '@dopt/mercator': 0.0.1
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 10.0.1
       '@types/jest': 29.2.2
@@ -222,8 +224,10 @@ importers:
       typescript: 4.9.3
       zustand: ^4.1.3
     dependencies:
+      '@dopt/block-types': link:../block-types
       '@dopt/javascript-common': link:../javascript-common
       '@dopt/logger': link:../logger
+      '@dopt/mercator': link:../mercator
       socket.io-client: 4.5.3
       zustand: 4.1.4_react@18.2.0
     devDependencies:

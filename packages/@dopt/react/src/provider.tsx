@@ -149,6 +149,8 @@ export function DoptProvider(props: ProviderConfig) {
             }));
           });
 
+          log.info('Flows & Blocks fetched successfully');
+
           /*
            * If we've made it here we can safely progress i.e. the
            * SDK has initialized correctly.
@@ -181,8 +183,8 @@ export function DoptProvider(props: ProviderConfig) {
     });
   }, []);
 
-  const socketCallback = useCallback(
-    (updatedBlocks: any) => {
+  const blocksSocketCallback = useCallback(
+    (updatedBlocks: Blocks) => {
       log.debug(
         `The following blocks were updated and pushed from the server.\n${Object.values(
           updatedBlocks
@@ -193,6 +195,20 @@ export function DoptProvider(props: ProviderConfig) {
       updateBlockState(updatedBlocks);
     },
     [updateBlockState]
+  );
+
+  const flowSocketCallback = useCallback(
+    (updatedFlow: Flow) => {
+      log.debug(
+        `The following flow was updated and pushed from the server.\n${JSON.stringify(
+          updatedFlow,
+          null,
+          2
+        )}`
+      );
+      updateFlowState(updatedFlow);
+    },
+    [updateFlowState]
   );
 
   useEffect(() => {
@@ -213,8 +229,15 @@ export function DoptProvider(props: ProviderConfig) {
       return;
     }
 
-    socket.on('blocks', socketCallback);
-    socket.on('flow', updateFlowState);
+    if (
+      !(Object.keys(blocks).length > 0) ||
+      !(Array.from(flows.keys()).length > 0)
+    ) {
+      return;
+    }
+
+    socket.on('blocks', blocksSocketCallback);
+    socket.on('flow', flowSocketCallback);
 
     // Log a warning if we end up in the situation above
     if (socket.listeners('blocks').length > 1) {
@@ -262,8 +285,22 @@ export function DoptProvider(props: ProviderConfig) {
     }
 
     return {
-      complete: (uid) =>
-        blockIntent({ uid, version: blocks[uid].version, intent: 'complete' }),
+      complete: (uid) => {
+        optimisticUpdates &&
+          updateBlockState({
+            [uid]: Object.assign(blocks[uid], {
+              state: {
+                active: false,
+                completed: true,
+              },
+            }),
+          });
+        return blockIntent({
+          uid,
+          version: blocks[uid].version,
+          intent: 'complete',
+        });
+      },
       next: (uid) =>
         blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
       prev: (uid) =>
