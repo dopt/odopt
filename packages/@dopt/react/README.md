@@ -2,7 +2,7 @@
 
 ## Getting started
 
-The Dopt React SDK is a framework-specific client for accessing Dopt's blocks API, allowing you to bind user flow state defined in Dopt to your UI to build onboarding and engagement flows.
+The Dopt React SDK is a framework-specific client for accessing Dopt's Block API, allowing you to bind user flow state defined in Dopt to your UI to build onboarding and engagement flows.
 
 The SDK lives in our open-source monorepo [odopt](https://github.com/dopt/odopt).
 
@@ -34,9 +34,9 @@ pnpm add @dopt/react
 
 To configure the Dopt provider you will need
 
-1. A blocks API key (generated in Dopt)
+1. A Blocks API key (generated in Dopt)
 1. The flow identifiers and versions you want your end-users to experience
-1. (Optional) A user ID (user being an end-user you've identified to Dopt)
+1. A user ID (user being an end-user you've identified to Dopt)
 
 ## Usage
 
@@ -61,13 +61,93 @@ ReactDOM.render(
 );
 ```
 
-**Note:** If `userId` is `undefined`, all state values will default to `false`.
+**Note:** If `userId` is `undefined`, default objects with default states (e.g. all state values will default to `false`) will be returned from the associated hooks.
 
-### Accessing block state and intentions
+### Flows and Blocks
 
-Having integrated the provider, you can now access Dopt block state from anywhere in your app (`<Application />` in this example) using the [useBlock](./src/use-block.ts) hook or [withBlock](./src/with-block.tsx) HOC.
+The Dopt React SDK gives you access to two related objects, Flows and Blocks. Flows are entities representing the Flow you designed in Dopt. Blocks are a subset of the Blocks in that Flow.
+
+Flows objects available through the SDK are represented by the following type definition.
+
+```ts
+interface Flow<T = "flow"> {
+  readonly kind: "flow";
+  readonly type: T;
+  readonly uid: string;
+  readonly sid: string;
+  readonly version: number;
+  readonly state: {
+    started: boolean;
+    completed: boolean;
+    exited: boolean;
+  };
+  blocks: Block[];
+}
+```
+
+The states of a Flow are 1:1 with the actions you can perform on a Flow. Flows have Blocks, which are represented through the following type definition.
+
+```ts
+interface Block<T> {
+  readonly kind: "block";
+  readonly type: T;
+  readonly uid: string;
+  readonly sid: string;
+  readonly version: number;
+  readonly state: {
+    active: boolean;
+    completed: boolean;
+  };
+}
+```
+
+Unlike Flows, the states of a Block are not all 1:1 with actions you can perform. The `completed` does have an associated action, but the `active` state is special.
+
+**Key Concept:** The `active` state of a Block is controlled by Dopt and represents where the currently logged in user (specified by the `userId` prop) is in the Flow. As you or other actors perform actions that implicitly transition the user through the Flow, the `active` state is updated.
+
+### Accessing Flows and Blocks
+
+Now that you know what objects are available through the SDK, let's talk about how you access them.
+
+By integrating the provider, all descendants of it can now access the Flows configured in the [flowVersions](./src/types.ts#L23) prop, and their associated blocks using the following React hooks and HOCs.
+
+##### Hooks
+
+- [useFlow](./src/use-flow.ts)
+
+```ts
+interface FlowIntentions {
+  reset: () => void;
+  exit: () => void;
+  complete: () => void;
+}
+declare const useFlow: (
+  sid: string,
+  version: number
+) => [flow: Flow, intent: FlowIntentions];
+```
+
+- [useBlock](./src/use-block.ts)
+
+```ts
+interface BlockIntentions {
+  complete: () => void;
+}
+declare const useBlock: (
+  uid: string
+) => [block: Block, intent: BlockIntentions];
+```
+
+##### HOCS
+
+We offer analogous functionality through HOCs for those who are limited by their version of React or prefer that pattern.
+
+- [withFlow](./src/with-flow.tsx)
+- [withBlock](./src/with-block.tsx)
 
 ### Example usage
+
+#### Accessing Blocks
 
 Using the [useBlock](./src/use-block.ts) hook.
 
@@ -76,16 +156,13 @@ import { useBlock } from "@dopt/react";
 import { Modal } from "@your-company/modal";
 
 export function Application() {
-  const [
-    { active, completed, started, stopped, exited },
-    { start, complete, stop, exit },
-  ] = useBlock("HNWvcT78tyTwygnbzU6SW");
+  const [block, intent] = useBlock("HNWvcT78tyTwygnbzU6SW");
   return (
     <main>
-      <Modal isOpen={active}>
+      <Modal isOpen={block.state.active}>
         <h1>👏 Welcome to our app!</h1>
         <p>This is your onboarding experience!</p>
-        <button onClick={complete}>Close me</button>
+        <button onClick={intent.complete}>Close me</button>
       </Modal>
     </main>
   );
@@ -108,11 +185,7 @@ export function Application() {
 }
 ```
 
-### Accessing flow state and intentions
-
-You can also access Dopt flow state from anywhere in your app (`<Application />` in this example) using the [useFlow](./src/use-flow.ts) hook or [withFlow](./src/with-flow.tsx) HOC.
-
-### Example usage
+#### Accessing Flows
 
 Using the [useFlow](./src/use-flow.ts) hook.
 
@@ -124,7 +197,7 @@ export function Application() {
   const [flow, intent] = useFlow("new-user-onboarding", 1);
   return (
     <main>
-      <Modal>
+      <Modal isOpen={flow.state.completed}>
         <h1>👏 Your onboarding has finished!</h1>
         <p>Want to reset? click the button below.</p>
         <button onClick={intent.reset}>Reset onboarding</button>
