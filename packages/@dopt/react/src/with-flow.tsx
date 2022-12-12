@@ -42,7 +42,7 @@ export function withFlow<T>(
     return <Component {...(props as T)} flow={flow} intent={intent} />;
   };
 
-  ComponentWithDopt.displayName = `withDopt(${displayName}, ${useFlowArgs.join(
+  ComponentWithDopt.displayName = `withFlow(${displayName}, ${useFlowArgs.join(
     ', '
   )})`;
 
