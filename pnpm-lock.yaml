@@ -200,12 +200,12 @@ importers:
 
   packages/@dopt/javascript:
     specifiers:
-      '@dopt/block-types': 0.0.0
+      '@dopt/block-types': 1.0.0-beta.0
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
-      '@dopt/javascript-common': 0.0.2
+      '@dopt/javascript-common': 1.0.0-beta.0
       '@dopt/logger': 0.0.1
-      '@dopt/mercator': 0.0.1
+      '@dopt/mercator': 1.0.0
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 10.0.1
       '@types/jest': 29.2.2
@@ -251,11 +251,11 @@ importers:
 
   packages/@dopt/javascript-common:
     specifiers:
-      '@dopt/block-types': 0.0.0
+      '@dopt/block-types': 1.0.0-beta.0
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
       '@dopt/logger': 0.0.1
-      '@dopt/mercator': 0.0.1
+      '@dopt/mercator': 1.0.0
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 10.0.1
       '@types/jest': 29.2.2
@@ -430,12 +430,12 @@ importers:
 
   packages/@dopt/react:
     specifiers:
-      '@dopt/block-types': 0.0.0
+      '@dopt/block-types': 1.0.0-beta.0
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
-      '@dopt/javascript-common': 0.0.2
+      '@dopt/javascript-common': 1.0.0-beta.0
       '@dopt/logger': 0.0.1
-      '@dopt/mercator': 0.0.1
+      '@dopt/mercator': 1.0.0
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 10.0.1
       '@testing-library/jest-dom': 5.16.5
