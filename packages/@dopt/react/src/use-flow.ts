@@ -6,6 +6,8 @@ import { getDefaultFlowState } from '@dopt/javascript-common';
 
 export interface FlowIntentions {
   reset: () => void;
+  exit: () => void;
+  complete: () => void;
 }
 
 /**
@@ -50,8 +52,18 @@ const useFlow = (
     [loading, flowIntention, name, version]
   );
 
+  const exit = useCallback(
+    () => !loading && flowIntention.exit(name, version),
+    [loading, flowIntention, name, version]
+  );
+
+  const complete = useCallback(
+    () => !loading && flowIntention.complete(name, version),
+    [loading, flowIntention, name, version]
+  );
+
   if (loading || !flows.get([name, version])) {
-    return [getDefaultFlowState(name, version), { reset }];
+    return [getDefaultFlowState(name, version), { reset, exit, complete }];
   }
 
   const flow = flows.get([name, version]);
@@ -63,7 +75,7 @@ const useFlow = (
       ...flow,
       blocks: updated,
     },
-    { reset },
+    { reset, exit, complete },
   ];
 };
 
