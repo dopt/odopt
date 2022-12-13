@@ -1,0 +1,45 @@
+{
+  "name": "@examples/kanban",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "formatcheck": "prettier --check .",
+    "format": "prettier --write .",
+    "lint": "eslint ."
+  },
+  "packageManager": "pnpm@7.13.1",
+  "dependencies": {
+    "@asseinfo/react-kanban": "2.2.0",
+    "@dopt/react": "1.0.0-beta.1",
+    "@dopt/users-javascript-client": "0.0.5",
+    "@emotion/react": "11.10.4",
+    "@mantine/core": "5.4.1",
+    "@mantine/form": "5.4.1",
+    "@mantine/hooks": "5.4.1",
+    "@tabler/icons": "1.101.0",
+    "@vanilla-extract/css": "1.9.2",
+    "@vanilla-extract/vite-plugin": "3.7.0",
+    "nanoid": "4.0.0",
+    "react": "18.2.0",
+    "react-confetti": "6.1.0",
+    "react-dom": "18.2.0",
+    "react-use": "17.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.8",
+    "@typescript-eslint/eslint-plugin": "5.45.0",
+    "@typescript-eslint/parser": "5.45.0",
+    "@vitejs/plugin-react": "2.2.0",
+    "eslint": "8.28.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-react": "7.31.11",
+    "prettier": "2.8.0",
+    "typescript": "4.9.3",
+    "vite": "3.2.4"
+  }
+}
