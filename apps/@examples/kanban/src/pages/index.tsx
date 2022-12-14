@@ -26,7 +26,7 @@ import { highlight } from '@/styles/app.css';
 
 const BOARD_DATA_KEY = 'board';
 
-export default function App() {
+export function Kanban() {
   const [board, setBoard] = useState(() => {
     const boardData = localStorage.getItem(BOARD_DATA_KEY);
 
