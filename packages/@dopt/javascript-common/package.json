@@ -1,6 +1,6 @@
 {
   "name": "@dopt/javascript-common",
-  "version": "0.0.2",
+  "version": "1.0.0-beta.0",
   "description": "",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript-common",
   "repository": {
@@ -42,15 +42,15 @@
   ],
   "dependencies": {
     "@dopt/logger": "0.0.1",
-    "@dopt/mercator": "0.0.1",
-    "@dopt/block-types": "0.0.0",
+    "@dopt/mercator": "1.0.0",
+    "@dopt/block-types": "1.0.0-beta.0",
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@rollup/plugin-replace": "^5.0.0",
-    "@types/jest": "29.2.2",
+    "@types/jest": "29.2.4",
     "@types/rollup-plugin-peer-deps-external": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "5.45.0",
     "@typescript-eslint/parser": "5.45.0",

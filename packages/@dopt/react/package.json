@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react",
-  "version": "0.4.4",
+  "version": "1.0.0-beta.1",
   "private": false,
   "description": "An SDK for accessing and transitioning block state in Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/react",
@@ -45,9 +45,9 @@
   },
   "dependencies": {
     "@dopt/logger": "0.0.1",
-    "@dopt/mercator": "0.0.1",
-    "@dopt/block-types": "0.0.0",
-    "@dopt/javascript-common": "0.0.2",
+    "@dopt/mercator": "1.0.0",
+    "@dopt/block-types": "1.0.0-beta.0",
+    "@dopt/javascript-common": "1.0.0-beta.0",
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
@@ -57,9 +57,9 @@
     "@rollup/plugin-typescript": "10.0.1",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
-    "@types/jest": "29.2.2",
-    "@types/react": "18.0.25",
-    "@types/react-dom": "18.0.8",
+    "@types/jest": "29.2.4",
+    "@types/react": "18.0.26",
+    "@types/react-dom": "18.0.9",
     "@types/rollup-plugin-peer-deps-external": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "5.45.0",
     "@typescript-eslint/parser": "5.45.0",

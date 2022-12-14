@@ -1,6 +1,6 @@
 {
   "name": "@dopt/mercator",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An ES6 Map implementation for when your keys are arrays or objects",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/mercator",
   "repository": {
@@ -39,7 +39,7 @@
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
-    "@types/jest": "29.2.2",
+    "@types/jest": "29.2.4",
     "@typescript-eslint/eslint-plugin": "5.45.0",
     "@typescript-eslint/parser": "5.45.0",
     "esbuild": "0.15.16",
