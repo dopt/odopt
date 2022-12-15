@@ -37,3 +37,6 @@ export const renameFailMessage = (model: string) =>
 
 export const enableFailMessage = (action: string) =>
   `Could not ${action} flow. Please try again.`;
+
+export const archiveFailMessage = (model: string) =>
+  `Could not archive ${model}. Please try again.`;
