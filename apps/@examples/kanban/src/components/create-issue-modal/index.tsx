@@ -47,7 +47,7 @@ export function CreateIssueModal(props: Props) {
       onSubmit(
         Object.assign({
           ...values,
-          id: createIssueBlock.state.active ? 'first-issue' : nanoid(),
+          id: nanoid(),
         })
       );
     }
