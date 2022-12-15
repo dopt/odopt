@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import type {
+  Board as BoardType,
   Card,
   CardSource,
   CardDestination,
@@ -23,22 +24,19 @@ import { columns, initialBoard, getColumnById } from '@/utils/board';
 import { useBlock } from '@dopt/react';
 
 import { highlight } from '@/styles/app.css';
-
-const BOARD_DATA_KEY = 'board';
+import { useKeyValueStore } from '@/hooks';
 
 export function Kanban() {
-  const [board, setBoard] = useState(() => {
-    const boardData = localStorage.getItem(BOARD_DATA_KEY);
-
-    if (typeof boardData == 'string') {
-      try {
-        return JSON.parse(boardData);
-      } catch {
-        console.log('Unable to deserialize data from local storage');
-      }
-    }
-    return initialBoard;
+  const [board, setBoard] = useKeyValueStore<BoardType>('board', {
+    defaultValue: initialBoard,
   });
+
+  if (!board) {
+    throw new Error('Unable to initialize board in the k/v store');
+  }
+
+  const [firstIssueId, setFirstIssueId, { removeItem: clearFirstIssue }] =
+    useKeyValueStore('firstIssue');
 
   const [createIssueColumnContext, setCreateIssueColumnContext] = useState(
     columns[0].id
@@ -50,10 +48,6 @@ export function Kanban() {
   const [issueInProgress, reorder] = useBlock('z2rnhWqUav5rhRLcxoM55');
   const [issueStillInProgress, moveToDone] = useBlock('pMw5hcPMz3aZPr5IVfnP8');
 
-  useEffect(() => {
-    localStorage.setItem(BOARD_DATA_KEY, JSON.stringify(board));
-  }, [board]);
-
   const handleMoveCard = (
     card: Card,
     source: CardSource,
@@ -61,7 +55,7 @@ export function Kanban() {
   ) => {
     setBoard(moveCard(board, source, destination));
 
-    if (card.id === 'first-issue') {
+    if (card.id === firstIssueId) {
       if (
         firstIssue.state.active &&
         source.fromColumnId === 'backlog' &&
@@ -84,6 +78,7 @@ export function Kanban() {
         source.fromColumnId === 'inProgress' &&
         destination.toColumnId === 'done'
       ) {
+        clearFirstIssue();
         moveToDone.complete();
       }
     }
@@ -96,6 +91,7 @@ export function Kanban() {
     setBoard(updatedBoard);
 
     if (createIssueNudge.state.active) {
+      setFirstIssueId(card.id);
       createIssue.complete();
     }
   };
