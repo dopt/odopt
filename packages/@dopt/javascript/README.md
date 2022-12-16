@@ -46,7 +46,51 @@ const dopt = new Dopt({
 });
 ```
 
-### Accessing blocks
+### Flows and Blocks
+
+The Dopt React SDK gives you access to two related objects, Flows and Blocks. Flows are entities representing the Flow you designed in Dopt. Blocks are a subset of the Blocks in that Flow.
+
+Flows objects available through the SDK are represented by the following type definition.
+
+```ts
+interface Flow<T = "flow"> {
+  readonly kind: "flow";
+  readonly type: T;
+  readonly uid: string;
+  readonly sid: string;
+  readonly version: number;
+  readonly state: {
+    started: boolean;
+    completed: boolean;
+    exited: boolean;
+  };
+  blocks: Block[];
+}
+```
+
+The states of a Flow are 1:1 with the actions you can perform on a Flow. Flows have Blocks, which are represented through the following type definition.
+
+```ts
+interface Block<T> {
+  readonly kind: "block";
+  readonly type: T;
+  readonly uid: string;
+  readonly sid: string;
+  readonly version: number;
+  readonly state: {
+    active: boolean;
+    completed: boolean;
+  };
+}
+```
+
+Unlike Flows, the states of a Block are not all 1:1 with actions you can perform. The `completed` does have an associated action, but the `active` state is special.
+
+**Key Concept:** The `active` state of a Block is controlled by Dopt and represents where the currently logged in user (specified by the `userId` prop) is in the Flow. As you or other actors perform actions that implicitly transition the user through the Flow, the `active` state is updated.
+
+### Accessing Flows and Blocks
+
+Now that you know what objects are available through the SDK, let's talk about how you access them.
 
 You can use the `blocks()` method to access all blocks associated with the `flowVersions` specified to the SDK.
 
@@ -61,30 +105,53 @@ You can access individual blocks via the `block(identifier: string)` method e.g.
 ```js
 const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
 console.log(
-  "I'm on particular block in version 3 of the `welcome-to-dopt` flow",
+  "I'm on particular block in version 3 of the 'welcome-to-dopt' flow",
   block
 );
 ```
 
-The dopt object exposes asn `initialized` method which you can use to guard calls to any block accessors e.g.
+We also expose flow accessors. You can use the `flows()` method to access all flows associated with the `flowVersions` specified to the SDK.
+
+```js
+const flows = dopt.flows();
+
+flows.forEach((flow) => console.log(flow));
+```
+
+Additionally, you can access individual flows via the `flow(uid: string, version: number)` method e.g.
+
+```js
+const flow = dopt.flow("welcome-to-dopt", 3);
+console.log("I'm version 3 of the `welcome-to-dopt` flow", flow);
+```
+
+The dopt object exposes an `initialized` method which you can use to guard calls to any block accessors e.g.
 
 ```js
 dopt.initialized().then(() => {
-  // Safely access block(s)!
+  // Safely access block(s) or flow(s)!
   const blocks = dopt.blocks();
   const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
 });
 ```
 
-### Subscribing to block state change
+### Subscribing to Flow or Block state change
 
-You can use the `subscribe()` method on the block object to listen for changes to an individual block e.g.
+You can use the `subscribe()` method on the Flow and Block classes to listen for changes to then underlying object e.g.
 
 ```js
 const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
 
 block.subscribe((block: Block) =>
-  console.log(`Block ${block.uuid} has updated`, block)
+  console.log(`Block ${block.uid} has updated`, block)
+);
+```
+
+```js
+const flow = dopt.flow("welcome-to-dopt", 3);
+
+flow.subscribe((flow: Flow) =>
+  console.log(`Flow ${flow.uid} has updated`, flow)
 );
 ```
 
