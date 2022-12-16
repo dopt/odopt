@@ -5,12 +5,14 @@ export interface Props {
     source: CardSource,
     destination: CardDestination
   ) => void;
+  isDisabled?: boolean;
 }
 
 export interface Card {
   id: string;
   title: string;
   description?: string;
+  assignee: string;
 }
 
 export interface CardUtils {

@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css';
+import { style, globalStyle } from '@vanilla-extract/css';
 
 globalStyle('[data-rbd-droppable-id="board-droppable"]', {
   display: 'grid !important',
@@ -25,12 +25,18 @@ globalStyle('.react-kanban-column', {
   display: 'flex !important',
   flexDirection: 'column',
   height: 'unset !important',
-  background: '#F1F3F5',
-  borderRadius: '4px',
+  background: '#F4F5F7',
+  borderRadius: '8px',
+  border: '0.5px solid #DCDCDC',
   margin: 0,
 });
 
 globalStyle('.react-kanban-card-skeleton', {
   maxWidth: '300px',
   minWidth: '300px',
+});
+
+export const disabledClass = style({
+  opacity: 0.5,
+  pointerEvents: 'none',
 });
