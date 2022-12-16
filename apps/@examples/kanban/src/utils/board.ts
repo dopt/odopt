@@ -20,12 +20,14 @@ export const initialBoard: Board = {
           title: 'User research',
           description:
             'Learn how users think about other prodcuts in our space',
+          assignee: 'kim',
         },
         {
           id: 'copy-update',
           title: 'Update landing page copy',
           description:
             'Change home and product page based on the messaging framework',
+          assignee: 'chris',
         },
       ],
     },
@@ -34,8 +36,9 @@ export const initialBoard: Board = {
       cards: [
         {
           id: 'messaging-framework',
-          title: 'Create messaing framework',
+          title: 'Create messaging framework',
           description: 'Get some work done',
+          assignee: 'chris',
         },
       ],
     },

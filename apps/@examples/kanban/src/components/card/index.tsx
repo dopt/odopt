@@ -1,4 +1,5 @@
-import { WalkThroughCardContent } from '@/components';
+import { Group } from '@mantine/core';
+import { Avatar, WalkThroughCardContent } from '@/components';
 
 import { useKeyValueStore } from '@/hooks';
 
@@ -12,16 +13,20 @@ import {
 interface Props {
   id: string;
   title: string;
+  assignee: string;
   children?: string;
   isDragging: boolean;
 }
 
-export function Card({ id, title, children, isDragging }: Props) {
+export function Card({ id, title, assignee, children, isDragging }: Props) {
   const [firstIssueId] = useKeyValueStore('firstIssue');
 
   return (
     <div className={`${cardClass} ${isDragging ? draggingClass : ''}`}>
-      <h3 className={titleClass}>{title}</h3>
+      <Group position="apart">
+        <h3 className={titleClass}>{title}</h3>
+        <Avatar name={assignee} src={`/avatars/${assignee}.png`} />
+      </Group>
       {children && <p className={descriptionClass}>{children}</p>}
       {firstIssueId === id && (
         <>

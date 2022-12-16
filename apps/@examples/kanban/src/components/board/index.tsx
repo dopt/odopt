@@ -1,5 +1,5 @@
 import '@asseinfo/react-kanban/dist/styles.css';
-import './index.css';
+import { disabledClass } from './index.css';
 
 // @ts-expect-error Package does not support TS
 import KanbanBoard from '@asseinfo/react-kanban';
@@ -8,24 +8,34 @@ import { ColumnHeader, Card as CardComponent } from '@/components';
 import type { Card, CardUtils, Column, Props } from './types';
 
 export function Board(props: Props) {
-  const { children, onCardDragEnd } = props;
+  const { children, onCardDragEnd, isDisabled } = props;
 
   return (
-    <KanbanBoard
-      onCardDragEnd={onCardDragEnd}
-      renderColumnHeader={({ id, title }: Column) => {
-        return <ColumnHeader id={id}>{title}</ColumnHeader>;
-      }}
-      renderCard={({ id, title, description }: Card, utils: CardUtils) => {
-        return (
-          <CardComponent id={id} title={title} isDragging={utils.dragging}>
-            {description}
-          </CardComponent>
-        );
-      }}
-    >
-      {children}
-    </KanbanBoard>
+    <div className={isDisabled ? disabledClass : ''}>
+      <KanbanBoard
+        onCardDragEnd={onCardDragEnd}
+        renderColumnHeader={({ id, title }: Column) => {
+          return <ColumnHeader id={id}>{title}</ColumnHeader>;
+        }}
+        renderCard={(
+          { id, title, description, assignee }: Card,
+          utils: CardUtils
+        ) => {
+          return (
+            <CardComponent
+              id={id}
+              title={title}
+              assignee={assignee}
+              isDragging={utils.dragging}
+            >
+              {description}
+            </CardComponent>
+          );
+        }}
+      >
+        {children}
+      </KanbanBoard>
+    </div>
   );
 }
 
