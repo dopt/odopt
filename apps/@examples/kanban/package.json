@@ -14,7 +14,7 @@
   "packageManager": "pnpm@7.13.1",
   "dependencies": {
     "@asseinfo/react-kanban": "2.2.0",
-    "@dopt/react": "1.0.0-beta.2",
+    "@dopt/react": "1.0.0-beta.1",
     "@dopt/users-javascript-client": "0.0.5",
     "@emotion/react": "11.10.5",
     "@mantine/core": "5.9.4",
