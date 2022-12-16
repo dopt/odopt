@@ -107,7 +107,11 @@ export function Kanban() {
         },
       })}
       header={
-        <Header height={60} p="md">
+        <Header
+          height={68}
+          p="md"
+          sx={{ borderBottomColor: '#EAEAEA', zIndex: 1 }}
+        >
           <Group position="apart">
             <Box>
               <Text size="lg" weight="bold">
@@ -122,6 +126,9 @@ export function Kanban() {
                   setCreateIssueModalIsOpen(true);
                 }}
                 className={createIssueNudge.state.active ? highlight : ''}
+                radius={6}
+                py={10}
+                px={12}
               >
                 Create issue
               </Button>
@@ -133,7 +140,12 @@ export function Kanban() {
       <WelcomeBanner />
       <NextStepsBanner />
       <Confetti />
-      <Board onCardDragEnd={handleMoveCard}>{board}</Board>
+      <Board
+        onCardDragEnd={handleMoveCard}
+        isDisabled={createIssueNudge.state.active}
+      >
+        {board}
+      </Board>
 
       <CreateIssueModal
         onSubmit={(values) =>

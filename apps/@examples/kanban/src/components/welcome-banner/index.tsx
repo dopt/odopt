@@ -12,13 +12,14 @@ export function WelcomeBanner() {
 
   return (
     <Box>
-      <Alert p="lg" py="xl">
+      <Alert p="lg" py={42} radius={6} sx={{ border: '0.5px solid #C4DAEA' }}>
         <Stack justify="center" align="center" spacing="sm">
           <IconLayoutKanban color="#228BE6" size={47} />
           <Title order={2}>👋 Welcome to Kanban</Title>
-          <Text size="lg">
-            The simple tool to track your tasks and stay in flow. To start,
-            create an issue.
+          <Text size="lg" align="center">
+            The simple tool to track your tasks and stay in flow.
+            <br />
+            To start, create an issue.
           </Text>
         </Stack>
       </Alert>

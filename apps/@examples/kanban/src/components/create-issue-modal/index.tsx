@@ -16,6 +16,7 @@ export interface FormValues {
   id: string;
   title: string;
   description?: string;
+  assignee: string;
 }
 
 interface Props {
@@ -34,6 +35,7 @@ export function CreateIssueModal(props: Props) {
       id: '',
       title: '',
       description: '',
+      assignee: 'ariana',
     },
   });
 
@@ -70,9 +72,10 @@ export function CreateIssueModal(props: Props) {
             value={createIssueBlock.state.active ? 'first-issue' : undefined}
             {...form.getInputProps('id')}
           />
+
           <TextInput
             label="Title"
-            withAsterisk
+            withAsterisk={false}
             required
             {...form.getInputProps('title')}
           />
@@ -81,11 +84,19 @@ export function CreateIssueModal(props: Props) {
             label="Description"
             {...form.getInputProps('description')}
           />
-          <Group position="right">
-            <Button variant="subtle" onClick={handleClose}>
+          <Group position="right" spacing={6}>
+            <Button
+              variant="subtle"
+              onClick={handleClose}
+              radius={6}
+              py={10}
+              px={12}
+            >
               Cancel
             </Button>
-            <Button type="submit">Create</Button>
+            <Button type="submit" radius={6} py={10} px={12}>
+              Create
+            </Button>
           </Group>
         </Stack>
       </form>
