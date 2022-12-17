@@ -19,7 +19,7 @@ export const initialBoard: Board = {
           id: 'user-research',
           title: 'User research',
           description:
-            'Learn how users think about other prodcuts in our space',
+            'Learn how users think about other products in our space',
           assignee: 'kim',
         },
         {
