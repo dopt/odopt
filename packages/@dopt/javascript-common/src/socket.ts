@@ -13,7 +13,7 @@ export function setupSocket(
 
   log.debug('Initializing socket connection.');
 
-  const socket = io(urlPrefix + `/client?endUserIdentifier=${userId}`, {
+  const socket = io(urlPrefix + `/v1/client?endUserIdentifier=${userId}`, {
     transports: ['websocket'],
     withCredentials: true,
     auth: {
