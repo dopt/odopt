@@ -1,34 +1,32 @@
-export type BlockTable =
-  | 'FinishBlock'
-  | 'EntryBlock'
-  | 'ModelBlock'
-  | 'SetBlock';
+export type BlockTable = 'finish' | 'entry' | 'model' | 'set';
 
-export type BlockType = 'Entry' | 'Model' | 'Finish' | 'Set';
+export type BlockType = 'entry' | 'model' | 'finish' | 'set';
 
 export const DEFAULT_BLOCK_NAMES: Record<BlockType, string> = {
-  Entry: 'Start',
-  Model: 'Step',
-  Finish: 'Finish',
-  Set: 'Group',
+  entry: 'Start',
+  model: 'Step',
+  finish: 'Finish',
+  set: 'Group',
 };
 
 export const DEFAULT_BLOCK_DESC: Record<BlockType, string> = {
-  Entry: 'How users enter into the flow',
-  Model: 'Define state for an experience',
-  Finish: 'Define when the flow is finished',
-  Set: 'Groups steps together',
+  entry: 'How users enter into the flow',
+  model: 'Define state for an experience',
+  finish: 'Define when the flow is finished',
+  set: 'Groups steps together',
 };
 
+// Not very useful right now but in the future this mapping is needed
+// and its scary to just assume that types and tables are 1:1 in code
 export function convertTypeToTable(type: BlockType): BlockTable {
   switch (type) {
-    case 'Entry':
-      return 'EntryBlock';
-    case 'Finish':
-      return 'FinishBlock';
-    case 'Model':
-      return 'ModelBlock';
-    case 'Set':
-      return 'SetBlock';
+    case 'entry':
+      return 'entry';
+    case 'finish':
+      return 'finish';
+    case 'model':
+      return 'model';
+    case 'set':
+      return 'set';
   }
 }
