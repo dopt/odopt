@@ -75,7 +75,6 @@ class Dopt {
 
     const {
       apiKey,
-      flowBlocks,
       userId,
       flowVersions,
       logger,
