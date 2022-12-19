@@ -30,6 +30,8 @@ export const MAILTO_CAREERS = 'mailto:careers@dopt.com';
 
 export const WEBSITE_HOMEPAGE_LINK = 'https://www.dopt.com/';
 
+export const WEBSITE_EXAMPLES_LINK = 'https://www.dopt.com/examples';
+
 export const WEBSITE_ABOUT_LINK = 'https://www.dopt.com/about';
 
 export const WEBSITE_CHANGELOG_LINK = 'https://www.dopt.com/changelog';
