@@ -1,6 +1,6 @@
 {
   "name": "@dopt/javascript",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript",
   "repository": {
@@ -42,10 +42,10 @@
     "dist"
   ],
   "dependencies": {
-    "@dopt/javascript-common": "1.0.0-beta.1",
+    "@dopt/javascript-common": "1.0.0-beta.2",
     "@dopt/logger": "0.0.1",
     "@dopt/mercator": "1.0.0",
-    "@dopt/block-types": "1.0.0-beta.0",
+    "@dopt/block-types": "1.0.0-beta.1",
     "socket.io-client": "^4.5.3",
     "zustand": "^4.1.3"
   },
