@@ -40,14 +40,14 @@ type PackageDef = {
   path: string;
   private: boolean;
 };
-function getPackagesSync(): Omit<PackageDef, 'path'>[] {
+function getPackagesSync(): PackageDef[] {
   return JSON.parse(execSync('pnpm ls -r --depth -1 --json').toString())
     .map((pkg: Omit<PackageDef, 'location'>) => {
       const { path, ...rest } = pkg;
 
       const location = path.replace(`${TOPOFTREE}/`, '');
 
-      return { location, ...rest };
+      return { location, path, ...rest };
     })
     .slice(1);
 }
