@@ -30,6 +30,7 @@
   ],
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
+    "@dopt/block-types": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
     "@types/jest": "29.2.4",
