@@ -1,9 +1,9 @@
-import type { Block, Flow } from '@dopt/block-types';
+import { Block, BLOCK_TYPES, Flow } from '@dopt/block-types';
 
 export function getDefaultBlockState(uid: string, version?: number): Block {
   return {
     kind: 'block',
-    type: 'model',
+    type: BLOCK_TYPES.model,
     uid,
     sid: uid,
     version: version != null ? version : -1,
