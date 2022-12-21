@@ -25,8 +25,8 @@ export interface BlockIntentions {
    *
    * @modifies
    *
-   * Sets {@link Block.completed} to true
-   * Sets {@link Block.active} to false
+   * Sets {@link Block['state']['completed']} to true
+   * Sets {@link Block['state']['active']} to false
    */
   complete: () => void;
 }
@@ -42,41 +42,37 @@ export interface BlockIntentions {
  * import { Modal } from "@your-company/modal";
  *
  * export function Application() {
- *   const [
- *     { active, completed, started, stopped, exited },
- *     { start, complete, stop, exit },
- *   ] = useBlock("HNWvcT78tyTwygnbzU6SW");
+ *   const [block, intent] = useBlock("HNWvcT78tyTwygnbzU6SW");
  *   return (
  *     <main>
- *       <Modal isOpen={active}>
+ *       <Modal isOpen={block.state.active}>
  *         <h1>👏 Welcome to our app!</h1>
  *         <p>This is your onboarding experience!</p>
- *         <button onClick={complete}>Close me</button>
+ *         <button onClick={intent.complete}>Close me</button>
  *       </Modal>
  *     </main>
  *   );
  * }
  * ```
  *
- * @param identifier - the reference ID for some step block
+ * @param uid - {@link Block['uid']}
  * @returns [{@link Block}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
  *
- * @alpha
  */
 const useBlock = (
-  identifier: string
+  uid: Block['uid']
 ): [block: Block, intent: BlockIntentions] => {
   const { loading, blocks, blockIntention } = useContext(DoptContext);
   const complete = useCallback(
-    () => !loading && blockIntention.complete(identifier),
+    () => !loading && blockIntention.complete(uid),
     [loading, blockIntention]
   );
 
-  if (loading || !blocks[identifier]) {
-    return [getDefaultBlockState(identifier), { complete }];
+  if (loading || !blocks[uid]) {
+    return [getDefaultBlockState(uid), { complete }];
   }
 
-  return [blocks[identifier], { complete }];
+  return [blocks[uid], { complete }];
 };
 
 export { useBlock };

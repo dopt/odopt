@@ -2,8 +2,6 @@ import { DoptContext } from './context';
 
 import { useFlow } from './use-flow';
 
-export interface WithDoptProps extends DoptContext {}
-
 /**
  * A React HOC for accessing flow state and methods corresponding
  * to an intent-based API for maniuplating said state.
@@ -24,12 +22,11 @@ export interface WithDoptProps extends DoptContext {}
  * ```
  *
  * @param Component - the React component you with to inject Dopt props into
- * @param name - the flow identifier
- * @param version - the flow version
+ * @param sid - {@link Flow['sid']}
+ * @param version - {@link Flow['version']}
  * @returns The original component with {@link Flow | flow} and {@link FlowIntentions | intent}
  * props injected in
  *
- * @alpha
  */
 export function withFlow<T>(
   Component: React.ComponentType<T>,
@@ -37,7 +34,7 @@ export function withFlow<T>(
 ) {
   const displayName = Component.displayName || Component.name || 'Component';
 
-  const ComponentWithDopt = (props: Omit<T, keyof WithDoptProps>) => {
+  const ComponentWithDopt = (props: Omit<T, keyof DoptContext>) => {
     const [flow, intent] = useFlow(...useFlowArgs);
     return <Component {...(props as T)} flow={flow} intent={intent} />;
   };

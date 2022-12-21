@@ -1,9 +1,10 @@
 import { LoggerProps } from '@dopt/logger';
 import { ReactNode } from 'react';
 
-import type { Blocks } from '@dopt/javascript-common';
+import type { Blocks, Flows } from '@dopt/javascript-common';
 
 export interface Mocks {
+  flows: Flows;
   blocks: Blocks;
 }
 
@@ -12,9 +13,8 @@ export interface BaseProviderConfig {
 }
 
 /**
- * Providing this configuration to the {@link DoptProvider} allows
- * for the {@link useBlock} hook and {@link withBlock} HOC to fetch
- * relevant data from the Dopt blocks API.
+ * Providing this configuration to the {@link DoptProvider} allows the
+ * the SDK to fetch relevant data from the Dopt blocks API.
  */
 export interface ProviderConfig extends BaseProviderConfig {
   userId: string | undefined;
@@ -29,9 +29,6 @@ export interface ProviderConfig extends BaseProviderConfig {
  * for local/offline testing of Dopt in your product.
  */
 export interface MockProviderConfig extends BaseProviderConfig {
-  /**
-   * A user provided JavaScript object for mocking {@link Blocks}
-   */
   mocks?: Mocks;
   logLevel?: LoggerProps['logLevel'];
 }
