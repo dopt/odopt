@@ -50,7 +50,7 @@
     "@dopt/config": "workspace:*",
     "@rollup/plugin-typescript": "10.0.1",
     "@types/request": "^2.48.8",
-    "rollup": "3.7.4",
+    "rollup": "3.7.5",
     "rollup-plugin-dts": "5.0.0",
     "shx": "0.3.4",
     "tslib": "^2.4.0",
