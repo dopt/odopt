@@ -1,4 +1,4 @@
-import { useContext, useCallback } from 'react';
+import { useContext, useCallback, useMemo } from 'react';
 import { DoptContext } from './context';
 
 import type { Flow } from '@dopt/block-types';
@@ -56,7 +56,7 @@ export interface FlowIntentions {
  * import { Modal } from "@your-company/modal";
  *
  * export function Application() {
- *   const [flow, intent] = useFlow("new-user-onboarding", 1);
+ *   const [flow, intent] = useFlow("new-user-onboarding");
  *   return (
  *     <main>
  *       <Modal isOpen={flow.state.completed}>
@@ -70,16 +70,27 @@ export interface FlowIntentions {
  * ```
  *
  * @param sid - {@link Flow['sid']}
- * @param version - {@link Flow['version']}
  * @returns [{@link Flow}, {@link FlowIntentions}] the state of the flow and methods to manipulate said state
  *
  */
 const useFlow = (
-  sid: Flow['sid'],
-  version: Flow['version']
+  sid: Flow['sid']
 ): [flow: Partial<Flow>, intent: FlowIntentions] => {
   const { loading, flows, flowBlocks, blocks, flowIntention } =
     useContext(DoptContext);
+
+  const version = useMemo(() => {
+    if (loading) {
+      return -1;
+    }
+    const key = Array.from(flows.keys()).find(([name]) => name === sid);
+    if (key == undefined) {
+      throw new Error(`
+        Error using \`useFlow(${sid})\` - check your \`flowVersions\`
+        props to ensure \`${sid}\` and its version is specified there`);
+    }
+    return key[1];
+  }, [loading, flows, sid]);
 
   const reset = useCallback(
     () => !loading && flowIntention.reset(sid, version),
