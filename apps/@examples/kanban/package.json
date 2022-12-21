@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "lint": "eslint ."
   },
-  "packageManager": "pnpm@7.13.1",
+  "packageManager": "pnpm@7.19.0",
   "dependencies": {
     "@asseinfo/react-kanban": "2.2.0",
     "@dopt/react": "1.0.0-beta.4",
