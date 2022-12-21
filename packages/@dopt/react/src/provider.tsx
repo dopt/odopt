@@ -20,12 +20,8 @@ import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 
 /**
  * A React context provider for accessing block state.
- *
- * @see {@link BaseDoptProvider}
- *
- * @alpha
  */
-export function DoptProvider(props: ProviderConfig) {
+export function ProdDoptProvider(props: ProviderConfig) {
   const {
     userId,
     apiKey,
