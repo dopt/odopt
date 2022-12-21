@@ -62,3 +62,6 @@ export const DOCS_ENVIRONMENTS_LINK =
 
 export const DOCS_SEGEMENT_INTEGRATION_LINK =
   'https://docs.dopt.com/integrations/segment-integration/';
+
+export const DOCS_ARCHIVING_FLOW_LINK =
+  'https://docs.dopt.com/concepts/flows/#archiving';
