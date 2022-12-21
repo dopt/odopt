@@ -1,6 +1,6 @@
 import { MockProviderConfig, ProviderConfig } from './types';
 import { MockDoptProvider } from './mock-provider';
-import { DoptProvider } from './provider';
+import { ProdDoptProvider } from './provider';
 import { isMockProviderProps } from './utils';
 
 /**
@@ -37,21 +37,42 @@ import { isMockProviderProps } from './utils';
  * @example
  * ```ts
  *  import { DoptProvider } from '@dopt/react';
+ *  import { Mercator } from '@dopt/mercator';
  *  import Application from './application';
  *
  *  const blocks: Blocks = {
  *    'HNWvcT78tyTwygnbzU6SW': {
- *      active: true,
- *      started: false,
- *      completed: false,
- *      stopped: false,
- *      exited: false,
+ *      kind: "block",
+ *      type: "model",
+ *      uid: 'HNWvcT78tyTwygnbzU6SW'
+ *      sid: 'HNWvcT78tyTwygnbzU6SW',
+ *      version: 1
+ *      state: {
+ *        completed: false;
+ *        active: false;
+ *      }
  *    },
  *  };
  *
+ *  const flows: Flows = new Mercator()
+ *  mercator.set(['new-user-onboarding', 1],  {
+ *    kind: "flow",
+ *    type: "flow",
+ *    uid: '3489fnd9234j'
+ *    sid: 'new-user-onboarding',
+ *    version: 1
+ *    state: {
+ *      started: true;
+ *      completed: false;
+ *      exited: false;
+ *    }
+ *    blocks: Object.values(blocks)
+ *  })
+ *
+ *
  *  export function Index() {
  *    return (
- *      <DoptProvider mocks={{ blocks }}>
+ *      <DoptProvider mocks={{ blocks, flows }}>
  *        <Application />
  *      </DoptProvider>
  *    );
@@ -60,16 +81,15 @@ import { isMockProviderProps } from './utils';
  *
  *
  * @param props - {@link ProviderConfig} | {@link MockProviderConfig}
- * @returns props is {@link MockProviderConfig} ? {@link MockDoptProvider} : {@link DoptProvider}
+ * @returns props is {@link MockProviderConfig} ? {@link MockDoptProvider} : {@link ProdDoptProvider}
  *
- * @alpha
  */
-export function BaseDoptProvider(
+export function DoptProvider(
   props: ProviderConfig | MockProviderConfig
-): ReturnType<typeof MockDoptProvider> | ReturnType<typeof DoptProvider> {
+): ReturnType<typeof MockDoptProvider> | ReturnType<typeof ProdDoptProvider> {
   if (isMockProviderProps(props)) {
     return <MockDoptProvider {...props} />;
   } else {
-    return <DoptProvider {...props} />;
+    return <ProdDoptProvider {...props} />;
   }
 }
