@@ -11,8 +11,9 @@ import {
 } from '@dopt/javascript-common';
 
 /**
- * The context accessible either through the {@link useBlock} and {@link useFlow}  hooks
- * or the {@link withBlock} and {@link withFlow} HOCs
+ * The context, which is partial accessible through either the
+ * {@link useBlock} and {@link useFlow}  hooks or the
+ * {@link withBlock} and {@link withFlow} HOCs
  */
 type DoptContext = {
   loading: boolean;
