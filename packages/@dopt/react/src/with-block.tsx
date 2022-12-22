@@ -1,8 +1,7 @@
 import { DoptContext } from './context';
 
+import type { Block } from '@dopt/block-types';
 import { useBlock } from './use-block';
-
-export interface WithDoptProps extends DoptContext {}
 
 /**
  * A React HOC for accessing block state and methods corresponding
@@ -24,24 +23,23 @@ export interface WithDoptProps extends DoptContext {}
  * ```
  *
  * @param Component - the React component you with to inject Dopt props into
- * @param identifier - the reference ID for some step block
+ * @param uid - {@link Block['uid']}
  * @returns The original component with {@link Block | block} and {@link BlockIntentions | intent}
  * props injected in
  *
- * @alpha
  */
 export function withBlock<T>(
   Component: React.ComponentType<T>,
-  identifier: string
+  uid: Block['uid']
 ) {
   const displayName = Component.displayName || Component.name || 'Component';
 
-  const ComponentWithDopt = (props: Omit<T, keyof WithDoptProps>) => {
-    const [block, intent] = useBlock(identifier);
+  const ComponentWithDopt = (props: Omit<T, keyof DoptContext>) => {
+    const [block, intent] = useBlock(uid);
     return <Component {...(props as T)} block={block} intent={intent} />;
   };
 
-  ComponentWithDopt.displayName = `withDopt(${displayName}, ${identifier})`;
+  ComponentWithDopt.displayName = `withBlock(${displayName}, ${uid})`;
 
   return ComponentWithDopt;
 }
