@@ -6,7 +6,7 @@ import {
   FlowIntention,
   Flows,
 } from '@dopt/javascript-common';
-import type { Block } from '@dopt/block-types';
+import type { Block, Flow } from '@dopt/block-types';
 import { MockProviderConfig } from './types';
 import { Logger } from '@dopt/logger';
 import { Mercator } from '@dopt/mercator';
@@ -14,16 +14,34 @@ import { Mercator } from '@dopt/mercator';
 const validIntentState = ({ state }: Block) => state.active && !state.completed;
 
 /**
- * A mock implementation of the {@link DoptProvider} for local/offline testing.
+ * A mock implementation of the {@link ProdDoptProvider} for local/offline testing.
  *
- * @see {@link BaseDoptProvider}
+ * @see {@link ProdDoptProvider}
  *
  * @alpha
  */
 export function MockDoptProvider(props: MockProviderConfig) {
-  const { mocks = { blocks: {} }, logLevel } = props;
+  const { mocks = { blocks: {}, flows: new Mercator() }, logLevel } = props;
   const [blocks, setBlocks] = useState<Blocks>({ ...mocks.blocks });
-  const [flows] = useState<Flows>(new Mercator());
+  const [flows] = useState<Flows>(mocks.flows);
+
+  const [flowBlocks, setFlowBlocks] = useState<
+    Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>
+  >(new Mercator());
+
+  flows.forEach((flow) => {
+    setFlowBlocks((prev) => {
+      return new Mercator(
+        Array.from(
+          prev.set(
+            [flow.sid, flow.version],
+            flow.blocks?.map(({ uid }) => uid) || []
+          )
+        )
+      );
+    });
+  });
+
   const log = new Logger(
     logLevel
       ? { logLevel }
@@ -31,19 +49,21 @@ export function MockDoptProvider(props: MockProviderConfig) {
           logLevel: 'debug',
         }
   );
+
   function updateState(
     blocks: Blocks,
     identifier: string,
-    updates: Partial<Block>
+    stateChanges: Partial<Block['state']>
   ) {
     const block = blocks[identifier];
+
     if (block && validIntentState(block)) {
-      //@ts-ignore
+      const changed = Object.assign(block, { state: { ...stateChanges } });
+
       setBlocks({
         ...blocks,
         [identifier]: {
-          ...blocks[identifier],
-          ...updates,
+          ...changed,
         },
       });
     }
@@ -61,19 +81,16 @@ export function MockDoptProvider(props: MockProviderConfig) {
   const blockIntention: BlockIntention = {
     complete: async (identifier) =>
       updateState(blocks, identifier, {
-        //@ts-ignore
         active: false,
         completed: true,
       }),
     next: async (identifier) =>
       updateState(blocks, identifier, {
-        //@ts-ignore
         active: false,
         completed: true,
       }),
     prev: async (identifier) =>
       updateState(blocks, identifier, {
-        //@ts-ignore
         active: false,
         completed: true,
       }),
@@ -81,11 +98,11 @@ export function MockDoptProvider(props: MockProviderConfig) {
 
   return (
     <DoptContext.Provider
-      //@ts-ignore
       value={{
         loading: false,
         blockIntention,
         blocks,
+        flowBlocks,
         flows,
         flowIntention,
         log,
