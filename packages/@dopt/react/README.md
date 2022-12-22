@@ -121,10 +121,7 @@ interface FlowIntentions {
   exit: () => void;
   complete: () => void;
 }
-declare const useFlow: (
-  sid: string,
-  version: number
-) => [flow: Flow, intent: FlowIntentions];
+declare const useFlow: (sid: string) => [flow: Flow, intent: FlowIntentions];
 ```
 
 - [useBlock](./src/use-block.ts)
@@ -194,7 +191,7 @@ import { useFlow } from "@dopt/react";
 import { Modal } from "@your-company/modal";
 
 export function Application() {
-  const [flow, intent] = useFlow("new-user-onboarding", 1);
+  const [flow, intent] = useFlow("new-user-onboarding");
   return (
     <main>
       <Modal isOpen={flow.state.completed}>
