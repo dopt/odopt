@@ -1,5 +1,5 @@
-import { IconLayoutDashboard } from '@tabler/icons';
-import { Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { IconDatabaseExport, IconLayoutDashboard } from '@tabler/icons';
+import { Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
 
 import { GettingStartedChecklist } from '@/components';
 import { ChartSelection } from '@/types';
@@ -13,15 +13,21 @@ interface Props {
 
 export function Navigation(props: Props) {
   return (
-    <Flex direction="column" justify="space-between">
+    <Flex direction="column" justify="space-between" color="#061533">
       <Flex direction="column">
-        <Text pb="3">Dashboards</Text>
-        <Flex>
+        <Flex gap="2">
           <IconLayoutDashboard width={24} height={24} />
-          <Text pl="2">Active Users</Text>
+          <Text pb="3">Dashboards</Text>
         </Flex>
+        <Text color="#4313AA">Active Users</Text>
       </Flex>
-      <Flex>
+      <Flex direction="column">
+        <Link onClick={() => props.datasourceModalProps.onOpen()}>
+          <Flex gap="2">
+            <IconDatabaseExport width={24} height={24} />
+            <Text pb="3">Data sources</Text>
+          </Flex>
+        </Link>
         <GettingStartedChecklist {...props} />
       </Flex>
     </Flex>

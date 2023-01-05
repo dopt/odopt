@@ -37,13 +37,13 @@ export function AddChartsModal({
     activeToday: false,
   });
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="full">
+    <Modal isOpen={isOpen} onClose={onClose} size="4xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add chart</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Flex gap="2" pb="2">
+          <Flex gap="2" pb="2" justify="center">
             <Card
               variant="unstyled"
               onClick={() => {
@@ -81,7 +81,7 @@ export function AddChartsModal({
               <MostActiveUsers />
             </Card>
           </Flex>
-          <Flex gap="2">
+          <Flex gap="2" justify="center">
             <Card
               variant="unstyled"
               onClick={() => {
