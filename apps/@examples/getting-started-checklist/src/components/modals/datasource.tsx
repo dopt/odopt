@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
-import { IconCheck } from '@tabler/icons';
+import { IconCheck, IconDatabase } from '@tabler/icons';
 
 import {
   Box,
   Button,
+  Divider,
   Flex,
   List,
   ListItem,
@@ -27,7 +28,7 @@ export function ConnectDatasourceModal({
   onFinish: () => void;
 }) {
   const [selection, setSelection] = useState<
-    'segment' | 'snowflake' | 'database' | undefined
+    'snowflake' | 'database' | undefined
   >(undefined);
   return (
     <Modal
@@ -42,41 +43,82 @@ export function ConnectDatasourceModal({
         <ModalHeader>Connect a datasource</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <List spacing={3}>
-            <ListItem onClick={() => setSelection('segment')}>
-              <Flex align="center">
-                {selection === 'segment' ? (
-                  <IconCheck size={18} />
-                ) : (
-                  <Box pr="18px" />
-                )}
-                <Text pl="2">Segment</Text>
+          <List spacing={3} border="0.5px solid #DCDCDC">
+            <ListItem borderBottom="0.5px solid #DCDCDC" p="3">
+              <Flex justify="space-between" align="center">
+                <Flex>
+                  <IconDatabase size={24} />
+                  <Text pl="2">Segment</Text>
+                </Flex>
+                <Text color="#A3A3A3" fontWeight="medium" p="2">
+                  Connected
+                </Text>
               </Flex>
             </ListItem>
-            <ListItem onClick={() => setSelection('snowflake')}>
-              <Flex>
+            <ListItem
+              borderBottom="0.5px solid #DCDCDC"
+              onClick={() => setSelection('snowflake')}
+              p="3"
+              style={{ marginTop: 0 }}
+            >
+              <Flex justify="space-between" align="center">
+                <Flex>
+                  <IconDatabase size={24} />
+                  <Text pl="2">Snowflake</Text>
+                </Flex>
                 {selection === 'snowflake' ? (
-                  <IconCheck size={18} />
+                  <Text color="#A3A3A3" fontWeight="medium" p="2">
+                    Connected
+                  </Text>
                 ) : (
-                  <Box pr="18px" />
+                  <Button
+                    bg="white"
+                    color="#061533"
+                    border="1px solid #DADADA"
+                    borderRadius="8px"
+                    fontWeight="medium"
+                  >
+                    Connect
+                  </Button>
                 )}
-                <Text pl="2">Snowflake</Text>
               </Flex>
             </ListItem>
-            <ListItem onClick={() => setSelection('database')}>
-              <Flex>
+            <ListItem
+              style={{ marginTop: 0 }}
+              onClick={() => setSelection('database')}
+              p="3"
+            >
+              <Flex justify="space-between" align="center">
+                <Flex>
+                  <IconDatabase size={24} />
+                  <Text pl="2">Database</Text>
+                </Flex>
                 {selection === 'database' ? (
-                  <IconCheck size={18} />
+                  <Text color="#A3A3A3" fontWeight="medium" p="2">
+                    Connected
+                  </Text>
                 ) : (
-                  <Box pr="18px" />
+                  <Button
+                    bg="white"
+                    color="#061533"
+                    border="1px solid #DADADA"
+                    borderRadius="8px"
+                    fontWeight="medium"
+                  >
+                    Connect
+                  </Button>
                 )}
-                <Text pl="2">Database</Text>
               </Flex>
             </ListItem>
           </List>
         </ModalBody>
         <ModalFooter>
           <Button
+            bg="white"
+            color="#061533"
+            border="1px solid #DADADA"
+            borderRadius="8px"
+            fontWeight="medium"
             mr={3}
             onClick={() => {
               setSelection(undefined);
@@ -85,8 +127,15 @@ export function ConnectDatasourceModal({
           >
             Cancel
           </Button>
-          <Button isDisabled={!selection} onClick={onFinish}>
-            Connect
+          <Button
+            bg="#4313AA"
+            color="white"
+            borderRadius="8px"
+            fontWeight="medium"
+            isDisabled={!selection}
+            onClick={onFinish}
+          >
+            Done
           </Button>
         </ModalFooter>
       </ModalContent>
