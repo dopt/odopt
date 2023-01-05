@@ -46,10 +46,25 @@ export function InviteTeamMembersModal({
           </Select>
         </ModalBody>
         <ModalFooter>
-          <Button mr={3} onClick={onClose}>
+          <Button
+            bg="white"
+            color="#061533"
+            border="1px solid #DADADA"
+            borderRadius="8px"
+            fontWeight="medium"
+            mr={3}
+            onClick={onClose}
+          >
             Cancel
           </Button>
-          <Button isDisabled={!selection} onClick={() => onFinish()}>
+          <Button
+            bg="#4313AA"
+            color="white"
+            borderRadius="8px"
+            fontWeight="medium"
+            isDisabled={!selection}
+            onClick={() => onFinish()}
+          >
             Share
           </Button>
         </ModalFooter>
