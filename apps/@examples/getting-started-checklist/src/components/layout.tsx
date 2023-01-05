@@ -21,7 +21,13 @@ export function Layout(props: Props) {
       color="blackAlpha.700"
       fontWeight="bold"
     >
-      <GridItem p="4" bg="gray.50" area={'nav'} display="flex">
+      <GridItem
+        p="4"
+        bg="gray.50"
+        area={'nav'}
+        display="flex"
+        borderRight="1px solid #E1E1E1"
+      >
         {props.navigation}
       </GridItem>
 
@@ -34,7 +40,13 @@ export function Layout(props: Props) {
       >
         {props.header}
       </GridItem>
-      <GridItem p="4" bg="white" area={'main'} display="flex">
+      <GridItem
+        p="4"
+        bg="white"
+        area={'main'}
+        display="flex"
+        alignItems="start"
+      >
         {props.main}
       </GridItem>
     </Grid>
