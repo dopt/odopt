@@ -24,6 +24,8 @@ export const ADD_BLOCK_FAIL_MSG = 'Could not add block';
 export const MOVE_BLOCK_FAIL_MSG = 'Could not move block';
 export const CONNECT_EDGE_FAIL_MSG = 'Could not connect blocks';
 export const DELETE_EDGE_FAIL_MSG = 'Could not delete edge';
+export const REMOVE_BLOCK_FROM_SET_FAIL_MSG =
+  'Could not remove block from group';
 
 export const JOURNEY_COMMIT_DESC =
   'A new version of this flow will be created once you commit these changes.';
