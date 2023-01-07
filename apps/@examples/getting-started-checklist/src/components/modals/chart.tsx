@@ -14,13 +14,15 @@ import {
 
 import {
   ActiveToday,
-  MontlyActiveUsers,
+  MonthlyActiveUsers,
   MostActiveUsers,
   NewActiveUsers,
 } from '@/charts';
 import { useState } from 'react';
 
 import { ChartSelection } from '@/types';
+
+import styles from './chart.module.css';
 
 export function AddChartsModal({
   onClose = () => undefined,
@@ -32,109 +34,107 @@ export function AddChartsModal({
   const [selection, setSelection] = useState<ChartSelection>({
     dailyActiveUsers: false,
     newActiveUsers: false,
-    montlyActiveUsers: false,
+    monthlyActiveUsers: false,
     mostActiveUsers: false,
     activeToday: false,
   });
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="4xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="3xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add chart</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Flex gap="2" pb="2" justify="center">
-            <Card
-              variant="unstyled"
-              onClick={() => {
-                setSelection((prev) => {
-                  return {
-                    ...prev,
-                    newActiveUsers: !prev.newActiveUsers,
-                  };
-                });
-              }}
-              border={
-                selection.newActiveUsers
-                  ? '2px solid #18A0FB'
-                  : '2px solid transparent'
-              }
-            >
-              <NewActiveUsers />
-            </Card>
-            <Card
-              variant="unstyled"
-              onClick={() => {
-                setSelection((prev) => {
-                  return {
-                    ...prev,
-                    mostActiveUsers: !prev.mostActiveUsers,
-                  };
-                });
-              }}
-              border={
-                selection.mostActiveUsers
-                  ? '2px solid #18A0FB'
-                  : '2px solid transparent'
-              }
-            >
-              <MostActiveUsers />
-            </Card>
-          </Flex>
-          <Flex gap="2" justify="center">
-            <Card
-              variant="unstyled"
-              onClick={() => {
-                setSelection((prev) => {
-                  return {
-                    ...prev,
-                    activeToday: !prev.activeToday,
-                  };
-                });
-              }}
-              border={
-                selection.activeToday
-                  ? '2px solid #18A0FB'
-                  : '2px solid transparent'
-              }
-            >
-              <ActiveToday />
-            </Card>
-            <Card
-              variant="unstyled"
-              onClick={() => {
-                setSelection((prev) => {
-                  return {
-                    ...prev,
-                    montlyActiveUsers: !prev.montlyActiveUsers,
-                  };
-                });
-              }}
-              border={
-                selection.montlyActiveUsers
-                  ? '2px solid #18A0FB'
-                  : '2px solid transparent'
-              }
-            >
-              <MontlyActiveUsers />
-            </Card>
+          <Flex direction="column" gap={4}>
+            <Flex gap={4}>
+              <Card
+                variant="unstyled"
+                onClick={() => {
+                  setSelection((prev) => {
+                    return {
+                      ...prev,
+                      newActiveUsers: !prev.newActiveUsers,
+                    };
+                  });
+                }}
+                className={`${styles.chart} ${
+                  selection.newActiveUsers ? styles.chartIsSelected : ''
+                }`}
+              >
+                <NewActiveUsers />
+              </Card>
+              <Card
+                variant="unstyled"
+                onClick={() => {
+                  setSelection((prev) => {
+                    return {
+                      ...prev,
+                      mostActiveUsers: !prev.mostActiveUsers,
+                    };
+                  });
+                }}
+                className={`${styles.chart} ${
+                  selection.mostActiveUsers ? styles.chartIsSelected : ''
+                }`}
+              >
+                <MostActiveUsers />
+              </Card>
+            </Flex>
+            <Flex gap={4}>
+              <Card
+                variant="unstyled"
+                onClick={() => {
+                  setSelection((prev) => {
+                    return {
+                      ...prev,
+                      activeToday: !prev.activeToday,
+                    };
+                  });
+                }}
+                className={`${styles.chart} ${
+                  selection.activeToday ? styles.chartIsSelected : ''
+                }`}
+              >
+                <ActiveToday />
+              </Card>
+              <Card
+                variant="unstyled"
+                onClick={() => {
+                  setSelection((prev) => {
+                    return {
+                      ...prev,
+                      monthlyActiveUsers: !prev.monthlyActiveUsers,
+                    };
+                  });
+                }}
+                className={`${styles.chart} ${
+                  selection.monthlyActiveUsers ? styles.chartIsSelected : ''
+                }`}
+              >
+                <MonthlyActiveUsers />
+              </Card>
+            </Flex>
           </Flex>
         </ModalBody>
         <ModalFooter>
-          <Button mr={3} onClick={onClose}>
-            Cancel
-          </Button>{' '}
-          <Button
-            isDisabled={
-              Object.values(selection).filter((selected) => selected).length ===
-              0
-            }
-            onClick={() => onFinish(selection)}
-          >
-            {Object.values(selection).filter((selected) => selected).length > 1
-              ? 'Add charts'
-              : 'Add chart '}
-          </Button>
+          <Flex gap={2}>
+            <Button variant="outline" onClick={onClose}>
+              Cancel
+            </Button>{' '}
+            <Button
+              colorScheme="blue"
+              isDisabled={
+                Object.values(selection).filter((selected) => selected)
+                  .length === 0
+              }
+              onClick={() => onFinish(selection)}
+            >
+              {Object.values(selection).filter((selected) => selected).length >
+              1
+                ? 'Add charts'
+                : 'Add chart '}
+            </Button>
+          </Flex>
         </ModalFooter>
       </ModalContent>
     </Modal>

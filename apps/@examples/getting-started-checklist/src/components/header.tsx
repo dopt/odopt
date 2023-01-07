@@ -11,25 +11,18 @@ export function Header(props: Props) {
     <Flex align="center" justify="space-between">
       <Flex>
         <Text fontWeight="medium" fontSize="xl" color="#172B4D">
-          Active Users
+          Active users
         </Text>
       </Flex>
-      <Flex gap="3">
+      <Flex gap={2}>
         <Button
-          bg="#4313AA"
-          color="white"
-          borderRadius="8px"
-          fontWeight="medium"
+          colorScheme="blue"
           onClick={() => props.addChartsModalProps.onOpen()}
         >
           Add chart
         </Button>
         <Button
-          bg="white"
-          color="#061533"
-          border="1px solid #DADADA"
-          borderRadius="8px"
-          fontWeight="medium"
+          variant="outline"
           onClick={() => props.inviteModalProps.onOpen()}
         >
           Share

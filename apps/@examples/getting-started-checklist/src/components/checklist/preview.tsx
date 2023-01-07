@@ -18,17 +18,15 @@ export function ChecklistPreview() {
   const value = (numberComplete / 3) * 100;
 
   return (
-    <Card p="4" gap="2" bg="white">
+    <Card p="4" gap="2" bg="white" cursor="pointer">
       <Flex align="center">
-        <Link>
-          <Text pr="1">Getting started</Text>
-        </Link>
+        <Text pr="1">Getting started</Text>
         <IconArrowRight size={16} />
       </Flex>
-      <div>
-        <Progress colorScheme="purple" borderRadius="8px" value={value} />
-        {`${numberComplete} / 3`}
-      </div>
+      <Flex gap={2} align="center">
+        <Progress borderRadius="8px" value={value} style={{ flexGrow: 1 }} />
+        <Text fontSize="sm">{`${numberComplete}/3`}</Text>
+      </Flex>
     </Card>
   );
 }

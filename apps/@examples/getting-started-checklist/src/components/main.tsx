@@ -3,7 +3,7 @@ import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
   ActiveToday,
   DailyActiveUsers,
-  MontlyActiveUsers,
+  MonthlyActiveUsers,
   MostActiveUsers,
   NewActiveUsers,
 } from '@/charts';
@@ -19,10 +19,10 @@ interface Props {
 
 export function Main(props: Props) {
   return (
-    <Flex wrap="wrap">
+    <Flex wrap="wrap" gap={4}>
       <DailyActiveUsers />
       {props.dashboardCharts.activeToday && <ActiveToday />}
-      {props.dashboardCharts.montlyActiveUsers && <MontlyActiveUsers />}
+      {props.dashboardCharts.monthlyActiveUsers && <MonthlyActiveUsers />}
       {props.dashboardCharts.mostActiveUsers && <MostActiveUsers />}
       {props.dashboardCharts.newActiveUsers && <NewActiveUsers />}
     </Flex>
