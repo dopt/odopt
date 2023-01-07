@@ -8,7 +8,7 @@ export function GettingStartedChecklistExample() {
   const [dashboardCharts, setDashboardCharts] = useState<ChartSelection>({
     dailyActiveUsers: true,
     newActiveUsers: false,
-    montlyActiveUsers: false,
+    monthlyActiveUsers: false,
     mostActiveUsers: false,
     activeToday: false,
   });
