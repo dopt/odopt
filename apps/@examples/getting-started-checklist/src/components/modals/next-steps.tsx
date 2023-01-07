@@ -10,6 +10,8 @@ import {
   ModalHeader,
   ModalOverlay,
   UnorderedList,
+  Flex,
+  Link,
   Text,
   UseDisclosureProps,
 } from '@chakra-ui/react';
@@ -27,20 +29,29 @@ export function NextStepsModal({
       <ModalContent>
         <ModalHeader>Next Steps</ModalHeader>
         <ModalBody>
-          <Text pb="2">
-            You’re ready to take your analysis to the next level!
-          </Text>
-          <Text>You can learn how to:</Text>
-          <UnorderedList>
-            <ListItem>Compare active users across time ranges</ListItem>
-            <ListItem>Analyze usage at the company level</ListItem>
-            <ListItem>Integer molestie lorem at massa</ListItem>
-            <ListItem>Add more data sources</ListItem>
-          </UnorderedList>
-          <Text>📈 Happy analyzing!</Text>
+          <Flex direction="column" gap={4}>
+            <Text>You’re ready to take your analysis to the next level!</Text>
+            <Text>You can learn how to:</Text>
+            <UnorderedList>
+              <ListItem>
+                <Link textDecoration="underline">
+                  Compare active users across time ranges
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link textDecoration="underline">
+                  Analyze usage at the company level
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link textDecoration="underline">Add more data sources</Link>
+              </ListItem>
+            </UnorderedList>
+            <Text>📈 Happy analyzing!</Text>
+          </Flex>
         </ModalBody>
         <ModalFooter>
-          <Button bg="#7047EB" color="white" onClick={() => complete()}>
+          <Button colorScheme="blue" onClick={complete}>
             Finish getting started
           </Button>
         </ModalFooter>

@@ -1,4 +1,4 @@
 export * from './chart';
-export * from './datasource';
+export * from './data-source';
 export * from './invite';
 export * from './next-steps';

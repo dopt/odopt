@@ -13,19 +13,24 @@ interface Props {
 
 export function Navigation(props: Props) {
   return (
-    <Flex direction="column" justify="space-between" color="#061533">
-      <Flex direction="column">
-        <Flex gap="2">
+    <Flex
+      direction="column"
+      justify="space-between"
+      color="#061533"
+      style={{ width: '100%' }}
+    >
+      <Flex direction="column" gap={4}>
+        <Flex gap={2}>
           <IconLayoutDashboard width={24} height={24} />
-          <Text pb="3">Dashboards</Text>
+          <Text>Dashboards</Text>
         </Flex>
-        <Text color="#4313AA">Active Users</Text>
+        <Text color="#228BE6">Active users</Text>
       </Flex>
-      <Flex direction="column">
+      <Flex direction="column" gap={4}>
         <Link onClick={() => props.datasourceModalProps.onOpen()}>
-          <Flex gap="2">
+          <Flex gap={2}>
             <IconDatabaseExport width={24} height={24} />
-            <Text pb="3">Data sources</Text>
+            <Text>Data sources</Text>
           </Flex>
         </Link>
         <GettingStartedChecklist {...props} />

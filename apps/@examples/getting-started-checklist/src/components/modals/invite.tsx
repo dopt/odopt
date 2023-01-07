@@ -1,17 +1,36 @@
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
 import {
+  Flex,
   Button,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  Select,
+  Box,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
   UseDisclosureProps,
 } from '@chakra-ui/react';
+
+import styles from './invite.module.css';
+
+interface Member {
+  name: string;
+  email: string;
+  avatarBg: string;
+}
+
+const members: Member[] = [
+  { name: 'erica', email: 'erica@acme.com', avatarBg: '#E2DAFB' },
+  { name: 'jessica', email: 'jessica@acme.com', avatarBg: '#FFE7AB' },
+  { name: 'steve', email: 'steve@acme.com', avatarBg: '#F5B5A1' },
+];
 
 export function InviteTeamMembersModal({
   onClose = () => undefined,
@@ -20,9 +39,8 @@ export function InviteTeamMembersModal({
 }: Pick<UseDisclosureProps, 'isOpen' | 'onClose'> & {
   onFinish: () => void;
 }) {
-  const [selection, setSelection] = useState<
-    'erica' | 'jessica' | 'steve' | undefined
-  >(undefined);
+  const [selection, setSelection] = useState<number | undefined>(undefined);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -30,45 +48,64 @@ export function InviteTeamMembersModal({
         <ModalHeader>Invite team members</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Select
-            onChange={(e) =>
-              setSelection(
-                e.target.value as SetStateAction<
-                  'erica' | 'jessica' | 'steve' | undefined
-                >
-              )
-            }
-            placeholder="Select option"
-          >
-            <option value="option1">erica@acme.com</option>
-            <option value="option2">jessica@acme.com</option>
-            <option value="option3">steve@acme.com</option>
-          </Select>
+          <Flex direction="column" gap={2}>
+            Team members
+            <Menu matchWidth>
+              <MenuButton className={styles.input}>
+                {selection !== undefined && (
+                  <MemberItem member={members[selection]} />
+                )}
+              </MenuButton>
+              <MenuList>
+                {members.map((member, index) => (
+                  <MenuItem key={index} onClick={() => setSelection(index)}>
+                    <MemberItem member={member} />
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Flex>
         </ModalBody>
         <ModalFooter>
-          <Button
-            bg="white"
-            color="#061533"
-            border="1px solid #DADADA"
-            borderRadius="8px"
-            fontWeight="medium"
-            mr={3}
-            onClick={onClose}
-          >
-            Cancel
-          </Button>
-          <Button
-            bg="#4313AA"
-            color="white"
-            borderRadius="8px"
-            fontWeight="medium"
-            isDisabled={!selection}
-            onClick={() => onFinish()}
-          >
-            Share
-          </Button>
+          <Flex gap={2}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSelection(undefined);
+                onClose();
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              colorScheme="blue"
+              isDisabled={selection === undefined}
+              onClick={() => {
+                setSelection(undefined);
+                onFinish();
+              }}
+            >
+              Share
+            </Button>
+          </Flex>
         </ModalFooter>
       </ModalContent>
     </Modal>
+  );
+}
+
+function MemberItem({ member }: { member: Member }) {
+  return (
+    <Flex gap={2}>
+      <Box bg={member.avatarBg} borderRadius="full">
+        <img
+          src={`/avatars/${member.name}.png`}
+          width={24}
+          height={24}
+          alt={member.name}
+        />
+      </Box>
+      {member.email}
+    </Flex>
   );
 }

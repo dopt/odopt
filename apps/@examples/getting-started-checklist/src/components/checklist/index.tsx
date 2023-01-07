@@ -1,16 +1,9 @@
 import { useEffect } from 'react';
-import {
-  IconArrowRight,
-  IconCircleCheck,
-  IconPlugConnected,
-  IconChartPie,
-  IconShare,
-} from '@tabler/icons';
+import { IconArrowRight, IconCircleCheck } from '@tabler/icons';
 
 import { useBlock } from '@dopt/react';
 
 import {
-  Accordion,
   Box,
   Card,
   Flex,
@@ -39,7 +32,6 @@ import {
   NextStepsModal,
 } from '@/components';
 
-import { CheckListItem } from './item';
 import { ChecklistPreview } from './preview';
 import { ChecklistPopover } from './popover';
 
@@ -83,7 +75,7 @@ export function GettingStartedChecklist({
     shareBlock.state.active
   ) {
     return (
-      <Flex direction="column" gap="2">
+      <Flex direction="column" gap={2}>
         <Popover placement="top-start">
           <PopoverTrigger>
             <Box>
@@ -114,7 +106,11 @@ export function GettingStartedChecklist({
           isOpen={addChartsModalProps.isOpen}
           onFinish={(selection) => {
             setDashboardCharts(selection);
-            chartsMethods.complete();
+            if (
+              Object.values(selection).filter((val) => val == true).length > 1
+            ) {
+              chartsMethods.complete();
+            }
             addChartsModalProps.onClose();
           }}
         />
@@ -130,19 +126,19 @@ export function GettingStartedChecklist({
     );
   } else if (nextStepsBlock.state.active) {
     return (
-      <Card p="4" gap="2" bg="white">
-        <Flex align="center">
-          <Box pr="1" opacity={0.75}>
-            <IconCircleCheck size={24} fill="gray" color="white" />
-          </Box>
-          <Box as="span" flex="1" textAlign="left" opacity={0.75}>
-            <Text>Getting started</Text>{' '}
-          </Box>
+      <Card
+        p={4}
+        gap={2}
+        bg="white"
+        onClick={() => nextStepsModalProps.onOpen()}
+        cursor="pointer"
+      >
+        <Flex align="center" gap={1}>
+          <IconCircleCheck size={24} fill="gray" color="white" />
+          <Text color="gray">Getting started</Text>
         </Flex>
-        <Flex color="#7047EB" align="center">
-          <Link onClick={() => nextStepsModalProps.onOpen()}>
-            <Text pr="1">Next steps</Text>
-          </Link>
+        <Flex color="#228BE6" align="center" gap={1}>
+          <Text>Next steps</Text>
           <IconArrowRight size={16} />
         </Flex>
         <NextStepsModal {...nextStepsModalProps} />
