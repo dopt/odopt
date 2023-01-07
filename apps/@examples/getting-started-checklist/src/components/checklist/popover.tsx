@@ -25,7 +25,7 @@ export function ChecklistPopover({
 }) {
   return (
     <Accordion>
-      <Flex className={styles.checklistPopoverHeader} p="2">
+      <Flex className={styles.checklistPopoverHeader} p={4}>
         Getting Started
       </Flex>
       <CheckListItem

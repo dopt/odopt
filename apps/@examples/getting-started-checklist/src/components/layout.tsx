@@ -15,7 +15,7 @@ export function Layout(props: Props) {
         "nav header"
         "nav main"
       `}
-      gridTemplateRows={'85px 1fr'}
+      gridTemplateRows={'73px 1fr'}
       gridTemplateColumns={'225px 1fr'}
       h="full"
       color="blackAlpha.700"
@@ -23,7 +23,7 @@ export function Layout(props: Props) {
     >
       <GridItem
         p="4"
-        bg="gray.50"
+        bg="#F6F6F6"
         area={'nav'}
         display="flex"
         borderRight="1px solid #E1E1E1"
