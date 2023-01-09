@@ -10,6 +10,7 @@ export * from './model';
 export * from './set';
 
 export { BlockState } from './base';
+
 export const BLOCK_TYPES = {
   entry: EntryTypeConst,
   model: ModelTypeConst,
@@ -27,6 +28,10 @@ export type BlockTypes = Static<typeof BlockTypes>;
 
 export const Block = Type.Union([Model, Entry, Finish, Set]);
 export type Block = Static<typeof Block>;
+
+// Currently this is only element but has the possibility to expand later
+export const Element = Type.Union([Model]);
+export type Element = Static<typeof Element>;
 
 export const Blocks = Type.Array(Block);
 export type Blocks = Static<typeof Blocks>;
