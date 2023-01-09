@@ -92,7 +92,11 @@ export function MockDoptProvider(props: MockProviderConfig) {
     prev: async (identifier) =>
       updateState(blocks, identifier, {
         active: false,
-        completed: true,
+        completed: false,
+      }),
+    goTo: async (identifier) =>
+      updateState(blocks, identifier, {
+        active: false,
       }),
   };
 
