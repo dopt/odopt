@@ -17,6 +17,7 @@
     "jsx": "react-jsx",
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["src"],
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist", "tsup.config.ts", "src/__tests__/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
