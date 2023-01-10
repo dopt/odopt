@@ -44,7 +44,7 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@types/jest": "29.2.4",
+    "@types/jest": "29.2.5",
     "@typescript-eslint/eslint-plugin": "5.47.0",
     "@typescript-eslint/parser": "5.47.0",
     "esbuild": "0.16.10",
