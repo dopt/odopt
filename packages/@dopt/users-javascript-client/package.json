@@ -1,6 +1,6 @@
 {
   "name": "@dopt/users-javascript-client",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": false,
   "description": "A generated JavaScript API client for Dopt's users API",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/users-javascript-client",
