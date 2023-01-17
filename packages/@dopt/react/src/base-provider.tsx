@@ -7,7 +7,7 @@ import { isMockProviderProps } from './utils';
  * Returns the appropriate DoptProvider based on the props provided.
  *
  * @remarks
- * The BaseProvider (exposed as DoptProvder) can currently be configured
+ * The BaseProvider (exposed as DoptProvider) can currently be configured
  * to support two distinct usages
  *
  *
@@ -21,7 +21,7 @@ import { isMockProviderProps } from './utils';
  *    return (
  *      <DoptProvider
  *        userId={userId}
- *        apikey={blockAPIKey}
+ *        apiKey={blockAPIKey}
  *        flowVersions={{
  *          onboardingFlow: 3,
  *          upgradeFlow: 1
