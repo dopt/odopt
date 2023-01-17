@@ -24,6 +24,7 @@ import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 export function ProdDoptProvider(props: ProviderConfig) {
   const {
     userId,
+    groupId,
     apiKey,
     flowVersions,
     children,
@@ -50,6 +51,14 @@ export function ProdDoptProvider(props: ProviderConfig) {
   }, [userId]);
 
   useEffect(() => {
+    if (groupId === undefined) {
+      log.info(
+        'The `groupId` prop is undefined. The SDK wont be able to target the entry conditions and update blocks if you are actively using groups properties.'
+      );
+    }
+  }, [groupId]);
+
+  useEffect(() => {
     log.debug('<DoptProvider /> mounted');
     return () => log.debug('<DoptProvider /> unmounted');
   }, []);
@@ -59,13 +68,19 @@ export function ProdDoptProvider(props: ProviderConfig) {
    */
   const { getFlow, flowIntent, blockIntent } = useMemo(
     () =>
-      blocksApi(apiKey, userId, log, {
-        optimisticUpdates,
-        urlPrefix: URL_PREFIX,
-        packageVersion: PKG_VERSION,
-        packageName: PKG_NAME,
+      blocksApi({
+        apiKey,
+        userId,
+        groupId,
+        logger: log,
+        config: {
+          optimisticUpdates,
+          urlPrefix: URL_PREFIX,
+          packageVersion: PKG_VERSION,
+          packageName: PKG_NAME,
+        },
       }),
-    [userId, apiKey]
+    [userId, apiKey, groupId]
   );
 
   /*
@@ -74,7 +89,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
    */
   const socket = useMemo(() => {
     return setupSocket(apiKey, userId, log, URL_PREFIX);
-  }, [apiKey, userId]);
+  }, [apiKey, userId, groupId]);
 
   useEffect(() => {
     // Avoid any fetching until the user is defined
@@ -160,7 +175,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
           `);
         });
     })();
-  }, [JSON.stringify(flowVersions), userId]);
+  }, [JSON.stringify(flowVersions), userId, groupId]);
 
   const updateBlockState = useCallback(
     (updated: Record<Block['uid'], Block>) =>
@@ -277,6 +292,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
         complete: async () => {},
         prev: async () => {},
         next: async () => {},
+        goTo: async () => {},
       };
     }
 
@@ -301,6 +317,8 @@ export function ProdDoptProvider(props: ProviderConfig) {
         blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
       prev: (uid) =>
         blockIntent({ uid, version: blocks[uid].version, intent: 'prev' }),
+      goTo: (uid) =>
+        blockIntent({ uid, version: blocks[uid].version, intent: 'goTo' }),
     };
   }, [loading, blockIntent, blocks]);
 
