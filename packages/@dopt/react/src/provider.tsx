@@ -277,6 +277,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
         complete: async () => {},
         prev: async () => {},
         next: async () => {},
+        goTo: async () => {},
       };
     }
 
@@ -301,6 +302,8 @@ export function ProdDoptProvider(props: ProviderConfig) {
         blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
       prev: (uid) =>
         blockIntent({ uid, version: blocks[uid].version, intent: 'prev' }),
+      goTo: (uid) =>
+        blockIntent({ uid, version: blocks[uid].version, intent: 'goTo' }),
     };
   }, [loading, blockIntent, blocks]);
 

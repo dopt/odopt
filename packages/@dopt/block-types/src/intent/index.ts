@@ -11,6 +11,7 @@ export const BlockIntent = Type.Union([
   Type.Literal('complete'),
   Type.Literal('next'),
   Type.Literal('prev'),
+  Type.Literal('goTo'),
 ]);
 
 export type FlowIntent = Static<typeof FlowIntent>;
