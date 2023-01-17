@@ -48,34 +48,55 @@ export async function client({
 }
 
 type UserIdentifier = {
-  userIdentifier: string | undefined;
+  userId: string | undefined;
 };
+
+type GroupIdentifier = {
+  groupId: string | undefined;
+};
+
 type Version = {
   version: number;
 };
 
+export type BlocksApi = {
+  apiKey: string;
+  userId: UserIdentifier['userId'];
+  logger: Logger;
+  config: {
+    optimisticUpdates: boolean;
+    urlPrefix: string;
+    packageVersion: string;
+    packageName: string;
+  };
+  groupId?: GroupIdentifier['groupId'];
+};
 type BlockParams = Pick<Block, 'uid' | 'version'>;
 type FlowParams = Pick<Flow, 'uid' | 'version'>;
 type BlockIntentParams = BlockParams & { intent: BlockIntent };
 type FlowIntentParams = FlowParams & { intent: FlowIntent };
 
 const queryParams =
-  ({ userIdentifier }: UserIdentifier) =>
+  ({
+    userId,
+    groupId,
+  }: {
+    userId: UserIdentifier['userId'];
+    groupId?: GroupIdentifier['groupId'];
+  }) =>
   ({ version }: Version) =>
-    `version=${version}&userIdentifier=${userIdentifier}`;
+    `version=${version}&userIdentifier=${userId}${
+      groupId ? `&groupIdentifier=${groupId}` : ``
+    }`;
 
-export function blocksApi(
-  apiKey: string,
-  userIdentifier: UserIdentifier['userIdentifier'],
-  logger: Logger,
-  config: {
-    optimisticUpdates: boolean;
-    urlPrefix: string;
-    packageVersion: string;
-    packageName: string;
-  }
-) {
-  const query = queryParams({ userIdentifier });
+export function blocksApi({
+  apiKey,
+  userId,
+  logger,
+  config,
+  groupId,
+}: BlocksApi) {
+  const query = queryParams({ userId, groupId });
 
   return {
     async getFlow({ uid, version }: FlowParams): Promise<Flow> {
