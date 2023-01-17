@@ -20,6 +20,7 @@ import { Socket } from 'socket.io-client';
 
 export interface Config {
   userId: string | undefined;
+  groupId?: string | undefined;
   apiKey: string;
   logLevel?: LoggerProps['logLevel'];
   flowVersions: Record<string, number>;
@@ -32,10 +33,11 @@ class Dopt {
   private userId?: Config['userId'];
   private apiKey: Config['apiKey'];
   private logLevel?: Config['logLevel'];
+  private groupId?: Config['groupId'];
   private flowVersions: Config['flowVersions'];
 
   public _initialized: boolean;
-  public _initializaedPromise: Promise<void>;
+  public _initializedPromise: Promise<void>;
 
   private logger: Logger;
   private optimisticUpdates?: boolean;
@@ -47,12 +49,14 @@ class Dopt {
   constructor({
     apiKey,
     userId,
+    groupId,
     logLevel,
     flowVersions,
     optimisticUpdates = true,
   }: Config) {
     this.apiKey = apiKey;
     this.userId = userId;
+    this.groupId = groupId;
     this.flowVersions = flowVersions;
     this.logLevel = logLevel;
     this.optimisticUpdates = optimisticUpdates;
@@ -66,7 +70,7 @@ class Dopt {
   }
 
   async initialized() {
-    return this._initializaedPromise;
+    return this._initializedPromise;
   }
 
   async initialize(config?: Partial<Config>): Promise<void> {
@@ -76,6 +80,7 @@ class Dopt {
     const {
       apiKey,
       userId,
+      groupId,
       flowVersions,
       logger,
       optimisticUpdates = true,
@@ -88,17 +93,30 @@ class Dopt {
       return Promise.reject();
     }
 
+    if (!groupId) {
+      logger.info(
+        'The `groupId` prop is undefined. The SDK wont be able to target the entry conditions and updates if you have identified and using groups properties.'
+      );
+    }
+
     let initializedPromiseResolver: () => void;
-    this._initializaedPromise = new Promise<void>((resolve) => {
+    this._initializedPromise = new Promise<void>((resolve) => {
       initializedPromiseResolver = resolve;
     });
 
-    this.blocksApi = blocksApi(apiKey, userId, logger, {
-      optimisticUpdates,
-      urlPrefix: URL_PREFIX,
-      packageVersion: PKG_VERSION,
-      packageName: PKG_NAME,
+    this.blocksApi = blocksApi({
+      apiKey,
+      userId,
+      groupId,
+      logger,
+      config: {
+        optimisticUpdates,
+        urlPrefix: URL_PREFIX,
+        packageVersion: PKG_VERSION,
+        packageName: PKG_NAME,
+      },
     });
+
     this.socket = setupSocket(apiKey, userId, logger, URL_PREFIX);
 
     const socketReadyPromise = new Promise<void>((resolve) => {
@@ -175,7 +193,7 @@ class Dopt {
       this._initialized = true;
     });
 
-    return this._initializaedPromise;
+    return this._initializedPromise;
   }
 
   public flow(uid: Flow['uid'], version: Flow['version']) {
