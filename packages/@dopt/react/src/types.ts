@@ -18,6 +18,7 @@ export interface BaseProviderConfig {
  */
 export interface ProviderConfig extends BaseProviderConfig {
   userId: string | undefined;
+  groupId?: string | undefined;
   apiKey: string;
   logLevel?: LoggerProps['logLevel'];
   flowVersions: Record<string, number>;
