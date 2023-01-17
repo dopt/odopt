@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@chakra-ui/react": "2.4.6",
-    "@dopt/react": "1.0.0",
-    "@dopt/users-javascript-client": "0.0.5",
+    "@dopt/react": "1.0.1",
+    "@dopt/users-javascript-client": "0.0.6",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@tabler/icons": "1.117.0",
