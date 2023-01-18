@@ -8,5 +8,6 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  base: process.env.NODE_ENV === 'production' ? `/kanban/` : '/',
   plugins: [react(), vanillaExtractPlugin()],
 });
