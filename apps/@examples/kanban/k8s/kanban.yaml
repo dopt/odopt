@@ -42,16 +42,3 @@ spec:
             preStop:
               exec:
                 command: ['/usr/sbin/nginx', '-s', 'quit']
-          env:
-            - name: VITE_DOPT_USERS_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: examples-secret
-                  key: VITE_DOPT_USERS_API_KEY
-                  optional: true
-            - name: VITE_DOPT_BLOCKS_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: examples-secret
-                  key: VITE_DOPT_BLOCKS_API_KEY
-                  optional: true
