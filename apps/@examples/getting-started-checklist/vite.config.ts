@@ -7,5 +7,7 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  base:
+    process.env.NODE_ENV === 'production' ? `/getting-started-checklist/` : '/',
   plugins: [react()],
 });
