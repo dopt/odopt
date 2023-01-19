@@ -5,8 +5,8 @@ import { Element } from './index';
 export const SetTypeConst = 'set';
 export const SetType = Type.Literal(SetTypeConst);
 export const SetProps = Type.Object({
-  length: Type.Optional(Type.Number()),
-  blocks: Type.Optional(Type.Array(Element)),
+  size: Type.Number(),
+  blocks: Type.Array(Element),
   type: Type.Readonly(SetType),
   ordered: Type.Optional(Type.Boolean()),
 });

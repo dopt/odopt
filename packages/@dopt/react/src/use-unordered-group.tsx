@@ -1,4 +1,9 @@
-import { Set, Element } from '@dopt/block-types';
+import { useContext, useCallback, useMemo } from 'react';
+import { DoptContext } from './context';
+
+import { getDefaultSetState } from '@dopt/javascript-common';
+
+import { Element, Set } from '@dopt/block-types';
 
 /**
  * Methods corresponding to an intent-based API for
@@ -79,7 +84,77 @@ interface Group extends Set {
 const useUnorderedGroup = (
   uid: Set['uid']
 ): [block: Group, intent: BlockIntentions] => {
-  throw new Error('Not Implemented');
+  const {
+    loading,
+    blocks: contextBlocks,
+    blockIntention,
+  } = useContext(DoptContext);
+  const set = useMemo(() => {
+    if (loading) {
+      return undefined;
+    }
+    return contextBlocks[uid];
+  }, [loading, contextBlocks, uid]);
+
+  if (set && set.type !== 'set') {
+    throw new Error(JSON.stringify(set, null, 2));
+  }
+  const blocks = useMemo(() => {
+    return set?.blocks || [];
+  }, [loading, set, set?.blocks]);
+  const complete = useCallback(
+    () => !loading && blockIntention.complete(uid),
+    [loading, blockIntention]
+  );
+  const size = set?.size || 0;
+  const getCompleted = useCallback(
+    () => blocks.filter((b) => b.state.completed),
+    [loading, blocks]
+  );
+  const getUncompleted = useCallback(
+    () => blocks?.filter((b) => !b.state.completed),
+    [loading, blocks]
+  );
+  const getActive = useCallback(
+    () => blocks?.filter((b) => b.state.active),
+    [loading, blocks]
+  );
+  const getInactive = useCallback(
+    () => blocks?.filter((b) => !b.state.active),
+    [loading, blocks]
+  );
+  if (loading || !set) {
+    return [
+      {
+        ...getDefaultSetState(uid),
+        size,
+        blocks,
+        getCompleted,
+        getUncompleted,
+        getActive,
+        getInactive,
+      },
+      {
+        complete,
+      },
+    ];
+  }
+  {
+    return [
+      {
+        ...set,
+        size,
+        blocks,
+        getCompleted,
+        getUncompleted,
+        getActive,
+        getInactive,
+      },
+      {
+        complete,
+      },
+    ];
+  }
 };
 
 export { useUnorderedGroup };
