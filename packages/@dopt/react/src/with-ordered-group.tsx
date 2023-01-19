@@ -1,4 +1,6 @@
 import type { Set } from '@dopt/block-types';
+import { DoptContext } from './context';
+import { useOrderedGroup } from './use-ordered-group';
 
 /**
  * A React HOC for accessing group block state and methods corresponding
@@ -29,5 +31,14 @@ export function withOrderedGroup<T>(
   Component: React.ComponentType<T>,
   uid: Set['uid']
 ) {
-  throw new Error('Not Implemented');
+  const displayName = Component.displayName || Component.name || 'Component';
+
+  const ComponentWithDopt = (props: Omit<T, keyof DoptContext>) => {
+    const [block, intent] = useOrderedGroup(uid);
+    return <Component {...(props as T)} block={block} intent={intent} />;
+  };
+
+  ComponentWithDopt.displayName = `withOrderedGroup(${displayName}, ${uid})`;
+
+  return ComponentWithDopt;
 }

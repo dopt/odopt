@@ -1,3 +1,8 @@
+import { useContext, useCallback, useMemo } from 'react';
+import { DoptContext } from './context';
+
+import { getDefaultSetState } from '@dopt/javascript-common';
+
 import { Element, Set } from '@dopt/block-types';
 
 /**
@@ -48,6 +53,10 @@ interface BlockIntentions {
   prev: () => void;
 }
 
+/**
+ * Methods corresponding to an intent-based API for
+ * signaling data retrieval of a group
+ */
 interface Group extends Set {
   /**
    * Data accessors specific to groups
@@ -109,7 +118,96 @@ interface Group extends Set {
 const useOrderedGroup = (
   uid: Set['uid']
 ): [block: Group, intent: BlockIntentions] => {
-  throw new Error('Not Implemented');
+  const {
+    loading,
+    blocks: contextBlocks,
+    blockIntention,
+  } = useContext(DoptContext);
+  const set = useMemo(() => {
+    if (loading) {
+      return undefined;
+    }
+    return contextBlocks[uid];
+  }, [loading, contextBlocks, uid]);
+
+  if (set && set.type !== 'set') {
+    throw new Error(JSON.stringify(set, null, 2));
+  }
+  const blocks = useMemo(() => {
+    if (loading) {
+      return [];
+    }
+    return set?.blocks || [];
+  }, [loading, set, set?.blocks]);
+  const complete = useCallback(
+    () => !loading && blockIntention.complete(uid),
+    [loading, blockIntention]
+  );
+  const prev = useCallback(
+    () => !loading && blockIntention.prev(uid),
+    [loading, blockIntention]
+  );
+  const next = useCallback(
+    () => !loading && blockIntention.next(uid),
+    [loading, blockIntention]
+  );
+  const goTo = useCallback(
+    (index: number) => !loading && blockIntention.goTo(uid, blocks[index].uid),
+    [loading, blockIntention, blocks]
+  );
+  const size = set?.size || 0;
+  const getCompleted = useCallback(
+    () => blocks.filter((b) => b.state.completed),
+    [loading, blocks]
+  );
+  const getUncompleted = useCallback(
+    () => blocks?.filter((b) => !b.state.completed),
+    [loading, blocks]
+  );
+  const getActive = useCallback(
+    () => blocks?.filter((b) => b.state.active),
+    [loading, blocks]
+  );
+  const getInactive = useCallback(
+    () => blocks?.filter((b) => !b.state.active),
+    [loading, blocks]
+  );
+  if (loading || !set) {
+    return [
+      {
+        ...getDefaultSetState(uid),
+        size,
+        blocks,
+        getCompleted,
+        getUncompleted,
+        getActive,
+        getInactive,
+      },
+      {
+        complete,
+        prev,
+        next,
+        goTo,
+      },
+    ];
+  }
+  return [
+    {
+      ...set,
+      size,
+      blocks,
+      getCompleted,
+      getUncompleted,
+      getActive,
+      getInactive,
+    },
+    {
+      complete,
+      prev,
+      next,
+      goTo,
+    },
+  ];
 };
 
 export { useOrderedGroup };
