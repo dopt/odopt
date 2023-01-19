@@ -317,8 +317,13 @@ export function ProdDoptProvider(props: ProviderConfig) {
         blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
       prev: (uid) =>
         blockIntent({ uid, version: blocks[uid].version, intent: 'prev' }),
-      goTo: (uid) =>
-        blockIntent({ uid, version: blocks[uid].version, intent: 'goTo' }),
+      goTo: (uid, goToUid) =>
+        blockIntent({
+          uid,
+          version: blocks[uid].version,
+          intent: 'goTo',
+          goToUid,
+        }),
     };
   }, [loading, blockIntent, blocks]);
 
