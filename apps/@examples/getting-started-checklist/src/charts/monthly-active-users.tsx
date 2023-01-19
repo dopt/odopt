@@ -3,7 +3,7 @@ import { Chart } from './chart';
 export function MonthlyActiveUsers() {
   return (
     <Chart title="Monthly active users">
-      <img src="/charts/monthly-active-users.svg" />
+      <img src={`${import.meta.env.BASE_URL}charts/monthly-active-users.svg`} />
     </Chart>
   );
 }

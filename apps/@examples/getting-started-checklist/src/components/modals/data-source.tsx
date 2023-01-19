@@ -50,7 +50,7 @@ export function ConnectDatasourceModal({
               <Flex justify="space-between" align="center">
                 <Flex gap={2}>
                   <img
-                    src="/data-sources/segment.png"
+                    src={`${import.meta.env.BASE_URL}data-sources/segment.png`}
                     width={24}
                     height={24}
                     alt="Segment"
@@ -84,7 +84,9 @@ export function ConnectDatasourceModal({
               <Flex justify="space-between" align="center">
                 <Flex gap={2}>
                   <img
-                    src="/data-sources/snowflake.png"
+                    src={`${
+                      import.meta.env.BASE_URL
+                    }data-sources/snowflake.png`}
                     width={24}
                     height={24}
                     alt="Snowflake"
