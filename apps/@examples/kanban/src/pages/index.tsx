@@ -27,9 +27,7 @@ import { highlight } from '@/styles/app.css';
 import { useKeyValueStore } from '@/hooks';
 
 export function Kanban() {
-  const [board, setBoard] = useKeyValueStore<BoardType>('board', {
-    defaultValue: initialBoard,
-  });
+  const [board, setBoard] = useState<BoardType>(initialBoard);
 
   if (!board) {
     throw new Error('Unable to initialize board in the k/v store');
