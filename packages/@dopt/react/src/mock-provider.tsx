@@ -94,10 +94,14 @@ export function MockDoptProvider(props: MockProviderConfig) {
         active: false,
         completed: false,
       }),
-    goTo: async (identifier) =>
+    goTo: async (identifier, goToUid) => {
       updateState(blocks, identifier, {
         active: false,
-      }),
+      });
+      updateState(blocks, goToUid || '', {
+        active: true,
+      });
+    },
   };
 
   return (
