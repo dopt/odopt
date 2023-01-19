@@ -162,7 +162,7 @@ interface BlockIntentions {
 
 export interface Group extends Set {
   getCompleted: () => Element[];
-  getIncomplete: () => Element[];
+  getUncompleted: () => Element[];
   getActive: () => Element[];
   getInactive: () => Element[];
 }
