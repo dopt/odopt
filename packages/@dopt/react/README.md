@@ -88,9 +88,9 @@ interface Flow<T = "flow"> {
 The states of a Flow are 1:1 with the actions you can perform on a Flow. Flows have Blocks, which are represented through the following type definition.
 
 ```ts
-interface Block<T> {
+interface Step {
   readonly kind: "block";
-  readonly type: T;
+  readonly type: "model";
   readonly uid: string;
   readonly sid: string;
   readonly version: number;
@@ -99,6 +99,21 @@ interface Block<T> {
     completed: boolean;
   };
 }
+interface Group {
+  readonly kind: "block";
+  readonly type: "set";
+  readonly uid: string;
+  readonly sid: string;
+  readonly version: number;
+  readonly state: {
+    active: boolean;
+    completed: boolean;
+  };
+  size: number;
+  blocks: Step[];
+  ordered: boolean;
+}
+type Block = Group | Step;
 ```
 
 Unlike Flows, the states of a Block are not all 1:1 with actions you can perform. The `completed` does have an associated action, but the `active` state is special.
@@ -135,12 +150,48 @@ declare const useBlock: (
 ) => [block: Block, intent: BlockIntentions];
 ```
 
+- [useOrderedGroup](./src/use-ordered-group.ts)
+
+```ts
+interface BlockIntentions {
+  complete: () => void;
+  prev: () => void;
+  next: () => void;
+  goTo: (index: number) => void;
+}
+
+export interface Group extends Set {
+  getCompleted: () => Element[];
+  getUncompleted: () => Element[];
+  getActive: () => Element[];
+  getInactive: () => Element[];
+}
+
+declare const useOrderedGroup: (
+  uid: string
+) => [block: Group, intent: BlockIntentions];
+```
+
+- [useUnorderedGroup](./src/use-unordered-group.ts)
+
+```ts
+interface BlockIntentions {
+  complete: () => void;
+}
+
+declare const useOrderedGroup: (
+  uid: string
+) => [block: Group, intent: BlockIntentions];
+```
+
 ##### HOCS
 
 We offer analogous functionality through HOCs for those who are limited by their version of React or prefer that pattern.
 
 - [withFlow](./src/with-flow.tsx)
 - [withBlock](./src/with-block.tsx)
+- [withOrderedGroup](./src/with-ordered-group.tsx)
+- [withUnorderedGroup](./src/with-unordered-group.tsx)
 
 ### Example usage
 
@@ -215,6 +266,93 @@ export function Application() {
   return (
     <main>
       <WelcomeModalWithFlow />
+    </main>
+  );
+}
+```
+
+#### Accessing Ordered Groups
+
+Using the [useOrderedGroup](./src/use-ordered-group.ts) hook.
+
+```tsx
+import { useOrderedGroup } from "@dopt/react";
+import { Modal } from "@your-company/modal";
+
+export function Application() {
+  const [group, groupIntent] = useOrderedGroup("HNWvcT78tyTwygnbzU6SW");
+  const [block, blockIntent] = useBlock("HJDdinfT60yywdls893");
+
+  return (
+    <main>
+      <Modal isOpen={block.state.active}>
+        <h1>👏 Welcome to our app!</h1>
+        <p>This is your onboarding experience!</p>
+        <p>You are on step {group.getCompleted() + 1}</p>
+        <button onClick={group.next}>Next me</button>
+        <button onClick={groupIntent.complete}>Exit</button>
+      </Modal>
+    </main>
+  );
+}
+```
+
+Using the [withOrderedGroup](./src/with-ordered-group.tsx) HOC
+
+```tsx
+import { withOrderedGroup } from "@dopt/react";
+import { WelcomeModal } from "./welcome-modal";
+
+export function Application() {
+  const WelcomeModalWithDopt = withOrderedGroup(
+    WelcomeModal,
+    "j0zExxZDVKCPXPzB2ZgpW"
+  );
+  return (
+    <main>
+      <WelcomeModalWithDopt />
+    </main>
+  );
+}
+```
+
+#### Accessing Unordered Groups
+
+Using the [useUnorderedGroup](./src/use-unordered-group.ts) hook.
+
+```tsx
+export function Application() {
+  const [group, groupIntent] = useUnorderedGroup("HNWvcT78tyTwygnbzU6SW");
+  const [block, blockIntent] = useBlock("HJDdinfT60yywdls893");
+
+  return (
+    <main>
+      <Modal isOpen={block.state.active}>
+        <h1>👏 Welcome to our app!</h1>
+        <p>This is your onboarding experience!</p>
+        <p>You are on step {group.getCompleted() + 1}</p>
+        <button onClick={blockIntent.complete}>Next</button>
+        <button onClick={groupIntent.complete}>Exit</button>
+      </Modal>
+    </main>
+  );
+}
+```
+
+Using the [withUnorderedGroup](./src/with-unordered-group.tsx) HOC
+
+```tsx
+import { withUnorderedGroup } from "@dopt/react";
+import { WelcomeModal } from "./welcome-modal";
+
+export function Application() {
+  const WelcomeModalWithDopt = withUnorderedGroup(
+    WelcomeModal,
+    "j0zExxZDVKCPXPzB2ZgpW"
+  );
+  return (
+    <main>
+      <WelcomeModalWithDopt />
     </main>
   );
 }
