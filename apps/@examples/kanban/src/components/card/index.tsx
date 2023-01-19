@@ -25,7 +25,10 @@ export function Card({ id, title, assignee, children, isDragging }: Props) {
     <div className={`${cardClass} ${isDragging ? draggingClass : ''}`}>
       <Group position="apart">
         <h3 className={titleClass}>{title}</h3>
-        <Avatar name={assignee} src={`/avatars/${assignee}.png`} />
+        <Avatar
+          name={assignee}
+          src={`${import.meta.env.BASE_URL}avatars/${assignee}.png`}
+        />
       </Group>
       {children && <p className={descriptionClass}>{children}</p>}
       {firstIssueId === id && (
