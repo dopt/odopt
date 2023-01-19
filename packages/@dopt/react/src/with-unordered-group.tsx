@@ -25,7 +25,7 @@ import type { Set } from '@dopt/block-types';
  * props injected in
  *
  */
-export function withOrderedGroup<T>(
+export function withUnorderedGroup<T>(
   Component: React.ComponentType<T>,
   uid: Set['uid']
 ) {
