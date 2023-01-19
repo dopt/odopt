@@ -71,9 +71,9 @@ interface Flow<T = "flow"> {
 The states of a Flow are 1:1 with the actions you can perform on a Flow. Flows have Blocks, which are represented through the following type definition.
 
 ```ts
-interface Block<T> {
+interface Step {
   readonly kind: "block";
-  readonly type: T;
+  readonly type: "model";
   readonly uid: string;
   readonly sid: string;
   readonly version: number;
@@ -82,6 +82,21 @@ interface Block<T> {
     completed: boolean;
   };
 }
+interface Group {
+  readonly kind: "block";
+  readonly type: "set";
+  readonly uid: string;
+  readonly sid: string;
+  readonly version: number;
+  readonly state: {
+    active: boolean;
+    completed: boolean;
+  };
+  length: number;
+  blocks: Step[];
+  ordered: boolean;
+}
+type Block = Group | Step;
 ```
 
 Unlike Flows, the states of a Block are not all 1:1 with actions you can perform. The `completed` does have an associated action, but the `active` state is special.

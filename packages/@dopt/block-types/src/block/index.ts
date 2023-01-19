@@ -36,4 +36,4 @@ export type Element = Static<typeof Element>;
 export const Blocks = Type.Array(Block);
 export type Blocks = Static<typeof Blocks>;
 
-export const SET_ELEMENTS = [ModelTypeConst];
+export const SET_ELEMENTS: [BlockTypes] = [ModelTypeConst];
