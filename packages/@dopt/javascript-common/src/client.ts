@@ -73,7 +73,10 @@ export type BlocksApi = {
 };
 type BlockParams = Pick<Block, 'uid' | 'version'>;
 type FlowParams = Pick<Flow, 'uid' | 'version'>;
-type BlockIntentParams = BlockParams & { intent: BlockIntent };
+type BlockIntentParams = BlockParams & {
+  intent: BlockIntent;
+  goToUid?: string;
+};
 type FlowIntentParams = FlowParams & { intent: FlowIntent };
 
 const queryParams =
@@ -176,14 +179,22 @@ export function blocksApi({
       uid,
       version,
       intent,
+      goToUid,
     }: BlockIntentParams): Promise<void> {
       logger.info(
         `Calling \`${intent}\` on Block<{"uid":"${uid}","version":${version}}>`
       );
       logger.debug(`/v1/block/${uid}/${intent}?${query({ version })}`);
-
+      let goToQueryParams = '';
+      if (intent === 'goTo' && goToUid) {
+        goToQueryParams = `&blockUid=${goToUid}`;
+      } else if (intent === 'goTo' && !goToUid) {
+        logger.info(`intent goTo requires a destination block`);
+      }
       const response = await client({
-        url: `/v1/block/${uid}/${intent}?${query({ version })}`,
+        url: `/v1/block/${uid}/${intent}?${query({
+          version,
+        })}${goToQueryParams}`,
         apiKey,
         logger,
         options: INTENT_POST_OPTIONS,
