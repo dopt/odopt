@@ -4,6 +4,10 @@ export { useBlock } from './use-block';
 export { withBlock } from './with-block';
 export { useFlow } from './use-flow';
 export { withFlow } from './with-flow';
+export { useOrderedGroup } from './use-ordered-group';
+export { withOrderedGroup } from './with-ordered-group';
+export { useUnorderedGroup } from './use-unordered-group';
+export { withUnorderedGroup } from './with-unordered-group';
 
 export { MockDoptProvider } from './mock-provider';
 export { ProdDoptProvider } from './provider';
