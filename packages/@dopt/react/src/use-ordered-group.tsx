@@ -64,9 +64,9 @@ interface Group extends Set {
    */
   getCompleted: () => Element[];
   /**
-   * Gets all incompleted blocks within the group
+   * Gets all uncompleted blocks within the group
    */
-  getIncomplete: () => Element[];
+  getUncompleted: () => Element[];
   /**
    * Gets all active blocks within the group
    */
