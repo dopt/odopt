@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { MantineProvider } from '@mantine/core';
 import { DoptProvider } from '@dopt/react';
 
@@ -11,6 +13,17 @@ export function App() {
     role: 'admin',
     inTrial: true,
   });
+
+  useEffect(() => {
+    if (userId) {
+      if (document.referrer !== '') {
+        window.parent.postMessage(
+          JSON.stringify({ userId }),
+          document.referrer
+        );
+      }
+    }
+  }, [userId]);
 
   return (
     <DoptProvider
