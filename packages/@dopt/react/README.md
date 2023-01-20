@@ -150,7 +150,7 @@ declare const useBlock: (
 ) => [block: Block, intent: BlockIntentions];
 ```
 
-- [useOrderedGroup](./src/use-ordered-group.ts)
+- [useOrderedGroup](./src/use-ordered-group.tsx)
 
 ```ts
 interface BlockIntentions {
@@ -172,7 +172,7 @@ declare const useOrderedGroup: (
 ) => [block: Group, intent: BlockIntentions];
 ```
 
-- [useUnorderedGroup](./src/use-unordered-group.ts)
+- [useUnorderedGroup](./src/use-unordered-group.tsx)
 
 ```ts
 interface BlockIntentions {
@@ -217,7 +217,7 @@ export function Application() {
 }
 ```
 
-Using the [withBlock](./src/with-dopt.tsx) HOC
+Using the [withBlock](./src/with-block.tsx) HOC
 
 ```tsx
 import { withBlock } from "@dopt/react";
@@ -255,7 +255,7 @@ export function Application() {
 }
 ```
 
-Using the [withFlow](./src/with-dopt.tsx) HOC
+Using the [withFlow](./src/with-flow.tsx) HOC
 
 ```tsx
 import { withFlow } from "@dopt/react";
@@ -273,7 +273,7 @@ export function Application() {
 
 #### Accessing Ordered Groups
 
-Using the [useOrderedGroup](./src/use-ordered-group.ts) hook.
+Using the [useOrderedGroup](./src/use-ordered-group.tsx) hook.
 
 ```tsx
 import { useOrderedGroup } from "@dopt/react";
@@ -318,7 +318,7 @@ export function Application() {
 
 #### Accessing Unordered Groups
 
-Using the [useUnorderedGroup](./src/use-unordered-group.ts) hook.
+Using the [useUnorderedGroup](./src/use-unordered-group.tsx) hook.
 
 ```tsx
 export function Application() {
