@@ -5,12 +5,10 @@ export const DEFAULT_JOURNEY_DESC = 'Add a description';
 export const JOURNEY_IDENTIFIER_DESC =
   'This will be used to reference this flow and cannot be changed.';
 
-export const URL_SAFE_REGEX = /^[\w.~-]*$/;
-export const URL_UNSAFE_REGEX = /[^\w.~-]+/g;
-
-export const FLOW_IDENTIFIER_REQUIRED_MSG = 'Identifier is required';
-export const FLOW_IDENTIFIER_ALLOWED_CHARS_MSG = `Invalid identifier`;
-export const FLOW_IDENTIFIER_LENGTH_MSG = `Identifier can't be more than ${CHARACTER_LIMIT} characters`;
+export const FLOW_IDENTIFIER_REQUIRED_MSG = 'A flow identifier is required';
+export const FLOW_IDENTIFIER_ALLOWED_CHARS_MSG =
+  'The flow identifier has invalid characters';
+export const FLOW_IDENTIFIER_LENGTH_MSG = `The flow identifier can't be more than ${CHARACTER_LIMIT} characters`;
 export const FLOW_NAME_EXISTS_MSG = 'A flow with this name already exists';
 export const FLOW_IDENTIFIER_EXISTS_MSG =
   'A flow with this identifier already exists';
