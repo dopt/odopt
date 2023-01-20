@@ -252,11 +252,11 @@ export function ProdDoptProvider(props: ProviderConfig) {
 
     // Log a warning if we end up in the situation above
     if (socket.listeners('blocks').length > 1) {
-      log.warn('Socket listeners to `blocks` are growing unexpectly.');
+      log.warn('Socket listeners to `blocks` are growing unexpectedly.');
     }
 
     if (socket.listeners('flow').length > 1) {
-      log.warn('Socket listeners to `flow` are growing unexpectly.');
+      log.warn('Socket listeners to `flow` are growing unexpectedly.');
     }
 
     for (let uid in blocks) {
@@ -270,7 +270,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
 
       if (socket.listeners(`${uid}_${version}`).length > 1) {
         log.error(
-          `Socket listeners to \`${uid}_${version}\` are growing unexpectly.`
+          `Socket listeners to \`${uid}_${version}\` are growing unexpectedly.`
         );
       }
     }
