@@ -42,7 +42,7 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@rollup/plugin-typescript": "10.0.1",
+    "@rollup/plugin-typescript": "11.0.0",
     "@types/chroma-js": "2.1.4",
     "@types/jest": "29.2.5",
     "@types/rollup-plugin-peer-deps-external": "^2.2.1",
