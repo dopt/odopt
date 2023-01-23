@@ -1,0 +1,6 @@
+.checklistPopoverHeader {
+  background: #228be6;
+  border-top-right-radius: var(--chakra-radii-md);
+  border-top-left-radius: var(--chakra-radii-md);
+  color: #fff;
+}
