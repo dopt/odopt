@@ -1,0 +1,14 @@
+.chart {
+  flex-basis: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.chart:hover {
+  border-color: rgba(34, 139, 230, 0.2);
+}
+
+.chartIsSelected,
+.chartIsSelected:hover {
+  border-color: #18a0fb;
+}
