@@ -22,9 +22,9 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types",
+    "build": "drb",
     "clean": "shx rm -rf ./dist",
-    "dev": "rollup -w --config rollup.config.ts --configPlugin typescript --no-watch.clearScreen",
+    "dev": "drw",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
@@ -43,9 +43,9 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
+    "@dopt/rollup": "workspace:*",
     "@rollup/plugin-typescript": "11.0.0",
     "@types/jest": "29.4.0",
-    "@types/rollup-plugin-peer-deps-external": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "5.49.0",
     "@typescript-eslint/parser": "5.49.0",
     "esbuild": "0.17.4",
@@ -55,8 +55,6 @@
     "jest": "29.4.0",
     "prettier": "2.8.3",
     "rollup": "3.10.1",
-    "rollup-plugin-dts": "5.1.1",
-    "rollup-plugin-peer-deps-external": "2.2.4",
     "shx": "0.3.4",
     "tslib": "^2.4.0",
     "typescript": "4.9.4"
