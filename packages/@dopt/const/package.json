@@ -33,7 +33,7 @@
     "@dopt/block-types": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
-    "@types/jest": "29.2.5",
+    "@types/jest": "29.4.0",
     "@typescript-eslint/eslint-plugin": "5.47.0",
     "@typescript-eslint/parser": "5.47.0",
     "esbuild": "0.16.10",
