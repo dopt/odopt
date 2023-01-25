@@ -1,6 +1,6 @@
 export type Mode = 'light' | 'dark';
 
-export type Color = keyof typeof colors['light'];
+export type Color = keyof (typeof colors)['light'];
 
 const blurple = {
   blurple50: '#f1edfd',
