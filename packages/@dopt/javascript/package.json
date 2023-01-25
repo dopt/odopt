@@ -54,7 +54,7 @@
     "@dopt/config": "workspace:*",
     "@rollup/plugin-replace": "^5.0.0",
     "@rollup/plugin-typescript": "11.0.0",
-    "@types/jest": "29.2.5",
+    "@types/jest": "29.4.0",
     "@types/rollup-plugin-peer-deps-external": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "5.47.0",
     "@typescript-eslint/parser": "5.47.0",
