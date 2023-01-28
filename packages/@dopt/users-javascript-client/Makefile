@@ -9,13 +9,13 @@ EXTERNAL_SPEC_LOCATION=../users-api-manifest/spec/open-api-spec.json
 SERVICE_SPEC_LOCATION=../../../services/@users/service/spec/external/open-api-spec.json
 
 build-java: generate/users-javascript-client-java
-	rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types
+	pnpm exec drb;
 
 build-docker: generate/users-javascript-client-docker
-	rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types
+	pnpm exec drb;
 
 build-version: generate/users-javascript-client-docker-local
-	rollup --config rollup.config.ts --configPlugin typescript; rm -rf ./dist/types
+	pnpm exec drb;
 
 generate/users-javascript-client-java:
 	rm -rf spec; \

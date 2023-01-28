@@ -1,21 +1,15 @@
-import { Card, Flex, Link, Progress, Text } from '@chakra-ui/react';
+import { Card, Flex, Progress, Text } from '@chakra-ui/react';
 
 import { IconArrowRight } from '@tabler/icons';
 
-import { CONNECT_DATASOURCE, ADD_CHARTS, SHARE_DASHBOARD } from '@/const';
+import { CHECKLIST } from '@/const';
 
-import { useBlock } from '@dopt/react';
+import { useUnorderedGroup } from '@dopt/react';
 
 export function ChecklistPreview() {
-  const [datasource] = useBlock(CONNECT_DATASOURCE);
-  const [charts] = useBlock(ADD_CHARTS);
-  const [share] = useBlock(SHARE_DASHBOARD);
+  const [checklist] = useUnorderedGroup(CHECKLIST);
 
-  const numberComplete = [datasource, charts, share].filter(
-    (block) => block.state.completed
-  ).length;
-
-  const value = (numberComplete / 3) * 100;
+  const numCompletedBlocks = checklist.getCompleted().length;
 
   return (
     <Card p="4" gap="2" bg="white" cursor="pointer">
@@ -24,8 +18,12 @@ export function ChecklistPreview() {
         <IconArrowRight size={16} />
       </Flex>
       <Flex gap={2} align="center">
-        <Progress borderRadius="8px" value={value} style={{ flexGrow: 1 }} />
-        <Text fontSize="sm">{`${numberComplete}/3`}</Text>
+        <Progress
+          borderRadius="8px"
+          value={(numCompletedBlocks / checklist.blocks.length) * 100}
+          style={{ flexGrow: 1 }}
+        />
+        <Text fontSize="sm">{`${numCompletedBlocks}/3`}</Text>
       </Flex>
     </Card>
   );
