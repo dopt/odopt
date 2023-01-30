@@ -99,7 +99,7 @@ function MemberItem({ member }: { member: Member }) {
     <Flex gap={2}>
       <Box bg={member.avatarBg} borderRadius="full">
         <img
-          src={`/avatars/${member.name}.png`}
+          src={`${import.meta.env.BASE_URL}avatars/${member.name}.png`}
           width={24}
           height={24}
           alt={member.name}

@@ -1,13 +1,11 @@
-import { useEffect } from 'react';
 import { IconArrowRight, IconCircleCheck } from '@tabler/icons';
 
-import { useBlock } from '@dopt/react';
+import { useBlock, useUnorderedGroup } from '@dopt/react';
 
 import {
   Box,
   Card,
   Flex,
-  Link,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -19,7 +17,7 @@ import {
   CONNECT_DATASOURCE,
   ADD_CHARTS,
   SHARE_DASHBOARD,
-  GUARD,
+  CHECKLIST,
   NEXT_STEPS,
 } from '@/const';
 
@@ -50,30 +48,14 @@ export function GettingStartedChecklist({
 }: Props) {
   const nextStepsModalProps = useDisclosure();
 
+  const [checklist] = useUnorderedGroup(CHECKLIST);
+
   const [datasourceBlock, datasorceMethods] = useBlock(CONNECT_DATASOURCE);
   const [chartsBlock, chartsMethods] = useBlock(ADD_CHARTS);
   const [shareBlock, shareMethods] = useBlock(SHARE_DASHBOARD);
-  const [guardBlock, { complete: completeGuardBlock }] = useBlock(GUARD);
   const [nextStepsBlock] = useBlock(NEXT_STEPS);
 
-  useEffect(() => {
-    if (
-      guardBlock.state.active &&
-      datasourceBlock.state.completed &&
-      shareBlock.state.completed &&
-      chartsBlock.state.completed
-    ) {
-      setTimeout(() => {
-        completeGuardBlock();
-      }, 100);
-    }
-  }, [guardBlock, datasourceBlock, shareBlock, chartsBlock]);
-
-  if (
-    datasourceBlock.state.active ||
-    chartsBlock.state.active ||
-    shareBlock.state.active
-  ) {
+  if (checklist.state.active) {
     return (
       <Flex direction="column" gap={2}>
         <Popover placement="top-start">
