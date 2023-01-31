@@ -2,11 +2,12 @@ export const DOCS_LINK = 'https://docs.dopt.com/';
 
 export const DOCS_API_LINK = 'https://dopt.readme.io/';
 
-export const REACT_SDK_LINK = 'https://react-sdk-docs.vercel.app/index.html';
+export const REACT_SDK_LINK = 'https://docs.dopt.com/sdks/react/';
 
 export const DOCS_FLOWS_LINK = 'https://docs.dopt.com/concepts/flows/';
 
 export const DOCS_USERS_LINK = 'https://docs.dopt.com/concepts/users/';
+
 export const DOCS_GROUPS_LINK = 'https://docs.dopt.com/concepts/groups/';
 
 export const DOCS_CREATE_API_KEYS_LINK =
