@@ -17,7 +17,7 @@ export function getDefaultBlockState(
     },
     blocks: [],
     size: 0,
-    properties: [],
+    fields: [],
   };
 }
 
