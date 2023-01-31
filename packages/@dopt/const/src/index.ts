@@ -18,4 +18,4 @@ export * from './socket/index';
 export * from './api-key';
 export * from './name-fields';
 export * from './id-fields';
-export * from './property-definitions';
+export * from './field-definitions';
