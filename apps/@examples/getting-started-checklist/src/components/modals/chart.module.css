@@ -1,7 +1,9 @@
 .chart {
   flex-basis: 50%;
   cursor: pointer;
-  border: 2px solid transparent;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
 }
 
 .chart:hover {
