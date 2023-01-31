@@ -69,6 +69,7 @@ export function CreateIssueModal(props: Props) {
         <Stack>
           <TextInput
             type="hidden"
+            //@ts-ignore
             value={createIssueBlock.state.active ? 'first-issue' : undefined}
             {...form.getInputProps('id')}
           />
