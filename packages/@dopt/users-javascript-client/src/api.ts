@@ -50,63 +50,6 @@ export interface BadRequestErrorResponseBodyCode {
 /**
  * 
  * @export
- * @interface IdentifyBatchRequestBodyInner
- */
-export interface IdentifyBatchRequestBodyInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifyBatchRequestBodyInner
-     */
-    'identifier': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof IdentifyBatchRequestBodyInner
-     */
-    'properties': { [key: string]: any; };
-    /**
-     * 
-     * @type {Array<IdentifyBatchRequestBodyInnerGroupsInner>}
-     * @memberof IdentifyBatchRequestBodyInner
-     */
-    'groups'?: Array<IdentifyBatchRequestBodyInnerGroupsInner>;
-}
-/**
- * 
- * @export
- * @interface IdentifyBatchRequestBodyInnerGroupsInner
- */
-export interface IdentifyBatchRequestBodyInnerGroupsInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifyBatchRequestBodyInnerGroupsInner
-     */
-    'identifier': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof IdentifyBatchRequestBodyInnerGroupsInner
-     */
-    'properties': { [key: string]: any; };
-}
-/**
- * 
- * @export
- * @interface IdentifyBatchResponseBody
- */
-export interface IdentifyBatchResponseBody {
-    /**
-     * 
-     * @type {number}
-     * @memberof IdentifyBatchResponseBody
-     */
-    'count': number;
-}
-/**
- * 
- * @export
  * @interface IdentifyBulkRequestBodyInner
  */
 export interface IdentifyBulkRequestBodyInner {
@@ -135,25 +78,6 @@ export interface IdentifyBulkResponseBody {
 /**
  * 
  * @export
- * @interface IdentifyGroupRequestBody
- */
-export interface IdentifyGroupRequestBody {
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifyGroupRequestBody
-     */
-    'identifier': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof IdentifyGroupRequestBody
-     */
-    'properties': { [key: string]: any; };
-}
-/**
- * 
- * @export
  * @interface IdentifyRequestParams
  */
 export interface IdentifyRequestParams {
@@ -175,12 +99,6 @@ export interface IdentifySegmentRequestBody {
      * @type {string}
      * @memberof IdentifySegmentRequestBody
      */
-    'type': IdentifySegmentRequestBodyTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifySegmentRequestBody
-     */
     'userId': string;
     /**
      * 
@@ -188,90 +106,7 @@ export interface IdentifySegmentRequestBody {
      * @memberof IdentifySegmentRequestBody
      */
     'traits': { [key: string]: any; };
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifySegmentRequestBody
-     */
-    'groupId': string;
 }
-
-export const IdentifySegmentRequestBodyTypeEnum = {
-    Group: 'group'
-} as const;
-
-export type IdentifySegmentRequestBodyTypeEnum = typeof IdentifySegmentRequestBodyTypeEnum[keyof typeof IdentifySegmentRequestBodyTypeEnum];
-
-/**
- * 
- * @export
- * @interface IdentifySegmentRequestBodyAnyOf
- */
-export interface IdentifySegmentRequestBodyAnyOf {
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifySegmentRequestBodyAnyOf
-     */
-    'type': IdentifySegmentRequestBodyAnyOfTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifySegmentRequestBodyAnyOf
-     */
-    'userId': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof IdentifySegmentRequestBodyAnyOf
-     */
-    'traits': { [key: string]: any; };
-}
-
-export const IdentifySegmentRequestBodyAnyOfTypeEnum = {
-    Identify: 'identify'
-} as const;
-
-export type IdentifySegmentRequestBodyAnyOfTypeEnum = typeof IdentifySegmentRequestBodyAnyOfTypeEnum[keyof typeof IdentifySegmentRequestBodyAnyOfTypeEnum];
-
-/**
- * 
- * @export
- * @interface IdentifySegmentRequestBodyAnyOf1
- */
-export interface IdentifySegmentRequestBodyAnyOf1 {
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifySegmentRequestBodyAnyOf1
-     */
-    'type': IdentifySegmentRequestBodyAnyOf1TypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifySegmentRequestBodyAnyOf1
-     */
-    'groupId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifySegmentRequestBodyAnyOf1
-     */
-    'userId': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof IdentifySegmentRequestBodyAnyOf1
-     */
-    'traits': { [key: string]: any; };
-}
-
-export const IdentifySegmentRequestBodyAnyOf1TypeEnum = {
-    Group: 'group'
-} as const;
-
-export type IdentifySegmentRequestBodyAnyOf1TypeEnum = typeof IdentifySegmentRequestBodyAnyOf1TypeEnum[keyof typeof IdentifySegmentRequestBodyAnyOf1TypeEnum];
-
 /**
  * 
  * @export
@@ -284,31 +119,6 @@ export interface IdentifySegmentResponseBody {
      * @memberof IdentifySegmentResponseBody
      */
     'count': number;
-}
-/**
- * 
- * @export
- * @interface IdentifyUserRequestBody
- */
-export interface IdentifyUserRequestBody {
-    /**
-     * 
-     * @type {string}
-     * @memberof IdentifyUserRequestBody
-     */
-    'identifier': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof IdentifyUserRequestBody
-     */
-    'properties': { [key: string]: any; };
-    /**
-     * 
-     * @type {Array<IdentifyBatchRequestBodyInnerGroupsInner>}
-     * @memberof IdentifyUserRequestBody
-     */
-    'groups'?: Array<IdentifyBatchRequestBodyInnerGroupsInner>;
 }
 /**
  * 
@@ -361,114 +171,6 @@ export interface NotFoundErrorResponseBody {
  * @interface NotFoundErrorResponseBodyCode
  */
 export interface NotFoundErrorResponseBodyCode {
-}
-/**
- * 
- * @export
- * @interface SegmentCommon
- */
-export interface SegmentCommon {
-    /**
-     * 
-     * @type {string}
-     * @memberof SegmentCommon
-     */
-    'userId': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof SegmentCommon
-     */
-    'traits': { [key: string]: any; };
-}
-/**
- * 
- * @export
- * @interface SegmentGroup
- */
-export interface SegmentGroup {
-    /**
-     * 
-     * @type {string}
-     * @memberof SegmentGroup
-     */
-    'type': SegmentGroupTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof SegmentGroup
-     */
-    'groupId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SegmentGroup
-     */
-    'userId': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof SegmentGroup
-     */
-    'traits': { [key: string]: any; };
-}
-
-export const SegmentGroupTypeEnum = {
-    Group: 'group'
-} as const;
-
-export type SegmentGroupTypeEnum = typeof SegmentGroupTypeEnum[keyof typeof SegmentGroupTypeEnum];
-
-/**
- * 
- * @export
- * @interface SegmentIdentify
- */
-export interface SegmentIdentify {
-    /**
-     * 
-     * @type {string}
-     * @memberof SegmentIdentify
-     */
-    'type': SegmentIdentifyTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof SegmentIdentify
-     */
-    'userId': string;
-    /**
-     * 
-     * @type {{ [key: string]: any; }}
-     * @memberof SegmentIdentify
-     */
-    'traits': { [key: string]: any; };
-}
-
-export const SegmentIdentifyTypeEnum = {
-    Identify: 'identify'
-} as const;
-
-export type SegmentIdentifyTypeEnum = typeof SegmentIdentifyTypeEnum[keyof typeof SegmentIdentifyTypeEnum];
-
-/**
- * 
- * @export
- * @interface TimeoutErrorResponseBody
- */
-export interface TimeoutErrorResponseBody {
-    /**
-     * 
-     * @type {InternalServerErrorResponseBodyCode}
-     * @memberof TimeoutErrorResponseBody
-     */
-    'code': InternalServerErrorResponseBodyCode;
-    /**
-     * 
-     * @type {string}
-     * @memberof TimeoutErrorResponseBody
-     */
-    'details': string;
 }
 /**
  * 
@@ -545,42 +247,6 @@ export const IdentifyApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
-         * @param {Array<IdentifyBatchRequestBodyInner>} [identifyBatchRequestBodyInner] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        identifyBatch: async (identifyBatchRequestBodyInner?: Array<IdentifyBatchRequestBodyInner>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/identify/batch`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication ApiKeyAuth required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Api-Key", configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(identifyBatchRequestBodyInner, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {Array<IdentifyBulkRequestBodyInner>} [identifyBulkRequestBodyInner] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -609,42 +275,6 @@ export const IdentifyApiAxiosParamCreator = function (configuration?: Configurat
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(identifyBulkRequestBodyInner, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {IdentifyGroupRequestBody} [identifyGroupRequestBody] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        identifyGroupPost: async (identifyGroupRequestBody?: IdentifyGroupRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/identify/group`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication ApiKeyAuth required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Api-Key", configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(identifyGroupRequestBody, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -687,42 +317,6 @@ export const IdentifyApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @param {IdentifyUserRequestBody} [identifyUserRequestBody] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        identifyUser: async (identifyUserRequestBody?: IdentifyUserRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/identify`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication ApiKeyAuth required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Api-Key", configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(identifyUserRequestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -746,16 +340,6 @@ export const IdentifyApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {Array<IdentifyBatchRequestBodyInner>} [identifyBatchRequestBodyInner] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async identifyBatch(identifyBatchRequestBodyInner?: Array<IdentifyBatchRequestBodyInner>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IdentifyBatchResponseBody>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.identifyBatch(identifyBatchRequestBodyInner, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {Array<IdentifyBulkRequestBodyInner>} [identifyBulkRequestBodyInner] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -766,32 +350,12 @@ export const IdentifyApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {IdentifyGroupRequestBody} [identifyGroupRequestBody] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async identifyGroupPost(identifyGroupRequestBody?: IdentifyGroupRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.identifyGroupPost(identifyGroupRequestBody, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {IdentifySegmentRequestBody} [identifySegmentRequestBody] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async identifySegment(identifySegmentRequestBody?: IdentifySegmentRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.identifySegment(identifySegmentRequestBody, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {IdentifyUserRequestBody} [identifyUserRequestBody] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async identifyUser(identifyUserRequestBody?: IdentifyUserRequestBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.identifyUser(identifyUserRequestBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -816,15 +380,6 @@ export const IdentifyApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @param {Array<IdentifyBatchRequestBodyInner>} [identifyBatchRequestBodyInner] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        identifyBatch(identifyBatchRequestBodyInner?: Array<IdentifyBatchRequestBodyInner>, options?: any): AxiosPromise<IdentifyBatchResponseBody> {
-            return localVarFp.identifyBatch(identifyBatchRequestBodyInner, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {Array<IdentifyBulkRequestBodyInner>} [identifyBulkRequestBodyInner] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -834,30 +389,12 @@ export const IdentifyApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
-         * @param {IdentifyGroupRequestBody} [identifyGroupRequestBody] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        identifyGroupPost(identifyGroupRequestBody?: IdentifyGroupRequestBody, options?: any): AxiosPromise<void> {
-            return localVarFp.identifyGroupPost(identifyGroupRequestBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {IdentifySegmentRequestBody} [identifySegmentRequestBody] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         identifySegment(identifySegmentRequestBody?: IdentifySegmentRequestBody, options?: any): AxiosPromise<void> {
             return localVarFp.identifySegment(identifySegmentRequestBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {IdentifyUserRequestBody} [identifyUserRequestBody] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        identifyUser(identifyUserRequestBody?: IdentifyUserRequestBody, options?: any): AxiosPromise<void> {
-            return localVarFp.identifyUser(identifyUserRequestBody, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -883,17 +420,6 @@ export class IdentifyApi extends BaseAPI {
 
     /**
      * 
-     * @param {Array<IdentifyBatchRequestBodyInner>} [identifyBatchRequestBodyInner] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof IdentifyApi
-     */
-    public identifyBatch(identifyBatchRequestBodyInner?: Array<IdentifyBatchRequestBodyInner>, options?: AxiosRequestConfig) {
-        return IdentifyApiFp(this.configuration).identifyBatch(identifyBatchRequestBodyInner, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {Array<IdentifyBulkRequestBodyInner>} [identifyBulkRequestBodyInner] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -905,17 +431,6 @@ export class IdentifyApi extends BaseAPI {
 
     /**
      * 
-     * @param {IdentifyGroupRequestBody} [identifyGroupRequestBody] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof IdentifyApi
-     */
-    public identifyGroupPost(identifyGroupRequestBody?: IdentifyGroupRequestBody, options?: AxiosRequestConfig) {
-        return IdentifyApiFp(this.configuration).identifyGroupPost(identifyGroupRequestBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {IdentifySegmentRequestBody} [identifySegmentRequestBody] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -923,17 +438,6 @@ export class IdentifyApi extends BaseAPI {
      */
     public identifySegment(identifySegmentRequestBody?: IdentifySegmentRequestBody, options?: AxiosRequestConfig) {
         return IdentifyApiFp(this.configuration).identifySegment(identifySegmentRequestBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {IdentifyUserRequestBody} [identifyUserRequestBody] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof IdentifyApi
-     */
-    public identifyUser(identifyUserRequestBody?: IdentifyUserRequestBody, options?: AxiosRequestConfig) {
-        return IdentifyApiFp(this.configuration).identifyUser(identifyUserRequestBody, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

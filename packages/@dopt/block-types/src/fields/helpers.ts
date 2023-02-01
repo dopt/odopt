@@ -1,4 +1,3 @@
-import { Static, Type } from '@sinclair/typebox';
 import { FIELD_VALUE_UNION_TYPE, FIELD_TYPE_LITERALS, Field } from './fields';
 
 type SERIALIZED = string | null;
@@ -63,3 +62,7 @@ export const castField = ({
       );
   }
 };
+
+export function isFieldType(str: string): str is FIELD_TYPE_LITERALS {
+  return FIELD_TYPE_LITERALS[str] !== undefined;
+}
