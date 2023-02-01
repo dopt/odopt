@@ -1,6 +1,6 @@
 {
   "name": "@dopt/users-javascript-client",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": false,
   "description": "A generated JavaScript API client for Dopt's users API",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/users-javascript-client",
@@ -28,7 +28,7 @@
   "scripts": {
     "👇required package scripts": "",
     "build": "./build.sh",
-    "buildversion": "make build-version",
+    "buildversion": "./build-version.sh",
     "clean": "shx rm -rf ./dist",
     "dev": "echo \"@dopt/users-javascript-client does not require dev\"; exit 0;",
     "format": "echo \"@dopt/users-javascript-client does not require formatting\"; exit 0;",
