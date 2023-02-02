@@ -1,6 +1,6 @@
 {
   "name": "@examples/kanban",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@asseinfo/react-kanban": "2.2.0",
-    "@dopt/react": "1.0.2",
-    "@dopt/users-javascript-client": "0.0.6",
+    "@dopt/react": "workspace:*",
+    "@dopt/users-javascript-client": "workspace:*",
     "@emotion/react": "11.10.5",
     "@mantine/core": "5.10.2",
     "@mantine/form": "5.10.2",
@@ -40,5 +40,6 @@
     "prettier": "2.8.3",
     "typescript": "4.9.4",
     "vite": "3.2.5"
-  }
+  },
+  "openSource": true
 }

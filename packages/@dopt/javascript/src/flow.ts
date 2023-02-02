@@ -65,7 +65,7 @@ class Flow {
 
   subscribe(listener: (flow: FlowType) => void) {
     const { uid, version } = this.flow;
-    flowStore.subscribe((flows) => {
+    flowStore.subscribe(({ flows }) => {
       const f = flows.get([uid, version]);
       if (!f) {
         throw new Error(

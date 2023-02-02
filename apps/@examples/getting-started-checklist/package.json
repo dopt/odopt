@@ -1,6 +1,6 @@
 {
   "name": "@examples/getting-started-checklist",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@chakra-ui/react": "2.4.9",
-    "@dopt/react": "1.0.2",
-    "@dopt/users-javascript-client": "0.0.6",
+    "@dopt/react": "workspace:*",
+    "@dopt/users-javascript-client": "workspace:*",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@tabler/icons": "1.119.0",
@@ -35,5 +35,6 @@
     "prettier": "2.8.3",
     "typescript": "4.9.4",
     "vite": "3.2.5"
-  }
+  },
+  "openSource": true
 }
