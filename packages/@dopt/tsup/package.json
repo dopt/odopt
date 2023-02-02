@@ -1,7 +1,7 @@
 {
   "name": "@dopt/tsup",
   "version": "0.0.0",
-  "private": false,
+  "private": true,
   "description": "Shared tsup configuration",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/tsup",
   "repository": {
@@ -55,5 +55,6 @@
     "prettier": "2.8.3",
     "shx": "0.3.4",
     "typescript": "4.9.4"
-  }
+  },
+  "openSource": true
 }
