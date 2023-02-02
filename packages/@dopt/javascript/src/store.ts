@@ -7,5 +7,7 @@ import type { Blocks, Flows } from '@dopt/javascript-common';
 
 export const blockStore = create(subscribeWithSelector<Blocks>(() => ({})));
 export const flowStore = create(
-  subscribeWithSelector<Flows>(() => new Mercator())
+  subscribeWithSelector<Record<'flows', Flows>>(() => ({
+    flows: new Mercator(),
+  }))
 );
