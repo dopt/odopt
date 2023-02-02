@@ -1,7 +1,7 @@
 {
   "name": "@dopt/env",
   "version": "0.0.0",
-  "private": false,
+  "private": true,
   "description": "A CLI for generating packages in the Dopt monorepo",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/env",
   "repository": {
@@ -43,5 +43,6 @@
     "shx": "0.3.4",
     "tsup": "6.5.0",
     "typescript": "4.9.4"
-  }
+  },
+  "openSource": true
 }

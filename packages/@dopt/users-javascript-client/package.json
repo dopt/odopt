@@ -36,7 +36,8 @@
     "lint": "echo \"@dopt/users-javascript-client does not require lint\"; exit 0;",
     "test": "echo \"@dopt/users-javascript-client does not require test\"; exit 0;",
     "typecheck": "echo \"@dopt/users-javascript-client does not require typecheck\"; exit 0;",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pushd `topoftree`; NODE_ENV=production pnpm exec turbo run build --filter=\"@dopt/users-javascript-client\"; popd;"
   },
   "files": [
     "dist"
@@ -46,6 +47,7 @@
     "request": "2.88.2"
   },
   "devDependencies": {
+    "@dopt/topoftree": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/rollup": "workspace:*",
     "@dopt/users-api-manifest": "workspace:*",
@@ -55,5 +57,6 @@
     "shx": "0.3.4",
     "tslib": "^2.4.0",
     "typescript": "4.9.4"
-  }
+  },
+  "openSource": true
 }

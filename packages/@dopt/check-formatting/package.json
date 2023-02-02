@@ -1,7 +1,7 @@
 {
   "name": "@dopt/check-formatting",
   "version": "0.0.0",
-  "private": false,
+  "private": true,
   "description": "A CLI for checking whether a package's files are formatted correctly",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/check-formatting",
   "repository": {
@@ -25,5 +25,6 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "openSource": true
 }
