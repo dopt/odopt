@@ -31,7 +31,7 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "prepublishOnly": "pushd `topoftree`; pnpm exec turbo run build --filter=\"@dopt/block-types\"; popd;"
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/block-types\""
   },
   "files": [
     "dist"
@@ -40,7 +40,6 @@
     "@sinclair/typebox": "0.25.21"
   },
   "devDependencies": {
-    "@dopt/topoftree": "workspace:*",
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
