@@ -31,7 +31,7 @@
     "test": "pnpm test:jest && pnpm test:sh",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "prepublishOnly": "pushd `topoftree`; NODE_ENV=production pnpm exec turbo run build --filter=\"@dopt/react\"; popd;",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/react\"",
     "test:jest": "jest",
     "test:sh": "./src/__tests__/environment-aware-builds.sh",
     "typedoc:markdown": "typedoc --options typedoc.markdown.json"
@@ -50,7 +50,6 @@
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
-    "@dopt/topoftree": "workspace:*",
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/rollup": "workspace:*",
