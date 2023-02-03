@@ -1,7 +1,7 @@
 {
   "name": "@dopt/please",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "description": "A CLI for developing in monorepos - not building them",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/please",
   "repository": {
@@ -32,7 +32,8 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "generate-parser": "node ./generate-parser.js"
+    "generate-parser": "node ./generate-parser.js",
+    "prepublishOnly": "pnpm test; pushd `topoftree`; pnpm exec turbo run build --filter=\"@dopt/please\"; popd;"
   },
   "files": [
     "dist"
@@ -46,6 +47,7 @@
     "micromatch": "^4.0.5"
   },
   "devDependencies": {
+    "@dopt/topoftree": "workspace:*",
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
