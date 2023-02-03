@@ -1,7 +1,7 @@
 {
   "name": "@bodo/tokens",
   "version": "0.0.0",
-  "private": false,
+  "private": true,
   "description": "Bodo Design System: Tokens Component",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40bodo/tokens",
   "repository": {
@@ -60,5 +60,6 @@
     "shx": "0.3.4",
     "tslib": "^2.4.0",
     "typescript": "4.9.4"
-  }
+  },
+  "openSource": true
 }
