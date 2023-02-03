@@ -49,7 +49,7 @@ export function helpText(examples?: string[]): string {
   in your monorepo to run the LHS package script in. Packages on the RHS can
   contain wildcards, but must be escaped with brackets if so. We use micromatch
   (https://github.com/micromatch/micromatch) for matching. Refer to their documentation
-  for questions no matching behavior and available functionality.
+  for questions on matching behavior and available functionality.
   `
   )}
   `;
