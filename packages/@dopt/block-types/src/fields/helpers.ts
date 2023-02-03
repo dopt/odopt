@@ -6,26 +6,32 @@ export const fieldToString = (field: FIELD_VALUE_UNION_TYPE): SERIALIZED => {
   return field == null ? null : JSON.stringify(field);
 };
 
-export const fieldFromString = (string: SERIALIZED): FIELD_VALUE_UNION_TYPE => {
+export const fieldFromString = (
+  string: SERIALIZED,
+  type: FIELD_TYPE_LITERALS
+): FIELD_VALUE_UNION_TYPE => {
   if (typeof string !== 'string') {
     return null;
   }
-
   try {
     const value = JSON.parse(string);
-    switch (typeof value) {
-      case 'number':
+    switch (type) {
+      case 'integer':
         return value as number;
       case 'boolean':
         return value as boolean;
       case 'string':
         return value as string;
-      default:
-        return null;
     }
   } catch (e) {
-    return null;
+    throw new Error(`value :${string} cannot be coerced into ${type}`);
   }
+};
+
+export const integerFromField = (
+  field: FIELD_VALUE_UNION_TYPE
+): number | undefined => {
+  return Math.floor(Number(field)) || undefined;
 };
 
 export const castField = ({
@@ -63,6 +69,21 @@ export const castField = ({
   }
 };
 
-export function isFieldType(str: string): str is FIELD_TYPE_LITERALS {
+export function isValueOfType(
+  value: FIELD_VALUE_UNION_TYPE | undefined,
+  type: FIELD_TYPE_LITERALS
+): boolean {
+  if (value == null) {
+    return true;
+  }
+  if (type === 'integer' && Number.isInteger(value)) {
+    return true;
+  } else if (typeof value === type) {
+    return true;
+  }
+  return false;
+}
+
+export function isFieldTypeLiteral(str: string): str is FIELD_TYPE_LITERALS {
   return FIELD_TYPE_LITERALS[str] !== undefined;
 }
