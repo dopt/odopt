@@ -33,7 +33,7 @@
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
     "generate-parser": "node ./generate-parser.js",
-    "prepublishOnly": "pnpm test; pushd `topoftree`; pnpm exec turbo run build --filter=\"@dopt/please\"; popd;"
+    "prepublishOnly": "pushd `topoftree`; pnpm exec turbo run build --filter=\"@dopt/please\"; popd; pnpm test;"
   },
   "files": [
     "dist"
