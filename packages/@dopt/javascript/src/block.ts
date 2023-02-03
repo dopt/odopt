@@ -1,7 +1,18 @@
 import { blocksApi } from '@dopt/javascript-common';
-import { Block as BlockType, BlockIntent } from '@dopt/block-types';
+import {
+  Block as BlockType,
+  BlockIntent,
+  FIELD_VALUE_UNION_TYPE,
+  ModelTypeConst,
+  SetTypeConst,
+  Field,
+} from '@dopt/block-types';
 
 import { blockStore } from './store';
+
+function resolveBlock(block: BlockType): BlockType {
+  return blockStore.getState()[block.uid] || block;
+}
 
 interface Props {
   intent: ReturnType<typeof blocksApi>['blockIntent'];
@@ -11,62 +22,100 @@ interface Props {
 class Block {
   private intent: Props['intent'];
   private block: Props['block'];
+  private fieldMap: Map<Field['sid'], FIELD_VALUE_UNION_TYPE>;
 
   constructor({ block, intent }: Props) {
     this.intent = intent;
     this.block = block;
+    if (this.block.type === ModelTypeConst) {
+      this.fieldMap = this.block.fields.reduce((map, field) => {
+        return map.set(field.sid, field.value);
+      }, new Map<Field['sid'], FIELD_VALUE_UNION_TYPE>());
+    }
   }
 
-  private _intent(intent: BlockIntent, goToUid?: string) {
+  private async _intent(intent: BlockIntent, goToUid?: string) {
     const { uid, version } = this.block;
     return this.intent({ uid, version, intent, goToUid });
   }
 
-  state(): BlockType['state'] {
-    return this.block.state;
+  getField<T extends FIELD_VALUE_UNION_TYPE>(
+    name: string,
+    defaultValue?: T
+  ): T | null {
+    if (this.block.type !== ModelTypeConst) {
+      return null;
+    }
+
+    const value = this.fieldMap.get(name);
+    return value != null
+      ? (value as T)
+      : defaultValue != null
+      ? defaultValue
+      : null;
   }
 
-  complete() {
+  state(): BlockType['state'] {
+    return resolveBlock(this.block).state;
+  }
+
+  async complete() {
     return this._intent('complete');
   }
 
-  next() {
-    if (this.block.type === 'set' && this.block.ordered) {
+  async next() {
+    if (this.block.type === SetTypeConst && this.block.ordered) {
       return this._intent('next');
     }
   }
 
-  prev() {
-    if (this.block.type === 'set' && this.block.ordered) {
+  async prev() {
+    if (this.block.type === SetTypeConst && this.block.ordered) {
       return this._intent('prev');
     }
   }
 
-  goTo(uid: string) {
-    if (this.block.type === 'set' && this.block.ordered) {
+  async goTo(uid: string) {
+    if (this.block.type === SetTypeConst && this.block.ordered) {
       return this._intent('goTo', uid);
     }
   }
 
-  getCompleted() {
-    if (this.block.type === 'set') {
-      return this.block.blocks?.filter((b) => b.state.completed);
+  getCompleted(): BlockType[] {
+    if (this.block.type === SetTypeConst) {
+      return this.block.blocks
+        ?.map(resolveBlock)
+        .filter(({ state }) => state.completed);
     }
+
+    return [];
   }
-  getUncompleted() {
-    if (this.block.type === 'set') {
-      return this.block.blocks?.filter((b) => !b.state.completed);
+  getUncompleted(): BlockType[] {
+    if (this.block.type === SetTypeConst) {
+      return this.block.blocks
+        ?.map(resolveBlock)
+        .filter(({ state }) => !state.completed);
     }
+
+    return [];
   }
-  getActive() {
-    if (this.block.type === 'set') {
-      return this.block.blocks?.filter((b) => b.state.active);
+  getActive(): BlockType[] {
+    if (this.block.type === SetTypeConst) {
+      return this.block.blocks
+        ?.map(resolveBlock)
+        .filter(({ state }) => state.active);
     }
+
+    return [];
   }
-  getInactive() {
-    if (this.block.type === 'set') {
-      return this.block.blocks?.filter((b) => !b.state.active);
+  getInactive(): BlockType[] {
+    if (this.block.type === SetTypeConst) {
+      return this.block.blocks
+        ?.map(resolveBlock)
+        .filter(({ state }) => !state.active);
     }
+
+    return [];
   }
   subscribe(listener: (block: BlockType) => void) {
     blockStore.subscribe((blocks) => blocks[this.block.uid], listener);

@@ -114,12 +114,12 @@ export function blocksApi({
 
       if (flow) {
         logger.info(
-          `Flow<{"sid":"${uid}","version":${version}}> fetched successfully.`
+          `Flow<{"uid":"${uid}","version":${version}}> fetched successfully.`
         );
         logger.debug(`${'\n'}${JSON.stringify(flow, null, 2)}`);
       } else {
         logger.error(
-          `An error occurred while fetching Flow<{"sid":"${uid}","version":${version}}>, setting flow state to its defaults.`
+          `An error occurred while fetching Flow<{"uid":"${uid}","version":${version}}>, setting flow state to its defaults.`
         );
       }
 
@@ -152,7 +152,7 @@ export function blocksApi({
       intent,
     }: FlowIntentParams): Promise<void> {
       logger.info(
-        `Calling \`${intent}\` on Flow<{"sid":"${uid}","version":${version}}>`
+        `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}>`
       );
       logger.debug(`/v1/flow/${uid}/${intent}?${query({ version })}`);
 
@@ -166,12 +166,12 @@ export function blocksApi({
 
       if (response && response.ok) {
         logger.info(
-          `Calling \`${intent}\` on Flow<{"sid":"${uid}","version":${version}}> was successful.`
+          `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}> was successful.`
         );
         return Promise.resolve();
       }
       logger.error(
-        `Calling \`${intent}\` on Flow<{"sid":"${uid}","version":${version}}> failed.`
+        `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}> failed.`
       );
       return Promise.reject();
     },
