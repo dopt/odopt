@@ -1,7 +1,7 @@
 {
   "name": "@dopt/topoftree",
   "version": "0.0.0",
-  "private": false,
+  "private": true,
   "description": "A CLI for generating packages in the Dopt monorepo",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/topoftree",
   "repository": {
@@ -38,8 +38,8 @@
   ],
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
-    "@dopt/env": "workspace:*",
     "@dopt/config": "workspace:*",
+    "@dopt/env": "workspace:*",
     "@types/jest": "29.4.0",
     "@typescript-eslint/eslint-plugin": "5.49.0",
     "@typescript-eslint/parser": "5.49.0",
@@ -53,5 +53,5 @@
     "tsup": "6.5.0",
     "typescript": "4.9.4"
   },
-  "dependencies": {}
+  "openSource": true
 }
