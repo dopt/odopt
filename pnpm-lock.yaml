@@ -65,7 +65,6 @@ importers:
     specifiers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
-      '@dopt/topoftree': workspace:*
       '@dopt/tsup': workspace:*
       '@sinclair/typebox': 0.25.21
       '@types/jest': 29.4.0
@@ -85,7 +84,6 @@ importers:
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
-      '@dopt/topoftree': link:../topoftree
       '@dopt/tsup': link:../tsup
       '@types/jest': 29.4.0
       '@typescript-eslint/eslint-plugin': 5.49.0_iu322prlnwsygkcra5kbpy22si
@@ -207,7 +205,6 @@ importers:
       '@dopt/logger': workspace:*
       '@dopt/mercator': workspace:*
       '@dopt/rollup': workspace:*
-      '@dopt/topoftree': workspace:*
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 11.0.0
       '@types/jest': 29.4.0
@@ -234,7 +231,6 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@dopt/topoftree': link:../topoftree
       '@rollup/plugin-replace': 5.0.0_rollup@3.10.1
       '@rollup/plugin-typescript': 11.0.0_h3s5jgzfie3ns5kloajnwk6riq
       '@types/jest': 29.4.0
@@ -257,7 +253,6 @@ importers:
       '@dopt/logger': workspace:*
       '@dopt/mercator': workspace:*
       '@dopt/rollup': workspace:*
-      '@dopt/topoftree': workspace:*
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 11.0.0
       '@types/jest': 29.4.0
@@ -281,7 +276,6 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@dopt/topoftree': link:../topoftree
       '@rollup/plugin-replace': 5.0.0_rollup@3.10.1
       '@rollup/plugin-typescript': 11.0.0_h3s5jgzfie3ns5kloajnwk6riq
       '@types/jest': 29.4.0
@@ -301,7 +295,6 @@ importers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
       '@dopt/rollup': workspace:*
-      '@dopt/topoftree': workspace:*
       '@rollup/plugin-typescript': 11.0.0
       '@types/jest': 29.4.0
       '@typescript-eslint/eslint-plugin': 5.49.0
@@ -325,7 +318,6 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@dopt/topoftree': link:../topoftree
       '@rollup/plugin-typescript': 11.0.0_h3s5jgzfie3ns5kloajnwk6riq
       '@types/jest': 29.4.0
       '@typescript-eslint/eslint-plugin': 5.49.0_iu322prlnwsygkcra5kbpy22si
@@ -345,7 +337,6 @@ importers:
     specifiers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
-      '@dopt/topoftree': workspace:*
       '@dopt/tsup': workspace:*
       '@types/jest': 29.4.0
       '@typescript-eslint/eslint-plugin': 5.49.0
@@ -362,7 +353,6 @@ importers:
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
-      '@dopt/topoftree': link:../topoftree
       '@dopt/tsup': link:../tsup
       '@types/jest': 29.4.0
       '@typescript-eslint/eslint-plugin': 5.49.0_iu322prlnwsygkcra5kbpy22si
@@ -437,7 +427,6 @@ importers:
       '@dopt/logger': workspace:*
       '@dopt/mercator': workspace:*
       '@dopt/rollup': workspace:*
-      '@dopt/topoftree': workspace:*
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 11.0.0
       '@testing-library/jest-dom': 5.16.5
@@ -475,7 +464,6 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@dopt/topoftree': link:../topoftree
       '@rollup/plugin-replace': 5.0.0_rollup@3.10.1
       '@rollup/plugin-typescript': 11.0.0_h3s5jgzfie3ns5kloajnwk6riq
       '@testing-library/jest-dom': 5.16.5
@@ -638,7 +626,6 @@ importers:
     specifiers:
       '@dopt/config': workspace:*
       '@dopt/rollup': workspace:*
-      '@dopt/topoftree': workspace:*
       '@dopt/users-api-manifest': workspace:*
       '@rollup/plugin-typescript': 11.0.0
       '@types/request': ^2.48.8
@@ -654,7 +641,6 @@ importers:
     devDependencies:
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@dopt/topoftree': link:../topoftree
       '@dopt/users-api-manifest': link:../users-api-manifest
       '@rollup/plugin-typescript': 11.0.0_h3s5jgzfie3ns5kloajnwk6riq
       '@types/request': 2.48.8
