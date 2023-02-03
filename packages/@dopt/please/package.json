@@ -33,7 +33,7 @@
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
     "generate-parser": "node ./generate-parser.js",
-    "prepublishOnly": "pushd `topoftree`; pnpm exec turbo run build --filter=\"@dopt/please\"; popd; pnpm test;"
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/please\"; pnpm test;"
   },
   "files": [
     "dist"
@@ -47,7 +47,6 @@
     "micromatch": "^4.0.5"
   },
   "devDependencies": {
-    "@dopt/topoftree": "workspace:*",
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
