@@ -1,6 +1,6 @@
-import { blocksApi } from '@dopt/javascript-common';
+import { blocksApi, generateFlowStateKey } from '@dopt/javascript-common';
 
-import { blockStore } from './store';
+import { flowStore, blockStore } from './store';
 
 import { Mercator } from '@dopt/mercator';
 
@@ -10,13 +10,11 @@ import type {
   FlowIntent,
 } from '@dopt/block-types';
 
-import { flowStore } from './store';
-
 interface Props {
   intent: ReturnType<typeof blocksApi>['flowIntent'];
   flow: FlowType;
   flowBlocks: Mercator<
-    [FlowType['sid'], FlowType['version']],
+    [FlowType['uid'], FlowType['version']],
     BlockType['uid'][]
   >;
 }
@@ -33,46 +31,50 @@ class Flow {
   }
 
   state(): FlowType['state'] {
-    return this.flow.state;
+    const { uid, version } = this.flow;
+    const key = generateFlowStateKey(uid, version);
+    return flowStore.getState()[key]?.state || this.flow.state;
   }
 
   blocks(): FlowType['blocks'] {
-    const uids = this.flowBlocks.get([this.flow.uid, this.flow.version]) || [];
+    const { uid, version } = this.flow;
+    const uids = this.flowBlocks.get([uid, version]) || [];
     const blocks = blockStore.getState();
     return uids?.map((uid) => blocks[uid]) || [];
   }
 
-  private _intent(intent: FlowIntent) {
+  private async _intent(intent: FlowIntent) {
     const { uid, version } = this.flow;
     return this.intent({ uid, version, intent });
   }
 
-  start() {
+  async start() {
     return this._intent('start');
   }
 
-  complete() {
+  async complete() {
     return this._intent('complete');
   }
 
-  exit() {
+  async exit() {
     return this._intent('exit');
   }
 
-  reset() {
+  async reset() {
     return this._intent('reset');
   }
 
   subscribe(listener: (flow: FlowType) => void) {
     const { uid, version } = this.flow;
-    flowStore.subscribe(({ flows }) => {
-      const f = flows.get([uid, version]);
-      if (!f) {
+    flowStore.subscribe((state) => {
+      const key = generateFlowStateKey(uid, version);
+      const flow = state[key];
+      if (!flow) {
         throw new Error(
           `Unable to subscribe to Flow<{uid:${uid},version:${version}}>`
         );
       }
-      return f;
+      return flow;
     }, listener);
   }
 }
