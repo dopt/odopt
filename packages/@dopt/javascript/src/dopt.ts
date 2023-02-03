@@ -140,8 +140,12 @@ class Dopt {
             });
           }
 
-          flowStore.setState((flowMap) => {
-            return flowMap.set([flow.uid, flow.version], flow);
+          flowStore.setState(({ flows }) => {
+            return {
+              flows: new Mercator(
+                Array.from(flows.set([flow.sid, flow.version], flow).entries())
+              ),
+            };
           });
 
           this.flowBlocks.set(
@@ -156,7 +160,7 @@ class Dopt {
       })
       .catch(() => {
         logger.error(`
-            An error occurred while fetching blocks for the  
+            An error occurred while fetching blocks for the
             flow versions specified: \`${JSON.stringify(flowVersions)}\`
           `);
       });
@@ -167,8 +171,12 @@ class Dopt {
       });
 
       this.socket?.on('flow', (flow: Flow) => {
-        flowStore.setState((flows) => {
-          return flows.set([flow.uid, flow.version], flow);
+        flowStore.setState(({ flows }) => {
+          return {
+            flows: new Mercator(
+              Array.from(flows.set([flow.sid, flow.version], flow).entries())
+            ),
+          };
         });
       });
 
@@ -183,8 +191,12 @@ class Dopt {
       Object.entries(flowVersions).forEach(([uid, version]) => {
         this.socket?.emit('watch:flow', uid, version);
         this.socket?.on(`${uid}_${version}`, (flow: Flow) => {
-          flowStore.setState((flows) => {
-            return flows.set([flow.uid, flow.version], flow);
+          flowStore.setState(({ flows }) => {
+            return {
+              flows: new Mercator(
+                Array.from(flows.set([flow.sid, flow.version], flow).entries())
+              ),
+            };
           });
         });
       });
@@ -209,7 +221,7 @@ class Dopt {
       return;
     }
     const flow =
-      flowStore.getState().get([uid, version]) ||
+      flowStore.getState().flows.get([uid, version]) ||
       getDefaultFlowState(uid, version);
 
     return new FlowClass({
@@ -224,7 +236,7 @@ class Dopt {
       flowBlocks,
       blocksApi: { flowIntent: intent },
     } = this;
-    return Array.from(flowStore.getState().entries()).map(([, flow]) => {
+    return Array.from(flowStore.getState().flows.entries()).map(([, flow]) => {
       return new FlowClass({
         intent,
         flow,

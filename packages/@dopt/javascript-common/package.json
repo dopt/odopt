@@ -35,18 +35,20 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pushd `topoftree`; pnpm exec turbo run build --filter=\"@dopt/javascript-common\"; popd;"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@dopt/block-types": "1.0.1",
-    "@dopt/logger": "0.0.1",
-    "@dopt/mercator": "1.0.0",
+    "@dopt/block-types": "workspace:*",
+    "@dopt/logger": "workspace:*",
+    "@dopt/mercator": "workspace:*",
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
+    "@dopt/topoftree": "workspace:*",
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/rollup": "workspace:*",
@@ -63,5 +65,6 @@
     "shx": "0.3.4",
     "tslib": "^2.4.0",
     "typescript": "4.9.4"
-  }
+  },
+  "openSource": true
 }
