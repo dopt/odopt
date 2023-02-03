@@ -31,13 +31,12 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "prepublishOnly": "pnpm test; pushd `topoftree`; pnpm exec turbo run build --filter=\"@dopt/mercator\"; popd;"
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/mercator\"; pnpm test;"
   },
   "files": [
     "dist"
   ],
   "devDependencies": {
-    "@dopt/topoftree": "workspace:*",
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",

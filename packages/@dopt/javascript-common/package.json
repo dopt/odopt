@@ -36,7 +36,7 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "prepublishOnly": "pushd `topoftree`; pnpm exec turbo run build --filter=\"@dopt/javascript-common\"; popd;"
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/javascript-common\""
   },
   "files": [
     "dist"
@@ -48,7 +48,6 @@
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {
-    "@dopt/topoftree": "workspace:*",
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/rollup": "workspace:*",
