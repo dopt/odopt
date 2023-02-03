@@ -15,6 +15,7 @@ import {
   setupSocket,
   getDefaultBlockState,
   getDefaultFlowState,
+  generateFlowStateKey,
 } from '@dopt/javascript-common';
 import { Socket } from 'socket.io-client';
 
@@ -43,7 +44,7 @@ class Dopt {
   private optimisticUpdates?: boolean;
 
   private blocksApi: ReturnType<typeof blocksApi>;
-  private flowBlocks: Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>;
+  private flowBlocks: Mercator<[Flow['uid'], Flow['version']], Block['uid'][]>;
   private socket: Socket | undefined;
 
   constructor({
@@ -140,19 +141,17 @@ class Dopt {
             });
           }
 
-          flowStore.setState(({ flows }) => {
-            return {
-              flows: new Mercator(
-                Array.from(flows.set([flow.sid, flow.version], flow).entries())
-              ),
-            };
-          });
+          // initialize the flow store
+          flowStore.setState(() => ({
+            [generateFlowStateKey(flow.uid, flow.version)]: flow,
+          }));
 
           this.flowBlocks.set(
-            [flow.sid, flow.version],
+            [flow.uid, flow.version],
             flow.blocks?.map(({ uid }) => uid) || []
           );
 
+          // initialize the block store
           flow.blocks?.forEach((block) => {
             blockStore.setState({ [block.uid]: block });
           });
@@ -171,13 +170,9 @@ class Dopt {
       });
 
       this.socket?.on('flow', (flow: Flow) => {
-        flowStore.setState(({ flows }) => {
-          return {
-            flows: new Mercator(
-              Array.from(flows.set([flow.sid, flow.version], flow).entries())
-            ),
-          };
-        });
+        flowStore.setState(() => ({
+          [generateFlowStateKey(flow.uid, flow.version)]: flow,
+        }));
       });
 
       Object.values(blockStore.getState()).forEach(({ uid, version }) => {
@@ -191,13 +186,9 @@ class Dopt {
       Object.entries(flowVersions).forEach(([uid, version]) => {
         this.socket?.emit('watch:flow', uid, version);
         this.socket?.on(`${uid}_${version}`, (flow: Flow) => {
-          flowStore.setState(({ flows }) => {
-            return {
-              flows: new Mercator(
-                Array.from(flows.set([flow.sid, flow.version], flow).entries())
-              ),
-            };
-          });
+          flowStore.setState(() => ({
+            [generateFlowStateKey(flow.uid, flow.version)]: flow,
+          }));
         });
       });
 
@@ -221,7 +212,7 @@ class Dopt {
       return;
     }
     const flow =
-      flowStore.getState().flows.get([uid, version]) ||
+      flowStore.getState()[generateFlowStateKey(uid, version)] ||
       getDefaultFlowState(uid, version);
 
     return new FlowClass({
@@ -236,7 +227,7 @@ class Dopt {
       flowBlocks,
       blocksApi: { flowIntent: intent },
     } = this;
-    return Array.from(flowStore.getState().flows.entries()).map(([, flow]) => {
+    return Object.values(flowStore.getState()).map((flow) => {
       return new FlowClass({
         intent,
         flow,
