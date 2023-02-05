@@ -9,17 +9,15 @@ export interface TipVideoProps extends Omit<ModalProps, 'children'> {}
 
 export function TipVideo(props: TipVideoProps) {
   return (
-    <Modal {...props}>
+    <Modal size="3xl" {...props}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent overflow="hidden">
         <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/J---aiyznGQ?autoplay=true"
+          src="https://www.youtube.com/embed/J---aiyznGQ?autoplay=true&modestbranding=true&rel=0"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
-          style={{ border: 0 }}
+          style={{ border: 0, aspectRatio: '16 / 9' }}
         />
       </ModalContent>
     </Modal>
