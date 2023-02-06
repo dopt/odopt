@@ -14,3 +14,14 @@ export type FlowIntention = Record<
   FlowIntent,
   (uid: Flow['uid'], version: Flow['version']) => Promise<void>
 >;
+
+export type FlowStateKey = string & { __opaque__: 'FlowStateKey' };
+
+export function generateFlowStateKey(
+  uid: Flow['uid'],
+  version: Flow['version']
+): FlowStateKey {
+  return JSON.stringify([uid, version]) as FlowStateKey;
+}
+
+export type FlowStates = Record<FlowStateKey, Flow>;

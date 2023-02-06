@@ -1,10 +1,10 @@
 {
-  "name": "@examples/kanban",
+  "name": "@examples/embedded-contextual-education",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 5432",
+    "dev": "vite --port 5633",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "formatcheck": "prettier --check .",
@@ -12,21 +12,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@asseinfo/react-kanban": "2.2.0",
+    "@chakra-ui/react": "2.4.9",
     "@dopt/react": "workspace:*",
     "@dopt/users-javascript-client": "workspace:*",
     "@emotion/react": "11.10.5",
-    "@mantine/core": "5.10.2",
-    "@mantine/form": "5.10.2",
-    "@mantine/hooks": "5.10.2",
+    "@emotion/styled": "11.10.5",
     "@tabler/icons": "1.119.0",
-    "@vanilla-extract/css": "1.9.3",
-    "@vanilla-extract/vite-plugin": "3.7.1",
     "nanoid": "4.0.0",
     "react": "18.2.0",
-    "react-confetti": "6.1.0",
-    "react-dom": "18.2.0",
-    "use-local-storage-state": "18.1.2"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@types/react": "18.0.27",
