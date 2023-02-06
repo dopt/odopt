@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [a78cce92]
+  - @dopt/javascript-common@1.1.0
+
 ## 0.4.0
 
 - Remove deprecated `useDopt` hook and `withDopt` HOC
