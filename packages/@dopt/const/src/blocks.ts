@@ -1,11 +1,12 @@
 import { BlockTypes, BLOCK_TYPES } from '@dopt/block-types';
-export type BlockTable = 'finish' | 'entry' | 'model' | 'set';
+export type BlockTable = 'finish' | 'entry' | 'model' | 'set' | 'webhook';
 
 export const DEFAULT_BLOCK_NAMES: Record<BlockTypes, string> = {
   entry: 'Start',
   model: 'Step',
   finish: 'Finish',
   set: 'Group',
+  webhook: 'Webhook',
 };
 
 export const DEFAULT_BLOCK_DESC: Record<BlockTypes, string> = {
@@ -13,6 +14,7 @@ export const DEFAULT_BLOCK_DESC: Record<BlockTypes, string> = {
   model: 'Define state for an experience',
   finish: 'Define when the flow is finished',
   set: 'Groups steps together',
+  webhook: 'Trigger webhooks',
 };
 
 // Not very useful right now but in the future this mapping is needed
@@ -27,5 +29,7 @@ export function convertTypeToTable(type: BlockTypes): BlockTable {
       return 'model';
     case BLOCK_TYPES.set:
       return 'set';
+    case BLOCK_TYPES.webhook:
+      return 'webhook';
   }
 }
