@@ -1,5 +1,16 @@
 # @dopt/javascript
 
+## 1.2.0
+
+### Minor Changes
+
+- 850b6fe7: update optimisticUpdates parameter, clarifying what it does and where to use it
+
+### Patch Changes
+
+- Updated dependencies [850b6fe7]
+  - @dopt/javascript-common@1.2.0
+
 ## 1.1.0
 
 ### Minor Changes
