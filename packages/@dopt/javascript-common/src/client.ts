@@ -64,7 +64,6 @@ export type BlocksApi = {
   userId: UserIdentifier['userId'];
   logger: Logger;
   config: {
-    optimisticUpdates: boolean;
     urlPrefix: string;
     packageVersion: string;
     packageName: string;
