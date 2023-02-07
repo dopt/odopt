@@ -13,7 +13,6 @@ export * from './set';
 export * from './webhook';
 
 export { BlockState, Base as BaseBlock } from './base';
-export type { BaseType as BaseBlockType } from './base';
 
 export const BLOCK_TYPES = {
   entry: EntryTypeConst,
@@ -32,14 +31,23 @@ export const BlockTypes = Type.Union([
 ]);
 export type BlockTypes = Static<typeof BlockTypes>;
 
-export const Block = Type.Union([Model, Entry, Finish, Set, Webhook]);
+export const Block = Type.Union(
+  [
+    Type.Ref(Model),
+    Type.Ref(Entry),
+    Type.Ref(Finish),
+    Type.Ref(Set),
+    Type.Ref(Webhook),
+  ],
+  { $id: 'Block' }
+);
 export type Block = Static<typeof Block>;
 
 // Currently this is only element but has the possibility to expand later
-export const Element = Type.Union([Model]);
+export const Element = Type.Union([Type.Ref(Model)]);
 export type Element = Static<typeof Element>;
 
-export const Blocks = Type.Array(Block);
+export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
 
 export const SET_ELEMENTS: [BlockTypes] = [ModelTypeConst];

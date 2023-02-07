@@ -1,0 +1,32 @@
+{
+  "name": "@dopt/blocks-api-manifest",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A package to copy and store our blocks external specs from GCP",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/blocks-api-manifest",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/blocks-api-manifest"
+  },
+  "license": "MIT",
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "./get-specs.sh",
+    "clean": "shx rm -rf ./spec",
+    "dev": "echo \"@dopt/blocks-api-manifest does not require dev\"; exit 0;",
+    "format": "echo \"@dopt/blocks-api-manifest does not require formatting\"; exit 0;",
+    "formatcheck": "echo \"@dopt/blocks-api-manifest does not require formatcheck\"; exit 0;",
+    "lint": "echo \"@dopt/blocks-api-manifest does not require lint\"; exit 0;",
+    "test": "echo \"@dopt/blocks-api-manifest does not require test\"; exit 0;",
+    "typecheck": "echo \"@dopt/blocks-api-manifest does not require typecheck\"; exit 0;",
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/blocks-api-manifest\"; pnpm test;"
+  },
+  "dependencies": {
+    "@dopt/api-manifest": "workspace:*"
+  },
+  "devDependencies": {
+    "shx": "0.3.4"
+  }
+}

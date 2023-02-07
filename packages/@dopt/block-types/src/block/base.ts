@@ -8,12 +8,15 @@ export const BlockState = Type.Readonly(
 );
 export type BlockState = Static<typeof BlockState>;
 
-export const Base = Type.Object({
-  kind: Type.Readonly(Type.Literal('block')),
-  uid: Type.Readonly(Type.String()),
-  sid: Type.Readonly(Type.String()),
-  version: Type.Readonly(Type.Number()),
-  state: BlockState,
-});
+export const Base = Type.Object(
+  {
+    kind: Type.Readonly(Type.Literal('block')),
+    uid: Type.Readonly(Type.String()),
+    sid: Type.Readonly(Type.String()),
+    version: Type.Readonly(Type.Number()),
+    state: BlockState,
+  },
+  { $id: 'Base' }
+);
 
 export type BaseType = Static<typeof Base>;
