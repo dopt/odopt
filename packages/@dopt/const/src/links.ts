@@ -25,6 +25,8 @@ export const DOCS_TARGETING_RULES_EXPRESSION_LANGUAGE_LINK =
 export const DOCS_RESET_USER_API_LINK =
   'https://docs.dopt.com/guides/user-flow-state/#resetting-user-flow-states';
 
+export const DOCS_FIELD_DEFINITION_LINK = 'https://docs.dopt.com/sdk/'; // TODO update this when docs go live
+
 export const MAILTO_SUPPORT = 'mailto:support@dopt.com';
 
 export const MAILTO_CAREERS = 'mailto:careers@dopt.com';
