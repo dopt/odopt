@@ -25,7 +25,6 @@ export interface Config {
   apiKey: string;
   logLevel?: LoggerProps['logLevel'];
   flowVersions: Record<string, number>;
-  optimisticUpdates?: boolean;
 }
 
 import { blockStore, flowStore } from './store';
@@ -41,26 +40,17 @@ class Dopt {
   public _initializedPromise: Promise<void>;
 
   private logger: Logger;
-  private optimisticUpdates?: boolean;
 
   private blocksApi: ReturnType<typeof blocksApi>;
   private flowBlocks: Mercator<[Flow['uid'], Flow['version']], Block['uid'][]>;
   private socket: Socket | undefined;
 
-  constructor({
-    apiKey,
-    userId,
-    groupId,
-    logLevel,
-    flowVersions,
-    optimisticUpdates = true,
-  }: Config) {
+  constructor({ apiKey, userId, groupId, logLevel, flowVersions }: Config) {
     this.apiKey = apiKey;
     this.userId = userId;
     this.groupId = groupId;
     this.flowVersions = flowVersions;
     this.logLevel = logLevel;
-    this.optimisticUpdates = optimisticUpdates;
 
     this.logger = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
@@ -78,14 +68,7 @@ class Dopt {
     // Merge any updated properties into the instance
     Object.assign(this, config);
 
-    const {
-      apiKey,
-      userId,
-      groupId,
-      flowVersions,
-      logger,
-      optimisticUpdates = true,
-    } = this;
+    const { apiKey, userId, groupId, flowVersions, logger } = this;
 
     if (!userId) {
       logger.info(
@@ -111,7 +94,6 @@ class Dopt {
       groupId,
       logger,
       config: {
-        optimisticUpdates,
         urlPrefix: URL_PREFIX,
         packageVersion: PKG_VERSION,
         packageName: PKG_NAME,
@@ -138,6 +120,8 @@ class Dopt {
               uid: flow.uid,
               version: flow.version,
               intent: 'start',
+            }).catch(() => {
+              // do nothing, this error is already handled for us
             });
           }
 

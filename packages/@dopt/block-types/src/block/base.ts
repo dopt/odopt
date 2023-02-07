@@ -15,3 +15,5 @@ export const Base = Type.Object({
   version: Type.Readonly(Type.Number()),
   state: BlockState,
 });
+
+export type BaseType = Static<typeof Base>;
