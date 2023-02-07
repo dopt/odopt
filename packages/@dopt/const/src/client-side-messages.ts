@@ -34,6 +34,10 @@ export const JOURNEY_COMMIT_FAIL_MSG =
   'Could not create commit. Please try again.';
 export const TARGETING_SAVE_FAIL = 'Could not save changes. Please try again.';
 
+export const DEPLOY_SUCCESS_MSG = 'Changes deployed';
+
+export const DEPLOY_FAIL_MSG = 'Could not deploy changes';
+
 export const renameFailMessage = (model: string) =>
   `Could not rename ${model}. Please try again.`;
 
