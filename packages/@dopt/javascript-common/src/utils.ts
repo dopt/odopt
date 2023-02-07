@@ -1,24 +1,18 @@
-import { Block, BlockTypes, BLOCK_TYPES, Flow, Set } from '@dopt/block-types';
+import {
+  Block,
+  getDefaultBlock,
+  BlockTypes,
+  BLOCK_TYPES,
+  Flow,
+  Set,
+} from '@dopt/block-types';
 
 export function getDefaultBlockState(
   uid: string,
   version?: number,
   type: BlockTypes = BLOCK_TYPES.model
 ): Block {
-  return {
-    kind: 'block',
-    type,
-    uid,
-    sid: uid,
-    version: version != null ? version : -1,
-    state: {
-      active: false,
-      completed: false,
-    },
-    blocks: [],
-    size: 0,
-    fields: [],
-  };
+  return getDefaultBlock({ uid, type, version });
 }
 
 export function getDefaultSetState(uid: string, version?: number): Set {
