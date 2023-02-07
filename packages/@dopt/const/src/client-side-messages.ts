@@ -42,3 +42,6 @@ export const enableFailMessage = (action: string) =>
 
 export const archiveFailMessage = (model: string) =>
   `Could not archive ${model}. Please try again.`;
+
+export const deleteFailMessage = (model: string) =>
+  `Could not delete ${model}. Please try again.`;
