@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [f636dd8b]
+  - @dopt/block-types@1.0.2
+  - @dopt/javascript-common@1.2.1
+
+## 1.1.0
+
+### Minor Changes
+
+- 850b6fe7: update optimisticUpdates parameter, clarifying what it does and where to use it
+
+### Patch Changes
+
+- Updated dependencies [850b6fe7]
+  - @dopt/javascript-common@1.2.0
+
 ## 1.0.3
 
 ### Patch Changes

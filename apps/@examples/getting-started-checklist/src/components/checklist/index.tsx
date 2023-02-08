@@ -55,26 +55,48 @@ export function GettingStartedChecklist({
   const [shareBlock, shareMethods] = useBlock(SHARE_DASHBOARD);
   const [nextStepsBlock] = useBlock(NEXT_STEPS);
 
-  if (checklist.state.active) {
+  if (nextStepsBlock.state.active) {
+    return (
+      <Card
+        p={4}
+        gap={2}
+        bg="white"
+        onClick={() => nextStepsModalProps.onOpen()}
+        cursor="pointer"
+      >
+        <Flex align="center" gap={1}>
+          <IconCircleCheck size={24} fill="gray" color="white" />
+          <Text color="gray">Getting started</Text>
+        </Flex>
+        <Flex color="#228BE6" align="center" gap={1}>
+          <Text>Next steps</Text>
+          <IconArrowRight size={16} />
+        </Flex>
+        <NextStepsModal {...nextStepsModalProps} />
+      </Card>
+    );
+  } else {
     return (
       <Flex direction="column" gap={2}>
-        <Popover placement="top-start">
-          <PopoverTrigger>
-            <Box>
-              <ChecklistPreview />
-            </Box>
-          </PopoverTrigger>
-          <PopoverContent>
-            <ChecklistPopover
-              datasourceBlock={datasourceBlock}
-              chartsBlock={chartsBlock}
-              shareBlock={shareBlock}
-              datasourceModalProps={datasourceModalProps}
-              inviteModalProps={inviteModalProps}
-              addChartsModalProps={addChartsModalProps}
-            />
-          </PopoverContent>
-        </Popover>
+        {checklist.state.active && (
+          <Popover placement="top-start">
+            <PopoverTrigger>
+              <Box>
+                <ChecklistPreview />
+              </Box>
+            </PopoverTrigger>
+            <PopoverContent>
+              <ChecklistPopover
+                datasourceBlock={datasourceBlock}
+                chartsBlock={chartsBlock}
+                shareBlock={shareBlock}
+                datasourceModalProps={datasourceModalProps}
+                inviteModalProps={inviteModalProps}
+                addChartsModalProps={addChartsModalProps}
+              />
+            </PopoverContent>
+          </Popover>
+        )}
         <ConnectDatasourceModal
           onClose={datasourceModalProps.onClose}
           isOpen={datasourceModalProps.isOpen}
@@ -106,27 +128,5 @@ export function GettingStartedChecklist({
         />
       </Flex>
     );
-  } else if (nextStepsBlock.state.active) {
-    return (
-      <Card
-        p={4}
-        gap={2}
-        bg="white"
-        onClick={() => nextStepsModalProps.onOpen()}
-        cursor="pointer"
-      >
-        <Flex align="center" gap={1}>
-          <IconCircleCheck size={24} fill="gray" color="white" />
-          <Text color="gray">Getting started</Text>
-        </Flex>
-        <Flex color="#228BE6" align="center" gap={1}>
-          <Text>Next steps</Text>
-          <IconArrowRight size={16} />
-        </Flex>
-        <NextStepsModal {...nextStepsModalProps} />
-      </Card>
-    );
-  } else {
-    return null;
   }
 }
