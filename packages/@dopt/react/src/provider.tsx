@@ -74,7 +74,6 @@ export function ProdDoptProvider(props: ProviderConfig) {
         groupId,
         logger: log,
         config: {
-          optimisticUpdates,
           urlPrefix: URL_PREFIX,
           packageVersion: PKG_VERSION,
           packageName: PKG_NAME,
@@ -115,6 +114,8 @@ export function ProdDoptProvider(props: ProviderConfig) {
                 uid: flow.uid,
                 version: flow.version,
                 intent: 'start',
+              }).catch(() => {
+                // do nothing, this error is already handled
               });
             }
             /*
@@ -170,7 +171,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
         })
         .catch((error) => {
           log.error(`
-            An error occurred while fetching blocks for the  
+            An error occurred while fetching blocks for the
             flow versions specified: \`${JSON.stringify(flowVersions)}\`
           `);
         });
@@ -297,27 +298,33 @@ export function ProdDoptProvider(props: ProviderConfig) {
     }
 
     return {
-      complete: (uid) => {
-        optimisticUpdates &&
-          updateBlockState({
-            [uid]: Object.assign(blocks[uid], {
-              state: {
-                active: false,
-                completed: true,
-              },
-            }),
+      complete: async (uid) => {
+        if (blocks[uid]) {
+          optimisticUpdates &&
+            updateBlockState({
+              [uid]: Object.assign(blocks[uid], {
+                state: {
+                  active: false,
+                  completed: true,
+                },
+              }),
+            });
+
+          return blockIntent({
+            uid,
+            version: blocks[uid].version,
+            intent: 'complete',
           });
-        return blockIntent({
-          uid,
-          version: blocks[uid].version,
-          intent: 'complete',
-        });
+        }
       },
-      next: (uid) =>
+      next: async (uid) =>
+        blocks[uid] &&
         blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
-      prev: (uid) =>
+      prev: async (uid) =>
+        blocks[uid] &&
         blockIntent({ uid, version: blocks[uid].version, intent: 'prev' }),
-      goTo: (uid, goToUid) =>
+      goTo: async (uid, goToUid) =>
+        blocks[uid] &&
         blockIntent({
           uid,
           version: blocks[uid].version,

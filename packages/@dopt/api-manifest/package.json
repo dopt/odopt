@@ -1,6 +1,6 @@
 {
   "name": "@dopt/api-manifest",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "A package to copy and store our external specs from GCP",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/api-manifest",
