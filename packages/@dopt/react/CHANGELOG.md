@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2
+
+### Patch Changes
+
+- 70cff4b0: expose type interfaces for group blocks
+
 ## 1.1.1
 
 ### Patch Changes
