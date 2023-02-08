@@ -20,13 +20,28 @@ export type {
   BlockIntention,
   FlowIntention,
 } from '@dopt/javascript-common';
-export type { Block, Flow, BlockIntent, FlowIntent } from '@dopt/block-types';
+export type {
+  Block,
+  Flow,
+  BlockIntent,
+  FlowIntent,
+  Element,
+  Set,
+} from '@dopt/block-types';
 
 export { Mercator } from '@dopt/mercator';
 export type { Logger, LogLevels, LoggerProps } from '@dopt/logger';
 
 export type { BlockIntentions } from './use-block';
 export type { FlowIntentions } from './use-flow';
+export type {
+  OrderedGroupBlock,
+  OrderedGroupBlockIntentions,
+} from './use-ordered-group';
+export type {
+  UnorderedGroupBlock,
+  UnorderedGroupBlockIntentions,
+} from './use-unordered-group';
 export type {
   Mocks,
   BaseProviderConfig,
