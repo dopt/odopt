@@ -41,17 +41,17 @@
     "@dopt/config": "workspace:*",
     "@dopt/env": "workspace:*",
     "@types/jest": "29.4.0",
-    "@typescript-eslint/eslint-plugin": "5.49.0",
-    "@typescript-eslint/parser": "5.49.0",
-    "esbuild": "0.17.4",
+    "@typescript-eslint/eslint-plugin": "5.51.0",
+    "@typescript-eslint/parser": "5.51.0",
+    "esbuild": "0.17.6",
     "esbuild-jest": "0.5.0",
-    "eslint": "8.32.0",
-    "eslint-plugin-react": "7.32.1",
-    "jest": "29.4.0",
-    "prettier": "2.8.3",
+    "eslint": "8.33.0",
+    "eslint-plugin-react": "7.32.2",
+    "jest": "29.4.2",
+    "prettier": "2.8.4",
     "shx": "0.3.4",
-    "tsup": "6.5.0",
-    "typescript": "4.9.4"
+    "tsup": "6.6.0",
+    "typescript": "4.9.5"
   },
   "openSource": true
 }

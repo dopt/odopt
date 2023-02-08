@@ -1,6 +1,6 @@
 import { FIELD_VALUE_UNION_TYPE, FIELD_TYPE_LITERALS, Field } from './fields';
 
-type SERIALIZED = string | null;
+type SERIALIZED = string | undefined | null;
 
 export const fieldToString = (field: FIELD_VALUE_UNION_TYPE): SERIALIZED => {
   return field == null ? null : JSON.stringify(field);
@@ -10,7 +10,7 @@ export const fieldFromString = (
   string: SERIALIZED,
   type: FIELD_TYPE_LITERALS
 ): FIELD_VALUE_UNION_TYPE => {
-  if (typeof string !== 'string') {
+  if (typeof string !== 'string' || string === 'null') {
     return null;
   }
   try {
@@ -73,7 +73,7 @@ export function isValueOfType(
   value: FIELD_VALUE_UNION_TYPE | undefined,
   type: FIELD_TYPE_LITERALS
 ): boolean {
-  if (value == null) {
+  if (value == null || value === 'null') {
     return true;
   }
   if (type === 'integer' && Number.isInteger(value)) {
