@@ -10,7 +10,7 @@ import { Element, Set } from '@dopt/block-types';
  * signaling state transitions of a group. These methods
  * have side effects.
  */
-export interface BlockIntentions {
+export interface UnorderedGroupBlockIntentions {
   /**
    * Signals that the experience this {@link Set} powers has
    * finished. A noop if the {@link Block} isn't active. Results
@@ -23,7 +23,7 @@ export interface BlockIntentions {
    */
   complete: () => void;
 }
-interface Group extends Set {
+export interface UnorderedGroupBlock extends Set {
   /**
    * Data accessors specific to groups
    *
@@ -78,12 +78,12 @@ interface Group extends Set {
  * ```
  *
  * @param uid - {@link Set['uid']}
- * @returns [{@link Set}, {@link context.BlockIntentions}] the state of the block and methods to manipulate said state
+ * @returns [{@link UnorderedGroupBlock}, {@link UnorderedGroupBlockIntentions}] the state of the block and methods to manipulate said state
  *
  */
 const useUnorderedGroup = (
   uid: Set['uid']
-): [block: Group, intent: BlockIntentions] => {
+): [block: UnorderedGroupBlock, intent: UnorderedGroupBlockIntentions] => {
   const {
     loading,
     blocks: contextBlocks,
