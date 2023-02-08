@@ -18,7 +18,7 @@ const react = ({
     outDir: 'dist',
     format: ['esm', 'cjs'],
     inject: ['./.react-jsx-inject.ts'],
-    target: env({ dev: 'ESNext', prod: 'ES2020' }),
+    target: env({ dev: 'esnext', prod: 'es2020' }),
     sourcemap: 'inline',
     minify: inProd(),
     esbuildPlugins: [
