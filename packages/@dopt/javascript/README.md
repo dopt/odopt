@@ -212,7 +212,3 @@ const dopt = new Dopt({
   flowVersions: { "welcome-to-dopt": 3 },
 });
 ```
-
-### Optimistic updates (experimental)
-
-The `DoptProvider` accepts a `optimisticUpdates` (`boolean`) parameter that will optimistically update the state of a block when an intent method is called. This defaults to `true`.

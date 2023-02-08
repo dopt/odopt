@@ -1,6 +1,6 @@
 {
   "name": "@dopt/users-api-manifest",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "A package to copy and store our users external specs from GCP",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/users-api-manifest",
