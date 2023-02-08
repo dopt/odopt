@@ -68,13 +68,7 @@ class Flow {
     const { uid, version } = this.flow;
     flowStore.subscribe((state) => {
       const key = generateFlowStateKey(uid, version);
-      const flow = state[key];
-      if (!flow) {
-        throw new Error(
-          `Unable to subscribe to Flow<{uid:${uid},version:${version}}>`
-        );
-      }
-      return flow;
+      return state[key];
     }, listener);
   }
 }
