@@ -24,7 +24,7 @@ export const fieldFromString = (
         return value as string;
     }
   } catch (e) {
-    throw new Error(`value :${string} cannot be coerced into ${type}`);
+    throw new Error(`value: ${string} cannot be coerced into ${type}`);
   }
 };
 
