@@ -9,7 +9,7 @@ const node = ({ entry, watch = false, ...rest }: Options) => {
     outDir: 'dist',
     format: ['esm', 'cjs'],
     tsconfig: './tsconfig.json',
-    target: env({ dev: 'ESNext', prod: 'ESNext' }),
+    target: env({ dev: 'esnext', prod: 'esnext' }),
     sourcemap: inProd(),
     minify: inProd(),
     clean: true,
