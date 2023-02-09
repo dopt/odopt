@@ -34,6 +34,9 @@ export const JOURNEY_COMMIT_FAIL_MSG =
   'Could not create commit. Please try again.';
 export const TARGETING_SAVE_FAIL = 'Could not save changes. Please try again.';
 
+export const FIELD_VALUE_SAVE_FAIL_MSG =
+  'Could not save field value. Please try again.';
+
 export const DEPLOY_SUCCESS_MSG = 'Changes deployed';
 
 export const DEPLOY_FAIL_MSG = 'Could not deploy changes';
