@@ -64,7 +64,7 @@ export interface BlockIntentRequestParams {
      * @type {V1BlockUidGetIntentParameter}
      * @memberof BlockIntentRequestParams
      */
-    'intent'?: V1BlockUidGetIntentParameter;
+    'intent': V1BlockUidGetIntentParameter;
 }
 /**
  * 
@@ -278,10 +278,10 @@ export interface FlowResponseBodyBlocksInner {
     'version': number;
     /**
      * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
+     * @type {GroupState}
      * @memberof FlowResponseBodyBlocksInner
      */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
+    'state': GroupState;
     /**
      * 
      * @type {string}
@@ -290,10 +290,10 @@ export interface FlowResponseBodyBlocksInner {
     'type': FlowResponseBodyBlocksInnerTypeEnum;
     /**
      * 
-     * @type {Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>}
+     * @type {Array<ModelFieldsInner>}
      * @memberof FlowResponseBodyBlocksInner
      */
-    'fields': Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>;
+    'fields': Array<ModelFieldsInner>;
     /**
      * 
      * @type {number}
@@ -325,308 +325,6 @@ export const FlowResponseBodyBlocksInnerTypeEnum = {
 
 export type FlowResponseBodyBlocksInnerTypeEnum = typeof FlowResponseBodyBlocksInnerTypeEnum[keyof typeof FlowResponseBodyBlocksInnerTypeEnum];
 
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOf
- */
-export interface FlowResponseBodyBlocksInnerAnyOf {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'kind': FlowResponseBodyBlocksInnerAnyOfKindEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'uid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'version': number;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfTypeEnum;
-    /**
-     * 
-     * @type {Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'fields': Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfKindEnum = {
-    Block: 'block'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfKindEnum = typeof FlowResponseBodyBlocksInnerAnyOfKindEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfKindEnum];
-export const FlowResponseBodyBlocksInnerAnyOfTypeEnum = {
-    Model: 'model'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfTypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfTypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfTypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOf1
- */
-export interface FlowResponseBodyBlocksInnerAnyOf1 {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'kind': FlowResponseBodyBlocksInnerAnyOf1KindEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'uid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'version': number;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
-    /**
-     * 
-     * @type {number}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'size': number;
-    /**
-     * 
-     * @type {Array<Model>}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'blocks': Array<Model>;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOf1TypeEnum;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'ordered'?: boolean;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOf1KindEnum = {
-    Block: 'block'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOf1KindEnum = typeof FlowResponseBodyBlocksInnerAnyOf1KindEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOf1KindEnum];
-export const FlowResponseBodyBlocksInnerAnyOf1TypeEnum = {
-    Set: 'set'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOf1TypeEnum = typeof FlowResponseBodyBlocksInnerAnyOf1TypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOf1TypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInner
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInner
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInner
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInner
-     */
-    'value': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum = {
-    Boolean: 'boolean'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfValue}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf
-     */
-    'value': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfValue;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum = {
-    String: 'string'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1 {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1Value}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1
-     */
-    'value': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1Value;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum = {
-    Integer: 'integer'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1Value
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1Value {
-}
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2 {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2
-     */
-    'value': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum = {
-    Boolean: 'boolean'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value {
-}
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfValue
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfValue {
-}
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfState
- */
-export interface FlowResponseBodyBlocksInnerAnyOfState {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfState
-     */
-    'active': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfState
-     */
-    'completed': boolean;
-}
 /**
  * 
  * @export
@@ -682,6 +380,98 @@ export interface GoToQueryString {
      * @memberof GoToQueryString
      */
     'blockUid': string;
+}
+/**
+ * 
+ * @export
+ * @interface Group
+ */
+export interface Group {
+    /**
+     * 
+     * @type {string}
+     * @memberof Group
+     */
+    'kind': GroupKindEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof Group
+     */
+    'uid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Group
+     */
+    'sid': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Group
+     */
+    'version': number;
+    /**
+     * 
+     * @type {GroupState}
+     * @memberof Group
+     */
+    'state': GroupState;
+    /**
+     * 
+     * @type {number}
+     * @memberof Group
+     */
+    'size': number;
+    /**
+     * 
+     * @type {Array<Model>}
+     * @memberof Group
+     */
+    'blocks': Array<Model>;
+    /**
+     * 
+     * @type {string}
+     * @memberof Group
+     */
+    'type': GroupTypeEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Group
+     */
+    'ordered'?: boolean;
+}
+
+export const GroupKindEnum = {
+    Block: 'block'
+} as const;
+
+export type GroupKindEnum = typeof GroupKindEnum[keyof typeof GroupKindEnum];
+export const GroupTypeEnum = {
+    Set: 'set'
+} as const;
+
+export type GroupTypeEnum = typeof GroupTypeEnum[keyof typeof GroupTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface GroupState
+ */
+export interface GroupState {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GroupState
+     */
+    'active': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GroupState
+     */
+    'completed': boolean;
 }
 /**
  * 
@@ -760,10 +550,10 @@ export interface Model {
     'version': number;
     /**
      * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
+     * @type {GroupState}
      * @memberof Model
      */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
+    'state': GroupState;
     /**
      * 
      * @type {string}
@@ -772,10 +562,10 @@ export interface Model {
     'type': ModelTypeEnum;
     /**
      * 
-     * @type {Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>}
+     * @type {Array<ModelFieldsInner>}
      * @memberof Model
      */
-    'fields': Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>;
+    'fields': Array<ModelFieldsInner>;
 }
 
 export const ModelKindEnum = {
@@ -792,76 +582,152 @@ export type ModelTypeEnum = typeof ModelTypeEnum[keyof typeof ModelTypeEnum];
 /**
  * 
  * @export
- * @interface ModelSet
+ * @interface ModelFieldsInner
  */
-export interface ModelSet {
+export interface ModelFieldsInner {
     /**
      * 
      * @type {string}
-     * @memberof ModelSet
-     */
-    'kind': ModelSetKindEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelSet
-     */
-    'uid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelSet
+     * @memberof ModelFieldsInner
      */
     'sid': string;
     /**
      * 
-     * @type {number}
-     * @memberof ModelSet
+     * @type {string}
+     * @memberof ModelFieldsInner
      */
-    'version': number;
+    'type': ModelFieldsInnerTypeEnum;
     /**
      * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
-     * @memberof ModelSet
+     * @type {ModelFieldsInnerAnyOf2Value}
+     * @memberof ModelFieldsInner
      */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelSet
-     */
-    'size': number;
-    /**
-     * 
-     * @type {Array<Model>}
-     * @memberof ModelSet
-     */
-    'blocks': Array<Model>;
+    'value': ModelFieldsInnerAnyOf2Value;
+}
+
+export const ModelFieldsInnerTypeEnum = {
+    Boolean: 'boolean'
+} as const;
+
+export type ModelFieldsInnerTypeEnum = typeof ModelFieldsInnerTypeEnum[keyof typeof ModelFieldsInnerTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf
+ */
+export interface ModelFieldsInnerAnyOf {
     /**
      * 
      * @type {string}
-     * @memberof ModelSet
+     * @memberof ModelFieldsInnerAnyOf
      */
-    'type': ModelSetTypeEnum;
+    'sid': string;
     /**
      * 
-     * @type {boolean}
-     * @memberof ModelSet
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf
      */
-    'ordered'?: boolean;
+    'type': ModelFieldsInnerAnyOfTypeEnum;
+    /**
+     * 
+     * @type {ModelFieldsInnerAnyOfValue}
+     * @memberof ModelFieldsInnerAnyOf
+     */
+    'value': ModelFieldsInnerAnyOfValue;
 }
 
-export const ModelSetKindEnum = {
-    Block: 'block'
+export const ModelFieldsInnerAnyOfTypeEnum = {
+    String: 'string'
 } as const;
 
-export type ModelSetKindEnum = typeof ModelSetKindEnum[keyof typeof ModelSetKindEnum];
-export const ModelSetTypeEnum = {
-    Set: 'set'
+export type ModelFieldsInnerAnyOfTypeEnum = typeof ModelFieldsInnerAnyOfTypeEnum[keyof typeof ModelFieldsInnerAnyOfTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf1
+ */
+export interface ModelFieldsInnerAnyOf1 {
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf1
+     */
+    'sid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf1
+     */
+    'type': ModelFieldsInnerAnyOf1TypeEnum;
+    /**
+     * 
+     * @type {ModelFieldsInnerAnyOf1Value}
+     * @memberof ModelFieldsInnerAnyOf1
+     */
+    'value': ModelFieldsInnerAnyOf1Value;
+}
+
+export const ModelFieldsInnerAnyOf1TypeEnum = {
+    Integer: 'integer'
 } as const;
 
-export type ModelSetTypeEnum = typeof ModelSetTypeEnum[keyof typeof ModelSetTypeEnum];
+export type ModelFieldsInnerAnyOf1TypeEnum = typeof ModelFieldsInnerAnyOf1TypeEnum[keyof typeof ModelFieldsInnerAnyOf1TypeEnum];
 
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf1Value
+ */
+export interface ModelFieldsInnerAnyOf1Value {
+}
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf2
+ */
+export interface ModelFieldsInnerAnyOf2 {
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf2
+     */
+    'sid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf2
+     */
+    'type': ModelFieldsInnerAnyOf2TypeEnum;
+    /**
+     * 
+     * @type {ModelFieldsInnerAnyOf2Value}
+     * @memberof ModelFieldsInnerAnyOf2
+     */
+    'value': ModelFieldsInnerAnyOf2Value;
+}
+
+export const ModelFieldsInnerAnyOf2TypeEnum = {
+    Boolean: 'boolean'
+} as const;
+
+export type ModelFieldsInnerAnyOf2TypeEnum = typeof ModelFieldsInnerAnyOf2TypeEnum[keyof typeof ModelFieldsInnerAnyOf2TypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf2Value
+ */
+export interface ModelFieldsInnerAnyOf2Value {
+}
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOfValue
+ */
+export interface ModelFieldsInnerAnyOfValue {
+}
 /**
  * 
  * @export
@@ -920,10 +786,10 @@ export interface SerializableBlock {
     'version': number;
     /**
      * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
+     * @type {GroupState}
      * @memberof SerializableBlock
      */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
+    'state': GroupState;
     /**
      * 
      * @type {string}
@@ -932,10 +798,10 @@ export interface SerializableBlock {
     'type': SerializableBlockTypeEnum;
     /**
      * 
-     * @type {Array<object>}
+     * @type {Array<ModelFieldsInner>}
      * @memberof SerializableBlock
      */
-    'fields': Array<object>;
+    'fields': Array<ModelFieldsInner>;
     /**
      * 
      * @type {number}
@@ -966,67 +832,6 @@ export const SerializableBlockTypeEnum = {
 } as const;
 
 export type SerializableBlockTypeEnum = typeof SerializableBlockTypeEnum[keyof typeof SerializableBlockTypeEnum];
-
-/**
- * 
- * @export
- * @interface SerializableBlockAnyOf
- */
-export interface SerializableBlockAnyOf {
-    /**
-     * 
-     * @type {string}
-     * @memberof SerializableBlockAnyOf
-     */
-    'kind': SerializableBlockAnyOfKindEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof SerializableBlockAnyOf
-     */
-    'uid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SerializableBlockAnyOf
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SerializableBlockAnyOf
-     */
-    'version': number;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
-     * @memberof SerializableBlockAnyOf
-     */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
-    /**
-     * 
-     * @type {string}
-     * @memberof SerializableBlockAnyOf
-     */
-    'type': SerializableBlockAnyOfTypeEnum;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SerializableBlockAnyOf
-     */
-    'fields': Array<object>;
-}
-
-export const SerializableBlockAnyOfKindEnum = {
-    Block: 'block'
-} as const;
-
-export type SerializableBlockAnyOfKindEnum = typeof SerializableBlockAnyOfKindEnum[keyof typeof SerializableBlockAnyOfKindEnum];
-export const SerializableBlockAnyOfTypeEnum = {
-    Model: 'model'
-} as const;
-
-export type SerializableBlockAnyOfTypeEnum = typeof SerializableBlockAnyOfTypeEnum[keyof typeof SerializableBlockAnyOfTypeEnum];
 
 /**
  * 
