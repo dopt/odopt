@@ -1,11 +1,11 @@
 import { Static, Type } from '@sinclair/typebox';
 
 export type FIELD_VALUE_UNION_TYPE = string | number | boolean | null;
-export type FIELD_TYPE_LITERALS = 'string' | 'boolean' | 'integer';
+export type FIELD_TYPE_LITERALS = 'string' | 'boolean' | 'number';
 export const FIELD_TYPE_LITERALS: Record<string, FIELD_TYPE_LITERALS> = {
   string: 'string',
   boolean: 'boolean',
-  integer: 'integer',
+  number: 'number',
 };
 
 const BaseField = Type.Object(
@@ -29,17 +29,17 @@ export const StringField = Type.Intersect(
 );
 export type StringField = Static<typeof StringField>;
 
-export const IntegerField = Type.Intersect(
+export const NumberField = Type.Intersect(
   [
     BaseField,
     Type.Object({
-      type: Type.Readonly(Type.Literal(FIELD_TYPE_LITERALS.integer)),
-      value: Type.Readonly(Type.Union([Type.Integer(), Type.Null()])),
+      type: Type.Readonly(Type.Literal(FIELD_TYPE_LITERALS.number)),
+      value: Type.Readonly(Type.Union([Type.Number(), Type.Null()])),
     }),
   ],
-  { $id: 'IntegerField' }
+  { $id: 'NumberField' }
 );
-export type IntegerField = Static<typeof IntegerField>;
+export type NumberField = Static<typeof NumberField>;
 
 export const BooleanField = Type.Intersect(
   [
@@ -53,7 +53,7 @@ export const BooleanField = Type.Intersect(
 );
 export type BooleanField = Static<typeof BooleanField>;
 
-export const Field = Type.Union([StringField, IntegerField, BooleanField], {
+export const Field = Type.Union([StringField, NumberField, BooleanField], {
   $id: 'Field',
 });
 export type Field = Static<typeof Field>;
