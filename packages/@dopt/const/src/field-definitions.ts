@@ -12,3 +12,8 @@ export const FIELD_DEFINITION_ID_UNSAFE_MSG =
 export const FIELD_DEFINITION_ID_LENGTH_MSG = `The field identifier can't be more than ${CHARACTER_LIMIT} characters`;
 export const FIELD_DEFINITION_ID_EXISTS_MSG =
   'A field with this identifier already exists';
+
+export const FIELD_DEFINITION_EMPTY_DRAFT_MSG =
+  'Add fields to define content or configuration paired with this block';
+
+export const FIELD_DEFINITION_EMPTY_MSG = `This block doesn't have any fields`;
