@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 2.0.0
+
+### Major Changes
+
+- 4478f0a5: refactored integer to number for fields
+
 ## 1.1.0
 
 ### Minor Changes
