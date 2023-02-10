@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 1.1.0
+
+### Minor Changes
+
+- a26aefdc: added webhook blocks
+
 ## 1.0.3
 
 ### Patch Changes
