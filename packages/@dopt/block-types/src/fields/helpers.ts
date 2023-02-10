@@ -16,7 +16,7 @@ export const fieldFromString = (
   try {
     const value = JSON.parse(string);
     switch (type) {
-      case 'integer':
+      case 'number':
         return value as number;
       case 'boolean':
         return value as boolean;
@@ -24,14 +24,8 @@ export const fieldFromString = (
         return value as string;
     }
   } catch (e) {
-    throw new Error(`value :${string} cannot be coerced into ${type}`);
+    throw new Error(`value: ${string} cannot be coerced into ${type}`);
   }
-};
-
-export const integerFromField = (
-  field: FIELD_VALUE_UNION_TYPE
-): number | undefined => {
-  return Math.floor(Number(field)) || undefined;
 };
 
 export const castField = ({
@@ -50,10 +44,10 @@ export const castField = ({
         type: 'boolean',
         value: value as boolean | null,
       };
-    case 'integer':
+    case 'number':
       return {
         sid,
-        type: 'integer',
+        type: 'number',
         value: value as number | null,
       };
     case 'string':
@@ -76,9 +70,7 @@ export function isValueOfType(
   if (value == null || value === 'null') {
     return true;
   }
-  if (type === 'integer' && Number.isInteger(value)) {
-    return true;
-  } else if (typeof value === type) {
+  if (typeof value === type) {
     return true;
   }
   return false;
