@@ -1,5 +1,11 @@
 # @dopt/blocks-javascript-client
 
+## 0.0.3
+
+### Patch Changes
+
+- b3fba687: Adding alias Group to Set type
+
 ## 0.0.2
 
 ### Patch Changes
