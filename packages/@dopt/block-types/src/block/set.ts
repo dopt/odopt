@@ -14,5 +14,5 @@ export const SetProps = Type.Object(
   { $id: 'SetProps' }
 );
 
-export const Set = Type.Intersect([Base, SetProps], { $id: 'Set' });
+export const Set = Type.Intersect([Base, SetProps], { $id: 'Group' });
 export type Set = Static<typeof Set>;
