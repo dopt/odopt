@@ -6,10 +6,18 @@ export const WebhookType = Type.Literal(WebhookTypeConst);
 export const WebhookProps = Type.Object(
   {
     type: Type.Readonly(WebhookType),
-    method: Type.String(),
-    url: Type.String(),
-    headers: Type.Record(Type.String(), Type.String()),
-    body: Type.Object({}, { additionalProperties: true }),
+    request: Type.Function(
+      [],
+      Type.Promise(
+        Type.Object({
+          ok: Type.Boolean(),
+          redirected: Type.Boolean(),
+          status: Type.Number(),
+          statusText: Type.String(),
+          url: Type.String(),
+        })
+      )
+    ),
   },
   { $id: 'WebhookProps' }
 );
