@@ -85,10 +85,13 @@ export function getDefaultBlock({
       return {
         ...base,
         type: WebhookTypeConst,
-        method: '',
-        url: '',
-        headers: {},
-        body: {},
+        request: async () => ({
+          ok: true,
+          redirected: false,
+          status: 204,
+          statusText: '',
+          url: '',
+        }),
       };
     default:
       return { ...base, type };
