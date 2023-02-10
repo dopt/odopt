@@ -1,5 +1,18 @@
 # @dopt/block-types
 
+## 1.1.0
+
+### Minor Changes
+
+- a26aefdc: added webhook blocks
+
+## 1.0.3
+
+### Patch Changes
+
+- 874b0427: typo in block fields error
+- b3fba687: Adding alias Group to Set type
+
 ## 1.0.2
 
 ### Patch Changes
