@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies [874b0427]
+- Updated dependencies [b3fba687]
+  - @dopt/block-types@1.0.3
+  - @dopt/javascript-common@1.2.2
+
 ## 1.1.2
 
 ### Patch Changes
