@@ -7,7 +7,7 @@ import { Flow as FlowClass } from './flow';
 
 import { Mercator } from '@dopt/mercator';
 
-import type { Block, Flow } from '@dopt/block-types';
+import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 
 import {
   blocksApi,
@@ -43,6 +43,7 @@ class Dopt {
 
   private blocksApi: ReturnType<typeof blocksApi>;
   private flowBlocks: Mercator<[Flow['uid'], Flow['version']], Block['uid'][]>;
+  private blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
   private socket: Socket | undefined;
 
   constructor({ apiKey, userId, groupId, logLevel, flowVersions }: Config) {
@@ -55,6 +56,8 @@ class Dopt {
     this.logger = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
     this.flowBlocks = new Mercator();
+
+    this.blockFields = new Map();
 
     this._initialized = false;
     this.initialize();
@@ -135,9 +138,19 @@ class Dopt {
             flow.blocks?.map(({ uid }) => uid) || []
           );
 
-          // initialize the block store
           flow.blocks?.forEach((block) => {
+            // initialize the block store
             blockStore.setState({ [block.uid]: block });
+
+            // initialize block fields map
+            if (block.type === ModelTypeConst) {
+              this.blockFields.set(
+                block.uid,
+                block.fields.reduce((map, field) => {
+                  return map.set(field.sid, field);
+                }, new Map<Field['sid'], Field>())
+              );
+            }
           });
         });
       })
@@ -228,7 +241,7 @@ class Dopt {
 
     if (!this._initialized) {
       logger.error(
-        `Accessing blocks prior to initialization will return default block states.`
+        `Accessing block() prior to initialization will return default block states.`
       );
     }
 
@@ -237,14 +250,27 @@ class Dopt {
     return new BlockClass({
       intent,
       block,
+      fieldMap: this.blockFields.get(block.uid) || null,
     });
   }
 
   public blocks() {
+    const {
+      logger,
+      blocksApi: { blockIntent: intent },
+    } = this;
+
+    if (!this._initialized) {
+      logger.error(
+        `Accessing blocks() prior to initialization may return incomplete block states.`
+      );
+    }
+
     return Object.entries(blockStore.getState()).map(([, block]) => {
       return new BlockClass({
-        intent: this.blocksApi.blockIntent,
+        intent,
         block,
+        fieldMap: this.blockFields.get(block.uid) || null,
       });
     });
   }
