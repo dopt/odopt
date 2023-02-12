@@ -17,21 +17,18 @@ function resolveBlock(block: BlockType): BlockType {
 interface Props {
   intent: ReturnType<typeof blocksApi>['blockIntent'];
   block: BlockType;
+  fieldMap: Map<Field['sid'], Field> | null;
 }
 
 class Block {
   private intent: Props['intent'];
   private block: Props['block'];
-  private fieldMap: Map<Field['sid'], FIELD_VALUE_UNION_TYPE>;
+  private fieldMap: Props['fieldMap'];
 
-  constructor({ block, intent }: Props) {
+  constructor({ block, intent, fieldMap }: Props) {
     this.intent = intent;
     this.block = block;
-    if (this.block.type === ModelTypeConst) {
-      this.fieldMap = this.block.fields.reduce((map, field) => {
-        return map.set(field.sid, field.value);
-      }, new Map<Field['sid'], FIELD_VALUE_UNION_TYPE>());
-    }
+    this.fieldMap = fieldMap;
   }
 
   private async _intent(intent: BlockIntent, goToUid?: string) {
@@ -43,11 +40,12 @@ class Block {
     name: string,
     defaultValue?: T
   ): T | null {
-    if (this.block.type !== ModelTypeConst) {
+    if (this.block.type !== ModelTypeConst || this.fieldMap == null) {
       return null;
     }
 
-    const value = this.fieldMap.get(name);
+    const value = this.fieldMap.get(name)?.value;
+
     return value != null
       ? (value as T)
       : defaultValue != null
