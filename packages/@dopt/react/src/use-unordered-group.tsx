@@ -7,8 +7,8 @@ import { Element, Set } from '@dopt/block-types';
 
 /**
  * Methods corresponding to an intent-based API for
- * signaling state transitions of a group. These methods
- * have side effects.
+ * signaling state transitions of an unordered group.
+ * These methods have side effects.
  */
 export interface UnorderedGroupBlockIntentions {
   /**
@@ -23,6 +23,11 @@ export interface UnorderedGroupBlockIntentions {
    */
   complete: () => void;
 }
+
+/**
+ * Methods corresponding to the API for data retrieval
+ * of an unordered group's properties.
+ */
 export interface UnorderedGroupBlock extends Set {
   /**
    * Data accessors specific to groups
