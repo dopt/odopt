@@ -50,6 +50,13 @@ export interface BadRequestErrorResponseBodyCode {
 /**
  * 
  * @export
+ * @interface BlockIntent
+ */
+export interface BlockIntent {
+}
+/**
+ * 
+ * @export
  * @interface BlockIntentRequestParams
  */
 export interface BlockIntentRequestParams {
@@ -61,10 +68,10 @@ export interface BlockIntentRequestParams {
     'uid': string;
     /**
      * 
-     * @type {V1BlockUidGetIntentParameter}
+     * @type {BlockIntent}
      * @memberof BlockIntentRequestParams
      */
-    'intent'?: V1BlockUidGetIntentParameter;
+    'intent': BlockIntent;
 }
 /**
  * 
@@ -105,10 +112,50 @@ export interface BlockRequestParams {
     'uid': string;
     /**
      * 
-     * @type {V1BlockUidGetIntentParameter}
+     * @type {BlockIntent}
      * @memberof BlockRequestParams
      */
-    'intent'?: V1BlockUidGetIntentParameter;
+    'intent'?: BlockIntent;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const CompleteIntent = {
+    Complete: 'complete'
+} as const;
+
+export type CompleteIntent = typeof CompleteIntent[keyof typeof CompleteIntent];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const ExitIntent = {
+    Exit: 'exit'
+} as const;
+
+export type ExitIntent = typeof ExitIntent[keyof typeof ExitIntent];
+
+
+/**
+ * 
+ * @export
+ * @interface FlowIntent
+ */
+export interface FlowIntent {
+}
+/**
+ * 
+ * @export
+ * @interface FlowIntentIntentParameter
+ */
+export interface FlowIntentIntentParameter {
 }
 /**
  * 
@@ -124,10 +171,10 @@ export interface FlowIntentRequestParams {
     'uid': string;
     /**
      * 
-     * @type {V1FlowUidIntentPostIntentParameter}
+     * @type {FlowIntentIntentParameter}
      * @memberof FlowIntentRequestParams
      */
-    'intent'?: V1FlowUidIntentPostIntentParameter;
+    'intent'?: FlowIntentIntentParameter;
 }
 /**
  * 
@@ -278,10 +325,10 @@ export interface FlowResponseBodyBlocksInner {
     'version': number;
     /**
      * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
+     * @type {GroupState}
      * @memberof FlowResponseBodyBlocksInner
      */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
+    'state': GroupState;
     /**
      * 
      * @type {string}
@@ -290,10 +337,10 @@ export interface FlowResponseBodyBlocksInner {
     'type': FlowResponseBodyBlocksInnerTypeEnum;
     /**
      * 
-     * @type {Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>}
+     * @type {Array<ModelFieldsInner>}
      * @memberof FlowResponseBodyBlocksInner
      */
-    'fields': Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>;
+    'fields': Array<ModelFieldsInner>;
     /**
      * 
      * @type {number}
@@ -328,308 +375,6 @@ export type FlowResponseBodyBlocksInnerTypeEnum = typeof FlowResponseBodyBlocksI
 /**
  * 
  * @export
- * @interface FlowResponseBodyBlocksInnerAnyOf
- */
-export interface FlowResponseBodyBlocksInnerAnyOf {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'kind': FlowResponseBodyBlocksInnerAnyOfKindEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'uid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'version': number;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfTypeEnum;
-    /**
-     * 
-     * @type {Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf
-     */
-    'fields': Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfKindEnum = {
-    Block: 'block'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfKindEnum = typeof FlowResponseBodyBlocksInnerAnyOfKindEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfKindEnum];
-export const FlowResponseBodyBlocksInnerAnyOfTypeEnum = {
-    Model: 'model'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfTypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfTypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfTypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOf1
- */
-export interface FlowResponseBodyBlocksInnerAnyOf1 {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'kind': FlowResponseBodyBlocksInnerAnyOf1KindEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'uid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'version': number;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
-    /**
-     * 
-     * @type {number}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'size': number;
-    /**
-     * 
-     * @type {Array<Model>}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'blocks': Array<Model>;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOf1TypeEnum;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof FlowResponseBodyBlocksInnerAnyOf1
-     */
-    'ordered'?: boolean;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOf1KindEnum = {
-    Block: 'block'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOf1KindEnum = typeof FlowResponseBodyBlocksInnerAnyOf1KindEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOf1KindEnum];
-export const FlowResponseBodyBlocksInnerAnyOf1TypeEnum = {
-    Set: 'set'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOf1TypeEnum = typeof FlowResponseBodyBlocksInnerAnyOf1TypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOf1TypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInner
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInner {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInner
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInner
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInner
-     */
-    'value': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum = {
-    Boolean: 'boolean'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerTypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfValue}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf
-     */
-    'value': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfValue;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum = {
-    String: 'string'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfTypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1 {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1Value}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1
-     */
-    'value': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1Value;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum = {
-    Integer: 'integer'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1TypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1Value
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf1Value {
-}
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2 {
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2
-     */
-    'type': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2
-     */
-    'value': FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value;
-}
-
-export const FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum = {
-    Boolean: 'boolean'
-} as const;
-
-export type FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum = typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum[keyof typeof FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2TypeEnum];
-
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOf2Value {
-}
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfValue
- */
-export interface FlowResponseBodyBlocksInnerAnyOfFieldsInnerAnyOfValue {
-}
-/**
- * 
- * @export
- * @interface FlowResponseBodyBlocksInnerAnyOfState
- */
-export interface FlowResponseBodyBlocksInnerAnyOfState {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfState
-     */
-    'active': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof FlowResponseBodyBlocksInnerAnyOfState
-     */
-    'completed': boolean;
-}
-/**
- * 
- * @export
  * @interface FlowResponseBodyState
  */
 export interface FlowResponseBodyState {
@@ -652,6 +397,19 @@ export interface FlowResponseBodyState {
      */
     'completed': boolean;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const GoToIntent = {
+    GoTo: 'goTo'
+} as const;
+
+export type GoToIntent = typeof GoToIntent[keyof typeof GoToIntent];
+
+
 /**
  * 
  * @export
@@ -682,6 +440,98 @@ export interface GoToQueryString {
      * @memberof GoToQueryString
      */
     'blockUid': string;
+}
+/**
+ * 
+ * @export
+ * @interface Group
+ */
+export interface Group {
+    /**
+     * 
+     * @type {string}
+     * @memberof Group
+     */
+    'kind': GroupKindEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof Group
+     */
+    'uid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Group
+     */
+    'sid': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Group
+     */
+    'version': number;
+    /**
+     * 
+     * @type {GroupState}
+     * @memberof Group
+     */
+    'state': GroupState;
+    /**
+     * 
+     * @type {number}
+     * @memberof Group
+     */
+    'size': number;
+    /**
+     * 
+     * @type {Array<Model>}
+     * @memberof Group
+     */
+    'blocks': Array<Model>;
+    /**
+     * 
+     * @type {string}
+     * @memberof Group
+     */
+    'type': GroupTypeEnum;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Group
+     */
+    'ordered'?: boolean;
+}
+
+export const GroupKindEnum = {
+    Block: 'block'
+} as const;
+
+export type GroupKindEnum = typeof GroupKindEnum[keyof typeof GroupKindEnum];
+export const GroupTypeEnum = {
+    Set: 'set'
+} as const;
+
+export type GroupTypeEnum = typeof GroupTypeEnum[keyof typeof GroupTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface GroupState
+ */
+export interface GroupState {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GroupState
+     */
+    'active': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GroupState
+     */
+    'completed': boolean;
 }
 /**
  * 
@@ -760,10 +610,10 @@ export interface Model {
     'version': number;
     /**
      * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
+     * @type {GroupState}
      * @memberof Model
      */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
+    'state': GroupState;
     /**
      * 
      * @type {string}
@@ -772,10 +622,10 @@ export interface Model {
     'type': ModelTypeEnum;
     /**
      * 
-     * @type {Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>}
+     * @type {Array<ModelFieldsInner>}
      * @memberof Model
      */
-    'fields': Array<FlowResponseBodyBlocksInnerAnyOfFieldsInner>;
+    'fields': Array<ModelFieldsInner>;
 }
 
 export const ModelKindEnum = {
@@ -792,75 +642,164 @@ export type ModelTypeEnum = typeof ModelTypeEnum[keyof typeof ModelTypeEnum];
 /**
  * 
  * @export
- * @interface ModelSet
+ * @interface ModelFieldsInner
  */
-export interface ModelSet {
+export interface ModelFieldsInner {
     /**
      * 
      * @type {string}
-     * @memberof ModelSet
-     */
-    'kind': ModelSetKindEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelSet
-     */
-    'uid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelSet
+     * @memberof ModelFieldsInner
      */
     'sid': string;
     /**
      * 
-     * @type {number}
-     * @memberof ModelSet
+     * @type {string}
+     * @memberof ModelFieldsInner
      */
-    'version': number;
+    'type': ModelFieldsInnerTypeEnum;
     /**
      * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
-     * @memberof ModelSet
+     * @type {ModelFieldsInnerAnyOf2Value}
+     * @memberof ModelFieldsInner
      */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelSet
-     */
-    'size': number;
-    /**
-     * 
-     * @type {Array<Model>}
-     * @memberof ModelSet
-     */
-    'blocks': Array<Model>;
+    'value': ModelFieldsInnerAnyOf2Value;
+}
+
+export const ModelFieldsInnerTypeEnum = {
+    Boolean: 'boolean'
+} as const;
+
+export type ModelFieldsInnerTypeEnum = typeof ModelFieldsInnerTypeEnum[keyof typeof ModelFieldsInnerTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf
+ */
+export interface ModelFieldsInnerAnyOf {
     /**
      * 
      * @type {string}
-     * @memberof ModelSet
+     * @memberof ModelFieldsInnerAnyOf
      */
-    'type': ModelSetTypeEnum;
+    'sid': string;
     /**
      * 
-     * @type {boolean}
-     * @memberof ModelSet
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf
      */
-    'ordered'?: boolean;
+    'type': ModelFieldsInnerAnyOfTypeEnum;
+    /**
+     * 
+     * @type {ModelFieldsInnerAnyOfValue}
+     * @memberof ModelFieldsInnerAnyOf
+     */
+    'value': ModelFieldsInnerAnyOfValue;
 }
 
-export const ModelSetKindEnum = {
-    Block: 'block'
+export const ModelFieldsInnerAnyOfTypeEnum = {
+    String: 'string'
 } as const;
 
-export type ModelSetKindEnum = typeof ModelSetKindEnum[keyof typeof ModelSetKindEnum];
-export const ModelSetTypeEnum = {
-    Set: 'set'
+export type ModelFieldsInnerAnyOfTypeEnum = typeof ModelFieldsInnerAnyOfTypeEnum[keyof typeof ModelFieldsInnerAnyOfTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf1
+ */
+export interface ModelFieldsInnerAnyOf1 {
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf1
+     */
+    'sid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf1
+     */
+    'type': ModelFieldsInnerAnyOf1TypeEnum;
+    /**
+     * 
+     * @type {ModelFieldsInnerAnyOf1Value}
+     * @memberof ModelFieldsInnerAnyOf1
+     */
+    'value': ModelFieldsInnerAnyOf1Value;
+}
+
+export const ModelFieldsInnerAnyOf1TypeEnum = {
+    Number: 'number'
 } as const;
 
-export type ModelSetTypeEnum = typeof ModelSetTypeEnum[keyof typeof ModelSetTypeEnum];
+export type ModelFieldsInnerAnyOf1TypeEnum = typeof ModelFieldsInnerAnyOf1TypeEnum[keyof typeof ModelFieldsInnerAnyOf1TypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf1Value
+ */
+export interface ModelFieldsInnerAnyOf1Value {
+}
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf2
+ */
+export interface ModelFieldsInnerAnyOf2 {
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf2
+     */
+    'sid': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelFieldsInnerAnyOf2
+     */
+    'type': ModelFieldsInnerAnyOf2TypeEnum;
+    /**
+     * 
+     * @type {ModelFieldsInnerAnyOf2Value}
+     * @memberof ModelFieldsInnerAnyOf2
+     */
+    'value': ModelFieldsInnerAnyOf2Value;
+}
+
+export const ModelFieldsInnerAnyOf2TypeEnum = {
+    Boolean: 'boolean'
+} as const;
+
+export type ModelFieldsInnerAnyOf2TypeEnum = typeof ModelFieldsInnerAnyOf2TypeEnum[keyof typeof ModelFieldsInnerAnyOf2TypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOf2Value
+ */
+export interface ModelFieldsInnerAnyOf2Value {
+}
+/**
+ * 
+ * @export
+ * @interface ModelFieldsInnerAnyOfValue
+ */
+export interface ModelFieldsInnerAnyOfValue {
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const NextIntent = {
+    Next: 'next'
+} as const;
+
+export type NextIntent = typeof NextIntent[keyof typeof NextIntent];
+
 
 /**
  * 
@@ -888,6 +827,32 @@ export interface NotFoundErrorResponseBody {
  */
 export interface NotFoundErrorResponseBodyCode {
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const PrevIntent = {
+    Prev: 'prev'
+} as const;
+
+export type PrevIntent = typeof PrevIntent[keyof typeof PrevIntent];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const ResetIntent = {
+    Reset: 'reset'
+} as const;
+
+export type ResetIntent = typeof ResetIntent[keyof typeof ResetIntent];
+
+
 /**
  * 
  * @export
@@ -920,10 +885,10 @@ export interface SerializableBlock {
     'version': number;
     /**
      * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
+     * @type {GroupState}
      * @memberof SerializableBlock
      */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
+    'state': GroupState;
     /**
      * 
      * @type {string}
@@ -932,10 +897,10 @@ export interface SerializableBlock {
     'type': SerializableBlockTypeEnum;
     /**
      * 
-     * @type {Array<object>}
+     * @type {Array<ModelFieldsInner>}
      * @memberof SerializableBlock
      */
-    'fields': Array<object>;
+    'fields': Array<ModelFieldsInner>;
     /**
      * 
      * @type {number}
@@ -966,67 +931,6 @@ export const SerializableBlockTypeEnum = {
 } as const;
 
 export type SerializableBlockTypeEnum = typeof SerializableBlockTypeEnum[keyof typeof SerializableBlockTypeEnum];
-
-/**
- * 
- * @export
- * @interface SerializableBlockAnyOf
- */
-export interface SerializableBlockAnyOf {
-    /**
-     * 
-     * @type {string}
-     * @memberof SerializableBlockAnyOf
-     */
-    'kind': SerializableBlockAnyOfKindEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof SerializableBlockAnyOf
-     */
-    'uid': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SerializableBlockAnyOf
-     */
-    'sid': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SerializableBlockAnyOf
-     */
-    'version': number;
-    /**
-     * 
-     * @type {FlowResponseBodyBlocksInnerAnyOfState}
-     * @memberof SerializableBlockAnyOf
-     */
-    'state': FlowResponseBodyBlocksInnerAnyOfState;
-    /**
-     * 
-     * @type {string}
-     * @memberof SerializableBlockAnyOf
-     */
-    'type': SerializableBlockAnyOfTypeEnum;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SerializableBlockAnyOf
-     */
-    'fields': Array<object>;
-}
-
-export const SerializableBlockAnyOfKindEnum = {
-    Block: 'block'
-} as const;
-
-export type SerializableBlockAnyOfKindEnum = typeof SerializableBlockAnyOfKindEnum[keyof typeof SerializableBlockAnyOfKindEnum];
-export const SerializableBlockAnyOfTypeEnum = {
-    Model: 'model'
-} as const;
-
-export type SerializableBlockAnyOfTypeEnum = typeof SerializableBlockAnyOfTypeEnum[keyof typeof SerializableBlockAnyOfTypeEnum];
 
 /**
  * 
@@ -1086,6 +990,19 @@ export type SerializableFlowTypeEnum = typeof SerializableFlowTypeEnum[keyof typ
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const StartIntent = {
+    Start: 'start'
+} as const;
+
+export type StartIntent = typeof StartIntent[keyof typeof StartIntent];
+
+
+/**
+ * 
+ * @export
  * @interface TimeoutErrorResponseBody
  */
 export interface TimeoutErrorResponseBody {
@@ -1128,118 +1045,6 @@ export interface UnauthorizedErrorResponseBody {
  */
 export interface UnauthorizedErrorResponseBodyCode {
 }
-/**
- * 
- * @export
- * @interface V1BlockUidGetIntentParameter
- */
-export interface V1BlockUidGetIntentParameter {
-}
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const V1BlockUidGetIntentParameterAnyOf = {
-    Next: 'next'
-} as const;
-
-export type V1BlockUidGetIntentParameterAnyOf = typeof V1BlockUidGetIntentParameterAnyOf[keyof typeof V1BlockUidGetIntentParameterAnyOf];
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const V1BlockUidGetIntentParameterAnyOf1 = {
-    Prev: 'prev'
-} as const;
-
-export type V1BlockUidGetIntentParameterAnyOf1 = typeof V1BlockUidGetIntentParameterAnyOf1[keyof typeof V1BlockUidGetIntentParameterAnyOf1];
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const V1BlockUidGetIntentParameterAnyOf2 = {
-    GoTo: 'goTo'
-} as const;
-
-export type V1BlockUidGetIntentParameterAnyOf2 = typeof V1BlockUidGetIntentParameterAnyOf2[keyof typeof V1BlockUidGetIntentParameterAnyOf2];
-
-
-/**
- * 
- * @export
- * @interface V1FlowUidIntentPostIntentParameter
- */
-export interface V1FlowUidIntentPostIntentParameter {
-}
-/**
- * 
- * @export
- * @interface V1FlowUidIntentPostIntentParameterAnyOf
- */
-export interface V1FlowUidIntentPostIntentParameterAnyOf {
-}
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const V1FlowUidIntentPostIntentParameterAnyOfAnyOf = {
-    Complete: 'complete'
-} as const;
-
-export type V1FlowUidIntentPostIntentParameterAnyOfAnyOf = typeof V1FlowUidIntentPostIntentParameterAnyOfAnyOf[keyof typeof V1FlowUidIntentPostIntentParameterAnyOfAnyOf];
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const V1FlowUidIntentPostIntentParameterAnyOfAnyOf1 = {
-    Exit: 'exit'
-} as const;
-
-export type V1FlowUidIntentPostIntentParameterAnyOfAnyOf1 = typeof V1FlowUidIntentPostIntentParameterAnyOfAnyOf1[keyof typeof V1FlowUidIntentPostIntentParameterAnyOfAnyOf1];
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const V1FlowUidIntentPostIntentParameterAnyOfAnyOf2 = {
-    Reset: 'reset'
-} as const;
-
-export type V1FlowUidIntentPostIntentParameterAnyOfAnyOf2 = typeof V1FlowUidIntentPostIntentParameterAnyOfAnyOf2[keyof typeof V1FlowUidIntentPostIntentParameterAnyOfAnyOf2];
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const V1FlowUidIntentPostIntentParameterAnyOfAnyOf3 = {
-    Start: 'start'
-} as const;
-
-export type V1FlowUidIntentPostIntentParameterAnyOfAnyOf3 = typeof V1FlowUidIntentPostIntentParameterAnyOfAnyOf3[keyof typeof V1FlowUidIntentPostIntentParameterAnyOfAnyOf3];
-
-
 
 /**
  * APIApi - axios parameter creator
@@ -1251,83 +1056,24 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
          * 
          * @param {number} version 
          * @param {string} userIdentifier 
-         * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
-         * @param {string} [groupIdentifier] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        v1BlockUidGet: async (version: number, userIdentifier: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'version' is not null or undefined
-            assertParamExists('v1BlockUidGet', 'version', version)
-            // verify required parameter 'userIdentifier' is not null or undefined
-            assertParamExists('v1BlockUidGet', 'userIdentifier', userIdentifier)
-            // verify required parameter 'uid' is not null or undefined
-            assertParamExists('v1BlockUidGet', 'uid', uid)
-            // verify required parameter 'intent' is not null or undefined
-            assertParamExists('v1BlockUidGet', 'intent', intent)
-            const localVarPath = `/v1/block/{uid}`
-                .replace(`{${"uid"}}`, encodeURIComponent(String(uid)))
-                .replace(`{${"intent"}}`, encodeURIComponent(String(intent)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication ApiKeyAuth required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Api-Key", configuration)
-
-            if (version !== undefined) {
-                localVarQueryParameter['version'] = version;
-            }
-
-            if (userIdentifier !== undefined) {
-                localVarQueryParameter['userIdentifier'] = userIdentifier;
-            }
-
-            if (groupIdentifier !== undefined) {
-                localVarQueryParameter['groupIdentifier'] = groupIdentifier;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} version 
-         * @param {string} userIdentifier 
          * @param {string} blockUid 
          * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
+         * @param {BlockIntent} intent 
          * @param {string} [groupIdentifier] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1BlockUidGoToPost: async (version: number, userIdentifier: string, blockUid: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        blockGoToIntent: async (version: number, userIdentifier: string, blockUid: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'version' is not null or undefined
-            assertParamExists('v1BlockUidGoToPost', 'version', version)
+            assertParamExists('blockGoToIntent', 'version', version)
             // verify required parameter 'userIdentifier' is not null or undefined
-            assertParamExists('v1BlockUidGoToPost', 'userIdentifier', userIdentifier)
+            assertParamExists('blockGoToIntent', 'userIdentifier', userIdentifier)
             // verify required parameter 'blockUid' is not null or undefined
-            assertParamExists('v1BlockUidGoToPost', 'blockUid', blockUid)
+            assertParamExists('blockGoToIntent', 'blockUid', blockUid)
             // verify required parameter 'uid' is not null or undefined
-            assertParamExists('v1BlockUidGoToPost', 'uid', uid)
+            assertParamExists('blockGoToIntent', 'uid', uid)
             // verify required parameter 'intent' is not null or undefined
-            assertParamExists('v1BlockUidGoToPost', 'intent', intent)
+            assertParamExists('blockGoToIntent', 'intent', intent)
             const localVarPath = `/v1/block/{uid}/goTo`
                 .replace(`{${"uid"}}`, encodeURIComponent(String(uid)))
                 .replace(`{${"intent"}}`, encodeURIComponent(String(intent)));
@@ -1377,20 +1123,20 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
          * @param {number} version 
          * @param {string} userIdentifier 
          * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
+         * @param {BlockIntent} intent 
          * @param {string} [groupIdentifier] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1BlockUidIntentPost: async (version: number, userIdentifier: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        blockIntent: async (version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'version' is not null or undefined
-            assertParamExists('v1BlockUidIntentPost', 'version', version)
+            assertParamExists('blockIntent', 'version', version)
             // verify required parameter 'userIdentifier' is not null or undefined
-            assertParamExists('v1BlockUidIntentPost', 'userIdentifier', userIdentifier)
+            assertParamExists('blockIntent', 'userIdentifier', userIdentifier)
             // verify required parameter 'uid' is not null or undefined
-            assertParamExists('v1BlockUidIntentPost', 'uid', uid)
+            assertParamExists('blockIntent', 'uid', uid)
             // verify required parameter 'intent' is not null or undefined
-            assertParamExists('v1BlockUidIntentPost', 'intent', intent)
+            assertParamExists('blockIntent', 'intent', intent)
             const localVarPath = `/v1/block/{uid}/{intent}`
                 .replace(`{${"uid"}}`, encodeURIComponent(String(uid)))
                 .replace(`{${"intent"}}`, encodeURIComponent(String(intent)));
@@ -1436,23 +1182,23 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
          * @param {number} version 
          * @param {string} userIdentifier 
          * @param {string} uid 
-         * @param {string} intent 
+         * @param {FlowIntentIntentParameter} intent 
          * @param {string} [groupIdentifier] 
          * @param {boolean} [includeBlock] 
          * @param {boolean} [includeBlockJourney] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1FlowUidGet: async (version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        flowIntent: async (version: number, userIdentifier: string, uid: string, intent: FlowIntentIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'version' is not null or undefined
-            assertParamExists('v1FlowUidGet', 'version', version)
+            assertParamExists('flowIntent', 'version', version)
             // verify required parameter 'userIdentifier' is not null or undefined
-            assertParamExists('v1FlowUidGet', 'userIdentifier', userIdentifier)
+            assertParamExists('flowIntent', 'userIdentifier', userIdentifier)
             // verify required parameter 'uid' is not null or undefined
-            assertParamExists('v1FlowUidGet', 'uid', uid)
+            assertParamExists('flowIntent', 'uid', uid)
             // verify required parameter 'intent' is not null or undefined
-            assertParamExists('v1FlowUidGet', 'intent', intent)
-            const localVarPath = `/v1/flow/{uid}`
+            assertParamExists('flowIntent', 'intent', intent)
+            const localVarPath = `/v1/flow/{uid}/{intent}`
                 .replace(`{${"uid"}}`, encodeURIComponent(String(uid)))
                 .replace(`{${"intent"}}`, encodeURIComponent(String(intent)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1462,7 +1208,7 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -1505,23 +1251,21 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
          * @param {number} version 
          * @param {string} userIdentifier 
          * @param {string} uid 
-         * @param {V1FlowUidIntentPostIntentParameter} intent 
+         * @param {BlockIntent} intent 
          * @param {string} [groupIdentifier] 
-         * @param {boolean} [includeBlock] 
-         * @param {boolean} [includeBlockJourney] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1FlowUidIntentPost: async (version: number, userIdentifier: string, uid: string, intent: V1FlowUidIntentPostIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getBlocks: async (version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'version' is not null or undefined
-            assertParamExists('v1FlowUidIntentPost', 'version', version)
+            assertParamExists('getBlocks', 'version', version)
             // verify required parameter 'userIdentifier' is not null or undefined
-            assertParamExists('v1FlowUidIntentPost', 'userIdentifier', userIdentifier)
+            assertParamExists('getBlocks', 'userIdentifier', userIdentifier)
             // verify required parameter 'uid' is not null or undefined
-            assertParamExists('v1FlowUidIntentPost', 'uid', uid)
+            assertParamExists('getBlocks', 'uid', uid)
             // verify required parameter 'intent' is not null or undefined
-            assertParamExists('v1FlowUidIntentPost', 'intent', intent)
-            const localVarPath = `/v1/flow/{uid}/{intent}`
+            assertParamExists('getBlocks', 'intent', intent)
+            const localVarPath = `/v1/block/{uid}`
                 .replace(`{${"uid"}}`, encodeURIComponent(String(uid)))
                 .replace(`{${"intent"}}`, encodeURIComponent(String(intent)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1531,7 +1275,68 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "X-Api-Key", configuration)
+
+            if (version !== undefined) {
+                localVarQueryParameter['version'] = version;
+            }
+
+            if (userIdentifier !== undefined) {
+                localVarQueryParameter['userIdentifier'] = userIdentifier;
+            }
+
+            if (groupIdentifier !== undefined) {
+                localVarQueryParameter['groupIdentifier'] = groupIdentifier;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} version 
+         * @param {string} userIdentifier 
+         * @param {string} uid 
+         * @param {string} intent 
+         * @param {string} [groupIdentifier] 
+         * @param {boolean} [includeBlock] 
+         * @param {boolean} [includeBlockJourney] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFlow: async (version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('getFlow', 'version', version)
+            // verify required parameter 'userIdentifier' is not null or undefined
+            assertParamExists('getFlow', 'userIdentifier', userIdentifier)
+            // verify required parameter 'uid' is not null or undefined
+            assertParamExists('getFlow', 'uid', uid)
+            // verify required parameter 'intent' is not null or undefined
+            assertParamExists('getFlow', 'intent', intent)
+            const localVarPath = `/v1/flow/{uid}`
+                .replace(`{${"uid"}}`, encodeURIComponent(String(uid)))
+                .replace(`{${"intent"}}`, encodeURIComponent(String(intent)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -1583,29 +1388,15 @@ export const APIApiFp = function(configuration?: Configuration) {
          * 
          * @param {number} version 
          * @param {string} userIdentifier 
-         * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
-         * @param {string} [groupIdentifier] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async v1BlockUidGet(version: number, userIdentifier: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SerializableBlock>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1BlockUidGet(version, userIdentifier, uid, intent, groupIdentifier, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} version 
-         * @param {string} userIdentifier 
          * @param {string} blockUid 
          * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
+         * @param {BlockIntent} intent 
          * @param {string} [groupIdentifier] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1BlockUidGoToPost(version: number, userIdentifier: string, blockUid: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1BlockUidGoToPost(version, userIdentifier, blockUid, uid, intent, groupIdentifier, options);
+        async blockGoToIntent(version: number, userIdentifier: string, blockUid: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.blockGoToIntent(version, userIdentifier, blockUid, uid, intent, groupIdentifier, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1613,13 +1404,43 @@ export const APIApiFp = function(configuration?: Configuration) {
          * @param {number} version 
          * @param {string} userIdentifier 
          * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
+         * @param {BlockIntent} intent 
          * @param {string} [groupIdentifier] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1BlockUidIntentPost(version: number, userIdentifier: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1BlockUidIntentPost(version, userIdentifier, uid, intent, groupIdentifier, options);
+        async blockIntent(version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.blockIntent(version, userIdentifier, uid, intent, groupIdentifier, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} version 
+         * @param {string} userIdentifier 
+         * @param {string} uid 
+         * @param {FlowIntentIntentParameter} intent 
+         * @param {string} [groupIdentifier] 
+         * @param {boolean} [includeBlock] 
+         * @param {boolean} [includeBlockJourney] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async flowIntent(version: number, userIdentifier: string, uid: string, intent: FlowIntentIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.flowIntent(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} version 
+         * @param {string} userIdentifier 
+         * @param {string} uid 
+         * @param {BlockIntent} intent 
+         * @param {string} [groupIdentifier] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBlocks(version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SerializableBlock>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBlocks(version, userIdentifier, uid, intent, groupIdentifier, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1634,24 +1455,8 @@ export const APIApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1FlowUidGet(version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FlowResponseBody>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1FlowUidGet(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} version 
-         * @param {string} userIdentifier 
-         * @param {string} uid 
-         * @param {V1FlowUidIntentPostIntentParameter} intent 
-         * @param {string} [groupIdentifier] 
-         * @param {boolean} [includeBlock] 
-         * @param {boolean} [includeBlockJourney] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async v1FlowUidIntentPost(version: number, userIdentifier: string, uid: string, intent: V1FlowUidIntentPostIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1FlowUidIntentPost(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options);
+        async getFlow(version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FlowResponseBody>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFlow(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1668,41 +1473,56 @@ export const APIApiFactory = function (configuration?: Configuration, basePath?:
          * 
          * @param {number} version 
          * @param {string} userIdentifier 
-         * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
-         * @param {string} [groupIdentifier] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        v1BlockUidGet(version: number, userIdentifier: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: any): AxiosPromise<SerializableBlock> {
-            return localVarFp.v1BlockUidGet(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} version 
-         * @param {string} userIdentifier 
          * @param {string} blockUid 
          * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
+         * @param {BlockIntent} intent 
          * @param {string} [groupIdentifier] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1BlockUidGoToPost(version: number, userIdentifier: string, blockUid: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: any): AxiosPromise<void> {
-            return localVarFp.v1BlockUidGoToPost(version, userIdentifier, blockUid, uid, intent, groupIdentifier, options).then((request) => request(axios, basePath));
+        blockGoToIntent(version: number, userIdentifier: string, blockUid: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.blockGoToIntent(version, userIdentifier, blockUid, uid, intent, groupIdentifier, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {number} version 
          * @param {string} userIdentifier 
          * @param {string} uid 
-         * @param {V1BlockUidGetIntentParameter} intent 
+         * @param {BlockIntent} intent 
          * @param {string} [groupIdentifier] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1BlockUidIntentPost(version: number, userIdentifier: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: any): AxiosPromise<void> {
-            return localVarFp.v1BlockUidIntentPost(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(axios, basePath));
+        blockIntent(version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.blockIntent(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} version 
+         * @param {string} userIdentifier 
+         * @param {string} uid 
+         * @param {FlowIntentIntentParameter} intent 
+         * @param {string} [groupIdentifier] 
+         * @param {boolean} [includeBlock] 
+         * @param {boolean} [includeBlockJourney] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        flowIntent(version: number, userIdentifier: string, uid: string, intent: FlowIntentIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: any): AxiosPromise<void> {
+            return localVarFp.flowIntent(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} version 
+         * @param {string} userIdentifier 
+         * @param {string} uid 
+         * @param {BlockIntent} intent 
+         * @param {string} [groupIdentifier] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBlocks(version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: any): AxiosPromise<SerializableBlock> {
+            return localVarFp.getBlocks(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1716,23 +1536,8 @@ export const APIApiFactory = function (configuration?: Configuration, basePath?:
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1FlowUidGet(version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: any): AxiosPromise<FlowResponseBody> {
-            return localVarFp.v1FlowUidGet(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} version 
-         * @param {string} userIdentifier 
-         * @param {string} uid 
-         * @param {V1FlowUidIntentPostIntentParameter} intent 
-         * @param {string} [groupIdentifier] 
-         * @param {boolean} [includeBlock] 
-         * @param {boolean} [includeBlockJourney] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        v1FlowUidIntentPost(version: number, userIdentifier: string, uid: string, intent: V1FlowUidIntentPostIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: any): AxiosPromise<void> {
-            return localVarFp.v1FlowUidIntentPost(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(axios, basePath));
+        getFlow(version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: any): AxiosPromise<FlowResponseBody> {
+            return localVarFp.getFlow(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1748,31 +1553,16 @@ export class APIApi extends BaseAPI {
      * 
      * @param {number} version 
      * @param {string} userIdentifier 
-     * @param {string} uid 
-     * @param {V1BlockUidGetIntentParameter} intent 
-     * @param {string} [groupIdentifier] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof APIApi
-     */
-    public v1BlockUidGet(version: number, userIdentifier: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).v1BlockUidGet(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {number} version 
-     * @param {string} userIdentifier 
      * @param {string} blockUid 
      * @param {string} uid 
-     * @param {V1BlockUidGetIntentParameter} intent 
+     * @param {BlockIntent} intent 
      * @param {string} [groupIdentifier] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof APIApi
      */
-    public v1BlockUidGoToPost(version: number, userIdentifier: string, blockUid: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).v1BlockUidGoToPost(version, userIdentifier, blockUid, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
+    public blockGoToIntent(version: number, userIdentifier: string, blockUid: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig) {
+        return APIApiFp(this.configuration).blockGoToIntent(version, userIdentifier, blockUid, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1780,14 +1570,46 @@ export class APIApi extends BaseAPI {
      * @param {number} version 
      * @param {string} userIdentifier 
      * @param {string} uid 
-     * @param {V1BlockUidGetIntentParameter} intent 
+     * @param {BlockIntent} intent 
      * @param {string} [groupIdentifier] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof APIApi
      */
-    public v1BlockUidIntentPost(version: number, userIdentifier: string, uid: string, intent: V1BlockUidGetIntentParameter, groupIdentifier?: string, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).v1BlockUidIntentPost(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
+    public blockIntent(version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig) {
+        return APIApiFp(this.configuration).blockIntent(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} version 
+     * @param {string} userIdentifier 
+     * @param {string} uid 
+     * @param {FlowIntentIntentParameter} intent 
+     * @param {string} [groupIdentifier] 
+     * @param {boolean} [includeBlock] 
+     * @param {boolean} [includeBlockJourney] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof APIApi
+     */
+    public flowIntent(version: number, userIdentifier: string, uid: string, intent: FlowIntentIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig) {
+        return APIApiFp(this.configuration).flowIntent(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} version 
+     * @param {string} userIdentifier 
+     * @param {string} uid 
+     * @param {BlockIntent} intent 
+     * @param {string} [groupIdentifier] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof APIApi
+     */
+    public getBlocks(version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig) {
+        return APIApiFp(this.configuration).getBlocks(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1803,25 +1625,8 @@ export class APIApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof APIApi
      */
-    public v1FlowUidGet(version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).v1FlowUidGet(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {number} version 
-     * @param {string} userIdentifier 
-     * @param {string} uid 
-     * @param {V1FlowUidIntentPostIntentParameter} intent 
-     * @param {string} [groupIdentifier] 
-     * @param {boolean} [includeBlock] 
-     * @param {boolean} [includeBlockJourney] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof APIApi
-     */
-    public v1FlowUidIntentPost(version: number, userIdentifier: string, uid: string, intent: V1FlowUidIntentPostIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).v1FlowUidIntentPost(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(this.axios, this.basePath));
+    public getFlow(version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig) {
+        return APIApiFp(this.configuration).getFlow(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
