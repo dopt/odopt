@@ -3,7 +3,11 @@ import { DoptContext } from './context';
 
 import { getDefaultBlockState } from '@dopt/javascript-common';
 
-import type { Block } from '@dopt/block-types';
+import {
+  Block as BlockType,
+  FIELD_VALUE_UNION_TYPE,
+  ModelTypeConst,
+} from '@dopt/block-types';
 
 /**
  * Methods corresponding to an intent-based API for
@@ -30,6 +34,18 @@ export interface BlockIntentions {
    */
   complete: () => void;
 }
+
+export type Block = BlockType & {
+  /**
+   * Gets the field with the `name` contained by this {@link Block}.
+   * If the {@link Block} does not have the field, the `defaultValue`
+   * is returned if provided. Otherwise, `null` is returned.
+   */
+  getField: <T extends FIELD_VALUE_UNION_TYPE>(
+    name: string,
+    defaultValue?: T
+  ) => T | null;
+};
 
 /**
  * A React hook for accessing a flow's block state and
@@ -62,17 +78,37 @@ export interface BlockIntentions {
 const useBlock = (
   uid: Block['uid']
 ): [block: Block, intent: BlockIntentions] => {
-  const { loading, blocks, blockIntention } = useContext(DoptContext);
+  const { loading, blocks, blockIntention, blockFields } =
+    useContext(DoptContext);
+
   const complete = useCallback(
     () => !loading && blockIntention.complete(uid),
     [loading, blockIntention]
   );
 
-  if (loading || !blocks[uid]) {
-    return [getDefaultBlockState(uid), { complete }];
-  }
+  const block =
+    loading || !blocks[uid] ? getDefaultBlockState(uid) : blocks[uid];
 
-  return [blocks[uid], { complete }];
+  const getField: Block['getField'] = useCallback(
+    <T extends FIELD_VALUE_UNION_TYPE>(name: string, defaultValue?: T) => {
+      const fieldMap = blockFields.get(block.uid);
+
+      if (fieldMap == null || block.type !== ModelTypeConst) {
+        return null;
+      }
+
+      const value = fieldMap.get(name)?.value;
+
+      return value != null
+        ? (value as T)
+        : defaultValue != null
+        ? defaultValue
+        : null;
+    },
+    [loading, block]
+  );
+
+  return [{ ...block, getField }, { complete }];
 };
 
 export { useBlock };
