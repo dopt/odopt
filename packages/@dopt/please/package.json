@@ -44,7 +44,7 @@
     "@types/micromatch": "^4.0.2",
     "chalk": "4.1.2",
     "concurrently": "7.6.0",
-    "micromatch": "^4.0.5"
+    "micromatch": "4.0.5"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
