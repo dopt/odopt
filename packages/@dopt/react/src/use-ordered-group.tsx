@@ -7,8 +7,8 @@ import { Element, Set } from '@dopt/block-types';
 
 /**
  * Methods corresponding to an intent-based API for
- * signaling state transitions of a group. These methods
- * have side effects.
+ * signaling state transitions of an ordered group.
+ * These methods have side effects.
  */
 export interface OrderedGroupBlockIntentions {
   /**
@@ -54,8 +54,8 @@ export interface OrderedGroupBlockIntentions {
 }
 
 /**
- * Methods corresponding to an intent-based API for
- * signaling data retrieval of a group
+ * Methods corresponding to the API for data retrieval
+ * of an ordered group's properties.
  */
 export interface OrderedGroupBlock extends Set {
   /**
