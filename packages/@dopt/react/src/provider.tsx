@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect, useCallback } from 'react';
 
-import type { Block, Flow } from '@dopt/block-types';
+import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 
 import { Mercator } from '@dopt/mercator';
 
@@ -40,6 +40,9 @@ export function ProdDoptProvider(props: ProviderConfig) {
   const [flowBlocks, setFlowBlocks] = useState<
     Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>
   >(new Mercator());
+  const [blockFields, setBlockFields] = useState<
+    Map<Block['uid'], Map<Field['sid'], Field>>
+  >(new Map());
   const [socketReady, setSocketReady] = useState<boolean>(false);
 
   useEffect(() => {
@@ -150,6 +153,24 @@ export function ProdDoptProvider(props: ProviderConfig) {
                   )
                 )
               );
+            });
+
+            /*
+             * Create a mapping from each block to its fields
+             */
+            setBlockFields(() => {
+              const map = new Map();
+              flow.blocks?.forEach((block) => {
+                if (block.type === ModelTypeConst) {
+                  map.set(
+                    block.uid,
+                    block.fields.reduce((map, field) => {
+                      return map.set(field.sid, field);
+                    }, new Map<Field['sid'], Field>())
+                  );
+                }
+              });
+              return map;
             });
 
             /*
@@ -362,6 +383,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
         flowIntention,
         blocks,
         blockIntention,
+        blockFields,
         log,
       }}
     >
