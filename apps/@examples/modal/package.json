@@ -1,0 +1,35 @@
+{
+  "name": "@examples/modal",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5633",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "formatcheck": "prettier --check .",
+    "format": "prettier --write .",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@dopt/react": "workspace:*",
+    "@dopt/users-javascript-client": "workspace:*",
+    "nanoid": "4.0.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
+    "@typescript-eslint/eslint-plugin": "5.51.0",
+    "@typescript-eslint/parser": "5.51.0",
+    "@vitejs/plugin-react": "2.2.0",
+    "eslint": "8.33.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-react": "7.32.2",
+    "prettier": "2.8.4",
+    "typescript": "4.9.5",
+    "vite": "3.2.5"
+  },
+  "openSource": true
+}
