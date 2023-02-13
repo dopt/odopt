@@ -2,7 +2,7 @@ import { Logger } from '@dopt/logger';
 import { createContext } from 'react';
 
 import type { Mercator } from '@dopt/mercator';
-import type { Flow, Block } from '@dopt/block-types';
+import type { Flow, Block, Field } from '@dopt/block-types';
 import {
   Flows,
   Blocks,
@@ -22,6 +22,7 @@ type DoptContext = {
   flowIntention: FlowIntention;
   blocks: Blocks;
   blockIntention: BlockIntention;
+  blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
   log: Logger;
 };
 
