@@ -1,5 +1,11 @@
 # @dopt/javascript
 
+## 1.2.5
+
+### Patch Changes
+
+- 2712b44c: returns field definitions with values from @blocks/service and cleans up field access in @dopt/javascript
+
 ## 1.2.4
 
 ### Patch Changes
