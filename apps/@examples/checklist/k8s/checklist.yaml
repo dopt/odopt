@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    name: example-checklist-service
+    env: prod
+  name: example-checklist-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: example-checklist
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: example-checklist-deployment
+    env: prod
+  name: example-checklist-deployment
+spec:
+  selector:
+    matchLabels:
+      app: example-checklist
+  template:
+    metadata:
+      labels:
+        app: example-checklist
+    spec:
+      containers:
+        - name: example-checklist
+          image: KUSTOMIZE_IMAGE
+          ports:
+            - containerPort: 80
+              name: http
+          lifecycle:
+            preStop:
+              exec:
+                command: ['/usr/sbin/nginx', '-s', 'quit']
