@@ -6,7 +6,7 @@ import {
   FlowIntention,
   Flows,
 } from '@dopt/javascript-common';
-import type { Block, Flow } from '@dopt/block-types';
+import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 import { MockProviderConfig } from './types';
 import { Logger } from '@dopt/logger';
 import { Mercator } from '@dopt/mercator';
@@ -29,6 +29,10 @@ export function MockDoptProvider(props: MockProviderConfig) {
     Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>
   >(new Mercator());
 
+  const [blockFields, setBlockFields] = useState<
+    Map<Block['uid'], Map<Field['sid'], Field>>
+  >(new Map());
+
   flows.forEach((flow) => {
     setFlowBlocks((prev) => {
       return new Mercator(
@@ -41,6 +45,21 @@ export function MockDoptProvider(props: MockProviderConfig) {
       );
     });
   });
+
+  setBlockFields(
+    Object.values(blocks).reduce((map, block) => {
+      if (block.type === ModelTypeConst) {
+        map.set(
+          block.uid,
+          (block.fields || []).reduce((map, field) => {
+            return map.set(field.sid, field);
+          }, new Map<Field['sid'], Field>())
+        );
+      }
+
+      return map;
+    }, new Map<Block['uid'], Map<Field['sid'], Field>>())
+  );
 
   const log = new Logger(
     logLevel
@@ -110,6 +129,7 @@ export function MockDoptProvider(props: MockProviderConfig) {
         loading: false,
         blockIntention,
         blocks,
+        blockFields,
         flowBlocks,
         flows,
         flowIntention,
