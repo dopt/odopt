@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.6
+
+### Patch Changes
+
+- b0dedccb: added `getField` accessor to react SDK -- no backward compatibility breaking changes.
+
 ## 1.1.5
 
 ### Patch Changes
