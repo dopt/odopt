@@ -1,5 +1,12 @@
 # @examples/kanban
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [76bcf809]
+  - @dopt/users-javascript-client@0.0.8
+
 ## 0.0.9
 
 ### Patch Changes
