@@ -51,33 +51,60 @@ const doptUsersClient = new IdentifyApi(
 Using the `identify` API.
 
 ```typescript
-const identifier = 'identifier_example';
-const properties = {
-  stringExample: 'string',
-  numberExample: 12345,
-  booleanExample: true,
-  nullExample: null,
-}
+const identifyUserRequestBody: IdentifyUserRequestBody = {
+  identifier: "identifier_example",
+  properties: {
+    stringExample: "string",
+    numberExample: 12345,
+    booleanExample: true,
+    nullExample: null,
+  },
+};
 
-doptUsersClient.identify(identifier, properties)
+doptUsersClient.identifyUser(identifyUserRequestBody);
 ```
 
-Using the `identifyBulk` API.
+Using the `identifyBatch` API.
 
 ```typescript
-import { IdentifyBulkRequestBodyInner } from '@dopt/users-javascript-client';
+import { IdentifyBatchRequestBodyInner } from '@dopt/users-javascript-client';
 
-const identifyBulkRequestBody: IdentifyBulkRequestBodyInner[] = []
-const identifyBulkUser_1 = {
-  '__dopt_identifier': 'identifier_example_1',
-  key: 'value',
-}
-identifyBulkRequestBody.push(identifyBulkUser_1)
-const identifyBulkUser_2 = {
-  '__dopt_identifier': 'identifier_example_2',
-  key: 'value',
-}
-identifyBulkRequestBody.push(identifyBulkUser_2)
+const identifyUserRequestBody: IdentifyUserRequestBody = {
+  identifier: "identifier_example",
+  properties: {
+    stringExample: "string",
+    numberExample: 12345,
+    booleanExample: true,
+    nullExample: null,
+  },
+};
+const user2: IdentifyUserRequestBody = {
+  identifier: "user2_identifier",
+  properties: {
+    stringExample: "string",
+  },
+};
 
-doptUsersClient.identifyBulk([])
+const batchPayload: IdentifyBatchRequestBodyInner[] = [
+  identifyUserRequestBody,
+  user2,
+];
+```
+
+Using the `identifyGroup` API.
+
+```typescript
+import { IdentifyGroupRequestBody } from '@dopt/users-javascript-client';
+
+const identifyGroupRequestBody: IdentifyGroupRequestBody = {
+  identifier: "group_identifier_example",
+  properties: {
+    stringExample: "string",
+    numberExample: 12345,
+    booleanExample: true,
+    nullExample: null,
+  },
+};
+
+doptUsersClient.identifyGroupPost(identifyGroupRequestBody);
 ```
