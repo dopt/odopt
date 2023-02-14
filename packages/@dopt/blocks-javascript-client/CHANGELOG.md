@@ -1,5 +1,11 @@
 # @dopt/blocks-javascript-client
 
+## 0.0.5
+
+### Patch Changes
+
+- c4725b0e: adding opensurce true
+
 ## 0.0.4
 
 ### Patch Changes

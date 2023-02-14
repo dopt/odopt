@@ -1,5 +1,11 @@
 # @dopt/users-javascript-client
 
+## 0.0.8
+
+### Patch Changes
+
+- 76bcf809: update readme
+
 ## 0.0.3
 
 ### Patch Changes
