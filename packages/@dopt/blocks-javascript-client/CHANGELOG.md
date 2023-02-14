@@ -1,5 +1,11 @@
 # @dopt/blocks-javascript-client
 
+## 0.0.6
+
+### Patch Changes
+
+- e3cd4ae0: adding tags to name API more coorectly
+
 ## 0.0.5
 
 ### Patch Changes
