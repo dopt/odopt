@@ -1,6 +1,6 @@
 {
   "name": "@dopt/blocks-javascript-client",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "description": "A generated JavaScript API client for Dopt's blocks API",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/blocks-javascript-client",
