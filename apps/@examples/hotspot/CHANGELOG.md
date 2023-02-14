@@ -1,5 +1,12 @@
 # @examples/hotspot
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [76bcf809]
+  - @dopt/users-javascript-client@0.0.8
+
 ## 0.0.1
 
 ### Patch Changes
