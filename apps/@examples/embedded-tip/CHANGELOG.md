@@ -1,5 +1,11 @@
 # @examples/embedded-tip
 
+## 0.0.4
+
+### Patch Changes
+
+- aaaf15f2: Scaffold out the embedded tip example package.
+
 ## 0.0.3
 
 ### Patch Changes
