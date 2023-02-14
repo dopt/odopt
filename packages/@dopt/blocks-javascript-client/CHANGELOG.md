@@ -1,5 +1,11 @@
 # @dopt/blocks-javascript-client
 
+## 0.0.4
+
+### Patch Changes
+
+- d02315ba: Adding refs to help blocks-javascript-client
+
 ## 0.0.3
 
 ### Patch Changes
