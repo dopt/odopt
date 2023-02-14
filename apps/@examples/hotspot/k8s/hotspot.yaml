@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    name: example-hotspot-service
+    env: prod
+  name: example-hotspot-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: example-hotspot
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: example-hotspot-deployment
+    env: prod
+  name: example-hotspot-deployment
+spec:
+  selector:
+    matchLabels:
+      app: example-hotspot
+  template:
+    metadata:
+      labels:
+        app: example-hotspot
+    spec:
+      containers:
+        - name: example-hotspot
+          image: KUSTOMIZE_IMAGE
+          ports:
+            - containerPort: 80
+              name: http
+          lifecycle:
+            preStop:
+              exec:
+                command: ['/usr/sbin/nginx', '-s', 'quit']
