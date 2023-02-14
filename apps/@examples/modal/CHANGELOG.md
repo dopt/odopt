@@ -1,5 +1,19 @@
 # @examples/modal
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [76bcf809]
+  - @dopt/users-javascript-client@0.0.8
+
+## 0.0.1
+
+### Patch Changes
+
+- 7c5df2ac: Scaffold out the @examples/modal package.
+  - @dopt/react@1.1.7
+
 ## 0.0.1
 
 ### Patch Changes
