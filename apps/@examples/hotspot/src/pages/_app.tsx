@@ -24,9 +24,9 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ modal: 1 }}
+      flowVersions={{ hotspot: 1 }}
     >
-      <>Modal Example</>
+      <>Hotspot Example</>
     </DoptProvider>
   );
 }
