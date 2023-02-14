@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Switchboard Blocks API
- * The Switchboard Blocks API
+ * Dopt Blocks API
+ * The Dopt Blocks API
  *
  * The version of the OpenAPI document: 0.0.0
  * 
@@ -1047,10 +1047,10 @@ export interface UnauthorizedErrorResponseBodyCode {
 }
 
 /**
- * APIApi - axios parameter creator
+ * BlocksApi - axios parameter creator
  * @export
  */
-export const APIApiAxiosParamCreator = function (configuration?: Configuration) {
+export const BlocksApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -1378,11 +1378,11 @@ export const APIApiAxiosParamCreator = function (configuration?: Configuration) 
 };
 
 /**
- * APIApi - functional programming interface
+ * BlocksApi - functional programming interface
  * @export
  */
-export const APIApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = APIApiAxiosParamCreator(configuration)
+export const BlocksApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = BlocksApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -1463,11 +1463,11 @@ export const APIApiFp = function(configuration?: Configuration) {
 };
 
 /**
- * APIApi - factory interface
+ * BlocksApi - factory interface
  * @export
  */
-export const APIApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = APIApiFp(configuration)
+export const BlocksApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = BlocksApiFp(configuration)
     return {
         /**
          * 
@@ -1543,12 +1543,12 @@ export const APIApiFactory = function (configuration?: Configuration, basePath?:
 };
 
 /**
- * APIApi - object-oriented interface
+ * BlocksApi - object-oriented interface
  * @export
- * @class APIApi
+ * @class BlocksApi
  * @extends {BaseAPI}
  */
-export class APIApi extends BaseAPI {
+export class BlocksApi extends BaseAPI {
     /**
      * 
      * @param {number} version 
@@ -1559,10 +1559,10 @@ export class APIApi extends BaseAPI {
      * @param {string} [groupIdentifier] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof APIApi
+     * @memberof BlocksApi
      */
     public blockGoToIntent(version: number, userIdentifier: string, blockUid: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).blockGoToIntent(version, userIdentifier, blockUid, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
+        return BlocksApiFp(this.configuration).blockGoToIntent(version, userIdentifier, blockUid, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1574,10 +1574,10 @@ export class APIApi extends BaseAPI {
      * @param {string} [groupIdentifier] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof APIApi
+     * @memberof BlocksApi
      */
     public blockIntent(version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).blockIntent(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
+        return BlocksApiFp(this.configuration).blockIntent(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1591,10 +1591,10 @@ export class APIApi extends BaseAPI {
      * @param {boolean} [includeBlockJourney] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof APIApi
+     * @memberof BlocksApi
      */
     public flowIntent(version: number, userIdentifier: string, uid: string, intent: FlowIntentIntentParameter, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).flowIntent(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(this.axios, this.basePath));
+        return BlocksApiFp(this.configuration).flowIntent(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1606,10 +1606,10 @@ export class APIApi extends BaseAPI {
      * @param {string} [groupIdentifier] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof APIApi
+     * @memberof BlocksApi
      */
     public getBlocks(version: number, userIdentifier: string, uid: string, intent: BlockIntent, groupIdentifier?: string, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).getBlocks(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
+        return BlocksApiFp(this.configuration).getBlocks(version, userIdentifier, uid, intent, groupIdentifier, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1623,10 +1623,10 @@ export class APIApi extends BaseAPI {
      * @param {boolean} [includeBlockJourney] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof APIApi
+     * @memberof BlocksApi
      */
     public getFlow(version: number, userIdentifier: string, uid: string, intent: string, groupIdentifier?: string, includeBlock?: boolean, includeBlockJourney?: boolean, options?: AxiosRequestConfig) {
-        return APIApiFp(this.configuration).getFlow(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(this.axios, this.basePath));
+        return BlocksApiFp(this.configuration).getFlow(version, userIdentifier, uid, intent, groupIdentifier, includeBlock, includeBlockJourney, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

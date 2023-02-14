@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Switchboard Blocks API
- * The Switchboard Blocks API
+ * Dopt Blocks API
+ * The Dopt Blocks API
  *
  * The version of the OpenAPI document: 0.0.0
  * 
