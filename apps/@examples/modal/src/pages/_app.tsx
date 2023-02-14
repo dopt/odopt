@@ -26,7 +26,7 @@ export function App() {
       userId={userId}
       flowVersions={{ modal: 1 }}
     >
-      <>Checklist Example</>
+      <>Modal Example</>
     </DoptProvider>
   );
 }

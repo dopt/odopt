@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 2.0.1
+
+### Patch Changes
+
+- d02315ba: Adding refs to help blocks-javascript-client
+
 ## 2.0.0
 
 ### Major Changes
