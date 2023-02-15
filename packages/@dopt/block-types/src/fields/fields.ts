@@ -1,7 +1,7 @@
 import { Static, Type } from '@sinclair/typebox';
 
 export type FIELD_VALUE_UNION_TYPE = string | number | boolean | null;
-export type FIELD_TYPE_LITERALS = 'string' | 'boolean' | 'number';
+export type FIELD_TYPE_LITERALS = 'string' | 'number' | 'boolean';
 export const FIELD_TYPE_LITERALS: Record<string, FIELD_TYPE_LITERALS> = {
   string: 'string',
   boolean: 'boolean',
