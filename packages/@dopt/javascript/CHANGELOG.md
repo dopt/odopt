@@ -1,5 +1,15 @@
 # @dopt/javascript
 
+## 1.2.7
+
+### Patch Changes
+
+- Updated dependencies [67d27325]
+  - @dopt/block-types@2.0.2
+  - @dopt/mercator@1.0.1
+  - @dopt/logger@0.0.2
+  - @dopt/javascript-common@1.2.6
+
 ## 1.2.6
 
 ### Patch Changes

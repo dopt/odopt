@@ -1,6 +1,6 @@
 {
   "name": "@dopt/mercator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An ES6 Map implementation for when your keys are arrays or objects",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/mercator",
   "repository": {
