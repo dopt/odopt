@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "👇required package scripts": "",
-    "build": "./get-specs.sh",
+    "build": "node ./get-specs.mjs",
     "clean": "shx rm -rf ./spec",
     "dev": "echo \"@dopt/api-manifest does not require dev\"; exit 0;",
     "format": "echo \"@dopt/api-manifest does not require formatting\"; exit 0;",
@@ -25,5 +25,8 @@
   "devDependencies": {
     "shx": "0.3.4"
   },
-  "openSource": true
+  "openSource": true,
+  "dependencies": {
+    "node-fetch": "3.3.0"
+  }
 }
