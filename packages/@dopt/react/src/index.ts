@@ -20,19 +20,21 @@ export type {
   BlockIntention,
   FlowIntention,
 } from '@dopt/javascript-common';
+
 export type {
   Block,
+  Field,
   Flow,
-  BlockIntent,
-  FlowIntent,
   Element,
   Set,
+  FIELD_TYPE_LITERALS as FIELD_TYPES_AS_STRING_LITERALS,
+  FIELD_VALUE_UNION_TYPE as FIELD_TYPES_OR_NULL,
 } from '@dopt/block-types';
 
 export { Mercator } from '@dopt/mercator';
 export type { Logger, LogLevels, LoggerProps } from '@dopt/logger';
 
-export type { BlockIntentions } from './use-block';
+export type { BlockIntentions, BlockWithGetField } from './use-block';
 export type { FlowIntentions } from './use-flow';
 export type {
   OrderedGroupBlock,
