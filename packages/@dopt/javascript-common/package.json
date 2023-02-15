@@ -1,6 +1,6 @@
 {
   "name": "@dopt/javascript-common",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript-common",
   "repository": {
@@ -54,7 +54,7 @@
     "@rollup/plugin-replace": "^5.0.0",
     "@rollup/plugin-typescript": "11.0.0",
     "@types/jest": "29.4.0",
-    "@types/node": "18.11.18",
+    "@types/node": "18.13.0",
     "@typescript-eslint/eslint-plugin": "5.51.0",
     "@typescript-eslint/parser": "5.51.0",
     "eslint": "8.33.0",

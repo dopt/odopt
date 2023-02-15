@@ -1,7 +1,0 @@
-{
-  "$schema": "https://typedoc.org/schema.json",
-  "plugin": ["typedoc-plugin-markdown"],
-  "entryPoints": ["./src/index.ts"],
-  "out": "./dist/docs",
-  "sourceLinkTemplate": "https://github.com/dopt/odopt/tree/main/{path}#L{line}"
-}
