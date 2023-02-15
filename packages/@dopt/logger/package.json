@@ -1,6 +1,6 @@
 {
   "name": "@dopt/logger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A logger package with configuration to set severity loglevel for your standard console logs",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/logger",
   "repository": {

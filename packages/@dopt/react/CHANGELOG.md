@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.8
+
+### Patch Changes
+
+- 67d27325: improves typedoc functionality by adding better type definitions, renaming certain internal type aliases, adding type reflection into typedocs, and unifying typedoc generation into @docs/app
+- Updated dependencies [67d27325]
+  - @dopt/block-types@2.0.2
+  - @dopt/mercator@1.0.1
+  - @dopt/logger@0.0.2
+  - @dopt/javascript-common@1.2.6
+
 ## 1.1.7
 
 ### Patch Changes
