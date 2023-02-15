@@ -1,10 +1,10 @@
 import * as log from 'loglevel';
 import { nodeStyle, browserStyle } from './style';
+
 /**
  * The Logger class defines the `getInstance` method that lets clients access
  * the unique Logger instance.
  */
-
 export interface LogLevelsOrder {
   TRACE: 0;
   DEBUG: 1;
@@ -29,6 +29,13 @@ export type LoggerProps = {
 
 const IS_BROWSER =
   typeof window !== 'undefined' && typeof window.document !== 'undefined';
+
+/**
+ * The Dopt Logger offers a convenient framework for logLevel configuration
+ * and templated logging. Allowing you to enable logging in your packages based
+ * on log levels and with defined styled template for your node terminal and
+ * browser console. For more, see @dopt/logger's [README.md]{@link https://github.com/dopt/odopt/tree/main/packages/@dopt/logger/README.md}.
+ */
 export class Logger {
   private static instance: Logger;
   // Default log level is 'silent'
@@ -76,6 +83,7 @@ export class Logger {
           ...msg
         );
   }
+
   public error(...msg: any[]) {
     IS_BROWSER
       ? this.baseLogger.error(
@@ -91,6 +99,7 @@ export class Logger {
           nodeStyle.errorBody(...msg)
         );
   }
+
   public warn(...msg: any[]) {
     IS_BROWSER
       ? this.baseLogger.warn(
@@ -106,6 +115,7 @@ export class Logger {
           ...msg
         );
   }
+
   public info(...msg: any[]) {
     IS_BROWSER
       ? this.baseLogger.info(
