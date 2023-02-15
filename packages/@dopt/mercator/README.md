@@ -1,6 +1,6 @@
 ## @dopt/mercator
 
-A Map implementation that allows for objects as keys w/o the key equality constraints. In practice this means
+A Map implementation that allows for objects as keys without key equality constraints. In practice this means
 
 ```
 const map = new Mercator();
@@ -18,6 +18,6 @@ map.get([1,2]);
 > undefined
 ```
 
-This is because [key equality](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#key_equality) is based on the SameValueZero algorithm.
+Standard maps use a [key equality](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#key_equality) SameValueZero algorithm. Mercator instead calls `JSON.stringify` on the key and uses it as the key for its underlying map.
 
-Great for in memory data structures where the key is naturally a composite.
+Great for in memory data structures where the key is naturally a composite (like an array or an object).
