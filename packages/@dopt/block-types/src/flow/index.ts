@@ -25,4 +25,13 @@ export const Flow = Type.Object(
   },
   { $id: 'Flow' }
 );
+
+/**
+ * This type defines all the properties of a flow.
+ * A flow contains:
+ * - `uid` / `sid`: a string, the identifier for the flow
+ * - `version`: a number, the version of the flow being fetched (0 refers to the uncommitted version)
+ * - `state`: a FlowState object tracking whether the flow has been started, completed, and / or exited
+ * - `blocks`: an array, the array of all its child blocks
+ */
 export type Flow = Static<typeof Flow>;
