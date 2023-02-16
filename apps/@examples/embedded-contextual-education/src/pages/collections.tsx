@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react';
 import { useBlock } from '@dopt/react';
 
 export function Collections() {
-  const [{ state }, { complete }] = useBlock(COLLECTIONS_TIP);
+  const [{ state, getField }, { complete }] = useBlock(COLLECTIONS_TIP);
 
   const productDemoCollection = (
     <Collection
@@ -28,8 +28,9 @@ export function Collections() {
         {state.active && (
           <CollectionTip
             thumbnailSrc={`${import.meta.env.BASE_URL}tip-thumb-2.png`}
-            title="Collections"
-            description="Collections are groups of related videos based on #tags."
+            description={getField('body') || ''}
+            url={getField('learn-more-url') || ''}
+            videoId={getField('video-id') || ''}
             onComplete={complete}
           />
         )}
