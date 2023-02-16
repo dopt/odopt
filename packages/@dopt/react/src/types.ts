@@ -17,10 +17,22 @@ export interface BaseProviderConfig {
  * the SDK to fetch relevant data from the Dopt blocks API.
  */
 export interface ProviderConfig extends BaseProviderConfig {
+  /**
+   * The userId you're fetching block and flows for.
+   */
   userId: string | undefined;
+  /**
+   * An optional groupId for that userId.
+   */
   groupId?: string | undefined;
+  /**
+   * Your blocks API key.
+   */
   apiKey: string;
   logLevel?: LoggerProps['logLevel'];
+  /**
+   * An object containing all flows and versions you'd like to fetch.
+   */
   flowVersions: Record<string, number>;
   optimisticUpdates?: boolean;
 }
