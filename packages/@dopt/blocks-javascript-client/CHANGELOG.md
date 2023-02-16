@@ -1,5 +1,11 @@
 # @dopt/blocks-javascript-client
 
+## 0.0.7
+
+### Patch Changes
+
+- 4661f731: Adding readme
+
 ## 0.0.6
 
 ### Patch Changes
