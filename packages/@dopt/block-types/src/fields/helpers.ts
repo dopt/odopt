@@ -1,4 +1,4 @@
-import { FIELD_VALUE_UNION_TYPE, FIELD_TYPE_LITERALS, Field } from './fields';
+import { FIELD_VALUE_UNION_TYPE, FIELD_VALUE_LITERALS, Field } from './fields';
 
 type SERIALIZED = string | undefined | null;
 
@@ -8,7 +8,7 @@ export const fieldToString = (field: FIELD_VALUE_UNION_TYPE): SERIALIZED => {
 
 export const fieldFromString = (
   string: SERIALIZED,
-  type: FIELD_TYPE_LITERALS
+  type: FIELD_VALUE_LITERALS
 ): FIELD_VALUE_UNION_TYPE => {
   if (typeof string !== 'string' || string === 'null') {
     return null;
@@ -34,7 +34,7 @@ export const castField = ({
   value,
 }: {
   sid: string;
-  type: FIELD_TYPE_LITERALS;
+  type: FIELD_VALUE_LITERALS;
   value: FIELD_VALUE_UNION_TYPE;
 }): Field => {
   switch (type) {
@@ -65,7 +65,7 @@ export const castField = ({
 
 export function isValueOfType(
   value: FIELD_VALUE_UNION_TYPE | undefined,
-  type: FIELD_TYPE_LITERALS
+  type: FIELD_VALUE_LITERALS
 ): boolean {
   if (value == null || value === 'null') {
     return true;
@@ -76,6 +76,6 @@ export function isValueOfType(
   return false;
 }
 
-export function isFieldTypeLiteral(str: string): str is FIELD_TYPE_LITERALS {
-  return FIELD_TYPE_LITERALS[str] !== undefined;
+export function isFieldTypeLiteral(str: string): str is FIELD_VALUE_LITERALS {
+  return FIELD_VALUE_LITERALS[str] !== undefined;
 }
