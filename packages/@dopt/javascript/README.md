@@ -157,7 +157,9 @@ You can use the `subscribe()` method on the Flow and Block classes to listen for
 ```js
 const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
 
-block.subscribe((block: Block) =>
+block.subscribe((block: BlockType) =>
+  // The block passed to the listener is a data object.
+  // To access the full class, use `dopt.block(block.uid)`.
   console.log(`Block ${block.uid} has updated`, block)
 );
 ```
@@ -165,7 +167,9 @@ block.subscribe((block: Block) =>
 ```js
 const flow = dopt.flow("welcome-to-dopt", 3);
 
-flow.subscribe((flow: Flow) =>
+flow.subscribe((flow: FlowType) =>
+  // The flow passed to the listener is a data object.
+  // To access the full class, use `dopt.flow(flow.uid)`.
   console.log(`Flow ${flow.uid} has updated`, flow)
 );
 ```
@@ -186,7 +190,8 @@ dopt.initialized().then(() => {
 
   const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
 
-  block.subscribe(({ active }: Block) => {
+  // you can also unsubscribe the listener by calling the returned function
+  const unsubscribe = block.subscribe(({ active }: BlockType) => {
     if (!active && userOnboardingModal.visible()) {
       userOnboardingModal.hide();
     } else {
