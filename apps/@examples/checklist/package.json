@@ -14,7 +14,10 @@
   "dependencies": {
     "@dopt/react": "workspace:*",
     "@dopt/users-javascript-client": "workspace:*",
+    "@tabler/icons": "1.119.0",
     "nanoid": "4.0.1",
+    "@vanilla-extract/css": "1.9.5",
+    "@vanilla-extract/recipes": "0.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -25,6 +28,7 @@
     "@typescript-eslint/parser": "5.51.0",
     "@vitejs/plugin-react": "2.2.0",
     "eslint": "8.33.0",
+    "@vanilla-extract/vite-plugin": "3.8.0",
     "eslint-config-prettier": "8.6.0",
     "eslint-plugin-react": "7.32.2",
     "prettier": "2.8.4",
