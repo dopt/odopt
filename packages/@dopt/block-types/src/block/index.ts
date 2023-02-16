@@ -41,10 +41,35 @@ export const Block = Type.Union(
   ],
   { $id: 'Block' }
 );
+
+/**
+ * This union type encapsulates all allowed block types.
+ * In general, blocks have:
+ * - `state`: whether the block is active or completed
+ * - `uid`: the identifier for the block
+ *
+ * Step (`model`) blocks also have:
+ * - `fields`: an array of Field values
+ *
+ * Group (`set`) blocks also have:
+ * - `blocks`, `size`, and `ordered` values.
+ *
+ * Only `model` and `set` blocks are exposed to client-side SDKs.
+ */
 export type Block = Static<typeof Block>;
 
-// Currently this is only element but has the possibility to expand later
+/**
+ * This variable is a wrapper type for a step (`model`) block.
+ * This wrapper defines all possible children of group (`set`) blocks.
+ * Currently, only step blocks can be contained within group blocks.
+ */
 export const Element = Type.Union([Type.Ref(Model)]);
+
+/**
+ * This type is a wrapper type for a step (`model`) block.
+ * This wrapper defines all possible children of group (`set`) blocks.
+ * Currently, only step blocks can be contained within group blocks.
+ */
 export type Element = Static<typeof Element>;
 
 export const Blocks = Type.Array(Type.Ref(Block));
