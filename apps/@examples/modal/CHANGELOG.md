@@ -1,5 +1,12 @@
 # @examples/modal
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [ce2ac3f4]
+  - @dopt/react@1.1.10
+
 ## 0.0.4
 
 ### Patch Changes
