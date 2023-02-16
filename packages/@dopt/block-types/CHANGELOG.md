@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 2.0.3
+
+### Patch Changes
+
+- 4661f731: Adding readme
+
 ## 2.0.2
 
 ### Patch Changes
