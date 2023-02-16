@@ -7,8 +7,8 @@ import { getDefaultFlowState } from '@dopt/javascript-common';
 /**
  * Methods corresponding to an intent-based API for
  * signaling state transitions of a flow. These methods
- * have side effects on {@link Block['state']}
- *
+ * have side effects on {@link Block['state']} contained
+ * within the flow.
  */
 export interface FlowIntentions {
   /**
