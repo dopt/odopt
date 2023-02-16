@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react",
-  "version": "1.1.7",
+  "version": "1.1.9",
   "private": false,
   "description": "An SDK for accessing and transitioning block state in Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/react",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "drb; pnpm run typedoc:markdown",
+    "build": "drb",
     "clean": "shx rm -rf ./dist",
     "dev": "NODE_ENV=development drw",
     "format": "prettier --w .",
@@ -33,8 +33,7 @@
     "☝️ required package scripts": "",
     "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/react\"",
     "test:jest": "jest",
-    "test:sh": "./src/__tests__/environment-aware-builds.sh",
-    "typedoc:markdown": "typedoc --options typedoc.markdown.json"
+    "test:sh": "./src/__tests__/environment-aware-builds.sh"
   },
   "files": [
     "dist"
@@ -58,9 +57,9 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@types/jest": "29.4.0",
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.27",
-    "@types/react-dom": "18.0.10",
+    "@types/node": "18.13.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
     "@typescript-eslint/eslint-plugin": "5.51.0",
     "@typescript-eslint/parser": "5.51.0",
     "eslint": "8.33.0",
@@ -73,9 +72,6 @@
     "ts-jest": "^29.0.3",
     "tslib": "^2.4.0",
     "tsup": "6.6.0",
-    "typedoc": "0.23.24",
-    "typedoc-plugin-markdown": "3.14.0",
-    "typedoc-plugin-missing-exports": "1.0.0",
     "typescript": "4.9.5"
   },
   "openSource": true

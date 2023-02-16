@@ -1,5 +1,11 @@
 import { EntriesIterator, KeysIterator } from './iterators';
 
+/**
+ * A Map implementation that allows for objects as keys without key equality constraints.
+ * Rather than using the standard SameValueZero algorithm as a Map, Mercator calls `JSON.stringify`
+ * on its keys before inserting them into a Map. In practice, this works well for composite types
+ * like Objects and Arrays. For more, see @dopt/mercator's [README.md]{@link https://github.com/dopt/odopt/tree/main/packages/@dopt/mercator/README.md}.
+ */
 export class Mercator<K, V> implements Map<K, V> {
   private map = new Map<string, V>();
 

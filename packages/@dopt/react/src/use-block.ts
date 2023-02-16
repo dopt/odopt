@@ -35,7 +35,7 @@ export interface BlockIntentions {
   complete: () => void;
 }
 
-export type Block = BlockType & {
+export type BlockWithGetField = BlockType & {
   /**
    * Gets the field with the `name` contained by this {@link Block}.
    * If the {@link Block} does not have the field, the `defaultValue`
@@ -71,13 +71,13 @@ export type Block = BlockType & {
  * }
  * ```
  *
- * @param uid - {@link Block['uid']}
- * @returns [{@link Block}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
+ * @param uid - {@link BlockWithGetField['uid']}
+ * @returns [{@link BlockWithGetField}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
  *
  */
 const useBlock = (
-  uid: Block['uid']
-): [block: Block, intent: BlockIntentions] => {
+  uid: BlockWithGetField['uid']
+): [block: BlockWithGetField, intent: BlockIntentions] => {
   const { loading, blocks, blockIntention, blockFields } =
     useContext(DoptContext);
 
@@ -89,7 +89,7 @@ const useBlock = (
   const block =
     loading || !blocks[uid] ? getDefaultBlockState(uid) : blocks[uid];
 
-  const getField: Block['getField'] = useCallback(
+  const getField: BlockWithGetField['getField'] = useCallback(
     <T extends FIELD_VALUE_UNION_TYPE>(name: string, defaultValue?: T) => {
       const fieldMap = blockFields.get(block.uid);
 

@@ -1,5 +1,18 @@
 # @examples/hotspot
 
+## 0.0.4
+
+### Patch Changes
+
+- @dopt/react@1.1.9
+
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [67d27325]
+  - @dopt/react@1.1.8
+
 ## 0.0.2
 
 ### Patch Changes
