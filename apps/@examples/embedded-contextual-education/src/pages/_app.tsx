@@ -26,7 +26,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'embedded-contextual-education': 1 }}
+      flowVersions={{ 'embedded-contextual-education': 2 }}
     >
       <ChakraProvider>
         <Page />

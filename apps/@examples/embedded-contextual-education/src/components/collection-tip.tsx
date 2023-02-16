@@ -12,13 +12,14 @@ import { TipVideo } from './tip-video';
 
 export interface CollectionTipProps {
   thumbnailSrc: string;
-  title: string;
   description: string;
+  url: string;
+  videoId: string;
   onComplete: () => void;
 }
 
 export function CollectionTip(props: CollectionTipProps) {
-  const { thumbnailSrc, title, description, onComplete } = props;
+  const { thumbnailSrc, description, url, videoId, onComplete } = props;
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <>
@@ -29,7 +30,7 @@ export function CollectionTip(props: CollectionTipProps) {
             width={490}
             height={200}
             objectFit="cover"
-            alt={`${title} collection tip thumbnail`}
+            alt="Collection tip thumbnail"
           />
         </Link>
         <CardBody>
@@ -39,14 +40,14 @@ export function CollectionTip(props: CollectionTipProps) {
               <Button variant="outline" bg="white" onClick={onComplete}>
                 Okay, got it!
               </Button>
-              <Link color="blue.500" fontWeight="medium">
+              <Link href={url} color="blue.500" fontWeight="medium">
                 Learn more
               </Link>
             </Flex>
           </Flex>
         </CardBody>
       </Card>
-      {isOpen && <TipVideo isOpen onClose={onClose} />}
+      {isOpen && <TipVideo id={videoId} isOpen onClose={onClose} />}
     </>
   );
 }
