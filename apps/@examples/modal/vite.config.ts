@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 export default defineConfig({
   resolve: {
@@ -8,5 +9,5 @@ export default defineConfig({
     },
   },
   base: process.env.NODE_ENV === 'production' ? `/modal/` : '/',
-  plugins: [react()],
+  plugins: [react(), vanillaExtractPlugin()],
 });
