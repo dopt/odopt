@@ -2,9 +2,9 @@ kind: Service
 apiVersion: v1
 metadata:
   labels:
-    name: example-hotspot-service
+    name: example-tour-service
     env: prod
-  name: example-hotspot-service
+  name: example-tour-service
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
@@ -14,26 +14,26 @@ spec:
       port: 80
       targetPort: 80
   selector:
-    app: example-hotspot
+    app: example-tour
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    name: example-hotspot-deployment
+    name: example-tour-deployment
     env: prod
-  name: example-hotspot-deployment
+  name: example-tour-deployment
 spec:
   selector:
     matchLabels:
-      app: example-hotspot
+      app: example-tour
   template:
     metadata:
       labels:
-        app: example-hotspot
+        app: example-tour
     spec:
       containers:
-        - name: example-hotspot
+        - name: example-tour
           image: KUSTOMIZE_IMAGE
           ports:
             - containerPort: 80
