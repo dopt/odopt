@@ -1,5 +1,11 @@
 # @dopt/javascript
 
+## 1.3.0
+
+### Minor Changes
+
+- f2183886: adds optimisticUpdates to @dopt/javascript and unifies optimisticUpdates behavior across react and JS sdks to only work with step blocks
+
 ## 1.2.9
 
 ### Patch Changes
