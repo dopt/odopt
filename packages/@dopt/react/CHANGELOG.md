@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.2.0
+
+### Minor Changes
+
+- f2183886: adds optimisticUpdates to @dopt/javascript and unifies optimisticUpdates behavior across react and JS sdks to only work with step blocks
+
+## 1.1.10
+
+### Patch Changes
+
+- ce2ac3f4: clean up type names and add JS / TS doc strings to create better typedocs for @dopt/react and @dopt/javascript packages
+- Updated dependencies [ce2ac3f4]
+  - @dopt/javascript-common@1.2.8
+  - @dopt/block-types@2.0.4
+  - @dopt/mercator@1.0.2
+  - @dopt/logger@0.0.3
+
 ## 1.1.9
 
 ### Patch Changes

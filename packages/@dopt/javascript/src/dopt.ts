@@ -17,27 +17,51 @@ import {
   getDefaultFlowState,
   generateFlowStateKey,
 } from '@dopt/javascript-common';
+
 import { Socket } from 'socket.io-client';
 
-export interface Config {
+import { blockStore, flowStore } from './store';
+/**
+ * Providing this configuration to {@link Dopt} allows the
+ * the SDK to fetch relevant data from the Dopt blocks API.
+ */
+export interface DoptConfig {
+  /**
+   * The userId you're fetching block and flows for.
+   */
   userId: string | undefined;
+  /**
+   * An optional groupId for that userId.
+   */
   groupId?: string | undefined;
+  /**
+   * Your blocks API key.
+   */
   apiKey: string;
   logLevel?: LoggerProps['logLevel'];
+  /**
+   * An object containing all flows and versions you'd like to fetch.
+   */
   flowVersions: Record<string, number>;
+  /**
+   * A boolean which defines whether complete intents on step blocks should
+   * optimistically update the client before hearing back that the change
+   * has been committed.
+   *
+   * Within {@link Dopt}, this defaults to `true` unless explicitly set as `false`.
+   */
+  optimisticUpdates?: boolean;
 }
 
-import { blockStore, flowStore } from './store';
+export class Dopt {
+  private userId?: DoptConfig['userId'];
+  private apiKey: DoptConfig['apiKey'];
+  private groupId?: DoptConfig['groupId'];
+  private flowVersions: DoptConfig['flowVersions'];
+  private optimisticUpdates: boolean;
 
-class Dopt {
-  private userId?: Config['userId'];
-  private apiKey: Config['apiKey'];
-  private logLevel?: Config['logLevel'];
-  private groupId?: Config['groupId'];
-  private flowVersions: Config['flowVersions'];
-
-  public _initialized: boolean;
-  public _initializedPromise: Promise<void>;
+  private _initialized: boolean;
+  private _initializedPromise: Promise<void>;
 
   private logger: Logger;
 
@@ -46,12 +70,42 @@ class Dopt {
   private blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
   private socket: Socket | undefined;
 
-  constructor({ apiKey, userId, groupId, logLevel, flowVersions }: Config) {
+  /**
+   * Creates a Dopt class instance.
+   *
+   * @remarks
+   * Before using a Dopt instance, check whether the instance has been {@link Dopt.initialized}.
+   *
+   * @example
+   * ```js
+   * const dopt = new Dopt({
+   *   apiKey: "<MY BLOCKS API KEY>",
+   *   userId: "<MY USER'S ID>",
+   *   flowVersions: { "welcome-to-dopt": 3 },
+   * });
+   * ```
+   *
+   * @param config - {@link DoptConfig}
+   *
+   * @returns A {@link Dopt} instance.
+   *
+   */
+  constructor({
+    apiKey,
+    userId,
+    groupId,
+    logLevel,
+    flowVersions,
+    optimisticUpdates,
+  }: DoptConfig) {
     this.apiKey = apiKey;
     this.userId = userId;
     this.groupId = groupId;
     this.flowVersions = flowVersions;
-    this.logLevel = logLevel;
+
+    // optimisticUpdates defaults to true
+    this.optimisticUpdates =
+      optimisticUpdates === false ? optimisticUpdates : true;
 
     this.logger = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
@@ -63,11 +117,28 @@ class Dopt {
     this.initialize();
   }
 
-  async initialized() {
-    return this._initializedPromise;
+  /**
+   * Returns a boolean when this Dopt instance has been intiailized.
+   *
+   * @example
+   * ```js
+   * dopt.initialized().then(() => {
+   *   // Safely access block(s) or flow(s)!
+   *   const blocks = dopt.blocks();
+   *   const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+   * });
+   * ```
+   *
+   * @returns A Promise.
+   * Once initialization is complete, the promise resolves to `true`
+   * when the initialization is successful and `false` otherwise.
+   */
+  async initialized(): Promise<boolean> {
+    await this._initializedPromise;
+    return this._initialized;
   }
 
-  async initialize(config?: Partial<Config>): Promise<void> {
+  private async initialize(config?: Partial<DoptConfig>): Promise<void> {
     // Merge any updated properties into the instance
     Object.assign(this, config);
 
@@ -189,13 +260,27 @@ class Dopt {
         });
       });
 
-      initializedPromiseResolver();
       this._initialized = true;
+      initializedPromiseResolver();
     });
-
-    return this._initializedPromise;
   }
 
+  /**
+   * Returns the {@link Flow} associated with the given `id` and `version`.
+   *
+   * @remarks
+   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
+   *
+   * @example
+   * ```js
+   * const flow = dopt.flow("welcome-to-dopt", 3);
+   * ```
+   *
+   * @param uid {@link FlowType['uid']} The id of the flow.
+   * @param version {@link FlowType['version']} The version of the flow.
+   *
+   * @returns A {@link Flow} instance which matches the given `id` and `version`.
+   */
   public flow(uid: Flow['uid'], version: Flow['version']) {
     const {
       logger,
@@ -219,11 +304,27 @@ class Dopt {
     });
   }
 
+  /**
+   * Returns all flows associated with the `flowVersions` specified to the SDK.
+   *
+   * @remarks
+   * This method will return an empty array if this {@link Dopt} instance is not initialized.
+   *
+   * @returns An array of all {@link Flow} instances stored by this {@link Dopt} class.
+   */
   public flows() {
     const {
+      logger,
       flowBlocks,
       blocksApi: { flowIntent: intent },
     } = this;
+
+    if (!this._initialized) {
+      logger.error(
+        `Accessing flows() prior to initialization may return incomplete block states.`
+      );
+    }
+
     return Object.values(flowStore.getState()).map((flow) => {
       return new FlowClass({
         intent,
@@ -233,6 +334,21 @@ class Dopt {
     });
   }
 
+  /**
+   * Returns the {@link Block} associated with this `uid`.
+   *
+   * @remarks
+   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
+   *
+   * @example
+   * ```js
+   * const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+   * ```
+   *
+   * @param uid {@link BlockType['uid']} The uid of the block.
+   *
+   * @returns A {@link Block} instance corresponding to the uid.
+   */
   public block(uid: string) {
     const {
       logger,
@@ -250,10 +366,19 @@ class Dopt {
     return new BlockClass({
       intent,
       block,
+      optimisticUpdates: this.optimisticUpdates,
       fieldMap: this.blockFields.get(block.uid) || null,
     });
   }
 
+  /**
+   * Returns all blocks associated with the `flowVersions` specified to the SDK.
+   *
+   * @remarks
+   * This method will return an empty array if this {@link Dopt} instance is not initialized.
+   *
+   * @returns An array of all {@link Block} instances stored by this {@link Dopt} class.
+   */
   public blocks() {
     const {
       logger,
@@ -270,10 +395,9 @@ class Dopt {
       return new BlockClass({
         intent,
         block,
+        optimisticUpdates: this.optimisticUpdates,
         fieldMap: this.blockFields.get(block.uid) || null,
       });
     });
   }
 }
-
-export { Dopt };

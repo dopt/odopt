@@ -1,5 +1,19 @@
 # @examples/embedded-tip
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [f2183886]
+  - @dopt/react@1.2.0
+
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [ce2ac3f4]
+  - @dopt/react@1.1.10
+
 ## 0.0.6
 
 ### Patch Changes

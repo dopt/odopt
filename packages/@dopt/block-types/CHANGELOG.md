@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 2.0.4
+
+### Patch Changes
+
+- ce2ac3f4: clean up type names and add JS / TS doc strings to create better typedocs for @dopt/react and @dopt/javascript packages
+
 ## 2.0.3
 
 ### Patch Changes

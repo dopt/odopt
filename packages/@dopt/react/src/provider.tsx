@@ -321,7 +321,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
     return {
       complete: async (uid) => {
         if (blocks[uid]) {
-          optimisticUpdates &&
+          if (optimisticUpdates && blocks[uid].type === ModelTypeConst) {
             updateBlockState({
               [uid]: Object.assign(blocks[uid], {
                 state: {
@@ -330,6 +330,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
                 },
               }),
             });
+          }
 
           return blockIntent({
             uid,
