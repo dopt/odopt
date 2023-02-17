@@ -43,14 +43,22 @@ export interface DoptConfig {
    * An object containing all flows and versions you'd like to fetch.
    */
   flowVersions: Record<string, number>;
+  /**
+   * A boolean which defines whether complete intents on step blocks should
+   * optimistically update the client before hearing back that the change
+   * has been committed.
+   *
+   * Within {@link Dopt}, this defaults to `true` unless explicitly set as `false`.
+   */
+  optimisticUpdates?: boolean;
 }
 
 export class Dopt {
   private userId?: DoptConfig['userId'];
   private apiKey: DoptConfig['apiKey'];
-  private logLevel?: DoptConfig['logLevel'];
   private groupId?: DoptConfig['groupId'];
   private flowVersions: DoptConfig['flowVersions'];
+  private optimisticUpdates: boolean;
 
   private _initialized: boolean;
   private _initializedPromise: Promise<void>;
@@ -82,12 +90,22 @@ export class Dopt {
    * @returns A {@link Dopt} instance.
    *
    */
-  constructor({ apiKey, userId, groupId, logLevel, flowVersions }: DoptConfig) {
+  constructor({
+    apiKey,
+    userId,
+    groupId,
+    logLevel,
+    flowVersions,
+    optimisticUpdates,
+  }: DoptConfig) {
     this.apiKey = apiKey;
     this.userId = userId;
     this.groupId = groupId;
     this.flowVersions = flowVersions;
-    this.logLevel = logLevel;
+
+    // optimisticUpdates defaults to true
+    this.optimisticUpdates =
+      optimisticUpdates === false ? optimisticUpdates : true;
 
     this.logger = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
@@ -348,6 +366,7 @@ export class Dopt {
     return new BlockClass({
       intent,
       block,
+      optimisticUpdates: this.optimisticUpdates,
       fieldMap: this.blockFields.get(block.uid) || null,
     });
   }
@@ -358,7 +377,7 @@ export class Dopt {
    * @remarks
    * This method will return an empty array if this {@link Dopt} instance is not initialized.
    *
-   * @returns an array of all {@link Block} instances stored by this {@link Dopt} class.
+   * @returns An array of all {@link Block} instances stored by this {@link Dopt} class.
    */
   public blocks() {
     const {
@@ -376,6 +395,7 @@ export class Dopt {
       return new BlockClass({
         intent,
         block,
+        optimisticUpdates: this.optimisticUpdates,
         fieldMap: this.blockFields.get(block.uid) || null,
       });
     });
