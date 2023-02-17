@@ -8,6 +8,6 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: process.env.NODE_ENV === 'production' ? `/tour/` : '/',
+  base: process.env.NODE_ENV === 'production' ? `/custom-textarea/` : '/',
   plugins: [react(), vanillaExtractPlugin()],
 });
