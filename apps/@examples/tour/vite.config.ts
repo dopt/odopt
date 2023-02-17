@@ -8,6 +8,6 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: process.env.NODE_ENV === 'production' ? `/hotspot/` : '/',
+  base: process.env.NODE_ENV === 'production' ? `/tour/` : '/',
   plugins: [react(), vanillaExtractPlugin()],
 });
