@@ -1,6 +1,9 @@
-import { useEffect } from 'react';
 import { DoptProvider } from '@dopt/react';
 import { useIdentifyUser } from '@/hooks';
+
+import 'react-loading-skeleton/dist/skeleton.css';
+
+import { Example } from '@/pages/';
 
 export function App() {
   const userId = useIdentifyUser({
@@ -9,24 +12,13 @@ export function App() {
     inTrial: true,
   });
 
-  useEffect(() => {
-    if (userId) {
-      if (document.referrer !== '') {
-        window.parent.postMessage(
-          JSON.stringify({ userId }),
-          document.referrer
-        );
-      }
-    }
-  }, [userId]);
-
   return (
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ hotspot: 1 }}
+      flowVersions={{ hotspots: 3 }}
     >
-      <>Hotspot Example</>
+      <Example />
     </DoptProvider>
   );
 }
