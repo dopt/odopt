@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 export default defineConfig({
   resolve: {
@@ -7,6 +8,6 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: process.env.NODE_ENV === 'production' ? `/tour/` : '/',
-  plugins: [react()],
+  base: process.env.NODE_ENV === 'production' ? `/hotspot/` : '/',
+  plugins: [react(), vanillaExtractPlugin()],
 });
