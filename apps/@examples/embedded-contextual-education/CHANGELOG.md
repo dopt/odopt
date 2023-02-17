@@ -1,5 +1,16 @@
 # @examples/embedded-contextual-education
 
+## 0.1.0
+
+### Minor Changes
+
+- 9197091f: use fields for tip content
+
+### Patch Changes
+
+- Updated dependencies [f2183886]
+  - @dopt/react@1.2.0
+
 ## 0.0.13
 
 ### Patch Changes
