@@ -4,7 +4,7 @@ import { useBlock } from '@dopt/react';
 import { LIBRARY_TIP } from '@/const';
 
 export function Index() {
-  const [{ state }, { complete }] = useBlock(LIBRARY_TIP);
+  const [{ state, getField }, { complete }] = useBlock(LIBRARY_TIP);
 
   const allHandsVideo = (
     <Video
@@ -35,8 +35,10 @@ export function Index() {
         {state.active && (
           <Tip
             thumbnailSrc={`${import.meta.env.BASE_URL}tip-thumb-1.png`}
-            title="Keep everyone in sync"
-            description="The Library is your internal recorded meeting hub. Upload videos to this shared space for automatic transcriptions and powerful collaboration features!"
+            title={getField('title') || ''}
+            description={getField('body') || ''}
+            url={getField('learn-more-url') || ''}
+            videoId={getField('video-id') || ''}
             onComplete={complete}
           />
         )}

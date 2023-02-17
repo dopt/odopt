@@ -27,8 +27,8 @@ export type {
   Flow,
   Element,
   Set,
-  FIELD_TYPE_LITERALS as FIELD_TYPES_AS_STRING_LITERALS,
-  FIELD_VALUE_UNION_TYPE as FIELD_TYPES_OR_NULL,
+  FIELD_VALUE_LITERALS,
+  FIELD_VALUE_UNION_TYPE,
 } from '@dopt/block-types';
 
 export { Mercator } from '@dopt/mercator';

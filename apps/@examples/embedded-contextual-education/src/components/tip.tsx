@@ -13,11 +13,13 @@ export interface TipProps {
   thumbnailSrc: string;
   title: string;
   description: string;
+  url: string;
+  videoId: string;
   onComplete: () => void;
 }
 
 export function Tip(props: TipProps) {
-  const { thumbnailSrc, title, description, onComplete } = props;
+  const { thumbnailSrc, title, description, url, videoId, onComplete } = props;
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <>
@@ -41,14 +43,14 @@ export function Tip(props: TipProps) {
               <Button variant="outline" bg="white" onClick={onComplete}>
                 Okay, got it!
               </Button>
-              <Link color="blue.500" fontWeight="medium">
+              <Link href={url} color="blue.500" fontWeight="medium">
                 Learn more
               </Link>
             </Flex>
           </Flex>
         </Flex>
       </Card>
-      {isOpen && <TipVideo isOpen onClose={onClose} />}
+      {isOpen && <TipVideo id={videoId} isOpen onClose={onClose} />}
     </>
   );
 }
