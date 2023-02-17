@@ -1,5 +1,11 @@
 # @dopt/mercator
 
+## 1.0.2
+
+### Patch Changes
+
+- ce2ac3f4: clean up type names and add JS / TS doc strings to create better typedocs for @dopt/react and @dopt/javascript packages
+
 ## 1.0.1
 
 ### Patch Changes

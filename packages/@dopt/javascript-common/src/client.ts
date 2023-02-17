@@ -70,13 +70,14 @@ export type BlocksApi = {
   };
   groupId?: GroupIdentifier['groupId'];
 };
-type BlockParams = Pick<Block, 'uid' | 'version'>;
-type FlowParams = Pick<Flow, 'uid' | 'version'>;
-type BlockIntentParams = BlockParams & {
+
+export type BlockParams = Pick<Block, 'uid' | 'version'>;
+export type FlowParams = Pick<Flow, 'uid' | 'version'>;
+export type BlockIntentParams = BlockParams & {
   intent: BlockIntent;
   goToUid?: string;
 };
-type FlowIntentParams = FlowParams & { intent: FlowIntent };
+export type FlowIntentParams = FlowParams & { intent: FlowIntent };
 
 const queryParams =
   ({
