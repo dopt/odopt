@@ -373,9 +373,9 @@ The `DoptProvider` accepts a `logLevel` prop that allows you to set the minimum 
 </DoptProvider>
 ```
 
-### Optimistic updates (experimental)
+### Optimistic updates
 
-The `DoptProvider` accepts a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intent method is called. This defaults to `true`. As of right now, only the `complete` intent can be optimistically updated.
+The `DoptProvider` accepts a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intent method is called. This defaults to `true`. As of right now, only a step block's `complete` intent can be optimistically updated.
 
 ## Feedback
 

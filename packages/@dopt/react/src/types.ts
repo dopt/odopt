@@ -34,6 +34,13 @@ export interface ProviderConfig extends BaseProviderConfig {
    * An object containing all flows and versions you'd like to fetch.
    */
   flowVersions: Record<string, number>;
+  /**
+   * A boolean which defines whether complete intents on step blocks should
+   * optimistically update the client before hearing back that the change
+   * has been committed.
+   *
+   * Within {@link DoptProvider}, this defaults to `true`.
+   */
   optimisticUpdates?: boolean;
 }
 
