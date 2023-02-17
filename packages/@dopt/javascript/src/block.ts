@@ -19,6 +19,7 @@ function resolveBlock(block: BlockType): BlockType {
 export interface BlockProps {
   intent: ReturnType<typeof blocksApi>['blockIntent'];
   block: BlockType;
+  optimisticUpdates: boolean;
   fieldMap: Map<Field['sid'], Field> | null;
 }
 
@@ -26,13 +27,15 @@ export class Block {
   private intent: BlockProps['intent'];
   private block: BlockProps['block'];
   private fieldMap: BlockProps['fieldMap'];
+  private optimisticUpdates: BlockProps['optimisticUpdates'];
 
   /**
    * @internal
    */
-  constructor({ block, intent, fieldMap }: BlockProps) {
+  constructor({ block, intent, optimisticUpdates, fieldMap }: BlockProps) {
     this.intent = intent;
     this.block = block;
+    this.optimisticUpdates = optimisticUpdates;
     this.fieldMap = fieldMap;
   }
 
@@ -81,6 +84,17 @@ export class Block {
    * @returns A promise which resolves when this block has been completed successfully and rejects otherwise.
    */
   async complete() {
+    if (this.optimisticUpdates) {
+      const storedBlock = blockStore.getState()[this.block.uid];
+      if (storedBlock != null && storedBlock.type === ModelTypeConst) {
+        blockStore.setState({
+          [this.block.uid]: {
+            ...storedBlock,
+            state: { active: false, completed: true },
+          },
+        });
+      }
+    }
     return this._intent('complete');
   }
 
