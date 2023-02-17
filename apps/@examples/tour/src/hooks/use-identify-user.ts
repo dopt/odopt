@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 
-import { IdentifyApi, Configuration } from '@dopt/users-javascript-client';
+import {
+  IdentifyApi,
+  Configuration,
+  IdentifyUserRequestBody,
+} from '@dopt/users-javascript-client';
 
 import { getUserId } from '@/utils/user';
 
-type Identifier = Parameters<IdentifyApi['identify']>[0];
-type Properties = Parameters<IdentifyApi['identify']>[1];
+type Identifier = IdentifyUserRequestBody['identifier'];
+type Properties = IdentifyUserRequestBody['properties'];
 
 export function useIdentifyUser(properties: Properties) {
   const [usersClient] = useState<IdentifyApi>(
@@ -20,8 +24,9 @@ export function useIdentifyUser(properties: Properties) {
 
   useEffect(() => {
     async function identifyUser(uid: Identifier) {
-      await usersClient.identify(uid, {
-        ...properties,
+      await usersClient.identifyUser({
+        identifier: uid,
+        properties,
       });
 
       setUserId(uid);
