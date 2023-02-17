@@ -12,14 +12,10 @@ import {
 /**
  * Methods corresponding to an intent-based API for
  * signaling state transitions of a block. These methods
- * have side effects (i.e., flow transitions are a function
- * of block transitions) expressed through the following
- * pseudo code:
- *
- * ```ts
- * flow.transition(blockState, intent)
- * ```
- *
+ * have side effects: they change the state of other blocks
+ * and the flow as well. For example, completing a block
+ * activates the next block and completing the last block
+ * completes a flow.
  */
 export interface BlockIntentions {
   /**
@@ -37,7 +33,7 @@ export interface BlockIntentions {
 
 export type BlockWithGetField = BlockType & {
   /**
-   * Gets the field with the `name` contained by this {@link Block}.
+   * Gets the field (see {@link Field['value']}) with the `name` contained by this {@link Block}.
    * If the {@link Block} does not have the field, the `defaultValue`
    * is returned if provided. Otherwise, `null` is returned.
    */

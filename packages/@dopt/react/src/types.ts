@@ -17,11 +17,30 @@ export interface BaseProviderConfig {
  * the SDK to fetch relevant data from the Dopt blocks API.
  */
 export interface ProviderConfig extends BaseProviderConfig {
+  /**
+   * The userId you're fetching block and flows for.
+   */
   userId: string | undefined;
+  /**
+   * An optional groupId for that userId.
+   */
   groupId?: string | undefined;
+  /**
+   * Your blocks API key.
+   */
   apiKey: string;
   logLevel?: LoggerProps['logLevel'];
+  /**
+   * An object containing all flows and versions you'd like to fetch.
+   */
   flowVersions: Record<string, number>;
+  /**
+   * A boolean which defines whether complete intents on step blocks should
+   * optimistically update the client before hearing back that the change
+   * has been committed.
+   *
+   * Within {@link DoptProvider}, this defaults to `true`.
+   */
   optimisticUpdates?: boolean;
 }
 
