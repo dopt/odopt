@@ -217,3 +217,7 @@ const dopt = new Dopt({
   flowVersions: { "welcome-to-dopt": 3 },
 });
 ```
+
+### Optimistic updates
+
+`DoptConfig` and `Dopt` also accept a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intent method is called. This defaults to `true`. As of right now, only a step block's `complete` intent can be optimistically updated.
