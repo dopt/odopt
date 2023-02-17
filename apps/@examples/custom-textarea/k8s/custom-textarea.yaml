@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    name: example-custom-textarea-service
+    env: prod
+  name: example-custom-textarea-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: example-custom-textarea
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: example-custom-textarea-deployment
+    env: prod
+  name: example-custom-textarea-deployment
+spec:
+  selector:
+    matchLabels:
+      app: example-custom-textarea
+  template:
+    metadata:
+      labels:
+        app: example-custom-textarea
+    spec:
+      containers:
+        - name: example-custom-textarea
+          image: KUSTOMIZE_IMAGE
+          ports:
+            - containerPort: 80
+              name: http
+          lifecycle:
+            preStop:
+              exec:
+                command: ['/usr/sbin/nginx', '-s', 'quit']
