@@ -1,4 +1,4 @@
-# @examples/tour
+# @examples/custom-textarea
 
 ## 0.0.6
 
@@ -38,13 +38,13 @@
 
 ### Patch Changes
 
-- 6f4b22d0: Scaffold out the tour example package.
+- 6f4b22d0: Scaffold out the custom-textarea example package.
   - @dopt/react@1.1.7
 
 ## 0.0.1
 
 ### Patch Changes
 
-- fd852cb4: Scaffold out @examples/tour package
+- fd852cb4: Scaffold out @examples/custom-textarea package
 - Updated dependencies [b0dedccb]
   - @dopt/react@1.1.6
