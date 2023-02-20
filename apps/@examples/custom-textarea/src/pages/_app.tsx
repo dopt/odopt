@@ -1,8 +1,6 @@
 import { DoptProvider } from '@dopt/react';
 import { useIdentifyUser } from '@/hooks';
 
-import 'react-loading-skeleton/dist/skeleton.css';
-
 import { Example } from '@/pages/';
 
 export function App() {
@@ -16,7 +14,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ tour: 2 }}
+      flowVersions={{ 'custom-textarea': 1 }}
     >
       <Example />
     </DoptProvider>

@@ -2,9 +2,9 @@ kind: Service
 apiVersion: v1
 metadata:
   labels:
-    name: example-tour-service
+    name: example-custom-textarea-service
     env: prod
-  name: example-tour-service
+  name: example-custom-textarea-service
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
@@ -14,26 +14,26 @@ spec:
       port: 80
       targetPort: 80
   selector:
-    app: example-tour
+    app: example-custom-textarea
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    name: example-tour-deployment
+    name: example-custom-textarea-deployment
     env: prod
-  name: example-tour-deployment
+  name: example-custom-textarea-deployment
 spec:
   selector:
     matchLabels:
-      app: example-tour
+      app: example-custom-textarea
   template:
     metadata:
       labels:
-        app: example-tour
+        app: example-custom-textarea
     spec:
       containers:
-        - name: example-tour
+        - name: example-custom-textarea
           image: KUSTOMIZE_IMAGE
           ports:
             - containerPort: 80
