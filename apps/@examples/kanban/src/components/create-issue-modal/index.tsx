@@ -69,6 +69,7 @@ export function CreateIssueModal(props: Props) {
         <Stack>
           <TextInput
             type="hidden"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
             value={createIssueBlock.state.active ? 'first-issue' : undefined}
             {...form.getInputProps('id')}

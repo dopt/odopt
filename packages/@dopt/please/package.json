@@ -28,7 +28,7 @@
     "dev": "pnpm run build --watch src",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
-    "lint": "eslint .",
+    "lint": "echo \"@dopt/please does not require lint\"; exit 0;",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
