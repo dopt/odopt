@@ -16,6 +16,7 @@ globalStyle('.react-kanban-board', {
   flexGrow: 1,
   flexShrink: 0,
   flexDirection: 'row',
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
   overflowY: 'visible !important',
   alignItems: 'normal !important',
