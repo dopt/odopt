@@ -1,17 +1,19 @@
-import { useBlock } from '@dopt/react';
+import { useBlock, useUnorderedGroup } from '@dopt/react';
 
 import {
   buttons,
   checklist,
+  progressBar,
   example,
   item,
   items,
   title,
 } from '@/pages/index.css';
 
-import { Text, Button, Radio } from '@/components/';
+import { Text, Button, Radio, ProgressBar } from '@/components/';
 
 export function Example() {
+  const [checklistBlock] = useUnorderedGroup('liY_9aJIML_oHWBl2EEq0');
   const [redBlock, redMethods] = useBlock('C8aWlLimSrAw2HfnI2x7Z');
   const [blueBlock, blueMethods] = useBlock('vRStgilDaN5VFBxUQkky4');
   const [greenBlock, greenMethods] = useBlock('5vsHDGrVCjonTH6MHICqo');
@@ -20,6 +22,17 @@ export function Example() {
     <div className={example}>
       <div className={checklist}>
         <div className={title}>Checklist</div>
+        <div className={progressBar}>
+          <ProgressBar
+            value={
+              Math.floor(
+                (checklistBlock.getCompleted().length /
+                  checklistBlock.blocks.length) *
+                  100
+              ) || 0
+            }
+          />
+        </div>
         <div className={items}>
           <div className={item}>
             <Radio checked={redBlock.state.completed} />
