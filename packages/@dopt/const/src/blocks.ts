@@ -14,7 +14,7 @@ export const DEFAULT_BLOCK_DESC: Record<BlockTypes, string> = {
   model: 'Define state for an experience',
   finish: 'Define when the flow is finished',
   set: 'Groups steps together',
-  webhook: 'Trigger webhooks',
+  webhook: 'Send data to an external API',
 };
 
 // Not very useful right now but in the future this mapping is needed
