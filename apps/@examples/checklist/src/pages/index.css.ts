@@ -32,6 +32,10 @@ export const title = style({
   padding: '12px 16px',
 });
 
+export const progressBar = style({
+  padding: '16px',
+});
+
 export const buttons = style({
   display: 'flex',
   flexDirection: 'column',
