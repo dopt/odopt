@@ -1,5 +1,11 @@
 # @examples/checklist
 
+## 0.1.0
+
+### Minor Changes
+
+- 73110f86: Add progress bar to checklist example.
+
 ## 0.0.7
 
 ### Patch Changes
