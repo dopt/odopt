@@ -2,6 +2,8 @@ import { useBlock } from '@dopt/react';
 
 import {
   Button,
+  Flex,
+  Link,
   ListItem,
   Modal,
   ModalBody,
@@ -9,10 +11,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  UnorderedList,
-  Flex,
-  Link,
   Text,
+  UnorderedList,
   UseDisclosureProps,
 } from '@chakra-ui/react';
 
@@ -22,29 +22,31 @@ export function NextStepsModal({
   onClose = () => undefined,
   isOpen = false,
 }: Pick<UseDisclosureProps, 'isOpen' | 'onClose'>) {
-  const [, { complete }] = useBlock(NEXT_STEPS);
+  const [{ getField }, { complete }] = useBlock(NEXT_STEPS);
   return (
     <Modal isOpen={isOpen} onClose={() => onClose()}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Next Steps</ModalHeader>
+        <ModalHeader>{getField('next-steps-title', '')}</ModalHeader>
         <ModalBody>
           <Flex direction="column" gap={4}>
-            <Text>You’re ready to take your analysis to the next level!</Text>
+            <Text>{getField('next-steps-analysis-callout', '')}</Text>
             <Text>You can learn how to:</Text>
             <UnorderedList>
               <ListItem>
                 <Link textDecoration="underline">
-                  Compare active users across time ranges
+                  {getField('next-steps-li-1', '')}
                 </Link>
               </ListItem>
               <ListItem>
                 <Link textDecoration="underline">
-                  Analyze usage at the company level
+                  {getField('next-steps-li-2', '')}
                 </Link>
               </ListItem>
               <ListItem>
-                <Link textDecoration="underline">Add more data sources</Link>
+                <Link textDecoration="underline">
+                  {getField('next-steps-li-3', '')}
+                </Link>
               </ListItem>
             </UnorderedList>
             <Text>📈 Happy analyzing!</Text>
@@ -52,7 +54,7 @@ export function NextStepsModal({
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" onClick={complete}>
-            Finish getting started
+            {getField('next-steps-button-text', '')}
           </Button>
         </ModalFooter>
       </ModalContent>
