@@ -15,11 +15,13 @@ export function WelcomeBanner() {
       <Alert p="lg" py={42} radius={6} sx={{ border: '0.5px solid #C4DAEA' }}>
         <Stack justify="center" align="center" spacing="sm">
           <IconLayoutKanban color="#228BE6" size={47} />
-          <Title order={2}>👋 Welcome to Kanban</Title>
+          <Title order={2}>
+            {createAnIssueBlock.getField('banner-title', '')}
+          </Title>
           <Text size="lg" align="center">
-            The simple tool to track your tasks and stay in flow.
+            {createAnIssueBlock.getField('banner-description', '')}
             <br />
-            To start, create an issue.
+            {createAnIssueBlock.getField('banner-next-step', '')}
           </Text>
         </Stack>
       </Alert>

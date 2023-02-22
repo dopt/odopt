@@ -37,7 +37,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'getting-started-checklist': 3 }}
+      flowVersions={{ 'getting-started-checklist': 4 }}
     >
       <ChakraProvider theme={theme}>
         <GettingStartedChecklistExample />
