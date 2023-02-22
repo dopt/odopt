@@ -30,7 +30,7 @@ export function App() {
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       optimisticUpdates={false}
       userId={userId}
-      flowVersions={{ kanban: 2 }}
+      flowVersions={{ kanban: 3 }}
     >
       <MantineProvider withGlobalStyles withNormalizeCSS>
         <Kanban />
