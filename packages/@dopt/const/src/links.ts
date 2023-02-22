@@ -11,7 +11,7 @@ export const DOCS_USERS_LINK = 'https://docs.dopt.com/concepts/users/';
 export const DOCS_GROUPS_LINK = 'https://docs.dopt.com/concepts/groups/';
 
 export const DOCS_CREATE_API_KEYS_LINK =
-  'https://docs.dopt.com/getting-started/#create-api-keys';
+  'https://docs.dopt.com/quick-start/#create-api-keys';
 
 export const DOCS_IDENTIFYING_USERS_LINK =
   'https://docs.dopt.com/guides/identifying-users/';
