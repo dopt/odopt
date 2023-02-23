@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "formatcheck": "prettier --check .",
     "format": "prettier --write .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@dopt/react": "workspace:*",
