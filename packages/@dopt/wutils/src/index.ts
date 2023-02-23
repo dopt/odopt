@@ -23,6 +23,32 @@ async function getPackages() {
   return workspacePacakges.slice(1);
 }
 
+async function getScopes() {
+  const packages = await getPackages();
+
+  const scopedPackages = packages.filter(({ manifest }) =>
+    manifest.name?.startsWith('@')
+  );
+
+  const scopes = Array.from(
+    new Set(scopedPackages.map((pkg) => pkg.manifest?.name?.split('/')[0]))
+  ) as string[];
+
+  return scopes.map((scope) => {
+    const match = packages.find(({ manifest }) =>
+      manifest.name?.startsWith(scope)
+    );
+    if (!match) {
+      throw new Error();
+    }
+
+    const dir = match?.dir.split('/');
+    dir.pop();
+
+    return { scope, dir: dir.join('/') };
+  });
+}
+
 async function getPackageNames() {
   const packages = await getPackages();
   return packages.map(({ manifest }) => manifest.name);
@@ -112,11 +138,12 @@ export {
   getAffectedPackagesForChangedFiles,
   getAffectedPackagesForStagedFiles,
   getAffectedPackagesToStagedFilesMapping,
-  getPackages,
-  getPackageNames,
   getPackageLocations,
+  getPackageNames,
+  getPackages,
   getPackagesSync,
   getPackageNamesSync,
   getPackageLocationsSync,
+  getScopes,
   GLOBAL_SCOPES,
 };

@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { useBlock } from '@dopt/react';
+import ReactMarkdown from 'react-markdown';
 import { Alert, Text } from '@mantine/core';
 
 export interface WalkThroughContentProps extends PropsWithChildren {
@@ -11,7 +12,11 @@ export function WalkThroughCardContent(props: WalkThroughContentProps) {
 
   return block.state.active ? (
     <Alert>
-      <Text span>{props.children}</Text>
+      <Text span>
+        <ReactMarkdown>
+          {block.getField<string>('card-content') || ''}
+        </ReactMarkdown>
+      </Text>
     </Alert>
   ) : null;
 }

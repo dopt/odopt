@@ -21,11 +21,8 @@ export function NextStepsBanner() {
         onClose={() => closeNextSteps.complete()}
       >
         <Stack justify="center" align="center" spacing="md">
-          <Title order={5}>🎉 Next steps</Title>
-          <Text size="lg">
-            You just used the Kanban board to stay in flow with your team and
-            complete your tasks. Here are some next steps:
-          </Text>
+          <Title order={5}>{nextSteps.getField('banner-title', '')} </Title>
+          <Text size="lg">{nextSteps.getField('banner-description', '')}</Text>
           <Group position="center" grow>
             <Card
               radius={8}
