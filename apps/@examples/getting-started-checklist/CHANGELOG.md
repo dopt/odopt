@@ -1,5 +1,12 @@
 # @examples/getting-started-checklist
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [e086b128]
+  - @dopt/users-javascript-client@1.0.0
+
 ## 0.0.14
 
 ### Patch Changes
