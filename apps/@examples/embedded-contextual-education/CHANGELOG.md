@@ -1,5 +1,12 @@
 # @examples/embedded-contextual-education
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [e086b128]
+  - @dopt/users-javascript-client@1.0.0
+
 ## 0.1.0
 
 ### Minor Changes
