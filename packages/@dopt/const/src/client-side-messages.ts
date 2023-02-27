@@ -44,6 +44,9 @@ export const DEPLOY_SUCCESS_MSG = 'Changes deployed';
 
 export const DEPLOY_FAIL_MSG = 'Could not deploy changes';
 
+export const SAVE_SUCCESS_MSG = 'Changes saved';
+export const SAVE_FAIL_MSG = 'Could not save changes';
+
 export const renameFailMessage = (model: string) =>
   `Could not rename ${model}. Please try again.`;
 
