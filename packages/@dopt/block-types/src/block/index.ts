@@ -83,19 +83,17 @@ export function getDefaultBlock({
   version,
   active,
   completed,
-  sid,
 }: {
   uid: string;
   type: BlockTypes;
   version?: number;
   active?: boolean;
   completed?: boolean;
-  sid: string;
 }): Block {
   const base: BaseType = {
     kind: 'block',
     uid,
-    sid,
+    sid: uid,
     version: version != null ? version : -1,
     state: {
       active: active != null ? active : false,
