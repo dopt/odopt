@@ -10,10 +10,9 @@ import {
 export function getDefaultBlockState(
   uid: string,
   version?: number,
-  type: BlockTypes = BLOCK_TYPES.model,
-  sid?: string //make non-breaking for now until we fully support sid on the sdks
+  type: BlockTypes = BLOCK_TYPES.model
 ): Block {
-  return getDefaultBlock({ uid, type, version, sid: sid || uid });
+  return getDefaultBlock({ uid, type, version });
 }
 
 export function getDefaultSetState(uid: string, version?: number): Set {
