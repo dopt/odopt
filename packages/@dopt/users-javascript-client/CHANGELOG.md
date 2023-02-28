@@ -1,5 +1,11 @@
 # @dopt/users-javascript-client
 
+## 1.0.0
+
+### Major Changes
+
+- e086b128: removes support for unused `/identify/bulk` endpoint, deprecates `/identify/*` endpoint
+
 ## 0.0.8
 
 ### Patch Changes
