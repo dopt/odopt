@@ -47,6 +47,10 @@ export const DEPLOY_FAIL_MSG = 'Could not deploy changes';
 export const SAVE_SUCCESS_MSG = 'Changes saved';
 export const SAVE_FAIL_MSG = 'Could not save changes';
 
+export const WEBHOOK_TEST_MSG = 'Webhook test';
+export const WEBHOOK_TEST_FAIL_MSG =
+  'Unable to send request. Please try again later.';
+
 export const renameFailMessage = (model: string) =>
   `Could not rename ${model}. Please try again.`;
 
@@ -58,3 +62,6 @@ export const archiveFailMessage = (model: string) =>
 
 export const deleteFailMessage = (model: string) =>
   `Could not delete ${model}. Please try again.`;
+
+export const webhookTestSuccessMessage = (statusCode: string) =>
+  `Status ${statusCode} returned`;
