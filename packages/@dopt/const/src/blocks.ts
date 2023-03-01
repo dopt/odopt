@@ -7,6 +7,7 @@ export const DEFAULT_BLOCK_NAMES: Record<BlockTypes, string> = {
   finish: 'Finish',
   set: 'Group',
   webhook: 'Webhook',
+  logic: 'Logic',
 };
 
 export const DEFAULT_BLOCK_DESC: Record<BlockTypes, string> = {
@@ -15,11 +16,17 @@ export const DEFAULT_BLOCK_DESC: Record<BlockTypes, string> = {
   finish: 'Define when the flow is finished',
   set: 'Groups steps together',
   webhook: 'Send data to an external API',
+  logic: 'Define a logical expression to progress a branch',
 };
 
 // Not very useful right now but in the future this mapping is needed
 // and its scary to just assume that types and tables are 1:1 in code
-export function convertTypeToTable(type: BlockTypes): BlockTable {
+
+//TODO: DOPT-2350 Remove Exclude
+
+export function convertTypeToTable(
+  type: Exclude<BlockTypes, 'logic'>
+): BlockTable {
   switch (type) {
     case BLOCK_TYPES.entry:
       return 'entry';
