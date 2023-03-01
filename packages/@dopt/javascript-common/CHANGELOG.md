@@ -1,5 +1,16 @@
 # @dopt/javascript-common
 
+## 1.3.0
+
+### Minor Changes
+
+- e619b78e: support new sid requirement on getDefaultBlock
+
+### Patch Changes
+
+- Updated dependencies [e619b78e]
+  - @dopt/block-types@3.0.0
+
 ## 1.2.8
 
 ### Patch Changes
