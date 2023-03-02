@@ -1,5 +1,11 @@
 # @dopt/javascript-common
 
+## 1.4.0
+
+### Minor Changes
+
+- ef9377e2: update javascript-common package to process intent header and add hooks into react package which allows consumers to track Dopt provider initialization and flow level initialization
+
 ## 1.3.0
 
 ### Minor Changes
