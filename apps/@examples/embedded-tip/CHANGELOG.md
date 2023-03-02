@@ -1,5 +1,26 @@
 # @examples/embedded-tip
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [ef9377e2]
+  - @dopt/react@1.3.0
+
+## 0.0.10
+
+### Patch Changes
+
+- @dopt/react@1.2.1
+
+## 0.0.9
+
+### Patch Changes
+
+- 5817efc5: remove drop shadow from notification
+- Updated dependencies [e086b128]
+  - @dopt/users-javascript-client@1.0.0
+
 ## 0.0.8
 
 ### Patch Changes
