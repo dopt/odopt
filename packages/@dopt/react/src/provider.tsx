@@ -15,7 +15,7 @@ import {
 } from '@dopt/javascript-common';
 
 import { DoptContext } from './context';
-import { ProviderConfig } from './types';
+import { ProviderConfig, FlowStatus } from './types';
 import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 
 /**
@@ -34,7 +34,6 @@ export function ProdDoptProvider(props: ProviderConfig) {
 
   const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
-  const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
   const [flows, setFlows] = useState<Flows>(new Mercator());
   const [flowBlocks, setFlowBlocks] = useState<
@@ -43,7 +42,13 @@ export function ProdDoptProvider(props: ProviderConfig) {
   const [blockFields, setBlockFields] = useState<
     Map<Block['uid'], Map<Field['sid'], Field>>
   >(new Map());
+
+  const [fetching, setFetching] = useState<boolean>(true);
   const [socketReady, setSocketReady] = useState<boolean>(false);
+
+  const [flowStatuses, setFlowStatuses] = useState<
+    Record<Flow['sid'], FlowStatus>
+  >({});
 
   useEffect(() => {
     if (userId === undefined) {
@@ -112,15 +117,6 @@ export function ProdDoptProvider(props: ProviderConfig) {
       )
         .then((flows) => {
           flows.forEach((flow) => {
-            if (!flow.state.started) {
-              flowIntent({
-                uid: flow.uid,
-                version: flow.version,
-                intent: 'start',
-              }).catch(() => {
-                // do nothing, this error is already handled
-              });
-            }
             /*
              * Update the Flows in React state
              */
@@ -182,13 +178,13 @@ export function ProdDoptProvider(props: ProviderConfig) {
             }));
           });
 
-          log.info('Flows & Blocks fetched successfully');
+          log.info('Flows & Blocks fetching successfully');
 
           /*
            * If we've made it here we can safely progress i.e. the
-           * SDK has initialized correctly.
+           * SDK has fetched correctly.
            */
-          setLoading(false);
+          setFetching(false);
         })
         .catch((error) => {
           log.error(`
@@ -213,6 +209,21 @@ export function ProdDoptProvider(props: ProviderConfig) {
       return new Mercator(
         Array.from(preFlows.set([flow.sid, flow.version], flow).entries())
       );
+    });
+
+    setFlowStatuses((previousFlowStatuses) => {
+      /*
+       *  Some flow intents generate side effects (they start flows if not started),
+       *  this tracks that those intents are propagated back to the client
+       */
+      if (previousFlowStatuses[flow.sid]?.pending) {
+        return {
+          ...previousFlowStatuses,
+          [flow.sid]: { pending: false, failed: false },
+        };
+      } else {
+        return previousFlowStatuses;
+      }
     });
   }, []);
 
@@ -308,8 +319,49 @@ export function ProdDoptProvider(props: ProviderConfig) {
     socketReady,
   ]);
 
+  useEffect(() => {
+    if (!fetching && socketReady) {
+      setFlowStatuses(
+        Array.from(flows.values()).reduce((statuses, flow) => {
+          let pending = false;
+
+          if (!flow.state.started) {
+            /*
+             * Start the Flow if it hasn't been started
+             */
+            pending = true;
+
+            flowIntent({
+              uid: flow.uid,
+              version: flow.version,
+              intent: 'start',
+            }).then(
+              (intentHasSideEffects) => {
+                if (!intentHasSideEffects) {
+                  setFlowStatuses((previousFlowStatuses) => ({
+                    ...previousFlowStatuses,
+                    [flow.sid]: { pending: false, failed: false },
+                  }));
+                }
+              },
+              () => {
+                setFlowStatuses((previousFlowStatuses) => ({
+                  ...previousFlowStatuses,
+                  [flow.sid]: { pending: false, failed: true },
+                }));
+              }
+            );
+          }
+
+          statuses[flow.sid] = { pending, failed: false };
+          return statuses;
+        }, {} as Record<Flow['sid'], FlowStatus>)
+      );
+    }
+  }, [socketReady, fetching]);
+
   const blockIntention: BlockIntention = useMemo(() => {
-    if (loading) {
+    if (fetching) {
       return {
         complete: async () => {},
         prev: async () => {},
@@ -332,32 +384,46 @@ export function ProdDoptProvider(props: ProviderConfig) {
             });
           }
 
-          return blockIntent({
+          await blockIntent({
             uid,
             version: blocks[uid].version,
             intent: 'complete',
           });
         }
       },
-      next: async (uid) =>
-        blocks[uid] &&
-        blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
-      prev: async (uid) =>
-        blocks[uid] &&
-        blockIntent({ uid, version: blocks[uid].version, intent: 'prev' }),
-      goTo: async (uid, goToUid) =>
-        blocks[uid] &&
-        blockIntent({
-          uid,
-          version: blocks[uid].version,
-          intent: 'goTo',
-          goToUid,
-        }),
+      next: async (uid) => {
+        if (blocks[uid]) {
+          await blockIntent({
+            uid,
+            version: blocks[uid].version,
+            intent: 'next',
+          });
+        }
+      },
+      prev: async (uid) => {
+        if (blocks[uid]) {
+          await blockIntent({
+            uid,
+            version: blocks[uid].version,
+            intent: 'prev',
+          });
+        }
+      },
+      goTo: async (uid, goToUid) => {
+        if (blocks[uid]) {
+          blockIntent({
+            uid,
+            version: blocks[uid].version,
+            intent: 'goTo',
+            goToUid,
+          });
+        }
+      },
     };
-  }, [loading, blockIntent, blocks]);
+  }, [fetching, blockIntent, blocks]);
 
   const flowIntention: FlowIntention = useMemo(() => {
-    if (loading) {
+    if (fetching) {
       return {
         start: async () => {},
         reset: async () => {},
@@ -367,18 +433,26 @@ export function ProdDoptProvider(props: ProviderConfig) {
     }
 
     return {
-      start: (uid, version) => flowIntent({ uid, version, intent: 'start' }),
-      reset: (uid, version) => flowIntent({ uid, version, intent: 'reset' }),
-      complete: (uid, version) =>
-        flowIntent({ uid, version, intent: 'complete' }),
-      exit: (uid, version) => flowIntent({ uid, version, intent: 'exit' }),
+      start: async (uid, version) => {
+        await flowIntent({ uid, version, intent: 'start' });
+      },
+      reset: async (uid, version) => {
+        await flowIntent({ uid, version, intent: 'reset' });
+      },
+      complete: async (uid, version) => {
+        await flowIntent({ uid, version, intent: 'complete' });
+      },
+      exit: async (uid, version) => {
+        await flowIntent({ uid, version, intent: 'exit' });
+      },
     };
-  }, [loading, flows]);
+  }, [fetching, flows]);
 
   return (
     <DoptContext.Provider
       value={{
-        loading,
+        fetching,
+        flowStatuses,
         flowBlocks,
         flows,
         flowIntention,
