@@ -10,15 +10,18 @@ import {
   FlowIntention,
 } from '@dopt/javascript-common';
 
+import { FlowStatus } from './types';
+
 /**
  * The context, which is partial accessible through either the
- * {@link useBlock} and {@link useFlow}  hooks or the
+ * {@link useBlock} and {@link useFlow} hooks or the
  * {@link withBlock} and {@link withFlow} HOCs
  */
 type DoptContext = {
-  loading: boolean;
+  fetching: boolean;
   flows: Flows;
   flowBlocks: Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>;
+  flowStatuses: Record<Flow['uid'], FlowStatus>;
   flowIntention: FlowIntention;
   blocks: Blocks;
   blockIntention: BlockIntention;

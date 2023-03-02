@@ -74,16 +74,22 @@ export type BlockWithGetField = BlockType & {
 const useBlock = (
   uid: BlockWithGetField['uid']
 ): [block: BlockWithGetField, intent: BlockIntentions] => {
-  const { loading, blocks, blockIntention, blockFields } =
+  const { fetching, blocks, blockIntention, blockFields, log } =
     useContext(DoptContext);
 
   const complete = useCallback(
-    () => !loading && blockIntention.complete(uid),
-    [loading, blockIntention]
+    () => !fetching && blockIntention.complete(uid),
+    [fetching, blockIntention]
   );
 
+  if (fetching) {
+    log.info(
+      'Accessing block prior to initialization will return default block states.'
+    );
+  }
+
   const block =
-    loading || !blocks[uid] ? getDefaultBlockState(uid) : blocks[uid];
+    fetching || !blocks[uid] ? getDefaultBlockState(uid) : blocks[uid];
 
   const getField: BlockWithGetField['getField'] = useCallback(
     <T extends FIELD_VALUE_UNION_TYPE>(name: string, defaultValue?: T) => {
@@ -101,7 +107,7 @@ const useBlock = (
         ? defaultValue
         : null;
     },
-    [loading, block]
+    [fetching, block]
   );
 
   return [{ ...block, getField }, { complete }];
