@@ -3,6 +3,16 @@ import { ReactNode } from 'react';
 
 import type { Blocks, Flows } from '@dopt/javascript-common';
 
+/**
+ * This type encapsulates Flow initialization status.
+ * When a Flow is first fetched by Dopt, it will be in the pending state
+ * (`pending: true`). Dopt will then evaluate whether a user qualifies
+ * for a flow and if any state updates need to occur. When those are complete,
+ * the status will be updated to `pending: false`. If any errors occur during
+ * this process, the status will be additionally be updated to `failed: true`.
+ */
+export type FlowStatus = { pending: boolean; failed: boolean };
+
 export interface Mocks {
   flows: Flows;
   blocks: Blocks;
