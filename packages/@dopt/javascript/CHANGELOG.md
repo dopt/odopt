@@ -1,5 +1,12 @@
 # @dopt/javascript
 
+## 1.3.2
+
+### Patch Changes
+
+- Updated dependencies [ef9377e2]
+  - @dopt/javascript-common@1.4.0
+
 ## 1.3.1
 
 ### Patch Changes
