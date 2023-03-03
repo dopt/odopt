@@ -1,0 +1,9 @@
+export enum ROLES {
+  EXTERNAL = 'EXTERNAL',
+  INTERNAL = 'INTERNAL',
+}
+export enum DOMAINS {
+  BLOCKS = 'BLOCKS',
+  USERS = 'USERS',
+  INTERNAL = 'INTERNAL',
+}
