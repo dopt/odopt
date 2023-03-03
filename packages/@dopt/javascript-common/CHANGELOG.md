@@ -1,5 +1,11 @@
 # @dopt/javascript-common
 
+## 1.4.1
+
+### Patch Changes
+
+- d632e58e: Remove the dependency on @dopt/const package.
+
 ## 1.4.0
 
 ### Minor Changes
