@@ -8,6 +8,8 @@ export { useOrderedGroup } from './use-ordered-group';
 export { withOrderedGroup } from './with-ordered-group';
 export { useUnorderedGroup } from './use-unordered-group';
 export { withUnorderedGroup } from './with-unordered-group';
+export { useDoptInitialized } from './use-dopt-initialized';
+export { useFlowStatus } from './use-flow-status';
 
 export { MockDoptProvider } from './mock-provider';
 export { ProdDoptProvider } from './provider';
@@ -49,4 +51,5 @@ export type {
   BaseProviderConfig,
   ProviderConfig,
   MockProviderConfig,
+  FlowStatus,
 } from './types';
