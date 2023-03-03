@@ -76,11 +76,11 @@ export interface FlowIntentions {
 const useFlow = (
   sid: Flow['sid']
 ): [flow: Partial<Flow>, intent: FlowIntentions] => {
-  const { loading, flows, flowBlocks, blocks, flowIntention } =
+  const { fetching, flows, flowBlocks, blocks, flowIntention, log } =
     useContext(DoptContext);
 
   const version = useMemo(() => {
-    if (loading) {
+    if (fetching) {
       return -1;
     }
     const key = Array.from(flows.keys()).find(([name]) => name === sid);
@@ -90,24 +90,28 @@ const useFlow = (
         props to ensure \`${sid}\` and its version is specified there`);
     }
     return key[1];
-  }, [loading, flows, sid]);
+  }, [fetching, flows, sid]);
 
   const reset = useCallback(
-    () => !loading && flowIntention.reset(sid, version),
-    [loading, flowIntention, sid, version]
+    () => !fetching && flowIntention.reset(sid, version),
+    [fetching, flowIntention, sid, version]
   );
 
   const exit = useCallback(
-    () => !loading && flowIntention.exit(sid, version),
-    [loading, flowIntention, sid, version]
+    () => !fetching && flowIntention.exit(sid, version),
+    [fetching, flowIntention, sid, version]
   );
 
   const complete = useCallback(
-    () => !loading && flowIntention.complete(sid, version),
-    [loading, flowIntention, sid, version]
+    () => !fetching && flowIntention.complete(sid, version),
+    [fetching, flowIntention, sid, version]
   );
-
-  if (loading || !flows.get([sid, version])) {
+  if (fetching) {
+    log.info(
+      'Accessing flow prior to initialization will return default block states.'
+    );
+  }
+  if (fetching || !flows.get([sid, version])) {
     return [getDefaultFlowState(sid, version), { reset, exit, complete }];
   }
 
