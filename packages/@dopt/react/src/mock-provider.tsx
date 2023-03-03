@@ -7,7 +7,7 @@ import {
   Flows,
 } from '@dopt/javascript-common';
 import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
-import { MockProviderConfig } from './types';
+import { MockProviderConfig, FlowStatus } from './types';
 import { Logger } from '@dopt/logger';
 import { Mercator } from '@dopt/mercator';
 
@@ -33,7 +33,11 @@ export function MockDoptProvider(props: MockProviderConfig) {
     Map<Block['uid'], Map<Field['sid'], Field>>
   >(new Map());
 
+  const flowStatuses: Record<Flow['sid'], FlowStatus> = {};
+
   flows.forEach((flow) => {
+    flowStatuses[flow.sid] = { pending: false, failed: false };
+
     setFlowBlocks((prev) => {
       return new Mercator(
         Array.from(
@@ -126,7 +130,8 @@ export function MockDoptProvider(props: MockProviderConfig) {
   return (
     <DoptContext.Provider
       value={{
-        loading: false,
+        fetching: false,
+        flowStatuses,
         blockIntention,
         blocks,
         blockFields,

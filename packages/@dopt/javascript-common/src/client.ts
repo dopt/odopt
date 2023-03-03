@@ -5,9 +5,14 @@ import {
 } from './utils';
 
 import { Flow, Block, FlowIntent, BlockIntent } from '@dopt/block-types';
+const INTENT_SIDE_EFFECT_HEADER = 'X-Dopt-Intent-Side-Effects';
 
 import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
+
+function hasSideEffects(response: Response) {
+  return response.headers.get(INTENT_SIDE_EFFECT_HEADER) === 'true';
+}
 
 export async function client({
   url,
@@ -150,7 +155,7 @@ export function blocksApi({
       uid,
       version,
       intent,
-    }: FlowIntentParams): Promise<void> {
+    }: FlowIntentParams): Promise<boolean> {
       logger.info(
         `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}>`
       );
@@ -168,7 +173,8 @@ export function blocksApi({
         logger.info(
           `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}> was successful.`
         );
-        return Promise.resolve();
+
+        return Promise.resolve(hasSideEffects(response as Response));
       }
       logger.error(
         `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}> failed.`
@@ -180,7 +186,7 @@ export function blocksApi({
       version,
       intent,
       goToUid,
-    }: BlockIntentParams): Promise<void> {
+    }: BlockIntentParams): Promise<boolean> {
       logger.info(
         `Calling \`${intent}\` on Block<{"uid":"${uid}","version":${version}}>`
       );
@@ -205,7 +211,8 @@ export function blocksApi({
         logger.info(
           `Calling \`${intent}\` on  Block<{"uid":"${uid}","version":${version}}> was successful.`
         );
-        return Promise.resolve();
+
+        return Promise.resolve(hasSideEffects(response as Response));
       }
       logger.info(
         `Calling \`${intent}\` on  Block<{"uid":"${uid}","version":${version}}> failed.`
