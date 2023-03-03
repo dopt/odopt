@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.1
+
+### Patch Changes
+
+- Updated dependencies [d632e58e]
+  - @dopt/javascript-common@1.4.1
+
 ## 1.3.0
 
 ### Minor Changes
