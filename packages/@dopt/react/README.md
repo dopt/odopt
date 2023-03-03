@@ -32,10 +32,10 @@ pnpm add @dopt/react
 
 ## Configuration
 
-To configure the Dopt provider you will need
+To configure the Dopt provider you will need:
 
 1. A Blocks API key (generated in Dopt)
-1. The flow identifiers and versions you want your end-users to experience
+1. The flow identifiers and version tags for the flows you want your end-users to experience
 1. A user ID (user being an end-user you've identified to Dopt)
 
 ## Usage
@@ -63,11 +63,11 @@ ReactDOM.render(
 
 **Note:** If `userId` is `undefined`, default objects with default states (e.g. all state values will default to `false`) will be returned from the associated hooks.
 
-### Flows and Blocks
+### Flows and blocks
 
-The Dopt React SDK gives you access to two related objects, Flows and Blocks. Flows are entities representing the Flow you designed in Dopt. Blocks are a subset of the Blocks in that Flow.
+The SDK gives you access to two related objects: flows and blocks. Flows are entities representing the flow you designed in Dopt. Blocks are a subset of the blocks in that flow.
 
-Flows objects available through the SDK are represented by the following type definition.
+Flow objects available through the SDK are represented by the following type definition:
 
 ```ts
 interface Flow<T = "flow"> {
@@ -85,7 +85,7 @@ interface Flow<T = "flow"> {
 }
 ```
 
-The states of a Flow are 1:1 with the actions you can perform on a Flow. Flows have Blocks, which are represented through the following type definition.
+The states of a flow are 1:1 with the actions you can perform on a flow. Flows have blocks, which are represented through the following type definition:
 
 ```ts
 interface Step {
@@ -116,15 +116,15 @@ interface Group {
 type Block = Group | Step;
 ```
 
-Unlike Flows, the states of a Block are not all 1:1 with actions you can perform. The `completed` does have an associated action, but the `active` state is special.
+Unlike flows, the states of a block are not all 1:1 with actions you can perform. The `completed` state does have an associated action, but the `active` state is special.
 
-**Key Concept:** The `active` state of a Block is controlled by Dopt and represents where the currently logged in user (specified by the `userId` prop) is in the Flow. As you or other actors perform actions that implicitly transition the user through the Flow, the `active` state is updated.
+**Key concept:** The `active` state of a block is controlled by Dopt and represents where the currently initialized user (specified by the `userId` prop) is in the flow. As you or other actors perform actions that implicitly transition the user through the flow, the `active` state is updated.
 
-### Accessing Flows and Blocks
+### Accessing flows and blocks
 
 Now that you know what objects are available through the SDK, let's talk about how you access them.
 
-By integrating the provider, all descendants of it can now access the Flows configured in the [flowVersions](./src/types.ts#L23) prop, and their associated blocks using the following React hooks and HOCs.
+By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L23) prop, and their associated blocks using the following React hooks and HOCs.
 
 ##### Hooks
 
@@ -184,7 +184,7 @@ declare const useOrderedGroup: (
 ) => [block: Group, intent: BlockIntentions];
 ```
 
-##### HOCS
+##### HOCs
 
 We offer analogous functionality through HOCs for those who are limited by their version of React or prefer that pattern.
 
@@ -195,9 +195,9 @@ We offer analogous functionality through HOCs for those who are limited by their
 
 ### Example usage
 
-#### Accessing Blocks
+#### Accessing blocks
 
-Using the [useBlock](./src/use-block.ts) hook.
+Using the [useBlock](./src/use-block.ts) hook:
 
 ```tsx
 import { useBlock } from "@dopt/react";
@@ -217,7 +217,7 @@ export function Application() {
 }
 ```
 
-Using the [withBlock](./src/with-block.tsx) HOC
+Using the [withBlock](./src/with-block.tsx) HOC:
 
 ```tsx
 import { withBlock } from "@dopt/react";
@@ -233,9 +233,9 @@ export function Application() {
 }
 ```
 
-#### Accessing Flows
+#### Accessing flows
 
-Using the [useFlow](./src/use-flow.ts) hook.
+Using the [useFlow](./src/use-flow.ts) hook:
 
 ```tsx
 import { useFlow } from "@dopt/react";
@@ -255,7 +255,7 @@ export function Application() {
 }
 ```
 
-Using the [withFlow](./src/with-flow.tsx) HOC
+Using the [withFlow](./src/with-flow.tsx) HOC:
 
 ```tsx
 import { withFlow } from "@dopt/react";
@@ -271,9 +271,9 @@ export function Application() {
 }
 ```
 
-#### Accessing Ordered Groups
+#### Accessing ordered groups
 
-Using the [useOrderedGroup](./src/use-ordered-group.tsx) hook.
+Using the [useOrderedGroup](./src/use-ordered-group.tsx) hook:
 
 ```tsx
 import { useOrderedGroup } from "@dopt/react";
@@ -297,7 +297,7 @@ export function Application() {
 }
 ```
 
-Using the [withOrderedGroup](./src/with-ordered-group.tsx) HOC
+Using the [withOrderedGroup](./src/with-ordered-group.tsx) HOC:
 
 ```tsx
 import { withOrderedGroup } from "@dopt/react";
@@ -316,9 +316,9 @@ export function Application() {
 }
 ```
 
-#### Accessing Unordered Groups
+#### Accessing unordered groups
 
-Using the [useUnorderedGroup](./src/use-unordered-group.tsx) hook.
+Using the [useUnorderedGroup](./src/use-unordered-group.tsx) hook:
 
 ```tsx
 export function Application() {
@@ -339,7 +339,7 @@ export function Application() {
 }
 ```
 
-Using the [withUnorderedGroup](./src/with-unordered-group.tsx) HOC
+Using the [withUnorderedGroup](./src/with-unordered-group.tsx) HOC:
 
 ```tsx
 import { withUnorderedGroup } from "@dopt/react";
