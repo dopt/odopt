@@ -7,12 +7,12 @@ import { Element, Set } from '@dopt/block-types';
 
 /**
  * Methods corresponding to an intent-based API for
- * signaling state transitions of an unordered group.
+ * signaling state transitions of an ordered group.
  * These methods have side effects.
  */
-export interface UnorderedGroupBlockIntentions {
+export interface OrderedGroupBlockIntentions {
   /**
-   * Signals that the experience this {@link Set} powers has
+   * Signals that the experience this {@link Block} powers has
    * finished. A noop if the {@link Block} isn't active. Results
    * in a flow transition.
    *
@@ -22,13 +22,42 @@ export interface UnorderedGroupBlockIntentions {
    * Sets {@link Block['state']['active']} to false
    */
   complete: () => void;
+  /**
+   * Goes to specified element in the group
+   *
+   * @modifies
+   *
+   * Sets {@link Block['state']['active']} to false for the currently active block
+   * Sets {@link Block['state']['active']} to true for the specified block
+   */
+  goTo: (index: number) => void;
+  /**
+   * progresses the group by a single element.
+   *
+   * @modifies
+   *
+   * Sets {@link Block['state']['active']} to false for the currently active block
+   * Sets {@link Block['state']['complete']} to true for the currently active block
+   * Sets {@link Block['state']['active']} to true for the next block
+   */
+  next: () => void;
+
+  /**
+   * Goes back one element in the group.
+   *
+   * @modifies
+   *
+   * Sets {@link Block['state']['active']} to false for the currently active block
+   * Sets {@link Block['state']['active']} to true for the previous block
+   */
+  prev: () => void;
 }
 
 /**
  * Methods corresponding to the API for data retrieval
- * of an unordered group's properties.
+ * of an ordered group's properties.
  */
-export interface UnorderedGroupBlock extends Set {
+export interface OrderedGroupBlock extends Set {
   /**
    * Data accessors specific to groups
    *
@@ -65,7 +94,7 @@ export interface UnorderedGroupBlock extends Set {
  * @example
  * ```tsx
  * export function Application() {
- *   const [group, groupIntent] = useUnorderedGroup("HNWvcT78tyTwygnbzU6SW");
+ *   const [group, groupIntent] = useOrderedGroup("HNWvcT78tyTwygnbzU6SW");
  *   const [block, blockIntent] = useBlock("HJDdinfT60yywdls893");
  *
  *   return (
@@ -74,7 +103,7 @@ export interface UnorderedGroupBlock extends Set {
  *         <h1>👏 Welcome to our app!</h1>
  *         <p>This is your onboarding experience!</p>
  *         <p>You are on step {group.getCompleted() + 1}</p>
- *         <button onClick={blockIntent.complete}>Next</button>
+ *         <button onClick={group.next}>Next</button>
  *         <button onClick={groupIntent.complete}>Exit</button>
  *       </Modal>
  *     </main>
@@ -83,52 +112,73 @@ export interface UnorderedGroupBlock extends Set {
  * ```
  *
  * @param uid - {@link Set['uid']}
- * @returns [{@link UnorderedGroupBlock}, {@link UnorderedGroupBlockIntentions}] the state of the block and methods to manipulate said state
+ * @returns [{@link OrderedGroupBlock}, {@link OrderedGroupBlockIntentions}] the state of the block and methods to manipulate said state
  *
  */
-const useUnorderedGroup = (
+const useOrderedGroup = (
   uid: Set['uid']
-): [block: UnorderedGroupBlock, intent: UnorderedGroupBlockIntentions] => {
+): [block: OrderedGroupBlock, intent: OrderedGroupBlockIntentions] => {
   const {
-    loading,
+    fetching,
     blocks: contextBlocks,
     blockIntention,
+    log,
   } = useContext(DoptContext);
   const set = useMemo(() => {
-    if (loading) {
+    if (fetching) {
       return undefined;
     }
     return contextBlocks[uid];
-  }, [loading, contextBlocks, uid]);
+  }, [fetching, contextBlocks, uid]);
 
   if (set && set.type !== 'set') {
     throw new Error(JSON.stringify(set, null, 2));
   }
   const blocks = useMemo(() => {
+    if (fetching) {
+      return [];
+    }
     return set?.blocks || [];
-  }, [loading, set, set?.blocks]);
+  }, [fetching, set, set?.blocks]);
   const complete = useCallback(
-    () => !loading && blockIntention.complete(uid),
-    [loading, blockIntention]
+    () => !fetching && blockIntention.complete(uid),
+    [fetching, blockIntention]
+  );
+  const prev = useCallback(
+    () => !fetching && blockIntention.prev(uid),
+    [fetching, blockIntention]
+  );
+  const next = useCallback(
+    () => !fetching && blockIntention.next(uid),
+    [fetching, blockIntention]
+  );
+  const goTo = useCallback(
+    (index: number) => !fetching && blockIntention.goTo(uid, blocks[index].uid),
+    [fetching, blockIntention, blocks]
   );
   const size = set?.size || 0;
   const getCompleted = useCallback(
     () => blocks.filter((b) => b.state.completed),
-    [loading, blocks]
+    [fetching, blocks]
   );
   const getUncompleted = useCallback(
     () => blocks?.filter((b) => !b.state.completed),
-    [loading, blocks]
+    [fetching, blocks]
   );
   const getActive = useCallback(
     () => blocks?.filter((b) => b.state.active),
-    [loading, blocks]
+    [fetching, blocks]
   );
   const getInactive = useCallback(
     () => blocks?.filter((b) => !b.state.active),
-    [loading, blocks]
+    [fetching, blocks]
   );
-  if (loading || !set) {
+  if (fetching) {
+    log.info(
+      'Accessing block prior to initialization will return default block states.'
+    );
+  }
+  if (fetching || !set) {
     return [
       {
         ...getDefaultSetState(uid),
@@ -141,25 +191,29 @@ const useUnorderedGroup = (
       },
       {
         complete,
+        prev,
+        next,
+        goTo,
       },
     ];
   }
-  {
-    return [
-      {
-        ...set,
-        size,
-        blocks,
-        getCompleted,
-        getUncompleted,
-        getActive,
-        getInactive,
-      },
-      {
-        complete,
-      },
-    ];
-  }
+  return [
+    {
+      ...set,
+      size,
+      blocks,
+      getCompleted,
+      getUncompleted,
+      getActive,
+      getInactive,
+    },
+    {
+      complete,
+      prev,
+      next,
+      goTo,
+    },
+  ];
 };
 
-export { useUnorderedGroup };
+export { useOrderedGroup };

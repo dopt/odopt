@@ -1,6 +1,7 @@
 import { Type, Static } from '@sinclair/typebox';
 import { Finish, FinishType, FinishTypeConst } from './finish';
 import { Entry, EntryType, EntryTypeConst } from './entry';
+import { Logic, LogicType, LogicTypeConst } from './logic';
 import { Model, ModelType, ModelTypeConst } from './model';
 import { Set, SetType, SetTypeConst } from './set';
 import { Webhook, WebhookType, WebhookTypeConst } from './webhook';
@@ -8,6 +9,7 @@ import { BaseType } from './base';
 
 export * from './entry';
 export * from './finish';
+export * from './logic';
 export * from './model';
 export * from './set';
 export * from './webhook';
@@ -16,6 +18,7 @@ export { BlockState, Base as BaseBlock } from './base';
 
 export const BLOCK_TYPES = {
   entry: EntryTypeConst,
+  logic: LogicTypeConst,
   model: ModelTypeConst,
   finish: FinishTypeConst,
   set: SetTypeConst,
@@ -24,6 +27,7 @@ export const BLOCK_TYPES = {
 
 export const BlockTypes = Type.Union([
   EntryType,
+  LogicType,
   ModelType,
   FinishType,
   SetType,
@@ -35,6 +39,7 @@ export const Block = Type.Union(
   [
     Type.Ref(Model),
     Type.Ref(Entry),
+    Type.Ref(Logic),
     Type.Ref(Finish),
     Type.Ref(Set),
     Type.Ref(Webhook),
@@ -83,17 +88,19 @@ export function getDefaultBlock({
   version,
   active,
   completed,
+  sid,
 }: {
   uid: string;
   type: BlockTypes;
   version?: number;
   active?: boolean;
   completed?: boolean;
+  sid: string;
 }): Block {
   const base: BaseType = {
     kind: 'block',
     uid,
-    sid: uid,
+    sid,
     version: version != null ? version : -1,
     state: {
       active: active != null ? active : false,
@@ -106,6 +113,8 @@ export function getDefaultBlock({
       return { ...base, type: ModelTypeConst, fields: [] };
     case SetTypeConst:
       return { ...base, type: SetTypeConst, size: 0, blocks: [] };
+    case LogicTypeConst:
+      return { ...base, type: LogicTypeConst, expression: async () => true };
     case WebhookTypeConst:
       return {
         ...base,
