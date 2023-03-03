@@ -44,7 +44,6 @@
   "dependencies": {
     "@dopt/block-types": "workspace:*",
     "@dopt/logger": "workspace:*",
-    "@dopt/const": "workspace:*",
     "@dopt/mercator": "workspace:*",
     "socket.io-client": "^4.5.3"
   },

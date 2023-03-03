@@ -5,7 +5,7 @@ import {
 } from './utils';
 
 import { Flow, Block, FlowIntent, BlockIntent } from '@dopt/block-types';
-import { INTENT_SIDE_EFFECT_HEADER } from '@dopt/const';
+const INTENT_SIDE_EFFECT_HEADER = 'X-Dopt-Intent-Side-Effects';
 
 import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
