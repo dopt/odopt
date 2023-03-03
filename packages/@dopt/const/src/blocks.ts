@@ -1,5 +1,11 @@
 import { BlockTypes, BLOCK_TYPES } from '@dopt/block-types';
-export type BlockTable = 'finish' | 'entry' | 'model' | 'set' | 'webhook';
+export type BlockTable =
+  | 'finish'
+  | 'entry'
+  | 'model'
+  | 'set'
+  | 'webhook'
+  | 'logic';
 
 export const DEFAULT_BLOCK_NAMES: Record<BlockTypes, string> = {
   entry: 'Start',
@@ -22,11 +28,7 @@ export const DEFAULT_BLOCK_DESC: Record<BlockTypes, string> = {
 // Not very useful right now but in the future this mapping is needed
 // and its scary to just assume that types and tables are 1:1 in code
 
-//TODO: DOPT-2350 Remove Exclude
-
-export function convertTypeToTable(
-  type: Exclude<BlockTypes, 'logic'>
-): BlockTable {
+export function convertTypeToTable(type: BlockTypes): BlockTable {
   switch (type) {
     case BLOCK_TYPES.entry:
       return 'entry';
@@ -38,5 +40,7 @@ export function convertTypeToTable(
       return 'set';
     case BLOCK_TYPES.webhook:
       return 'webhook';
+    case BLOCK_TYPES.logic:
+      return 'logic';
   }
 }
