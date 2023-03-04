@@ -1,5 +1,4 @@
 import type { Set } from '@dopt/block-types';
-import { DoptContext } from './context';
 import { useOrderedGroup } from './use-ordered-group';
 
 /**
@@ -33,9 +32,9 @@ export function withOrderedGroup<T>(
 ) {
   const displayName = Component.displayName || Component.name || 'Component';
 
-  const ComponentWithDopt = (props: Omit<T, keyof DoptContext>) => {
+  const ComponentWithDopt = (props: T) => {
     const [block, intent] = useOrderedGroup(uid);
-    return <Component {...(props as T)} block={block} intent={intent} />;
+    return <Component {...props} block={block} intent={intent} />;
   };
 
   ComponentWithDopt.displayName = `withOrderedGroup(${displayName}, ${uid})`;

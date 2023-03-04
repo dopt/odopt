@@ -124,17 +124,23 @@ Unlike flows, the states of a block are not all 1:1 with actions you can perform
 
 Now that you know what objects are available through the SDK, let's talk about how you access them.
 
-By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L23) prop, and their associated blocks using the following React hooks and HOCs.
+By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L77) prop, and their associated blocks using the following React hooks and HOCs.
 
-##### Hooks
+### Using Intentions
+
+Our hooks and HOCs provide intention methods which you can use to progress and update the state of Flows and Blocks. These methods are all defined with signatures that explicitly do not return values: `() => void | undefined`.
+
+We do this because each intention may cause a Flow and / or Block transition along with other side effects. These changes will eventually propagate back to the client. Then, the client will reactively update and re-render the components which depend on these Flow and Block states. Calling an intention only means that at sometime in the future, the client's state will be updated.
+
+### Using React Hooks
 
 - [useFlow](./src/use-flow.ts)
 
 ```ts
 interface FlowIntentions {
-  reset: () => void;
-  exit: () => void;
-  complete: () => void;
+  reset: () => void | undefined;
+  exit: () => void | undefined;
+  complete: () => void | undefined;
 }
 declare const useFlow: (sid: string) => [flow: Flow, intent: FlowIntentions];
 ```
@@ -143,7 +149,7 @@ declare const useFlow: (sid: string) => [flow: Flow, intent: FlowIntentions];
 
 ```ts
 interface BlockIntentions {
-  complete: () => void;
+  complete: () => void | undefined;
 }
 declare const useBlock: (
   uid: string
@@ -153,10 +159,10 @@ declare const useBlock: (
 - [useOrderedGroup](./src/use-ordered-group.tsx)
 
 ```ts
-interface BlockIntentions {
-  complete: () => void;
-  prev: () => void;
-  next: () => void;
+interface GroupIntentions {
+  complete: () => void | undefined;
+  prev: () => void | undefined;
+  next: () => void | undefined;
   goTo: (index: number) => void;
 }
 
@@ -169,14 +175,14 @@ export interface Group extends Set {
 
 declare const useOrderedGroup: (
   uid: string
-) => [block: Group, intent: BlockIntentions];
+) => [block: Group, intent: GroupIntentions];
 ```
 
 - [useUnorderedGroup](./src/use-unordered-group.tsx)
 
 ```ts
-interface BlockIntentions {
-  complete: () => void;
+interface GroupIntentions {
+  complete: () => void | undefined;
 }
 
 declare const useOrderedGroup: (
@@ -184,9 +190,9 @@ declare const useOrderedGroup: (
 ) => [block: Group, intent: BlockIntentions];
 ```
 
-##### HOCs
+**Using React HOCS**
 
-We offer analogous functionality through HOCs for those who are limited by their version of React or prefer that pattern.
+We offer analogous functionality through higher order components for those who are limited by their version of React or prefer that pattern.
 
 - [withFlow](./src/with-flow.tsx)
 - [withBlock](./src/with-block.tsx)
@@ -195,7 +201,7 @@ We offer analogous functionality through HOCs for those who are limited by their
 
 ### Example usage
 
-#### Accessing blocks
+**Accessing blocks**
 
 Using the [useBlock](./src/use-block.ts) hook:
 
@@ -233,7 +239,7 @@ export function Application() {
 }
 ```
 
-#### Accessing flows
+**Accessing flows**
 
 Using the [useFlow](./src/use-flow.ts) hook:
 
@@ -271,7 +277,7 @@ export function Application() {
 }
 ```
 
-#### Accessing ordered groups
+**Accessing ordered groups**
 
 Using the [useOrderedGroup](./src/use-ordered-group.tsx) hook:
 
@@ -316,7 +322,7 @@ export function Application() {
 }
 ```
 
-#### Accessing unordered groups
+**Accessing unordered groups**
 
 Using the [useUnorderedGroup](./src/use-unordered-group.tsx) hook:
 
@@ -375,7 +381,7 @@ The `DoptProvider` accepts a `logLevel` prop that allows you to set the minimum 
 
 ### Optimistic updates
 
-The `DoptProvider` accepts a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intent method is called. This defaults to `true`. As of right now, only a step block's `complete` intent can be optimistically updated.
+The `DoptProvider` accepts a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intention method is called. This defaults to `true`. As of right now, only a step block's `complete` intention can be optimistically updated.
 
 ## Feedback
 

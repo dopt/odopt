@@ -21,7 +21,7 @@ export interface UnorderedGroupBlockIntentions {
    * Sets {@link Block['state']['completed']} to true
    * Sets {@link Block['state']['active']} to false
    */
-  complete: () => void;
+  complete: () => void | undefined;
 }
 
 /**
@@ -108,10 +108,11 @@ const useUnorderedGroup = (
   const blocks = useMemo(() => {
     return set?.blocks || [];
   }, [fetching, set, set?.blocks]);
-  const complete = useCallback(
-    () => !fetching && blockIntention.complete(uid),
-    [fetching, blockIntention]
-  );
+  const complete = useCallback(() => {
+    if (!fetching) {
+      blockIntention.complete(uid);
+    }
+  }, [fetching, blockIntention]);
   const size = set?.size || 0;
   const getCompleted = useCallback(
     () => blocks.filter((b) => b.state.completed),

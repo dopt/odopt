@@ -18,7 +18,7 @@ import { DoptContext } from './context';
  *
  * @param sid - {@link Flow['sid']}
  *
- * @returns A flow's status {@link FlowStatus}.
+ * @returns A flow's {@link FlowStatus}.
  */
 const useFlowStatus = (sid: Flow['sid']): FlowStatus => {
   const { flowStatuses } = useContext(DoptContext);
