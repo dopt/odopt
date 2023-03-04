@@ -1,7 +1,7 @@
 {
   "name": "@dopt/blocks-api-manifest",
   "version": "0.0.1",
-  "private": false,
+  "private": true,
   "description": "A package to copy and store our blocks external specs from GCP",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/blocks-api-manifest",
   "repository": {
