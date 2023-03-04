@@ -24,7 +24,7 @@ export interface FlowIntentions {
    * Sets all {@link Block['state']['active']} to false
    * Sets all {@link Block['state']['completed']} to false
    */
-  reset: () => void;
+  reset: () => void | undefined;
   /**
    * Exits the flow.
    *
@@ -32,7 +32,7 @@ export interface FlowIntentions {
    * Sets {@link Flow['state']['exited']} to true
    * Sets all {@link Block['state']['active']} to false
    */
-  exit: () => void;
+  exit: () => void | undefined;
   /**
    * Completes the flow, independent of a
    * completed state that might be derived from
@@ -42,7 +42,7 @@ export interface FlowIntentions {
    * Sets {@link Flow['state']['completed']} to true
    * Sets all {@link Block['state']['active']} to false
    */
-  complete: () => void;
+  complete: () => void | undefined;
 }
 
 /**
@@ -92,20 +92,23 @@ const useFlow = (
     return key[1];
   }, [fetching, flows, sid]);
 
-  const reset = useCallback(
-    () => !fetching && flowIntention.reset(sid, version),
-    [fetching, flowIntention, sid, version]
-  );
+  const reset = useCallback(() => {
+    if (!fetching) {
+      flowIntention.reset(sid, version);
+    }
+  }, [fetching, flowIntention, sid, version]);
 
-  const exit = useCallback(
-    () => !fetching && flowIntention.exit(sid, version),
-    [fetching, flowIntention, sid, version]
-  );
+  const exit = useCallback(() => {
+    if (!fetching) {
+      flowIntention.exit(sid, version);
+    }
+  }, [fetching, flowIntention, sid, version]);
 
-  const complete = useCallback(
-    () => !fetching && flowIntention.complete(sid, version),
-    [fetching, flowIntention, sid, version]
-  );
+  const complete = useCallback(() => {
+    if (!fetching) {
+      flowIntention.complete(sid, version);
+    }
+  }, [fetching, flowIntention, sid, version]);
   if (fetching) {
     log.info(
       'Accessing flow prior to initialization will return default block states.'

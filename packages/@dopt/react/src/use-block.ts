@@ -28,7 +28,7 @@ export interface BlockIntentions {
    * Sets {@link Block['state']['completed']} to true
    * Sets {@link Block['state']['active']} to false
    */
-  complete: () => void;
+  complete: () => void | undefined;
 }
 
 export type BlockWithGetField = BlockType & {
@@ -77,10 +77,11 @@ const useBlock = (
   const { fetching, blocks, blockIntention, blockFields, log } =
     useContext(DoptContext);
 
-  const complete = useCallback(
-    () => !fetching && blockIntention.complete(uid),
-    [fetching, blockIntention]
-  );
+  const complete = useCallback(() => {
+    if (!fetching) {
+      blockIntention.complete(uid);
+    }
+  }, [fetching, blockIntention]);
 
   if (fetching) {
     log.info(

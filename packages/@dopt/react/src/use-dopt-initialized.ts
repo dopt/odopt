@@ -11,10 +11,10 @@ import { DoptContext } from './context';
  *
  * @remarks
  * Note, this hook does not check whether any initialization steps had errors.
- * Use {@link useFlowInitialized} to check flow status, including failures,
+ * Use {@link useFlowStatus} to check flow status, including failures,
  * at a more granular level.
  *
- * @returns A boolean.
+ * @returns A boolean, `true` if Dopt is initialized, `false` otherwise.
  */
 const useDoptInitialized = (): boolean => {
   const { flowStatuses } = useContext(DoptContext);
