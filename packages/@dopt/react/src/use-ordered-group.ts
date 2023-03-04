@@ -21,7 +21,7 @@ export interface OrderedGroupBlockIntentions {
    * Sets {@link Block['state']['completed']} to true
    * Sets {@link Block['state']['active']} to false
    */
-  complete: () => void;
+  complete: () => void | undefined;
   /**
    * Goes to specified element in the group
    *
@@ -30,7 +30,7 @@ export interface OrderedGroupBlockIntentions {
    * Sets {@link Block['state']['active']} to false for the currently active block
    * Sets {@link Block['state']['active']} to true for the specified block
    */
-  goTo: (index: number) => void;
+  goTo: (index: number) => void | undefined;
   /**
    * progresses the group by a single element.
    *
@@ -40,7 +40,7 @@ export interface OrderedGroupBlockIntentions {
    * Sets {@link Block['state']['complete']} to true for the currently active block
    * Sets {@link Block['state']['active']} to true for the next block
    */
-  next: () => void;
+  next: () => void | undefined;
 
   /**
    * Goes back one element in the group.
@@ -50,7 +50,7 @@ export interface OrderedGroupBlockIntentions {
    * Sets {@link Block['state']['active']} to false for the currently active block
    * Sets {@link Block['state']['active']} to true for the previous block
    */
-  prev: () => void;
+  prev: () => void | undefined;
 }
 
 /**
@@ -140,20 +140,27 @@ const useOrderedGroup = (
     }
     return set?.blocks || [];
   }, [fetching, set, set?.blocks]);
-  const complete = useCallback(
-    () => !fetching && blockIntention.complete(uid),
-    [fetching, blockIntention]
-  );
-  const prev = useCallback(
-    () => !fetching && blockIntention.prev(uid),
-    [fetching, blockIntention]
-  );
-  const next = useCallback(
-    () => !fetching && blockIntention.next(uid),
-    [fetching, blockIntention]
-  );
+  const complete = useCallback(() => {
+    if (!fetching) {
+      blockIntention.complete(uid);
+    }
+  }, [fetching, blockIntention]);
+  const prev = useCallback(() => {
+    if (!fetching) {
+      blockIntention.prev(uid);
+    }
+  }, [fetching, blockIntention]);
+  const next = useCallback(() => {
+    if (!fetching) {
+      blockIntention.next(uid);
+    }
+  }, [fetching, blockIntention]);
   const goTo = useCallback(
-    (index: number) => !fetching && blockIntention.goTo(uid, blocks[index].uid),
+    (index: number) => {
+      if (!fetching) {
+        blockIntention.goTo(uid, blocks[index].uid);
+      }
+    },
     [fetching, blockIntention, blocks]
   );
   const size = set?.size || 0;
