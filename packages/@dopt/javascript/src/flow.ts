@@ -1,6 +1,6 @@
-import { blocksApi, generateFlowStateKey } from '@dopt/javascript-common';
+import { blocksApi } from '@dopt/javascript-common';
 
-import { flowStore, blockStore } from './store';
+import { flowStore, blockStore, generateFlowStateKey } from './store';
 
 import { Mercator } from '@dopt/mercator';
 

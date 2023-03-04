@@ -1,5 +1,3 @@
-export { DoptProvider } from './base-provider';
-export { DoptContext } from './context';
 export { useBlock } from './use-block';
 export { withBlock } from './with-block';
 export { useFlow } from './use-flow';
@@ -11,17 +9,11 @@ export { withUnorderedGroup } from './with-unordered-group';
 export { useDoptInitialized } from './use-dopt-initialized';
 export { useFlowStatus } from './use-flow-status';
 
+export { DoptProvider } from './base-provider';
 export { MockDoptProvider } from './mock-provider';
 export { ProdDoptProvider } from './provider';
 
 export { URL_PREFIX as BASE_URL } from './utils';
-
-export type {
-  Blocks,
-  Flows,
-  BlockIntention,
-  FlowIntention,
-} from '@dopt/javascript-common';
 
 export type {
   Block,
@@ -34,7 +26,7 @@ export type {
 } from '@dopt/block-types';
 
 export { Mercator } from '@dopt/mercator';
-export type { Logger, LogLevels, LoggerProps } from '@dopt/logger';
+export type { LogLevels, LoggerProps } from '@dopt/logger';
 
 export type { BlockIntentions, BlockWithGetField } from './use-block';
 export type { FlowIntentions } from './use-flow';
@@ -52,4 +44,6 @@ export type {
   ProviderConfig,
   MockProviderConfig,
   FlowStatus,
+  Blocks,
+  Flows,
 } from './types';
