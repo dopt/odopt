@@ -1,5 +1,34 @@
 # @dopt/javascript-common
 
+## 1.4.2
+
+### Patch Changes
+
+- 7440d099: moves type definitions from common library into the respective places in which they're used; removes unused type definitions; cleans up typedocs; makes sure that all @dopt/react intents do not return values
+
+## 1.4.1
+
+### Patch Changes
+
+- d632e58e: Remove the dependency on @dopt/const package.
+
+## 1.4.0
+
+### Minor Changes
+
+- ef9377e2: update javascript-common package to process intent header and add hooks into react package which allows consumers to track Dopt provider initialization and flow level initialization
+
+## 1.3.0
+
+### Minor Changes
+
+- e619b78e: support new sid requirement on getDefaultBlock
+
+### Patch Changes
+
+- Updated dependencies [e619b78e]
+  - @dopt/block-types@3.0.0
+
 ## 1.2.8
 
 ### Patch Changes
