@@ -1,5 +1,11 @@
 # @dopt/javascript-common
 
+## 1.4.2
+
+### Patch Changes
+
+- 7440d099: moves type definitions from common library into the respective places in which they're used; removes unused type definitions; cleans up typedocs; makes sure that all @dopt/react intents do not return values
+
 ## 1.4.1
 
 ### Patch Changes
