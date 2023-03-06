@@ -1,8 +1,14 @@
-# Dopt Javascript SDK
+# Dopt JavaScript SDK
 
-## Getting Started
+## Getting started
 
-The Dopt Javascript SDK offers a convenient way to accessing, update, and subscribe to objects exposed via Dopt's blocks API. You can use this SDK to bind user flow state (defined in Dopt) to your UI.
+The Dopt JavaScript SDK offers a convenient way to accessing, update, and subscribe to objects exposed via Dopt's blocks API. You can use this SDK to bind user flow state (defined in Dopt) to your UI.
+
+The SDK lives in our open-source monorepo [odopt](https://github.com/dopt/odopt).
+
+It is published to npm as [`@dopt/javascript`](https://www.npmjs.com/package/@dopt/javascript).
+
+Check out our [TypeDoc docs](https://docs.dopt.com/sdks/javascript/modules/) for source code level documentation.
 
 ## Installation
 
@@ -26,17 +32,17 @@ pnpm add @dopt/javascript
 
 ## Configuration
 
-To configure the Dopt provider you will need
+To initialize the SDK, you will need:
 
 1. A blocks API key (generated in Dopt)
-1. The flow identifiers and versions you want your end-users to experience
+1. The flow identifiers and version tags for the flows you want your end-users to experience
 1. A user ID (user being an end-user you've identified to Dopt)
 
 ## Usage
 
 ### Initialization
 
-You can initialize Dopt in your app by integrating the `<DoptProvider />` as follows:
+You can initialize Dopt in your app as follows:
 
 ```js
 const dopt = new Dopt({
@@ -46,11 +52,11 @@ const dopt = new Dopt({
 });
 ```
 
-### Flows and Blocks
+### Flows and blocks
 
-The Dopt React SDK gives you access to two related objects, Flows and Blocks. Flows are entities representing the Flow you designed in Dopt. Blocks are a subset of the Blocks in that Flow.
+The SDK gives you access to two related objects: flows and blocks. Flows are entities representing the flow you designed in Dopt. Blocks are a subset of the blocks in that flow.
 
-Flows objects available through the SDK are represented by the following type definition.
+Flow objects available through the SDK are represented by the following type definition:
 
 ```ts
 interface Flow<T = "flow"> {
@@ -68,7 +74,7 @@ interface Flow<T = "flow"> {
 }
 ```
 
-The states of a Flow are 1:1 with the actions you can perform on a Flow. Flows have Blocks, which are represented through the following type definition.
+The states of a flow are 1:1 with the actions you can perform on a flow. Flows have blocks, which are represented through the following type definition:
 
 ```ts
 interface Step {
@@ -99,11 +105,11 @@ interface Group {
 type Block = Group | Step;
 ```
 
-Unlike Flows, the states of a Block are not all 1:1 with actions you can perform. The `completed` does have an associated action, but the `active` state is special.
+Unlike flows, the states of a block are not all 1:1 with actions you can perform. The `completed` state does have an associated action, but the `active` state is special.
 
-**Key Concept:** The `active` state of a Block is controlled by Dopt and represents where the currently logged in user (specified by the `userId` prop) is in the Flow. As you or other actors perform actions that implicitly transition the user through the Flow, the `active` state is updated.
+**Key concept:** The `active` state of a block is controlled by Dopt and represents where the initialized user (specified by the `userId` prop) is in the flow. As you or other actors perform actions that implicitly transition the user through the Flow, the `active` state is updated.
 
-### Accessing Flows and Blocks
+### Accessing flows and blocks
 
 Now that you know what objects are available through the SDK, let's talk about how you access them.
 
@@ -115,7 +121,7 @@ const blocks = dopt.blocks();
 blocks.forEach((block) => console.log(block));
 ```
 
-You can access individual blocks via the `block(identifier: string)` method e.g.
+You can access individual blocks via the `block(identifier: string)` method:
 
 ```js
 const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
@@ -133,14 +139,14 @@ const flows = dopt.flows();
 flows.forEach((flow) => console.log(flow));
 ```
 
-Additionally, you can access individual flows via the `flow(uid: string, version: number)` method e.g.
+Additionally, you can access individual flows via the `flow(uid: string, version: number)` method:
 
 ```js
 const flow = dopt.flow("welcome-to-dopt", 3);
 console.log("I'm version 3 of the `welcome-to-dopt` flow", flow);
 ```
 
-The dopt object exposes an `initialized` method which you can use to guard calls to any block accessors e.g.
+The `dopt` object exposes an `initialized` method which you can use to guard calls to any block accessors:
 
 ```js
 dopt.initialized().then(() => {
@@ -150,9 +156,9 @@ dopt.initialized().then(() => {
 });
 ```
 
-### Subscribing to Flow or Block state change
+### Subscribing to flow or block state change
 
-You can use the `subscribe()` method on the Flow and Block classes to listen for changes to then underlying object e.g.
+You can use the `subscribe()` method on the flow and block classes to listen for changes to then underlying object:
 
 ```js
 const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
@@ -221,3 +227,11 @@ const dopt = new Dopt({
 ### Optimistic updates
 
 `DoptConfig` and `Dopt` also accept a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intent method is called. This defaults to `true`. As of right now, only a step block's `complete` intent can be optimistically updated.
+
+## Feedback
+
+Looking to provide feedback or report a bug? [Open an issue](https://github.com/dopt/odopt/issues/new?title=[@dopt/javascript]%20) or contact us at [support@dopt.com](mailto:support@dopt.com).
+
+## Contributing
+
+All contributions are welcome! Feel free to open a [pull request](https://github.com/dopt/odopt/compare).

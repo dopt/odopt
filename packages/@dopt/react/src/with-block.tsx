@@ -1,5 +1,3 @@
-import { DoptContext } from './context';
-
 import type { Block } from '@dopt/block-types';
 import { useBlock } from './use-block';
 
@@ -34,9 +32,9 @@ export function withBlock<T>(
 ) {
   const displayName = Component.displayName || Component.name || 'Component';
 
-  const ComponentWithDopt = (props: Omit<T, keyof DoptContext>) => {
+  const ComponentWithDopt = (props: T) => {
     const [block, intent] = useBlock(uid);
-    return <Component {...(props as T)} block={block} intent={intent} />;
+    return <Component {...props} block={block} intent={intent} />;
   };
 
   ComponentWithDopt.displayName = `withBlock(${displayName}, ${uid})`;

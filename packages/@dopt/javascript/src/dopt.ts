@@ -11,16 +11,15 @@ import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 
 import {
   blocksApi,
-  Blocks,
   setupSocket,
   getDefaultBlockState,
   getDefaultFlowState,
-  generateFlowStateKey,
 } from '@dopt/javascript-common';
 
 import { Socket } from 'socket.io-client';
 
-import { blockStore, flowStore } from './store';
+import { blockStore, flowStore, generateFlowStateKey } from './store';
+import type { Blocks } from './store';
 /**
  * Providing this configuration to {@link Dopt} allows the
  * the SDK to fetch relevant data from the Dopt blocks API.
