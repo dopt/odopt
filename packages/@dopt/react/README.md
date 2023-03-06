@@ -32,10 +32,10 @@ pnpm add @dopt/react
 
 ## Configuration
 
-To configure the Dopt provider you will need
+To configure the Dopt provider you will need:
 
 1. A Blocks API key (generated in Dopt)
-1. The flow identifiers and versions you want your end-users to experience
+1. The flow identifiers and version tags for the flows you want your end-users to experience
 1. A user ID (user being an end-user you've identified to Dopt)
 
 ## Usage
@@ -63,11 +63,11 @@ ReactDOM.render(
 
 **Note:** If `userId` is `undefined`, default objects with default states (e.g. all state values will default to `false`) will be returned from the associated hooks.
 
-### Flows and Blocks
+### Flows and blocks
 
-The Dopt React SDK gives you access to two related objects, Flows and Blocks. Flows are entities representing the Flow you designed in Dopt. Blocks are a subset of the Blocks in that Flow.
+The SDK gives you access to two related objects: flows and blocks. Flows are entities representing the flow you designed in Dopt. Blocks are a subset of the blocks in that flow.
 
-Flows objects available through the SDK are represented by the following type definition.
+Flow objects available through the SDK are represented by the following type definition:
 
 ```ts
 interface Flow<T = "flow"> {
@@ -85,7 +85,7 @@ interface Flow<T = "flow"> {
 }
 ```
 
-The states of a Flow are 1:1 with the actions you can perform on a Flow. Flows have Blocks, which are represented through the following type definition.
+The states of a flow are 1:1 with the actions you can perform on a flow. Flows have blocks, which are represented through the following type definition:
 
 ```ts
 interface Step {
@@ -116,25 +116,31 @@ interface Group {
 type Block = Group | Step;
 ```
 
-Unlike Flows, the states of a Block are not all 1:1 with actions you can perform. The `completed` does have an associated action, but the `active` state is special.
+Unlike flows, the states of a block are not all 1:1 with actions you can perform. The `completed` state does have an associated action, but the `active` state is special.
 
-**Key Concept:** The `active` state of a Block is controlled by Dopt and represents where the currently logged in user (specified by the `userId` prop) is in the Flow. As you or other actors perform actions that implicitly transition the user through the Flow, the `active` state is updated.
+**Key concept:** The `active` state of a block is controlled by Dopt and represents where the currently initialized user (specified by the `userId` prop) is in the flow. As you or other actors perform actions that implicitly transition the user through the flow, the `active` state is updated.
 
-### Accessing Flows and Blocks
+### Accessing flows and blocks
 
 Now that you know what objects are available through the SDK, let's talk about how you access them.
 
-By integrating the provider, all descendants of it can now access the Flows configured in the [flowVersions](./src/types.ts#L23) prop, and their associated blocks using the following React hooks and HOCs.
+By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L77) prop, and their associated blocks using the following React hooks and HOCs.
 
-##### Hooks
+### Using Intentions
+
+Our hooks and HOCs provide intention methods which you can use to progress and update the state of Flows and Blocks. These methods are all defined with signatures that explicitly do not return values: `() => void | undefined`.
+
+We do this because each intention may cause a Flow and / or Block transition along with other side effects. These changes will eventually propagate back to the client. Then, the client will reactively update and re-render the components which depend on these Flow and Block states. Calling an intention only means that at sometime in the future, the client's state will be updated.
+
+### Using React Hooks
 
 - [useFlow](./src/use-flow.ts)
 
 ```ts
 interface FlowIntentions {
-  reset: () => void;
-  exit: () => void;
-  complete: () => void;
+  reset: () => void | undefined;
+  exit: () => void | undefined;
+  complete: () => void | undefined;
 }
 declare const useFlow: (sid: string) => [flow: Flow, intent: FlowIntentions];
 ```
@@ -143,7 +149,7 @@ declare const useFlow: (sid: string) => [flow: Flow, intent: FlowIntentions];
 
 ```ts
 interface BlockIntentions {
-  complete: () => void;
+  complete: () => void | undefined;
 }
 declare const useBlock: (
   uid: string
@@ -153,10 +159,10 @@ declare const useBlock: (
 - [useOrderedGroup](./src/use-ordered-group.tsx)
 
 ```ts
-interface BlockIntentions {
-  complete: () => void;
-  prev: () => void;
-  next: () => void;
+interface GroupIntentions {
+  complete: () => void | undefined;
+  prev: () => void | undefined;
+  next: () => void | undefined;
   goTo: (index: number) => void;
 }
 
@@ -169,14 +175,14 @@ export interface Group extends Set {
 
 declare const useOrderedGroup: (
   uid: string
-) => [block: Group, intent: BlockIntentions];
+) => [block: Group, intent: GroupIntentions];
 ```
 
 - [useUnorderedGroup](./src/use-unordered-group.tsx)
 
 ```ts
-interface BlockIntentions {
-  complete: () => void;
+interface GroupIntentions {
+  complete: () => void | undefined;
 }
 
 declare const useOrderedGroup: (
@@ -184,9 +190,9 @@ declare const useOrderedGroup: (
 ) => [block: Group, intent: BlockIntentions];
 ```
 
-##### HOCS
+**Using React HOCS**
 
-We offer analogous functionality through HOCs for those who are limited by their version of React or prefer that pattern.
+We offer analogous functionality through higher order components for those who are limited by their version of React or prefer that pattern.
 
 - [withFlow](./src/with-flow.tsx)
 - [withBlock](./src/with-block.tsx)
@@ -195,9 +201,9 @@ We offer analogous functionality through HOCs for those who are limited by their
 
 ### Example usage
 
-#### Accessing Blocks
+**Accessing blocks**
 
-Using the [useBlock](./src/use-block.ts) hook.
+Using the [useBlock](./src/use-block.ts) hook:
 
 ```tsx
 import { useBlock } from "@dopt/react";
@@ -217,7 +223,7 @@ export function Application() {
 }
 ```
 
-Using the [withBlock](./src/with-block.tsx) HOC
+Using the [withBlock](./src/with-block.tsx) HOC:
 
 ```tsx
 import { withBlock } from "@dopt/react";
@@ -233,9 +239,9 @@ export function Application() {
 }
 ```
 
-#### Accessing Flows
+**Accessing flows**
 
-Using the [useFlow](./src/use-flow.ts) hook.
+Using the [useFlow](./src/use-flow.ts) hook:
 
 ```tsx
 import { useFlow } from "@dopt/react";
@@ -255,7 +261,7 @@ export function Application() {
 }
 ```
 
-Using the [withFlow](./src/with-flow.tsx) HOC
+Using the [withFlow](./src/with-flow.tsx) HOC:
 
 ```tsx
 import { withFlow } from "@dopt/react";
@@ -271,9 +277,9 @@ export function Application() {
 }
 ```
 
-#### Accessing Ordered Groups
+**Accessing ordered groups**
 
-Using the [useOrderedGroup](./src/use-ordered-group.tsx) hook.
+Using the [useOrderedGroup](./src/use-ordered-group.tsx) hook:
 
 ```tsx
 import { useOrderedGroup } from "@dopt/react";
@@ -297,7 +303,7 @@ export function Application() {
 }
 ```
 
-Using the [withOrderedGroup](./src/with-ordered-group.tsx) HOC
+Using the [withOrderedGroup](./src/with-ordered-group.tsx) HOC:
 
 ```tsx
 import { withOrderedGroup } from "@dopt/react";
@@ -316,9 +322,9 @@ export function Application() {
 }
 ```
 
-#### Accessing Unordered Groups
+**Accessing unordered groups**
 
-Using the [useUnorderedGroup](./src/use-unordered-group.tsx) hook.
+Using the [useUnorderedGroup](./src/use-unordered-group.tsx) hook:
 
 ```tsx
 export function Application() {
@@ -339,7 +345,7 @@ export function Application() {
 }
 ```
 
-Using the [withUnorderedGroup](./src/with-unordered-group.tsx) HOC
+Using the [withUnorderedGroup](./src/with-unordered-group.tsx) HOC:
 
 ```tsx
 import { withUnorderedGroup } from "@dopt/react";
@@ -375,7 +381,7 @@ The `DoptProvider` accepts a `logLevel` prop that allows you to set the minimum 
 
 ### Optimistic updates
 
-The `DoptProvider` accepts a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intent method is called. This defaults to `true`. As of right now, only a step block's `complete` intent can be optimistically updated.
+The `DoptProvider` accepts a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intention method is called. This defaults to `true`. As of right now, only a step block's `complete` intention can be optimistically updated.
 
 ## Feedback
 

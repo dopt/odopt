@@ -24,7 +24,7 @@ export interface FlowIntentions {
    * Sets all {@link Block['state']['active']} to false
    * Sets all {@link Block['state']['completed']} to false
    */
-  reset: () => void;
+  reset: () => void | undefined;
   /**
    * Exits the flow.
    *
@@ -32,7 +32,7 @@ export interface FlowIntentions {
    * Sets {@link Flow['state']['exited']} to true
    * Sets all {@link Block['state']['active']} to false
    */
-  exit: () => void;
+  exit: () => void | undefined;
   /**
    * Completes the flow, independent of a
    * completed state that might be derived from
@@ -42,7 +42,7 @@ export interface FlowIntentions {
    * Sets {@link Flow['state']['completed']} to true
    * Sets all {@link Block['state']['active']} to false
    */
-  complete: () => void;
+  complete: () => void | undefined;
 }
 
 /**
@@ -76,11 +76,11 @@ export interface FlowIntentions {
 const useFlow = (
   sid: Flow['sid']
 ): [flow: Partial<Flow>, intent: FlowIntentions] => {
-  const { loading, flows, flowBlocks, blocks, flowIntention } =
+  const { fetching, flows, flowBlocks, blocks, flowIntention, log } =
     useContext(DoptContext);
 
   const version = useMemo(() => {
-    if (loading) {
+    if (fetching) {
       return -1;
     }
     const key = Array.from(flows.keys()).find(([name]) => name === sid);
@@ -90,24 +90,31 @@ const useFlow = (
         props to ensure \`${sid}\` and its version is specified there`);
     }
     return key[1];
-  }, [loading, flows, sid]);
+  }, [fetching, flows, sid]);
 
-  const reset = useCallback(
-    () => !loading && flowIntention.reset(sid, version),
-    [loading, flowIntention, sid, version]
-  );
+  const reset = useCallback(() => {
+    if (!fetching) {
+      flowIntention.reset(sid, version);
+    }
+  }, [fetching, flowIntention, sid, version]);
 
-  const exit = useCallback(
-    () => !loading && flowIntention.exit(sid, version),
-    [loading, flowIntention, sid, version]
-  );
+  const exit = useCallback(() => {
+    if (!fetching) {
+      flowIntention.exit(sid, version);
+    }
+  }, [fetching, flowIntention, sid, version]);
 
-  const complete = useCallback(
-    () => !loading && flowIntention.complete(sid, version),
-    [loading, flowIntention, sid, version]
-  );
-
-  if (loading || !flows.get([sid, version])) {
+  const complete = useCallback(() => {
+    if (!fetching) {
+      flowIntention.complete(sid, version);
+    }
+  }, [fetching, flowIntention, sid, version]);
+  if (fetching) {
+    log.info(
+      'Accessing flow prior to initialization will return default block states.'
+    );
+  }
+  if (fetching || !flows.get([sid, version])) {
     return [getDefaultFlowState(sid, version), { reset, exit, complete }];
   }
 
