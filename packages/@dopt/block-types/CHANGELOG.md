@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 3.0.0
+
+### Major Changes
+
+- e619b78e: added sid support
+
 ## 2.0.4
 
 ### Patch Changes

@@ -1,5 +1,3 @@
-import { DoptContext } from './context';
-
 import { useFlow } from './use-flow';
 
 /**
@@ -33,9 +31,9 @@ export function withFlow<T>(
 ) {
   const displayName = Component.displayName || Component.name || 'Component';
 
-  const ComponentWithDopt = (props: Omit<T, keyof DoptContext>) => {
+  const ComponentWithDopt = (props: T) => {
     const [flow, intent] = useFlow(...useFlowArgs);
-    return <Component {...(props as T)} flow={flow} intent={intent} />;
+    return <Component {...props} flow={flow} intent={intent} />;
   };
 
   ComponentWithDopt.displayName = `withFlow(${displayName}, ${useFlowArgs.join(
