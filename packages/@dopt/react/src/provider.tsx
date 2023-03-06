@@ -5,17 +5,17 @@ import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 import { Mercator } from '@dopt/mercator';
 
 import { Logger } from '@dopt/logger';
-import {
-  Blocks,
-  Flows,
-  BlockIntention,
-  blocksApi,
-  setupSocket,
-  FlowIntention,
-} from '@dopt/javascript-common';
+import { blocksApi, setupSocket } from '@dopt/javascript-common';
 
 import { DoptContext } from './context';
-import { ProviderConfig } from './types';
+import {
+  ProviderConfig,
+  FlowStatus,
+  Blocks,
+  Flows,
+  BlockIntentHandler,
+  FlowIntentHandler,
+} from './types';
 import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 
 /**
@@ -34,7 +34,6 @@ export function ProdDoptProvider(props: ProviderConfig) {
 
   const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
-  const [loading, setLoading] = useState<boolean>(true);
   const [blocks, setBlocks] = useState<Blocks>({});
   const [flows, setFlows] = useState<Flows>(new Mercator());
   const [flowBlocks, setFlowBlocks] = useState<
@@ -43,7 +42,13 @@ export function ProdDoptProvider(props: ProviderConfig) {
   const [blockFields, setBlockFields] = useState<
     Map<Block['uid'], Map<Field['sid'], Field>>
   >(new Map());
+
+  const [fetching, setFetching] = useState<boolean>(true);
   const [socketReady, setSocketReady] = useState<boolean>(false);
+
+  const [flowStatuses, setFlowStatuses] = useState<
+    Record<Flow['sid'], FlowStatus>
+  >({});
 
   useEffect(() => {
     if (userId === undefined) {
@@ -99,104 +104,93 @@ export function ProdDoptProvider(props: ProviderConfig) {
       return;
     }
 
-    (async function () {
-      /*
-       * Fetch all Flows based on the **in parallel**
-       * provided (Flow['uid'], Flow['version'])
-       * tuples (via the `flowVersions` props)
-       */
-      Promise.all(
-        Object.entries(flowVersions).map(([uid, version]) =>
-          getFlow({ uid, version })
-        )
+    /*
+     * Fetch all Flows based on the **in parallel**
+     * provided (Flow['uid'], Flow['version'])
+     * tuples (via the `flowVersions` props)
+     */
+    Promise.all(
+      Object.entries(flowVersions).map(([uid, version]) =>
+        getFlow({ uid, version })
       )
-        .then((flows) => {
-          flows.forEach((flow) => {
-            if (!flow.state.started) {
-              flowIntent({
-                uid: flow.uid,
-                version: flow.version,
-                intent: 'start',
-              }).catch(() => {
-                // do nothing, this error is already handled
-              });
-            }
-            /*
-             * Update the Flows in React state
-             */
-            setFlows((prev) => {
-              return new Mercator(
-                Array.from(prev.set([flow.sid, flow.version], flow).entries())
-              );
-            });
-
-            /*
-             * Extract the Flow's associated Blocks
-             */
-            const blocks = flow.blocks?.reduce<Record<Block['uid'], Block>>(
-              (memo, block) => {
-                memo[block.uid] = block;
-                return memo;
-              },
-              {}
+    )
+      .then((flows) => {
+        flows.forEach((flow) => {
+          /*
+           * Update the Flows in React state
+           */
+          setFlows((prev) => {
+            return new Mercator(
+              Array.from(prev.set([flow.sid, flow.version], flow).entries())
             );
-
-            /*
-             * Create a mapping from a flow to its blocks
-             */
-            setFlowBlocks((prev) => {
-              return new Mercator(
-                Array.from(
-                  prev.set(
-                    [flow.sid, flow.version],
-                    flow.blocks?.map(({ uid }) => uid) || []
-                  )
-                )
-              );
-            });
-
-            /*
-             * Create a mapping from each block to its fields
-             */
-            setBlockFields(() => {
-              const map = new Map();
-              flow.blocks?.forEach((block) => {
-                if (block.type === ModelTypeConst) {
-                  map.set(
-                    block.uid,
-                    block.fields.reduce((map, field) => {
-                      return map.set(field.sid, field);
-                    }, new Map<Field['sid'], Field>())
-                  );
-                }
-              });
-              return map;
-            });
-
-            /*
-             * Update the Block in React state
-             */
-            setBlocks((prevBlocks) => ({
-              ...prevBlocks,
-              ...blocks,
-            }));
           });
 
-          log.info('Flows & Blocks fetched successfully');
+          /*
+           * Extract the Flow's associated Blocks
+           */
+          const blocks = flow.blocks?.reduce<Record<Block['uid'], Block>>(
+            (memo, block) => {
+              memo[block.uid] = block;
+              return memo;
+            },
+            {}
+          );
 
           /*
-           * If we've made it here we can safely progress i.e. the
-           * SDK has initialized correctly.
+           * Create a mapping from a flow to its blocks
            */
-          setLoading(false);
-        })
-        .catch((error) => {
-          log.error(`
+          setFlowBlocks((prev) => {
+            return new Mercator(
+              Array.from(
+                prev.set(
+                  [flow.sid, flow.version],
+                  flow.blocks?.map(({ uid }) => uid) || []
+                )
+              )
+            );
+          });
+
+          /*
+           * Create a mapping from each block to its fields
+           */
+          setBlockFields(() => {
+            const map = new Map();
+            flow.blocks?.forEach((block) => {
+              if (block.type === ModelTypeConst) {
+                map.set(
+                  block.uid,
+                  block.fields.reduce((map, field) => {
+                    return map.set(field.sid, field);
+                  }, new Map<Field['sid'], Field>())
+                );
+              }
+            });
+            return map;
+          });
+
+          /*
+           * Update the Block in React state
+           */
+          setBlocks((prevBlocks) => ({
+            ...prevBlocks,
+            ...blocks,
+          }));
+        });
+
+        log.info('Flows & Blocks fetching successfully');
+
+        /*
+         * If we've made it here we can safely progress i.e. the
+         * SDK has fetched correctly.
+         */
+        setFetching(false);
+      })
+      .catch((error) => {
+        log.error(`
             An error occurred while fetching blocks for the
             flow versions specified: \`${JSON.stringify(flowVersions)}\`
           `);
-        });
-    })();
+      });
   }, [JSON.stringify(flowVersions), userId, groupId]);
 
   const updateBlockState = useCallback(
@@ -213,6 +207,21 @@ export function ProdDoptProvider(props: ProviderConfig) {
       return new Mercator(
         Array.from(preFlows.set([flow.sid, flow.version], flow).entries())
       );
+    });
+
+    setFlowStatuses((previousFlowStatuses) => {
+      /*
+       *  Some flow intents generate side effects (they start flows if not started),
+       *  this tracks that those intents are propagated back to the client
+       */
+      if (previousFlowStatuses[flow.sid]?.pending) {
+        return {
+          ...previousFlowStatuses,
+          [flow.sid]: { pending: false, failed: false },
+        };
+      } else {
+        return previousFlowStatuses;
+      }
     });
   }, []);
 
@@ -308,18 +317,59 @@ export function ProdDoptProvider(props: ProviderConfig) {
     socketReady,
   ]);
 
-  const blockIntention: BlockIntention = useMemo(() => {
-    if (loading) {
+  useEffect(() => {
+    if (!fetching && socketReady) {
+      setFlowStatuses(
+        Array.from(flows.values()).reduce((statuses, flow) => {
+          let pending = false;
+
+          if (!flow.state.started) {
+            /*
+             * Start the Flow if it hasn't been started
+             */
+            pending = true;
+
+            flowIntent({
+              uid: flow.uid,
+              version: flow.version,
+              intent: 'start',
+            }).then(
+              (intentHasSideEffects) => {
+                if (!intentHasSideEffects) {
+                  setFlowStatuses((previousFlowStatuses) => ({
+                    ...previousFlowStatuses,
+                    [flow.sid]: { pending: false, failed: false },
+                  }));
+                }
+              },
+              () => {
+                setFlowStatuses((previousFlowStatuses) => ({
+                  ...previousFlowStatuses,
+                  [flow.sid]: { pending: false, failed: true },
+                }));
+              }
+            );
+          }
+
+          statuses[flow.sid] = { pending, failed: false };
+          return statuses;
+        }, {} as Record<Flow['sid'], FlowStatus>)
+      );
+    }
+  }, [socketReady, fetching]);
+
+  const blockIntention: BlockIntentHandler = useMemo(() => {
+    if (fetching) {
       return {
-        complete: async () => {},
-        prev: async () => {},
-        next: async () => {},
-        goTo: async () => {},
+        complete: () => {},
+        prev: () => {},
+        next: () => {},
+        goTo: () => {},
       };
     }
 
     return {
-      complete: async (uid) => {
+      complete: (uid) => {
         if (blocks[uid]) {
           if (optimisticUpdates && blocks[uid].type === ModelTypeConst) {
             updateBlockState({
@@ -332,53 +382,75 @@ export function ProdDoptProvider(props: ProviderConfig) {
             });
           }
 
-          return blockIntent({
+          blockIntent({
             uid,
             version: blocks[uid].version,
             intent: 'complete',
           });
         }
       },
-      next: async (uid) =>
-        blocks[uid] &&
-        blockIntent({ uid, version: blocks[uid].version, intent: 'next' }),
-      prev: async (uid) =>
-        blocks[uid] &&
-        blockIntent({ uid, version: blocks[uid].version, intent: 'prev' }),
-      goTo: async (uid, goToUid) =>
-        blocks[uid] &&
-        blockIntent({
-          uid,
-          version: blocks[uid].version,
-          intent: 'goTo',
-          goToUid,
-        }),
+      next: (uid) => {
+        if (blocks[uid]) {
+          blockIntent({
+            uid,
+            version: blocks[uid].version,
+            intent: 'next',
+          });
+        }
+      },
+      prev: (uid) => {
+        if (blocks[uid]) {
+          blockIntent({
+            uid,
+            version: blocks[uid].version,
+            intent: 'prev',
+          });
+        }
+      },
+      goTo: (uid, goToUid) => {
+        if (blocks[uid]) {
+          blockIntent({
+            uid,
+            version: blocks[uid].version,
+            intent: 'goTo',
+            goToUid,
+          });
+        }
+      },
     };
-  }, [loading, blockIntent, blocks]);
+  }, [fetching, blockIntent, blocks]);
 
-  const flowIntention: FlowIntention = useMemo(() => {
-    if (loading) {
+  const flowIntention: FlowIntentHandler = useMemo(() => {
+    if (fetching) {
       return {
-        start: async () => {},
-        reset: async () => {},
-        complete: async () => {},
-        exit: async () => {},
+        start: () => {},
+        reset: () => {},
+        complete: () => {},
+        exit: () => {},
       };
     }
 
     return {
-      start: (uid, version) => flowIntent({ uid, version, intent: 'start' }),
-      reset: (uid, version) => flowIntent({ uid, version, intent: 'reset' }),
-      complete: (uid, version) =>
-        flowIntent({ uid, version, intent: 'complete' }),
-      exit: (uid, version) => flowIntent({ uid, version, intent: 'exit' }),
+      start: (uid, version) => {
+        flowIntent({ uid, version, intent: 'start' });
+      },
+      reset: (uid, version) => {
+        flowIntent({ uid, version, intent: 'reset' });
+      },
+      complete: (uid, version) => {
+        flowIntent({ uid, version, intent: 'complete' });
+      },
+      exit: (uid, version) => {
+        flowIntent({ uid, version, intent: 'exit' });
+      },
     };
-  }, [loading, flows]);
+  }, [fetching, flows]);
 
   return (
     <DoptContext.Provider
       value={{
-        loading,
+        fetching,
+        flowStatuses,
         flowBlocks,
         flows,
         flowIntention,
