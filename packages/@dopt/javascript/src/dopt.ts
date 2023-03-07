@@ -68,6 +68,7 @@ export class Dopt {
   private flowBlocks: Mercator<[Flow['uid'], Flow['version']], Block['uid'][]>;
   private blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
   private socket: Socket | undefined;
+  private blockUidBySid: Map<Block['sid'], Block['uid']>;
 
   /**
    * Creates a Dopt class instance.
@@ -109,7 +110,7 @@ export class Dopt {
     this.logger = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
     this.flowBlocks = new Mercator();
-
+    this.blockUidBySid = new Map();
     this.blockFields = new Map();
 
     this._initialized = false;
@@ -211,6 +212,9 @@ export class Dopt {
           flow.blocks?.forEach((block) => {
             // initialize the block store
             blockStore.setState({ [block.uid]: block });
+
+            // initialize block uid look up map
+            this.blockUidBySid.set(block.sid, block.uid);
 
             // initialize block fields map
             if (block.type === ModelTypeConst) {
@@ -334,7 +338,7 @@ export class Dopt {
   }
 
   /**
-   * Returns the {@link Block} associated with this `uid`.
+   * Returns the {@link Block} associated with this `id`.
    *
    * @remarks
    * This function will return `undefined` if this {@link Dopt} instance is not initialized.
@@ -344,11 +348,11 @@ export class Dopt {
    * const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
    * ```
    *
-   * @param uid {@link BlockType['uid']} The uid of the block.
-   *
-   * @returns A {@link Block} instance corresponding to the uid.
+   * @param id one of {@link BlockType['uid']} | {@link BlockType['sid']} The id of the block.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link Block} instance corresponding to the id.
    */
-  public block(uid: string) {
+  public block(id: string) {
     const {
       logger,
       blocksApi: { blockIntent: intent },
@@ -359,14 +363,16 @@ export class Dopt {
         `Accessing block() prior to initialization will return default block states.`
       );
     }
+    const uid = this.blockUidBySid.get(id) || id;
 
-    const block = blockStore.getState()[uid] || getDefaultBlockState(uid, uid);
+    const block = blockStore.getState()[uid] || getDefaultBlockState(uid, id);
 
     return new BlockClass({
       intent,
       block,
       optimisticUpdates: this.optimisticUpdates,
       fieldMap: this.blockFields.get(block.uid) || null,
+      blockUidBySid: this.blockUidBySid,
     });
   }
 
@@ -396,6 +402,7 @@ export class Dopt {
         block,
         optimisticUpdates: this.optimisticUpdates,
         fieldMap: this.blockFields.get(block.uid) || null,
+        blockUidBySid: this.blockUidBySid,
       });
     });
   }
