@@ -21,23 +21,21 @@ import { useBlock } from './use-block';
  * ```
  *
  * @param Component - the React component you with to inject Dopt props into
- * @param uid - {@link Block['uid']}
+ * @param id - one of {@link Block['sid']} | {@link Block['uid']}
+ * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
  * @returns The original component with {@link Block | block} and {@link BlockIntentions | intent}
  * props injected in
  *
  */
-export function withBlock<T>(
-  Component: React.ComponentType<T>,
-  uid: Block['uid']
-) {
+export function withBlock<T>(Component: React.ComponentType<T>, id: string) {
   const displayName = Component.displayName || Component.name || 'Component';
 
   const ComponentWithDopt = (props: T) => {
-    const [block, intent] = useBlock(uid);
+    const [block, intent] = useBlock(id);
     return <Component {...props} block={block} intent={intent} />;
   };
 
-  ComponentWithDopt.displayName = `withBlock(${displayName}, ${uid})`;
+  ComponentWithDopt.displayName = `withBlock(${displayName}, ${id})`;
 
   return ComponentWithDopt;
 }

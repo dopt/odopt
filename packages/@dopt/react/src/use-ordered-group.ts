@@ -111,34 +111,44 @@ export interface OrderedGroupBlock extends Set {
  *  }
  * ```
  *
- * @param uid - {@link Set['uid']}
+ * @param id - one of {@link Set['sid']} | {@link Set['uid']}
+ * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
  * @returns [{@link OrderedGroupBlock}, {@link OrderedGroupBlockIntentions}] the state of the block and methods to manipulate said state
  *
  */
 const useOrderedGroup = (
-  uid: Set['uid']
+  id: string
 ): [block: OrderedGroupBlock, intent: OrderedGroupBlockIntentions] => {
   const {
     fetching,
     blocks: contextBlocks,
     blockIntention,
     log,
+    blockUidBySid,
   } = useContext(DoptContext);
-  const set = useMemo(() => {
+
+  const uid = useMemo(() => {
+    if (fetching) {
+      return '';
+    }
+    return blockUidBySid.get(id) || id;
+  }, [fetching, blockUidBySid, id]);
+
+  let set = useMemo(() => {
     if (fetching) {
       return undefined;
     }
     return contextBlocks[uid];
   }, [fetching, contextBlocks, uid]);
-
   if (set && set.type !== 'set') {
-    throw new Error(JSON.stringify(set, null, 2));
+    set = getDefaultSetState(uid, id);
+    log.error(`Block ${uid} is not a set block`);
   }
   const blocks = useMemo(() => {
     if (fetching) {
       return [];
     }
-    return set?.blocks || [];
+    return (set && set.type == 'set' && set?.blocks) || [];
   }, [fetching, set, set?.blocks]);
   const complete = useCallback(() => {
     if (!fetching) {
@@ -188,7 +198,7 @@ const useOrderedGroup = (
   if (fetching || !set) {
     return [
       {
-        ...getDefaultSetState(uid),
+        ...getDefaultSetState(uid, id),
         size,
         blocks,
         getCompleted,
