@@ -242,7 +242,6 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/javascript-common': workspace:*
       '@dopt/logger': workspace:*
-      '@dopt/mercator': workspace:*
       '@dopt/rollup': workspace:*
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 11.0.0
@@ -263,7 +262,6 @@ importers:
       '@dopt/block-types': link:../block-types
       '@dopt/javascript-common': link:../javascript-common
       '@dopt/logger': link:../logger
-      '@dopt/mercator': link:../mercator
       socket.io-client: 4.5.3
       zustand: 4.1.4_react@18.2.0
     devDependencies:
