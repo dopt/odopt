@@ -21,22 +21,31 @@ export interface BlockProps {
   block: BlockType;
   optimisticUpdates: boolean;
   fieldMap: Map<Field['sid'], Field> | null;
+  blockUidBySid: Map<BlockType['uid'], BlockType['sid']>;
 }
 
 export class Block {
   private intent: BlockProps['intent'];
   private block: BlockProps['block'];
   private fieldMap: BlockProps['fieldMap'];
+  private blockUidBySid: BlockProps['blockUidBySid'];
   private optimisticUpdates: BlockProps['optimisticUpdates'];
 
   /**
    * @internal
    */
-  constructor({ block, intent, optimisticUpdates, fieldMap }: BlockProps) {
+  constructor({
+    block,
+    intent,
+    optimisticUpdates,
+    fieldMap,
+    blockUidBySid,
+  }: BlockProps) {
     this.intent = intent;
     this.block = block;
     this.optimisticUpdates = optimisticUpdates;
     this.fieldMap = fieldMap;
+    this.blockUidBySid = blockUidBySid;
   }
 
   private async _intent(intent: BlockIntent, goToUid?: string) {
@@ -132,12 +141,13 @@ export class Block {
    * @remarks
    * It is often unnecessary to wait for this function to resolve / reject.
    *
-   * @param uid The uid of the child step block.
+   * @param id The id of the child step block. which can be a sid, uid.
    *
    * @returns A promise which resolves when this block has been completed successfully and rejects otherwise.
    */
-  async goTo(uid: BlockType['uid']) {
+  async goTo(id: string) {
     if (this.block.type === SetTypeConst && this.block.ordered) {
+      const uid = this.blockUidBySid.get(id) || id;
       return this._intent('goTo', uid);
     }
   }
