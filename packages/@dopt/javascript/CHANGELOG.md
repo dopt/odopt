@@ -1,5 +1,13 @@
 # @dopt/javascript
 
+## 1.3.5
+
+### Patch Changes
+
+- 7d57b37e: add support for sid. and still support uids
+- Updated dependencies [7d57b37e]
+  - @dopt/javascript-common@1.4.3
+
 ## 1.3.4
 
 ### Patch Changes
