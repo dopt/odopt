@@ -2,7 +2,7 @@
 
 ## Getting started
 
-The Dopt JavaScript SDK offers a convenient way to accessing, update, and subscribe to objects exposed via Dopt's blocks API. You can use this SDK to bind user flow state (defined in Dopt) to your UI.
+The Dopt JavaScript SDK offers a convenient way to accessing, update, and subscribe to objects exposed via Dopt's blocks and flows APIs. You can use this SDK to bind user flow state (defined in Dopt) to your UI.
 
 The SDK lives in our open-source monorepo [odopt](https://github.com/dopt/odopt).
 
@@ -142,7 +142,7 @@ flows.forEach((flow) => console.log(flow));
 Additionally, you can access individual flows via the `flow(uid: string, version: number)` method:
 
 ```js
-const flow = dopt.flow("welcome-to-dopt", 3);
+const flow = dopt.flow("welcome-to-dopt");
 console.log("I'm version 3 of the `welcome-to-dopt` flow", flow);
 ```
 
@@ -171,7 +171,7 @@ block.subscribe((block: BlockType) =>
 ```
 
 ```js
-const flow = dopt.flow("welcome-to-dopt", 3);
+const flow = dopt.flow("welcome-to-dopt");
 
 flow.subscribe((flow: FlowType) =>
   // The flow passed to the listener is a data object.
@@ -179,6 +179,12 @@ flow.subscribe((flow: FlowType) =>
   console.log(`Flow ${flow.uid} has updated`, flow)
 );
 ```
+
+### Using intentions to trigger flow and block state changes
+
+Our flow and block classes provide intention methods which you can use to progress and update their state. For example, when a specific step in your onboarding flow is complete, you can call `block.complete()` to mark that step as done.
+
+These methods, like `flow.complete()` or `block.complete()` are defined with signatures that explicitly do not return values: `() => void`. We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then the client will reactive update and re-render components based on the subscriptions you've defined via `flow.subscribe(...)` and `block.subscribe(...)`. Calling an intention only means that at sometime in the future, the client's state will be updated.
 
 ### Example usage
 
@@ -196,17 +202,21 @@ dopt.initialized().then(() => {
 
   const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
 
+  // subscribe to changes in your blocks's state
   // you can also unsubscribe the listener by calling the returned function
   const unsubscribe = block.subscribe(({ active }: BlockType) => {
-    if (!active && userOnboardingModal.visible()) {
+    if (!active) {
       userOnboardingModal.hide();
     } else {
       userOnboardingModal.render().show();
     }
   });
 
+  // initially render your component, if it's active
   if (block.state().active) {
     userOnboardingModal.render().show();
+    // complete the block where appropriate
+    userOnboardingModel.on("done", block.complete);
   }
 });
 ```

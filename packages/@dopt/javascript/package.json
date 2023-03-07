@@ -45,7 +45,6 @@
     "@dopt/block-types": "workspace:*",
     "@dopt/javascript-common": "workspace:*",
     "@dopt/logger": "workspace:*",
-    "@dopt/mercator": "workspace:*",
     "socket.io-client": "^4.5.3",
     "zustand": "^4.1.3"
   },
