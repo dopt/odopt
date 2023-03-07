@@ -2,7 +2,7 @@
 
 ## Getting started
 
-The Dopt React SDK is a framework-specific client for accessing Dopt's Block API, allowing you to bind user flow state defined in Dopt to your UI to build onboarding and engagement flows.
+The Dopt React SDK is a framework-specific client for accessing Dopt's blocks and flows APIs, allowing you to bind user flow state defined in Dopt to your UI to build onboarding and engagement flows.
 
 The SDK lives in our open-source monorepo [odopt](https://github.com/dopt/odopt).
 
@@ -126,11 +126,11 @@ Now that you know what objects are available through the SDK, let's talk about h
 
 By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L77) prop, and their associated blocks using the following React hooks and HOCs.
 
-### Using Intentions
+### Using intentions
 
-Our hooks and HOCs provide intention methods which you can use to progress and update the state of Flows and Blocks. These methods are all defined with signatures that explicitly do not return values: `() => void | undefined`.
+Our hooks and HOCs provide intention methods which you can use to progress and update the state of flows and blocks. These methods are all defined with signatures that explicitly do not return values: `() => void | undefined`.
 
-We do this because each intention may cause a Flow and / or Block transition along with other side effects. These changes will eventually propagate back to the client. Then, the client will reactively update and re-render the components which depend on these Flow and Block states. Calling an intention only means that at sometime in the future, the client's state will be updated.
+We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then, the client will reactively update and re-render the components which depend on these flow and block states. Calling an intention only means that at sometime in the future, the client's state will be updated.
 
 ### Using React Hooks
 
