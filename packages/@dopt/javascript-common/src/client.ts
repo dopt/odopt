@@ -76,9 +76,9 @@ export type BlocksApi = {
   groupId?: GroupIdentifier['groupId'];
 };
 
-export type BlockParams = Pick<Block, 'uid' | 'version'>;
+export type BlockParams = Pick<Block, 'uid' | 'version' | 'sid'>;
 export type FlowParams = Pick<Flow, 'uid' | 'version'>;
-export type BlockIntentParams = BlockParams & {
+export type BlockIntentParams = Pick<Block, 'uid' | 'version'> & {
   intent: BlockIntent;
   goToUid?: string;
 };
@@ -130,7 +130,7 @@ export function blocksApi({
 
       return flow || getDefaultFlowState(uid, version);
     },
-    async getBlock({ uid, version }: BlockParams): Promise<Block> {
+    async getBlock({ uid, sid, version }: BlockParams): Promise<Block> {
       const block = (await client({
         url: `/v1/block/${uid}?${query({ version })}`,
         apiKey,
@@ -149,7 +149,7 @@ export function blocksApi({
         );
       }
 
-      return block || getDefaultBlockState(uid, version);
+      return block || getDefaultBlockState(uid, sid, version);
     },
     async flowIntent({
       uid,

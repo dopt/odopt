@@ -35,6 +35,10 @@ export function ProdDoptProvider(props: ProviderConfig) {
   const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
   const [blocks, setBlocks] = useState<Blocks>({});
+  const [blockUidBySid, setBlockSidMap] = useState<Map<string, string>>(
+    new Map<string, string>()
+  );
+
   const [flows, setFlows] = useState<Flows>(new Mercator());
   const [flowBlocks, setFlowBlocks] = useState<
     Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>
@@ -169,12 +173,29 @@ export function ProdDoptProvider(props: ProviderConfig) {
           });
 
           /*
+           * map block sid to uid
+           */
+          const blockUidBySid =
+            flow.blocks?.reduce<Map<Block['sid'], Block['uid']>>(
+              (memo, block) => {
+                memo.set(block.sid, block.uid);
+                return memo;
+              },
+              new Map<string, string>()
+            ) || new Map<string, string>();
+
+          /*
            * Update the Block in React state
            */
           setBlocks((prevBlocks) => ({
             ...prevBlocks,
             ...blocks,
           }));
+
+          /*
+           * Update the Block sid map in React state
+           */
+          setBlockSidMap(blockUidBySid);
         });
 
         log.info('Flows & Blocks fetching successfully');
@@ -455,6 +476,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
         flows,
         flowIntention,
         blocks,
+        blockUidBySid,
         blockIntention,
         blockFields,
         log,
