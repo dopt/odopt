@@ -20,14 +20,14 @@ export type BlockIntentHandler = Record<
 
 /**
  * This type uses {@link Mercator} to map a tuple of
- * a flow's `[sid, version]` to the Flow itself.
+ * a flow's `[uid, version]` to the Flow itself.
  *
  * This object is used internally within the {@link ProdDoptProvider}.
  *
  * It is also used as an input prop for {@link MockDoptProvider} when
  * mocking out Dopt's internals. See {@link Mocks} and {@link MockProviderConfig}.
  */
-export type Flows = Mercator<[Flow['sid'], Flow['version']], Flow>;
+export type Flows = Mercator<[Flow['uid'], Flow['version']], Flow>;
 
 export type FlowIntentHandler = Record<
   FlowIntent,

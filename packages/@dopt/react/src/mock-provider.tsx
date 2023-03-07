@@ -24,6 +24,12 @@ const validIntentState = ({ state }: Block) => state.active && !state.completed;
 export function MockDoptProvider(props: MockProviderConfig) {
   const { mocks = { blocks: {}, flows: new Mercator() }, logLevel } = props;
   const [blocks, setBlocks] = useState<Blocks>({ ...mocks.blocks });
+  const [blockUidBySid] = useState<Map<string, string>>(
+    Object.values(blocks).reduce((acc, block) => {
+      acc.set(block.sid, block.uid);
+      return acc;
+    }, new Map<string, string>())
+  );
   const [flows] = useState<Flows>(mocks.flows);
 
   const [flowBlocks, setFlowBlocks] = useState<
@@ -135,6 +141,7 @@ export function MockDoptProvider(props: MockProviderConfig) {
         flowStatuses,
         blockIntention,
         blocks,
+        blockUidBySid,
         blockFields,
         flowBlocks,
         flows,

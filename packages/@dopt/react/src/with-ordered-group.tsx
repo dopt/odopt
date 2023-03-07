@@ -21,23 +21,24 @@ import { useOrderedGroup } from './use-ordered-group';
  * ```
  *
  * @param Component - the React component to inject Dopt props into
- * @param uid - {@link Set['uid']}
+ * @param id - one of{@link Set['sid']} | {@link Set['uid']}
+ * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
  * @returns The original component with {@link Set | set} and {@link BlockIntentions | intent}
  * props injected in
  *
  */
 export function withOrderedGroup<T>(
   Component: React.ComponentType<T>,
-  uid: Set['uid']
+  id: string
 ) {
   const displayName = Component.displayName || Component.name || 'Component';
 
   const ComponentWithDopt = (props: T) => {
-    const [block, intent] = useOrderedGroup(uid);
+    const [block, intent] = useOrderedGroup(id);
     return <Component {...props} block={block} intent={intent} />;
   };
 
-  ComponentWithDopt.displayName = `withOrderedGroup(${displayName}, ${uid})`;
+  ComponentWithDopt.displayName = `withOrderedGroup(${displayName}, ${id})`;
 
   return ComponentWithDopt;
 }
