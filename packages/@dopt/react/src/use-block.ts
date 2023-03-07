@@ -67,15 +67,17 @@ export type BlockWithGetField = BlockType & {
  * }
  * ```
  *
- * @param uid - {@link BlockWithGetField['uid']}
+ * @param id - one of {@link BlockWithGetField['sid']} | {@link BlockWithGetField['uid']}
+ * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
  * @returns [{@link BlockWithGetField}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
  *
  */
 const useBlock = (
-  uid: BlockWithGetField['uid']
+  id: string
 ): [block: BlockWithGetField, intent: BlockIntentions] => {
-  const { fetching, blocks, blockIntention, blockFields, log } =
+  const { fetching, blocks, blockIntention, log, blockFields, blockUidBySid } =
     useContext(DoptContext);
+  const uid = blockUidBySid.get(id) || id;
 
   const complete = useCallback(() => {
     if (!fetching) {
@@ -90,7 +92,7 @@ const useBlock = (
   }
 
   const block =
-    fetching || !blocks[uid] ? getDefaultBlockState(uid) : blocks[uid];
+    fetching || !blocks[uid] ? getDefaultBlockState(uid, id) : blocks[uid];
 
   const getField: BlockWithGetField['getField'] = useCallback(
     <T extends FIELD_VALUE_UNION_TYPE>(name: string, defaultValue?: T) => {

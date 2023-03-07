@@ -360,7 +360,7 @@ export class Dopt {
       );
     }
 
-    const block = blockStore.getState()[uid] || getDefaultBlockState(uid);
+    const block = blockStore.getState()[uid] || getDefaultBlockState(uid, uid);
 
     return new BlockClass({
       intent,

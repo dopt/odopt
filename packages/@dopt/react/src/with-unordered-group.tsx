@@ -21,23 +21,24 @@ import { useUnorderedGroup } from './use-unordered-group';
  * ```
  *
  * @param Component - the React component to inject Dopt props into
- * @param uid - {@link Set['uid']}
+ * @param id - one of {@link Set['sid']} | {@link Set['uid']}
+ * this param accepts either the user defined identifier (sid) or the system created
  * @returns The original component with {@link Set | set} and {@link BlockIntentions | intent}
  * props injected in
  *
  */
 export function withUnorderedGroup<T>(
   Component: React.ComponentType<T>,
-  uid: Set['uid']
+  id: string
 ) {
   const displayName = Component.displayName || Component.name || 'Component';
 
   const ComponentWithDopt = (props: T) => {
-    const [block, intent] = useUnorderedGroup(uid);
+    const [block, intent] = useUnorderedGroup(id);
     return <Component {...props} block={block} intent={intent} />;
   };
 
-  ComponentWithDopt.displayName = `withUnorderedGroup(${displayName}, ${uid})`;
+  ComponentWithDopt.displayName = `withUnorderedGroup(${displayName}, ${id})`;
 
   return ComponentWithDopt;
 }
