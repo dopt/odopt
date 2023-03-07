@@ -9,15 +9,19 @@ import {
 
 export function getDefaultBlockState(
   uid: string,
+  sid: string,
   version?: number,
-  type: BlockTypes = BLOCK_TYPES.model,
-  sid?: string //make non-breaking for now until we fully support sid on the sdks
+  type: BlockTypes = BLOCK_TYPES.model
 ): Block {
-  return getDefaultBlock({ uid, type, version, sid: sid || uid });
+  return getDefaultBlock({ uid, type, version, sid });
 }
 
-export function getDefaultSetState(uid: string, version?: number): Set {
-  return getDefaultBlockState(uid, version, BLOCK_TYPES.set) as Set;
+export function getDefaultSetState(
+  uid: string,
+  sid: string,
+  version?: number
+): Set {
+  return getDefaultBlockState(uid, sid, version, BLOCK_TYPES.set) as Set;
 }
 
 export function getDefaultFlowState(sid: string, version: number): Flow {

@@ -24,6 +24,7 @@ type DoptContext = {
   flowStatuses: Record<Flow['uid'], FlowStatus>;
   flowIntention: FlowIntentHandler;
   blocks: Blocks;
+  blockUidBySid: Map<Block['sid'], Block['uid']>;
   blockIntention: BlockIntentHandler;
   blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
   log: Logger;
