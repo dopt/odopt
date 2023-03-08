@@ -21,27 +21,36 @@ export interface BlockProps {
   block: BlockType;
   optimisticUpdates: boolean;
   fieldMap: Map<Field['sid'], Field> | null;
+  blockUidBySid: Map<BlockType['uid'], BlockType['sid']>;
 }
 
 export class Block {
   private intent: BlockProps['intent'];
   private block: BlockProps['block'];
   private fieldMap: BlockProps['fieldMap'];
+  private blockUidBySid: BlockProps['blockUidBySid'];
   private optimisticUpdates: BlockProps['optimisticUpdates'];
 
   /**
    * @internal
    */
-  constructor({ block, intent, optimisticUpdates, fieldMap }: BlockProps) {
+  constructor({
+    block,
+    intent,
+    optimisticUpdates,
+    fieldMap,
+    blockUidBySid,
+  }: BlockProps) {
     this.intent = intent;
     this.block = block;
     this.optimisticUpdates = optimisticUpdates;
     this.fieldMap = fieldMap;
+    this.blockUidBySid = blockUidBySid;
   }
 
-  private async _intent(intent: BlockIntent, goToUid?: string) {
+  private _intent(intent: BlockIntent, goToUid?: string) {
     const { uid, version } = this.block;
-    return this.intent({ uid, version, intent, goToUid });
+    this.intent({ uid, version, intent, goToUid });
   }
 
   /**
@@ -76,14 +85,15 @@ export class Block {
   }
 
   /**
-   * Complete this block. Will also update the state of others blocks within this flow (or the flow itself), as appropriate.
+   * Complete this block. Will also update the state of blocks within this flow, as appropriate.
    *
    * @remarks
-   * It is often unnecessary to wait for this function to resolve / reject.
+   * This function will update state with Dopt and trigger changes. Subscribe to the
+   * flows and blocks you care about to react to those changes.
    *
-   * @returns A promise which resolves when this block has been completed successfully and rejects otherwise.
+   * @returns void
    */
-  async complete() {
+  complete() {
     if (this.optimisticUpdates) {
       const storedBlock = blockStore.getState()[this.block.uid];
       if (storedBlock != null && storedBlock.type === ModelTypeConst) {
@@ -95,50 +105,55 @@ export class Block {
         });
       }
     }
-    return this._intent('complete');
+
+    this._intent('complete');
   }
 
   /**
-   * Go to the next block within an ordered group block. Returns an empty promise if this block instance isn't an ordered group.
+   * Go to the next block within an ordered group block. This function will do nothing if this block instance isn't an ordered group.
    *
    * @remarks
-   * It is often unnecessary to wait for this function to resolve / reject.
+   * This function will update state with Dopt and trigger changes. Subscribe to the
+   * flows and blocks you care about to react to those changes.
    *
-   * @returns A promise which resolves when this block has been completed successfully and rejects otherwise.
+   * @returns void
    */
-  async next() {
+  next() {
     if (this.block.type === SetTypeConst && this.block.ordered) {
-      return this._intent('next');
+      this._intent('next');
     }
   }
 
   /**
-   * Go to the previous block within an ordered group block. Returns an empty promise if this block instance isn't an ordered group.
+   * Go to the previous block within an ordered group block. This function will do nothing if this block instance isn't an ordered group.
    *
    * @remarks
-   * It is often unnecessary to wait for this function to resolve / reject.
+   * This function will update state with Dopt and trigger changes. Subscribe to the
+   * flows and blocks you care about to react to those changes.
    *
-   * @returns A promise which resolves when this block has been completed successfully and rejects otherwise.
+   * @returns void
    */
-  async prev() {
+  prev() {
     if (this.block.type === SetTypeConst && this.block.ordered) {
-      return this._intent('prev');
+      this._intent('prev');
     }
   }
 
   /**
-   * Go to a specific block (by uid) within an ordered group block. Returns an empty promise if this block instance isn't an ordered group.
+   * Go to a specific block (by uid) within an ordered group block. This function will do nothing if this block instance isn't an ordered group.
    *
    * @remarks
-   * It is often unnecessary to wait for this function to resolve / reject.
+   * This function will update state with Dopt and trigger changes. Subscribe to the
+   * flows and blocks you care about to react to those changes.
    *
-   * @param uid The uid of the child step block.
+   * @param id The id of the child step block. which can be a sid, uid.
    *
-   * @returns A promise which resolves when this block has been completed successfully and rejects otherwise.
+   * @returns void
    */
-  async goTo(uid: BlockType['uid']) {
+  goTo(id: string) {
     if (this.block.type === SetTypeConst && this.block.ordered) {
-      return this._intent('goTo', uid);
+      const uid = this.blockUidBySid.get(id) || id;
+      this._intent('goTo', uid);
     }
   }
 
