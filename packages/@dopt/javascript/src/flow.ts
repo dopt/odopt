@@ -1,8 +1,6 @@
 import { blocksApi } from '@dopt/javascript-common';
 
-import { flowStore, blockStore, generateFlowStateKey } from './store';
-
-import { Mercator } from '@dopt/mercator';
+import { flowStore, blockStore } from './store';
 
 import type {
   Flow as FlowType,
@@ -16,24 +14,24 @@ import type {
 export interface FlowProps {
   intent: ReturnType<typeof blocksApi>['flowIntent'];
   flow: FlowType;
-  flowBlocks: Mercator<
-    [FlowType['uid'], FlowType['version']],
-    BlockType['uid'][]
-  >;
+  flowBlocks: Map<FlowType['uid'], BlockType['uid'][]>;
+  flowPromise: Promise<boolean>;
 }
 
 export class Flow {
   private intent: FlowProps['intent'];
   private flow: FlowProps['flow'];
   private flowBlocks: FlowProps['flowBlocks'];
+  private flowPromise: FlowProps['flowPromise'];
 
   /**
    * @internal
    */
-  constructor({ intent, flow, flowBlocks }: FlowProps) {
+  constructor({ intent, flow, flowBlocks, flowPromise }: FlowProps) {
     this.intent = intent;
     this.flow = flow;
     this.flowBlocks = flowBlocks;
+    this.flowPromise = flowPromise;
   }
 
   /**
@@ -42,9 +40,39 @@ export class Flow {
    * @returns The state of this instance.
    */
   state(): FlowType['state'] {
-    const { uid, version } = this.flow;
-    const key = generateFlowStateKey(uid, version);
-    return flowStore.getState()[key]?.state || this.flow.state;
+    return flowStore.getState()[this.flow.uid]?.state || this.flow.state;
+  }
+
+  /**
+   * Returns a promise that resolves when this flow has been initialized
+   * (or if it fails to initialize).
+   *
+   * Initialization is defined as:
+   * - the flow has been fetched
+   * - Dopt's socket connection is ready
+   * - the flow has been started, if necessary
+   *
+   * @remarks
+   * When initialization succeeds, this will return true.
+   * If any parts of initialization fail, this will return false.
+   * Likewise, if this flow doesn't match any flows passed in the {@link DoptConfig},
+   * this will return false.
+   *
+   * @example
+   * ```js
+   * const flow = dopt.flow('onboarding-flow');
+   * flow.initialized().then(() => {
+   *   // Safely access the first block in this flow
+   *   const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+   * });
+   * ```
+   *
+   * @returns A Promise.
+   * Once this flow's initialization is complete,
+   * the promise resolves to `true` if successful, `false` otherwise.
+   */
+  initialized(): Promise<boolean> {
+    return this.flowPromise;
   }
 
   /**
@@ -68,63 +96,66 @@ export class Flow {
    * @returns An array of {@link FlowType['blocks']} which are contained within this flow.
    */
   blocks(): FlowType['blocks'] {
-    const { uid, version } = this.flow;
-    const uids = this.flowBlocks.get([uid, version]) || [];
+    const uids = this.flowBlocks.get(this.flow.uid) || [];
     const blocks = blockStore.getState();
     return uids?.map((uid) => blocks[uid]) || [];
   }
 
-  private async _intent(intent: FlowIntent) {
+  private _intent(intent: FlowIntent) {
     const { uid, version } = this.flow;
-    return this.intent({ uid, version, intent });
+    this.intent({ uid, version, intent });
   }
 
   /**
    * Start this flow. Will also update the state of blocks within this flow, as appropriate.
    *
    * @remarks
-   * It is often unnecessary to wait for this function to resolve / reject.
+   * This function will update state with Dopt and trigger changes. Subscribe to the
+   * flows and blocks you care about to react to those changes.
    *
-   * @returns A promise which resolves when this flow has been started successfully and rejects otherwise.
+   * @returns void
    */
-  async start() {
-    return this._intent('start');
+  start() {
+    this._intent('start');
   }
 
   /**
    * Complete this flow. Will also update the state of blocks within this flow, as appropriate.
    *
    * @remarks
-   * It is often unnecessary to wait for this function to resolve / reject.
+   * This function will update state with Dopt and trigger changes. Subscribe to the
+   * flows and blocks you care about to react to those changes.
    *
-   * @returns A promise which resolves when this flow has been completed successfully and rejects otherwise.
+   * @returns void
    */
-  async complete() {
-    return this._intent('complete');
+  complete() {
+    this._intent('complete');
   }
 
   /**
    * Exit this flow. Will also update the state of blocks within this flow, as appropriate.
    *
    * @remarks
-   * It is often unnecessary to wait for this function to resolve / reject.
+   * This function will update state with Dopt and trigger changes. Subscribe to the
+   * flows and blocks you care about to react to those changes.
    *
-   * @returns A promise which resolves when this flow has been exited successfully and rejects otherwise.
+   * @returns void
    */
-  async exit() {
-    return this._intent('exit');
+  exit() {
+    this._intent('exit');
   }
 
   /**
    * Reset this flow. Will also update the state of blocks within this flow, as appropriate.
    *
    * @remarks
-   * It is often unnecessary to wait for this function to resolve / reject.
+   * This function will update state with Dopt and trigger changes. Subscribe to the
+   * flows and blocks you care about to react to those changes.
    *
-   * @returns A promise which resolves when this flow has been reset successfully and rejects otherwise.
+   * @returns void
    */
-  async reset() {
-    return this._intent('reset');
+  reset() {
+    this._intent('reset');
   }
 
   /**
@@ -132,7 +163,7 @@ export class Flow {
    *
    * @example
    * ```js
-   * const flow = dopt.flow("welcome-to-dopt", 3);
+   * const flow = dopt.flow("welcome-to-dopt");
    * const unsubscribe = flow.subscribe(async flowData => {
    *  // access .state instead of .state()
    *  // since flowData is an object of `FlowType`
@@ -150,10 +181,9 @@ export class Flow {
    * @returns A function which can be called to unsubscribe the listener.
    */
   subscribe(listener: (flow: FlowType) => void) {
-    const { uid, version } = this.flow;
+    const { uid } = this.flow;
     return flowStore.subscribe((state) => {
-      const key = generateFlowStateKey(uid, version);
-      return state[key];
+      return state[uid];
     }, listener);
   }
 }

@@ -5,8 +5,6 @@ import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 import { Block as BlockClass } from './block';
 import { Flow as FlowClass } from './flow';
 
-import { Mercator } from '@dopt/mercator';
-
 import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 
 import {
@@ -18,8 +16,14 @@ import {
 
 import { Socket } from 'socket.io-client';
 
-import { blockStore, flowStore, generateFlowStateKey } from './store';
+import { blockStore, flowStore } from './store';
 import type { Blocks } from './store';
+
+type PromiseWithResolver = {
+  promise: Promise<boolean>;
+  resolver: (status: boolean) => void;
+};
+
 /**
  * Providing this configuration to {@link Dopt} allows the
  * the SDK to fetch relevant data from the Dopt blocks API.
@@ -59,15 +63,17 @@ export class Dopt {
   private flowVersions: DoptConfig['flowVersions'];
   private optimisticUpdates: boolean;
 
-  private _initialized: boolean;
-  private _initializedPromise: Promise<void>;
+  private _setup: boolean;
+  private _setupPromise: Promise<void>;
+  private _flowPromises: Map<Flow['uid'], PromiseWithResolver>;
 
   private logger: Logger;
 
   private blocksApi: ReturnType<typeof blocksApi>;
-  private flowBlocks: Mercator<[Flow['uid'], Flow['version']], Block['uid'][]>;
+  private flowBlocks: Map<Flow['uid'], Block['uid'][]>;
   private blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
   private socket: Socket | undefined;
+  private blockUidBySid: Map<Block['sid'], Block['uid']>;
 
   /**
    * Creates a Dopt class instance.
@@ -108,16 +114,31 @@ export class Dopt {
 
     this.logger = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
-    this.flowBlocks = new Mercator();
-
+    this.flowBlocks = new Map();
+    this.blockUidBySid = new Map();
     this.blockFields = new Map();
 
-    this._initialized = false;
-    this.initialize();
+    this._flowPromises = new Map();
+
+    this._setup = false;
+
+    this._setupPromise = this.initialize();
+
+    this._setupPromise.then(() => (this._setup = true));
   }
 
   /**
-   * Returns a boolean when this Dopt instance has been intiailized.
+   * Returns `true` when this Dopt instance has been intiailized.
+   *
+   * Dopt-level initialization is defined as:
+   * - all flows have been fetched
+   * - Dopt's socket connection is ready
+   * - all flows which need to be started have been started
+   *
+   * @remarks
+   * Note, this hook does not check whether any initialization steps had errors.
+   * Use `flow.initialized` to check flow status, including failures,
+   * at a more granular level.
    *
    * @example
    * ```js
@@ -129,12 +150,22 @@ export class Dopt {
    * ```
    *
    * @returns A Promise.
-   * Once initialization is complete, the promise resolves to `true`
-   * when the initialization is successful and `false` otherwise.
+   * Once all of Dopt's initialization is complete,
+   * the promise resolves to `true`.
    */
   async initialized(): Promise<boolean> {
-    await this._initializedPromise;
-    return this._initialized;
+    await this._setupPromise;
+    await Promise.all(
+      Array.from(this._flowPromises.values()).map(({ promise }) => promise)
+    );
+
+    return true;
+  }
+
+  private async flowInitialized(uid: Flow['uid']): Promise<boolean> {
+    await this._setupPromise;
+    const flowPromise = this._flowPromises.get(uid);
+    return flowPromise ? flowPromise.promise : false;
   }
 
   private async initialize(config?: Partial<DoptConfig>): Promise<void> {
@@ -144,10 +175,11 @@ export class Dopt {
     const { apiKey, userId, groupId, flowVersions, logger } = this;
 
     if (!userId) {
-      logger.info(
+      logger.error(
         'The `userId` prop is undefined. The SDK will partially initialize, returning defaults for any requested blocks until the `userId` prop becomes defined.'
       );
-      return Promise.reject();
+
+      throw new Error('The userId prop must be defined within the DoptConfig.');
     }
 
     if (!groupId) {
@@ -155,11 +187,6 @@ export class Dopt {
         'The `groupId` prop is undefined. The SDK wont be able to target the entry conditions and updates if you have identified and using groups properties.'
       );
     }
-
-    let initializedPromiseResolver: () => void;
-    this._initializedPromise = new Promise<void>((resolve) => {
-      initializedPromiseResolver = resolve;
-    });
 
     this.blocksApi = blocksApi({
       apiKey,
@@ -181,86 +208,140 @@ export class Dopt {
 
     const { getFlow, flowIntent } = this.blocksApi;
 
-    await Promise.all(
-      Object.entries(flowVersions).map(([uid, version]) => {
-        return getFlow({ uid, version });
-      })
-    )
-      .then((flows: Flow[]) => {
-        flows.forEach((flow) => {
-          if (!flow.state.started) {
-            flowIntent({
-              uid: flow.uid,
-              version: flow.version,
-              intent: 'start',
-            }).catch(() => {
-              // do nothing, this error is already handled for us
-            });
-          }
+    try {
+      const flows: Flow[] = await Promise.all(
+        Object.entries(flowVersions).map(([uid, version]) => {
+          return getFlow({ uid, version });
+        })
+      );
 
-          // initialize the flow store
-          flowStore.setState(() => ({
-            [generateFlowStateKey(flow.uid, flow.version)]: flow,
-          }));
+      flows.forEach((flow) => {
+        const flowPromise: PromiseWithResolver = {
+          /**
+           * In its default state, the flowPromise
+           * resolves to true (i.e. the flow is already initialized).
+           */
+          promise: Promise.resolve(true),
+          /**
+           * In its default state, the flowPromise
+           * cannot be resolved. If a new flowPromise
+           * needs to be created (see below),
+           * the resolver will be overwritten.
+           */
+          resolver: (status: boolean) => {
+            status;
+          },
+        };
 
-          this.flowBlocks.set(
-            [flow.uid, flow.version],
-            flow.blocks?.map(({ uid }) => uid) || []
-          );
-
-          flow.blocks?.forEach((block) => {
-            // initialize the block store
-            blockStore.setState({ [block.uid]: block });
-
-            // initialize block fields map
-            if (block.type === ModelTypeConst) {
-              this.blockFields.set(
-                block.uid,
-                block.fields.reduce((map, field) => {
-                  return map.set(field.sid, field);
-                }, new Map<Field['sid'], Field>())
-              );
-            }
+        if (!flow.state.started) {
+          /**
+           * If the flow has not been started,
+           * we override the flowPromise.
+           */
+          flowPromise.promise = new Promise((resolve) => {
+            flowPromise.resolver = resolve;
           });
+
+          flowIntent({
+            uid: flow.uid,
+            version: flow.version,
+            intent: 'start',
+          }).then(
+            (intentHasSideEffects) => {
+              /**
+               * If the intent doesn't have side effects,
+               * we can resolve the promise as successfully
+               * initialized.
+               */
+              if (!intentHasSideEffects) {
+                flowPromise.resolver(true);
+              }
+            },
+            () => {
+              /**
+               * If the intent fails,
+               * we can resolve the promise as unsuccessful.
+               */
+              flowPromise.resolver(false);
+            }
+          );
+        }
+
+        this._flowPromises.set(flow.uid, flowPromise);
+
+        // initialize the flow store
+        flowStore.setState(() => ({
+          [flow.uid]: flow,
+        }));
+
+        this.flowBlocks.set(flow.uid, flow.blocks?.map(({ uid }) => uid) || []);
+
+        flow.blocks?.forEach((block) => {
+          // initialize the block store
+          blockStore.setState({ [block.uid]: block });
+
+          // initialize block uid look up map
+          this.blockUidBySid.set(block.sid, block.uid);
+
+          // initialize block fields map
+          if (block.type === ModelTypeConst) {
+            this.blockFields.set(
+              block.uid,
+              block.fields.reduce((map, field) => {
+                return map.set(field.sid, field);
+              }, new Map<Field['sid'], Field>())
+            );
+          }
         });
-      })
-      .catch(() => {
-        logger.error(`
+      });
+    } catch (error) {
+      logger.error(`
             An error occurred while fetching blocks for the
             flow versions specified: \`${JSON.stringify(flowVersions)}\`
           `);
+    }
+
+    await socketReadyPromise;
+
+    const updateBlocksState = (blocks: Blocks): void => {
+      blockStore.setState(blocks);
+    };
+
+    const updateFlowState = (flow: Flow): void => {
+      flowStore.setState(() => ({
+        [flow.uid]: flow,
+      }));
+
+      /**
+       * In the case where the intent did have side effects,
+       * those side effects will propagate back to the SDK
+       * as flow state updates. We resolve those respective
+       * promises here.
+       */
+      const flowPromise = this._flowPromises.get(flow.uid);
+      flowPromise && flowPromise.resolver(true);
+    };
+
+    this.socket?.on('blocks', (blocks: Blocks) => {
+      updateBlocksState(blocks);
+    });
+
+    this.socket?.on('flow', (flow: Flow) => {
+      updateFlowState(flow);
+    });
+
+    Object.values(blockStore.getState()).forEach(({ uid, version }) => {
+      this.socket?.emit('watch:block', uid, version);
+      this.socket?.on(`${uid}_${version}`, (blocks: Blocks) => {
+        updateBlocksState(blocks);
       });
+    });
 
-    socketReadyPromise.then(() => {
-      this.socket?.on('blocks', (blocks: Blocks) => {
-        blockStore.setState(blocks);
+    Object.entries(flowVersions).forEach(([uid, version]) => {
+      this.socket?.emit('watch:flow', uid, version);
+      this.socket?.on(`${uid}_${version}`, (flow: Flow) => {
+        updateFlowState(flow);
       });
-
-      this.socket?.on('flow', (flow: Flow) => {
-        flowStore.setState(() => ({
-          [generateFlowStateKey(flow.uid, flow.version)]: flow,
-        }));
-      });
-
-      Object.values(blockStore.getState()).forEach(({ uid, version }) => {
-        this.socket?.emit('watch:block', uid, version);
-
-        this.socket?.on(`${uid}_${version}`, (blocks: Blocks) => {
-          blockStore.setState(blocks);
-        });
-      });
-
-      Object.entries(flowVersions).forEach(([uid, version]) => {
-        this.socket?.emit('watch:flow', uid, version);
-        this.socket?.on(`${uid}_${version}`, (flow: Flow) => {
-          flowStore.setState(() => ({
-            [generateFlowStateKey(flow.uid, flow.version)]: flow,
-          }));
-        });
-      });
-
-      this._initialized = true;
-      initializedPromiseResolver();
     });
   }
 
@@ -272,34 +353,45 @@ export class Dopt {
    *
    * @example
    * ```js
-   * const flow = dopt.flow("welcome-to-dopt", 3);
+   * const flow = dopt.flow("welcome-to-dopt");
    * ```
    *
    * @param uid {@link FlowType['uid']} The id of the flow.
-   * @param version {@link FlowType['version']} The version of the flow.
+   * @param version {@link FlowType['version']} **Deprecated**.
+   * Previously, this parameter allowed specification of the version of the flow.
+   * Now, Dopt pulls the flow's version from the {@link DoptConfig}'s `flowVersions` property.
    *
-   * @returns A {@link Flow} instance which matches the given `id` and `version`.
+   * @returns A {@link Flow} instance which matches the given `id`.
    */
-  public flow(uid: Flow['uid'], version: Flow['version']) {
+  public flow(uid: Flow['uid'], version?: number) {
     const {
       logger,
       flowBlocks,
       blocksApi: { flowIntent: intent },
     } = this;
-    if (!this._initialized) {
-      logger.error(
-        `Accessing flow prior to initialization will return default flow states.`
-      );
-      return;
+
+    /**
+     * `version` is deprecated but is kept for backwards compatibility.
+     */
+    if (version != null) {
+      logger.info('The version parameter is deprecated and will not be used.');
     }
+
+    if (!this._setup) {
+      logger.info(
+        'Accessing flow() prior to initialization may return incomplete block states. Check `flow.initialized()`.'
+      );
+    }
+
     const flow =
-      flowStore.getState()[generateFlowStateKey(uid, version)] ||
-      getDefaultFlowState(uid, version);
+      flowStore.getState()[uid] ||
+      getDefaultFlowState(uid, this.flowVersions[uid]);
 
     return new FlowClass({
       intent,
       flow,
       flowBlocks,
+      flowPromise: this.flowInitialized(uid),
     });
   }
 
@@ -318,9 +410,9 @@ export class Dopt {
       blocksApi: { flowIntent: intent },
     } = this;
 
-    if (!this._initialized) {
-      logger.error(
-        `Accessing flows() prior to initialization may return incomplete block states.`
+    if (!this._setup) {
+      logger.info(
+        'Accessing flows() prior to initialization may return incomplete block states. Check `flow.initialized()`.'
       );
     }
 
@@ -329,12 +421,13 @@ export class Dopt {
         intent,
         flow,
         flowBlocks,
+        flowPromise: this.flowInitialized(flow.uid),
       });
     });
   }
 
   /**
-   * Returns the {@link Block} associated with this `uid`.
+   * Returns the {@link Block} associated with this `id`.
    *
    * @remarks
    * This function will return `undefined` if this {@link Dopt} instance is not initialized.
@@ -344,29 +437,31 @@ export class Dopt {
    * const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
    * ```
    *
-   * @param uid {@link BlockType['uid']} The uid of the block.
-   *
-   * @returns A {@link Block} instance corresponding to the uid.
+   * @param id one of {@link BlockType['uid']} | {@link BlockType['sid']} The id of the block.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link Block} instance corresponding to the id.
    */
-  public block(uid: string) {
+  public block(id: string) {
     const {
       logger,
       blocksApi: { blockIntent: intent },
     } = this;
 
-    if (!this._initialized) {
+    if (!this._setup) {
       logger.error(
-        `Accessing block() prior to initialization will return default block states.`
+        'Accessing block() prior to initialization will return default block states.'
       );
     }
+    const uid = this.blockUidBySid.get(id) || id;
 
-    const block = blockStore.getState()[uid] || getDefaultBlockState(uid, uid);
+    const block = blockStore.getState()[uid] || getDefaultBlockState(uid, id);
 
     return new BlockClass({
       intent,
       block,
       optimisticUpdates: this.optimisticUpdates,
       fieldMap: this.blockFields.get(block.uid) || null,
+      blockUidBySid: this.blockUidBySid,
     });
   }
 
@@ -384,9 +479,9 @@ export class Dopt {
       blocksApi: { blockIntent: intent },
     } = this;
 
-    if (!this._initialized) {
+    if (!this._setup) {
       logger.error(
-        `Accessing blocks() prior to initialization may return incomplete block states.`
+        'Accessing blocks() prior to initialization may return incomplete block states.'
       );
     }
 
@@ -396,6 +491,7 @@ export class Dopt {
         block,
         optimisticUpdates: this.optimisticUpdates,
         fieldMap: this.blockFields.get(block.uid) || null,
+        blockUidBySid: this.blockUidBySid,
       });
     });
   }

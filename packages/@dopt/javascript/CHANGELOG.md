@@ -1,5 +1,20 @@
 # @dopt/javascript
 
+## 1.4.0
+
+### Minor Changes
+
+- a6ab2cc0: add support for uid and sid for blocks
+- 7fba401d: make version parameter optional in `dopt.flow(..., version)`; make all intent functions like `complete` return void instead of a promise; unify `dopt.initialized()` to have the same meaning as `useDoptInitialized` in @dopt/react; add a `flow.initialized()` function which maps to `useFlowStatus` in @dopt/react.
+
+## 1.3.5
+
+### Patch Changes
+
+- 7d57b37e: add support for sid. and still support uids
+- Updated dependencies [7d57b37e]
+  - @dopt/javascript-common@1.4.3
+
 ## 1.3.4
 
 ### Patch Changes
