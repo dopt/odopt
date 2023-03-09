@@ -2,8 +2,6 @@ import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 
-import { Mercator } from '@dopt/mercator';
-
 import { Logger } from '@dopt/logger';
 import { blocksApi, setupSocket } from '@dopt/javascript-common';
 
@@ -20,8 +18,31 @@ import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 
 /**
  * A React context provider for accessing block state.
+ *
+ * Using {@link ProviderConfig}
+ * @example
+ * ```tsx
+ *  import { DoptProvider } from '@dopt/react';
+ *  import Application from './application';
+ *
+ *  export function Index() {
+ *    return (
+ *      <DoptProvider
+ *        userId={userId}
+ *        apiKey={blockAPIKey}
+ *        flowVersions={{
+ *          onboardingFlow: 3,
+ *          upgradeFlow: 1
+ *        }}
+ *      >
+ *        <Application />
+ *      </DoptProvider>
+ *    );
+ *  }
+ * ```
+ *
  */
-export function ProdDoptProvider(props: ProviderConfig) {
+export function DoptProvider(props: ProviderConfig) {
   const {
     userId,
     groupId,
@@ -34,18 +55,18 @@ export function ProdDoptProvider(props: ProviderConfig) {
 
   const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
 
-  const [blocks, setBlocks] = useState<Blocks>({});
-  const [blockUidBySid, setBlockSidMap] = useState<Map<string, string>>(
-    new Map<string, string>()
-  );
-
-  const [flows, setFlows] = useState<Flows>(new Mercator());
+  const [flows, setFlows] = useState<Flows>({});
   const [flowBlocks, setFlowBlocks] = useState<
-    Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>
-  >(new Mercator());
+    Map<Flow['sid'], Block['uid'][]>
+  >(new Map());
+
+  const [blocks, setBlocks] = useState<Blocks>({});
   const [blockFields, setBlockFields] = useState<
     Map<Block['uid'], Map<Field['sid'], Field>>
   >(new Map());
+  const [blockUidBySid, setBlockSidMap] = useState<Map<string, string>>(
+    new Map<string, string>()
+  );
 
   const [fetching, setFetching] = useState<boolean>(true);
   const [socketReady, setSocketReady] = useState<boolean>(false);
@@ -119,92 +140,48 @@ export function ProdDoptProvider(props: ProviderConfig) {
       )
     )
       .then((flows) => {
+        const _flows: Flows = {};
+        const _flowBlocks: typeof flowBlocks = new Map();
+
+        const _blocks: Blocks = {};
+        const _blockFields: typeof blockFields = new Map();
+        const _blockUidBySid: typeof blockUidBySid = new Map();
+
         flows.forEach((flow) => {
-          /*
-           * Update the Flows in React state
-           */
-          setFlows((prev) => {
-            return new Mercator(
-              Array.from(prev.set([flow.sid, flow.version], flow).entries())
-            );
+          _flows[flow.sid] = flow;
+
+          _flowBlocks.set(flow.sid, flow.blocks?.map(({ uid }) => uid) || []);
+
+          flow.blocks?.forEach((block) => {
+            _blocks[block.uid] = block;
+
+            _blockUidBySid.set(block.sid, block.uid);
+
+            if (block.type === ModelTypeConst) {
+              _blockFields.set(
+                block.uid,
+                block.fields.reduce((map, field) => {
+                  return map.set(field.sid, field);
+                }, new Map<Field['sid'], Field>())
+              );
+            }
           });
-
-          /*
-           * Extract the Flow's associated Blocks
-           */
-          const blocks = flow.blocks?.reduce<Record<Block['uid'], Block>>(
-            (memo, block) => {
-              memo[block.uid] = block;
-              return memo;
-            },
-            {}
-          );
-
-          /*
-           * Create a mapping from a flow to its blocks
-           */
-          setFlowBlocks((prev) => {
-            return new Mercator(
-              Array.from(
-                prev.set(
-                  [flow.sid, flow.version],
-                  flow.blocks?.map(({ uid }) => uid) || []
-                )
-              )
-            );
-          });
-
-          /*
-           * Create a mapping from each block to its fields
-           */
-          setBlockFields(() => {
-            const map = new Map();
-            flow.blocks?.forEach((block) => {
-              if (block.type === ModelTypeConst) {
-                map.set(
-                  block.uid,
-                  block.fields.reduce((map, field) => {
-                    return map.set(field.sid, field);
-                  }, new Map<Field['sid'], Field>())
-                );
-              }
-            });
-            return map;
-          });
-
-          /*
-           * map block sid to uid
-           */
-          const blockUidBySid =
-            flow.blocks?.reduce<Map<Block['sid'], Block['uid']>>(
-              (memo, block) => {
-                memo.set(block.sid, block.uid);
-                return memo;
-              },
-              new Map<string, string>()
-            ) || new Map<string, string>();
-
-          /*
-           * Update the Block in React state
-           */
-          setBlocks((prevBlocks) => ({
-            ...prevBlocks,
-            ...blocks,
-          }));
-
-          /*
-           * Update the Block sid map in React state
-           */
-          setBlockSidMap(blockUidBySid);
         });
 
-        log.info('Flows & Blocks fetching successfully');
+        setFlows(_flows);
+        setFlowBlocks(_flowBlocks);
+
+        setBlocks(_blocks);
+        setBlockFields(_blockFields);
+        setBlockSidMap(_blockUidBySid);
 
         /*
          * If we've made it here we can safely progress i.e. the
          * SDK has fetched correctly.
          */
         setFetching(false);
+
+        log.info('Flows & Blocks fetching successful');
       })
       .catch((error) => {
         log.error(`
@@ -224,10 +201,11 @@ export function ProdDoptProvider(props: ProviderConfig) {
   );
 
   const updateFlowState = useCallback((flow: Flow) => {
-    setFlows((preFlows) => {
-      return new Mercator(
-        Array.from(preFlows.set([flow.sid, flow.version], flow).entries())
-      );
+    setFlows((prev) => {
+      return {
+        ...prev,
+        [flow.sid]: flow,
+      };
     });
 
     setFlowStatuses((previousFlowStatuses) => {
@@ -292,10 +270,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
       return;
     }
 
-    if (
-      !(Object.keys(blocks).length > 0) ||
-      !(Array.from(flows.keys()).length > 0)
-    ) {
+    if (!(Object.keys(blocks).length > 0) || !(Object.keys(flows).length > 0)) {
       return;
     }
 
@@ -327,13 +302,13 @@ export function ProdDoptProvider(props: ProviderConfig) {
       }
     }
 
-    flows.forEach(({ uid, version }) => {
+    Object.values(flows).forEach(({ uid, version }) => {
       socket.emit('watch:flow', uid, version);
       socket.on(`${uid}_${version}`, updateFlowState);
     });
   }, [
     JSON.stringify(Object.keys(blocks).sort()),
-    JSON.stringify(Array.from(flows.keys())),
+    JSON.stringify(Object.keys(flows).sort()),
     socket,
     socketReady,
   ]);
@@ -341,7 +316,7 @@ export function ProdDoptProvider(props: ProviderConfig) {
   useEffect(() => {
     if (!fetching && socketReady) {
       setFlowStatuses(
-        Array.from(flows.values()).reduce((statuses, flow) => {
+        Object.values(flows).reduce((statuses, flow) => {
           let pending = false;
 
           if (!flow.state.started) {
