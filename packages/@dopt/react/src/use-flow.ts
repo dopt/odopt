@@ -83,13 +83,18 @@ const useFlow = (
     if (fetching) {
       return -1;
     }
-    const key = Array.from(flows.keys()).find(([name]) => name === sid);
-    if (key == undefined) {
-      throw new Error(`
+
+    const flow = flows[sid];
+
+    if (flow == null) {
+      log.error(`
         Error using \`useFlow(${sid})\` - check your \`flowVersions\`
         props to ensure \`${sid}\` and its version is specified there`);
+
+      return -1;
     }
-    return key[1];
+
+    return flow.version;
   }, [fetching, flows, sid]);
 
   const reset = useCallback(() => {
@@ -109,18 +114,19 @@ const useFlow = (
       flowIntention.complete(sid, version);
     }
   }, [fetching, flowIntention, sid, version]);
+
   if (fetching) {
     log.info(
       'Accessing flow prior to initialization will return default block states.'
     );
   }
-  if (fetching || !flows.get([sid, version])) {
+
+  if (fetching || !flows[sid]) {
     return [getDefaultFlowState(sid, version), { reset, exit, complete }];
   }
 
-  const flow = flows.get([sid, version]);
-  const updated =
-    (flowBlocks.get([sid, version]) || []).map((uid) => blocks[uid]) || [];
+  const flow = flows[sid];
+  const updated = (flowBlocks.get(sid) || []).map((uid) => blocks[uid]);
 
   return [
     {
