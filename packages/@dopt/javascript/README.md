@@ -186,6 +186,12 @@ Our flow and block classes provide intention methods which you can use to progre
 
 These methods, like `flow.complete()` or `block.complete()` are defined with signatures that explicitly do not return values: `() => void`. We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then the client will reactive update and re-render components based on the subscriptions you've defined via `flow.subscribe(...)` and `block.subscribe(...)`. Calling an intention only means that at sometime in the future, the client's state will be updated.
 
+### Understanding loading status
+
+We expose two functions which enable you to wait for Dopt to initialize, both within the larger `Dopt` provider class and at the granular `Flow` class level. To wait for all of Dopt to initialize, you can use the `dopt.initialized()` function on an instance of the `Dopt` class. This function returns a promise which resolves after Dopt has completed loading.
+
+If you would instead like to wait for specific flows, you can use the `flow.initialized()` function on an instance of the `Flow` class. This function returns a promise which resolves after that specific flow has completed loading; additionally, the promise will resolve to `true` if the loading was successful and `false` otherwise.
+
 ### Example usage
 
 ```tsx
