@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0
+
+### Minor Changes
+
+- 396f4e80: remove MockProvider and mocking functionality from the react SDK
+
 ## 1.3.3
 
 ### Patch Changes
