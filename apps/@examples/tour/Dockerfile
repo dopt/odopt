@@ -27,6 +27,7 @@ ENV NODE_ENV=production
 RUN pnpm exec turbo run build --filter="@examples/tour...";
 
 FROM nginx:alpine
+RUN apk update; apk add --upgrade curl
 COPY --from=builder /app/apps/@examples/tour/dist/ /usr/share/nginx/html
 COPY --from=builder /app/apps/@examples/tour/nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
