@@ -27,6 +27,7 @@ ENV NODE_ENV=production
 RUN pnpm exec turbo run build --filter="@examples/custom-textarea...";
 
 FROM nginx:alpine
+RUN apk update; apk add --upgrade curl
 COPY --from=builder /app/apps/@examples/custom-textarea/dist/ /usr/share/nginx/html
 COPY --from=builder /app/apps/@examples/custom-textarea/nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80

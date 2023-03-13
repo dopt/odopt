@@ -27,6 +27,7 @@ ENV NODE_ENV=production
 RUN pnpm exec turbo run build --filter="@examples/embedded-contextual-education...";
 
 FROM nginx:alpine
+RUN apk update; apk add --upgrade curl
 COPY --from=builder /app/apps/@examples/embedded-contextual-education/dist/ /usr/share/nginx/html
 COPY --from=builder /app/apps/@examples/embedded-contextual-education/nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
