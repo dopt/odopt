@@ -1,7 +1,5 @@
 import { Logger } from '@dopt/logger';
 import { createContext } from 'react';
-
-import type { Mercator } from '@dopt/mercator';
 import type { Flow, Block, Field } from '@dopt/block-types';
 import {
   FlowStatus,
@@ -20,7 +18,7 @@ import {
 type DoptContext = {
   fetching: boolean;
   flows: Flows;
-  flowBlocks: Mercator<[Flow['sid'], Flow['version']], Block['uid'][]>;
+  flowBlocks: Map<Flow['sid'], Block['uid'][]>;
   flowStatuses: Record<Flow['uid'], FlowStatus>;
   flowIntention: FlowIntentHandler;
   blocks: Blocks;
