@@ -2,7 +2,7 @@ ARG  NODE_VERSION
 FROM node:${NODE_VERSION}-slim AS base
 ARG  PACKAGE_MANAGER
 ARG  TURBO_VERSION
-RUN apt-get update -y && apt-get install -y  build-essential
+RUN apt-get update -y && apt-get install -y  build-essential git default-jre wget
 RUN npm install --location=global turbo@${TURBO_VERSION}
 RUN corepack enable && corepack prepare ${PACKAGE_MANAGER} --activate
 WORKDIR /app
@@ -22,7 +22,6 @@ RUN pnpm install --filter "@examples/kanban..."
 
 FROM installer AS builder
 RUN apt update
-RUN apt-get -y install default-jre && apt install -y wget && apt install -y git && apt-get install -y jq && apt-get -y install openssl
 ENV NODE_ENV=production
 RUN pnpm exec turbo run build --filter="@examples/kanban...";
 
