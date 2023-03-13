@@ -1,15 +1,11 @@
 import { LoggerProps } from '@dopt/logger';
 import { ReactNode } from 'react';
-import { Mercator } from '@dopt/mercator';
 import type { Block, Flow, BlockIntent, FlowIntent } from '@dopt/block-types';
 
 /**
  * This type maps a Block's `uid` to the Block itself.
  *
- * This object is used internally within the {@link ProdDoptProvider}.
- *
- * It is also used as an input prop for {@link MockDoptProvider} when
- * mocking out Dopt's internals. See {@link Mocks} and {@link MockProviderConfig}.
+ * This object is used internally within the {@link DoptProvider}.
  */
 export type Blocks = Record<Block['uid'], Block>;
 
@@ -19,15 +15,11 @@ export type BlockIntentHandler = Record<
 >;
 
 /**
- * This type uses {@link Mercator} to map a tuple of
- * a flow's `[uid, version]` to the Flow itself.
+ * This type maps a Flow's `uid` to the Flow itself.
  *
- * This object is used internally within the {@link ProdDoptProvider}.
- *
- * It is also used as an input prop for {@link MockDoptProvider} when
- * mocking out Dopt's internals. See {@link Mocks} and {@link MockProviderConfig}.
+ * This object is used internally within the {@link DoptProvider}.
  */
-export type Flows = Mercator<[Flow['uid'], Flow['version']], Flow>;
+export type Flows = Record<Flow['uid'], Flow>;
 
 export type FlowIntentHandler = Record<
   FlowIntent,
@@ -44,20 +36,11 @@ export type FlowIntentHandler = Record<
  */
 export type FlowStatus = { pending: boolean; failed: boolean };
 
-export interface Mocks {
-  flows: Flows;
-  blocks: Blocks;
-}
-
-export interface BaseProviderConfig {
-  children?: ReactNode;
-}
-
 /**
  * Providing this configuration to the {@link DoptProvider} allows the
  * the SDK to fetch relevant data from the Dopt blocks API.
  */
-export interface ProviderConfig extends BaseProviderConfig {
+export interface ProviderConfig {
   /**
    * The userId you're fetching block and flows for.
    */
@@ -83,13 +66,8 @@ export interface ProviderConfig extends BaseProviderConfig {
    * Within {@link DoptProvider}, this defaults to `true`.
    */
   optimisticUpdates?: boolean;
-}
-
-/**
- * Providing this configuration to the {@link MockDoptProvider} allows
- * for local/offline testing of Dopt in your product.
- */
-export interface MockProviderConfig extends BaseProviderConfig {
-  mocks?: Mocks;
-  logLevel?: LoggerProps['logLevel'];
+  /**
+   * The children React elements of the DoptProvider.
+   */
+  children?: ReactNode;
 }
