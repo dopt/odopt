@@ -27,6 +27,7 @@ ENV NODE_ENV=production
 RUN pnpm exec turbo run build --filter="@examples/modal...";
 
 FROM nginx:alpine
+RUN apk update; apk add --upgrade curl
 COPY --from=builder /app/apps/@examples/modal/dist/ /usr/share/nginx/html
 COPY --from=builder /app/apps/@examples/modal/nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
