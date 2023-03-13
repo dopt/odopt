@@ -27,6 +27,7 @@ ENV NODE_ENV=production
 RUN pnpm exec turbo run build --filter="@examples/embedded-tip...";
 
 FROM nginx:alpine
+RUN apk update; apk add --upgrade curl
 COPY --from=builder /app/apps/@examples/embedded-tip/dist/ /usr/share/nginx/html
 COPY --from=builder /app/apps/@examples/embedded-tip/nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
