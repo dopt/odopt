@@ -51,7 +51,7 @@
     "@dopt/env": "workspace:*",
     "@dopt/esbuild-plugins": "workspace:*",
     "@dopt/tsup": "workspace:*",
-    "@types/jest": "29.4.0",
+    "@types/jest": "29.5.0",
     "@types/rollup-plugin-peer-deps-external": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "5.51.0",
     "@typescript-eslint/parser": "5.51.0",
