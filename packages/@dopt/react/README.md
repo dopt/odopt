@@ -132,6 +132,12 @@ Our hooks and HOCs provide intention methods which you can use to progress and u
 
 We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then, the client will reactively update and re-render the components which depend on these flow and block states. Calling an intention only means that at sometime in the future, the client's state will be updated.
 
+### Understanding loading status
+
+We expose two hooks which enable you to wait for Dopt to initialize, both at the larger `DoptProvider` level and at the granular flow level. To wait for the entire `DoptProvider` to initialize, you can use [useDoptInitialized](./src/use-dopt-initialized.ts). This hook returns a `boolean` which becomes `true` after the entire DoptProvider has finished loading.
+
+If you would instead like to wait for specific flows, you can use the [useFlowStatus](./src/use-flow-status.ts) hook. This hook returns a `FlowStatus` object (`{ pending: boolean, failed: boolean }`) - when the flow has finished loading, `pending` will be false. If the flow fails to load, then `failed` will be true.
+
 ### Using React Hooks
 
 - [useFlow](./src/use-flow.ts)
