@@ -27,7 +27,7 @@ generate/blocks-javascript-client-java:
 	wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/$(GENERATOR_VERSION)/$(GENERATOR_JAR) -O $(GENERATOR_JAR); \
 	exec java -jar $(GENERATOR_JAR) generate -i spec/open-api-spec.json -g typescript-axios -o src \
 		--ignore-file-override=/local/.openapi-generator-ignore; \
-	rm -r openapi-generator-cli.jar;
+	find . -name 'openapi-generator-cli*.jar' -delete
 
 generate/blocks-javascript-client-docker:
 	rm -rf spec; \
@@ -44,7 +44,7 @@ generate/blocks-javascript-client-java-version:
 	wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/$(GENERATOR_VERSION)/$(GENERATOR_JAR) -O $(GENERATOR_JAR); \
 	exec java -jar $(GENERATOR_JAR) generate -i spec/open-api-spec.json -g typescript-axios -o src \
 		--ignore-file-override=/local/.openapi-generator-ignore; \
-	rm -r openapi-generator-cli.jar;
+	find . -name 'openapi-generator-cli*.jar' -delete
 
 generate/blocks-javascript-client-docker-version:
 	rm -rf spec; \
