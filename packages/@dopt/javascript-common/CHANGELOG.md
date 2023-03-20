@@ -1,5 +1,12 @@
 # @dopt/javascript-common
 
+## 1.4.4
+
+### Patch Changes
+
+- Updated dependencies [2191b727]
+  - @dopt/block-types@3.0.1
+
 ## 1.4.3
 
 ### Patch Changes
