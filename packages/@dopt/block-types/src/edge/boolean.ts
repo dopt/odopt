@@ -1,8 +1,8 @@
 import { EdgeTypes } from './base';
 
-export type LogicEdge<T, Y> = {
+export type BooleanEdge<T, Y> = {
   kind: 'edge';
-  type: EdgeTypes.logical;
+  type: EdgeTypes.boolean;
   for: boolean;
   value: [T, Y];
 };

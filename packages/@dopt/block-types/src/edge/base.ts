@@ -11,5 +11,5 @@ export type BaseEdgeType = Static<typeof BaseEdge>;
 
 export enum EdgeTypes {
   edge = 'edge',
-  logical = 'logical',
+  boolean = 'boolean',
 }
