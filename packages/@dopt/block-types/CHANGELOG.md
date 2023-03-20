@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 3.0.1
+
+### Patch Changes
+
+- 2191b727: renaming logic to booolean and misc changes
+
 ## 3.0.0
 
 ### Major Changes

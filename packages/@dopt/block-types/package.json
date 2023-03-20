@@ -1,6 +1,6 @@
 {
   "name": "@dopt/block-types",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Schema/Type definitions for objects surfaced through the Block API",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/block-types",
   "repository": {

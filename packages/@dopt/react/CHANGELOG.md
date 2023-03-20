@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.1
+
+### Patch Changes
+
+- Updated dependencies [2191b727]
+  - @dopt/block-types@3.0.1
+  - @dopt/javascript-common@1.4.4
+
 ## 1.4.0
 
 ### Minor Changes
