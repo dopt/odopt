@@ -1,6 +1,6 @@
 {
   "name": "@dopt/block-api-types",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A package of types corresponding to our Block API",
   "private": true,
   "main": "./dist/index.cjs",
