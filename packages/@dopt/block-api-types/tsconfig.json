@@ -1,0 +1,11 @@
+{
+  "extends": "@dopt/config/tsconfig/base.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "exclude": ["**/node_modules", "**/dist", "build.config.ts"],
+  "include": ["**/*.ts", "**/*.tsx"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
