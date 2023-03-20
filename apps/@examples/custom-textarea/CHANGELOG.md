@@ -1,5 +1,11 @@
 # @examples/custom-textarea
 
+## 0.0.14
+
+### Patch Changes
+
+- @dopt/react@1.4.1
+
 ## 0.0.13
 
 ### Patch Changes
