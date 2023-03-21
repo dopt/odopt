@@ -1,19 +1,33 @@
 import { Logger } from '@dopt/logger';
 import { io, Socket } from 'socket.io-client';
+import { GroupIdentifier, UserIdentifier } from './client';
 
-export function setupSocket(
-  apiKey: string,
-  userId: string | undefined,
-  log: Logger,
-  urlPrefix: string
-): Socket | undefined {
+export type SocketApi = {
+  apiKey: string;
+  userId: UserIdentifier['userId'];
+  log: Logger;
+  urlPrefix: string;
+  groupId?: GroupIdentifier['groupId'];
+};
+
+export function setupSocket({
+  apiKey,
+  userId,
+  log,
+  urlPrefix,
+  groupId,
+}: SocketApi): Socket | undefined {
   if (!userId) {
     return undefined;
   }
 
+  const query = `/v1/client?endUserIdentifier=${userId}${
+    groupId ? `&groupIdentifier=${groupId}` : ``
+  }`;
+
   log.debug('Initializing socket connection.');
 
-  const socket = io(urlPrefix + `/v1/client?endUserIdentifier=${userId}`, {
+  const socket = io(urlPrefix + query, {
     transports: ['websocket'],
     withCredentials: true,
     auth: {
