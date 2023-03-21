@@ -9,15 +9,15 @@ import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 
 import {
   blocksApi,
-  setupSocket,
   getDefaultBlockState,
   getDefaultFlowState,
+  setupSocket,
 } from '@dopt/javascript-common';
 
 import { Socket } from 'socket.io-client';
 
-import { blockStore, flowStore } from './store';
 import type { Blocks } from './store';
+import { blockStore, flowStore } from './store';
 
 type PromiseWithResolver = {
   promise: Promise<boolean>;
@@ -200,7 +200,13 @@ export class Dopt {
       },
     });
 
-    this.socket = setupSocket(apiKey, userId, logger, URL_PREFIX);
+    this.socket = setupSocket({
+      apiKey,
+      userId,
+      log: logger,
+      urlPrefix: URL_PREFIX,
+      groupId,
+    });
 
     const socketReadyPromise = new Promise<void>((resolve) => {
       this.socket?.on('ready', () => resolve());
