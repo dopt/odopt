@@ -6,6 +6,7 @@ import { Model } from './model';
 import { Set } from './set';
 import { Element } from './element';
 import { Webhook } from './webhook';
+import { Nary } from './base';
 
 export * from './entry';
 export * from './finish';
@@ -74,40 +75,53 @@ export type Block =
 
 export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
-
 export const SET_ELEMENTS: [BlockTypes] = [Model.properties.type.const];
 
-import { Base } from './base';
+function getDefaultTransition(props: Omit<Nary, 'kind'> & { type: string }): {
+  default: boolean;
+} {
+  const defaultTransition = Object.entries(props.transitioned).filter(
+    ([name]) => name === 'default'
+  );
+  const defaultTransitionValue = {
+    default: false,
+  };
+  if (defaultTransition.length) {
+    defaultTransitionValue.default = defaultTransition[0][1];
+  }
+  return defaultTransitionValue;
+}
 
 // TODO JM - the type should *not* be string but unforunately we
 // duplicate block type as an enum in prisma, binding the
 // related, but ideally independent, implementations together
-export function getDefaultBlock(props: Base & { type: string }): Block {
+export function getDefaultBlock(
+  props: Omit<Nary, 'kind'> & { type: string }
+): Block {
   switch (props.type) {
     case 'model':
     case 'element':
       return {
         ...props,
         type: 'model',
+        kind: 'block',
         fields: [],
-        transitioned: {
-          default: false,
-        },
       };
     case 'set':
       return {
         ...props,
         type: 'set',
+        kind: 'block',
         size: 0,
         blocks: [],
-        transitioned: {
-          default: false,
-        },
+        transitioned: getDefaultTransition(props),
       };
     case 'webhook':
       return {
         ...props,
         type: 'webhook',
+        kind: 'block',
+        transitioned: getDefaultTransition(props),
         request: async () => ({
           ok: true,
           redirected: false,
@@ -115,24 +129,20 @@ export function getDefaultBlock(props: Base & { type: string }): Block {
           statusText: '',
           url: '',
         }),
-        transitioned: {
-          default: false,
-        },
       };
     case 'entry':
       return {
         ...props,
         type: 'entry',
+        kind: 'block',
+        transitioned: getDefaultTransition(props),
         expression: async () => false,
-        transitioned: {
-          default: false,
-        },
       };
     case 'finish':
       return {
         ...props,
         type: 'finish',
-        transitioned: {},
+        kind: 'block',
       };
     default:
       throw new Error(`Factory not implemented for ${props.type}`);
