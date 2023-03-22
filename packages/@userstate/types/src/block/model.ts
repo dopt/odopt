@@ -1,10 +1,10 @@
 import { Static, Type } from '@sinclair/typebox';
-import { Nary } from './base';
+import { Unary } from './base';
 import { Fields } from '../fields';
 
 export const Model = Type.Object(
   {
-    ...Nary.properties,
+    ...Unary.properties,
     type: Type.Literal('model'),
     fields: Fields,
   },

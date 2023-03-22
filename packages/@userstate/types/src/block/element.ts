@@ -1,10 +1,10 @@
 import { Static, Type } from '@sinclair/typebox';
-import { OptionallyUnary } from './base';
+import { Unary } from './base';
 import { Fields } from '../fields';
 
 export const Element = Type.Object(
   {
-    ...OptionallyUnary.properties,
+    ...Unary.properties,
     type: Type.Literal('element'),
     fields: Fields,
   },
