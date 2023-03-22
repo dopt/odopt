@@ -27,17 +27,6 @@ export const Unary = Type.Object({
 });
 export type Unary = Static<typeof Unary>;
 
-export const OptionallyUnary = Type.Object({
-  ...Base.properties,
-  transitioned: Type.Union([
-    Type.Object({
-      default: Type.Boolean(),
-    }),
-    Type.Object({}),
-  ]),
-});
-export type OptionallyUnary = Static<typeof OptionallyUnary>;
-
 export const Binary = Type.Object({
   ...Base.properties,
   transitioned: Type.Object({
