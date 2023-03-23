@@ -1,5 +1,13 @@
 # @dopt/javascript
 
+## 1.4.2
+
+### Patch Changes
+
+- 3398b437: adding group update support on sockets
+- Updated dependencies [3398b437]
+  - @dopt/javascript-common@1.4.5
+
 ## 1.4.1
 
 ### Patch Changes

@@ -4,11 +4,11 @@ import {
   INTENT_POST_OPTIONS,
 } from './utils';
 
-import { Flow, Block, FlowIntent, BlockIntent } from '@dopt/block-types';
+import { Block, BlockIntent, Flow, FlowIntent } from '@dopt/block-types';
 const INTENT_SIDE_EFFECT_HEADER = 'X-Dopt-Intent-Side-Effects';
 
-import { errorHandler } from './error-handler';
 import { Logger } from '@dopt/logger';
+import { errorHandler } from './error-handler';
 
 function hasSideEffects(response: Response) {
   return response.headers.get(INTENT_SIDE_EFFECT_HEADER) === 'true';
@@ -52,11 +52,11 @@ export async function client({
   return response.json();
 }
 
-type UserIdentifier = {
+export type UserIdentifier = {
   userId: string | undefined;
 };
 
-type GroupIdentifier = {
+export type GroupIdentifier = {
   groupId: string | undefined;
 };
 
@@ -84,7 +84,7 @@ export type BlockIntentParams = Pick<Block, 'uid' | 'version'> & {
 };
 export type FlowIntentParams = FlowParams & { intent: FlowIntent };
 
-const queryParams =
+export const queryParams =
   ({
     userId,
     groupId,
