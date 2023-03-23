@@ -4,9 +4,9 @@ import { Block } from '../block';
 export const FlowState = Type.Readonly(
   Type.Object(
     {
-      exited: Type.Boolean(),
+      stopped: Type.Boolean(),
       started: Type.Boolean(),
-      completed: Type.Boolean(),
+      finished: Type.Boolean(),
     },
     { $id: 'FlowState' }
   )
