@@ -1,18 +1,18 @@
-import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
 
-import { Logger } from '@dopt/logger';
 import { blocksApi, setupSocket } from '@dopt/javascript-common';
+import { Logger } from '@dopt/logger';
 
 import { DoptContext } from './context';
 import {
-  ProviderConfig,
-  FlowStatus,
-  Blocks,
-  Flows,
   BlockIntentHandler,
+  Blocks,
   FlowIntentHandler,
+  Flows,
+  FlowStatus,
+  ProviderConfig,
 } from './types';
 import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 
@@ -120,7 +120,7 @@ export function DoptProvider(props: ProviderConfig) {
    *
    */
   const socket = useMemo(() => {
-    return setupSocket(apiKey, userId, log, URL_PREFIX);
+    return setupSocket({ apiKey, userId, log, urlPrefix: URL_PREFIX, groupId });
   }, [apiKey, userId, groupId]);
 
   useEffect(() => {
