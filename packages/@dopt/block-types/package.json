@@ -37,7 +37,7 @@
     "dist"
   ],
   "dependencies": {
-    "@sinclair/typebox": "0.25.24"
+    "@sinclair/typebox": "0.25.4"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",

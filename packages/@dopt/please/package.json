@@ -39,8 +39,8 @@
     "dist"
   ],
   "dependencies": {
-    "@pnpm/find-workspace-dir": "^5.0.0",
-    "@pnpm/find-workspace-packages": "^5.0.0",
+    "@pnpm/find-workspace-dir": "^6.0.0",
+    "@pnpm/find-workspace-packages": "^6.0.0",
     "@types/micromatch": "^4.0.2",
     "chalk": "4.1.2",
     "concurrently": "7.6.0",
