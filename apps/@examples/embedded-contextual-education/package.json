@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.5.2",
+    "@chakra-ui/react": "2.5.3",
     "@dopt/react": "workspace:*",
     "@dopt/users-javascript-client": "workspace:*",
     "@emotion/react": "11.10.6",
