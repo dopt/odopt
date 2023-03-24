@@ -39,7 +39,7 @@
     "@dopt/env": "workspace:*",
     "@dopt/topoftree": "workspace:*",
     "@pnpm/find-workspace-dir": "^5.0.0",
-    "@pnpm/find-workspace-packages": "^5.0.0",
+    "@pnpm/find-workspace-packages": "^6.0.0",
     "@pnpm/logger": "5.0.0",
     "find-nearest-package-json": "2.0.1",
     "pnpm": "^7.12.2"
