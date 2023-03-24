@@ -27,7 +27,7 @@ importers:
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: ^2.4.0
       typescript: 4.9.5
@@ -37,8 +37,8 @@ importers:
       '@dopt/check-formatting': link:../../@dopt/check-formatting
       '@dopt/config': link:../../@dopt/config
       '@dopt/rollup': link:../../@dopt/rollup
-      '@rollup/plugin-node-resolve': 15.0.1_rollup@3.20.0
-      '@rollup/plugin-typescript': 11.0.0_mo6boj57nduntg2ftsmveesabm
+      '@rollup/plugin-node-resolve': 15.0.1_rollup@3.20.1
+      '@rollup/plugin-typescript': 11.0.0_gflgsyjblim3utlps3hwumnbbm
       '@types/chroma-js': 2.4.0
       '@types/jest': 29.5.0
       '@types/react': 18.0.28
@@ -50,7 +50,7 @@ importers:
       eslint-plugin-react: 7.32.2_eslint@8.36.0
       jest: 29.5.0
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: 2.4.0
       typescript: 4.9.5
@@ -69,7 +69,7 @@ importers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
       '@dopt/tsup': workspace:*
-      '@sinclair/typebox': 0.25.24
+      '@sinclair/typebox': 0.25.4
       '@types/jest': 29.5.0
       '@typescript-eslint/eslint-plugin': 5.56.0
       '@typescript-eslint/parser': 5.56.0
@@ -83,7 +83,7 @@ importers:
       tsup: 6.7.0
       typescript: 4.9.5
     dependencies:
-      '@sinclair/typebox': 0.25.24
+      '@sinclair/typebox': 0.25.4
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
@@ -119,7 +119,7 @@ importers:
       '@types/request': ^2.48.8
       axios: 1.3.4
       request: 2.88.2
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: ^2.4.0
       typescript: 4.9.5
@@ -130,9 +130,9 @@ importers:
       '@dopt/blocks-api-manifest': link:../blocks-api-manifest
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@rollup/plugin-typescript': 11.0.0_mo6boj57nduntg2ftsmveesabm
+      '@rollup/plugin-typescript': 11.0.0_gflgsyjblim3utlps3hwumnbbm
       '@types/request': 2.48.8
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: 2.4.0
       typescript: 4.9.5
@@ -252,7 +252,7 @@ importers:
       eslint: 8.36.0
       jest: 29.5.0
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       socket.io-client: ^4.5.3
       tslib: ^2.4.0
@@ -268,8 +268,8 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@rollup/plugin-replace': 5.0.0_rollup@3.20.0
-      '@rollup/plugin-typescript': 11.0.0_mo6boj57nduntg2ftsmveesabm
+      '@rollup/plugin-replace': 5.0.0_rollup@3.20.1
+      '@rollup/plugin-typescript': 11.0.0_gflgsyjblim3utlps3hwumnbbm
       '@types/jest': 29.5.0
       '@types/node': 18.15.6
       '@typescript-eslint/eslint-plugin': 5.56.0_iskin7c6dxqunwflhstekcjqmq
@@ -277,7 +277,7 @@ importers:
       eslint: 8.36.0
       jest: 29.5.0_@types+node@18.15.6
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: 2.4.0
       typescript: 4.9.5
@@ -299,7 +299,7 @@ importers:
       eslint: 8.36.0
       jest: 29.5.0
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       socket.io-client: ^4.5.3
       tslib: ^2.4.0
@@ -313,8 +313,8 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@rollup/plugin-replace': 5.0.0_rollup@3.20.0
-      '@rollup/plugin-typescript': 11.0.0_mo6boj57nduntg2ftsmveesabm
+      '@rollup/plugin-replace': 5.0.0_rollup@3.20.1
+      '@rollup/plugin-typescript': 11.0.0_gflgsyjblim3utlps3hwumnbbm
       '@types/jest': 29.5.0
       '@types/node': 18.15.6
       '@typescript-eslint/eslint-plugin': 5.56.0_iskin7c6dxqunwflhstekcjqmq
@@ -322,7 +322,7 @@ importers:
       eslint: 8.36.0
       jest: 29.5.0_@types+node@18.15.6
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: 2.4.0
       typescript: 4.9.5
@@ -344,7 +344,7 @@ importers:
       jest: 29.5.0
       loglevel: 1.8.1
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: ^2.4.0
       typescript: 4.9.5
@@ -355,7 +355,7 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@rollup/plugin-typescript': 11.0.0_mo6boj57nduntg2ftsmveesabm
+      '@rollup/plugin-typescript': 11.0.0_gflgsyjblim3utlps3hwumnbbm
       '@types/jest': 29.5.0
       '@typescript-eslint/eslint-plugin': 5.56.0_iskin7c6dxqunwflhstekcjqmq
       '@typescript-eslint/parser': 5.56.0_vgl77cfdswitgr47lm5swmv43m
@@ -365,7 +365,7 @@ importers:
       eslint-plugin-react: 7.32.2_eslint@8.36.0
       jest: 29.5.0
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: 2.4.0
       typescript: 4.9.5
@@ -474,7 +474,7 @@ importers:
       eslint-plugin-react: 7.32.2
       prettier: 2.8.6
       react: '>=16.8.0'
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       socket.io-client: ^4.5.3
       tslib: ^2.4.0
@@ -490,8 +490,8 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@rollup/plugin-replace': 5.0.0_rollup@3.20.0
-      '@rollup/plugin-typescript': 11.0.0_mo6boj57nduntg2ftsmveesabm
+      '@rollup/plugin-replace': 5.0.0_rollup@3.20.1
+      '@rollup/plugin-typescript': 11.0.0_gflgsyjblim3utlps3hwumnbbm
       '@types/node': 18.15.6
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
@@ -500,7 +500,7 @@ importers:
       eslint: 8.36.0
       eslint-plugin-react: 7.32.2_eslint@8.36.0
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: 2.4.0
       tsup: 6.7.0_typescript@4.9.5
@@ -525,17 +525,17 @@ importers:
       jest: 29.5.0
       package-json-type: 1.0.3
       prettier: 2.8.6
-      rollup: 3.20.0
+      rollup: 3.20.1
       rollup-plugin-dts: 5.3.0
       rollup-plugin-peer-deps-external: 2.2.4
       shx: 0.3.4
       tsup: 6.7.0
       typescript: 4.9.5
     dependencies:
-      '@rollup/plugin-typescript': 11.0.0_pn5zetjg24cqcolt42iry5qj6a
-      rollup: 3.20.0
-      rollup-plugin-dts: 5.3.0_pn5zetjg24cqcolt42iry5qj6a
-      rollup-plugin-peer-deps-external: 2.2.4_rollup@3.20.0
+      '@rollup/plugin-typescript': 11.0.0_4joynb4fart7wudy5do7rdiunu
+      rollup: 3.20.1
+      rollup-plugin-dts: 5.3.0_4joynb4fart7wudy5do7rdiunu
+      rollup-plugin-peer-deps-external: 2.2.4_rollup@3.20.1
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
@@ -648,7 +648,7 @@ importers:
       '@types/request': ^2.48.8
       axios: 1.3.4
       request: 2.88.2
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: ^2.4.0
       typescript: 4.9.5
@@ -659,9 +659,9 @@ importers:
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
       '@dopt/users-api-manifest': link:../users-api-manifest
-      '@rollup/plugin-typescript': 11.0.0_mo6boj57nduntg2ftsmveesabm
+      '@rollup/plugin-typescript': 11.0.0_gflgsyjblim3utlps3hwumnbbm
       '@types/request': 2.48.8
-      rollup: 3.20.0
+      rollup: 3.20.1
       shx: 0.3.4
       tslib: 2.4.0
       typescript: 4.9.5
@@ -741,7 +741,7 @@ importers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
       '@dopt/tsup': workspace:*
-      '@sinclair/typebox': 0.25.24
+      '@sinclair/typebox': 0.25.4
       '@types/jest': 29.5.0
       '@typescript-eslint/eslint-plugin': 5.56.0
       '@typescript-eslint/parser': 5.56.0
@@ -755,7 +755,7 @@ importers:
       tsup: 6.7.0
       typescript: 4.9.5
     dependencies:
-      '@sinclair/typebox': 0.25.24
+      '@sinclair/typebox': 0.25.4
     devDependencies:
       '@dopt/check-formatting': link:../../@dopt/check-formatting
       '@dopt/config': link:../../@dopt/config
@@ -3059,7 +3059,7 @@ packages:
       write-yaml-file: 4.2.0
     dev: false
 
-  /@rollup/plugin-node-resolve/15.0.1_rollup@3.20.0:
+  /@rollup/plugin-node-resolve/15.0.1_rollup@3.20.1:
     resolution: {integrity: sha512-ReY88T7JhJjeRVbfCyNj+NXAG3IIsVMsX9b5/9jC98dRP8/yxlZdz7mHZbHk5zHr24wZZICS5AcXsFZAXYUQEg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -3068,16 +3068,16 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@3.20.0
+      '@rollup/pluginutils': 5.0.2_rollup@3.20.1
       '@types/resolve': 1.20.2
       deepmerge: 4.2.2
       is-builtin-module: 3.2.1
       is-module: 1.0.0
       resolve: 1.22.1
-      rollup: 3.20.0
+      rollup: 3.20.1
     dev: true
 
-  /@rollup/plugin-replace/5.0.0_rollup@3.20.0:
+  /@rollup/plugin-replace/5.0.0_rollup@3.20.1:
     resolution: {integrity: sha512-TiPmjMuBjQM+KLWK16O5TAM/eW4yXBYyQ17FbfeNzBC1t2kzX2aXoa8AlS9XTSmg6/2TNvkER1lMEEeN4Lhavw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -3088,10 +3088,10 @@ packages:
     dependencies:
       '@rollup/pluginutils': 4.2.1
       magic-string: 0.26.7
-      rollup: 3.20.0
+      rollup: 3.20.1
     dev: true
 
-  /@rollup/plugin-typescript/11.0.0_mo6boj57nduntg2ftsmveesabm:
+  /@rollup/plugin-typescript/11.0.0_4joynb4fart7wudy5do7rdiunu:
     resolution: {integrity: sha512-goPyCWBiimk1iJgSTgsehFD5OOFHiAknrRJjqFCudcW8JtWiBlK284Xnn4flqMqg6YAjVG/EE+3aVzrL5qNSzQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -3104,31 +3104,31 @@ packages:
       tslib:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@3.20.0
+      '@rollup/pluginutils': 5.0.2_rollup@3.20.1
       resolve: 1.22.1
-      rollup: 3.20.0
+      rollup: 3.20.1
+      typescript: 4.9.5
+    dev: false
+
+  /@rollup/plugin-typescript/11.0.0_gflgsyjblim3utlps3hwumnbbm:
+    resolution: {integrity: sha512-goPyCWBiimk1iJgSTgsehFD5OOFHiAknrRJjqFCudcW8JtWiBlK284Xnn4flqMqg6YAjVG/EE+3aVzrL5qNSzQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^2.14.0||^3.0.0
+      tslib: '*'
+      typescript: '>=3.7.0'
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+      tslib:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.0.2_rollup@3.20.1
+      resolve: 1.22.1
+      rollup: 3.20.1
       tslib: 2.4.0
       typescript: 4.9.5
     dev: true
-
-  /@rollup/plugin-typescript/11.0.0_pn5zetjg24cqcolt42iry5qj6a:
-    resolution: {integrity: sha512-goPyCWBiimk1iJgSTgsehFD5OOFHiAknrRJjqFCudcW8JtWiBlK284Xnn4flqMqg6YAjVG/EE+3aVzrL5qNSzQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^2.14.0||^3.0.0
-      tslib: '*'
-      typescript: '>=3.7.0'
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-      tslib:
-        optional: true
-    dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@3.20.0
-      resolve: 1.22.1
-      rollup: 3.20.0
-      typescript: 4.9.5
-    dev: false
 
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -3138,7 +3138,7 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@rollup/pluginutils/5.0.2_rollup@3.20.0:
+  /@rollup/pluginutils/5.0.2_rollup@3.20.1:
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -3150,10 +3150,15 @@ packages:
       '@types/estree': 1.0.0
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 3.20.0
+      rollup: 3.20.1
 
   /@sinclair/typebox/0.25.24:
     resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
+    dev: true
+
+  /@sinclair/typebox/0.25.4:
+    resolution: {integrity: sha512-4orhjT9lSj61BBH77hz3whIKZRnxNGiO3nKVheNfpXhmhUEWEMBRw5Go1IFRERYqH3afFlXJzElJOZpcG5b4Sw==}
+    dev: false
 
   /@sindresorhus/is/4.6.0:
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
@@ -8726,7 +8731,7 @@ packages:
     dependencies:
       glob: 7.2.3
 
-  /rollup-plugin-dts/5.3.0_pn5zetjg24cqcolt42iry5qj6a:
+  /rollup-plugin-dts/5.3.0_4joynb4fart7wudy5do7rdiunu:
     resolution: {integrity: sha512-8FXp0ZkyZj1iU5klkIJYLjIq/YZSwBoERu33QBDxm/1yw5UU4txrEtcmMkrq+ZiKu3Q4qvPCNqc3ovX6rjqzbQ==}
     engines: {node: '>=v14'}
     peerDependencies:
@@ -8734,18 +8739,18 @@ packages:
       typescript: ^4.1 || ^5.0
     dependencies:
       magic-string: 0.30.0
-      rollup: 3.20.0
+      rollup: 3.20.1
       typescript: 4.9.5
     optionalDependencies:
       '@babel/code-frame': 7.18.6
     dev: false
 
-  /rollup-plugin-peer-deps-external/2.2.4_rollup@3.20.0:
+  /rollup-plugin-peer-deps-external/2.2.4_rollup@3.20.1:
     resolution: {integrity: sha512-AWdukIM1+k5JDdAqV/Cxd+nejvno2FVLVeZ74NKggm3Q5s9cbbcOgUPGdbxPi4BXu7xGaZ8HG12F+thImYu/0g==}
     peerDependencies:
       rollup: '*'
     dependencies:
-      rollup: 3.20.0
+      rollup: 3.20.1
     dev: false
 
   /rollup/0.63.5:
@@ -8764,8 +8769,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup/3.20.0:
-    resolution: {integrity: sha512-YsIfrk80NqUDrxrjWPXUa7PWvAfegZEXHuPsEZg58fGCdjL1I9C1i/NaG+L+27kxxwkrG/QEDEQc8s/ynXWWGQ==}
+  /rollup/3.20.1:
+    resolution: {integrity: sha512-sz2w8cBJlWQ2E17RcpvHuf4sk2BQx4tfKDnjNPikEpLEevrbIAR7CH3PGa2hpPwWbNgPaA9yh9Jzljds5bc9zg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -9603,7 +9608,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
-      rollup: 3.20.0
+      rollup: 3.20.1
       source-map: 0.8.0-beta.0
       sucrase: 3.25.0
       tree-kill: 1.2.2
@@ -10020,7 +10025,7 @@ packages:
       esbuild: 0.17.12
       postcss: 8.4.21
       resolve: 1.22.1
-      rollup: 3.20.0
+      rollup: 3.20.1
     optionalDependencies:
       fsevents: 2.3.2
 
