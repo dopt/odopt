@@ -13,13 +13,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.5.2",
+    "@chakra-ui/react": "2.5.3",
     "@dopt/react": "workspace:*",
     "@dopt/users-javascript-client": "workspace:*",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@tabler/icons": "1.119.0",
-    "framer-motion": "10.7.0",
+    "framer-motion": "10.8.5",
     "nanoid": "4.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
