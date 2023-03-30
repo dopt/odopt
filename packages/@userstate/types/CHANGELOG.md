@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 3.1.0
+
+### Minor Changes
+
+- ae86c132: update name of flow intents and flow type for v2
+
 ## 3.0.0
 
 ### Major Changes
