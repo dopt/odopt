@@ -45,6 +45,7 @@
     "unbuild": "1.1.2"
   },
   "dependencies": {
-    "@userstate/types": "workspace:*"
+    "@userstate/types": "workspace:*",
+    "@sinclair/typebox": "0.25.4"
   }
 }
