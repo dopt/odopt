@@ -77,7 +77,7 @@ export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
 export const SET_ELEMENTS: [BlockTypes] = [Model.properties.type.const];
 
-function getDefaultTransition(props: Omit<Nary, 'kind'> & { type: string }): {
+function getDefaultTransition(props: Pick<Nary, 'transitioned'>): {
   default: boolean;
 } {
   const defaultTransition = Object.entries(props.transitioned).filter(
@@ -96,16 +96,28 @@ function getDefaultTransition(props: Omit<Nary, 'kind'> & { type: string }): {
 // duplicate block type as an enum in prisma, binding the
 // related, but ideally independent, implementations together
 export function getDefaultBlock(
-  props: Omit<Nary, 'kind'> & { type: string }
+  props: Partial<Omit<Nary, 'kind'>> & { type: BlockTypes } & Pick<
+      Nary,
+      'version' | 'uid' | 'sid'
+    >
 ): Block {
+  const defaultState = {
+    active: false,
+    entered: false,
+    exited: false,
+    ...props.state,
+  };
+  const transitioned = { transitioned: props.transitioned || {} };
   switch (props.type) {
     case 'model':
     case 'element':
       return {
-        ...props,
-        type: 'model',
         kind: 'block',
         fields: [],
+        transitioned: getDefaultTransition(transitioned),
+        state: defaultState,
+        ...props,
+        type: 'model',
       };
     case 'set':
       return {
@@ -114,14 +126,16 @@ export function getDefaultBlock(
         kind: 'block',
         size: 0,
         blocks: [],
-        transitioned: getDefaultTransition(props),
+        state: defaultState,
+        transitioned: getDefaultTransition(transitioned),
       };
     case 'webhook':
       return {
         ...props,
         type: 'webhook',
         kind: 'block',
-        transitioned: getDefaultTransition(props),
+        state: defaultState,
+        transitioned: getDefaultTransition(transitioned),
         request: async () => ({
           ok: true,
           redirected: false,
@@ -135,12 +149,15 @@ export function getDefaultBlock(
         ...props,
         type: 'entry',
         kind: 'block',
-        transitioned: getDefaultTransition(props),
+        state: defaultState,
+        transitioned: getDefaultTransition(transitioned),
         expression: async () => false,
       };
     case 'finish':
       return {
         ...props,
+        state: defaultState,
+        transitioned: getDefaultTransition(transitioned),
         type: 'finish',
         kind: 'block',
       };
