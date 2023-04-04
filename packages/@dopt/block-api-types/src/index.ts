@@ -27,6 +27,11 @@ export const BLOCK_TYPES = {
   model: Model.properties.type.const,
 } as const;
 
+export const Transitions = Type.Object({
+  transitions: Type.Array(Type.String(), { minItems: 1, uniqueItems: true }),
+});
+export type Transitions = Static<typeof Transitions>;
+
 export function convert(block: UserStateTypeModel): Block {
   return block;
 }
