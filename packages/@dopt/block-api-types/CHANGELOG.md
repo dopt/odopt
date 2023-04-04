@@ -1,5 +1,16 @@
 # @dopt/block-api-types
 
+## 0.2.0
+
+### Minor Changes
+
+- 518336dd: add support for multiple transitions
+
+### Patch Changes
+
+- Updated dependencies [518336dd]
+  - @userstate/types@3.2.0
+
 ## 0.1.0
 
 ### Minor Changes
