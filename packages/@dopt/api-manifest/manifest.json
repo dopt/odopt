@@ -1,4 +1,4 @@
 {
   "users-service": "https://storage.googleapis.com/dopt-api-spec/users-service/latest/open-api-spec.json",
-  "blocks-service": "https://storage.googleapis.com/dopt-api-spec/blocks-service/latest/open-api-spec.json"
+  "blocks-service": "https://storage.googleapis.com/dopt-api-spec/blocks-api/latest/open-api-spec.json"
 }
