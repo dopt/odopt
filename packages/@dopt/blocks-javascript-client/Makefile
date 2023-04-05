@@ -6,7 +6,7 @@ GENERATOR_VERSION=6.1.0
 GENERATOR_JAR=openapi-generator-cli-${GENERATOR_VERSION}.jar
 
 EXTERNAL_SPEC_LOCATION=../blocks-api-manifest/spec/open-api-spec.json
-SERVICE_SPEC_LOCATION=../../../services/@blocks/service/spec/external/open-api-spec.json
+SERVICE_SPEC_LOCATION=../../../services/@blocks/api/spec/external/open-api-spec.json
 
 build-java: generate/blocks-javascript-client-java
 	pnpm exec drb;
