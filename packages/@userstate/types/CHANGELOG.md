@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 3.2.0
+
+### Minor Changes
+
+- 518336dd: add support for multiple transitions
+
 ## 3.1.0
 
 ### Minor Changes
