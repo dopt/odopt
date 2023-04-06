@@ -1,6 +1,8 @@
 import { Type, Static } from '@sinclair/typebox';
 import { Finish } from './finish';
 import { Entry } from './entry';
+import { Gate } from './gate';
+
 import { Boolean as BooleanType } from './boolean';
 import { Model } from './model';
 import { Set } from './set';
@@ -15,6 +17,7 @@ export * from './model';
 export * from './set';
 export * from './element';
 export * from './webhook';
+export * from './gate';
 
 export const BLOCK_TYPES = {
   entry: Entry.properties.type.const,
@@ -24,6 +27,7 @@ export const BLOCK_TYPES = {
   set: Set.properties.type.const,
   element: Element.properties.type.const,
   webhook: Webhook.properties.type.const,
+  gate: Gate.properties.type.const,
 } as const;
 
 export const BlockTypes = Type.Union([
@@ -34,6 +38,7 @@ export const BlockTypes = Type.Union([
   Set.properties.type,
   Element.properties.type,
   Webhook.properties.type,
+  Gate.properties.type,
 ]);
 export type BlockTypes = Static<typeof BlockTypes>;
 
@@ -46,6 +51,7 @@ export const Block = Type.Union(
     Type.Ref(Set),
     Type.Ref(Element),
     Type.Ref(Webhook),
+    Type.Ref(Gate),
   ],
   { $id: 'Block' }
 );
@@ -71,7 +77,8 @@ export type Block =
   | Model
   | Set
   | Element
-  | Webhook;
+  | Webhook
+  | Gate;
 
 export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
@@ -160,6 +167,14 @@ export function getDefaultBlock(
         transitioned: getDefaultTransition(transitioned),
         type: 'finish',
         kind: 'block',
+      };
+    case 'gate':
+      return {
+        kind: 'block',
+        transitioned: getDefaultTransition(transitioned),
+        state: defaultState,
+        ...props,
+        type: 'gate',
       };
     default:
       throw new Error(`Factory not implemented for ${props.type}`);
