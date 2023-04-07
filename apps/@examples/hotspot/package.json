@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dopt/react": "workspace:*",
+    "@dopt/react": "1.4.2",
     "@dopt/users-javascript-client": "workspace:*",
     "@radix-ui/react-popover": "1.0.5",
     "@tabler/icons": "1.119.0",

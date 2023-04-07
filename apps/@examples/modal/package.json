@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dopt/react": "workspace:*",
+    "@dopt/react": "1.4.2",
     "@dopt/users-javascript-client": "workspace:*",
     "@tabler/icons": "1.119.0",
     "nanoid": "4.0.2",
