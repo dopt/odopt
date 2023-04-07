@@ -6,6 +6,7 @@ import { Model, ModelType, ModelTypeConst } from './model';
 import { Set, SetType, SetTypeConst } from './set';
 import { Webhook, WebhookType, WebhookTypeConst } from './webhook';
 import { BaseType } from './base';
+import { Gate, GateType, GateTypeConst } from './gate';
 
 export * from './entry';
 export * from './finish';
@@ -23,6 +24,7 @@ export const BLOCK_TYPES = {
   finish: FinishTypeConst,
   set: SetTypeConst,
   webhook: WebhookTypeConst,
+  gate: GateTypeConst,
 } as const;
 
 export const BlockTypes = Type.Union([
@@ -32,6 +34,7 @@ export const BlockTypes = Type.Union([
   FinishType,
   SetType,
   WebhookType,
+  GateType,
 ]);
 export type BlockTypes = Static<typeof BlockTypes>;
 
@@ -43,6 +46,7 @@ export const Block = Type.Union(
     Type.Ref(Finish),
     Type.Ref(Set),
     Type.Ref(Webhook),
+    Type.Ref(Gate),
   ],
   { $id: 'Block' }
 );
