@@ -9,7 +9,7 @@
     "directory": "packages/@userstate/types"
   },
   "license": "MIT",
-  "private": true,
+  "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
