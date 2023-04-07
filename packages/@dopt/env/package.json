@@ -38,8 +38,8 @@
   "devDependencies": {
     "@dopt/config": "workspace:*",
     "@types/node": "18.15.11",
-    "esbuild": "0.17.12",
-    "eslint": "8.36.0",
+    "esbuild": "0.17.15",
+    "eslint": "8.37.0",
     "shx": "0.3.4",
     "tsup": "6.7.0",
     "typescript": "4.9.5"
