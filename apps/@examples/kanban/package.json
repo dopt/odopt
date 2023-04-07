@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@asseinfo/react-kanban": "2.2.0",
-    "@dopt/react": "workspace:*",
+    "@dopt/react": "1.4.2",
     "@dopt/users-javascript-client": "workspace:*",
     "@emotion/react": "11.10.6",
     "@mantine/core": "5.10.5",
