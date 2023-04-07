@@ -2,7 +2,7 @@
   "name": "@dopt/block-api-types",
   "version": "0.2.0",
   "description": "A package of types corresponding to our Block API",
-  "private": true,
+  "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/block-api-types\""
   },
   "files": [
     "dist"
