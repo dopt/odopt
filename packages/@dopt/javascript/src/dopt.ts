@@ -5,13 +5,14 @@ import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 import { Block as BlockClass } from './block';
 import { Flow as FlowClass } from './flow';
 
-import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
-
 import {
   blocksApi,
   getDefaultBlockState,
   getDefaultFlowState,
   setupSocket,
+  Flow,
+  Block,
+  Field,
 } from '@dopt/javascript-common';
 
 import { Socket } from 'socket.io-client';
@@ -216,8 +217,8 @@ export class Dopt {
 
     try {
       const flows: Flow[] = await Promise.all(
-        Object.entries(flowVersions).map(([uid, version]) => {
-          return getFlow({ uid, version });
+        Object.entries(flowVersions).map(([sid, version]) => {
+          return getFlow({ sid, version });
         })
       );
 
@@ -249,7 +250,7 @@ export class Dopt {
           });
 
           flowIntent({
-            uid: flow.uid,
+            sid: flow.sid,
             version: flow.version,
             intent: 'start',
           }).then(
@@ -290,14 +291,12 @@ export class Dopt {
           this.blockUidBySid.set(block.sid, block.uid);
 
           // initialize block fields map
-          if (block.type === ModelTypeConst) {
-            this.blockFields.set(
-              block.uid,
-              block.fields.reduce((map, field) => {
-                return map.set(field.sid, field);
-              }, new Map<Field['sid'], Field>())
-            );
-          }
+          this.blockFields.set(
+            block.uid,
+            block.fields.reduce((map, field) => {
+              return map.set(field.sid, field);
+            }, new Map<Field['sid'], Field>())
+          );
         });
       });
     } catch (error) {
@@ -362,14 +361,14 @@ export class Dopt {
    * const flow = dopt.flow("welcome-to-dopt");
    * ```
    *
-   * @param uid {@link FlowType['uid']} The id of the flow.
-   * @param version {@link FlowType['version']} **Deprecated**.
+   * @param uid {@link Flow['uid']} The id of the flow.
+   * @param version {@link Flow['version']} **Deprecated**.
    * Previously, this parameter allowed specification of the version of the flow.
    * Now, Dopt pulls the flow's version from the {@link DoptConfig}'s `flowVersions` property.
    *
    * @returns A {@link Flow} instance which matches the given `id`.
    */
-  public flow(uid: Flow['uid'], version?: number) {
+  public flow(sid: Flow['sid'], version?: number) {
     const {
       logger,
       flowBlocks,
@@ -390,14 +389,15 @@ export class Dopt {
     }
 
     const flow =
-      flowStore.getState()[uid] ||
-      getDefaultFlowState(uid, this.flowVersions[uid]);
+      flowStore.getState()[sid] ||
+      getDefaultFlowState(sid, this.flowVersions[sid]);
 
     return new FlowClass({
       intent,
       flow,
       flowBlocks,
-      flowPromise: this.flowInitialized(uid),
+      flowPromise: this.flowInitialized(sid),
+      createBlock: this.block.bind(this),
     });
   }
 
@@ -428,6 +428,7 @@ export class Dopt {
         flow,
         flowBlocks,
         flowPromise: this.flowInitialized(flow.uid),
+        createBlock: this.block.bind(this),
       });
     });
   }
@@ -443,11 +444,11 @@ export class Dopt {
    * const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
    * ```
    *
-   * @param id one of {@link BlockType['uid']} | {@link BlockType['sid']} The id of the block.
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the block.
    * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
    * @returns A {@link Block} instance corresponding to the id.
    */
-  public block(id: string) {
+  public block<T>(id: string) {
     const {
       logger,
       blocksApi: { blockIntent: intent },
@@ -460,14 +461,14 @@ export class Dopt {
     }
     const uid = this.blockUidBySid.get(id) || id;
 
-    const block = blockStore.getState()[uid] || getDefaultBlockState(uid, id);
+    const block =
+      blockStore.getState()[uid] || getDefaultBlockState(uid, id, -1);
 
-    return new BlockClass({
+    return new BlockClass<T>({
       intent,
       block,
       optimisticUpdates: this.optimisticUpdates,
       fieldMap: this.blockFields.get(block.uid) || null,
-      blockUidBySid: this.blockUidBySid,
     });
   }
 
@@ -497,7 +498,6 @@ export class Dopt {
         block,
         optimisticUpdates: this.optimisticUpdates,
         fieldMap: this.blockFields.get(block.uid) || null,
-        blockUidBySid: this.blockUidBySid,
       });
     });
   }

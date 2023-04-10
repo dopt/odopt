@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Block, Field, Flow, ModelTypeConst } from '@dopt/block-types';
-
 import { blocksApi, setupSocket } from '@dopt/javascript-common';
 import { Logger } from '@dopt/logger';
 
 import { DoptContext } from './context';
 import {
-  BlockIntentHandler,
+  BlockTransitionHandler,
   Blocks,
   FlowIntentHandler,
   Flows,
@@ -15,6 +13,12 @@ import {
   ProviderConfig,
 } from './types';
 import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
+
+import type {
+  Block as APIBlock,
+  Flow as APIFlow,
+  Field as APIField,
+} from '@dopt/javascript-common';
 
 /**
  * A React context provider for accessing block state.
@@ -57,12 +61,12 @@ export function DoptProvider(props: ProviderConfig) {
 
   const [flows, setFlows] = useState<Flows>({});
   const [flowBlocks, setFlowBlocks] = useState<
-    Map<Flow['sid'], Block['uid'][]>
+    Map<APIFlow['sid'], APIBlock['uid'][]>
   >(new Map());
 
   const [blocks, setBlocks] = useState<Blocks>({});
   const [blockFields, setBlockFields] = useState<
-    Map<Block['uid'], Map<Field['sid'], Field>>
+    Map<APIBlock['uid'], Map<APIField['sid'], APIField>>
   >(new Map());
   const [blockUidBySid, setBlockSidMap] = useState<Map<string, string>>(
     new Map<string, string>()
@@ -72,7 +76,7 @@ export function DoptProvider(props: ProviderConfig) {
   const [socketReady, setSocketReady] = useState<boolean>(false);
 
   const [flowStatuses, setFlowStatuses] = useState<
-    Record<Flow['sid'], FlowStatus>
+    Record<APIFlow['sid'], FlowStatus>
   >({});
 
   useEffect(() => {
@@ -131,12 +135,12 @@ export function DoptProvider(props: ProviderConfig) {
 
     /*
      * Fetch all Flows based on the **in parallel**
-     * provided (Flow['uid'], Flow['version'])
+     * provided (Flow['sid'], Flow['version'])
      * tuples (via the `flowVersions` props)
      */
     Promise.all(
-      Object.entries(flowVersions).map(([uid, version]) =>
-        getFlow({ uid, version })
+      Object.entries(flowVersions).map(([sid, version]) =>
+        getFlow({ sid, version })
       )
     )
       .then((flows) => {
@@ -157,14 +161,12 @@ export function DoptProvider(props: ProviderConfig) {
 
             _blockUidBySid.set(block.sid, block.uid);
 
-            if (block.type === ModelTypeConst) {
-              _blockFields.set(
-                block.uid,
-                block.fields.reduce((map, field) => {
-                  return map.set(field.sid, field);
-                }, new Map<Field['sid'], Field>())
-              );
-            }
+            _blockFields.set(
+              block.uid,
+              block.fields.reduce((map, field) => {
+                return map.set(field.sid, field);
+              }, new Map<APIField['sid'], APIField>())
+            );
           });
         });
 
@@ -192,7 +194,7 @@ export function DoptProvider(props: ProviderConfig) {
   }, [JSON.stringify(flowVersions), userId, groupId]);
 
   const updateBlockState = useCallback(
-    (updated: Record<Block['uid'], Block>) =>
+    (updated: Record<APIBlock['uid'], APIBlock>) =>
       setBlocks((prevBlocks) => ({
         ...prevBlocks,
         ...updated,
@@ -200,7 +202,7 @@ export function DoptProvider(props: ProviderConfig) {
     []
   );
 
-  const updateFlowState = useCallback((flow: Flow) => {
+  const updateFlowState = useCallback((flow: APIFlow) => {
     setFlows((prev) => {
       return {
         ...prev,
@@ -239,7 +241,7 @@ export function DoptProvider(props: ProviderConfig) {
   );
 
   const flowSocketCallback = useCallback(
-    (updatedFlow: Flow) => {
+    (updatedFlow: APIFlow) => {
       log.debug(
         `The following flow was updated and pushed from the server.\n${JSON.stringify(
           updatedFlow,
@@ -302,9 +304,9 @@ export function DoptProvider(props: ProviderConfig) {
       }
     }
 
-    Object.values(flows).forEach(({ uid, version }) => {
-      socket.emit('watch:flow', uid, version);
-      socket.on(`${uid}_${version}`, updateFlowState);
+    Object.values(flows).forEach(({ sid, version }) => {
+      socket.emit('watch:flow', sid, version);
+      socket.on(`${sid}_${version}`, updateFlowState);
     });
   }, [
     JSON.stringify(Object.keys(blocks).sort()),
@@ -326,7 +328,7 @@ export function DoptProvider(props: ProviderConfig) {
             pending = true;
 
             flowIntent({
-              uid: flow.uid,
+              sid: flow.sid,
               version: flow.version,
               intent: 'start',
             }).then(
@@ -349,70 +351,40 @@ export function DoptProvider(props: ProviderConfig) {
 
           statuses[flow.sid] = { pending, failed: false };
           return statuses;
-        }, {} as Record<Flow['sid'], FlowStatus>)
+        }, {} as Record<APIFlow['sid'], FlowStatus>)
       );
     }
   }, [socketReady, fetching]);
 
-  const blockIntention: BlockIntentHandler = useMemo(() => {
+  const blockIntention: BlockTransitionHandler = useMemo(() => {
     if (fetching) {
-      return {
-        complete: () => {},
-        prev: () => {},
-        next: () => {},
-        goTo: () => {},
-      };
+      return () => {};
     }
 
-    return {
-      complete: (uid) => {
-        if (blocks[uid]) {
-          if (optimisticUpdates && blocks[uid].type === ModelTypeConst) {
-            updateBlockState({
-              [uid]: Object.assign(blocks[uid], {
-                state: {
-                  active: false,
-                  completed: true,
-                },
-              }),
-            });
-          }
+    return (uid, transitions) => {
+      if (blocks[uid]) {
+        const block = blocks[uid];
 
-          blockIntent({
-            uid,
-            version: blocks[uid].version,
-            intent: 'complete',
+        if (optimisticUpdates) {
+          updateBlockState({
+            [uid]: {
+              ...block,
+              state: {
+                active: false,
+                exited: true,
+                entered: true,
+              },
+            },
           });
         }
-      },
-      next: (uid) => {
-        if (blocks[uid]) {
-          blockIntent({
-            uid,
-            version: blocks[uid].version,
-            intent: 'next',
-          });
-        }
-      },
-      prev: (uid) => {
-        if (blocks[uid]) {
-          blockIntent({
-            uid,
-            version: blocks[uid].version,
-            intent: 'prev',
-          });
-        }
-      },
-      goTo: (uid, goToUid) => {
-        if (blocks[uid]) {
-          blockIntent({
-            uid,
-            version: blocks[uid].version,
-            intent: 'goTo',
-            goToUid,
-          });
-        }
-      },
+
+        blockIntent({
+          uid,
+          sid: block.sid,
+          version: block.version,
+          transitions,
+        });
+      }
     };
   }, [fetching, blockIntent, blocks]);
 
@@ -421,23 +393,23 @@ export function DoptProvider(props: ProviderConfig) {
       return {
         start: () => {},
         reset: () => {},
-        complete: () => {},
-        exit: () => {},
+        finish: () => {},
+        stop: () => {},
       };
     }
 
     return {
-      start: (uid, version) => {
-        flowIntent({ uid, version, intent: 'start' });
+      start: (sid, version) => {
+        flowIntent({ sid, version, intent: 'start' });
       },
-      reset: (uid, version) => {
-        flowIntent({ uid, version, intent: 'reset' });
+      reset: (sid, version) => {
+        flowIntent({ sid, version, intent: 'reset' });
       },
-      complete: (uid, version) => {
-        flowIntent({ uid, version, intent: 'complete' });
+      finish: (sid, version) => {
+        flowIntent({ sid, version, intent: 'finish' });
       },
-      exit: (uid, version) => {
-        flowIntent({ uid, version, intent: 'exit' });
+      stop: (sid, version) => {
+        flowIntent({ sid, version, intent: 'stop' });
       },
     };
   }, [fetching, flows]);

@@ -41,7 +41,6 @@
     "react": ">=16.8.0"
   },
   "dependencies": {
-    "@dopt/block-types": "workspace:*",
     "@dopt/javascript-common": "workspace:*",
     "@dopt/logger": "workspace:*",
     "socket.io-client": "^4.5.3"
@@ -52,9 +51,12 @@
     "@dopt/rollup": "workspace:*",
     "@rollup/plugin-replace": "^5.0.0",
     "@rollup/plugin-typescript": "11.1.0",
+    "rollup-plugin-dts": "5.3.0",
+    "rollup-plugin-peer-deps-external": "2.2.4",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
+    "@types/rollup-plugin-peer-deps-external": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "5.57.1",
     "@typescript-eslint/parser": "5.57.1",
     "eslint": "8.37.0",
