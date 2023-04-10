@@ -1,7 +1,7 @@
 import { IconLayoutKanban } from '@tabler/icons';
 import { Alert, Box, Stack, Text, Title } from '@mantine/core';
 
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 export function WelcomeBanner() {
   const [createAnIssueBlock] = useBlock('f7oaGfQYNJ1KtueMLv4nm');
