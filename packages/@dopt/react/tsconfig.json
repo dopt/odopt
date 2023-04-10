@@ -9,7 +9,9 @@
     "lib": ["es6", "dom", "dom.iterable", "esnext"],
     "noEmit": false,
     "outDir": "./dist",
-    "paths": { "@/*": ["./*"] },
+    "paths": {
+      "@/*": ["./*"]
+    },
     "rootDir": "./src",
     "target": "es5"
   },
@@ -18,7 +20,6 @@
     "dist",
     "rollup.test.config.ts",
     "rollup.config.ts",
-    "tsup.config.ts",
     "src/__tests__/*"
   ],
   "include": ["**/*.ts", "**/*.tsx"]

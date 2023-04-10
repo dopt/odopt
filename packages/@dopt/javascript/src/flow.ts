@@ -1,12 +1,13 @@
-import { blocksApi } from '@dopt/javascript-common';
-
-import { flowStore, blockStore } from './store';
-
-import type {
+import {
+  blocksApi,
   Flow as FlowType,
   Block as BlockType,
-  FlowIntent,
-} from '@dopt/block-types';
+  FlowIntentParams,
+} from '@dopt/javascript-common';
+
+import { flowStore } from './store';
+
+import { Block } from './block';
 
 /**
  * @internal
@@ -14,8 +15,9 @@ import type {
 export interface FlowProps {
   intent: ReturnType<typeof blocksApi>['flowIntent'];
   flow: FlowType;
-  flowBlocks: Map<FlowType['uid'], BlockType['uid'][]>;
+  flowBlocks: Map<FlowType['sid'], BlockType['uid'][]>;
   flowPromise: Promise<boolean>;
+  createBlock: <T>(uid: string) => Block<T>;
 }
 
 export class Flow {
@@ -23,15 +25,43 @@ export class Flow {
   private flow: FlowProps['flow'];
   private flowBlocks: FlowProps['flowBlocks'];
   private flowPromise: FlowProps['flowPromise'];
+  private createBlock: FlowProps['createBlock'];
 
   /**
    * @internal
    */
-  constructor({ intent, flow, flowBlocks, flowPromise }: FlowProps) {
+  constructor({
+    intent,
+    flow,
+    flowBlocks,
+    flowPromise,
+    createBlock,
+  }: FlowProps) {
     this.intent = intent;
     this.flow = flow;
     this.flowBlocks = flowBlocks;
     this.flowPromise = flowPromise;
+    this.createBlock = createBlock;
+  }
+
+  get type() {
+    return this.flow.type;
+  }
+
+  get kind() {
+    return this.flow.kind;
+  }
+
+  get uid() {
+    return this.flow.uid;
+  }
+
+  get sid() {
+    return this.flow.sid;
+  }
+
+  get version() {
+    return this.flow.version;
   }
 
   /**
@@ -39,7 +69,7 @@ export class Flow {
    *
    * @returns The state of this instance.
    */
-  state(): FlowType['state'] {
+  get state(): FlowType['state'] {
     return flowStore.getState()[this.flow.uid]?.state || this.flow.state;
   }
 
@@ -79,8 +109,7 @@ export class Flow {
    * Returns all the block children of this {@link Flow}.
    *
    * @remarks
-   * Blocks returned by this method have type {@link BlockType}.
-   * They are raw data representations. To generate {@link Block}, use `dopt.block` ({@link Dopt.block}).
+   * Blocks returned by this method have type {@link Block}.
    *
    * @example
    * ```js
@@ -89,21 +118,20 @@ export class Flow {
    * // can access state properties safely
    * const states = data.map(({ state }) => state);
    *
-   * // for all other methods, use a Block class
-   * const blocks = data.map(({ uid }) => dopt.block(uid));
+   * // to transition these blocks
+   * data.map(block => block.transition('default'));
    * ```
    *
-   * @returns An array of {@link FlowType['blocks']} which are contained within this flow.
+   * @returns An array of {@link Block} which are contained within this flow.
    */
-  blocks(): FlowType['blocks'] {
+  get blocks(): Block<unknown>[] {
     const uids = this.flowBlocks.get(this.flow.uid) || [];
-    const blocks = blockStore.getState();
-    return uids?.map((uid) => blocks[uid]) || [];
+    return uids?.map((uid) => this.createBlock<unknown>(uid)) || [];
   }
 
-  private _intent(intent: FlowIntent) {
-    const { uid, version } = this.flow;
-    this.intent({ uid, version, intent });
+  private _intent(intent: FlowIntentParams['intent']) {
+    const { sid, version } = this.flow;
+    this.intent({ sid, version, intent });
   }
 
   /**
@@ -120,7 +148,7 @@ export class Flow {
   }
 
   /**
-   * Complete this flow. Will also update the state of blocks within this flow, as appropriate.
+   * Finish this flow. Will also update the state of blocks within this flow, as appropriate.
    *
    * @remarks
    * This function will update state with Dopt and trigger changes. Subscribe to the
@@ -128,12 +156,12 @@ export class Flow {
    *
    * @returns void
    */
-  complete() {
-    this._intent('complete');
+  finish() {
+    this._intent('finish');
   }
 
   /**
-   * Exit this flow. Will also update the state of blocks within this flow, as appropriate.
+   * Stop this flow. Will also update the state of blocks within this flow, as appropriate.
    *
    * @remarks
    * This function will update state with Dopt and trigger changes. Subscribe to the
@@ -141,8 +169,8 @@ export class Flow {
    *
    * @returns void
    */
-  exit() {
-    this._intent('exit');
+  stop() {
+    this._intent('stop');
   }
 
   /**
@@ -175,15 +203,14 @@ export class Flow {
    * ```
    *
    * @param listener
-   * The listener function is called with a {@link FlowType} object.
-   * You can use `dopt.flow()` to access a {@link Flow} instance instead.
+   * The listener function is called with this {@link Flow} instance.
    *
    * @returns A function which can be called to unsubscribe the listener.
    */
-  subscribe(listener: (flow: FlowType) => void) {
-    const { uid } = this.flow;
-    return flowStore.subscribe((state) => {
-      return state[uid];
-    }, listener);
+  subscribe(listener: (flow: Flow) => void) {
+    return flowStore.subscribe(
+      (flows) => flows[this.flow.sid],
+      () => listener(this)
+    );
   }
 }

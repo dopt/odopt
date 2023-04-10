@@ -8,8 +8,15 @@
     "declarationMap": false,
     "declaration": true,
     "declarationDir": "./types",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "target": "es5"
   },
-  "exclude": ["**/node_modules", "**/dist", "rollup.config.ts"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "rollup.config.ts",
+    "rollup.test.config.ts",
+    "src/__tests__/*"
+  ],
+  "include": ["**/*.ts"]
 }

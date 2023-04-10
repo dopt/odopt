@@ -1,5 +1,5 @@
 import { FlowStatus } from './types';
-import { Flow } from '@dopt/block-types';
+import type { Flow } from '@dopt/javascript-common';
 import { useContext, useMemo } from 'react';
 import { DoptContext } from './context';
 
@@ -20,13 +20,11 @@ import { DoptContext } from './context';
  *
  * @returns A flow's {@link FlowStatus}.
  */
-const useFlowStatus = (sid: Flow['sid']): FlowStatus => {
+export function useFlowStatus(sid: Flow['sid']): FlowStatus {
   const { flowStatuses } = useContext(DoptContext);
   const flowStatus = useMemo(
     () => flowStatuses[sid] || { pending: true, failed: false },
     [sid, flowStatuses]
   );
   return flowStatus;
-};
-
-export { useFlowStatus };
+}
