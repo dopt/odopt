@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { DoptProvider } from '@dopt/react';
+import { DoptProvider } from '@dopt/react-old';
 import { useIdentifyUser } from '@/hooks';
 
 import { Example } from '@/pages';

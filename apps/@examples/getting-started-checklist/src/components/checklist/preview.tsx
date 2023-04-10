@@ -4,7 +4,7 @@ import { IconArrowRight } from '@tabler/icons';
 
 import { CHECKLIST } from '@/const';
 
-import { useUnorderedGroup } from '@dopt/react';
+import { useUnorderedGroup } from '@dopt/react-old';
 
 export function ChecklistPreview() {
   const [checklist] = useUnorderedGroup(CHECKLIST);

@@ -1,4 +1,4 @@
-import { useBlock, useOrderedGroup } from '@dopt/react';
+import { useBlock, useOrderedGroup } from '@dopt/react-old';
 
 import { example } from '@/pages/index.css';
 import { Button, Dialog, Skeleton, TourStep } from '@/components';

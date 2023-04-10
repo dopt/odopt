@@ -1,7 +1,7 @@
 import { Alert, Box, Stack, Text, Title, Group, Card } from '@mantine/core';
 import { IconTableOptions, IconTemplate, IconUserPlus } from '@tabler/icons';
 
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 export function NextStepsBanner() {
   const [nextSteps, closeNextSteps] = useBlock('bLcWkysVad5kGkRlV9zLe');

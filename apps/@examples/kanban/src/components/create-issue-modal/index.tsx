@@ -8,7 +8,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 import { nanoid } from 'nanoid';
 

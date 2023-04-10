@@ -1,6 +1,6 @@
 import ConfettiComponent from 'react-confetti';
 
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 export function Confetti() {
   const [confetti, confettiAnimation] = useBlock('tZZy84ctcH_aOVYM3XKsz');
