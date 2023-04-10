@@ -1,11 +1,12 @@
-import {
-  getDefaultBlockState,
-  getDefaultFlowState,
-  INTENT_POST_OPTIONS,
-} from './utils';
+import { getDefaultBlockState, getDefaultFlowState } from './utils';
 
-import { Block, BlockIntent, Flow, FlowIntent } from '@dopt/block-types';
-const INTENT_SIDE_EFFECT_HEADER = 'X-Dopt-Intent-Side-Effects';
+import { INTENT_SIDE_EFFECT_HEADER } from '@dopt/block-api-types';
+import type {
+  Block,
+  Flow,
+  Transitions,
+  FlowIntent,
+} from '@dopt/block-api-types';
 
 import { Logger } from '@dopt/logger';
 import { errorHandler } from './error-handler';
@@ -13,6 +14,14 @@ import { errorHandler } from './error-handler';
 function hasSideEffects(response: Response) {
   return response.headers.get(INTENT_SIDE_EFFECT_HEADER) === 'true';
 }
+
+const INTENT_POST_OPTIONS = {
+  method: 'POST',
+  body: '{}',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
 
 export async function client({
   url,
@@ -40,6 +49,7 @@ export async function client({
       'x-pkg-name': packageName,
     },
   });
+
   if (!response.ok) {
     errorHandler(response, logger);
     return;
@@ -52,36 +62,33 @@ export async function client({
   return response.json();
 }
 
-export type UserIdentifier = {
-  userId: string | undefined;
-};
-
-export type GroupIdentifier = {
-  groupId: string | undefined;
-};
-
-type Version = {
-  version: number;
-};
-
 export type BlocksApi = {
   apiKey: string;
-  userId: UserIdentifier['userId'];
+  userId: string | undefined;
   logger: Logger;
   config: {
     urlPrefix: string;
     packageVersion: string;
     packageName: string;
   };
-  groupId?: GroupIdentifier['groupId'];
+  groupId?: string | undefined;
 };
 
-export type BlockParams = Pick<Block, 'uid' | 'version' | 'sid'>;
-export type FlowParams = Pick<Flow, 'uid' | 'version'>;
-export type BlockIntentParams = Pick<Block, 'uid' | 'version'> & {
-  intent: BlockIntent;
-  goToUid?: string;
+export type BlockParams = {
+  uid: Block['uid'];
+  sid: Block['sid'];
+  version: Block['version'];
 };
+
+export type FlowParams = {
+  sid: Flow['sid'];
+  version: Flow['version'];
+};
+
+export type BlockIntentParams = BlockParams & {
+  transitions: Transitions['transitions'];
+};
+
 export type FlowIntentParams = FlowParams & { intent: FlowIntent };
 
 export const queryParams =
@@ -89,10 +96,10 @@ export const queryParams =
     userId,
     groupId,
   }: {
-    userId: UserIdentifier['userId'];
-    groupId?: GroupIdentifier['groupId'];
+    userId: BlocksApi['userId'];
+    groupId?: BlocksApi['groupId'];
   }) =>
-  ({ version }: Version) =>
+  ({ version }: { version: number }) =>
     `version=${version}&userIdentifier=${userId}${
       groupId ? `&groupIdentifier=${groupId}` : ``
     }`;
@@ -107,9 +114,9 @@ export function blocksApi({
   const query = queryParams({ userId, groupId });
 
   return {
-    async getFlow({ uid, version }: FlowParams): Promise<Flow> {
+    async getFlow({ sid, version }: FlowParams): Promise<Flow> {
       const flow = (await client({
-        url: `/v1/flow/${uid}?include[block]=true&${query({
+        url: `/v2/flow/${sid}?include=block&${query({
           version,
         })}`,
         apiKey,
@@ -119,20 +126,20 @@ export function blocksApi({
 
       if (flow) {
         logger.info(
-          `Flow<{"uid":"${uid}","version":${version}}> fetched successfully.`
+          `Flow<{"sid":"${sid}","version":${version}}> fetched successfully.`
         );
-        logger.debug(`${'\n'}${JSON.stringify(flow, null, 2)}`);
+        logger.debug(`\n${JSON.stringify(flow, null, 2)}`);
       } else {
         logger.error(
-          `An error occurred while fetching Flow<{"uid":"${uid}","version":${version}}>, setting flow state to its defaults.`
+          `An error occurred while fetching Flow<{"sid":"${sid}","version":${version}}>, setting flow state to its defaults.`
         );
       }
 
-      return flow || getDefaultFlowState(uid, version);
+      return flow || getDefaultFlowState(sid, version);
     },
     async getBlock({ uid, sid, version }: BlockParams): Promise<Block> {
       const block = (await client({
-        url: `/v1/block/${uid}?${query({ version })}`,
+        url: `/v2/block/${uid}?${query({ version })}`,
         apiKey,
         logger,
         ...config,
@@ -142,7 +149,7 @@ export function blocksApi({
         logger.info(
           `Block<{"uid":"${uid}","version":${version}}> fetched successfully.`
         );
-        logger.debug(`${'\n'}${JSON.stringify(block, null, 2)}`);
+        logger.debug(`\n${JSON.stringify(block, null, 2)}`);
       } else {
         logger.error(
           `An error occurred while fetching Block<{"uid":"${uid}","version":${version}}>, setting block state to its defaults.`
@@ -152,17 +159,20 @@ export function blocksApi({
       return block || getDefaultBlockState(uid, sid, version);
     },
     async flowIntent({
-      uid,
+      sid,
       version,
       intent,
     }: FlowIntentParams): Promise<boolean> {
       logger.info(
-        `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}>`
+        `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}>`
       );
-      logger.debug(`/v1/flow/${uid}/${intent}?${query({ version })}`);
+
+      const url = `/v2/flow/${sid}/${intent}?${query({ version })}`;
+
+      logger.debug(`Formed url: ${url}`);
 
       const response = await client({
-        url: `/v1/flow/${uid}/${intent}?${query({ version })}`,
+        url,
         apiKey,
         logger,
         options: INTENT_POST_OPTIONS,
@@ -171,36 +181,42 @@ export function blocksApi({
 
       if (response && response.ok) {
         logger.info(
-          `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}> was successful.`
+          `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}> was successful.`
         );
 
         return Promise.resolve(hasSideEffects(response as Response));
       }
       logger.error(
-        `Calling \`${intent}\` on Flow<{"uid":"${uid}","version":${version}}> failed.`
+        `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}> failed.`
       );
       return Promise.reject();
     },
     async blockIntent({
       uid,
       version,
-      intent,
-      goToUid,
+      transitions,
     }: BlockIntentParams): Promise<boolean> {
+      const transitionQueryString = transitions
+        .map((transition) => `transitions=${transition}`)
+        .join('&');
+
       logger.info(
-        `Calling \`${intent}\` on Block<{"uid":"${uid}","version":${version}}>`
+        `Calling \`${transitionQueryString}\` on Block<{"uid":"${uid}","version":${version}}>`
       );
-      logger.debug(`/v1/block/${uid}/${intent}?${query({ version })}`);
-      let goToQueryParams = '';
-      if (intent === 'goTo' && goToUid) {
-        goToQueryParams = `&blockUid=${goToUid}`;
-      } else if (intent === 'goTo' && !goToUid) {
-        logger.info(`intent goTo requires a destination block`);
+
+      if (transitions.length === 0) {
+        logger.error('No transitions provided, cannot transition the block');
+        return Promise.reject();
       }
+
+      const url = `/v2/block/${uid}/transition?${query({
+        version,
+      })}&${transitionQueryString}`;
+
+      logger.debug(`Formed url: ${url}`);
+
       const response = await client({
-        url: `/v1/block/${uid}/${intent}?${query({
-          version,
-        })}${goToQueryParams}`,
+        url,
         apiKey,
         logger,
         options: INTENT_POST_OPTIONS,
@@ -209,13 +225,13 @@ export function blocksApi({
 
       if (response && response.ok) {
         logger.info(
-          `Calling \`${intent}\` on  Block<{"uid":"${uid}","version":${version}}> was successful.`
+          `Calling \`${transitionQueryString}\` on  Block<{"uid":"${uid}","version":${version}}> was successful.`
         );
 
         return Promise.resolve(hasSideEffects(response as Response));
       }
       logger.info(
-        `Calling \`${intent}\` on  Block<{"uid":"${uid}","version":${version}}> failed.`
+        `Calling \`${transitionQueryString}\` on  Block<{"uid":"${uid}","version":${version}}> failed.`
       );
       return Promise.reject();
     },

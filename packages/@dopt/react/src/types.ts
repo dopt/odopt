@@ -1,29 +1,37 @@
 import { LoggerProps } from '@dopt/logger';
 import { ReactNode } from 'react';
-import type { Block, Flow, BlockIntent, FlowIntent } from '@dopt/block-types';
+import type {
+  Flow as APIFlow,
+  FlowIntentParams,
+  Block as APIBlock,
+  BlockIntentParams,
+  Field as APIField,
+} from '@dopt/javascript-common';
 
 /**
  * This type maps a Block's `uid` to the Block itself.
  *
  * This object is used internally within the {@link DoptProvider}.
  */
-export type Blocks = Record<Block['uid'], Block>;
+export type Blocks = Record<APIBlock['uid'], APIBlock>;
 
-export type BlockIntentHandler = Record<
-  BlockIntent,
-  (uid: Block['uid'], goToUid?: Block['uid']) => void | undefined
->;
+export type BlockTransitions = BlockIntentParams['transitions'];
+
+export type BlockTransitionHandler = (
+  uid: APIBlock['uid'],
+  transitions: BlockTransitions
+) => void | undefined;
 
 /**
- * This type maps a Flow's `uid` to the Flow itself.
+ * This type maps a Flow's `sid` to the Flow itself.
  *
  * This object is used internally within the {@link DoptProvider}.
  */
-export type Flows = Record<Flow['uid'], Flow>;
+export type Flows = Record<APIFlow['sid'], APIFlow>;
 
 export type FlowIntentHandler = Record<
-  FlowIntent,
-  (uid: Flow['uid'], version: Flow['version']) => void | undefined
+  FlowIntentParams['intent'],
+  (sid: APIFlow['sid'], version: APIFlow['version']) => void | undefined
 >;
 
 /**
@@ -59,7 +67,7 @@ export interface ProviderConfig {
    */
   flowVersions: Record<string, number>;
   /**
-   * A boolean which defines whether complete intents on step blocks should
+   * A boolean which defines whether transitions on step blocks should
    * optimistically update the client before hearing back that the change
    * has been committed.
    *
@@ -70,4 +78,157 @@ export interface ProviderConfig {
    * The children React elements of the DoptProvider.
    */
   children?: ReactNode;
+}
+
+export interface Field {
+  sid: APIField['sid'];
+  value: APIField['value'];
+}
+
+export interface Block<T> {
+  type: APIBlock['type'];
+  kind: APIBlock['kind'];
+  uid: APIBlock['uid'];
+  sid: APIBlock['sid'];
+  version: APIBlock['version'];
+  /**
+   * The up-to-date state of this {@link Block} instance.
+   */
+  state: APIBlock['state'];
+  /**
+   * The up-to-date transitioned values for this {@link Block} instance.
+   *
+   * Contains the edges which have been transitioned for this instance.
+   * If the edge exists, it's value will be true / false,
+   * otherwise the value will be undefined.
+   *
+   * @example
+   * ```js
+   * const [block] = useBlock("HNWvcT78tyTwygnbzU6SW");
+   * const firstTransitioned = block.transitioned['first-edge'];
+   * ```
+   *
+   * In typescript, if a block is accessed with generics:
+   * ```ts
+   * const [block] = useBlock<['a-edge']>("HNWvcT78tyTwygnbzU6SW");
+   *
+   * // this is valid
+   * block.transitioned['a-edge'];
+   *
+   * // this is invalid
+   * block.transitioned['b-edge'];
+   * ```
+   */
+  transitioned: T extends BlockTransitions
+    ? Record<T[number], boolean | undefined>
+    : Record<string, boolean | undefined>;
+  /**
+   * Gets the field (see {@link Field['value']}) with the `name` (see {@link Field['sid']})
+   * contained by this {@link Block}. If the {@link Block} does not have the field,
+   * the `defaultValue` is returned if provided. Otherwise, `null` is returned.
+   */
+  field: <V extends Field['value']>(name: string, defaultValue?: V) => V | null;
+}
+
+/**
+ * Methods corresponding to an intent-based API for
+ * signaling state transitions of a block. These methods
+ * have side effects: they change the state of other blocks
+ * and the flow as well. For example, transition a block
+ * activates the next block and transitioning the last block
+ * finishes a flow.
+ */
+export interface BlockIntentions<T> {
+  /**
+   * Signals that the experience this {@link Block} powers has
+   * finished. A noop if the {@link Block} isn't active. Results
+   * in a flow transition.
+   *
+   * @example
+   * ```js
+   * const [, { transition }] = useBlock("HNWvcT78tyTwygnbzU6SW");
+   * // transitioning a single edge
+   * transition('first-edge');
+   *
+   * // transitioning multiple edges
+   * transition('second-edge', 'third-edge');
+   * ```
+   *
+   * In typescript, if a block is accessed with generics:
+   * ```ts
+   * const [, { transition }] = useBlock<['a-edge']>("HNWvcT78tyTwygnbzU6SW");
+   *
+   * // this is valid
+   * transition('a-edge');
+   *
+   * // this is invalid
+   * transition('b-edge');
+   * ```
+   *
+   * @modifies
+   * Sets {@link Block['state']['exited']} to true
+   * Sets {@link Block['state']['active']} to false
+   */
+  transition: (
+    ...inputs: T extends BlockTransitions
+      ? [T[number], ...T[number][]]
+      : BlockTransitions
+  ) => void | undefined;
+}
+
+export interface Flow {
+  type: APIFlow['type'];
+  kind: APIFlow['kind'];
+  uid: APIFlow['uid'];
+  sid: APIFlow['sid'];
+  version: APIFlow['version'];
+  /**
+   * The up-to-date state of this {@link Flow} instance.
+   */
+  state: APIFlow['state'];
+  /**
+   * Accessing blocks directly from a flow doesn't permit type-safety for block.transitioned.
+   */
+  blocks: Block<unknown>[];
+}
+
+/**
+ * Methods corresponding to an intent-based API for
+ * signaling state transitions of a flow. These methods
+ * have side effects on {@link Block['state']} contained
+ * within the flow.
+ */
+export interface FlowIntentions {
+  /**
+   * Resets the flow's state and all of its
+   * associated blocks and their state to the
+   * original/default state.
+   *
+   * @modifies
+   *
+   * Sets {@link Flow['state']['stopped']} to false
+   * Sets {@link Flow['state']['finished']} to false
+   * Sets {@link Flow['state']['started']} to false
+   * Sets all {@link Block['state']['active']} to false
+   * Sets all {@link Block['state']['finished']} to false
+   */
+  reset: () => void | undefined;
+  /**
+   * Stops the flow.
+   *
+   * @modifies
+   * Sets {@link Flow['state']['stopped']} to true
+   * Sets all {@link Block['state']['active']} to false
+   */
+  stop: () => void | undefined;
+  /**
+   * Finishes the flow, independent of
+   * exited states that might be derived from
+   * its {@link Block[]}.
+   *
+   * @modifies
+   * Sets {@link Flow['state']['finished']} to true
+   * Sets all {@link Block['state']['active']} to false
+   */
+  finish: () => void | undefined;
 }
