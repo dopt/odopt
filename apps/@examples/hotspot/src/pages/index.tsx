@@ -1,4 +1,4 @@
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 import { example } from '@/pages/index.css';
 import { Button, Dialog, Skeleton, HotSpot } from '@/components';

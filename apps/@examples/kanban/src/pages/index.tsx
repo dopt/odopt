@@ -21,7 +21,7 @@ import {
 import { AppShell, Box, Button, Group, Header, Text } from '@mantine/core';
 import { columns, initialBoard, getColumnById } from '@/utils/board';
 
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 import { highlight } from '@/styles/app.css';
 import { useKeyValueStore } from '@/hooks';

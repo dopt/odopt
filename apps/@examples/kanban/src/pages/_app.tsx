@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { MantineProvider } from '@mantine/core';
-import { DoptProvider } from '@dopt/react';
+import { DoptProvider } from '@dopt/react-old';
 
 import { useIdentifyUser } from '@/hooks';
 
