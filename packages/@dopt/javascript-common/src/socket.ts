@@ -1,13 +1,13 @@
 import { Logger } from '@dopt/logger';
 import { io, Socket } from 'socket.io-client';
-import { GroupIdentifier, UserIdentifier } from './client';
+import { BlocksApi } from './client';
 
 export type SocketApi = {
-  apiKey: string;
-  userId: UserIdentifier['userId'];
+  apiKey: BlocksApi['apiKey'];
+  userId: BlocksApi['userId'];
   log: Logger;
   urlPrefix: string;
-  groupId?: GroupIdentifier['groupId'];
+  groupId?: BlocksApi['groupId'];
 };
 
 export function setupSocket({
@@ -21,7 +21,7 @@ export function setupSocket({
     return undefined;
   }
 
-  const query = `/v1/client?endUserIdentifier=${userId}${
+  const query = `/v2/client?endUserIdentifier=${userId}${
     groupId ? `&groupIdentifier=${groupId}` : ``
   }`;
 

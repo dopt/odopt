@@ -1,4 +1,3 @@
-import type { Block } from '@dopt/block-types';
 import { useBlock } from './use-block';
 
 /**
@@ -23,7 +22,7 @@ import { useBlock } from './use-block';
  * @param Component - the React component you with to inject Dopt props into
  * @param id - one of {@link Block['sid']} | {@link Block['uid']}
  * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
- * @returns The original component with {@link Block | block} and {@link BlockIntentions | intent}
+ * @returns The original component with {@link Block} and {@link BlockIntentions}
  * props injected in
  *
  */

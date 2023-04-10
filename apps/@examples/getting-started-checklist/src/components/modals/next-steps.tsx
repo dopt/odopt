@@ -1,4 +1,4 @@
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 import {
   Button,

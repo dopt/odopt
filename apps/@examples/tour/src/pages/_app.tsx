@@ -1,4 +1,4 @@
-import { DoptProvider } from '@dopt/react';
+import { DoptProvider } from '@dopt/react-old';
 import { useIdentifyUser } from '@/hooks';
 
 import 'react-loading-skeleton/dist/skeleton.css';

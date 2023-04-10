@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "2.5.5",
-    "@dopt/react": "1.4.2",
+    "@dopt/react-old": "npm:@dopt/react@1.4.2",
     "@dopt/users-javascript-client": "workspace:*",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",

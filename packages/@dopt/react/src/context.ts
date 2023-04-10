@@ -1,11 +1,16 @@
 import { Logger } from '@dopt/logger';
 import { createContext } from 'react';
-import type { Flow, Block, Field } from '@dopt/block-types';
+import type {
+  Flow as APIFlow,
+  Block as APIBlock,
+  Field as APIField,
+} from '@dopt/javascript-common';
+
 import {
   FlowStatus,
   Flows,
   Blocks,
-  BlockIntentHandler,
+  BlockTransitionHandler,
   FlowIntentHandler,
 } from './types';
 
@@ -18,13 +23,13 @@ import {
 type DoptContext = {
   fetching: boolean;
   flows: Flows;
-  flowBlocks: Map<Flow['sid'], Block['uid'][]>;
-  flowStatuses: Record<Flow['uid'], FlowStatus>;
+  flowBlocks: Map<APIFlow['sid'], APIBlock['uid'][]>;
+  flowStatuses: Record<APIFlow['uid'], FlowStatus>;
   flowIntention: FlowIntentHandler;
   blocks: Blocks;
-  blockUidBySid: Map<Block['sid'], Block['uid']>;
-  blockIntention: BlockIntentHandler;
-  blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
+  blockUidBySid: Map<APIBlock['sid'], APIBlock['uid']>;
+  blockIntention: BlockTransitionHandler;
+  blockFields: Map<APIBlock['uid'], Map<APIField['sid'], APIField>>;
   log: Logger;
 };
 

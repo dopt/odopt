@@ -1,6 +1,6 @@
 import { IconArrowRight, IconCircleCheck } from '@tabler/icons';
 
-import { useBlock, useUnorderedGroup } from '@dopt/react';
+import { useBlock, useUnorderedGroup } from '@dopt/react-old';
 
 import {
   Box,
