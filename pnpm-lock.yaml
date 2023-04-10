@@ -478,7 +478,6 @@ importers:
       shx: 0.3.4
       socket.io-client: ^4.5.3
       tslib: ^2.4.0
-      tsup: 6.7.0
       typescript: 4.9.5
     dependencies:
       '@dopt/block-types': link:../block-types
@@ -503,7 +502,6 @@ importers:
       rollup: 3.20.2
       shx: 0.3.4
       tslib: 2.4.0
-      tsup: 6.7.0_typescript@4.9.5
       typescript: 4.9.5
 
   packages/@dopt/rollup:
