@@ -42,9 +42,8 @@
     "dist"
   ],
   "dependencies": {
-    "@dopt/block-types": "workspace:*",
+    "@dopt/block-api-types": "workspace:*",
     "@dopt/logger": "workspace:*",
-    "@dopt/mercator": "workspace:*",
     "socket.io-client": "^4.5.3"
   },
   "devDependencies": {

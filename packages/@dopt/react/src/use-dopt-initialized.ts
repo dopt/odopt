@@ -16,7 +16,7 @@ import { DoptContext } from './context';
  *
  * @returns A boolean, `true` if Dopt is initialized, `false` otherwise.
  */
-const useDoptInitialized = (): boolean => {
+export function useDoptInitialized(): boolean {
   const { flowStatuses } = useContext(DoptContext);
   const initialized = useMemo(() => {
     const statuses = Object.values(flowStatuses);
@@ -24,6 +24,4 @@ const useDoptInitialized = (): boolean => {
   }, [flowStatuses]);
 
   return initialized;
-};
-
-export { useDoptInitialized };
+}

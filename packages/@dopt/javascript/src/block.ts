@@ -1,18 +1,18 @@
-import { blocksApi } from '@dopt/javascript-common';
 import {
+  blocksApi,
   Block as BlockType,
-  BlockIntent,
-  FIELD_VALUE_UNION_TYPE,
-  ModelTypeConst,
-  SetTypeConst,
   Field,
-} from '@dopt/block-types';
+  BlockIntentParams,
+} from '@dopt/javascript-common';
 
 import { blockStore } from './store';
 
 function resolveBlock(block: BlockType): BlockType {
   return blockStore.getState()[block.uid] || block;
 }
+
+type BlockTransitions = BlockIntentParams['transitions'];
+
 /**
  * @internal
  */
@@ -21,58 +21,61 @@ export interface BlockProps {
   block: BlockType;
   optimisticUpdates: boolean;
   fieldMap: Map<Field['sid'], Field> | null;
-  blockUidBySid: Map<BlockType['uid'], BlockType['sid']>;
 }
 
-export class Block {
+export class Block<T> {
   private intent: BlockProps['intent'];
   private block: BlockProps['block'];
   private fieldMap: BlockProps['fieldMap'];
-  private blockUidBySid: BlockProps['blockUidBySid'];
   private optimisticUpdates: BlockProps['optimisticUpdates'];
 
   /**
    * @internal
    */
-  constructor({
-    block,
-    intent,
-    optimisticUpdates,
-    fieldMap,
-    blockUidBySid,
-  }: BlockProps) {
+  constructor({ block, intent, optimisticUpdates, fieldMap }: BlockProps) {
     this.intent = intent;
     this.block = block;
     this.optimisticUpdates = optimisticUpdates;
     this.fieldMap = fieldMap;
-    this.blockUidBySid = blockUidBySid;
-  }
-
-  private _intent(intent: BlockIntent, goToUid?: string) {
-    const { uid, version } = this.block;
-    this.intent({ uid, version, intent, goToUid });
   }
 
   /**
-   * Gets the field (see {@link FieldType['value']}) with the `name` contained by this {@link Block}.
+   * Gets the field with the `name` contained by this {@link Block}.
    * If the {@link Block} does not have the field, the `defaultValue`
    * is returned if provided. Otherwise, `null` is returned.
    */
-  getField<T extends FIELD_VALUE_UNION_TYPE>(
-    name: string,
-    defaultValue?: T
-  ): T | null {
-    if (this.block.type !== ModelTypeConst || this.fieldMap == null) {
+  field<V extends Field['value']>(name: string, defaultValue?: V): V | null {
+    if (this.fieldMap == null) {
       return null;
     }
 
     const value = this.fieldMap.get(name)?.value;
 
     return value != null
-      ? (value as T)
+      ? (value as V)
       : defaultValue != null
       ? defaultValue
       : null;
+  }
+
+  get type() {
+    return this.block.type;
+  }
+
+  get kind() {
+    return this.block.kind;
+  }
+
+  get uid() {
+    return this.block.uid;
+  }
+
+  get sid() {
+    return this.block.sid;
+  }
+
+  get version() {
+    return this.block.version;
   }
 
   /**
@@ -80,12 +83,64 @@ export class Block {
    *
    * @returns The state of this instance.
    */
-  state(): BlockType['state'] {
+  get state(): BlockType['state'] {
     return resolveBlock(this.block).state;
   }
 
   /**
-   * Complete this block. Will also update the state of blocks within this flow, as appropriate.
+   * Returns the up-to-date transitioned values for this {@link Block} instance.
+   *
+   * @example
+   * ```js
+   * const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+   * const firstTransitioned = block.transitioned['first-edge'];
+   * ```
+   *
+   * In typescript, if a block is accessed with generics:
+   * ```ts
+   * const block = dopt.block<['a-edge']>("HNWvcT78tyTwygnbzU6SW");
+   *
+   * // this is valid
+   * block.transitioned['a-edge'];
+   *
+   * // this is invalid
+   * block.transitioned['b-edge'];
+   * ```
+   * @returns The edges which have been transitioned for this instance.
+   * If the edge exists, it's value will be true / false,
+   * otherwise the value will be undefined.
+   */
+  get transitioned(): T extends BlockTransitions
+    ? Record<T[number], boolean | undefined>
+    : Record<string, boolean | undefined> {
+    // overwrite the type of transitioned using generics
+    return resolveBlock(this.block).transitioned as Block<T>['transitioned'];
+  }
+
+  /**
+   * Transition this block. Will also update the state of blocks within this flow, as appropriate.
+   * This function must be called with at least one transition.
+   *
+   * @example
+   * ```js
+   * const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+   * // transitioning a single edge
+   * block.transition('first-edge');
+   *
+   * // transitioning multiple edges
+   * block.transition('second-edge', 'third-edge');
+   * ```
+   *
+   * In typescript, if a block is accessed with generics:
+   * ```ts
+   * const block = dopt.block<['a-edge']>("HNWvcT78tyTwygnbzU6SW");
+   *
+   * // this is valid
+   * block.transition('a-edge');
+   *
+   * // this is invalid
+   * block.transition('b-edge');
+   * ```
    *
    * @remarks
    * This function will update state with Dopt and trigger changes. Subscribe to the
@@ -93,140 +148,23 @@ export class Block {
    *
    * @returns void
    */
-  complete() {
+  transition(
+    ...input: T extends BlockTransitions
+      ? [T[number], ...T[number][]]
+      : BlockTransitions
+  ) {
     if (this.optimisticUpdates) {
       const storedBlock = blockStore.getState()[this.block.uid];
-      if (storedBlock != null && storedBlock.type === ModelTypeConst) {
-        blockStore.setState({
-          [this.block.uid]: {
-            ...storedBlock,
-            state: { active: false, completed: true },
-          },
-        });
-      }
+      blockStore.setState({
+        [this.block.uid]: {
+          ...storedBlock,
+          state: { active: false, exited: true, entered: true },
+        },
+      });
     }
 
-    this._intent('complete');
-  }
-
-  /**
-   * Go to the next block within an ordered group block. This function will do nothing if this block instance isn't an ordered group.
-   *
-   * @remarks
-   * This function will update state with Dopt and trigger changes. Subscribe to the
-   * flows and blocks you care about to react to those changes.
-   *
-   * @returns void
-   */
-  next() {
-    if (this.block.type === SetTypeConst && this.block.ordered) {
-      this._intent('next');
-    }
-  }
-
-  /**
-   * Go to the previous block within an ordered group block. This function will do nothing if this block instance isn't an ordered group.
-   *
-   * @remarks
-   * This function will update state with Dopt and trigger changes. Subscribe to the
-   * flows and blocks you care about to react to those changes.
-   *
-   * @returns void
-   */
-  prev() {
-    if (this.block.type === SetTypeConst && this.block.ordered) {
-      this._intent('prev');
-    }
-  }
-
-  /**
-   * Go to a specific block (by uid) within an ordered group block. This function will do nothing if this block instance isn't an ordered group.
-   *
-   * @remarks
-   * This function will update state with Dopt and trigger changes. Subscribe to the
-   * flows and blocks you care about to react to those changes.
-   *
-   * @param id The id of the child step block. which can be a sid, uid.
-   *
-   * @returns void
-   */
-  goTo(id: string) {
-    if (this.block.type === SetTypeConst && this.block.ordered) {
-      const uid = this.blockUidBySid.get(id) || id;
-      this._intent('goTo', uid);
-    }
-  }
-
-  /**
-   * Returns all completed (`completed: true`) children of a group ({@link SetType}) block.
-   *
-   * @remarks
-   * This returns an empty array if the instance is not of type {@link SetType}.
-   *
-   * @returns An array of {@link BlockType} objects. To access their classes, call `dopt.block` ({@link Dopt.block}).
-   */
-  getCompleted(): BlockType[] {
-    if (this.block.type === SetTypeConst) {
-      return this.block.blocks
-        ?.map(resolveBlock)
-        .filter(({ state }) => state.completed);
-    }
-
-    return [];
-  }
-
-  /**
-   * Returns all uncompleted (`completed: false`) children of a group ({@link SetType}) block.
-   *
-   * @remarks
-   * This returns an empty array if the instance is not of type {@link SetType}.
-   *
-   * @returns An array of {@link BlockType} objects. To access their classes, call `dopt.block` ({@link Dopt.block}).
-   */
-  getUncompleted(): BlockType[] {
-    if (this.block.type === SetTypeConst) {
-      return this.block.blocks
-        ?.map(resolveBlock)
-        .filter(({ state }) => !state.completed);
-    }
-
-    return [];
-  }
-
-  /**
-   * Returns all active (`active: true`) children of a group ({@link SetType}) block.
-   *
-   * @remarks
-   * This returns an empty array if the instance is not of type {@link SetType}.
-   *
-   * @returns An array of {@link BlockType} objects. To access their classes, call `dopt.block` ({@link Dopt.block}).
-   */
-  getActive(): BlockType[] {
-    if (this.block.type === SetTypeConst) {
-      return this.block.blocks
-        ?.map(resolveBlock)
-        .filter(({ state }) => state.active);
-    }
-
-    return [];
-  }
-
-  /**
-   * Returns all inactive (`active: false`) children of a group ({@link SetType}) block.
-   *
-   * @remarks
-   * This returns an empty array if the instance is not of type {@link SetType}.
-   *
-   * @returns An array of {@link BlockType} objects. To access their classes, call `dopt.block` ({@link Dopt.block}).
-   */
-  getInactive(): BlockType[] {
-    if (this.block.type === SetTypeConst) {
-      return this.block.blocks
-        ?.map(resolveBlock)
-        .filter(({ state }) => !state.active);
-    }
-
-    return [];
+    const { uid, sid, version } = this.block;
+    this.intent({ uid, sid, version, transitions: input });
   }
 
   /**
@@ -236,9 +174,7 @@ export class Block {
    * ```js
    * const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
    * const unsubscribe = block.subscribe(async blockData => {
-   *  // access .state instead of .state()
-   *  // since block is an object of `BlockType`
-   *  if (block.state.completed) {
+   *  if (block.state.exited) {
    *     await showModal("Yay, you've completed your first step!");
    *     unsubscribe();
    *  }
@@ -246,12 +182,14 @@ export class Block {
    * ```
    *
    * @param listener
-   * The listener function is called with a {@link BlockType} object.
-   * You can use `dopt.block()` to access a {@link Block} instance instead.
+   * The listener function is called with this {@link Block} instance.
    *
    * @returns A function which can be called to unsubscribe the listener.
    */
-  subscribe(listener: (block: BlockType) => void) {
-    return blockStore.subscribe((blocks) => blocks[this.block.uid], listener);
+  subscribe(listener: (block: Block<T>) => void) {
+    return blockStore.subscribe(
+      (blocks) => blocks[this.block.uid],
+      () => listener(this)
+    );
   }
 }
