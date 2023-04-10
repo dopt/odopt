@@ -1,47 +1,8 @@
-import { useContext, useCallback } from 'react';
+import { useContext, useCallback, useMemo } from 'react';
 import { DoptContext } from './context';
 
-import { getDefaultBlockState } from '@dopt/javascript-common';
-
-import {
-  Block as BlockType,
-  FIELD_VALUE_UNION_TYPE,
-  ModelTypeConst,
-} from '@dopt/block-types';
-
-/**
- * Methods corresponding to an intent-based API for
- * signaling state transitions of a block. These methods
- * have side effects: they change the state of other blocks
- * and the flow as well. For example, completing a block
- * activates the next block and completing the last block
- * completes a flow.
- */
-export interface BlockIntentions {
-  /**
-   * Signals that the experience this {@link Block} powers has
-   * finished. A noop if the {@link Block} isn't active. Results
-   * in a flow transition.
-   *
-   * @modifies
-   *
-   * Sets {@link Block['state']['completed']} to true
-   * Sets {@link Block['state']['active']} to false
-   */
-  complete: () => void | undefined;
-}
-
-export type BlockWithGetField = BlockType & {
-  /**
-   * Gets the field (see {@link Field['value']}) with the `name` contained by this {@link Block}.
-   * If the {@link Block} does not have the field, the `defaultValue`
-   * is returned if provided. Otherwise, `null` is returned.
-   */
-  getField: <T extends FIELD_VALUE_UNION_TYPE>(
-    name: string,
-    defaultValue?: T
-  ) => T | null;
-};
+import { Block, BlockIntentions, BlockTransitions } from './types';
+import { createBlock } from './create-sdk-block';
 
 /**
  * A React hook for accessing a flow's block state and
@@ -55,35 +16,31 @@ export type BlockWithGetField = BlockType & {
  *
  * export function Application() {
  *   const [block, intent] = useBlock("HNWvcT78tyTwygnbzU6SW");
+ *   const onClick = useCallback(() => {
+ *     intent.transition('default');
+ *   }, [intent]);
  *   return (
  *     <main>
  *       <Modal isOpen={block.state.active}>
  *         <h1>👏 Welcome to our app!</h1>
  *         <p>This is your onboarding experience!</p>
- *         <button onClick={intent.complete}>Close me</button>
+ *         <button onClick={onClick}>Close me</button>
  *       </Modal>
  *     </main>
  *   );
  * }
  * ```
  *
- * @param id - one of {@link BlockWithGetField['sid']} | {@link BlockWithGetField['uid']}
+ * @param id - one of {@link Block['sid']} | {@link Block['uid']}
  * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
- * @returns [{@link BlockWithGetField}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
+ * @returns [{@link Block}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
  *
  */
-const useBlock = (
+export function useBlock<T>(
   id: string
-): [block: BlockWithGetField, intent: BlockIntentions] => {
+): [block: Block<T>, intent: BlockIntentions<T>] {
   const { fetching, blocks, blockIntention, log, blockFields, blockUidBySid } =
     useContext(DoptContext);
-  const uid = blockUidBySid.get(id) || id;
-
-  const complete = useCallback(() => {
-    if (!fetching) {
-      blockIntention.complete(uid);
-    }
-  }, [fetching, blockIntention]);
 
   if (fetching) {
     log.info(
@@ -91,29 +48,21 @@ const useBlock = (
     );
   }
 
-  const block =
-    fetching || !blocks[uid] ? getDefaultBlockState(uid, id) : blocks[uid];
+  const uid = blockUidBySid.get(id) || id;
 
-  const getField: BlockWithGetField['getField'] = useCallback(
-    <T extends FIELD_VALUE_UNION_TYPE>(name: string, defaultValue?: T) => {
-      const fieldMap = blockFields.get(block.uid);
-
-      if (fieldMap == null || block.type !== ModelTypeConst) {
-        return null;
+  const transition = useCallback(
+    (...input: BlockTransitions) => {
+      if (!fetching) {
+        blockIntention(uid, input);
       }
-
-      const value = fieldMap.get(name)?.value;
-
-      return value != null
-        ? (value as T)
-        : defaultValue != null
-        ? defaultValue
-        : null;
     },
-    [fetching, block]
+    [fetching, blockIntention]
   );
 
-  return [{ ...block, getField }, { complete }];
-};
+  const block = useMemo(
+    () => createBlock<T>({ uid, fetching, blocks, blockFields }),
+    [uid, fetching, blocks, blockFields]
+  );
 
-export { useBlock };
+  return [block, { transition }];
+}

@@ -1,27 +1,24 @@
-import {
-  Block,
-  getDefaultBlock,
-  BlockTypes,
-  BLOCK_TYPES,
-  Flow,
-  Set,
-} from '@dopt/block-types';
+import { Block, Flow } from '@dopt/block-api-types';
 
 export function getDefaultBlockState(
   uid: string,
   sid: string,
-  version?: number,
-  type: BlockTypes = BLOCK_TYPES.model
+  version: number
 ): Block {
-  return getDefaultBlock({ uid, type, version, sid });
-}
-
-export function getDefaultSetState(
-  uid: string,
-  sid: string,
-  version?: number
-): Set {
-  return getDefaultBlockState(uid, sid, version, BLOCK_TYPES.set) as Set;
+  return {
+    kind: 'block',
+    type: 'model',
+    uid,
+    sid,
+    version,
+    state: {
+      active: false,
+      entered: false,
+      exited: false,
+    },
+    transitioned: {},
+    fields: [],
+  };
 }
 
 export function getDefaultFlowState(sid: string, version: number): Flow {
@@ -33,16 +30,9 @@ export function getDefaultFlowState(sid: string, version: number): Flow {
     version,
     state: {
       started: false,
-      exited: false,
-      completed: false,
+      stopped: false,
+      finished: false,
     },
+    blocks: [],
   };
 }
-
-export const INTENT_POST_OPTIONS = {
-  method: 'POST',
-  body: '{}',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};

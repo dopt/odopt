@@ -1,49 +1,9 @@
 import { useContext, useCallback, useMemo } from 'react';
 import { DoptContext } from './context';
+import { Flow, FlowIntentions } from './types';
 
-import type { Flow } from '@dopt/block-types';
 import { getDefaultFlowState } from '@dopt/javascript-common';
-
-/**
- * Methods corresponding to an intent-based API for
- * signaling state transitions of a flow. These methods
- * have side effects on {@link Block['state']} contained
- * within the flow.
- */
-export interface FlowIntentions {
-  /**
-   * Resets the flow's state and all of its
-   * associated blocks and their state to the
-   * original/default state.
-   *
-   * @modifies
-   *
-   * Sets {@link Flow['state']['exited']} to false
-   * Sets {@link Flow['state']['completed']} to false
-   * Sets {@link Flow['state']['started']} to false
-   * Sets all {@link Block['state']['active']} to false
-   * Sets all {@link Block['state']['completed']} to false
-   */
-  reset: () => void | undefined;
-  /**
-   * Exits the flow.
-   *
-   * @modifies
-   * Sets {@link Flow['state']['exited']} to true
-   * Sets all {@link Block['state']['active']} to false
-   */
-  exit: () => void | undefined;
-  /**
-   * Completes the flow, independent of a
-   * completed state that might be derived from
-   * its {@link Block[]}.
-   *
-   * @modifies
-   * Sets {@link Flow['state']['completed']} to true
-   * Sets all {@link Block['state']['active']} to false
-   */
-  complete: () => void | undefined;
-}
+import { createBlock } from './create-sdk-block';
 
 /**
  * A React hook for accessing a flow's state and
@@ -59,7 +19,7 @@ export interface FlowIntentions {
  *   const [flow, intent] = useFlow("new-user-onboarding");
  *   return (
  *     <main>
- *       <Modal isOpen={flow.state.completed}>
+ *       <Modal isOpen={flow.state.finished}>
  *         <h1>👏 Your onboarding has finished!</h1>
  *         <p>Want to reset? click the button below.</p>
  *         <button onClick={intent.reset}>Reset onboarding</button>
@@ -73,11 +33,25 @@ export interface FlowIntentions {
  * @returns [{@link Flow}, {@link FlowIntentions}] the state of the flow and methods to manipulate said state
  *
  */
-const useFlow = (
+
+export function useFlow(
   sid: Flow['sid']
-): [flow: Partial<Flow>, intent: FlowIntentions] => {
-  const { fetching, flows, flowBlocks, blocks, flowIntention, log } =
-    useContext(DoptContext);
+): [flow: Flow, intent: FlowIntentions] {
+  const {
+    fetching,
+    flows,
+    flowBlocks,
+    blocks,
+    flowIntention,
+    log,
+    blockFields,
+  } = useContext(DoptContext);
+
+  if (fetching) {
+    log.info(
+      'Accessing flow prior to initialization will return default block states.'
+    );
+  }
 
   const version = useMemo(() => {
     if (fetching) {
@@ -103,38 +77,27 @@ const useFlow = (
     }
   }, [fetching, flowIntention, sid, version]);
 
-  const exit = useCallback(() => {
+  const stop = useCallback(() => {
     if (!fetching) {
-      flowIntention.exit(sid, version);
+      flowIntention.stop(sid, version);
     }
   }, [fetching, flowIntention, sid, version]);
 
-  const complete = useCallback(() => {
+  const finish = useCallback(() => {
     if (!fetching) {
-      flowIntention.complete(sid, version);
+      flowIntention.finish(sid, version);
     }
   }, [fetching, flowIntention, sid, version]);
 
-  if (fetching) {
-    log.info(
-      'Accessing flow prior to initialization will return default block states.'
+  const flow = useMemo(() => {
+    const updatedFlow =
+      fetching || !flows[sid] ? getDefaultFlowState(sid, version) : flows[sid];
+    const updatedBlocks = (flowBlocks.get(sid) || []).map((uid) =>
+      createBlock({ uid, fetching, blocks, blockFields })
     );
-  }
 
-  if (fetching || !flows[sid]) {
-    return [getDefaultFlowState(sid, version), { reset, exit, complete }];
-  }
+    return { ...updatedFlow, blocks: updatedBlocks };
+  }, [fetching, sid, version, flows, flowBlocks, blocks, blockFields]);
 
-  const flow = flows[sid];
-  const updated = (flowBlocks.get(sid) || []).map((uid) => blocks[uid]);
-
-  return [
-    {
-      ...flow,
-      blocks: updated,
-    },
-    { reset, exit, complete },
-  ];
-};
-
-export { useFlow };
+  return [flow, { reset, stop, finish }];
+}
