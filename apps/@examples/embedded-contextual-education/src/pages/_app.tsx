@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import { DoptProvider } from '@dopt/react';
+import { DoptProvider } from '@dopt/react-old';
 import { useIdentifyUser } from '@/hooks';
 import { Page } from './_page';
 

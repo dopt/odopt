@@ -1,7 +1,7 @@
 import { Chart, Layout, Stat, Tip } from '@/components';
 import { ANALYTICS_TIP } from '@/const';
 import { Flex } from '@chakra-ui/react';
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 export function Analytics() {
   const [{ state, getField }, { complete }] = useBlock(ANALYTICS_TIP);
