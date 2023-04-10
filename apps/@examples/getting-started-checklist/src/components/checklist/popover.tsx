@@ -1,4 +1,4 @@
-import { BlockWithGetField } from '@dopt/react';
+import { BlockWithGetField } from '@dopt/react-old';
 
 import * as Icons from '@tabler/icons';
 

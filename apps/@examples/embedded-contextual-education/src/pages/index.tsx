@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { Layout, Tip, Video } from '@/components';
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 import { LIBRARY_TIP } from '@/const';
 
 export function Index() {

@@ -1,7 +1,7 @@
 import { Collection, CollectionTip, Layout } from '@/components';
 import { COLLECTIONS_TIP } from '@/const';
 import { Flex } from '@chakra-ui/react';
-import { useBlock } from '@dopt/react';
+import { useBlock } from '@dopt/react-old';
 
 export function Collections() {
   const [{ state, getField }, { complete }] = useBlock(COLLECTIONS_TIP);
