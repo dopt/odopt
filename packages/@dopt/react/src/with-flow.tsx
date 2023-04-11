@@ -21,7 +21,7 @@ import { useFlow } from './use-flow';
  *
  * @param Component - the React component you with to inject Dopt props into
  * @param sid - {@link Flow['sid']}
- * @returns The original component with {@link Flow} and {@link FlowIntentions}
+ * @returns The original component with {@link Flow} and {@link FlowIntent}
  * props injected in
  *
  */

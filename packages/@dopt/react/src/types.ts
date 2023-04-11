@@ -15,11 +15,11 @@ import type {
  */
 export type Blocks = Record<APIBlock['uid'], APIBlock>;
 
-export type BlockTransitions = BlockIntentParams['transitions'];
+export type BlockTransitionInputs = BlockIntentParams['transitions'];
 
 export type BlockTransitionHandler = (
   uid: APIBlock['uid'],
-  transitions: BlockTransitions
+  transitions: BlockTransitionInputs
 ) => void | undefined;
 
 /**
@@ -119,7 +119,7 @@ export interface Block<T> {
    * block.transitioned['b-edge'];
    * ```
    */
-  transitioned: T extends BlockTransitions
+  transitioned: T extends BlockTransitionInputs
     ? Record<T[number], boolean | undefined>
     : Record<string, boolean | undefined>;
   /**
@@ -131,50 +131,47 @@ export interface Block<T> {
 }
 
 /**
- * Methods corresponding to an intent-based API for
- * signaling state transitions of a block. These methods
- * have side effects: they change the state of other blocks
- * and the flow as well. For example, transition a block
+ * A function correspond to an intent-based API for
+ * signaling state transitions on a block. This function
+ * has side effects: it changes the state of other blocks
+ * and the flow as well. For example, transitioning a block
  * activates the next block and transitioning the last block
  * finishes a flow.
+ *
+ * Calling the transition signals that the experience the
+ * {@link Block} powers has finished. A noop if the {@link Block}
+ * isn't active.
+ *
+ * @example
+ * ```js
+ * const [, transition] = useBlock("HNWvcT78tyTwygnbzU6SW");
+ * // transitioning a single edge
+ * transition('first-edge');
+ *
+ * // transitioning multiple edges
+ * transition('second-edge', 'third-edge');
+ * ```
+ *
+ * In typescript, if a block is accessed with generics:
+ * ```ts
+ * const [, transition] = useBlock<['a-edge']>("HNWvcT78tyTwygnbzU6SW");
+ *
+ * // this is valid
+ * transition('a-edge');
+ *
+ * // this is invalid
+ * transition('b-edge');
+ * ```
+ *
+ * @modifies
+ * Sets {@link Block['state']['exited']} to true
+ * Sets {@link Block['state']['active']} to false
  */
-export interface BlockIntentions<T> {
-  /**
-   * Signals that the experience this {@link Block} powers has
-   * finished. A noop if the {@link Block} isn't active. Results
-   * in a flow transition.
-   *
-   * @example
-   * ```js
-   * const [, { transition }] = useBlock("HNWvcT78tyTwygnbzU6SW");
-   * // transitioning a single edge
-   * transition('first-edge');
-   *
-   * // transitioning multiple edges
-   * transition('second-edge', 'third-edge');
-   * ```
-   *
-   * In typescript, if a block is accessed with generics:
-   * ```ts
-   * const [, { transition }] = useBlock<['a-edge']>("HNWvcT78tyTwygnbzU6SW");
-   *
-   * // this is valid
-   * transition('a-edge');
-   *
-   * // this is invalid
-   * transition('b-edge');
-   * ```
-   *
-   * @modifies
-   * Sets {@link Block['state']['exited']} to true
-   * Sets {@link Block['state']['active']} to false
-   */
-  transition: (
-    ...inputs: T extends BlockTransitions
-      ? [T[number], ...T[number][]]
-      : BlockTransitions
-  ) => void | undefined;
-}
+export type BlockTransition<T> = (
+  ...inputs: T extends BlockTransitionInputs
+    ? [T[number], ...T[number][]]
+    : BlockTransitionInputs
+) => void | undefined;
 
 export interface Flow {
   type: APIFlow['type'];
@@ -198,7 +195,7 @@ export interface Flow {
  * have side effects on {@link Block['state']} contained
  * within the flow.
  */
-export interface FlowIntentions {
+export interface FlowIntent {
   /**
    * Resets the flow's state and all of its
    * associated blocks and their state to the

@@ -1,7 +1,7 @@
 import { useContext, useCallback, useMemo } from 'react';
 import { DoptContext } from './context';
 
-import { Block, BlockIntentions, BlockTransitions } from './types';
+import { Block, BlockTransition, BlockTransitionInputs } from './types';
 import { createBlock } from './create-sdk-block';
 
 /**
@@ -15,10 +15,10 @@ import { createBlock } from './create-sdk-block';
  * import { Modal } from "@your-company/modal";
  *
  * export function Application() {
- *   const [block, intent] = useBlock("HNWvcT78tyTwygnbzU6SW");
+ *   const [block, transition] = useBlock("HNWvcT78tyTwygnbzU6SW");
  *   const onClick = useCallback(() => {
- *     intent.transition('default');
- *   }, [intent]);
+ *     transition('default');
+ *   }, [transition]);
  *   return (
  *     <main>
  *       <Modal isOpen={block.state.active}>
@@ -33,12 +33,12 @@ import { createBlock } from './create-sdk-block';
  *
  * @param id - one of {@link Block['sid']} | {@link Block['uid']}
  * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
- * @returns [{@link Block}, {@link BlockIntentions}] the state of the block and methods to manipulate said state
+ * @returns [{@link Block}, {@link BlockTransition}] the state of the block and methods to manipulate said state
  *
  */
 export function useBlock<T>(
   id: string
-): [block: Block<T>, intent: BlockIntentions<T>] {
+): [block: Block<T>, transition: BlockTransition<T>] {
   const { fetching, blocks, blockIntention, log, blockFields, blockUidBySid } =
     useContext(DoptContext);
 
@@ -51,9 +51,9 @@ export function useBlock<T>(
   const uid = blockUidBySid.get(id) || id;
 
   const transition = useCallback(
-    (...input: BlockTransitions) => {
+    (...inputs: BlockTransitionInputs) => {
       if (!fetching) {
-        blockIntention(uid, input);
+        blockIntention(uid, inputs);
       }
     },
     [fetching, blockIntention]
@@ -64,5 +64,5 @@ export function useBlock<T>(
     [uid, fetching, blocks, blockFields]
   );
 
-  return [block, { transition }];
+  return [block, transition];
 }
