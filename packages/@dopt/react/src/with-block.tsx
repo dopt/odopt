@@ -22,8 +22,8 @@ import { useBlock } from './use-block';
  * @param Component - the React component you with to inject Dopt props into
  * @param id - one of {@link Block['sid']} | {@link Block['uid']}
  * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
- * @returns The original component with {@link Block} and {@link BlockIntentions}
- * props injected in
+ * @returns The original component with {@link Block} and {@link BlockTransition}
+ * injected as props.
  *
  */
 export function withBlock<T>(Component: React.ComponentType<T>, id: string) {
