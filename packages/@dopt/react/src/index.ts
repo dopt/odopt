@@ -15,6 +15,6 @@ export type {
   Block,
   Flow,
   Field,
-  BlockIntentions,
-  FlowIntentions,
+  BlockTransition,
+  FlowIntent,
 } from './types';
