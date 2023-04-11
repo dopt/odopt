@@ -1,6 +1,6 @@
 import { useContext, useCallback, useMemo } from 'react';
 import { DoptContext } from './context';
-import { Flow, FlowIntentions } from './types';
+import { Flow, FlowIntent } from './types';
 
 import { getDefaultFlowState } from '@dopt/javascript-common';
 import { createBlock } from './create-sdk-block';
@@ -30,13 +30,11 @@ import { createBlock } from './create-sdk-block';
  * ```
  *
  * @param sid - {@link Flow['sid']}
- * @returns [{@link Flow}, {@link FlowIntentions}] the state of the flow and methods to manipulate said state
+ * @returns [{@link Flow}, {@link FlowIntent}] the state of the flow and methods to manipulate said state
  *
  */
 
-export function useFlow(
-  sid: Flow['sid']
-): [flow: Flow, intent: FlowIntentions] {
+export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
   const {
     fetching,
     flows,
@@ -92,6 +90,7 @@ export function useFlow(
   const flow = useMemo(() => {
     const updatedFlow =
       fetching || !flows[sid] ? getDefaultFlowState(sid, version) : flows[sid];
+
     const updatedBlocks = (flowBlocks.get(sid) || []).map((uid) =>
       createBlock({ uid, fetching, blocks, blockFields })
     );
