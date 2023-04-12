@@ -47,7 +47,7 @@
     "@rollup/plugin-typescript": "11.1.0",
     "@types/chroma-js": "2.4.0",
     "@types/jest": "29.5.0",
-    "@types/react": "18.0.33",
+    "@types/react": "18.0.35",
     "@typescript-eslint/eslint-plugin": "5.57.1",
     "@typescript-eslint/parser": "5.57.1",
     "esbuild": "0.17.15",
