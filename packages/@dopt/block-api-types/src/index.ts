@@ -45,3 +45,4 @@ export type Transitions = {
 };
 
 export const INTENT_SIDE_EFFECT_HEADER = 'X-Dopt-Intent-Side-Effects';
+export const SOCKET_PATH = '/v2/socket/';
