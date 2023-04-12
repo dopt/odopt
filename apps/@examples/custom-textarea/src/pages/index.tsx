@@ -1,4 +1,4 @@
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 import {
   example,
@@ -12,8 +12,12 @@ import { useState } from 'react';
 export function Example() {
   const [value, setValue] = useState<string>();
 
-  const [pulsing, focus] = useBlock('xgTRRhOUklMW96Ym3dKGB');
-  const [tooltip, messageSent] = useBlock('sWzq5tWVz4i2pPnGhxBLW');
+  const [pulsing, focus] = useBlock<['default']>(
+    'custom-textarea.textarea-pulsing'
+  );
+  const [tooltip, messageSent] = useBlock<['default']>(
+    'custom-textarea.tooltip'
+  );
 
   return (
     <div className={example}>
@@ -21,23 +25,23 @@ export function Example() {
         <textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          onFocus={focus.complete}
+          onFocus={() => focus('default')}
           placeholder={
             pulsing.state.active
-              ? pulsing.getField('placeholder', '') || ''
+              ? pulsing.field('placeholder', '') || ''
               : 'Write a message'
           }
           className={`${textareaClass} ${pulsing.state.active && highlight}`}
         />
         <Notification open={tooltip.state.active}>
-          {tooltip.getField('tip')}
+          {tooltip.field('tip')}
         </Notification>
       </div>
       <Button
         color="blue"
         onClick={() => {
           setValue('');
-          messageSent.complete();
+          messageSent('default');
         }}
       >
         Send Message
