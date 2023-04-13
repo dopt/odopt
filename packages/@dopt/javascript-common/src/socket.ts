@@ -1,5 +1,6 @@
 import { Logger } from '@dopt/logger';
 import { io, Socket } from 'socket.io-client';
+import { SOCKET_PATH } from '@dopt/block-api-types';
 import { BlocksApi } from './client';
 
 export type SocketApi = {
@@ -28,6 +29,7 @@ export function setupSocket({
   log.debug('Initializing socket connection.');
 
   const socket = io(urlPrefix + query, {
+    path: SOCKET_PATH,
     transports: ['websocket'],
     withCredentials: true,
     auth: {
