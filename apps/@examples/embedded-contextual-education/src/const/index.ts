@@ -1,4 +1,3 @@
-export const GROUP = 'i2txq7OhO86vzQX8Oq1i8';
-export const LIBRARY_TIP = '75yCV9cpoWSTKJ_oyaDP9';
-export const COLLECTIONS_TIP = 'pMlCIh8f68iGIf19la3_d';
-export const ANALYTICS_TIP = 'X5WZOKeYjWiGFEzjZiNjV';
+export const LIBRARY_TIP = 'embedded-contextual-education.library-tip';
+export const COLLECTIONS_TIP = 'embedded-contextual-education.collections-tip';
+export const ANALYTICS_TIP = 'embedded-contextual-education.analytics-tip';
