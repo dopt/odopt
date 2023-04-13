@@ -1,10 +1,10 @@
 import { IconLayoutKanban } from '@tabler/icons';
 import { Alert, Box, Stack, Text, Title } from '@mantine/core';
 
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 export function WelcomeBanner() {
-  const [createAnIssueBlock] = useBlock('f7oaGfQYNJ1KtueMLv4nm');
+  const [createAnIssueBlock] = useBlock('kanban.welcome-banner');
 
   if (!createAnIssueBlock.state.active) {
     return null;
@@ -16,12 +16,12 @@ export function WelcomeBanner() {
         <Stack justify="center" align="center" spacing="sm">
           <IconLayoutKanban color="#228BE6" size={47} />
           <Title order={2}>
-            {createAnIssueBlock.getField('banner-title', '')}
+            {createAnIssueBlock.field('banner-title', '')}
           </Title>
           <Text size="lg" align="center">
-            {createAnIssueBlock.getField('banner-description', '')}
+            {createAnIssueBlock.field('banner-description', '')}
             <br />
-            {createAnIssueBlock.getField('banner-next-step', '')}
+            {createAnIssueBlock.field('banner-next-step', '')}
           </Text>
         </Stack>
       </Alert>

@@ -1,6 +1,6 @@
 import { IconArrowRight, IconCircleCheck } from '@tabler/icons';
 
-import { useBlock, useUnorderedGroup } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 import {
   Box,
@@ -17,7 +17,6 @@ import {
   CONNECT_DATASOURCE,
   ADD_CHARTS,
   SHARE_DASHBOARD,
-  CHECKLIST,
   NEXT_STEPS,
 } from '@/const';
 
@@ -48,14 +47,20 @@ export function GettingStartedChecklist({
 }: Props) {
   const nextStepsModalProps = useDisclosure();
 
-  const [checklist] = useUnorderedGroup(CHECKLIST);
-
-  const [datasourceBlock, datasorceMethods] = useBlock(CONNECT_DATASOURCE);
-  const [chartsBlock, chartsMethods] = useBlock(ADD_CHARTS);
-  const [shareBlock, shareMethods] = useBlock(SHARE_DASHBOARD);
+  const [datasourceBlock, datasourceTransition] =
+    useBlock<['default']>(CONNECT_DATASOURCE);
+  const [chartsBlock, chartsTransition] = useBlock<['default']>(ADD_CHARTS);
+  const [shareBlock, shareTransition] = useBlock<['default']>(SHARE_DASHBOARD);
   const [nextStepsBlock] = useBlock(NEXT_STEPS);
 
-  if (nextStepsBlock.state.active) {
+  const isNextSteps = nextStepsBlock.state.active;
+  const isChecklist =
+    !isNextSteps &&
+    (datasourceBlock.state.active ||
+      chartsBlock.state.active ||
+      shareBlock.state.active);
+
+  if (isNextSteps) {
     return (
       <Card
         p={4}
@@ -78,7 +83,7 @@ export function GettingStartedChecklist({
   } else {
     return (
       <Flex direction="column" gap={2}>
-        {checklist.state.active && (
+        {isChecklist && (
           <Popover placement="top-start">
             <PopoverTrigger>
               <Box>
@@ -101,7 +106,7 @@ export function GettingStartedChecklist({
           onClose={datasourceModalProps.onClose}
           isOpen={datasourceModalProps.isOpen}
           onFinish={() => {
-            datasorceMethods.complete();
+            datasourceTransition('default');
             datasourceModalProps.onClose();
           }}
         />
@@ -113,7 +118,7 @@ export function GettingStartedChecklist({
             if (
               Object.values(selection).filter((val) => val == true).length > 1
             ) {
-              chartsMethods.complete();
+              chartsTransition('default');
             }
             addChartsModalProps.onClose();
           }}
@@ -122,7 +127,7 @@ export function GettingStartedChecklist({
           onClose={inviteModalProps.onClose}
           isOpen={inviteModalProps.isOpen}
           onFinish={() => {
-            shareMethods.complete();
+            shareTransition('default');
             inviteModalProps.onClose();
           }}
         />

@@ -1,21 +1,21 @@
 import { Chart, Layout, Stat, Tip } from '@/components';
 import { ANALYTICS_TIP } from '@/const';
 import { Flex } from '@chakra-ui/react';
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 export function Analytics() {
-  const [{ state, getField }, { complete }] = useBlock(ANALYTICS_TIP);
+  const [{ state, field }, transition] = useBlock<['default']>(ANALYTICS_TIP);
   return (
     <Layout title="Analytics">
       <Flex direction="column" w="100%" gap={4}>
         {state.active && (
           <Tip
             thumbnailSrc={`${import.meta.env.BASE_URL}tip-thumb-3.png`}
-            title={getField('title') || ''}
-            description={getField('body') || ''}
-            url={getField('learn-more-url') || ''}
-            videoId={getField('video-id') || ''}
-            onComplete={complete}
+            title={field('title') || ''}
+            description={field('body') || ''}
+            url={field('learn-more-url') || ''}
+            videoId={field('video-id') || ''}
+            onComplete={() => transition('default')}
           />
         )}
         <Flex gap={4}>
