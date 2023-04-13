@@ -1,5 +1,5 @@
-export const CHECKLIST = 'SBk5zr2uRGW4FtJuUMqlw';
-export const CONNECT_DATASOURCE = 'HqEPQAwtTgbooQaoTAEwa';
-export const ADD_CHARTS = '5TW_jvrqfKhBiecUFkufE';
-export const SHARE_DASHBOARD = 'BK6N8sdp-5Z9pIsd5mnn9';
-export const NEXT_STEPS = 'Kpg9xpHzutc6XcSLawz2c';
+export const CONNECT_DATASOURCE =
+  'getting-started-checklist.connect-datasource';
+export const ADD_CHARTS = 'getting-started-checklist.add-charts';
+export const SHARE_DASHBOARD = 'getting-started-checklist.share-dashboard';
+export const NEXT_STEPS = 'getting-started-checklist.next-steps';

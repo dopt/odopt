@@ -8,7 +8,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 import { nanoid } from 'nanoid';
 
@@ -28,7 +28,7 @@ interface Props {
 export function CreateIssueModal(props: Props) {
   const { opened = false, onClose, onSubmit } = props;
 
-  const [createIssueBlock] = useBlock('f7oaGfQYNJ1KtueMLv4nm');
+  const [createIssueBlock] = useBlock('kanban.welcome-banner');
 
   const form = useForm<FormValues>({
     initialValues: {
