@@ -1,10 +1,11 @@
 import { Alert, Box, Stack, Text, Title, Group, Card } from '@mantine/core';
 import { IconTableOptions, IconTemplate, IconUserPlus } from '@tabler/icons';
 
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 export function NextStepsBanner() {
-  const [nextSteps, closeNextSteps] = useBlock('bLcWkysVad5kGkRlV9zLe');
+  const [nextSteps, closeTransition] =
+    useBlock<['default']>('kanban.next-steps');
 
   if (!nextSteps.state.active) {
     return null;
@@ -18,11 +19,11 @@ export function NextStepsBanner() {
         radius={6}
         sx={{ border: '0.5px solid #C4DAEA' }}
         withCloseButton
-        onClose={() => closeNextSteps.complete()}
+        onClose={() => closeTransition('default')}
       >
         <Stack justify="center" align="center" spacing="md">
-          <Title order={5}>{nextSteps.getField('banner-title', '')} </Title>
-          <Text size="lg">{nextSteps.getField('banner-description', '')}</Text>
+          <Title order={5}>{nextSteps.field('banner-title', '')} </Title>
+          <Text size="lg">{nextSteps.field('banner-description', '')}</Text>
           <Group position="center" grow>
             <Card
               radius={8}

@@ -1,10 +1,10 @@
 import { Collection, CollectionTip, Layout } from '@/components';
 import { COLLECTIONS_TIP } from '@/const';
 import { Flex } from '@chakra-ui/react';
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 export function Collections() {
-  const [{ state, getField }, { complete }] = useBlock(COLLECTIONS_TIP);
+  const [{ state, field }, transition] = useBlock<['default']>(COLLECTIONS_TIP);
 
   const productDemoCollection = (
     <Collection
@@ -28,10 +28,10 @@ export function Collections() {
         {state.active && (
           <CollectionTip
             thumbnailSrc={`${import.meta.env.BASE_URL}tip-thumb-2.png`}
-            description={getField('body') || ''}
-            url={getField('learn-more-url') || ''}
-            videoId={getField('video-id') || ''}
-            onComplete={complete}
+            description={field('body') || ''}
+            url={field('learn-more-url') || ''}
+            videoId={field('video-id') || ''}
+            onComplete={() => transition('default')}
           />
         )}
         {[...Array(7)].map((e, i) => {

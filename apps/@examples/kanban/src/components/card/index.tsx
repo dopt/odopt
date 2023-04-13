@@ -33,9 +33,9 @@ export function Card({ id, title, assignee, children, isDragging }: Props) {
       {children && <p className={descriptionClass}>{children}</p>}
       {firstIssueId === id && (
         <>
-          <WalkThroughCardContent block="krcPrzGs9w6J2mHKQJLYd" />
-          <WalkThroughCardContent block="z2rnhWqUav5rhRLcxoM55" />
-          <WalkThroughCardContent block="pMw5hcPMz3aZPr5IVfnP8" />
+          <WalkThroughCardContent block="kanban.drag-to-progress" />
+          <WalkThroughCardContent block="kanban.reorder-issue" />
+          <WalkThroughCardContent block="kanban.drag-to-done" />
         </>
       )}
     </div>
