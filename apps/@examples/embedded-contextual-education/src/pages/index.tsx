@@ -1,10 +1,10 @@
 import { Flex } from '@chakra-ui/react';
 import { Layout, Tip, Video } from '@/components';
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 import { LIBRARY_TIP } from '@/const';
 
 export function Index() {
-  const [{ state, getField }, { complete }] = useBlock(LIBRARY_TIP);
+  const [{ state, field }, transition] = useBlock<['default']>(LIBRARY_TIP);
 
   const allHandsVideo = (
     <Video
@@ -35,11 +35,11 @@ export function Index() {
         {state.active && (
           <Tip
             thumbnailSrc={`${import.meta.env.BASE_URL}tip-thumb-1.png`}
-            title={getField('title') || ''}
-            description={getField('body') || ''}
-            url={getField('learn-more-url') || ''}
-            videoId={getField('video-id') || ''}
-            onComplete={complete}
+            title={field('title') || ''}
+            description={field('body') || ''}
+            url={field('learn-more-url') || ''}
+            videoId={field('video-id') || ''}
+            onComplete={() => transition('default')}
           />
         )}
         {[...Array(6)].map((e, i) => {

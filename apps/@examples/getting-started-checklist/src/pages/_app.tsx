@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
-import { DoptProvider } from '@dopt/react-old';
+import { DoptProvider } from '@dopt/react';
 
 import { useIdentifyUser } from '@/hooks';
 import { GettingStartedChecklistExample } from '@/pages';
@@ -37,7 +37,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'getting-started-checklist': 4 }}
+      flowVersions={{ 'getting-started-checklist': 5 }}
     >
       <ChakraProvider theme={theme}>
         <GettingStartedChecklistExample />

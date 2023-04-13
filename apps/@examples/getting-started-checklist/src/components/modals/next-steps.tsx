@@ -1,4 +1,4 @@
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 import {
   Button,
@@ -22,30 +22,30 @@ export function NextStepsModal({
   onClose = () => undefined,
   isOpen = false,
 }: Pick<UseDisclosureProps, 'isOpen' | 'onClose'>) {
-  const [{ getField }, { complete }] = useBlock(NEXT_STEPS);
+  const [{ field }, transition] = useBlock<['default']>(NEXT_STEPS);
   return (
     <Modal isOpen={isOpen} onClose={() => onClose()}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{getField('next-steps-title', '')}</ModalHeader>
+        <ModalHeader>{field('next-steps-title', '')}</ModalHeader>
         <ModalBody>
           <Flex direction="column" gap={4}>
-            <Text>{getField('next-steps-analysis-callout', '')}</Text>
+            <Text>{field('next-steps-analysis-callout', '')}</Text>
             <Text>You can learn how to:</Text>
             <UnorderedList>
               <ListItem>
                 <Link textDecoration="underline">
-                  {getField('next-steps-li-1', '')}
+                  {field('next-steps-li-1', '')}
                 </Link>
               </ListItem>
               <ListItem>
                 <Link textDecoration="underline">
-                  {getField('next-steps-li-2', '')}
+                  {field('next-steps-li-2', '')}
                 </Link>
               </ListItem>
               <ListItem>
                 <Link textDecoration="underline">
-                  {getField('next-steps-li-3', '')}
+                  {field('next-steps-li-3', '')}
                 </Link>
               </ListItem>
             </UnorderedList>
@@ -53,8 +53,8 @@ export function NextStepsModal({
           </Flex>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" onClick={complete}>
-            {getField('next-steps-button-text', '')}
+          <Button colorScheme="blue" onClick={() => transition('default')}>
+            {field('next-steps-button-text', '')}
           </Button>
         </ModalFooter>
       </ModalContent>

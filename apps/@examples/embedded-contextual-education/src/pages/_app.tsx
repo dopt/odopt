@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import { DoptProvider } from '@dopt/react-old';
+import { DoptProvider } from '@dopt/react';
 import { useIdentifyUser } from '@/hooks';
 import { Page } from './_page';
 
@@ -26,7 +26,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'embedded-contextual-education': 2 }}
+      flowVersions={{ 'embedded-contextual-education': 6 }}
     >
       <ChakraProvider>
         <Page />
