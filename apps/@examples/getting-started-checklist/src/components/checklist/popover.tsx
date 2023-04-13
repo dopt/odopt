@@ -1,4 +1,4 @@
-import { BlockWithGetField } from '@dopt/react-old';
+import { Block } from '@dopt/react';
 
 import * as Icons from '@tabler/icons';
 
@@ -20,9 +20,9 @@ export function ChecklistPopover({
   inviteModalProps,
   addChartsModalProps,
 }: {
-  datasourceBlock: BlockWithGetField;
-  chartsBlock: BlockWithGetField;
-  shareBlock: BlockWithGetField;
+  datasourceBlock: Block<unknown>;
+  chartsBlock: Block<unknown>;
+  shareBlock: Block<unknown>;
   datasourceModalProps: ReturnType<typeof useDisclosure>;
   inviteModalProps: ReturnType<typeof useDisclosure>;
   addChartsModalProps: ReturnType<typeof useDisclosure>;
@@ -33,27 +33,27 @@ export function ChecklistPopover({
         Getting Started
       </Flex>
       <CheckListItem
-        completed={datasourceBlock.state.completed}
-        Icon={getIcon(datasourceBlock.getField('panel-icon', ''))}
-        title={datasourceBlock.getField('panel-title', '')}
-        panelText={datasourceBlock.getField('panel-body', '')}
-        buttonText={datasourceBlock.getField('panel-button-text', '')}
+        completed={datasourceBlock.state.exited}
+        Icon={getIcon(datasourceBlock.field('panel-icon', ''))}
+        title={datasourceBlock.field('panel-title', '')}
+        panelText={datasourceBlock.field('panel-body', '')}
+        buttonText={datasourceBlock.field('panel-button-text', '')}
         onClickButton={datasourceModalProps.onOpen}
       />
       <CheckListItem
-        completed={chartsBlock.state.completed}
-        Icon={getIcon(chartsBlock.getField('panel-icon', ''))}
-        title={chartsBlock.getField('panel-title', '')}
-        panelText={chartsBlock.getField('panel-body', '')}
-        buttonText={chartsBlock.getField('panel-button-text', '')}
+        completed={chartsBlock.state.exited}
+        Icon={getIcon(chartsBlock.field('panel-icon', ''))}
+        title={chartsBlock.field('panel-title', '')}
+        panelText={chartsBlock.field('panel-body', '')}
+        buttonText={chartsBlock.field('panel-button-text', '')}
         onClickButton={addChartsModalProps.onOpen}
       />
       <CheckListItem
-        completed={shareBlock.state.completed}
-        Icon={getIcon(shareBlock.getField('panel-icon', ''))}
-        title={shareBlock.getField('panel-title', '')}
-        panelText={shareBlock.getField('panel-body', '')}
-        buttonText={shareBlock.getField('panel-button-text', '')}
+        completed={shareBlock.state.exited}
+        Icon={getIcon(shareBlock.field('panel-icon', ''))}
+        title={shareBlock.field('panel-title', '')}
+        panelText={shareBlock.field('panel-body', '')}
+        buttonText={shareBlock.field('panel-button-text', '')}
         onClickButton={inviteModalProps.onOpen}
       />
     </Accordion>

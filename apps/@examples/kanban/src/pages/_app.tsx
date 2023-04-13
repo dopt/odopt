@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { MantineProvider } from '@mantine/core';
-import { DoptProvider } from '@dopt/react-old';
+import { DoptProvider } from '@dopt/react';
 
 import { useIdentifyUser } from '@/hooks';
 
@@ -30,7 +30,7 @@ export function App() {
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       optimisticUpdates={false}
       userId={userId}
-      flowVersions={{ kanban: 3 }}
+      flowVersions={{ kanban: 4 }}
     >
       <MantineProvider withGlobalStyles withNormalizeCSS>
         <Kanban />

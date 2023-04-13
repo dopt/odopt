@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { DoptProvider } from '@dopt/react-old';
+import { DoptProvider } from '@dopt/react';
 import { useIdentifyUser } from '@/hooks';
 
 import { Example } from '@/pages';
@@ -26,7 +26,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ checklist: 3 }}
+      flowVersions={{ checklist: 4 }}
     >
       <Example />
     </DoptProvider>
