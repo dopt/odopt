@@ -1,41 +1,50 @@
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 import { example } from '@/pages/index.css';
 import { Button, Dialog, Skeleton, HotSpot } from '@/components';
 
 export function Example() {
-  const [hotspotA, hotspotAMethods] = useBlock('2ycOS_n3lxk05tPpHGw1D');
-  const [hotspotB, hotspotBMethods] = useBlock('bjNFwr1qWt5-qPk1UtU7R');
-  const [hotspotC, hotspotCMethods] = useBlock('N4XSt90klWbr-RZJeMSy4');
+  const [hotspotA, hotspotATransition] = useBlock<['default']>('hotspots.a');
+  const [hotspotB, hotspotBTransition] = useBlock<['default']>('hotspots.b');
+  const [hotspotC, hotspotCTransition] = useBlock<['default']>('hotspots.c');
 
   return (
     <div className={example}>
       <Skeleton>
         <HotSpot position="ne" visible={hotspotA.state.active}>
-          <Dialog title={hotspotA.getField('title', '')}>
-            <div>{hotspotA.getField('body', '')}</div>
-            <Button color="orange" onClick={hotspotAMethods.complete}>
-              {hotspotA.getField('button', '')}
+          <Dialog title={hotspotA.field('title', '')}>
+            <div>{hotspotA.field('body', '')}</div>
+            <Button
+              color="orange"
+              onClick={() => hotspotATransition('default')}
+            >
+              {hotspotA.field('button', '')}
             </Button>
           </Dialog>
         </HotSpot>
       </Skeleton>
       <Skeleton>
         <HotSpot position="se" visible={hotspotB.state.active}>
-          <Dialog title={hotspotB.getField('title', '')}>
-            <div>{hotspotB.getField('body', '')}</div>
-            <Button color="orange" onClick={hotspotBMethods.complete}>
-              {hotspotB.getField('button', '')}
+          <Dialog title={hotspotB.field('title', '')}>
+            <div>{hotspotB.field('body', '')}</div>
+            <Button
+              color="orange"
+              onClick={() => hotspotBTransition('default')}
+            >
+              {hotspotB.field('button', '')}
             </Button>
           </Dialog>
         </HotSpot>
       </Skeleton>
       <Skeleton>
         <HotSpot position="ne" visible={hotspotC.state.active}>
-          <Dialog title={hotspotC.getField('title', '')}>
-            <div>{hotspotC.getField('body', '')}</div>
-            <Button color="orange" onClick={hotspotCMethods.complete}>
-              {hotspotC.getField('button', '')}
+          <Dialog title={hotspotC.field('title', '')}>
+            <div>{hotspotC.field('body', '')}</div>
+            <Button
+              color="orange"
+              onClick={() => hotspotCTransition('default')}
+            >
+              {hotspotC.field('button', '')}
             </Button>
           </Dialog>
         </HotSpot>
