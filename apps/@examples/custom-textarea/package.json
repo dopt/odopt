@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dopt/react-old": "npm:@dopt/react@1.4.2",
+    "@dopt/react": "workspace:*",
     "@dopt/users-javascript-client": "workspace:*",
     "@radix-ui/react-popover": "1.0.5",
     "@vanilla-extract/css": "1.11.0",
@@ -26,11 +26,11 @@
   "devDependencies": {
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
-    "@typescript-eslint/eslint-plugin": "5.57.1",
-    "@typescript-eslint/parser": "5.57.1",
+    "@typescript-eslint/eslint-plugin": "5.58.0",
+    "@typescript-eslint/parser": "5.58.0",
     "@vanilla-extract/vite-plugin": "3.8.0",
     "@vitejs/plugin-react": "2.2.0",
-    "eslint": "8.37.0",
+    "eslint": "8.38.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-react": "7.32.2",
     "prettier": "2.8.7",
