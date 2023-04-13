@@ -21,7 +21,7 @@ import {
 import { AppShell, Box, Button, Group, Header, Text } from '@mantine/core';
 import { columns, initialBoard, getColumnById } from '@/utils/board';
 
-import { useBlock } from '@dopt/react-old';
+import { useBlock } from '@dopt/react';
 
 import { highlight } from '@/styles/app.css';
 import { useKeyValueStore } from '@/hooks';
@@ -41,10 +41,18 @@ export function Kanban() {
   );
   const [createIssueModalIsOpen, setCreateIssueModalIsOpen] = useState(false);
 
-  const [createIssueNudge, createIssue] = useBlock('f7oaGfQYNJ1KtueMLv4nm');
-  const [firstIssue, moveIssueIntoProgress] = useBlock('krcPrzGs9w6J2mHKQJLYd');
-  const [issueInProgress, reorder] = useBlock('z2rnhWqUav5rhRLcxoM55');
-  const [issueStillInProgress, moveToDone] = useBlock('pMw5hcPMz3aZPr5IVfnP8');
+  const [createIssueNudge, createIssue] = useBlock<['default']>(
+    'kanban.welcome-banner'
+  );
+  const [firstIssue, moveIssueIntoProgress] = useBlock<['default']>(
+    'kanban.drag-to-progress'
+  );
+  const [issueInProgress, reorder] = useBlock<['default']>(
+    'kanban.reorder-issue'
+  );
+  const [issueStillInProgress, moveToDone] = useBlock<['default']>(
+    'kanban.drag-to-done'
+  );
 
   const handleMoveCard = (
     card: Card,
@@ -59,7 +67,7 @@ export function Kanban() {
         source.fromColumnId === 'backlog' &&
         destination.toColumnId === 'inProgress'
       ) {
-        moveIssueIntoProgress.complete();
+        moveIssueIntoProgress('default');
       }
 
       if (
@@ -68,7 +76,7 @@ export function Kanban() {
         destination.toColumnId === 'inProgress' &&
         source.fromPosition !== destination.toPosition
       ) {
-        reorder.complete();
+        reorder('default');
       }
 
       if (
@@ -77,7 +85,7 @@ export function Kanban() {
         destination.toColumnId === 'done'
       ) {
         clearFirstIssue();
-        moveToDone.complete();
+        moveToDone('default');
       }
     }
   };
@@ -90,7 +98,7 @@ export function Kanban() {
 
     if (createIssueNudge.state.active) {
       setFirstIssueId(card.id);
-      createIssue.complete();
+      createIssue('default');
     }
   };
 
