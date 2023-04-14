@@ -1,6 +1,6 @@
 # Dopt React SDK
 
-## Getting started
+## Overview
 
 The Dopt React SDK is a framework-specific client for accessing Dopt's blocks and flows APIs, allowing you to bind user flow state defined in Dopt to your UI to build onboarding and engagement flows.
 
@@ -34,9 +34,9 @@ pnpm add @dopt/react
 
 To configure the Dopt provider you will need:
 
-1. A Blocks API key (generated in Dopt)
-1. The flow identifiers and version tags for the flows you want your end-users to experience
-1. A user ID (user being an end-user you've identified to Dopt)
+1. A blocks API key (generated in Dopt)
+1. The identifiers and version tags for the flows you want your end-users to experience
+1. A user identifier (user being an end-user you've identified to Dopt)
 
 ## Usage
 
@@ -53,7 +53,10 @@ ReactDOM.render(
   <DoptProvider
     userId={userId}
     apiKey={blocksAPIKey}
-    flowVersions={{ "user-onboarding": 2, "upsell-flow": 4 }}
+    flowVersions={{
+      "new-user-onboarding": 2,
+      "plan-upsell": 4,
+    }}
   >
     <Application />
   </DoptProvider>,
@@ -78,8 +81,8 @@ interface Flow<T = "flow"> {
   readonly version: number;
   readonly state: {
     started: boolean;
-    completed: boolean;
-    exited: boolean;
+    finished: boolean;
+    stopped: boolean;
   };
   blocks: Block[];
 }
@@ -88,7 +91,7 @@ interface Flow<T = "flow"> {
 The states of a flow are 1:1 with the actions you can perform on a flow. Flows have blocks, which are represented through the following type definition:
 
 ```ts
-interface Step {
+interface Block {
   readonly kind: "block";
   readonly type: "model";
   readonly uid: string;
@@ -96,27 +99,15 @@ interface Step {
   readonly version: number;
   readonly state: {
     active: boolean;
-    completed: boolean;
+    entered: boolean;
+    exited: boolean;
   };
+  readonly transitioned: Record<string, boolean> | undefined;
+  field: <V>(name: string, defaultValue?: V) => V | null;
 }
-interface Group {
-  readonly kind: "block";
-  readonly type: "set";
-  readonly uid: string;
-  readonly sid: string;
-  readonly version: number;
-  readonly state: {
-    active: boolean;
-    completed: boolean;
-  };
-  size: number;
-  blocks: Step[];
-  ordered: boolean;
-}
-type Block = Group | Step;
 ```
 
-Unlike flows, the states of a block are not all 1:1 with actions you can perform. The `completed` state does have an associated action, but the `active` state is special.
+Unlike flows, the states of a block are not all 1:1 with actions you can perform. The `entered` and `exited` states do have an associated action, but the `active` state is special.
 
 **Key concept:** The `active` state of a block is controlled by Dopt and represents where the currently initialized user (specified by the `userId` prop) is in the flow. As you or other actors perform actions that implicitly transition the user through the flow, the `active` state is updated.
 
@@ -126,11 +117,11 @@ Now that you know what objects are available through the SDK, let's talk about h
 
 By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L77) prop, and their associated blocks using the following React hooks and HOCs.
 
-### Using intentions
+### Using transitions
 
-Our hooks and HOCs provide intention methods which you can use to progress and update the state of flows and blocks. These methods are all defined with signatures that explicitly do not return values: `() => void | undefined`.
+Our hooks and HOCs provide a transition function which you can use to progress and update the state of flows and blocks. The transition function accepts the path names you've defined on the flow canvas as inputs. These inputs will determine which paths the user will transition along.
 
-We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then, the client will reactively update and re-render the components which depend on these flow and block states. Calling an intention only means that at sometime in the future, the client's state will be updated.
+This function is defined with a signature that explicitly does not return a value: `(...inputs: string[]) => void | undefined`. We do this because a transition may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then, the client will reactively update and re-render the components which depend on these flow and block states. Calling an transition only means that at sometime in the future, the client's state will be updated.
 
 ### Understanding loading status
 
@@ -138,76 +129,38 @@ We expose two hooks which enable you to wait for Dopt to initialize, both at the
 
 If you would instead like to wait for specific flows, you can use the [useFlowStatus](./src/use-flow-status.ts) hook. This hook returns a `FlowStatus` object (`{ pending: boolean, failed: boolean }`) - when the flow has finished loading, `pending` will be false. If the flow fails to load, then `failed` will be true.
 
-### Using React Hooks
+### Using React hooks
 
 - [useFlow](./src/use-flow.ts)
 
 ```ts
 interface FlowIntentions {
   reset: () => void | undefined;
-  exit: () => void | undefined;
-  complete: () => void | undefined;
+  stop: () => void | undefined;
+  finish: () => void | undefined;
 }
-declare const useFlow: (sid: string) => [flow: Flow, intent: FlowIntentions];
+declare const useFlow: (id: string) => [flow: Flow, intent: FlowIntentions];
 ```
 
 - [useBlock](./src/use-block.ts)
 
 ```ts
-interface BlockIntentions {
-  complete: () => void | undefined;
-}
+type BlockTransition = (...inputs: string[]) => void | undefined;
 declare const useBlock: (
-  uid: string
-) => [block: Block, intent: BlockIntentions];
+  id: string
+) => [block: Block, transition: BlockTransition];
 ```
 
-- [useOrderedGroup](./src/use-ordered-group.ts)
-
-```ts
-interface GroupIntentions {
-  complete: () => void | undefined;
-  prev: () => void | undefined;
-  next: () => void | undefined;
-  goTo: (index: number) => void;
-}
-
-export interface Group extends Set {
-  getCompleted: () => Element[];
-  getUncompleted: () => Element[];
-  getActive: () => Element[];
-  getInactive: () => Element[];
-}
-
-declare const useOrderedGroup: (
-  uid: string
-) => [block: Group, intent: GroupIntentions];
-```
-
-- [useUnorderedGroup](./src/use-unordered-group.ts)
-
-```ts
-interface GroupIntentions {
-  complete: () => void | undefined;
-}
-
-declare const useOrderedGroup: (
-  uid: string
-) => [block: Group, intent: BlockIntentions];
-```
-
-**Using React HOCS**
+### Using React HOCs
 
 We offer analogous functionality through higher order components for those who are limited by their version of React or prefer that pattern.
 
 - [withFlow](./src/with-flow.tsx)
 - [withBlock](./src/with-block.tsx)
-- [withOrderedGroup](./src/with-ordered-group.tsx)
-- [withUnorderedGroup](./src/with-unordered-group.tsx)
 
 ### Example usage
 
-**Accessing blocks**
+#### Accessing blocks
 
 Using the [useBlock](./src/use-block.ts) hook:
 
@@ -216,36 +169,22 @@ import { useBlock } from "@dopt/react";
 import { Modal } from "@your-company/modal";
 
 export function Application() {
-  const [block, intent] = useBlock("HNWvcT78tyTwygnbzU6SW");
+  const [block, transition] = useBlock<["complete"]>(
+    "new-user-onboarding.twenty-llamas-attack"
+  );
   return (
     <main>
       <Modal isOpen={block.state.active}>
         <h1>👏 Welcome to our app!</h1>
         <p>This is your onboarding experience!</p>
-        <button onClick={intent.complete}>Close me</button>
+        <button onClick={() => transition("complete")}>Close me</button>
       </Modal>
     </main>
   );
 }
 ```
 
-Using the [withBlock](./src/with-block.tsx) HOC:
-
-```tsx
-import { withBlock } from "@dopt/react";
-import { WelcomeModal } from "./welcome-modal";
-
-export function Application() {
-  const WelcomeModalWithDopt = withBlock(WelcomeModal, "j0zExxZDVKCPXPzB2ZgpW");
-  return (
-    <main>
-      <WelcomeModalWithDopt />
-    </main>
-  );
-}
-```
-
-**Accessing flows**
+#### Accessing flows
 
 Using the [useFlow](./src/use-flow.ts) hook:
 
@@ -262,109 +201,6 @@ export function Application() {
         <p>Want to reset? click the button below.</p>
         <button onClick={intent.reset}>Reset onboarding</button>
       </Modal>
-    </main>
-  );
-}
-```
-
-Using the [withFlow](./src/with-flow.tsx) HOC:
-
-```tsx
-import { withFlow } from "@dopt/react";
-import { Modal } from "@your-company/modal";
-
-export function Application() {
-  const WelcomeModalWithFlow = withFlow(Modal, "new-user-onboarding", 1);
-  return (
-    <main>
-      <WelcomeModalWithFlow />
-    </main>
-  );
-}
-```
-
-**Accessing ordered groups**
-
-Using the [useOrderedGroup](./src/use-ordered-group.ts) hook:
-
-```tsx
-import { useOrderedGroup } from "@dopt/react";
-import { Modal } from "@your-company/modal";
-
-export function Application() {
-  const [group, groupIntent] = useOrderedGroup("HNWvcT78tyTwygnbzU6SW");
-  const [block, blockIntent] = useBlock("HJDdinfT60yywdls893");
-
-  return (
-    <main>
-      <Modal isOpen={block.state.active}>
-        <h1>👏 Welcome to our app!</h1>
-        <p>This is your onboarding experience!</p>
-        <p>You are on step {group.getCompleted() + 1}</p>
-        <button onClick={group.next}>Next me</button>
-        <button onClick={groupIntent.complete}>Exit</button>
-      </Modal>
-    </main>
-  );
-}
-```
-
-Using the [withOrderedGroup](./src/with-ordered-group.tsx) HOC:
-
-```tsx
-import { withOrderedGroup } from "@dopt/react";
-import { WelcomeModal } from "./welcome-modal";
-
-export function Application() {
-  const WelcomeModalWithDopt = withOrderedGroup(
-    WelcomeModal,
-    "j0zExxZDVKCPXPzB2ZgpW"
-  );
-  return (
-    <main>
-      <WelcomeModalWithDopt />
-    </main>
-  );
-}
-```
-
-**Accessing unordered groups**
-
-Using the [useUnorderedGroup](./src/use-unordered-group.ts) hook:
-
-```tsx
-export function Application() {
-  const [group, groupIntent] = useUnorderedGroup("HNWvcT78tyTwygnbzU6SW");
-  const [block, blockIntent] = useBlock("HJDdinfT60yywdls893");
-
-  return (
-    <main>
-      <Modal isOpen={block.state.active}>
-        <h1>👏 Welcome to our app!</h1>
-        <p>This is your onboarding experience!</p>
-        <p>You are on step {group.getCompleted() + 1}</p>
-        <button onClick={blockIntent.complete}>Next</button>
-        <button onClick={groupIntent.complete}>Exit</button>
-      </Modal>
-    </main>
-  );
-}
-```
-
-Using the [withUnorderedGroup](./src/with-unordered-group.tsx) HOC:
-
-```tsx
-import { withUnorderedGroup } from "@dopt/react";
-import { WelcomeModal } from "./welcome-modal";
-
-export function Application() {
-  const WelcomeModalWithDopt = withUnorderedGroup(
-    WelcomeModal,
-    "j0zExxZDVKCPXPzB2ZgpW"
-  );
-  return (
-    <main>
-      <WelcomeModalWithDopt />
     </main>
   );
 }

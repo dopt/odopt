@@ -1,10 +1,20 @@
-# Dopt's Users Javascript Client
+# Dopt users JavaScript client
 
-## Getting Started
+## Overview
 
-The Dopt Users JavaScript Client is a friendly server-side and client-side package for accessing the Dopt Users API. This allows you to identify new users and update existing users with Dopt, so that they can interact with the flows created within the app.
+The Dopt users JavaScript client is a friendly server-side and client-side package for accessing the Dopt users API. This allows you to identify new users and update existing users with Dopt, so that they can interact with the flows created within the app.
 
-### Installation
+The client lives in our open-source monorepo [odopt](https://github.com/dopt/odopt).
+
+It is published to npm as [`@dopt/users-javascript-client`](https://www.npmjs.com/package/@dopt/users-javascript-client).
+
+## Installation
+
+Via npm:
+
+```bash
+npm install @dopt/users-javascript-client
+```
 
 Via Yarn:
 
@@ -18,25 +28,19 @@ Via pnpm:
 pnpm add @dopt/users-javascript-client
 ```
 
-Via npm:
-
-```bash
-npm install @dopt/users-javascript-client
-```
-
-### Configuration
+## Configuration
 
 To configure the Users JavaScript Client you will need
 
 1. A users API key (generated in Dopt)
-1. A user ID for the user you wish to identify (the same ID will be used in the React SDK)
-1. The properties you wish to store and/or update for the given user
+1. An identifier for the user or group you wish to identify (the same identifier will be used in the React SDK)
+1. The properties you wish to store and/or update for the given user or group
 
-### Usage
+## Usage
 
-#### Initialization
+### Initialization
 
-```typescript
+```ts
 import { IdentifyApi, Configuration } from '@dopt/users-javascript-client';
 
 const doptUsersClient = new IdentifyApi(
@@ -46,11 +50,11 @@ const doptUsersClient = new IdentifyApi(
 );
 ```
 
-#### Example Usage
+### Users
 
 Using the `identify` API.
 
-```typescript
+```ts
 const identifyUserRequestBody: IdentifyUserRequestBody = {
   identifier: "identifier_example",
   properties: {
@@ -66,7 +70,7 @@ doptUsersClient.identifyUser(identifyUserRequestBody);
 
 Using the `identifyBatch` API.
 
-```typescript
+```ts
 import { IdentifyBatchRequestBodyInner } from '@dopt/users-javascript-client';
 
 const identifyUserRequestBody: IdentifyUserRequestBody = {
@@ -91,9 +95,11 @@ const batchPayload: IdentifyBatchRequestBodyInner[] = [
 ];
 ```
 
+### Groups
+
 Using the `identifyGroup` API.
 
-```typescript
+```ts
 import { IdentifyGroupRequestBody } from '@dopt/users-javascript-client';
 
 const identifyGroupRequestBody: IdentifyGroupRequestBody = {
