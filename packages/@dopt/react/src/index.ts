@@ -18,3 +18,10 @@ export type {
   BlockTransition,
   FlowIntent,
 } from './types';
+
+/**
+ * @internal
+ *
+ * Exposed for tests and for use in app.dopt.com.
+ */
+export { URL_PREFIX } from './utils';
