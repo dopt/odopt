@@ -1,10 +1,20 @@
-# Dopt's Blocks Javascript Client
+# Dopt blocks JavaScript client
 
-## Getting Started
+## Overview
 
-The Dopt Blocks JavaScript Client is a friendly server-side and client-side package for accessing the Dopt Blocks API. This allows you to identify new blocks and update existing blocks with Dopt, so that they can interact with the flows created within the app.
+The Dopt blocks JavaScript client is a friendly server-side and client-side package for accessing the Dopt blocks API to get and mutate block and flow state for a particular user in Dopt.
 
-### Installation
+The client lives in our open-source monorepo [odopt](https://github.com/dopt/odopt).
+
+It is published to npm as [`@dopt/blocks-javascript-client`](https://www.npmjs.com/package/@dopt/blocks-javascript-client).
+
+## Installation
+
+Via npm:
+
+```bash
+npm install @dopt/blocks-javascript-client
+```
 
 Via Yarn:
 
@@ -18,25 +28,18 @@ Via pnpm:
 pnpm add @dopt/blocks-javascript-client
 ```
 
-Via npm:
+## Configuration
 
-```bash
-npm install @dopt/blocks-javascript-client
-```
-
-### Configuration
-
-To configure the Blocks JavaScript Client you will need
+To configure the blocks JavaScript client you will need
 
 1. A blocks API key (generated in Dopt)
-1. A user ID for the user you wish to identify (the same ID will be used in the React SDK)
-1. The properties you wish to store and/or update for the given user
+1. A block uid
 
-### Usage
+## Usage
 
-#### Initialization
+### Initialization
 
-```typescript
+```ts
 import { Configuration, BlocksApi } from "@dopt/blocks-javascript-client";
 
 const doptBlocksClient = new BlocksApi(
@@ -44,54 +47,68 @@ const doptBlocksClient = new BlocksApi(
     apiKey: "BLOCKS_API_KEY",
   })
 );
-
 ```
 
-#### Example Usage
+### Blocks
 
-Using the `flowIntent` API.
+Get block data using the `findBlocks` method:
 
-```typescript
-const uid = "example-flow-uid";
-const version = 2;
-const userIdentifier = "example-identified-user-identifier";
-const groupIdentifier = "example-identified-group-identifier";
-const flowIntent = "complete";
-const includeBlock = true;
+```ts
+const version = 3;
+const userId = "example-user-idenitifer";
+const uid = "xqC0wpZgoaYXbAPk8W0sk";
+
+doptBlocksClient.findBlocks(
+  version,
+  userId,
+  uid
+);
+```
+
+Transition a block using the `blockTransitions` method:
+
+```ts
+const transitions = new Set(['complete']);
+const version = 3;
+const userId = "example-user-identifier";
+const uid = "xqC0wpZgoaYXbAPk8W0sk";
+
+doptBlocksClient.blockTransitions(
+  transitions,
+  version,
+  userId,
+  uid
+);
+```
+
+### Flows
+
+Get flow data using the `getFlow` method:
+
+```ts
+const version = 3;
+const userId = "example-user-identifier";
+const sid = "example-flow-identifier";
+
+doptBlocksClient.getFlow(
+  version,
+  userId,
+  sid
+);
+```
+
+Transition a flow using the `flowIntent` method:
+
+```ts
+const version = 3;
+const userId = "example-user-identifier";
+const sid = "example-flow-identifier";
+const intent = "finish";
 
 doptBlocksClient.flowIntent(
   version,
-  userIdentifier,
-  uid,
-  flowIntent,
-  groupIdentifier,
-  includeBlock
-);
-```
-
-Using the `blockIntent` API.
-
-```typescript
-import { Configuration, BlocksApi } from "@dopt/blocks-javascript-client";
-
-const doptBlocksClient = new BlocksApi(
-  new Configuration({
-    apiKey: "BLOCKS_API_KEY",
-  })
-);
-
-const uid = "example-flow-uid";
-const version = 2;
-const userIdentifier = "example-identified-user-identifier";
-const groupIdentifier = "example-identified-group-identifier";
-const blockIntent = "complete";
-const includeBlock = true;
-
-doptBlocksClient.blockIntent(
-  version,
-  userIdentifier,
-  uid,
-  blockIntent,
-  groupIdentifier
+  userId,
+  sid,
+  intent
 );
 ```

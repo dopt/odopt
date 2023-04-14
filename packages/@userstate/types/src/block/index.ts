@@ -114,14 +114,14 @@ export function getDefaultBlock(
     exited: false,
     ...props.state,
   };
-  const transitioned = { transitioned: props.transitioned || {} };
+  const { transitioned } = { transitioned: props.transitioned || {} };
   switch (props.type) {
     case 'model':
     case 'element':
       return {
         kind: 'block',
         fields: [],
-        transitioned: getDefaultTransition(transitioned),
+        transitioned: getDefaultTransition({ transitioned }),
         state: defaultState,
         ...props,
         type: 'model',
@@ -134,7 +134,7 @@ export function getDefaultBlock(
         size: 0,
         blocks: [],
         state: defaultState,
-        transitioned: getDefaultTransition(transitioned),
+        transitioned: getDefaultTransition({ transitioned }),
       };
     case 'webhook':
       return {
@@ -142,7 +142,7 @@ export function getDefaultBlock(
         type: 'webhook',
         kind: 'block',
         state: defaultState,
-        transitioned: getDefaultTransition(transitioned),
+        transitioned: getDefaultTransition({ transitioned }),
         request: async () => ({
           ok: true,
           redirected: false,
@@ -157,24 +157,36 @@ export function getDefaultBlock(
         type: 'entry',
         kind: 'block',
         state: defaultState,
-        transitioned: getDefaultTransition(transitioned),
+        transitioned: getDefaultTransition({ transitioned }),
         expression: async () => false,
       };
     case 'finish':
       return {
         ...props,
         state: defaultState,
-        transitioned: getDefaultTransition(transitioned),
+        transitioned: getDefaultTransition({ transitioned }),
         type: 'finish',
         kind: 'block',
       };
     case 'gate':
       return {
         kind: 'block',
-        transitioned: getDefaultTransition(transitioned),
+        transitioned: getDefaultTransition({ transitioned }),
         state: defaultState,
         ...props,
         type: 'gate',
+      };
+    case 'boolean':
+      return {
+        ...props,
+        type: 'boolean',
+        kind: 'block',
+        state: defaultState,
+        transitioned: {
+          ...{ true: false, false: false },
+          ...transitioned,
+        },
+        expression: async () => false,
       };
     default:
       throw new Error(`Factory not implemented for ${props.type}`);
