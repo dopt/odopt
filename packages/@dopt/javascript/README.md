@@ -1,6 +1,6 @@
 # Dopt JavaScript SDK
 
-## Getting started
+## Overview
 
 The Dopt JavaScript SDK offers a convenient way to accessing, update, and subscribe to objects exposed via Dopt's blocks and flows APIs. You can use this SDK to bind user flow state (defined in Dopt) to your UI.
 
@@ -35,8 +35,8 @@ pnpm add @dopt/javascript
 To initialize the SDK, you will need:
 
 1. A blocks API key (generated in Dopt)
-1. The flow identifiers and version tags for the flows you want your end-users to experience
-1. A user ID (user being an end-user you've identified to Dopt)
+1. The identifiers and version tags for the flows you want your end-users to experience
+1. A user identifier (user being an end-user you've identified to Dopt)
 
 ## Usage
 
@@ -46,9 +46,12 @@ You can initialize Dopt in your app as follows:
 
 ```js
 const dopt = new Dopt({
-  apiKey,
+  blocksAPIKey,
   userId,
-  flowVersions: { "welcome-to-dopt": 3 },
+  flowVersions: {
+    "new-user-onboarding": 3,
+    "plan-upsell": 4,
+  },
 });
 ```
 
@@ -67,8 +70,8 @@ interface Flow<T = "flow"> {
   readonly version: number;
   readonly state: {
     started: boolean;
-    completed: boolean;
-    exited: boolean;
+    finished: boolean;
+    stopped: boolean;
   };
   blocks: Block[];
 }
@@ -77,7 +80,7 @@ interface Flow<T = "flow"> {
 The states of a flow are 1:1 with the actions you can perform on a flow. Flows have blocks, which are represented through the following type definition:
 
 ```ts
-interface Step {
+interface Block {
   readonly kind: "block";
   readonly type: "model";
   readonly uid: string;
@@ -85,29 +88,17 @@ interface Step {
   readonly version: number;
   readonly state: {
     active: boolean;
-    completed: boolean;
+    entered: boolean;
+    exited: boolean;
   };
+  readonly transitioned: Record<string, boolean> | undefined;
+  field: <V>(name: string, defaultValue?: V) => V | null;
 }
-interface Group {
-  readonly kind: "block";
-  readonly type: "set";
-  readonly uid: string;
-  readonly sid: string;
-  readonly version: number;
-  readonly state: {
-    active: boolean;
-    completed: boolean;
-  };
-  length: number;
-  blocks: Step[];
-  ordered: boolean;
-}
-type Block = Group | Step;
 ```
 
-Unlike flows, the states of a block are not all 1:1 with actions you can perform. The `completed` state does have an associated action, but the `active` state is special.
+Unlike flows, the states of a block are not all 1:1 with actions you can perform. The `entered` and `exited` states do have an associated action, but the `active` state is special.
 
-**Key concept:** The `active` state of a block is controlled by Dopt and represents where the initialized user (specified by the `userId` prop) is in the flow. As you or other actors perform actions that implicitly transition the user through the Flow, the `active` state is updated.
+**Key concept:** The `active` state of a block is controlled by Dopt and represents where the initialized user (specified by the `userId` prop) is in the flow. As you or other actors perform actions that implicitly transition the user through the flow, the `active` state is updated.
 
 ### Accessing flows and blocks
 
@@ -124,9 +115,9 @@ blocks.forEach((block) => console.log(block));
 You can access individual blocks via the `block(identifier: string)` method:
 
 ```js
-const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+const block = dopt.block("new-user-onboarding.twenty-llamas-attack");
 console.log(
-  "I'm on particular block in version 3 of the 'welcome-to-dopt' flow",
+  "I'm the 'twenty-llamas-attack' block in version 3 of the 'new-user-onboarding' flow",
   block
 );
 ```
@@ -139,11 +130,11 @@ const flows = dopt.flows();
 flows.forEach((flow) => console.log(flow));
 ```
 
-Additionally, you can access individual flows via the `flow(uid: string, version: number)` method:
+Additionally, you can access individual flows via the `flow(id: string, version: number)` method:
 
 ```js
-const flow = dopt.flow("welcome-to-dopt");
-console.log("I'm version 3 of the `welcome-to-dopt` flow", flow);
+const flow = dopt.flow("new-user-onboarding");
+console.log("I'm version 3 of the 'new-user-onboarding' flow", flow);
 ```
 
 The `dopt` object exposes an `initialized` method which you can use to guard calls to any block accessors:
@@ -152,7 +143,7 @@ The `dopt` object exposes an `initialized` method which you can use to guard cal
 dopt.initialized().then(() => {
   // Safely access block(s) or flow(s)!
   const blocks = dopt.blocks();
-  const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+  const block = dopt.block("new-user-onboarding.twenty-llamas-attack");
 });
 ```
 
@@ -161,30 +152,36 @@ dopt.initialized().then(() => {
 You can use the `subscribe()` method on the flow and block classes to listen for changes to then underlying object:
 
 ```js
-const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+const block = dopt.block("new-user-onboarding.twenty-llamas-attack");
 
-block.subscribe((block: BlockType) =>
+block.subscribe((block: Block) =>
   // The block passed to the listener is a data object.
   // To access the full class, use `dopt.block(block.uid)`.
-  console.log(`Block ${block.uid} has updated`, block)
+  console.log(`Block ${block.sid} has updated`, block)
 );
 ```
 
 ```js
-const flow = dopt.flow("welcome-to-dopt");
+const flow = dopt.flow("new-user-onboarding");
 
 flow.subscribe((flow: FlowType) =>
   // The flow passed to the listener is a data object.
   // To access the full class, use `dopt.flow(flow.uid)`.
-  console.log(`Flow ${flow.uid} has updated`, flow)
+  console.log(`Flow ${flow.sid} has updated`, flow)
 );
 ```
 
-### Using intentions to trigger flow and block state changes
+### Using transitions to trigger block state changes
 
-Our flow and block classes provide intention methods which you can use to progress and update their state. For example, when a specific step in your onboarding flow is complete, you can call `block.complete()` to mark that step as done.
+Our block class provides a transition method which you can use to progress and update the state of a block. For example, when you need to progress a specific step in your onboarding flow, you can call `block.transition("complete")` to transition along the `complete` path as defined in your flow.
 
-These methods, like `flow.complete()` or `block.complete()` are defined with signatures that explicitly do not return values: `() => void`. We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then the client will reactive update and re-render components based on the subscriptions you've defined via `flow.subscribe(...)` and `block.subscribe(...)`. Calling an intention only means that at sometime in the future, the client's state will be updated.
+These the `block.transition` method is defined with a signature that explicitly does not return values: `(...inputs: string[]) => void`. We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then the client will reactively update and re-render components based on the subscriptions you've defined via `block.subscribe(...)`. Calling a transition only means that at sometime in the future, the client's state will be updated.
+
+### Using intents to trigger flow state changes
+
+Our flow class provides intention methods which you can use to progress and update the state of a flow. For example, when you need to prematurely finish a flow, you can call `flow.finish()`.
+
+These methods, like `flow.finish()` or `flow.reset()` are defined with signatures that explicitly do not return values: `() => void`. We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then the client will reactively update and re-render components based on the subscriptions you've defined via `flow.subscribe(...)`. Calling an intention only means that at sometime in the future, the client's state will be updated.
 
 ### Understanding loading status
 
@@ -200,13 +197,13 @@ import { NewUserOnboarding } from "@/onboarding/new-user";
 const dopt = new Dopt({
   apiKey,
   userId,
-  flowVersions: { "welcome-to-dopt": 3 },
+  flowVersions: { "new-user-onboarding": 3 },
 });
 
 dopt.initialized().then(() => {
   const userOnboardingModal = new NewUserOnboardingModal();
 
-  const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
+  const block = dopt.block("new-user-onboarding.twenty-llamas-attack");
 
   // subscribe to changes in your blocks's state
   // you can also unsubscribe the listener by calling the returned function
@@ -219,10 +216,10 @@ dopt.initialized().then(() => {
   });
 
   // initially render your component, if it's active
-  if (block.state().active) {
+  if (block.state.active) {
     userOnboardingModal.render().show();
     // complete the block where appropriate
-    userOnboardingModel.on("done", block.complete);
+    userOnboardingModal.on("done", block.transition("complete"));
   }
 });
 ```
@@ -236,7 +233,7 @@ const dopt = new Dopt({
   apiKey,
   userId,
   logLevel: "warn", // 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent'
-  flowVersions: { "welcome-to-dopt": 3 },
+  flowVersions: { "new-user-onboarding": 3 },
 });
 ```
 
