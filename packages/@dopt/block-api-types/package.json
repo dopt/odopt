@@ -48,5 +48,6 @@
   "dependencies": {
     "@userstate/types": "workspace:*",
     "@sinclair/typebox": "0.25.4"
-  }
+  },
+  "openSource": true
 }
