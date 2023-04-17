@@ -1,5 +1,31 @@
 # @dopt/blocks-javascript-client
 
+## 1.0.0
+
+### Major Changes
+
+- 60df5938: ## Deprecation of Group blocks
+
+  The 2.0.0 release will be removing the Group blocks from Dopt. This includes access to the Group blocks in the canvas, APIs, and SDKs.
+
+  **tl;dr** We thought the abstraction of the Group block would be useful, but we’ve found it can be hard to understand and doesn’t support the logic needed for many flows. We think the new functionality added in this release (e.g., named paths, back paths, Gate blocks, branching on user properties) strike a better balance between being explicit and composable. Below you will find a more detailed explanation of how these changes manifest in the client.
+
+  ## Client changes
+
+  `blockGoToIntent` has been removed from the client. This method was used with groups and is now deprecated.
+
+  `blockIntent` has been renamed to `blockTransitions`. This new method now takes a set of transitions (named paths) rather than a single named intent.
+
+  `flowIntent`'s `intent` parameter now accepts `stop` instead of `exit` and `finish` instead of `complete`.
+
+  ```diff
+  - flowIntent(..., 'exit');
+  + flowIntent(..., 'stop');
+
+  - flowIntent(..., 'complete');
+  + flowIntent(..., 'finish');
+  ```
+
 ## 0.0.7
 
 ### Patch Changes
