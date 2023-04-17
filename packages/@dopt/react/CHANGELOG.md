@@ -1,5 +1,148 @@
 # Changelog
 
+## 2.0.0
+
+### Major Changes
+
+- 60df5938: ## Deprecation of Group blocks
+
+  The 2.0.0 release will be removing the Group blocks from Dopt. This includes access to the Group blocks in the canvas, APIs, and SDKs.
+
+  **tl;dr** We thought the abstraction of the Group block would be useful, but we’ve found it can be hard to understand and doesn’t support the logic needed for many flows. We think the new functionality added in this release (e.g., named paths, back paths, Gate blocks, branching on user properties) strike a better balance between being explicit and composable. Below you will find a more detailed explanation of how these changes manifest in the SDK.
+
+  ## The following objects have changed
+
+  ### `Block`
+
+  The block's `getField` function has been renamed to `field`. This matches our other accessors.
+
+  The block's `completed` state has been renamed to `exited`. Because blocks can now be accessed multiple times with cyclic paths, `exited` is more meaningful.
+
+  Additionally, the block object representation has changed significantly to accommodate for paths in the flow having names. We’ve added a `transitioned` object to the block that will track the state of those paths, e.g., if the user moves along an outgoing path `next` from a block named `A`, the `transitioned.next` on block `A` value would change from `false` to `true`.
+
+  The properties of the transition object are a function of the paths in the flow you’ve designed in Dopt. To flexibly accommodate for that, the block is generic with respect to the transitions associated with it; see the `useBlock` section below.
+
+  **Before**
+
+  ```ts
+  interface Block {
+    readonly kind: 'block';
+    readonly type: 'model';
+    readonly uid: string;
+    readonly sid: string;
+    readonly version: number;
+    readonly state: {
+      active: boolean;
+      completed: boolean;
+    };
+    getField: <V extends Field['value']>(
+      name: string,
+      defaultValue?: V
+    ) => V | null;
+  }
+  ```
+
+  **After**
+
+  ```ts
+  interface Block<T> {
+    kind: 'block';
+    type: 'model';
+    uid: string;
+    sid: string;
+    version: number;
+    state: {
+      active: boolean;
+      entered: boolean;
+      exited: boolean;
+    };
+    transitioned: T extends [string, ...string[]]
+      ? Record<T[number], boolean | undefined>
+      : Record<string, boolean | undefined>;
+    field: <V extends Field['value']>(
+      name: string,
+      defaultValue?: V
+    ) => V | null;
+  }
+  ```
+
+  ### `Flow`
+
+  The flow `exited` state has been renamed to `stopped`.
+
+  The flow `completed` state has been renamed to `finished`.
+
+  The flow `blocks` value now contains an array of full, up-to-date block instances on which methods like `field` can be called.
+
+  ## The following methods have been removed
+
+  - `useOrderedGroup`
+  - `useUnorderedGroup`
+  - `withOrderedGroup`
+  - `withUnorderedGroup`
+
+  These methods were all associated with groups which have been deprecated.
+
+  ## The following methods have signature changes
+
+  ### `useFlow`
+
+  `useFlow` changes are primarily renames of the intent methods.
+
+  The `exit` intent was renamed to `stop`, and the `complete` intent was renamed to `finish`.
+
+  You can also find a type-level summary of the changes below.
+
+  ```diff
+  -  exit: () => void | undefined;
+  +  stop: () => void | undefined;
+
+  -  complete: () => void | undefined;
+  +  finish: () => void | undefined;
+  }
+  ```
+
+  ### `useBlock`
+
+  `useBlock` has two large changes.
+
+  Instead of the `BlockIntentions` returning an object containing a named `complete` method, we return a `transition` function that can be used to specify what path to traverse from this block. The new `transition` methods requires the name of the `transition` (the label on the edge) you are transitioning to. All pre-existing edges will be migrated to be named 'default';
+
+  ```diff
+  - const [block, { complete }] = useBlock('edge-id');
+  - complete();
+
+  + const [block, transition] = useBlock('edge-id');
+  + transition('default');
+  ```
+
+  The `useBlock` hook is now optionally generic. This gives us a way to type the `transitioned` property, given that this data is a function of the flow you designed in Dopt.
+
+  ```ts
+  const [block, transition] = useBlock<['edge-one', 'edge-two']>('edge-id');
+  ```
+
+  You can find examples of how to write a `useBlock` with generics at [app.dopt.com](https://app.dopt.com) when you select step blocks within a flow.
+
+  You can also find a type-level summary of the changes below.
+
+  ```diff
+  -type BlockComplete = () => void | undefined;
+  +type BlockTransition = (...inputs: string[]) => void | undefined;
+
+  -export function useBlock(
+  -  id: string
+  -): [block: Block, { complete: BlockComplete }];
+  +export function useBlock<T>(
+  +  id: string
+  +): [block: Block<T>, transition: BlockTransition] {
+  ```
+
+### Patch Changes
+
+- Updated dependencies [60df5938]
+  - @dopt/javascript-common@2.0.0
+
 ## 1.4.2
 
 ### Patch Changes
