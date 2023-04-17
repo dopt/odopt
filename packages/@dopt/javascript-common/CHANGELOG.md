@@ -1,5 +1,16 @@
 # @dopt/javascript-common
 
+## 2.0.0
+
+### Major Changes
+
+- 60df5938: These packages have all been updated as a part of Dopt's v2.0.0 major launch. To read the relevant changelogs, see @dopt/react or @dopt/javascript if you're using the react or javascript SDKs. If you're using the blocks client, see the changelog for @dopt/blocks-javascript-client.
+
+### Patch Changes
+
+- Updated dependencies [60df5938]
+  - @dopt/block-api-types@1.0.0
+
 ## 1.4.5
 
 ### Patch Changes
