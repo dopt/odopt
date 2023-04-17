@@ -1,4 +1,4 @@
-import { DoptProvider } from '@dopt/react-old';
+import { DoptProvider } from '@dopt/react';
 import { useIdentifyUser } from '@/hooks';
 
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -16,7 +16,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ tour: 2 }}
+      flowVersions={{ tour: 3 }}
     >
       <Example />
     </DoptProvider>
