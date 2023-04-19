@@ -1,5 +1,11 @@
 # @dopt/javascript
 
+## 2.0.1
+
+### Patch Changes
+
+- 1d53d9a0: For `Block<T>` interface and class types, update to an optional `T = unknown` generic. This will allow consumers to reference `Block` without having to write out `Block<unknown>`. Also, update Dopt's getting-started-checklist example to reflect this change.
+
 ## 2.0.0
 
 ### Major Changes
@@ -38,7 +44,7 @@
   `block.subscribe(listener)` now calls your `listener` with the `block` instance rather than just a data representation. This means that you can now call the `field` accessor, use the `transition` function, and more, with the `subscribe` function.
 
   ```js
-  block.subscribe((changed) => changed.field("field-name"));
+  block.subscribe((changed) => changed.field('field-name'));
   ```
 
   ### Transitions
@@ -57,7 +63,7 @@
   The properties of the transition object are a function of the paths in the flow you’ve designed in Dopt. To flexibly accommodate for that, the block is generic with respect to the transitions associated with it.
 
   ```ts
-  const block = dopt.block<["edge-one", "edge-two"]>("edge-id");
+  const block = dopt.block<['edge-one', 'edge-two']>('edge-id');
   ```
 
   You can find examples of how to instantiate these blocks with generics at [app.dopt.com](https://app.dopt.com) when you select step blocks within a flow.
@@ -109,8 +115,8 @@
 
   ```js
   const blocks = flow.blocks();
-  blocks.forEach((block) => block.field("field-name"));
-  blocks.forEach((block) => block.transition("default"));
+  blocks.forEach((block) => block.field('field-name'));
+  blocks.forEach((block) => block.transition('default'));
   ```
 
   `flow.subscribe(listener)` now calls your `listener` with the `flow` instance rather than just a data representation. This means that you can now call the `blocks` accessor, access intent functions, and more with the `subscribe` function.

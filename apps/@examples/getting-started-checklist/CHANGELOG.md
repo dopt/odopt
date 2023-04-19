@@ -1,5 +1,13 @@
 # @examples/getting-started-checklist
 
+## 0.0.25
+
+### Patch Changes
+
+- 1d53d9a0: For `Block<T>` interface and class types, update to an optional `T = unknown` generic. This will allow consumers to reference `Block` without having to write out `Block<unknown>`. Also, update Dopt's getting-started-checklist example to reflect this change.
+- Updated dependencies [1d53d9a0]
+  - @dopt/react@2.0.1
+
 ## 0.0.24
 
 ### Patch Changes
