@@ -1,6 +1,6 @@
 {
   "name": "@dopt/please",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "A CLI for developing in monorepos - not building them",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/please",
