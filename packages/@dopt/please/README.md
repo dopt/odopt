@@ -4,27 +4,21 @@ A CLI for developing in monorepos - not building them
 
 ### Why
 
-Because developing in monorepos can be challenging. There are great tools for building them (e.g. [turbo](https://turborepo.org/), [rush](https://rushjs.io/), [gradle](https://gradle.org/), etc) but the experience of developing in them often involves lots of manual effort. A typical workflow for basic feature development in our application looked something like this:
+Because developing in monorepos can be challenging. There are great tools for building them (e.g. [turbo](https://turborepo.org/), [bazel](https://bazel.build/), [rush](https://rushjs.io/), [gradle](https://gradle.org/), etc) but the experience of developing in them often involves lots of manual effort.
 
-I need to spin up Service X and Service Y (no need for file-watchers, i'm not developing in these rn)
-I need to bring the up the app server and client (w/ file-watchers - I want them to recompile/reload on change)
+By developing, I mean, running/executing code. For example, consider our own experience at Dopt. A typical workflow for basic feature development in our application involved running commands across 10+ packages to start various services and their databases.
 
-This involved the following
+Depending on what you were focused on, certain packages would need to be started in different ways, e.g., w/ file-watchers versus without.
 
-1. Create a new tmux window, cd to Service X, run `pnpm run start`
-1. Create a new tmux window, cd to Service Y, run `pnpm run start`
-1. Create a new tmux window, cd to App Server, run `pnpm run dev`
-1. Create a new tmux window, cd to App Client, run `pnpm run dev`
+In practice, this meant lots of windows and lots of commands. A situation that made it easy to miss an error stack or an important log.
 
-I now have four terminals. I've not even started coding yet. I haven't opened the app in the browser. I need matrix-level monitors to observe the output of these commands while developing. What gives?!
+### Introducing `please`
 
-Introducing `please`. A concise CLI for running arbitrary package scripts on arbitrary packages with interleaved output. The above debacle is transofmred into the following command
+A concise CLI for running package scripts across packages with interleaved output. The above scenario was transofmred into the following
 
 ```
-please start:service-x,service-y dev:app-server,app-client
+please start:service-x,service-y,service-z dev:{app-*} up:{database-*}
 ```
-
-The end.
 
 ### Install
 
