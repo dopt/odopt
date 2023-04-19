@@ -85,7 +85,7 @@ export interface Field {
   value: APIField['value'];
 }
 
-export interface Block<T> {
+export interface Block<T = unknown> {
   type: APIBlock['type'];
   kind: APIBlock['kind'];
   uid: APIBlock['uid'];
@@ -186,7 +186,7 @@ export interface Flow {
   /**
    * Accessing blocks directly from a flow doesn't permit type-safety for block.transitioned.
    */
-  blocks: Block<unknown>[];
+  blocks: Block[];
 }
 
 /**
