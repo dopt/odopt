@@ -20,9 +20,9 @@ export function ChecklistPopover({
   inviteModalProps,
   addChartsModalProps,
 }: {
-  datasourceBlock: Block<unknown>;
-  chartsBlock: Block<unknown>;
-  shareBlock: Block<unknown>;
+  datasourceBlock: Block;
+  chartsBlock: Block;
+  shareBlock: Block;
   datasourceModalProps: ReturnType<typeof useDisclosure>;
   inviteModalProps: ReturnType<typeof useDisclosure>;
   addChartsModalProps: ReturnType<typeof useDisclosure>;
