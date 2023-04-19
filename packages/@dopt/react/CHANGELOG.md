@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+### Patch Changes
+
+- 1d53d9a0: For `Block<T>` interface and class types, update to an optional `T = unknown` generic. This will allow consumers to reference `Block` without having to write out `Block<unknown>`. Also, update Dopt's getting-started-checklist example to reflect this change.
+
 ## 2.0.0
 
 ### Major Changes
@@ -28,8 +34,8 @@ The properties of the transition object are a function of the paths in the flow 
 
 ```ts
 interface Block {
-  readonly kind: "block";
-  readonly type: "model";
+  readonly kind: 'block';
+  readonly type: 'model';
   readonly uid: string;
   readonly sid: string;
   readonly version: number;
@@ -37,7 +43,7 @@ interface Block {
     active: boolean;
     completed: boolean;
   };
-  getField: <V extends Field["value"]>(
+  getField: <V extends Field['value']>(
     name: string,
     defaultValue?: V
   ) => V | null;
@@ -48,8 +54,8 @@ interface Block {
 
 ```ts
 interface Block<T> {
-  kind: "block";
-  type: "model";
+  kind: 'block';
+  type: 'model';
   uid: string;
   sid: string;
   version: number;
@@ -61,7 +67,7 @@ interface Block<T> {
   transitioned: T extends [string, ...string[]]
     ? Record<T[number], boolean | undefined>
     : Record<string, boolean | undefined>;
-  field: <V extends Field["value"]>(name: string, defaultValue?: V) => V | null;
+  field: <V extends Field['value']>(name: string, defaultValue?: V) => V | null;
 }
 ```
 
@@ -118,7 +124,7 @@ Instead of the `BlockIntentions` returning an object containing a named `complet
 The `useBlock` hook is now optionally generic. This gives us a way to type the `transitioned` property, given that this data is a function of the flow you designed in Dopt.
 
 ```ts
-const [block, transition] = useBlock<["edge-one", "edge-two"]>("edge-id");
+const [block, transition] = useBlock<['edge-one', 'edge-two']>('edge-id');
 ```
 
 You can find examples of how to write a `useBlock` with generics at [app.dopt.com](https://app.dopt.com) when you select step blocks within a flow.

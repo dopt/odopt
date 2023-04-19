@@ -124,9 +124,9 @@ export class Flow {
    *
    * @returns An array of {@link Block} which are contained within this flow.
    */
-  get blocks(): Block<unknown>[] {
+  get blocks(): Block[] {
     const uids = this.flowBlocks.get(this.flow.uid) || [];
-    return uids?.map((uid) => this.createBlock<unknown>(uid)) || [];
+    return uids?.map((uid) => this.createBlock(uid)) || [];
   }
 
   private _intent(intent: FlowIntentParams['intent']) {
