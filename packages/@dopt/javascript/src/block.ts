@@ -23,7 +23,7 @@ export interface BlockProps {
   fieldMap: Map<Field['sid'], Field> | null;
 }
 
-export class Block<T> {
+export class Block<T = unknown> {
   private intent: BlockProps['intent'];
   private block: BlockProps['block'];
   private fieldMap: BlockProps['fieldMap'];
