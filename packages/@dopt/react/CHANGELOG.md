@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2
+
+### Patch Changes
+
+- e0c2bbe6: fixing lint
+
 ## 2.0.1
 
 ### Patch Changes
