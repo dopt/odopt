@@ -1,5 +1,11 @@
 # @dopt/javascript
 
+## 2.0.2
+
+### Patch Changes
+
+- 76103615: fixing formatting
+
 ## 2.0.1
 
 ### Patch Changes
