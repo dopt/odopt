@@ -22,7 +22,7 @@ this package e.g.
 Which allows for extension of configuration contained here e.g. in your package's `.prettierrc.js`
 
 ```typescript
-const { prettier } = require("@dopt/config");
+const { prettier } = require('@dopt/config');
 module.exports = {
   ...prettier,
 };
