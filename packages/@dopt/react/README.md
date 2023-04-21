@@ -45,17 +45,17 @@ To configure the Dopt provider you will need:
 You can initialize Dopt in your app by integrating the `<DoptProvider />` as follows:
 
 ```js
-import { DoptProvider } from "@dopt/react";
-import Application from "./application";
+import { DoptProvider } from '@dopt/react';
+import Application from './application';
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 ReactDOM.render(
   <DoptProvider
     userId={userId}
     apiKey={blocksAPIKey}
     flowVersions={{
-      "new-user-onboarding": 2,
-      "plan-upsell": 4,
+      'new-user-onboarding': 2,
+      'plan-upsell': 4,
     }}
   >
     <Application />
@@ -73,8 +73,8 @@ The SDK gives you access to two related objects: flows and blocks. Flows are ent
 Flow objects available through the SDK are represented by the following type definition:
 
 ```ts
-interface Flow<T = "flow"> {
-  readonly kind: "flow";
+interface Flow<T = 'flow'> {
+  readonly kind: 'flow';
   readonly type: T;
   readonly uid: string;
   readonly sid: string;
@@ -92,8 +92,8 @@ The states of a flow are 1:1 with the actions you can perform on a flow. Flows h
 
 ```ts
 interface Block {
-  readonly kind: "block";
-  readonly type: "model";
+  readonly kind: 'block';
+  readonly type: 'model';
   readonly uid: string;
   readonly sid: string;
   readonly version: number;
@@ -165,19 +165,19 @@ We offer analogous functionality through higher order components for those who a
 Using the [useBlock](./src/use-block.ts) hook:
 
 ```tsx
-import { useBlock } from "@dopt/react";
-import { Modal } from "@your-company/modal";
+import { useBlock } from '@dopt/react';
+import { Modal } from '@your-company/modal';
 
 export function Application() {
-  const [block, transition] = useBlock<["complete"]>(
-    "new-user-onboarding.twenty-llamas-attack"
+  const [block, transition] = useBlock<['complete']>(
+    'new-user-onboarding.twenty-llamas-attack'
   );
   return (
     <main>
       <Modal isOpen={block.state.active}>
         <h1>👏 Welcome to our app!</h1>
         <p>This is your onboarding experience!</p>
-        <button onClick={() => transition("complete")}>Close me</button>
+        <button onClick={() => transition('complete')}>Close me</button>
       </Modal>
     </main>
   );
@@ -189,11 +189,11 @@ export function Application() {
 Using the [useFlow](./src/use-flow.ts) hook:
 
 ```tsx
-import { useFlow } from "@dopt/react";
-import { Modal } from "@your-company/modal";
+import { useFlow } from '@dopt/react';
+import { Modal } from '@your-company/modal';
 
 export function Application() {
-  const [flow, intent] = useFlow("new-user-onboarding");
+  const [flow, intent] = useFlow('new-user-onboarding');
   return (
     <main>
       <Modal isOpen={flow.state.completed}>
