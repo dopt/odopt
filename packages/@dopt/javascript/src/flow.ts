@@ -70,7 +70,7 @@ export class Flow {
    * @returns The state of this instance.
    */
   get state(): FlowType['state'] {
-    return flowStore.getState()[this.flow.uid]?.state || this.flow.state;
+    return flowStore.getState()[this.flow.sid]?.state || this.flow.state;
   }
 
   /**
@@ -125,13 +125,17 @@ export class Flow {
    * @returns An array of {@link Block} which are contained within this flow.
    */
   get blocks(): Block[] {
-    const uids = this.flowBlocks.get(this.flow.uid) || [];
+    const uids = this.flowBlocks.get(this.flow.sid) || [];
     return uids?.map((uid) => this.createBlock(uid)) || [];
   }
 
   private _intent(intent: FlowIntentParams['intent']) {
     const { sid, version } = this.flow;
-    this.intent({ sid, version, intent });
+    const storedFlow = flowStore.getState()[this.flow.sid];
+
+    if (storedFlow) {
+      this.intent({ sid, version, intent });
+    }
   }
 
   /**
