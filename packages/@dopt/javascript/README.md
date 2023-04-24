@@ -155,8 +155,6 @@ You can use the `subscribe()` method on the flow and block classes to listen for
 const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
 
 block.subscribe((block: Block) =>
-  // The block passed to the listener is a data object.
-  // To access the full class, use `dopt.block(block.uid)`.
   console.log(`Block ${block.sid} has updated`, block)
 );
 ```
@@ -164,9 +162,7 @@ block.subscribe((block: Block) =>
 ```js
 const flow = dopt.flow('new-user-onboarding');
 
-flow.subscribe((flow: FlowType) =>
-  // The flow passed to the listener is a data object.
-  // To access the full class, use `dopt.flow(flow.uid)`.
+flow.subscribe((flow: Flow) =>
   console.log(`Flow ${flow.sid} has updated`, flow)
 );
 ```
@@ -207,8 +203,8 @@ dopt.initialized().then(() => {
 
   // subscribe to changes in your blocks's state
   // you can also unsubscribe the listener by calling the returned function
-  const unsubscribe = block.subscribe(({ active }: BlockType) => {
-    if (!active) {
+  const unsubscribe = block.subscribe((block: Block) => {
+    if (!block.state.active) {
       userOnboardingModal.hide();
     } else {
       userOnboardingModal.render().show();

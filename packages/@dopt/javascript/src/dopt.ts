@@ -66,12 +66,12 @@ export class Dopt {
 
   private _setup: boolean;
   private _setupPromise: Promise<void>;
-  private _flowPromises: Map<Flow['uid'], PromiseWithResolver>;
+  private _flowPromises: Map<Flow['sid'], PromiseWithResolver>;
 
   private logger: Logger;
 
   private blocksApi: ReturnType<typeof blocksApi>;
-  private flowBlocks: Map<Flow['uid'], Block['uid'][]>;
+  private flowBlocks: Map<Flow['sid'], Block['uid'][]>;
   private blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
   private socket: Socket | undefined;
   private blockUidBySid: Map<Block['sid'], Block['uid']>;
@@ -163,9 +163,9 @@ export class Dopt {
     return true;
   }
 
-  private async flowInitialized(uid: Flow['uid']): Promise<boolean> {
+  private async flowInitialized(sid: Flow['sid']): Promise<boolean> {
     await this._setupPromise;
-    const flowPromise = this._flowPromises.get(uid);
+    const flowPromise = this._flowPromises.get(sid);
     return flowPromise ? flowPromise.promise : false;
   }
 
@@ -274,14 +274,14 @@ export class Dopt {
           );
         }
 
-        this._flowPromises.set(flow.uid, flowPromise);
+        this._flowPromises.set(flow.sid, flowPromise);
 
         // initialize the flow store
         flowStore.setState(() => ({
-          [flow.uid]: flow,
+          [flow.sid]: flow,
         }));
 
-        this.flowBlocks.set(flow.uid, flow.blocks?.map(({ uid }) => uid) || []);
+        this.flowBlocks.set(flow.sid, flow.blocks?.map(({ uid }) => uid) || []);
 
         flow.blocks?.forEach((block) => {
           // initialize the block store
@@ -314,7 +314,7 @@ export class Dopt {
 
     const updateFlowState = (flow: Flow): void => {
       flowStore.setState(() => ({
-        [flow.uid]: flow,
+        [flow.sid]: flow,
       }));
 
       /**
@@ -323,7 +323,7 @@ export class Dopt {
        * as flow state updates. We resolve those respective
        * promises here.
        */
-      const flowPromise = this._flowPromises.get(flow.uid);
+      const flowPromise = this._flowPromises.get(flow.sid);
       flowPromise && flowPromise.resolver(true);
     };
 
@@ -342,9 +342,9 @@ export class Dopt {
       });
     });
 
-    Object.entries(flowVersions).forEach(([uid, version]) => {
-      this.socket?.emit('watch:flow', uid, version);
-      this.socket?.on(`${uid}_${version}`, (flow: Flow) => {
+    Object.entries(flowVersions).forEach(([sid, version]) => {
+      this.socket?.emit('watch:flow', sid, version);
+      this.socket?.on(`${sid}_${version}`, (flow: Flow) => {
         updateFlowState(flow);
       });
     });
@@ -427,7 +427,7 @@ export class Dopt {
         intent,
         flow,
         flowBlocks,
-        flowPromise: this.flowInitialized(flow.uid),
+        flowPromise: this.flowInitialized(flow.sid),
         createBlock: this.block.bind(this),
       });
     });
