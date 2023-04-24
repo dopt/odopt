@@ -11,7 +11,7 @@ const prettier = {
     {
       files: '*.md',
       options: {
-        singleQuote: false,
+        singleQuote: true,
         quoteProps: 'preserve',
       },
     },
