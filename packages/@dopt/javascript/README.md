@@ -49,8 +49,8 @@ const dopt = new Dopt({
   blocksAPIKey,
   userId,
   flowVersions: {
-    "new-user-onboarding": 3,
-    "plan-upsell": 4,
+    'new-user-onboarding': 3,
+    'plan-upsell': 4,
   },
 });
 ```
@@ -62,8 +62,8 @@ The SDK gives you access to two related objects: flows and blocks. Flows are ent
 Flow objects available through the SDK are represented by the following type definition:
 
 ```ts
-interface Flow<T = "flow"> {
-  readonly kind: "flow";
+interface Flow<T = 'flow'> {
+  readonly kind: 'flow';
   readonly type: T;
   readonly uid: string;
   readonly sid: string;
@@ -81,8 +81,8 @@ The states of a flow are 1:1 with the actions you can perform on a flow. Flows h
 
 ```ts
 interface Block {
-  readonly kind: "block";
-  readonly type: "model";
+  readonly kind: 'block';
+  readonly type: 'model';
   readonly uid: string;
   readonly sid: string;
   readonly version: number;
@@ -115,7 +115,7 @@ blocks.forEach((block) => console.log(block));
 You can access individual blocks via the `block(identifier: string)` method:
 
 ```js
-const block = dopt.block("new-user-onboarding.twenty-llamas-attack");
+const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
 console.log(
   "I'm the 'twenty-llamas-attack' block in version 3 of the 'new-user-onboarding' flow",
   block
@@ -133,7 +133,7 @@ flows.forEach((flow) => console.log(flow));
 Additionally, you can access individual flows via the `flow(id: string, version: number)` method:
 
 ```js
-const flow = dopt.flow("new-user-onboarding");
+const flow = dopt.flow('new-user-onboarding');
 console.log("I'm version 3 of the 'new-user-onboarding' flow", flow);
 ```
 
@@ -143,7 +143,7 @@ The `dopt` object exposes an `initialized` method which you can use to guard cal
 dopt.initialized().then(() => {
   // Safely access block(s) or flow(s)!
   const blocks = dopt.blocks();
-  const block = dopt.block("new-user-onboarding.twenty-llamas-attack");
+  const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
 });
 ```
 
@@ -152,21 +152,17 @@ dopt.initialized().then(() => {
 You can use the `subscribe()` method on the flow and block classes to listen for changes to then underlying object:
 
 ```js
-const block = dopt.block("new-user-onboarding.twenty-llamas-attack");
+const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
 
 block.subscribe((block: Block) =>
-  // The block passed to the listener is a data object.
-  // To access the full class, use `dopt.block(block.uid)`.
   console.log(`Block ${block.sid} has updated`, block)
 );
 ```
 
 ```js
-const flow = dopt.flow("new-user-onboarding");
+const flow = dopt.flow('new-user-onboarding');
 
-flow.subscribe((flow: FlowType) =>
-  // The flow passed to the listener is a data object.
-  // To access the full class, use `dopt.flow(flow.uid)`.
+flow.subscribe((flow: Flow) =>
   console.log(`Flow ${flow.sid} has updated`, flow)
 );
 ```
@@ -192,23 +188,23 @@ If you would instead like to wait for specific flows, you can use the `flow.init
 ### Example usage
 
 ```tsx
-import { NewUserOnboarding } from "@/onboarding/new-user";
+import { NewUserOnboarding } from '@/onboarding/new-user';
 
 const dopt = new Dopt({
   apiKey,
   userId,
-  flowVersions: { "new-user-onboarding": 3 },
+  flowVersions: { 'new-user-onboarding': 3 },
 });
 
 dopt.initialized().then(() => {
   const userOnboardingModal = new NewUserOnboardingModal();
 
-  const block = dopt.block("new-user-onboarding.twenty-llamas-attack");
+  const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
 
   // subscribe to changes in your blocks's state
   // you can also unsubscribe the listener by calling the returned function
-  const unsubscribe = block.subscribe(({ active }: BlockType) => {
-    if (!active) {
+  const unsubscribe = block.subscribe((block: Block) => {
+    if (!block.state.active) {
       userOnboardingModal.hide();
     } else {
       userOnboardingModal.render().show();
@@ -219,7 +215,7 @@ dopt.initialized().then(() => {
   if (block.state.active) {
     userOnboardingModal.render().show();
     // complete the block where appropriate
-    userOnboardingModal.on("done", block.transition("complete"));
+    userOnboardingModal.on('done', block.transition('complete'));
   }
 });
 ```
@@ -232,8 +228,8 @@ The SDK accepts a `logLevel` parameter that allows you to set the minimum log le
 const dopt = new Dopt({
   apiKey,
   userId,
-  logLevel: "warn", // 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent'
-  flowVersions: { "new-user-onboarding": 3 },
+  logLevel: 'warn', // 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent'
+  flowVersions: { 'new-user-onboarding': 3 },
 });
 ```
 
