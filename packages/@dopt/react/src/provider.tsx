@@ -365,25 +365,25 @@ export function DoptProvider(props: ProviderConfig) {
       if (blocks[uid]) {
         const block = blocks[uid];
 
-        if (optimisticUpdates) {
-          updateBlockState({
-            [uid]: {
-              ...block,
-              state: {
-                active: false,
-                exited: true,
-                entered: true,
-              },
-            },
-          });
-        }
-
         blockIntent({
           uid,
           sid: block.sid,
           version: block.version,
           transitions,
         });
+
+        if (optimisticUpdates && block.state.active) {
+          updateBlockState({
+            [uid]: {
+              ...block,
+              state: {
+                entered: true,
+                exited: true,
+                active: false,
+              },
+            },
+          });
+        }
       }
     };
   }, [fetching, blockIntent, blocks]);
