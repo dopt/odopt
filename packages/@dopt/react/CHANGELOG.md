@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.3
+
+### Patch Changes
+
+- bfb03f6c: Ensure that optimisticUpdates only trigger when blocks are active. This ensures that blocks don't artificially get marked as `entered: true` and `exited: true`. These state fields were newly introduced in 2.0.0. Additionally, update `@dopt/javascript` README.md to reflect changes to state management and subscribe in v2.0.0.
+
 ## 2.0.2
 
 ### Patch Changes
