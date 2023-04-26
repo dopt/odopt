@@ -31,10 +31,10 @@ pnpm add @dopt/logger
 You can initialize Dopt in your app by integrating the `Logger` as follows:
 
 ```js
-import { Logger } from "@dopt/logger";
+import { Logger } from '@dopt/logger';
 
-const log = new Logger({ logLevel: "debug", prefix: ` <Any Prefix> ` });
-log.info("This is informational log");
+const log = new Logger({ logLevel: 'debug', prefix: ` <Any Prefix> ` });
+log.info('This is informational log');
 ```
 
 **Note:** For debugging purposes, you can add a `logLevel` prop to `Logger` which sets the minimum log level printed to the console. This accepts the following values: `'trace'`, `'debug'` `'info'`, `'warn'`, `'error'`, `'silent'` (default) .
