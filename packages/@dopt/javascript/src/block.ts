@@ -153,18 +153,26 @@ export class Block<T = unknown> {
       ? [T[number], ...T[number][]]
       : BlockTransitions
   ) {
-    if (this.optimisticUpdates) {
-      const storedBlock = blockStore.getState()[this.block.uid];
-      blockStore.setState({
-        [this.block.uid]: {
-          ...storedBlock,
-          state: { active: false, exited: true, entered: true },
-        },
-      });
-    }
-
     const { uid, sid, version } = this.block;
-    this.intent({ uid, sid, version, transitions: input });
+
+    const storedBlock = blockStore.getState()[this.block.uid];
+
+    if (storedBlock) {
+      this.intent({ uid, sid, version, transitions: input });
+
+      if (this.optimisticUpdates && storedBlock.state.active) {
+        blockStore.setState({
+          [this.block.uid]: {
+            ...storedBlock,
+            state: {
+              entered: true,
+              exited: true,
+              active: false,
+            },
+          },
+        });
+      }
+    }
   }
 
   /**
