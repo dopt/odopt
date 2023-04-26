@@ -73,7 +73,7 @@ export function DoptProvider(props: ProviderConfig) {
   );
 
   const [fetching, setFetching] = useState<boolean>(true);
-  const [socketReady, setSocketReady] = useState<boolean>(false);
+  const [socket, setSocket] = useState<ReturnType<typeof setupSocket>>();
 
   const [flowStatuses, setFlowStatuses] = useState<
     Record<APIFlow['sid'], FlowStatus>
@@ -118,14 +118,6 @@ export function DoptProvider(props: ProviderConfig) {
       }),
     [userId, apiKey, groupId]
   );
-
-  /*
-   * Instantiate the socket, used to connect to the Blocks Service
-   *
-   */
-  const socket = useMemo(() => {
-    return setupSocket({ apiKey, userId, log, urlPrefix: URL_PREFIX, groupId });
-  }, [apiKey, userId, groupId]);
 
   useEffect(() => {
     // Avoid any fetching until the user is defined
@@ -255,20 +247,39 @@ export function DoptProvider(props: ProviderConfig) {
   );
 
   useEffect(() => {
-    if (!socket) {
-      return;
-    }
-    socket.on('ready', () => {
-      setSocketReady(true);
+    const _socket = setupSocket({
+      apiKey,
+      userId,
+      groupId,
+      log,
+      urlPrefix: URL_PREFIX,
     });
-  }, [socket]);
+
+    if (!_socket) {
+      return () => {};
+    }
+
+    _socket.on('ready', () => {
+      log.debug(
+        `Socket is ready for user ${userId}; group ${groupId}; flows ${Object.keys(
+          flowVersions
+        ).join(' ')}`
+      );
+      setSocket(_socket);
+    });
+
+    return () => {
+      log.debug(
+        `Closing socket for user ${userId}; group ${groupId}; flows ${Object.keys(
+          flowVersions
+        ).join(' ')}`
+      );
+      _socket.close();
+    };
+  }, [apiKey, userId, groupId]);
 
   useEffect(() => {
     if (!socket) {
-      return;
-    }
-
-    if (!socketReady) {
       return;
     }
 
@@ -312,11 +323,10 @@ export function DoptProvider(props: ProviderConfig) {
     JSON.stringify(Object.keys(blocks).sort()),
     JSON.stringify(Object.keys(flows).sort()),
     socket,
-    socketReady,
   ]);
 
   useEffect(() => {
-    if (!fetching && socketReady) {
+    if (!fetching && socket) {
       setFlowStatuses(
         Object.values(flows).reduce((statuses, flow) => {
           let pending = false;
@@ -354,7 +364,7 @@ export function DoptProvider(props: ProviderConfig) {
         }, {} as Record<APIFlow['sid'], FlowStatus>)
       );
     }
-  }, [socketReady, fetching]);
+  }, [socket, fetching]);
 
   const blockIntention: BlockTransitionHandler = useMemo(() => {
     if (fetching) {
