@@ -51,6 +51,8 @@ export function setupSocket({
       log.error(
         'Disconnection was initiated by the server, something went wrong.'
       );
+    } else if (reason === 'io client disconnect') {
+      log.debug('Disconnection initiated by the client.');
     } else {
       log.debug('Socket reconnecting automatically.');
     }
