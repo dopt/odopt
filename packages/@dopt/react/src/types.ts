@@ -71,9 +71,19 @@ export interface ProviderConfig {
    * optimistically update the client before hearing back that the change
    * has been committed.
    *
-   * Within {@link DoptProvider}, this defaults to `true`.
+   * Within {@link DoptProvider}, this property defaults to `true`.
    */
   optimisticUpdates?: boolean;
+  /**
+   * A duration in seconds indicating how long the provider should wait after
+   * the page has been backgrounded before closing its connection with Dopt.
+   * The provider will re-open the connection again when the page is foregrounded.
+   *
+   * Within {@link DoptProvider}, this property defaults to `60` (seconds).
+   * The maximum allowed value is `3600` (seconds) which is 1 hour.
+   * The minimum allowed value is `1` (second).
+   */
+  backgroundTimeout?: number;
   /**
    * The children React elements of the DoptProvider.
    */

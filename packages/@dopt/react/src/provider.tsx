@@ -54,6 +54,7 @@ export function DoptProvider(props: ProviderConfig) {
     flowVersions,
     children,
     logLevel,
+    backgroundTimeout,
     optimisticUpdates = true,
   } = props;
 
@@ -119,69 +120,73 @@ export function DoptProvider(props: ProviderConfig) {
     [userId, apiKey, groupId]
   );
 
+  const fetchFlows = useCallback(async () => {
+    /*
+     * Fetch all Flows based on the **in parallel**
+     * provided (Flow['sid'], Flow['version'])
+     * tuples (via the `flowVersions` props)
+     */
+    const flows = await Promise.all(
+      Object.entries(flowVersions).map(([sid, version]) =>
+        getFlow({ sid, version })
+      )
+    );
+    const _flows: Flows = {};
+    const _flowBlocks: typeof flowBlocks = new Map();
+
+    const _blocks: Blocks = {};
+    const _blockFields: typeof blockFields = new Map();
+    const _blockUidBySid: typeof blockUidBySid = new Map();
+
+    flows.forEach((flow) => {
+      _flows[flow.sid] = flow;
+
+      _flowBlocks.set(flow.sid, flow.blocks?.map(({ uid }) => uid) || []);
+
+      flow.blocks?.forEach((block) => {
+        _blocks[block.uid] = block;
+
+        _blockUidBySid.set(block.sid, block.uid);
+
+        _blockFields.set(
+          block.uid,
+          block.fields.reduce((map, field) => {
+            return map.set(field.sid, field);
+          }, new Map<APIField['sid'], APIField>())
+        );
+      });
+    });
+
+    setFlows(_flows);
+    setFlowBlocks(_flowBlocks);
+
+    setBlocks(_blocks);
+    setBlockFields(_blockFields);
+    setBlockSidMap(_blockUidBySid);
+
+    log.info('Flows & Blocks fetched successfully');
+  }, [flowVersions]);
+
   useEffect(() => {
     // Avoid any fetching until the user is defined
     if (!userId) {
       return;
     }
 
-    /*
-     * Fetch all Flows based on the **in parallel**
-     * provided (Flow['sid'], Flow['version'])
-     * tuples (via the `flowVersions` props)
-     */
-    Promise.all(
-      Object.entries(flowVersions).map(([sid, version]) =>
-        getFlow({ sid, version })
-      )
-    )
-      .then((flows) => {
-        const _flows: Flows = {};
-        const _flowBlocks: typeof flowBlocks = new Map();
-
-        const _blocks: Blocks = {};
-        const _blockFields: typeof blockFields = new Map();
-        const _blockUidBySid: typeof blockUidBySid = new Map();
-
-        flows.forEach((flow) => {
-          _flows[flow.sid] = flow;
-
-          _flowBlocks.set(flow.sid, flow.blocks?.map(({ uid }) => uid) || []);
-
-          flow.blocks?.forEach((block) => {
-            _blocks[block.uid] = block;
-
-            _blockUidBySid.set(block.sid, block.uid);
-
-            _blockFields.set(
-              block.uid,
-              block.fields.reduce((map, field) => {
-                return map.set(field.sid, field);
-              }, new Map<APIField['sid'], APIField>())
-            );
-          });
-        });
-
-        setFlows(_flows);
-        setFlowBlocks(_flowBlocks);
-
-        setBlocks(_blocks);
-        setBlockFields(_blockFields);
-        setBlockSidMap(_blockUidBySid);
-
+    fetchFlows()
+      .then(() => {
         /*
          * If we've made it here we can safely progress i.e. the
-         * SDK has fetched correctly.
+         * SDK has fetched its initial state correctly.
          */
         setFetching(false);
-
-        log.info('Flows & Blocks fetching successful');
       })
-      .catch((error) => {
-        log.error(`
-            An error occurred while fetching blocks for the
-            flow versions specified: \`${JSON.stringify(flowVersions)}\`
-          `);
+      .catch(() => {
+        log.error(
+          `An error occurred while initializing the flow versions specified: \`${JSON.stringify(
+            flowVersions
+          )}\``
+        );
       });
   }, [JSON.stringify(flowVersions), userId, groupId]);
 
@@ -255,11 +260,14 @@ export function DoptProvider(props: ProviderConfig) {
       urlPrefix: URL_PREFIX,
     });
 
+    /**
+     * A socket won't be created if the userId isn't provided.
+     */
     if (!_socket) {
       return () => {};
     }
 
-    _socket.on('ready', () => {
+    _socket.once('ready', () => {
       log.debug(
         `Socket is ready for user ${userId}; group ${groupId}; flows ${Object.keys(
           flowVersions
@@ -274,17 +282,71 @@ export function DoptProvider(props: ProviderConfig) {
           flowVersions
         ).join(' ')}`
       );
+      _socket.off();
       _socket.close();
     };
   }, [apiKey, userId, groupId]);
 
   useEffect(() => {
     if (!socket) {
-      return;
+      return () => {};
     }
 
-    if (!(Object.keys(blocks).length > 0) || !(Object.keys(flows).length > 0)) {
-      return;
+    /**
+     * See ProviderConfig: the timeout has a default of 60s,
+     * a maximum of 3600s (1 hour) and a minimum of 1s.
+     */
+    const timeout =
+      backgroundTimeout == null
+        ? 60
+        : backgroundTimeout > 3600
+        ? 3600
+        : backgroundTimeout < 1
+        ? 1
+        : backgroundTimeout;
+
+    let socketTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    const listener = () => {
+      if (document.hidden) {
+        /**
+         * We disconnect the socket after a timeout
+         * to debounce switching back and forth between
+         * visible and hidden.
+         */
+        socketTimeout = setTimeout(() => {
+          log.debug('Closing socket after page backgrounded.');
+          socket.disconnect();
+          socketTimeout = null;
+        }, timeout * 1000);
+      } else {
+        if (socketTimeout != null) {
+          clearTimeout(socketTimeout);
+          socketTimeout = null;
+        }
+
+        if (socket.disconnected) {
+          socket.connect();
+          socket.once('ready', () => {
+            log.debug('Socket ready after page foregrounded.');
+            fetchFlows();
+          });
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', listener);
+
+    () => document.removeEventListener('visibilitychange', listener);
+  }, [socket, backgroundTimeout]);
+
+  useEffect(() => {
+    if (
+      !socket ||
+      Object.keys(blocks).length === 0 ||
+      Object.keys(flows).length === 0
+    ) {
+      return () => {};
     }
 
     socket.on('blocks', blocksSocketCallback);
@@ -310,7 +372,7 @@ export function DoptProvider(props: ProviderConfig) {
 
       if (socket.listeners(`${uid}_${version}`).length > 1) {
         log.error(
-          `Socket listeners to \`${uid}_${version}\` are growing unexpectedly.`
+          `Socket listeners for block \`${uid}_${version}\` are growing unexpectedly.`
         );
       }
     }
@@ -318,7 +380,14 @@ export function DoptProvider(props: ProviderConfig) {
     Object.values(flows).forEach(({ sid, version }) => {
       socket.emit('watch:flow', sid, version);
       socket.on(`${sid}_${version}`, updateFlowState);
+      if (socket.listeners(`${sid}_${version}`).length > 1) {
+        log.error(
+          `Socket listeners for flow \`${sid}_${version}\` are growing unexpectedly.`
+        );
+      }
     });
+
+    return () => socket.off();
   }, [
     JSON.stringify(Object.keys(blocks).sort()),
     JSON.stringify(Object.keys(flows).sort()),
