@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.4
+
+### Patch Changes
+
+- 263062e5a: Make sure that the socket connection with Dopt closes when the provider is unmounted. Otherwise, we will leak sockets on each mount / unmount.
+
 ## 2.0.3
 
 ### Patch Changes
