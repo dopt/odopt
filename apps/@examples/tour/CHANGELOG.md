@@ -1,5 +1,12 @@
 # @examples/tour
 
+## 0.0.19
+
+### Patch Changes
+
+- Updated dependencies [263062e5a]
+  - @dopt/react@2.0.4
+
 ## 0.0.18
 
 ### Patch Changes
