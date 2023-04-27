@@ -1,5 +1,12 @@
 # @examples/embedded-tip
 
+## 0.0.22
+
+### Patch Changes
+
+- Updated dependencies [263062e5a]
+  - @dopt/react@2.0.4
+
 ## 0.0.21
 
 ### Patch Changes
