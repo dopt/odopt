@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.0.5
+
+### Patch Changes
+
+- aba3913d6: Update @dopt/react to disconnect and reconnect sockets when the document's visibility changes (i.e. the page is backgrounded). When the page is foregrounded again, make sure to fetch the appropriate flows to synchronize states. Lastly, make sure to turn off sockets in addition to closing them when sockets are initialized or when events are added. This ensures that we don't leak socket connections or trigger invalid handlers. Also, add an optionally configurable backgroundTimeout property which lets users configure how they'd like to debounce the page backgrounding / foregrounding. This defaults to 60 seconds.
+
+  Update @dopt/javascript-common to provide an appropriate log message when the client disconnects manually (today, this is only done in @dopt/react).
+
+- Updated dependencies [aba3913d6]
+  - @dopt/javascript-common@2.0.1
+
 ## 2.0.4
 
 ### Patch Changes

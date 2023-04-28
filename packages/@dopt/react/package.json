@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": false,
   "description": "An SDK for accessing and transitioning block state in Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/react",
