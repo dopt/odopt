@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.6
+
+### Patch Changes
+
+- Update @dopt/javascript-common to provide an appropriate log message when the client disconnects manually (today, this is only done in @dopt/react).
+
+- Updated dependencies [aba3913d6]
+  - @dopt/javascript-common@2.0.1
+
 ## 2.0.4
 
 ### Patch Changes
