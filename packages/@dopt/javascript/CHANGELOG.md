@@ -1,5 +1,12 @@
 # @dopt/javascript
 
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [aba3913d6]
+  - @dopt/javascript-common@2.0.1
+
 ## 2.0.3
 
 ### Patch Changes
