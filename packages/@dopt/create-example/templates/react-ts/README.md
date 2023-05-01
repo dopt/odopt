@@ -6,7 +6,7 @@ An example [React](https://react.dev/) [TypeScript](https://www.typescriptlang.o
 
 ```sh
 # npm
-npm create @dopt/example --template react-ts
+npm create @dopt/example -- --template react-ts
 
 # Yarn
 yarn create @dopt/example --template react-ts
@@ -30,4 +30,4 @@ yarn run dev
 pnpm run dev
 ```
 
-Navigate to [http://localhost:5173/] in your browser.
+Navigate to [http://localhost:5173/](http://localhost:5173/) in your browser.

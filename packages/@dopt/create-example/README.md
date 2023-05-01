@@ -27,7 +27,7 @@ You can specify the path to initialize the example project and the template to u
 
 ```sh
 # npm
-npm create @dopt/example path-to-project --template template-name
+npm create @dopt/example path-to-project -- --template template-name
 
 # Yarn
 yarn create @dopt/example path-to-project --template template-name
@@ -40,7 +40,7 @@ Some templates can also take in arguments for enhanced functionality:
 
 ```sh
 # npm
-npm create @dopt/example --template react --templateArgs arg1,arg2
+npm create @dopt/example -- --template react --templateArgs arg1,arg2
 
 # Yarn
 yarn create @dopt/example --template react --templateArgs arg1,arg2
@@ -51,6 +51,7 @@ pnpm create @dopt/example --template react --templateArgs arg1,arg2
 
 ## Templates
 
-See [./templates] for the list of templates.
+See the [`templates`](./templates) directory for the list of templates.
 
 - [`react`](./templates/react)
+- [`react-ts`](./templates/react-ts)
