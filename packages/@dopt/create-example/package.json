@@ -2,8 +2,15 @@
   "name": "@dopt/create-example",
   "version": "0.0.0",
   "description": "A CLI for generating Dopt example projects",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/create-example",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/create-example"
+  },
   "license": "MIT",
-  "private": true,
+  "private": false,
+  "openSource": true,
   "type": "module",
   "main": "./dist/index.cjs",
   "bin": {
@@ -27,7 +34,8 @@
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/create-example\""
   },
   "files": [
     "dist",
