@@ -1,0 +1,68 @@
+{
+  "name": "@dopt/create-example",
+  "version": "0.0.1",
+  "description": "A CLI for generating Dopt example projects",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/create-example",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/create-example"
+  },
+  "license": "MIT",
+  "private": false,
+  "openSource": true,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "bin": {
+    "create-example": "./cli.js"
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "unbuild",
+    "clean": "shx rm -rf ./dist",
+    "dev": "pnpm run build --watch src",
+    "format": "prettier --w .",
+    "formatcheck": "pnpm exec check-formatting",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/create-example\""
+  },
+  "files": [
+    "dist",
+    "templates",
+    "cli.js"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@dopt/check-formatting": "workspace:*",
+    "@dopt/config": "workspace:*",
+    "@dopt/tsup": "workspace:*",
+    "@types/jest": "29.5.1",
+    "@types/minimist": "1.2.2",
+    "@typescript-eslint/eslint-plugin": "5.58.0",
+    "@typescript-eslint/parser": "5.58.0",
+    "esbuild": "0.17.16",
+    "eslint": "8.38.0",
+    "eslint-plugin-react": "7.32.2",
+    "prettier": "2.8.7",
+    "shx": "0.3.4",
+    "tsup": "6.7.0",
+    "typescript": "4.9.5",
+    "unbuild": "1.2.0"
+  },
+  "dependencies": {
+    "minimist": "1.2.7"
+  }
+}
