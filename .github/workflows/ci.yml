@@ -4,22 +4,22 @@ on:
     branches:
       - main
     paths:
-      - 'packages/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'pnpm-workspace.yaml'
-      - '.github/workflows/*'
+      - "packages/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/*"
   pull_request:
     type:
       - opened
       - synchronize
       - reopened
     paths:
-      - 'packages/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'pnpm-workspace.yaml'
-      - '.github/workflows/*'
+      - "packages/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/*"
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -34,6 +34,16 @@ jobs:
         uses: pnpm/action-setup@v2.2.2
         with:
           version: 7.9.3
+
+      - name: Read .nvmrc
+        id: node_version
+        run: echo NODE_VERSION=$(cat .nvmrc) >> $GITHUB_OUTPUT
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Restore Turbo Cache
         id: turbo-cache
