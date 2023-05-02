@@ -50,7 +50,7 @@
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
-    "@types/jest": "29.5.0",
+    "@types/jest": "29.5.1",
     "@typescript-eslint/eslint-plugin": "5.58.0",
     "@typescript-eslint/parser": "5.58.0",
     "esbuild": "0.17.16",
