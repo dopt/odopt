@@ -1,0 +1,70 @@
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template:
+    'header' auto
+    'main' 1fr;
+  padding: 32px;
+}
+
+header {
+  grid-area: header;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 128px;
+}
+
+.dot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  background: #c8c8c8;
+  transition: scale 0.5s ease;
+}
+
+.dot.active {
+  background: #7047eb;
+  cursor: pointer;
+  animation-name: pulse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.dot.active:hover {
+  scale: 1.2;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: none, none;
+  }
+  30% {
+    box-shadow: 0 0 0 8px #a991f3, 0 0 0 16px #e2dafb;
+  }
+  100% {
+    box-shadow: 0 0 0 16px transparent, 0 0 0 24px transparent;
+  }
+}
