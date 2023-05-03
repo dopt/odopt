@@ -37,7 +37,7 @@
   ],
   "devDependencies": {
     "@dopt/config": "workspace:*",
-    "@types/node": "18.15.11",
+    "@types/node": "18.16.3",
     "esbuild": "0.17.16",
     "eslint": "8.38.0",
     "shx": "0.3.4",

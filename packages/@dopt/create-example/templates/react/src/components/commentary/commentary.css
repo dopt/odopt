@@ -1,0 +1,16 @@
+.commentary {
+  min-height: calc(var(--line-height) * 3);
+}
+
+.commentary-p {
+  height: 0;
+  text-align: center;
+  opacity: 0;
+  margin: 0;
+  transition: opacity 0.5s ease;
+}
+
+.commentary-p.active {
+  height: auto;
+  opacity: 1;
+}
