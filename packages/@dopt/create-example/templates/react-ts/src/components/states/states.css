@@ -1,0 +1,14 @@
+.states {
+  font-family: var(--font-family-mono);
+  line-height: normal;
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f6f6f6;
+}
+
+.states-title {
+  font-family: var(--font-family-sans-serif);
+  font-size: 1rem;
+  margin: 0;
+}

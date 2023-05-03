@@ -1,0 +1,19 @@
+:root {
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, avenir next,
+    avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto,
+    arial, sans-serif;
+  --font-family-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
+    monospace;
+  --line-height: 1.5em;
+
+  font-family: var(--font-family-sans-serif);
+  line-height: var(--line-height);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
