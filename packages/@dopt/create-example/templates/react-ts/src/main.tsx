@@ -10,7 +10,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       apiKey="$BLOCKS_API_KEY"
       userId="$USER_ID"
       flowVersions={{
-        $FLOW_ID: 1,
+        // prettier-ignore
+        '$FLOW_ID': 1,
       }}
     >
       <App />
