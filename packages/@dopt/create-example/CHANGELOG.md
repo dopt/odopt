@@ -1,5 +1,11 @@
 # @dopt/create-example
 
+## 0.0.4
+
+### Patch Changes
+
+- 4ac4de62a: support url safe flow ids for react and react-ts templates
+
 ## 0.0.3
 
 ### Patch Changes
