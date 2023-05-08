@@ -15,7 +15,7 @@ export function useIdentifyUser(properties: Properties) {
   const [usersClient] = useState<IdentifyApi>(
     new IdentifyApi(
       new Configuration({
-        apiKey: import.meta.env.VITE_DOPT_USERS_API_KEY,
+        apiKey: import.meta.env.FVITE_DOPT_USERS_API_KEY,
       })
     )
   );
