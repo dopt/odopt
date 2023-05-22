@@ -5,8 +5,6 @@ import { Gate } from './gate';
 
 import { Boolean as BooleanType } from './boolean';
 import { Model } from './model';
-import { Set } from './set';
-import { Element } from './element';
 import { Webhook } from './webhook';
 import { Nary } from './base';
 
@@ -14,8 +12,6 @@ export * from './entry';
 export * from './finish';
 export * from './boolean';
 export * from './model';
-export * from './set';
-export * from './element';
 export * from './webhook';
 export * from './gate';
 
@@ -24,8 +20,6 @@ export const BLOCK_TYPES = {
   boolean: BooleanType.properties.type.const,
   model: Model.properties.type.const,
   finish: Finish.properties.type.const,
-  set: Set.properties.type.const,
-  element: Element.properties.type.const,
   webhook: Webhook.properties.type.const,
   gate: Gate.properties.type.const,
 } as const;
@@ -35,8 +29,6 @@ export const BlockTypes = Type.Union([
   BooleanType.properties.type,
   Model.properties.type,
   Finish.properties.type,
-  Set.properties.type,
-  Element.properties.type,
   Webhook.properties.type,
   Gate.properties.type,
 ]);
@@ -48,8 +40,6 @@ export const Block = Type.Union(
     Type.Ref(Entry),
     Type.Ref(BooleanType),
     Type.Ref(Finish),
-    Type.Ref(Set),
-    Type.Ref(Element),
     Type.Ref(Webhook),
     Type.Ref(Gate),
   ],
@@ -64,25 +54,11 @@ export const Block = Type.Union(
  *
  * Step (`model`) blocks also have:
  * - `fields`: an array of Field values
- *
- * Group (`set`) blocks also have:
- * - `blocks`, `size`, and `ordered` values.
- *
- * Only `model` and `set` blocks are exposed to client-side SDKs.
  */
-export type Block =
-  | Finish
-  | Entry
-  | BooleanType
-  | Model
-  | Set
-  | Element
-  | Webhook
-  | Gate;
+export type Block = Finish | Entry | BooleanType | Model | Webhook | Gate;
 
 export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
-export const SET_ELEMENTS: [BlockTypes] = [Model.properties.type.const];
 
 function getDefaultTransition(props: Pick<Nary, 'transitioned'>): {
   default: boolean;
@@ -117,7 +93,6 @@ export function getDefaultBlock(
   const { transitioned } = { transitioned: props.transitioned || {} };
   switch (props.type) {
     case 'model':
-    case 'element':
       return {
         kind: 'block',
         fields: [],
@@ -125,16 +100,6 @@ export function getDefaultBlock(
         state: defaultState,
         ...props,
         type: 'model',
-      };
-    case 'set':
-      return {
-        ...props,
-        type: 'set',
-        kind: 'block',
-        size: 0,
-        blocks: [],
-        state: defaultState,
-        transitioned: getDefaultTransition({ transitioned }),
       };
     case 'webhook':
       return {

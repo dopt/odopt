@@ -3,7 +3,6 @@ import { Finish, FinishType, FinishTypeConst } from './finish';
 import { Entry, EntryType, EntryTypeConst } from './entry';
 import { Boolean, BooleanType, BooleanTypeConst } from './boolean';
 import { Model, ModelType, ModelTypeConst } from './model';
-import { Set, SetType, SetTypeConst } from './set';
 import { Webhook, WebhookType, WebhookTypeConst } from './webhook';
 import { BaseType } from './base';
 import { Gate, GateType, GateTypeConst } from './gate';
@@ -12,7 +11,6 @@ export * from './entry';
 export * from './finish';
 export * from './boolean';
 export * from './model';
-export * from './set';
 export * from './webhook';
 
 export { BlockState, Base as BaseBlock } from './base';
@@ -22,7 +20,6 @@ export const BLOCK_TYPES = {
   boolean: BooleanTypeConst,
   model: ModelTypeConst,
   finish: FinishTypeConst,
-  set: SetTypeConst,
   webhook: WebhookTypeConst,
   gate: GateTypeConst,
 } as const;
@@ -32,7 +29,6 @@ export const BlockTypes = Type.Union([
   BooleanType,
   ModelType,
   FinishType,
-  SetType,
   WebhookType,
   GateType,
 ]);
@@ -44,7 +40,6 @@ export const Block = Type.Union(
     Type.Ref(Entry),
     Type.Ref(Boolean),
     Type.Ref(Finish),
-    Type.Ref(Set),
     Type.Ref(Webhook),
     Type.Ref(Gate),
   ],
@@ -59,32 +54,11 @@ export const Block = Type.Union(
  *
  * Step (`model`) blocks also have:
  * - `fields`: an array of Field values
- *
- * Group (`set`) blocks also have:
- * - `blocks`, `size`, and `ordered` values.
- *
- * Only `model` and `set` blocks are exposed to client-side SDKs.
  */
 export type Block = Static<typeof Block>;
 
-/**
- * This variable is a wrapper type for a step (`model`) block.
- * This wrapper defines all possible children of group (`set`) blocks.
- * Currently, only step blocks can be contained within group blocks.
- */
-export const Element = Type.Union([Type.Ref(Model)]);
-
-/**
- * This type is a wrapper type for a step (`model`) block.
- * This wrapper defines all possible children of group (`set`) blocks.
- * Currently, only step blocks can be contained within group blocks.
- */
-export type Element = Static<typeof Element>;
-
 export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
-
-export const SET_ELEMENTS: [BlockTypes] = [ModelTypeConst];
 
 export function getDefaultBlock({
   uid,
@@ -115,8 +89,6 @@ export function getDefaultBlock({
   switch (type) {
     case ModelTypeConst:
       return { ...base, type: ModelTypeConst, fields: [] };
-    case SetTypeConst:
-      return { ...base, type: SetTypeConst, size: 0, blocks: [] };
     case BooleanTypeConst:
       return { ...base, type: BooleanTypeConst, expression: async () => true };
     case WebhookTypeConst:
