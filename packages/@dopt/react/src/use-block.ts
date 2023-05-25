@@ -60,7 +60,8 @@ export function useBlock<T>(
   );
 
   const block = useMemo(
-    () => createBlock<T>({ uid, fetching, blocks, blockFields }),
+    () =>
+      createBlock<T>({ uid, fetching, blocks, blockFields, blockIntention }),
     [uid, fetching, blocks, blockFields]
   );
 
