@@ -40,6 +40,7 @@ export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
     flows,
     flowBlocks,
     blocks,
+    blockIntention,
     flowIntention,
     log,
     blockFields,
@@ -92,7 +93,7 @@ export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
       fetching || !flows[sid] ? getDefaultFlowState(sid, version) : flows[sid];
 
     const updatedBlocks = (flowBlocks.get(sid) || []).map((uid) =>
-      createBlock({ uid, fetching, blocks, blockFields })
+      createBlock({ uid, fetching, blocks, blockFields, blockIntention })
     );
 
     return { ...updatedFlow, blocks: updatedBlocks };
