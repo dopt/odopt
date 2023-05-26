@@ -96,6 +96,15 @@ export interface Block<T = unknown> {
    */
   state: APIBlock['state'];
   /**
+   * A function correspond to an intent-based API for
+   * signaling state transitions on a block. This function
+   * has side effects: it changes the state of other blocks
+   * and the flow as well. For example, transitioning a block
+   * activates the next block and transitioning the last block
+   * finishes a flow.
+   */
+  transition: BlockTransition<T>;
+  /**
    * The up-to-date transitioned values for this {@link Block} instance.
    *
    * Contains the edges which have been transitioned for this instance.
