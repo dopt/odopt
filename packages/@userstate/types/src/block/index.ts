@@ -5,6 +5,7 @@ import { Gate } from './gate';
 
 import { Boolean as BooleanType } from './boolean';
 import { Model } from './model';
+import { Modal } from './modal';
 import { Webhook } from './webhook';
 import { Nary } from './base';
 
@@ -12,6 +13,7 @@ export * from './entry';
 export * from './finish';
 export * from './boolean';
 export * from './model';
+export * from './modal';
 export * from './webhook';
 export * from './gate';
 
@@ -22,6 +24,7 @@ export const BLOCK_TYPES = {
   finish: Finish.properties.type.const,
   webhook: Webhook.properties.type.const,
   gate: Gate.properties.type.const,
+  modal: Modal.properties.type.const,
 } as const;
 
 export const BlockTypes = Type.Union([
@@ -31,6 +34,7 @@ export const BlockTypes = Type.Union([
   Finish.properties.type,
   Webhook.properties.type,
   Gate.properties.type,
+  Modal.properties.type,
 ]);
 export type BlockTypes = Static<typeof BlockTypes>;
 
@@ -42,6 +46,7 @@ export const Block = Type.Union(
     Type.Ref(Finish),
     Type.Ref(Webhook),
     Type.Ref(Gate),
+    Type.Ref(Modal),
   ],
   { $id: 'Block' }
 );
@@ -55,10 +60,23 @@ export const Block = Type.Union(
  * Step (`model`) blocks also have:
  * - `fields`: an array of Field values
  */
-export type Block = Finish | Entry | BooleanType | Model | Webhook | Gate;
+export type Block =
+  | Finish
+  | Entry
+  | BooleanType
+  | Model
+  | Webhook
+  | Gate
+  | Modal;
 
 export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
+
+export function isExternalBlock(type: BlockTypes) {
+  return type === BLOCK_TYPES.model || type === BLOCK_TYPES.modal;
+}
+
+export type ExternalBlock = Model | Modal;
 
 function getDefaultTransition(props: Pick<Nary, 'transitioned'>): {
   default: boolean;
@@ -75,9 +93,6 @@ function getDefaultTransition(props: Pick<Nary, 'transitioned'>): {
   return defaultTransitionValue;
 }
 
-// TODO JM - the type should *not* be string but unforunately we
-// duplicate block type as an enum in prisma, binding the
-// related, but ideally independent, implementations together
 export function getDefaultBlock(
   props: Partial<Omit<Nary, 'kind'>> & { type: BlockTypes } & Pick<
       Nary,
@@ -152,6 +167,18 @@ export function getDefaultBlock(
           ...transitioned,
         },
         expression: async () => false,
+      };
+    case 'modal':
+      return {
+        kind: 'block',
+        fields: [],
+        ...props,
+        state: defaultState,
+        transitioned: {
+          ...{ complete: false, dismiss: false },
+          ...transitioned,
+        },
+        type: 'modal',
       };
     default:
       throw new Error(`Factory not implemented for ${props.type}`);

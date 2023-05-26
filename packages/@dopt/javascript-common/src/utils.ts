@@ -1,4 +1,4 @@
-import { Block, Flow } from '@dopt/block-api-types';
+import { Block, Flow, BLOCK_API_TYPES } from '@dopt/block-api-types';
 
 export function getDefaultBlockState(
   uid: string,
@@ -7,7 +7,7 @@ export function getDefaultBlockState(
 ): Block {
   return {
     kind: 'block',
-    type: 'model',
+    type: BLOCK_API_TYPES.custom,
     uid,
     sid,
     version,

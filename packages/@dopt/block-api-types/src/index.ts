@@ -4,12 +4,11 @@ import {
   Fields as UserStateTypeFields,
   Field as UserStateTypeField,
   FlowIntent as UserStateTypeFlowIntent,
+  BlockTypes,
+  BLOCK_TYPES,
 } from '@userstate/types';
 
 import { Type, Static } from '@sinclair/typebox';
-
-export const Model = UserStateTypeModel;
-export type Model = Static<typeof Model>;
 
 export const Fields = UserStateTypeFields;
 export type Fields = UserStateTypeFields;
@@ -17,8 +16,32 @@ export type Fields = UserStateTypeFields;
 export const Field = UserStateTypeField;
 export type Field = UserStateTypeField;
 
-export const Block = Model;
-export type Block = Model;
+export const BLOCK_API_TYPES = {
+  custom: 'custom' as const,
+  modal: 'modal' as const,
+};
+
+export const Block = Type.Object(
+  {
+    ...UserStateTypeModel.properties,
+    type: Type.Union([
+      Type.Literal(BLOCK_API_TYPES.custom),
+      Type.Literal(BLOCK_API_TYPES.modal),
+    ]),
+  },
+  { $id: 'Block' }
+);
+export type Block = Static<typeof Block>;
+
+export function getBlockApiType(type: BlockTypes) {
+  if (type === BLOCK_TYPES.model) {
+    return BLOCK_API_TYPES.custom;
+  } else if (type === BLOCK_TYPES.modal) {
+    return BLOCK_API_TYPES.modal;
+  }
+
+  throw new Error(`${type} is not a supported block type for the API`);
+}
 
 export const FlowIntent = UserStateTypeFlowIntent;
 export type FlowIntent = UserStateTypeFlowIntent;
@@ -32,10 +55,6 @@ export const Flow = Type.Object(
 );
 
 export type Flow = Static<typeof Flow>;
-
-export const BLOCK_TYPES = {
-  model: Model.properties.type.const,
-} as const;
 
 export const Transitions = Type.Object({
   transitions: Type.Array(Type.String(), { minItems: 1, uniqueItems: true }),
