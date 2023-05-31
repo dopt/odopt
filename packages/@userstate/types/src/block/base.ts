@@ -10,6 +10,7 @@ export const Base = Type.Object({
     entered: Type.Boolean(),
     exited: Type.Boolean(),
   }),
+  containerUid: Type.Optional(Type.String()),
 });
 export type Base = Static<typeof Base>;
 
