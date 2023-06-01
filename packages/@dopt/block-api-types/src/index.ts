@@ -19,25 +19,35 @@ export type Field = UserStateTypeField;
 export const BLOCK_API_TYPES = {
   custom: 'custom' as const,
   modal: 'modal' as const,
+  checklist: 'checklist' as const,
+  checklistItem: 'checklistItem' as const,
 };
 
 export const Block = Type.Object(
   {
     ...UserStateTypeModel.properties,
-    type: Type.Union([
-      Type.Literal(BLOCK_API_TYPES.custom),
-      Type.Literal(BLOCK_API_TYPES.modal),
-    ]),
+    type: Type.Union(
+      /**
+       * Iteration over Object.values works here
+       * because each value is declared as a constant
+       * in BLOCK_API_TYPES above.
+       */
+      Object.values(BLOCK_API_TYPES).map((value) => Type.Literal(value))
+    ),
   },
   { $id: 'Block' }
 );
 export type Block = Static<typeof Block>;
 
-export function getBlockApiType(type: BlockTypes) {
+export function getBlockApiType(type: BlockTypes): Block['type'] {
   if (type === BLOCK_TYPES.model) {
     return BLOCK_API_TYPES.custom;
   } else if (type === BLOCK_TYPES.modal) {
     return BLOCK_API_TYPES.modal;
+  } else if (type === BLOCK_TYPES.checklist) {
+    return BLOCK_API_TYPES.checklist;
+  } else if (type === BLOCK_TYPES.checklistItem) {
+    return BLOCK_API_TYPES.checklistItem;
   }
 
   throw new Error(`${type} is not a supported block type for the API`);

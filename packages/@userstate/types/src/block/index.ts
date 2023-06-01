@@ -8,6 +8,8 @@ import { Model } from './model';
 import { Modal } from './modal';
 import { Webhook } from './webhook';
 import { Nary } from './base';
+import { ContainerStart, ContainerEnd } from './container';
+import { Checklist, ChecklistItem } from './checklist';
 
 export * from './entry';
 export * from './finish';
@@ -16,6 +18,8 @@ export * from './model';
 export * from './modal';
 export * from './webhook';
 export * from './gate';
+export * from './checklist';
+export * from './container';
 
 export const BLOCK_TYPES = {
   entry: Entry.properties.type.const,
@@ -25,6 +29,10 @@ export const BLOCK_TYPES = {
   webhook: Webhook.properties.type.const,
   gate: Gate.properties.type.const,
   modal: Modal.properties.type.const,
+  containerStart: ContainerStart.properties.type.const,
+  containerEnd: ContainerEnd.properties.type.const,
+  checklist: Checklist.properties.type.const,
+  checklistItem: ChecklistItem.properties.type.const,
 } as const;
 
 export const BlockTypes = Type.Union([
@@ -35,6 +43,10 @@ export const BlockTypes = Type.Union([
   Webhook.properties.type,
   Gate.properties.type,
   Modal.properties.type,
+  ContainerStart.properties.type,
+  ContainerEnd.properties.type,
+  Checklist.properties.type,
+  ChecklistItem.properties.type,
 ]);
 export type BlockTypes = Static<typeof BlockTypes>;
 
@@ -47,18 +59,17 @@ export const Block = Type.Union(
     Type.Ref(Webhook),
     Type.Ref(Gate),
     Type.Ref(Modal),
+    Type.Ref(ContainerStart),
+    Type.Ref(ContainerEnd),
+    Type.Ref(Checklist),
+    Type.Ref(ChecklistItem),
   ],
   { $id: 'Block' }
 );
 
 /**
  * This union type encapsulates all allowed block types.
- * In general, blocks have:
- * - `state`: whether the block is active or completed
- * - `uid`: the identifier for the block
- *
- * Step (`model`) blocks also have:
- * - `fields`: an array of Field values
+ * It is a type alias which matches the Type.Union typebox type.
  */
 export type Block =
   | Finish
@@ -67,16 +78,25 @@ export type Block =
   | Model
   | Webhook
   | Gate
-  | Modal;
+  | Modal
+  | ContainerStart
+  | ContainerEnd
+  | Checklist
+  | ChecklistItem;
 
 export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
 
 export function isExternalBlock(type: BlockTypes) {
-  return type === BLOCK_TYPES.model || type === BLOCK_TYPES.modal;
+  return (
+    type === BLOCK_TYPES.model ||
+    type === BLOCK_TYPES.modal ||
+    type === BLOCK_TYPES.checklist ||
+    type === BLOCK_TYPES.checklistItem
+  );
 }
 
-export type ExternalBlock = Model | Modal;
+export type ExternalBlock = Model | Modal | Checklist | ChecklistItem;
 
 function getDefaultTransition(props: Pick<Nary, 'transitioned'>): {
   default: boolean;
@@ -93,10 +113,24 @@ function getDefaultTransition(props: Pick<Nary, 'transitioned'>): {
   return defaultTransitionValue;
 }
 
+function getContainerUid({
+  containerUid,
+  type,
+}: {
+  containerUid?: string | undefined;
+  type: BlockTypes;
+}): string {
+  if (!containerUid) {
+    throw new Error(`containerUid must be defined for type: ${type}`);
+  }
+
+  return containerUid;
+}
+
 export function getDefaultBlock(
   props: Partial<Omit<Nary, 'kind'>> & { type: BlockTypes } & Pick<
       Nary,
-      'version' | 'uid' | 'sid'
+      'version' | 'uid' | 'sid' | 'containerUid'
     >
 ): Block {
   const defaultState = {
@@ -144,7 +178,7 @@ export function getDefaultBlock(
       return {
         ...props,
         state: defaultState,
-        transitioned: getDefaultTransition({ transitioned }),
+        transitioned: {},
         type: 'finish',
         kind: 'block',
       };
@@ -180,7 +214,48 @@ export function getDefaultBlock(
         },
         type: 'modal',
       };
-    default:
-      throw new Error(`Factory not implemented for ${props.type}`);
+    case 'checklist':
+      return {
+        kind: 'block',
+        fields: [],
+        ...props,
+        state: defaultState,
+        transitioned: {
+          ...{ complete: false, dismiss: false },
+          ...transitioned,
+        },
+        type: 'checklist',
+      };
+    case 'checklistItem':
+      return {
+        kind: 'block',
+        fields: [],
+        ...props,
+        state: defaultState,
+        transitioned: {
+          ...{ complete: false, skip: false },
+          ...transitioned,
+        },
+        containerUid: getContainerUid(props),
+        type: 'checklistItem',
+      };
+    case 'containerEnd':
+      return {
+        kind: 'block',
+        ...props,
+        state: defaultState,
+        transitioned: {},
+        containerUid: getContainerUid(props),
+        type: 'containerEnd',
+      };
+    case 'containerStart':
+      return {
+        kind: 'block',
+        ...props,
+        state: defaultState,
+        transitioned: getDefaultTransition({ transitioned }),
+        containerUid: getContainerUid(props),
+        type: 'containerStart',
+      };
   }
 }
