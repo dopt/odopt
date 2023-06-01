@@ -75,3 +75,10 @@ export type Field = Static<typeof Field>;
 
 export const Fields = Type.Array(Field);
 export type Fields = Static<typeof Fields>;
+
+export type ComponentFieldDefinition<Keys> = {
+  displayName: string;
+  sid: Keys;
+  description: string;
+  type: FIELD_VALUE_LITERALS;
+};
