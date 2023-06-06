@@ -4,15 +4,21 @@ import { Static, Type } from '@sinclair/typebox';
  * The supported types for a field's value: string, number, and boolean.
  * This type also includes null for when the field's value is empty.
  */
-export type FIELD_VALUE_UNION_TYPE = string | number | boolean | null;
+export type FIELD_VALUE_UNION_TYPE =
+  | string
+  | number
+  | boolean
+  | null
+  | 'richText';
 /**
  * The literal strings corresponding to field value types, "string", "number", and "boolean".
  */
-export type FIELD_VALUE_LITERALS = 'string' | 'number' | 'boolean';
+export type FIELD_VALUE_LITERALS = 'string' | 'number' | 'boolean' | 'richText';
 export const FIELD_VALUE_LITERALS: Record<string, FIELD_VALUE_LITERALS> = {
   string: 'string',
   boolean: 'boolean',
   number: 'number',
+  richText: 'richText',
 };
 
 const BaseField = Type.Object(
@@ -35,6 +41,18 @@ export const StringField = Type.Intersect(
   { $id: 'StringField' }
 );
 export type StringField = Static<typeof StringField>;
+
+export const RichTextField = Type.Intersect(
+  [
+    BaseField,
+    Type.Object({
+      type: Type.Readonly(Type.Literal(FIELD_VALUE_LITERALS.richText)),
+      value: Type.Readonly(Type.Union([Type.String(), Type.Null()])),
+    }),
+  ],
+  { $id: 'RichTextField' }
+);
+export type RichTextField = Static<typeof RichTextField>;
 
 export const NumberField = Type.Intersect(
   [
