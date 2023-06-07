@@ -99,5 +99,4 @@ export type ComponentFieldDefinition<Keys = string> = {
   sid: Keys;
   description: string;
   type: FIELD_VALUE_LITERALS;
-  defaultValue?: FIELD_VALUE_UNION_TYPE;
 };
