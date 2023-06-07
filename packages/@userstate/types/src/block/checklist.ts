@@ -105,6 +105,5 @@ export const ChecklistItemFieldDefinitions: ComponentFieldDefinition<ChecklistIt
       sid: 'display-index',
       description: "The checklist item's display index",
       type: 'number',
-      defaultValue: 0,
     },
   ];
