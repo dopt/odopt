@@ -1,5 +1,7 @@
 import * as classes from './styles';
 
+import { Portal } from '@dopt/react-portal';
+
 import {
   forwardRef,
   type ForwardedRef,
@@ -28,18 +30,20 @@ function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div
-        className={cls([
-          getThemeClassName({
-            theme,
-            className: [classes.root({ css }), theme],
-          }),
-          modalClassName,
-          className,
-        ])}
-        {...restProps}
-        ref={ref}
-      />
+      <Portal>
+        <div
+          className={cls([
+            getThemeClassName({
+              theme,
+              className: [classes.root({ css }), theme],
+            }),
+            modalClassName,
+            className,
+          ])}
+          {...restProps}
+          ref={ref}
+        />
+      </Portal>
     </ThemeContext.Provider>
   );
 }
