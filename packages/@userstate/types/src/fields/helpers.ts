@@ -22,6 +22,9 @@ export const fieldFromString = (
         return value as boolean;
       case 'string':
         return value as string;
+
+      case 'richText':
+        return value as string;
     }
   } catch (e) {
     throw new Error(`value: ${string} cannot be coerced into ${type}`);
@@ -56,6 +59,12 @@ export const castField = ({
         type: 'string',
         value: value as string | null,
       };
+    case 'richText':
+      return {
+        sid,
+        type: 'richText',
+        value: value as string | null,
+      };
     default:
       throw new Error(
         `Attempting to cast field with type ${type} which is not supported`
@@ -70,7 +79,10 @@ export function isValueOfType(
   if (value == null || value === 'null') {
     return true;
   }
-  if (typeof value === type) {
+  if (
+    typeof value === type ||
+    (type === 'richText' && typeof value === 'string')
+  ) {
     return true;
   }
   return false;
