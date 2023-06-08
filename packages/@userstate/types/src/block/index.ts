@@ -10,6 +10,7 @@ import { Webhook } from './webhook';
 import { Nary } from './base';
 import { ContainerStart, ContainerEnd } from './container';
 import { Checklist, ChecklistItem } from './checklist';
+import { Tour, TourItem } from './tour';
 
 export * from './entry';
 export * from './finish';
@@ -19,6 +20,7 @@ export * from './modal';
 export * from './webhook';
 export * from './gate';
 export * from './checklist';
+export * from './tour';
 export * from './container';
 
 export const BLOCK_TYPES = {
@@ -33,6 +35,8 @@ export const BLOCK_TYPES = {
   containerEnd: ContainerEnd.properties.type.const,
   checklist: Checklist.properties.type.const,
   checklistItem: ChecklistItem.properties.type.const,
+  tour: Tour.properties.type.const,
+  tourItem: TourItem.properties.type.const,
 } as const;
 
 export const BlockTypes = Type.Union([
@@ -47,6 +51,8 @@ export const BlockTypes = Type.Union([
   ContainerEnd.properties.type,
   Checklist.properties.type,
   ChecklistItem.properties.type,
+  Tour.properties.type,
+  TourItem.properties.type,
 ]);
 export type BlockTypes = Static<typeof BlockTypes>;
 
@@ -63,6 +69,8 @@ export const Block = Type.Union(
     Type.Ref(ContainerEnd),
     Type.Ref(Checklist),
     Type.Ref(ChecklistItem),
+    Type.Ref(Tour),
+    Type.Ref(TourItem),
   ],
   { $id: 'Block' }
 );
@@ -82,7 +90,9 @@ export type Block =
   | ContainerStart
   | ContainerEnd
   | Checklist
-  | ChecklistItem;
+  | ChecklistItem
+  | Tour
+  | TourItem;
 
 export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
@@ -92,11 +102,19 @@ export function isExternalBlock(type: BlockTypes) {
     type === BLOCK_TYPES.model ||
     type === BLOCK_TYPES.modal ||
     type === BLOCK_TYPES.checklist ||
-    type === BLOCK_TYPES.checklistItem
+    type === BLOCK_TYPES.checklistItem ||
+    type === BLOCK_TYPES.tour ||
+    type === BLOCK_TYPES.tourItem
   );
 }
 
-export type ExternalBlock = Model | Modal | Checklist | ChecklistItem;
+export type ExternalBlock =
+  | Model
+  | Modal
+  | Checklist
+  | ChecklistItem
+  | Tour
+  | TourItem;
 
 function getDefaultTransition(props: Pick<Nary, 'transitioned'>): {
   default: boolean;
@@ -238,6 +256,31 @@ export function getDefaultBlock(
         },
         containerUid: getContainerUid(props),
         type: 'checklistItem',
+      };
+    case 'tour':
+      return {
+        kind: 'block',
+        fields: [],
+        ...props,
+        state: defaultState,
+        transitioned: {
+          ...{ complete: false, dismiss: false },
+          ...transitioned,
+        },
+        type: 'tour',
+      };
+    case 'tourItem':
+      return {
+        kind: 'block',
+        fields: [],
+        ...props,
+        state: defaultState,
+        transitioned: {
+          ...{ next: false, previous: false },
+          ...transitioned,
+        },
+        containerUid: getContainerUid(props),
+        type: 'tourItem',
       };
     case 'containerEnd':
       return {
