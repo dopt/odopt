@@ -1,0 +1,45 @@
+{
+  "name": "@dopt/react-checklist-sandbox",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "echo \"@dopt/react-checklist-sandbox does not require build\"; exit 0;",
+    "dev": "vite",
+    "_dev": "concurrently \"pnpm --filter @dopt/react-checklist dev\" \"vite\"",
+    "format": "prettier --w .",
+    "formatcheck": "pnpm exec check-formatting",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "☝️ required package scripts": ""
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@dopt/check-formatting": "workspace:*",
+    "@dopt/config": "workspace:*",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.1",
+    "@typescript-eslint/eslint-plugin": "5.58.0",
+    "@typescript-eslint/parser": "5.58.0",
+    "@vitejs/plugin-react": "4.0.0",
+    "concurrently": "8.0.1",
+    "eslint": "8.38.0",
+    "eslint-plugin-react": "7.32.2",
+    "prettier": "2.8.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "4.9.5",
+    "vite": "4.3.3"
+  },
+  "dependencies": {
+    "@dopt/react-checklist": "workspace:*"
+  }
+}
