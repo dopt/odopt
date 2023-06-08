@@ -21,6 +21,8 @@ export const BLOCK_API_TYPES = {
   modal: 'modal' as const,
   checklist: 'checklist' as const,
   checklistItem: 'checklistItem' as const,
+  tour: 'tour' as const,
+  tourItem: 'tourItem' as const,
 };
 
 export const Block = Type.Object(
@@ -48,6 +50,10 @@ export function getBlockApiType(type: BlockTypes): Block['type'] {
     return BLOCK_API_TYPES.checklist;
   } else if (type === BLOCK_TYPES.checklistItem) {
     return BLOCK_API_TYPES.checklistItem;
+  } else if (type === BLOCK_TYPES.tour) {
+    return BLOCK_API_TYPES.tour;
+  } else if (type === BLOCK_TYPES.tourItem) {
+    return BLOCK_API_TYPES.tourItem;
   }
 
   throw new Error(`${type} is not a supported block type for the API`);
