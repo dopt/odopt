@@ -9,11 +9,20 @@ import {
   cloneElement,
   createContext,
   useContext,
-  useRef,
-  useState,
   forwardRef,
   MouseEventHandler,
 } from 'react';
+
+import {
+  useFloating,
+  autoUpdate,
+  offset,
+  flip,
+  shift,
+  ReferenceType,
+  Side,
+  Alignment,
+} from '@floating-ui/react-dom';
 
 import { type ComponentPropsWithRef } from '@dopt/react-component';
 
@@ -27,16 +36,22 @@ import {
 
 import type { TourItem } from '@dopt/semantic-data-layer-tour';
 import { Portal } from '@dopt/react-portal';
-import { usePosition, Placement, Alignment } from '@dopt/react-utilities';
+//import { usePosition, Placement, Alignment } from '@dopt/react-utilities';
 
 export interface TourItemContext {
-  anchor: HTMLDivElement | null;
-  setAnchor: React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
+  anchor: React.MutableRefObject<ReferenceType | null>;
+  setAnchor: (node: ReferenceType | null) => void;
+  floating: React.MutableRefObject<HTMLElement | null>;
+  setFloating: (node: HTMLElement | null) => void;
+  floatingStyles: React.CSSProperties;
 }
 
 const TourItemContext = createContext<TourItemContext>({
-  anchor: null,
+  anchor: { current: null },
   setAnchor: () => {},
+  floating: { current: null },
+  setFloating: () => {},
+  floatingStyles: {},
 });
 
 export interface TourItemProps extends PropsWithChildren, StyleProps {}
@@ -44,13 +59,19 @@ export interface TourItemProps extends PropsWithChildren, StyleProps {}
 function TourItem(props: TourItemProps) {
   const { theme, children } = props;
 
-  const [anchor, setAnchor] = useState<TourItemContext['anchor']>(null);
+  const { refs, floatingStyles } = useFloating({
+    middleware: [offset(10), flip(), shift()],
+    whileElementsMounted: autoUpdate,
+  });
 
   return (
     <TourItemContext.Provider
       value={{
-        anchor,
-        setAnchor,
+        anchor: refs.reference,
+        setAnchor: refs.setReference,
+        floating: refs.floating,
+        setFloating: refs.setFloating,
+        floatingStyles,
       }}
     >
       <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
@@ -211,14 +232,10 @@ export interface TourItemAnchorProps extends StyleProps {
 function TourItemAnchor(props: TourItemAnchorProps) {
   const { setAnchor } = useContext(TourItemContext);
 
-  const anchorRef = useRef(null);
+  let anchorElement = Children.only(props.children);
 
-  setAnchor(anchorRef.current);
-
-  let anchor = Children.only(props.children);
-
-  return cloneElement(anchor, {
-    ref: anchorRef,
+  return cloneElement(anchorElement, {
+    ref: setAnchor,
   });
 }
 
@@ -226,8 +243,8 @@ export interface TourPopoverProps
   extends ComponentPropsWithRef<'div'>,
     StyleProps {
   open?: boolean;
-  placement?: Placement;
-  alignment?: Alignment;
+  position?: Side;
+  alignment?: Alignment | 'center';
 }
 
 const popoverClassName = `${classNameRoot}__popover` as const;
@@ -238,15 +255,13 @@ function TourPopover(props: TourPopoverProps) {
     theme: injectedTheme,
     className,
     children,
+    position = 'top',
+    alignment = 'center',
     open,
-    placement = 'top',
-    alignment = 'left',
     ...restProps
   } = props;
 
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  const { anchor } = useContext(TourItemContext);
+  const { setFloating, floatingStyles } = useContext(TourItemContext);
 
   const theme = useTheme(injectedTheme);
 
@@ -254,20 +269,10 @@ function TourPopover(props: TourPopoverProps) {
     return null;
   }
 
-  const position = usePosition({
-    anchor,
-    element: popoverRef.current,
-    placement,
-    alignment,
-  });
-
   return (
     <Portal>
       <div
-        style={{
-          top: position?.top,
-          left: position?.left,
-        }}
+        style={floatingStyles}
         className={cls([
           getThemeClassName({
             theme,
@@ -277,7 +282,7 @@ function TourPopover(props: TourPopoverProps) {
           className,
         ])}
         {...restProps}
-        ref={popoverRef}
+        ref={setFloating}
       >
         {children}
       </div>
