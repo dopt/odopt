@@ -50,9 +50,9 @@
     "@dopt/config": "workspace:*",
     "@dopt/rollup": "workspace:*",
     "@dopt/users-api-manifest": "workspace:*",
-    "@rollup/plugin-typescript": "11.1.0",
+    "@rollup/plugin-typescript": "11.1.1",
     "@types/request": "^2.48.8",
-    "rollup": "3.20.2",
+    "rollup": "3.25.1",
     "shx": "0.3.4",
     "tslib": "^2.4.0",
     "typescript": "4.9.5"
