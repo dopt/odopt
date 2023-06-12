@@ -137,6 +137,14 @@ export interface Block<T = unknown> {
    * the `defaultValue` is returned if provided. Otherwise, `null` is returned.
    */
   field: <V extends Field['value']>(name: string, defaultValue?: V) => V | null;
+  /**
+   * If a block is contained within another block, for example
+   * a "checklistItem" within a "checklist", this property
+   * will point to the parent "checklist" block's uid.
+   *
+   * Otherwise, this property will be undefined.
+   */
+  containerUid?: APIBlock['containerUid'];
 }
 
 /**
@@ -237,4 +245,24 @@ export interface FlowIntent {
    * Sets all {@link Block['state']['active']} to false
    */
   finish: () => void | undefined;
+}
+
+/**
+ * A container is a block which encapsulates other blocks.
+ * For example, a "checklist" encapsulates its children.
+ *
+ * A container extends {@link Block} and has all the
+ * properties that a block has. Calling the transition
+ * function on the container transitions the parent block.
+ *
+ * A container also has children which are also of type
+ * {@link Block} and are contained within the parent block.
+ * These children all have {@link Block['containerUid']}
+ * pointing to the parent's {@link Block['uid']}.
+ */
+export interface Container extends Block {
+  /**
+   * Accessing children directly from a container doesn't permit type-safety for block.transitioned.
+   */
+  children: Block[];
 }
