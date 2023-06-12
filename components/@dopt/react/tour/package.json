@@ -55,10 +55,10 @@
   },
   "dependencies": {
     "@dopt/react-component": "workspace:*",
-    "@dopt/react-utilities": "workspace:*",
     "@dopt/react-portal": "workspace:*",
-    "@dopt/semantic-data-layer-tour": "workspace:*",
     "@dopt/react-theme": "workspace:*",
+    "@dopt/semantic-data-layer-tour": "workspace:*",
+    "@floating-ui/react-dom": "2.0.0",
     "@stitches/core": "1.2.8"
   }
 }
