@@ -8,7 +8,7 @@ import { createBlock } from './create-sdk-block';
 /**
  * A React hook for accessing a flow's state and
  * methods corresponding to an intent-based API for manipulating
- * said state.
+ * flow state.
  *
  * @example
  * ```tsx
@@ -30,7 +30,7 @@ import { createBlock } from './create-sdk-block';
  * ```
  *
  * @param sid - {@link Flow['sid']}
- * @returns [{@link Flow}, {@link FlowIntent}] the state of the flow and methods to manipulate said state
+ * @returns [{@link Flow}, {@link FlowIntent}] the state of the flow and methods to manipulate flow state
  *
  */
 
