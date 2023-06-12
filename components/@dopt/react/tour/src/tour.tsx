@@ -3,14 +3,15 @@ import { classNameRoot } from './const';
 
 import {
   Children,
-  ForwardedRef,
-  PropsWithChildren,
-  ReactElement,
+  type ForwardedRef,
+  type PropsWithChildren,
+  type ReactElement,
   cloneElement,
   createContext,
   useContext,
   forwardRef,
-  MouseEventHandler,
+  type MouseEventHandler,
+  type ComponentPropsWithRef,
 } from 'react';
 
 import {
@@ -19,12 +20,10 @@ import {
   offset,
   flip,
   shift,
-  ReferenceType,
+  type ReferenceType,
   Side,
   Alignment,
 } from '@floating-ui/react-dom';
-
-import { type ComponentPropsWithRef } from '@dopt/react-component';
 
 import {
   cls,
@@ -79,16 +78,81 @@ function TourItem(props: TourItemProps) {
   );
 }
 
+export interface AnchorProps {
+  children: ReactElement;
+}
+
+function TourItemAnchor(props: AnchorProps) {
+  const { setAnchor } = useContext(TourItemContext);
+
+  let anchorElement = Children.only(props.children);
+
+  return cloneElement(anchorElement, {
+    ref: setAnchor,
+  });
+}
+
+export interface PopoverProps extends ComponentPropsWithRef<'div'>, StyleProps {
+  open?: boolean;
+  position?: Side;
+  alignment?: Alignment | 'center';
+}
+
+const popoverClassName = classNameRoot;
+
+function TourPopover(props: PopoverProps) {
+  const {
+    css,
+    theme: injectedTheme,
+    className,
+    children,
+    position = 'top',
+    alignment = 'center',
+    open,
+    style,
+    ...restProps
+  } = props;
+
+  const { setFloating, floatingStyles } = useContext(TourItemContext);
+
+  const theme = useTheme(injectedTheme);
+
+  if (!open) {
+    return null;
+  }
+
+  return (
+    <Portal>
+      <div
+        style={{ ...style, ...floatingStyles }}
+        className={cls([
+          getThemeClassName({
+            theme,
+            className: [classes.popover({ css, position, alignment }), theme],
+          }),
+          popoverClassName,
+          `${popoverClassName}--${position}`,
+          `${popoverClassName}--${alignment}`,
+          className,
+        ])}
+        data-position={position}
+        data-alignment={alignment}
+        {...restProps}
+        ref={setFloating}
+      >
+        {children}
+      </div>
+    </Portal>
+  );
+}
+
 export interface ContentProps
   extends ComponentPropsWithRef<'section'>,
     StyleProps {}
 
 const contentClassName = `${classNameRoot}__content` as const;
 
-function TourItemContent(
-  props: ContentProps,
-  ref?: ForwardedRef<HTMLDivElement>
-) {
+function TourItemContent(props: ContentProps, ref?: ForwardedRef<HTMLElement>) {
   const { css, theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
@@ -225,71 +289,6 @@ function TourItemDismissIcon(
   );
 }
 
-export interface TourItemAnchorProps extends StyleProps {
-  children: ReactElement;
-}
-
-function TourItemAnchor(props: TourItemAnchorProps) {
-  const { setAnchor } = useContext(TourItemContext);
-
-  let anchorElement = Children.only(props.children);
-
-  return cloneElement(anchorElement, {
-    ref: setAnchor,
-  });
-}
-
-export interface TourPopoverProps
-  extends ComponentPropsWithRef<'div'>,
-    StyleProps {
-  open?: boolean;
-  position?: Side;
-  alignment?: Alignment | 'center';
-}
-
-const popoverClassName = `${classNameRoot}__popover` as const;
-
-function TourPopover(props: TourPopoverProps) {
-  const {
-    css,
-    theme: injectedTheme,
-    className,
-    children,
-    position = 'top',
-    alignment = 'center',
-    open,
-    ...restProps
-  } = props;
-
-  const { setFloating, floatingStyles } = useContext(TourItemContext);
-
-  const theme = useTheme(injectedTheme);
-
-  if (!open) {
-    return null;
-  }
-
-  return (
-    <Portal>
-      <div
-        style={floatingStyles}
-        className={cls([
-          getThemeClassName({
-            theme,
-            className: [classes.popover({ css }), theme],
-          }),
-          popoverClassName,
-          className,
-        ])}
-        {...restProps}
-        ref={setFloating}
-      >
-        {children}
-      </div>
-    </Portal>
-  );
-}
-
 export interface BodyProps
   extends Omit<ComponentPropsWithRef<'div'>, 'title'>,
     StyleProps {
@@ -361,7 +360,7 @@ export interface BackButtonProps
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const dismissButtonClassName = `${classNameRoot}__back-button` as const;
+const backButtonClassName = `${classNameRoot}__back-button` as const;
 
 function TourItemBackButton(
   props: BackButtonProps,
@@ -386,7 +385,7 @@ function TourItemBackButton(
           theme,
           className: [classes.backButton({ css }), theme],
         }),
-        dismissButtonClassName,
+        backButtonClassName,
         className,
       ])}
       {...restProps}
