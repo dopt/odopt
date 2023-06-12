@@ -2,6 +2,7 @@ export { useBlock } from './use-block';
 export { withBlock } from './with-block';
 export { useFlow } from './use-flow';
 export { withFlow } from './with-flow';
+export { useContainer } from './use-container';
 export { useDoptInitialized } from './use-dopt-initialized';
 export { useFlowStatus } from './use-flow-status';
 
