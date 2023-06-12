@@ -1,13 +1,13 @@
-import { useContext, useCallback, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { DoptContext } from './context';
 
-import { Block, BlockTransition, BlockTransitionInputs } from './types';
+import { Block, BlockTransition } from './types';
 import { createBlock } from './create-sdk-block';
 
 /**
- * A React hook for accessing a flow's block state and
- * methods corresponding to an intent-based API for manipulating
- * said state.
+ * A React hook for accessing a block's state and methods
+ * corresponding to an intent-based API for manipulating
+ * said block state.
  *
  * @example
  * ```tsx
@@ -33,7 +33,7 @@ import { createBlock } from './create-sdk-block';
  *
  * @param id - one of {@link Block['sid']} | {@link Block['uid']}
  * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
- * @returns [{@link Block}, {@link BlockTransition}] the state of the block and methods to manipulate said state
+ * @returns [{@link Block}, {@link BlockTransition}] the state of the block and methods to manipulate block state
  *
  */
 export function useBlock<T>(
@@ -49,21 +49,11 @@ export function useBlock<T>(
   }
 
   const uid = blockUidBySid.get(id) || id;
-
-  const transition = useCallback(
-    (...inputs: BlockTransitionInputs) => {
-      if (!fetching) {
-        blockIntention(uid, inputs);
-      }
-    },
-    [fetching, blockIntention]
-  );
-
   const block = useMemo(
     () =>
       createBlock<T>({ uid, fetching, blocks, blockFields, blockIntention }),
     [uid, fetching, blocks, blockFields]
   );
 
-  return [block, transition];
+  return [block, block.transition];
 }
