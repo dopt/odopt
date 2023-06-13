@@ -34,11 +34,11 @@ function TourStepItem1() {
   }
 
   return (
-    <Tour.Root>
+    <Tour.Root active={step1.active}>
       <Tour.Anchor>
         <button>ANCHOR #1</button>
       </Tour.Anchor>
-      <Tour.Popover open={step1.active}>
+      <Tour.Popover position="bottom">
         <Tour.Content>
           <Tour.Header>
             <Tour.Title>{step1.title}</Tour.Title>
@@ -67,11 +67,11 @@ function TourStepItem2() {
   }
 
   return (
-    <Tour.Root>
+    <Tour.Root active={step2.active}>
       <Tour.Anchor>
         <button>ANCHOR #2</button>
       </Tour.Anchor>
-      <Tour.Popover open={step2.active}>
+      <Tour.Popover>
         <Tour.Content>
           <Tour.Header>
             <Tour.Title>{step2.title}</Tour.Title>
