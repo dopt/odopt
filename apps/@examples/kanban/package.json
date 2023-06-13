@@ -16,19 +16,19 @@
     "@asseinfo/react-kanban": "2.2.0",
     "@dopt/react": "workspace:*",
     "@dopt/users-javascript-client": "workspace:*",
-    "@emotion/react": "11.10.6",
+    "@emotion/react": "11.11.1",
     "@mantine/core": "5.10.5",
     "@mantine/form": "5.10.5",
     "@mantine/hooks": "5.10.5",
     "@tabler/icons": "1.119.0",
-    "@vanilla-extract/css": "1.11.0",
-    "@vanilla-extract/vite-plugin": "3.8.0",
+    "@vanilla-extract/css": "1.11.1",
+    "@vanilla-extract/vite-plugin": "3.8.2",
     "nanoid": "4.0.2",
     "react": "18.2.0",
     "react-confetti": "6.1.0",
     "react-markdown": "8.0.7",
     "react-dom": "18.2.0",
-    "use-local-storage-state": "18.3.2"
+    "use-local-storage-state": "18.3.3"
   },
   "devDependencies": {
     "@types/react": "18.2.0",
