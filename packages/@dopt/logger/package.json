@@ -45,7 +45,7 @@
     "@dopt/config": "workspace:*",
     "@dopt/rollup": "workspace:*",
     "@rollup/plugin-typescript": "11.1.1",
-    "@types/jest": "29.5.1",
+    "@types/jest": "29.5.2",
     "@typescript-eslint/eslint-plugin": "5.59.9",
     "@typescript-eslint/parser": "5.59.9",
     "esbuild": "0.18.1",
