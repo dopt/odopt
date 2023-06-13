@@ -59,6 +59,7 @@
     "@dopt/react-theme": "workspace:*",
     "@dopt/semantic-data-layer-tour": "workspace:*",
     "@floating-ui/react-dom": "2.0.1",
+    "@radix-ui/react-compose-refs": "1.0.1",
     "@stitches/core": "1.2.8"
   }
 }

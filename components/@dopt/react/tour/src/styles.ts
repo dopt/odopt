@@ -73,7 +73,7 @@ const tourItemPopover = css({
   },
   variants: {
     position: {
-      top: {
+      bottom: {
         '&:before, &:after': {
           top: 'calc(-$$arrowSize / 2)',
           clipPath: 'polygon(50% 0, 100% 50%, 0 50%)',
@@ -82,7 +82,7 @@ const tourItemPopover = css({
           translate: `0 ${vars.borderWidths[1]}`,
         },
       },
-      right: {
+      left: {
         '&:before, &:after': {
           right: 'calc(-$$arrowSize / 2)',
           clipPath: 'polygon(50% 100%, 100% 50%, 50% 0)',
@@ -91,7 +91,7 @@ const tourItemPopover = css({
           translate: `calc(${vars.borderWidths[1]} * -1) 0`,
         },
       },
-      bottom: {
+      top: {
         '&:before, &:after': {
           bottom: 'calc(-$$arrowSize / 2)',
           clipPath: 'polygon(50% 100%, 0 50%, 100% 50%)',
@@ -100,7 +100,7 @@ const tourItemPopover = css({
           translate: `0 calc(${vars.borderWidths[1]} * -1)`,
         },
       },
-      left: {
+      right: {
         '&:before, &:after': {
           left: 'calc(-$$arrowSize / 2)',
           clipPath: 'polygon(50% 100%, 0 50%, 50% 0)',

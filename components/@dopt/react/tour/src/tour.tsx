@@ -12,7 +12,12 @@ import {
   forwardRef,
   type MouseEventHandler,
   type ComponentPropsWithRef,
+  useState,
+  useEffect,
+  useRef,
 } from 'react';
+
+import { useComposedRefs } from '@radix-ui/react-compose-refs';
 
 import {
   useFloating,
@@ -35,42 +40,36 @@ import {
 
 import type { TourItem } from '@dopt/semantic-data-layer-tour';
 import { Portal } from '@dopt/react-portal';
-//import { usePosition, Placement, Alignment } from '@dopt/react-utilities';
 
 export interface TourItemContext {
-  anchor: React.MutableRefObject<ReferenceType | null>;
-  setAnchor: (node: ReferenceType | null) => void;
-  floating: React.MutableRefObject<HTMLElement | null>;
-  setFloating: (node: HTMLElement | null) => void;
-  floatingStyles: React.CSSProperties;
+  active: boolean;
+  anchor: Measurable | null;
+  setAnchor(anchor: Measurable | null): void;
 }
 
 const TourItemContext = createContext<TourItemContext>({
-  anchor: { current: null },
+  active: false,
+  anchor: null,
   setAnchor: () => {},
-  floating: { current: null },
-  setFloating: () => {},
-  floatingStyles: {},
 });
 
-export interface TourItemProps extends PropsWithChildren, StyleProps {}
+export type Measurable = { getBoundingClientRect(): ClientRect };
+
+export interface TourItemProps extends PropsWithChildren, StyleProps {
+  active?: boolean;
+}
 
 function TourItem(props: TourItemProps) {
-  const { theme, children } = props;
+  const { active = false, theme, children } = props;
 
-  const { refs, floatingStyles } = useFloating({
-    middleware: [offset(10), flip(), shift()],
-    whileElementsMounted: autoUpdate,
-  });
+  const [anchor, setAnchor] = useState<Measurable | null>(null);
 
   return (
     <TourItemContext.Provider
       value={{
-        anchor: refs.reference,
-        setAnchor: refs.setReference,
-        floating: refs.floating,
-        setFloating: refs.setFloating,
-        floatingStyles,
+        active,
+        anchor,
+        setAnchor,
       }}
     >
       <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
@@ -78,24 +77,39 @@ function TourItem(props: TourItemProps) {
   );
 }
 
-export interface AnchorProps {
+export interface AnchorProps
+  extends ComponentPropsWithRef<React.ElementType<any>> {
   children: ReactElement;
 }
 
-function TourItemAnchor(props: AnchorProps) {
+function TourItemAnchor(
+  props: AnchorProps,
+  forwardedRef?: ForwardedRef<HTMLElement>
+) {
+  const { children, ...anchorProps } = props;
+
   const { setAnchor } = useContext(TourItemContext);
 
-  let anchorElement = Children.only(props.children);
+  const ref = useRef(null);
+
+  const composedRefs = useComposedRefs(forwardedRef, ref);
+
+  let anchorElement = Children.only(children);
+
+  useEffect(() => {
+    setAnchor(ref.current);
+  });
 
   return cloneElement(anchorElement, {
-    ref: setAnchor,
+    ...anchorProps,
+    ref: composedRefs,
   });
 }
 
 export interface PopoverProps extends ComponentPropsWithRef<'div'>, StyleProps {
-  open?: boolean;
   position?: Side;
   alignment?: Alignment | 'center';
+  offset?: number;
 }
 
 const popoverClassName = classNameRoot;
@@ -106,18 +120,27 @@ function TourPopover(props: PopoverProps) {
     theme: injectedTheme,
     className,
     children,
+    offset: popoverOffset = 10,
     position = 'top',
     alignment = 'center',
-    open,
     style,
     ...restProps
   } = props;
 
-  const { setFloating, floatingStyles } = useContext(TourItemContext);
+  const { active, anchor } = useContext(TourItemContext);
+
+  const { refs, floatingStyles } = useFloating({
+    middleware: [offset(popoverOffset), flip(), shift()],
+    placement: alignment === 'center' ? position : `${position}-${alignment}`,
+    whileElementsMounted: autoUpdate,
+    elements: {
+      reference: anchor,
+    },
+  });
 
   const theme = useTheme(injectedTheme);
 
-  if (!open) {
+  if (!active || !anchor) {
     return null;
   }
 
@@ -138,7 +161,7 @@ function TourPopover(props: PopoverProps) {
         data-position={position}
         data-alignment={alignment}
         {...restProps}
-        ref={setFloating}
+        ref={refs.setFloating}
       >
         {children}
       </div>
@@ -440,7 +463,7 @@ function TourItemNextButton(
 }
 
 const Root = TourItem;
-const Anchor = TourItemAnchor;
+const Anchor = forwardRef(TourItemAnchor);
 const Popover = TourPopover;
 const Content = forwardRef(TourItemContent);
 const Header = forwardRef(TourItemHeader);
