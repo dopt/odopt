@@ -25,8 +25,8 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.1",
+    "@types/react": "18.2.12",
+    "@types/react-dom": "18.2.5",
     "@typescript-eslint/eslint-plugin": "5.59.9",
     "@typescript-eslint/parser": "5.59.9",
     "@vitejs/plugin-react": "4.0.0",
