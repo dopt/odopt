@@ -64,6 +64,6 @@
     "unbuild": "1.2.1"
   },
   "dependencies": {
-    "minimist": "1.2.7"
+    "minimist": "1.2.8"
   }
 }

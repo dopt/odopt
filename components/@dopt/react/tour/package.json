@@ -58,7 +58,7 @@
     "@dopt/react-portal": "workspace:*",
     "@dopt/react-theme": "workspace:*",
     "@dopt/semantic-data-layer-tour": "workspace:*",
-    "@floating-ui/react-dom": "2.0.0",
+    "@floating-ui/react-dom": "2.0.1",
     "@stitches/core": "1.2.8"
   }
 }
