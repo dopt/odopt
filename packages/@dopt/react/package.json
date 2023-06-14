@@ -43,7 +43,7 @@
   "dependencies": {
     "@dopt/javascript-common": "workspace:*",
     "@dopt/logger": "workspace:*",
-    "socket.io-client": "^4.5.3"
+    "socket.io-client": "4.6.2"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
