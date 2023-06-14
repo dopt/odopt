@@ -15,6 +15,9 @@ export function App() {
         <ChecklistComponent />
         <div style={{ marginTop: 64 }}>
           <ResetButton />
+          <FinishStep1 />
+          <FinishStep2 />
+          <FinishStep3 />
         </div>
       </div>
     </DoptProvider>
@@ -24,7 +27,7 @@ export function App() {
 function ChecklistComponent() {
   const checklist = useChecklist('checklist-component');
   return (
-    <Checklist.Root>
+    <Checklist.Root active={checklist.active}>
       <Checklist.Header>
         <Checklist.Title>{checklist.title}</Checklist.Title>
         <Checklist.DismissIcon onClick={checklist.dismiss} />
@@ -42,4 +45,29 @@ function ChecklistComponent() {
 function ResetButton() {
   const [, methods] = useFlow('checklist-component');
   return <button onClick={() => methods.reset()}>Reset</button>;
+}
+
+function FinishStep1() {
+  const checklist = useChecklist('checklist-component');
+  return (
+    <button onClick={() => checklist.items[0].complete()}>
+      Finish Step #1
+    </button>
+  );
+}
+function FinishStep2() {
+  const checklist = useChecklist('checklist-component');
+  return (
+    <button onClick={() => checklist.items[1].complete()}>
+      Finish Step #2
+    </button>
+  );
+}
+function FinishStep3() {
+  const checklist = useChecklist('checklist-component');
+  return (
+    <button onClick={() => checklist.items[2].complete()}>
+      Finish Step #3
+    </button>
+  );
 }

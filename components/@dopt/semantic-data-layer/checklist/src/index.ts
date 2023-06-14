@@ -2,6 +2,7 @@ export interface Checklist {
   title?: string | null;
   body?: string | null;
   items: ChecklistItem[];
+  active: boolean;
   complete: () => void;
   dismiss: () => void;
   percentageComplete: () => number;
