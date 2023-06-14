@@ -23,10 +23,16 @@ const modalClassName = classNameRoot;
 
 export interface ModalProps
   extends ComponentPropsWithoutRef<'div'>,
-    StyleProps {}
+    StyleProps {
+  active?: boolean;
+}
 
 function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { css, theme, className, ...restProps } = props;
+  const { active = false, css, theme, className, ...restProps } = props;
+
+  if (!active) {
+    return null;
+  }
 
   return (
     <ThemeContext.Provider value={theme}>

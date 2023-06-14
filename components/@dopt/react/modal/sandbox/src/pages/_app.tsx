@@ -22,35 +22,23 @@ export function App() {
 }
 
 function ModalComponent() {
-  const {
-    title,
-    body,
-    dismissLabel,
-    completeLabel,
-    isOpen,
-    dismiss,
-    complete,
-  } = useModal('09PYM6xjW6uEAPLyGVy28');
-
-  if (!isOpen) {
-    return null;
-  }
+  const modal = useModal('09PYM6xjW6uEAPLyGVy28');
 
   return (
-    <Modal.Root>
+    <Modal.Root active={modal.active}>
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Header>
-          <Modal.DismissIcon onClick={dismiss} />
-          <Modal.Title>{title}</Modal.Title>
+          <Modal.DismissIcon onClick={modal.dismiss} />
+          <Modal.Title>{modal.title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{body}</Modal.Body>
+        <Modal.Body>{modal.body}</Modal.Body>
         <Modal.Footer>
-          <Modal.DismissButton onClick={dismiss}>
-            {dismissLabel}
+          <Modal.DismissButton onClick={modal.dismiss}>
+            {modal.dismissLabel}
           </Modal.DismissButton>
-          <Modal.CompleteButton onClick={complete}>
-            {completeLabel}
+          <Modal.CompleteButton onClick={modal.complete}>
+            {modal.completeLabel}
           </Modal.CompleteButton>
         </Modal.Footer>
       </Modal.Content>
