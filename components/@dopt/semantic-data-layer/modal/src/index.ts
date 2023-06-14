@@ -3,7 +3,7 @@ export interface Modal {
   body?: string | null;
   completeLabel?: string | null;
   dismissLabel?: string | null;
-  isOpen: boolean;
+  active: boolean;
   complete: () => void;
   dismiss: () => void;
 }
