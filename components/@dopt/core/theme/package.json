@@ -1,5 +1,5 @@
 {
-  "name": "@dopt/react-theme",
+  "name": "@dopt/core-theme",
   "version": "0.0.0",
   "description": "",
   "private": true,
@@ -28,14 +28,10 @@
   "files": [
     "dist"
   ],
-  "peerDependencies": {
-    "react": "18.2.0"
-  },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@types/jest": "29.5.2",
-    "@types/react": "18.2.12",
     "@typescript-eslint/eslint-plugin": "5.59.9",
     "@typescript-eslint/parser": "5.59.9",
     "concurrently": "8.2.0",
@@ -52,7 +48,6 @@
     "unbuild": "1.2.1"
   },
   "dependencies": {
-    "@stitches/core": "1.2.8",
-    "@dopt/core-theme": "workspace:*"
+    "@stitches/core": "1.2.8"
   }
 }
