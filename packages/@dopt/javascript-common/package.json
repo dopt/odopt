@@ -44,7 +44,7 @@
   "dependencies": {
     "@dopt/block-api-types": "workspace:*",
     "@dopt/logger": "workspace:*",
-    "socket.io-client": "^4.5.3"
+    "socket.io-client": "4.6.2"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
@@ -53,9 +53,9 @@
     "@rollup/plugin-replace": "^5.0.0",
     "@rollup/plugin-typescript": "11.1.1",
     "@types/jest": "29.5.2",
-    "@types/node": "18.16.17",
-    "@typescript-eslint/eslint-plugin": "5.59.9",
-    "@typescript-eslint/parser": "5.59.9",
+    "@types/node": "18.16.18",
+    "@typescript-eslint/eslint-plugin": "5.59.11",
+    "@typescript-eslint/parser": "5.59.11",
     "eslint": "8.42.0",
     "jest": "29.5.0",
     "prettier": "2.8.8",
