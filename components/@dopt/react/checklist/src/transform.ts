@@ -57,6 +57,8 @@ export function transform({
   return {
     title: metadata && metadata.field('title', ''),
     items,
+    // TODO: refactor once this uses container
+    active: flow.state.started && !flow.state.stopped,
     complete: () => methods.finish(),
     dismiss: () => methods.stop(),
     percentageComplete: () =>

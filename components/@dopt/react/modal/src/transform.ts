@@ -14,7 +14,7 @@ export function transform({
     body: block.field('body', ''),
     completeLabel: block.field('complete-label', ''),
     dismissLabel: block.field('dismiss-label', ''),
-    isOpen: block.state.active,
+    active: block.state.active,
     complete: () => transition('complete'),
     dismiss: () => transition('dismiss'),
   };
