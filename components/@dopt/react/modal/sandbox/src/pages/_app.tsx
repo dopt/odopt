@@ -8,7 +8,7 @@ export function App() {
   return (
     <DoptProvider
       userId="joe_mckenney"
-      apiKey="blocks-9147ae6ee202b7fa09e22f5f77c91213b3df0220286083ed2c54c8453c0008ac_MTMz"
+      apiKey="blocks-blocksKey_Mg=="
       flowVersions={{
         modal: 0,
       }}
@@ -22,23 +22,23 @@ export function App() {
 }
 
 function ModalComponent() {
-  const modal = useModal('09PYM6xjW6uEAPLyGVy28');
+  const modal = useModal('modal.ninety-trams-bow');
 
   return (
     <Modal.Root active={modal.active}>
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Header>
-          <Modal.DismissIcon onClick={modal.dismiss} />
           <Modal.Title>{modal.title}</Modal.Title>
+          <Modal.DismissIcon onClick={modal.dismiss} />
         </Modal.Header>
         <Modal.Body>{modal.body}</Modal.Body>
         <Modal.Footer>
           <Modal.DismissButton onClick={modal.dismiss}>
-            {modal.dismissLabel}
+            {modal.dismissAction}
           </Modal.DismissButton>
           <Modal.CompleteButton onClick={modal.complete}>
-            {modal.completeLabel}
+            {modal.completeAction}
           </Modal.CompleteButton>
         </Modal.Footer>
       </Modal.Content>
