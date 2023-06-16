@@ -73,7 +73,7 @@ Using the `identifyBatch` API.
 ```ts
 import { IdentifyBatchRequestBodyInner } from '@dopt/users-javascript-client';
 
-const identifyUserRequestBody: IdentifyUserRequestBody = {
+const user1: IdentifyUserRequestBody = {
   identifier: "identifier_example",
   properties: {
     stringExample: "string",
@@ -90,9 +90,12 @@ const user2: IdentifyUserRequestBody = {
 };
 
 const batchPayload: IdentifyBatchRequestBodyInner[] = [
-  identifyUserRequestBody,
+  user1,
   user2,
 ];
+
+
+doptUsersClient.identifyBatch(identifyGroupRequestBody);
 ```
 
 ### Groups
@@ -112,5 +115,5 @@ const identifyGroupRequestBody: IdentifyGroupRequestBody = {
   },
 };
 
-doptUsersClient.identifyGroupPost(identifyGroupRequestBody);
+doptUsersClient.identifyGroup(identifyGroupRequestBody);
 ```
