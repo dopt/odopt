@@ -112,5 +112,5 @@ const identifyGroupRequestBody: IdentifyGroupRequestBody = {
   },
 };
 
-doptUsersClient.identifyGroupPost(identifyGroupRequestBody);
+doptUsersClient.identifyGroup(identifyGroupRequestBody);
 ```
