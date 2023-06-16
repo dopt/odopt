@@ -1,10 +1,14 @@
-import { Checklist } from '@dopt/semantic-data-layer-checklist';
-import { useFlow } from '@dopt/react';
+import { Checklist, ChecklistItem } from '@dopt/semantic-data-layer-checklist';
+import { useBlock, useContainer } from '@dopt/react';
 
-import { transform } from './transform';
+import { transform, transformItem } from './transform';
 
-export function useChecklist(block: string): Checklist {
-  const [flow, methods] = useFlow(block);
+export function useChecklist(id: string): Checklist {
+  const container = useContainer(id);
+  return transform(container);
+}
 
-  return transform({ flow, methods });
+export function useChecklistItem(id: string): ChecklistItem {
+  const [block] = useBlock<['complete', 'skip']>(id);
+  return transformItem(block);
 }

@@ -1,69 +1,65 @@
-import { Flow, FlowIntent, Block } from '@dopt/react';
+import { Block, Container } from '@dopt/react';
 
 import type { Checklist } from '@dopt/semantic-data-layer-checklist';
 
-import { METADATA_BLOCK } from './const';
-
-export function transform({
-  /*
-   * NOTE: this should eventually be the component block
-   * along with it's "children"
-   */
-  flow,
-  /*
-   * NOTE: this will eventually be component block transitions
-   * as opposed to flow intents
-   */
-  methods,
-}: {
-  flow: Flow;
-  methods: FlowIntent;
-}): Checklist {
-  const { blocks } = flow;
-
-  const { metadata, steps } = blocks.reduce<{
-    metadata: Block | null;
-    steps: Block[];
-  }>(
-    (memo, block) => {
-      if (block.sid === METADATA_BLOCK) {
-        memo.metadata = block;
-      } else {
-        memo.steps.push(block);
-      }
-      return memo;
-    },
-    { metadata: null, steps: [] }
-  );
-
-  const items = steps
-    .sort((b1, b2) => {
-      return (
-        (b1.field('index', 0) as number) - (b2.field('index', 0) as number)
-      );
-    })
-    .map((step) => ({
-      title: step.field('title', ''),
-      description: step.field('description', ''),
-      id: step.uid,
-      completed: step.state.exited,
-      active: step.state.active,
-      complete: () => step.transition('finish'),
-      skip: () => step.transition('finish'),
-    }));
-
-  const completed = items.filter((item) => item.completed);
+export function transform(container: Container): Checklist {
+  const { children } = container;
+  const items = children.map(transformItem);
 
   return {
-    title: metadata && metadata.field('title', ''),
+    id: container.sid,
+
+    title: container.field('title', ''),
+    body: container.field('body', ''),
+
     items,
-    // TODO: refactor once this uses container
-    active: flow.state.started && !flow.state.stopped,
-    complete: () => methods.finish(),
-    dismiss: () => methods.stop(),
-    percentageComplete: () =>
-      Math.floor((completed.length / items.length) * 100),
-    getCompletedItems: () => completed,
-    getUncompletedItems: () => items.filter((item) => !item.completed),
+
+    active: container.state.active,
+
+    completed: container.transitioned.complete || false,
+    dismissed: container.transitioned.dismiss || false,
+
+    complete: () => container.transition('complete'),
+    dismiss: () => container.transition('dismiss'),
+
+    get size() {
+      return items.length;
+    },
+
+    filter: (fn) => items.filter(fn),
+    count: (fn) => {
+      if (typeof fn === 'string') {
+        switch (fn) {
+          case 'completed':
+            return items.filter(({ completed }) => !!completed).length;
+          case 'incomplete':
+            return items.filter(({ completed }) => !completed).length;
+          case 'skipped':
+            return items.filter(({ skipped }) => skipped).length;
+        }
+      } else {
+        return items.reduce((value, item, i) => {
+          return !!fn(item, i) ? value + 1 : value;
+        }, 0);
+      }
+    },
+  };
+}
+
+export function transformItem(block: Block<['complete', 'skip']>) {
+  return {
+    id: block.sid,
+
+    title: block.field('title', ''),
+    body: block.field('body', ''),
+    completeLabel: block.field('complete-label', ''),
+
+    active: block.state.active,
+
+    completed: block.transitioned.complete || false,
+    skipped: block.transitioned.skip || false,
+
+    complete: () => block.transition('complete'),
+    skip: () => block.transition('skip'),
   };
 }
