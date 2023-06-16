@@ -39,7 +39,7 @@
     "@dopt/env": "workspace:*",
     "@dopt/esbuild-plugins": "workspace:*",
     "@vanilla-extract/esbuild-plugin": "2.2.2",
-    "tsup": "6.7.0"
+    "tsup": "7.0.0"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
