@@ -1,7 +1,7 @@
 {
   "name": "@examples/tutorial",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5633",
@@ -23,8 +23,8 @@
   "devDependencies": {
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
-    "@typescript-eslint/eslint-plugin": "5.59.9",
-    "@typescript-eslint/parser": "5.59.9",
+    "@typescript-eslint/eslint-plugin": "5.59.11",
+    "@typescript-eslint/parser": "5.59.11",
     "@vitejs/plugin-react": "4.0.0",
     "eslint": "8.42.0",
     "eslint-config-prettier": "8.8.0",

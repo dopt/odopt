@@ -1,5 +1,12 @@
 # @examples/**PACKAGE_NAME**
 
+## 0.0.21
+
+### Patch Changes
+
+- Updated dependencies [18e311b90]
+  - @dopt/users-javascript-client@1.0.1
+
 ## 0.0.20
 
 ### Patch Changes

@@ -11,6 +11,7 @@ export { DoptProvider } from './provider';
 export type { LogLevels } from '@dopt/logger';
 
 export type {
+  Container,
   ProviderConfig,
   FlowStatus,
   Block,
