@@ -1,5 +1,11 @@
 # @dopt/users-javascript-client
 
+## 1.0.1
+
+### Patch Changes
+
+- 18e311b90: updating readme
+
 ## 1.0.0
 
 ### Major Changes
