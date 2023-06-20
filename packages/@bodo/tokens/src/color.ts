@@ -106,6 +106,13 @@ const gray = {
   gray900: '#595959',
 };
 
+const vendors = {
+  segment: '#25C365',
+  heap: '#111111',
+  amplitude: '#1E61F0',
+  mixpanel: '#7856FF',
+};
+
 export const colors = {
   base: {
     black: '#000',
@@ -122,6 +129,7 @@ export const colors = {
     ...midnight,
     ...conifer,
     ...gray,
+    ...vendors,
   },
   dark: {
     ...blurple,
@@ -132,5 +140,6 @@ export const colors = {
     ...midnight,
     ...conifer,
     ...gray,
+    ...vendors,
   },
 };
