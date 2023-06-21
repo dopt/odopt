@@ -1,5 +1,5 @@
 import { Static, Type } from '@sinclair/typebox';
-import { ComponentFieldDefinition } from 'fields';
+import { ComponentFieldDefinition, fieldToString } from 'fields';
 import { Model } from './model';
 import { Container } from './container';
 
@@ -26,7 +26,7 @@ export const ChecklistItem = Type.Object(
 );
 export type ChecklistItem = Static<typeof ChecklistItem>;
 
-export type ChecklistFieldKeys = 'title' | 'description' | 'dismiss-action';
+export type ChecklistFieldKeys = 'title' | 'body';
 
 /**
  * This captures field definitions that are created when a checklist is created.
@@ -40,29 +40,23 @@ export const ChecklistFieldDefinitions: ComponentFieldDefinition<ChecklistFieldK
     {
       displayName: 'Title',
       sid: 'title',
-      description: "The checklist's title, defaults to empty string",
+      description: 'Content for the main title heading',
       type: 'string',
+      initialValue: fieldToString('Checklist title') as string,
     },
     {
-      displayName: 'Description',
-      sid: 'description',
-      description: "The checklist's description, defaults to empty string",
+      displayName: 'Body',
+      sid: 'body',
+      description: 'Content for the main body section',
       type: 'string',
-    },
-    {
-      displayName: 'Dismiss Action',
-      sid: 'dismiss-action',
-      description:
-        "The checklist's dismiss action. If empty, no dismiss action will be shown",
-      type: 'string',
+      initialValue: fieldToString('Checklist body') as string,
     },
   ];
 
 export type ChecklistItemFieldKeys =
   | 'title'
-  | 'description'
-  | 'complete-action'
-  | 'skip-action'
+  | 'body'
+  | 'complete-label'
   | 'display-index';
 
 /**
@@ -77,33 +71,29 @@ export const ChecklistItemFieldDefinitions: ComponentFieldDefinition<ChecklistIt
     {
       displayName: 'Title',
       sid: 'title',
-      description: "The checklist item's title, defaults to empty string",
+      description: 'Content for the title heading',
       type: 'string',
+      initialValue: fieldToString('Checklist item title') as string,
     },
     {
-      displayName: 'Description',
-      sid: 'description',
-      description: "The checklist item's description, defaults to empty string",
+      displayName: 'Body',
+      sid: 'body',
+      description: 'Content for the body section',
       type: 'string',
+      initialValue: fieldToString('Checklist item body') as string,
     },
     {
-      displayName: 'Complete Action',
-      sid: 'complete-action',
-      description:
-        "The checklist item's complete action. If empty, no complete action will be shown",
+      displayName: 'Complete Label',
+      sid: 'complete-label',
+      description: 'Content for the complete button',
       type: 'string',
-    },
-    {
-      displayName: 'Skip Action',
-      sid: 'skip-action',
-      description:
-        "The checklist item's skip action. If empty, no skip action will be shown",
-      type: 'string',
+      initialValue: fieldToString('Complete') as string,
     },
     {
       displayName: 'Display Index',
       sid: 'display-index',
-      description: "The checklist item's display index",
+      description: 'Internal checklist item display index',
       type: 'number',
+      initialValue: fieldToString(0) as string,
     },
   ];
