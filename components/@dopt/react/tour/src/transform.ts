@@ -1,44 +1,69 @@
-import { Flow, FlowIntent } from '@dopt/react';
+import { Block, Container } from '@dopt/react';
 
-import type { Tour } from '@dopt/semantic-data-layer-tour';
+import type { Tour, TourItem } from '@dopt/semantic-data-layer-tour';
 
-export function transform({
-  /*
-   * NOTE: this should eventually be the component block
-   * along with it's "children"
-   */
-  flow,
-  /*
-   * NOTE: this will eventually be component block transitions
-   * as opposed to flow intents
-   */
-  methods,
-}: {
-  flow: Flow;
-  methods: FlowIntent;
-}): Tour {
-  const { blocks } = flow;
+export function transform(container: Container): Tour {
+  const { children } = container;
 
-  const items = blocks
-    .sort((b1, b2) => {
-      return (
-        (b1.field('index', 0) as number) - (b2.field('index', 0) as number)
-      );
-    })
-    .map((step) => ({
-      id: step.uid,
-      active: step.state.active,
-      title: step.field('title', ''),
-      body: step.field('body', ''),
-      nextLabel: step.field('nextlabel', ''),
-      backLabel: step.field('backlabel', ''),
-      next: () => step.transition('next'),
-      back: () => step.transition('back'),
-      dismiss: () => step.transition('dismiss'),
-    }));
+  const items = children.map((child) => transformItem(child, container));
 
   return {
+    id: container.sid,
+
     items,
-    complete: () => methods.finish(),
+
+    active: container.state.active,
+
+    completed: container.transitioned.complete || false,
+    dismissed: container.transitioned.dismiss || false,
+
+    complete: () => container.transition('complete'),
+    dismiss: () => container.transition('dismiss'),
+
+    get size() {
+      return items.length;
+    },
+
+    filter: (fn) => items.filter(fn),
+    count: (fn) => {
+      if (typeof fn === 'string') {
+        switch (fn) {
+          case 'completed':
+            return items.filter(({ completed }) => !!completed).length;
+          case 'incomplete':
+            return items.filter(({ completed }) => !completed).length;
+        }
+      } else {
+        return items.reduce((value, item, i) => {
+          return !!fn(item, i) ? value + 1 : value;
+        }, 0);
+      }
+    },
+  };
+}
+
+export function transformItem(
+  block: Block<['previous', 'next']>,
+  container: Container
+): TourItem {
+  return {
+    id: block.sid,
+
+    index: block.field('display-index', 0),
+
+    title: block.field('title', ''),
+    body: block.field('body', ''),
+
+    backLabel: block.field('back-label', ''),
+    nextLabel: block.field('next-label', ''),
+
+    active: block.state.active,
+
+    completed: block.transitioned.next || false,
+
+    next: () => block.transition('next'),
+    back: () => block.transition('previous'),
+
+    dismiss: () => container.transition('dismiss'),
   };
 }

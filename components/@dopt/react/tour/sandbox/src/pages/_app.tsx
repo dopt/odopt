@@ -1,14 +1,14 @@
 import { DoptProvider, useFlow } from '@dopt/react';
-import { useTour } from '@dopt/react-tour';
+import { useTourItem } from '@dopt/react-tour';
 import * as Tour from '@dopt/react-tour';
 
 export function App() {
   return (
     <DoptProvider
       userId="joe_mckenney"
-      apiKey="blocks-9147ae6ee202b7fa09e22f5f77c91213b3df0220286083ed2c54c8453c0008ac_MTMz"
+      apiKey="blocks-blocksKey_Mg=="
       flowVersions={{
-        tour: 0,
+        'tour-updates': 0,
       }}
     >
       <div className="containers">
@@ -25,30 +25,28 @@ export function App() {
 }
 
 function TourStepItem1() {
-  const tour = useTour('tour');
+  const tourStep = useTourItem('tour-updates.tour-step-1');
 
-  const step1 = tour.items.find((item) => item.id === 'i123jzeOlqc06ZJiVh0CI');
-
-  if (!step1) {
+  if (!tourStep) {
     return null;
   }
 
   return (
-    <Tour.Root active={step1.active}>
+    <Tour.Root active={tourStep.active}>
       <Tour.Anchor>
         <button>ANCHOR #1</button>
       </Tour.Anchor>
       <Tour.Popover position="bottom">
         <Tour.Content>
           <Tour.Header>
-            <Tour.Title>{step1.title}</Tour.Title>
-            <Tour.DismissIcon onClick={() => {}} />
+            <Tour.Title>{tourStep.title}</Tour.Title>
+            <Tour.DismissIcon onClick={tourStep.dismiss} />
           </Tour.Header>
-          <Tour.Body>{step1.body}</Tour.Body>
+          <Tour.Body>{tourStep.body}</Tour.Body>
           <Tour.Footer>
-            <Tour.BackButton>{step1.backLabel}</Tour.BackButton>
-            <Tour.NextButton onClick={step1.next}>
-              {step1.nextLabel}
+            <Tour.BackButton>{tourStep.backLabel}</Tour.BackButton>
+            <Tour.NextButton onClick={tourStep.next}>
+              {tourStep.nextLabel}
             </Tour.NextButton>
           </Tour.Footer>
         </Tour.Content>
@@ -58,32 +56,30 @@ function TourStepItem1() {
 }
 
 function TourStepItem2() {
-  const tour = useTour('tour');
+  const tourStep = useTourItem('tour-updates.tour-step-2');
 
-  const step2 = tour.items.find((item) => item.id === '0IpwUwHqO_cAbftfHfGCk');
-
-  if (!step2) {
+  if (!tourStep) {
     return null;
   }
 
   return (
-    <Tour.Root active={step2.active}>
+    <Tour.Root active={tourStep.active}>
       <Tour.Anchor>
         <button>ANCHOR #2</button>
       </Tour.Anchor>
       <Tour.Popover>
         <Tour.Content>
           <Tour.Header>
-            <Tour.Title>{step2.title}</Tour.Title>
-            <Tour.DismissIcon onClick={() => {}} />
+            <Tour.Title>{tourStep.title}</Tour.Title>
+            <Tour.DismissIcon onClick={tourStep.dismiss} />
           </Tour.Header>
-          <Tour.Body>{step2.body}</Tour.Body>
+          <Tour.Body>{tourStep.body}</Tour.Body>
           <Tour.Footer>
-            <Tour.BackButton onClick={step2.back}>
-              {step2.backLabel}
+            <Tour.BackButton onClick={tourStep.back}>
+              {tourStep.backLabel}
             </Tour.BackButton>
-            <Tour.NextButton onClick={step2.next}>
-              {step2.nextLabel}
+            <Tour.NextButton onClick={tourStep.next}>
+              {tourStep.nextLabel}
             </Tour.NextButton>
           </Tour.Footer>
         </Tour.Content>
@@ -93,6 +89,6 @@ function TourStepItem2() {
 }
 
 function ResetButton() {
-  const [, methods] = useFlow('tour');
+  const [, methods] = useFlow('tour-updates');
   return <button onClick={() => methods.reset()}>Reset</button>;
 }
