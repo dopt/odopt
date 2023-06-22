@@ -57,6 +57,7 @@
     "@dopt/react-component": "workspace:*",
     "@dopt/semantic-data-layer-checklist": "workspace:*",
     "@dopt/react-theme": "workspace:*",
+    "@dopt/react-utilities": "workspace:*",
     "@stitches/core": "1.2.8"
   }
 }
