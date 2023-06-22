@@ -1,11 +1,15 @@
 import { Block, Container } from '@dopt/react';
 
+import { displayIndexComparator } from '@dopt/react-utilities';
+
 import type { Tour, TourItem } from '@dopt/semantic-data-layer-tour';
 
 export function transform(container: Container): Tour {
   const { children } = container;
 
-  const items = children.map((child) => transformItem(child, container));
+  const items = children
+    .sort(displayIndexComparator)
+    .map((child) => transformItem(child, container));
 
   return {
     id: container.sid,
