@@ -1,5 +1,7 @@
 import { Block, Container } from '@dopt/react';
 
+import { displayIndexComparator } from '@dopt/react-utilities';
+
 import type {
   Checklist,
   ChecklistItem,
@@ -7,7 +9,7 @@ import type {
 
 export function transform(container: Container): Checklist {
   const { children } = container;
-  const items = children.map(transformItem);
+  const items = children.sort(displayIndexComparator).map(transformItem);
 
   return {
     id: container.sid,
