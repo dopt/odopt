@@ -1,6 +1,9 @@
 import { Block, Container } from '@dopt/react';
 
-import type { Checklist } from '@dopt/semantic-data-layer-checklist';
+import type {
+  Checklist,
+  ChecklistItem,
+} from '@dopt/semantic-data-layer-checklist';
 
 export function transform(container: Container): Checklist {
   const { children } = container;
@@ -46,7 +49,9 @@ export function transform(container: Container): Checklist {
   };
 }
 
-export function transformItem(block: Block<['complete', 'skip']>) {
+export function transformItem(
+  block: Block<['complete', 'skip']>
+): ChecklistItem {
   return {
     id: block.sid,
 

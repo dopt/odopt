@@ -1,10 +1,16 @@
-import { Tour } from '@dopt/semantic-data-layer-tour';
-import { useFlow } from '@dopt/react';
+import { Tour, TourItem } from '@dopt/semantic-data-layer-tour';
+import { useBlock, useContainer } from '@dopt/react';
 
-import { transform } from './transform';
+import { transform, transformItem } from './transform';
 
-export function useTour(block: string): Tour {
-  const [flow, methods] = useFlow(block);
+export function useTour(id: string): Tour {
+  const container = useContainer(id);
+  return transform(container);
+}
 
-  return transform({ flow, methods });
+export function useTourItem(id: string): TourItem {
+  const [block] = useBlock<['previous', 'next']>(id);
+  const container = useContainer(block?.containerUid || '');
+
+  return transformItem(block, container);
 }
