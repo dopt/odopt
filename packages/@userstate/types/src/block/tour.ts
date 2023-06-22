@@ -1,5 +1,5 @@
 import { Static, Type } from '@sinclair/typebox';
-import { ComponentFieldDefinition } from 'fields';
+import { ComponentFieldDefinition, fieldToString } from 'fields';
 import { Model } from './model';
 import { Container } from './container';
 
@@ -26,30 +26,11 @@ export const TourItem = Type.Object(
 );
 export type TourItem = Static<typeof TourItem>;
 
-export type TourFieldKeys = 'dismiss-action';
-
-/**
- * This captures field definitions that are created when a tour is created.
- * These definitions are *always* expected to be present for a given tour.
- * If these definitions are changed, it is a major API change and will require:
- * a migration, changes to @app/server and @app/client, and updates to published
- * SDKs and UI components.
- */
-export const TourFieldDefinitions: ComponentFieldDefinition<TourFieldKeys>[] = [
-  {
-    displayName: 'Dismiss Action',
-    sid: 'dismiss-action',
-    description:
-      "The tour's dismiss action. If empty, no action will be shown which can dismiss the entire tour",
-    type: 'string',
-  },
-];
-
 export type TourItemFieldKeys =
   | 'title'
   | 'body'
-  | 'next-action'
-  | 'previous-action'
+  | 'next-label'
+  | 'back-label'
   | 'display-index';
 
 /**
@@ -64,33 +45,36 @@ export const TourItemFieldDefinitions: ComponentFieldDefinition<TourItemFieldKey
     {
       displayName: 'Title',
       sid: 'title',
-      description: "The tour item's title, defaults to empty string",
+      description: 'Content for the title heading',
       type: 'string',
+      initialValue: fieldToString('Tour item title') as string,
     },
     {
       displayName: 'Body',
       sid: 'body',
-      description: "The tour item's body, defaults to empty string",
+      description: 'Content for the body section',
       type: 'string',
+      initialValue: fieldToString('Tour item body') as string,
     },
     {
-      displayName: 'Next Action',
-      sid: 'next-action',
-      description:
-        "The tour item's next action. If empty, will default to 'Next'",
+      displayName: 'Next label',
+      sid: 'next-label',
+      description: 'Content for the next button',
       type: 'string',
+      initialValue: fieldToString('Next') as string,
     },
     {
-      displayName: 'Previous Action',
-      sid: 'previous-action',
-      description:
-        "The tour item's previous action. If empty, will default to 'Previous'",
+      displayName: 'Back label',
+      sid: 'back-label',
+      description: 'Content for the back button',
       type: 'string',
+      initialValue: fieldToString('Back') as string,
     },
     {
       displayName: 'Display Index',
       sid: 'display-index',
-      description: "The tour item's display index",
+      description: 'Internal tour item display index',
       type: 'number',
+      initialValue: fieldToString(0) as string,
     },
   ];
