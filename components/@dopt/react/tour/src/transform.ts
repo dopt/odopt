@@ -2,7 +2,12 @@ import { Block, Container } from '@dopt/react';
 
 import { displayIndexComparator } from '@dopt/react-utilities';
 
-import type { Tour, TourItem } from '@dopt/semantic-data-layer-tour';
+import type {
+  Tour,
+  TourItem,
+  FilterableField,
+  CountableField,
+} from '@dopt/semantic-data-layer-tour';
 
 export function transform(container: Container): Tour {
   const { children } = container;
@@ -11,7 +16,7 @@ export function transform(container: Container): Tour {
     .sort(displayIndexComparator)
     .map((child) => transformItem(child, container));
 
-  return {
+  const transformed = {
     id: container.sid,
 
     items,
@@ -28,22 +33,22 @@ export function transform(container: Container): Tour {
       return items.length;
     },
 
-    filter: (fn) => items.filter(fn),
-    count: (fn) => {
-      if (typeof fn === 'string') {
-        switch (fn) {
-          case 'completed':
-            return items.filter(({ completed }) => !!completed).length;
-          case 'incomplete':
-            return items.filter(({ completed }) => !completed).length;
-        }
-      } else {
-        return items.reduce((value, item, i) => {
-          return !!fn(item, i) ? value + 1 : value;
-        }, 0);
+    filter: (on: FilterableField) => {
+      switch (on) {
+        case 'completed':
+          return items.filter(({ completed }) => !!completed);
+        case 'not-completed':
+          return items.filter(({ completed }) => !completed);
+        case 'active':
+          return items.filter(({ active }) => !!active);
+        case 'not-active':
+          return items.filter(({ active }) => !active);
       }
     },
+    count: (where: CountableField) => transformed.filter(where).length,
   };
+
+  return transformed;
 }
 
 export function transformItem(
