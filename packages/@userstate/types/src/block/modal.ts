@@ -1,5 +1,5 @@
 import { Static, Type } from '@sinclair/typebox';
-import { ComponentFieldDefinition } from 'fields';
+import { ComponentFieldDefinition, fieldToString } from 'fields';
 import { Model } from './model';
 
 export const Modal = Type.Object(
@@ -25,34 +25,37 @@ export type Modal = Static<typeof Modal>;
 export type ModalFieldKeys =
   | 'title'
   | 'body'
-  | 'complete-action'
-  | 'dismiss-action';
+  | 'complete-label'
+  | 'dismiss-label';
 
 export const ModalFieldDefinitions: ComponentFieldDefinition<ModalFieldKeys>[] =
   [
     {
       displayName: 'Title',
       sid: 'title',
-      description: "The modal's title, defaults to empty string",
+      description: 'Content for the title heading',
       type: 'string',
+      initialValue: fieldToString('Modal title') as string,
     },
     {
       displayName: 'Body',
       sid: 'body',
-      description: "The modal's body, defaults to empty string",
+      description: 'Content for the body section',
       type: 'string',
+      initialValue: fieldToString('Modal body') as string,
     },
     {
-      displayName: 'Complete Action',
-      sid: 'complete-action',
-      description: "The modal's complete action, defaults to empty string",
+      displayName: 'Complete Label',
+      sid: 'complete-label',
+      description: 'Content for the complete button',
       type: 'string',
+      initialValue: fieldToString('Complete') as string,
     },
     {
-      displayName: 'Dismiss Action',
-      sid: 'dismiss-action',
-      description:
-        "The modal's dismiss action. If empty, no dismiss action will be shown",
+      displayName: 'Dismiss Label',
+      sid: 'dismiss-label',
+      description: 'Content for the dismiss button',
       type: 'string',
+      initialValue: fieldToString('Dismiss') as string,
     },
   ];
