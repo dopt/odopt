@@ -14,8 +14,8 @@ export function transform(container: Container): Checklist {
   return {
     id: container.sid,
 
-    title: container.field('title', ''),
-    body: container.field('body', ''),
+    title: container.field<string>('title'),
+    body: container.field<string>('body'),
 
     items,
 
@@ -57,9 +57,9 @@ export function transformItem(
   return {
     id: block.sid,
 
-    title: block.field('title', ''),
-    body: block.field('body', ''),
-    completeLabel: block.field('complete-label', ''),
+    title: block.field<string>('title'),
+    body: block.field<string>('body'),
+    completeLabel: block.field<string>('complete-label'),
 
     active: block.state.active,
 
