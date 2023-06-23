@@ -99,4 +99,5 @@ export type ComponentFieldDefinition<Keys = string> = {
   sid: Keys;
   description: string;
   type: FIELD_VALUE_LITERALS;
+  initialValue: string;
 };
