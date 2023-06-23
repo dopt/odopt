@@ -35,10 +35,10 @@ function ModalComponent() {
         <Modal.Body>{modal.body}</Modal.Body>
         <Modal.Footer>
           <Modal.DismissButton onClick={modal.dismiss}>
-            {modal.dismissAction}
+            {modal.dismissLabel}
           </Modal.DismissButton>
           <Modal.CompleteButton onClick={modal.complete}>
-            {modal.completeAction}
+            {modal.completeLabel}
           </Modal.CompleteButton>
         </Modal.Footer>
       </Modal.Content>

@@ -53,13 +53,13 @@ export function transformItem(
   return {
     id: block.sid,
 
-    index: block.field('display-index', 0),
+    index: block.field<number>('display-index'),
 
-    title: block.field('title', ''),
-    body: block.field('body', ''),
+    title: block.field<string>('title'),
+    body: block.field<string>('body'),
 
-    backLabel: block.field('back-label', ''),
-    nextLabel: block.field('next-label', ''),
+    backLabel: block.field<string>('back-label'),
+    nextLabel: block.field<string>('next-label'),
 
     active: block.state.active,
 
