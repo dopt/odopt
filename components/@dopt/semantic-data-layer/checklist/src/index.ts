@@ -1,8 +1,18 @@
+export type FilterableField =
+  | 'completed'
+  | 'not-completed'
+  | 'skipped'
+  | 'not-skipped'
+  | 'active'
+  | 'not-active';
+
+export type CountableField = FilterableField;
+
 export interface Checklist {
   id: string;
 
-  title?: string | null;
-  body?: string | null;
+  title: string | null;
+  body: string | null;
 
   items: ChecklistItem[];
 
@@ -14,20 +24,21 @@ export interface Checklist {
   complete: () => void;
   dismiss: () => void;
 
-  get size(): number;
+  size: number;
 
-  filter: (fn: (item: ChecklistItem, i?: number) => boolean) => ChecklistItem[];
-
-  count(fn: (item: ChecklistItem, i?: number) => any): number;
-  count(type: 'completed' | 'incomplete' | 'skipped'): number;
+  filter: (on: FilterableField) => ChecklistItem[];
+  count(where: CountableField): number;
 }
 
 export interface ChecklistItem {
   id: string;
 
-  title?: string | null;
-  body?: string | null;
-  completeLabel?: string | null;
+  index: number | null;
+
+  title: string | null;
+  body: string | null;
+
+  completeLabel: string | null;
 
   active: boolean;
 

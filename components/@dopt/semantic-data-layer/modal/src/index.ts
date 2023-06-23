@@ -1,11 +1,11 @@
 export interface Modal {
   id: string;
 
-  title?: string | null;
-  body?: string | null;
+  title: string | null;
+  body: string | null;
 
-  completeLabel?: string | null;
-  dismissLabel?: string | null;
+  completeLabel: string | null;
+  dismissLabel: string | null;
 
   active: boolean;
 
