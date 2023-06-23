@@ -136,7 +136,10 @@ export interface Block<T = unknown> {
    * contained by this {@link Block}. If the {@link Block} does not have the field,
    * the `defaultValue` is returned if provided. Otherwise, `null` is returned.
    */
-  field: <V extends Field['value']>(name: string, defaultValue?: V) => V | null;
+  field: <V extends Field['value']>(
+    name: string,
+    defaultValue?: V
+  ) => NonNullable<V> | null;
   /**
    * If a block is contained within another block, for example
    * a "checklistItem" within a "checklist", this property
