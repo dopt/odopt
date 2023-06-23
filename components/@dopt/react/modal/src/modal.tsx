@@ -290,7 +290,7 @@ function ModalFooter(props: FooterProps, ref?: ForwardedRef<HTMLElement>) {
 export interface DismissButtonProps
   extends ComponentPropsWithoutRef<'button'>,
     StyleProps {
-  children?: Modal['dismissAction'];
+  children?: Modal['dismissLabel'];
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -333,7 +333,7 @@ function ModalDismissButton(
 export interface CompleteButtonProps
   extends ComponentPropsWithoutRef<'button'>,
     StyleProps {
-  children?: Modal['completeAction'];
+  children?: Modal['completeLabel'];
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 

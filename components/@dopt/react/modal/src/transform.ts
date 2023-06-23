@@ -12,11 +12,11 @@ export function transform({
   return {
     id: block.sid,
 
-    title: block.field('title', '') || '',
-    body: block.field('body', '') || '',
+    title: block.field<string>('title'),
+    body: block.field<string>('body'),
 
-    completeAction: block.field('complete-action', '') || '',
-    dismissAction: block.field('dismiss-action', '') || '',
+    completeLabel: block.field<string>('complete-label'),
+    dismissLabel: block.field<string>('dismiss-label'),
 
     active: block.state.active,
 
