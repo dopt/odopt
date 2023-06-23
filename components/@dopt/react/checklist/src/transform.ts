@@ -5,13 +5,15 @@ import { displayIndexComparator } from '@dopt/react-utilities';
 import type {
   Checklist,
   ChecklistItem,
+  FilterableField,
+  CountableField,
 } from '@dopt/semantic-data-layer-checklist';
 
 export function transform(container: Container): Checklist {
   const { children } = container;
   const items = children.sort(displayIndexComparator).map(transformItem);
 
-  return {
+  const transformed = {
     id: container.sid,
 
     title: container.field<string>('title'),
@@ -31,24 +33,26 @@ export function transform(container: Container): Checklist {
       return items.length;
     },
 
-    filter: (fn) => items.filter(fn),
-    count: (fn) => {
-      if (typeof fn === 'string') {
-        switch (fn) {
-          case 'completed':
-            return items.filter(({ completed }) => !!completed).length;
-          case 'incomplete':
-            return items.filter(({ completed }) => !completed).length;
-          case 'skipped':
-            return items.filter(({ skipped }) => skipped).length;
-        }
-      } else {
-        return items.reduce((value, item, i) => {
-          return !!fn(item, i) ? value + 1 : value;
-        }, 0);
+    filter: (on: FilterableField) => {
+      switch (on) {
+        case 'completed':
+          return items.filter(({ completed }) => !!completed);
+        case 'not-completed':
+          return items.filter(({ completed }) => !completed);
+        case 'skipped':
+          return items.filter(({ skipped }) => !!skipped);
+        case 'not-skipped':
+          return items.filter(({ skipped }) => !skipped);
+        case 'active':
+          return items.filter(({ active }) => !!active);
+        case 'not-active':
+          return items.filter(({ active }) => !active);
       }
     },
+    count: (where: CountableField) => transformed.filter(where).length,
   };
+
+  return transformed;
 }
 
 export function transformItem(
@@ -56,6 +60,8 @@ export function transformItem(
 ): ChecklistItem {
   return {
     id: block.sid,
+
+    index: block.field<number>('display-index'),
 
     title: block.field<string>('title'),
     body: block.field<string>('body'),

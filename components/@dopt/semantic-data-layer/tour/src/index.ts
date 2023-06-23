@@ -1,3 +1,11 @@
+export type FilterableField =
+  | 'completed'
+  | 'not-completed'
+  | 'active'
+  | 'not-active';
+
+export type CountableField = FilterableField;
+
 export interface Tour {
   id: string;
 
@@ -11,12 +19,10 @@ export interface Tour {
   complete: () => void;
   dismiss: () => void;
 
-  get size(): number;
+  size: number;
 
-  filter: (fn: (item: TourItem, i?: number) => boolean) => TourItem[];
-
-  count(fn: (item: TourItem, i?: number) => any): number;
-  count(type: 'completed' | 'incomplete'): number;
+  filter: (on: FilterableField) => TourItem[];
+  count(where: CountableField): number;
 }
 
 export interface TourItem {
@@ -24,11 +30,11 @@ export interface TourItem {
 
   index: number | null;
 
-  title?: string | null;
-  body?: string | null;
+  title: string | null;
+  body: string | null;
 
-  nextLabel?: string | null;
-  backLabel?: string | null;
+  nextLabel: string | null;
+  backLabel: string | null;
 
   active: boolean;
 
