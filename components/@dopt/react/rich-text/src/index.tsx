@@ -1,6 +1,7 @@
 import { CustomText, Descendant, TextAlignType } from '@dopt/core-rich-text';
 
-import { CSSProperties, PropsWithChildren, ReactNode } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
+import { alignClass, imageContainerClass } from './styles';
 
 export interface DescendantProps {
   node: Descendant;
@@ -14,9 +15,10 @@ export interface RichTextComponentProps {
 export const DescendantComponent = ({
   node,
 }: PropsWithChildren<DescendantProps>): JSX.Element => {
-  let style: CSSProperties = {};
+  let baseAlign = '';
   if ('align' in node) {
-    style.textAlign = node.align as TextAlignType;
+    const textAlign = node.align;
+    baseAlign = alignClass({ [textAlign as string]: true });
   }
 
   if (isTextNode(node)) {
@@ -38,12 +40,12 @@ export const DescendantComponent = ({
       children = <u>{children}</u>;
     }
 
-    return <span style={style}>{children}</span>;
+    return <span className={baseAlign}>{children}</span>;
   }
 
   let children: ReactNode[] | undefined;
   if ('children' in node) {
-    children = node.children.map((node, index) => (
+    children = node.children.map((node: Descendant, index: number) => (
       <DescendantComponent key={`descendant-child-${index}`} node={node} />
     ));
   }
@@ -51,25 +53,46 @@ export const DescendantComponent = ({
   if ('type' in node)
     switch (node.type) {
       case 'block-quote':
-        return <blockquote style={style}>{children}</blockquote>;
+        return <blockquote className={baseAlign}>{children}</blockquote>;
       case 'bulleted-list':
-        return <ul style={style}>{children}</ul>;
+        return <ul className={baseAlign}>{children}</ul>;
       case 'numbered-list':
-        return (
-          <ol type="1" style={style}>
-            {children}
-          </ol>
-        );
+        return <ol className={baseAlign}>{children}</ol>;
       case 'heading-one':
-        return <h1 style={style}>{children}</h1>;
+        return <h1 className={baseAlign}>{children}</h1>;
       case 'heading-two':
-        return <h2 style={style}>{children}</h2>;
+        return <h2 className={baseAlign}>{children}</h2>;
       case 'list-item':
-        return <li style={style}>{children}</li>;
+        return <li className={baseAlign}>{children}</li>;
+      case 'link':
+        return <a href={node.url}>{children}</a>;
+      case 'image':
+        return (
+          <div>
+            {children}
+            <div className={imageContainerClass()}>
+              <img
+                src={node.url}
+                alt={node.altText}
+                height={node.height}
+                width={node.width}
+              />
+            </div>
+          </div>
+        );
+      case 'video':
+        return (
+          <div>
+            <div>
+              <iframe src={node.url} width={node.width} height={node.height} />
+            </div>
+            {children}
+          </div>
+        );
       default:
-        return <p style={style}>{children}</p>;
+        return <p className={baseAlign}>{children}</p>;
     }
-  return <p style={style}>{children}</p>;
+  return <p className={baseAlign}>{children}</p>;
 };
 
 export const RichTextComponent = ({
