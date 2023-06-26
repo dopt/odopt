@@ -2,7 +2,7 @@
   "name": "@dopt/semantic-data-layer-modal",
   "version": "0.0.1",
   "description": "",
-  "private": true,
+  "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/semantic-data-layer-modal\""
   },
   "files": [
     "dist"
@@ -45,7 +46,6 @@
     "typescript": "4.9.5",
     "unbuild": "1.2.1"
   },
-  "dependencies": {
-    "@dopt/react": "workspace:*"
-  }
+  "dependencies": {},
+  "openSource": true
 }
