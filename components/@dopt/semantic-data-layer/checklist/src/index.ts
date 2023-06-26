@@ -26,7 +26,7 @@ export interface Checklist {
 
   size: number;
 
-  filter: (on: FilterableField) => ChecklistItem[];
+  filter(on: FilterableField): ChecklistItem[];
   count(where: CountableField): number;
 }
 

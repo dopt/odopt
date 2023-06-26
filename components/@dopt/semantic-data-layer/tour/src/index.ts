@@ -21,7 +21,7 @@ export interface Tour {
 
   size: number;
 
-  filter: (on: FilterableField) => TourItem[];
+  filter(on: FilterableField): TourItem[];
   count(where: CountableField): number;
 }
 
