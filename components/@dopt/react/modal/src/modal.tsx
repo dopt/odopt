@@ -1,6 +1,6 @@
 import * as classes from './styles';
 
-import { Portal } from '@dopt/react-portal';
+import { Portal, PortalProps } from '@dopt/react-portal';
 
 import {
   forwardRef,
@@ -25,10 +25,18 @@ export interface ModalProps
   extends ComponentPropsWithoutRef<'div'>,
     StyleProps {
   active?: boolean;
+  container?: PortalProps['container'];
 }
 
 function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { active = false, css, theme, className, ...restProps } = props;
+  const {
+    active = false,
+    container,
+    css,
+    theme,
+    className,
+    ...restProps
+  } = props;
 
   if (!active) {
     return null;
@@ -36,7 +44,7 @@ function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <Portal>
+      <Portal container={container}>
         <div
           className={cls([
             getThemeClassName({
