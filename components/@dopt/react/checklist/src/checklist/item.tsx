@@ -65,6 +65,24 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
     </svg>
   );
 
+  const iconSkip = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+      <path d="M9 12H15"></path>
+    </svg>
+  );
+
   const iconX = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -86,6 +104,18 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
     </svg>
   );
 
+  const getIcon = () => {
+    if (item.completed) {
+      return iconCheck;
+    }
+
+    if (item.skipped) {
+      return iconSkip;
+    }
+
+    return iconCircle;
+  };
+
   return (
     <li
       data-item-id={item.id}
@@ -98,6 +128,7 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
         `${itemClassName}--${(item.index || 0) + 1}`,
         item.active ? `${itemClassName}--active` : undefined,
         item.completed ? `${itemClassName}--completed` : undefined,
+        item.skipped ? `${itemClassName}--skipped` : undefined,
         className,
       ])}
       {...restProps}
@@ -109,12 +140,13 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
             theme,
             className: classes.itemIcon({
               completed: item.completed,
+              skipped: item.skipped,
             }),
           }),
           `${itemClassName}-icon`,
         ])}
       >
-        {item.completed ? iconCheck : iconCircle}
+        {getIcon()}
       </div>
       <div
         className={cls([
@@ -132,6 +164,7 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
                 theme,
                 className: classes.itemTitle({
                   completed: item.completed,
+                  skipped: item.skipped,
                 }),
               }),
               `${itemClassName}-title`,
@@ -145,7 +178,10 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
             className={cls([
               getThemeClassName({
                 theme,
-                className: classes.itemBody({ completed: item.completed }),
+                className: classes.itemBody({
+                  completed: item.completed,
+                  skipped: item.skipped,
+                }),
               }),
               `${itemClassName}-body`,
             ])}
@@ -153,7 +189,7 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
             {item.body}
           </div>
         )}
-        {item.completeLabel && !item.completed && (
+        {item.completeLabel && !item.completed && !item.skipped && (
           <button
             onClick={item.complete}
             className={cls([
@@ -168,7 +204,7 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
           </button>
         )}
       </div>
-      {!item.completed && (
+      {!item.completed && !item.skipped && (
         <button
           onClick={item.skip}
           className={cls([

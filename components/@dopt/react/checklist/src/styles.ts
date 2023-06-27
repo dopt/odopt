@@ -122,6 +122,11 @@ const checklistItemIcon = css({
         color: '$primary',
       },
     },
+    skipped: {
+      true: {
+        color: '$contentLight',
+      },
+    },
   },
 });
 
@@ -141,6 +146,12 @@ const checklistItemTitle = css({
         textDecoration: 'line-through',
       },
     },
+    skipped: {
+      true: {
+        color: '$contentLight',
+        textDecoration: 'line-through',
+      },
+    },
   },
 });
 
@@ -151,6 +162,11 @@ const checklistItemBody = css({
   lineHeight: '$sm',
   variants: {
     completed: {
+      true: {
+        color: '$contentLight',
+      },
+    },
+    skipped: {
       true: {
         color: '$contentLight',
       },
