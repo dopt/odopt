@@ -1,5 +1,7 @@
 export type Descendant = CustomElement | Text;
 
+export type RichText = Descendant[];
+
 export type BlockQuoteElement = {
   type: 'block-quote';
   align?: string;
@@ -94,8 +96,8 @@ export type TitleElement = { type: 'title'; children: Descendant[] };
 export type VideoElement = {
   type: 'video';
   url: string;
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
   children: EmptyText[];
 };
 
