@@ -2,8 +2,14 @@ import { Logger, LoggerProps } from '@dopt/logger';
 
 import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 
-import { Block as BlockClass } from './block';
+import { Block as BlockClass, BlockProps } from './block';
 import { Flow as FlowClass } from './flow';
+import { Modal as ModalClass } from './modal';
+import {
+  ChecklistItem as ChecklistItemClass,
+  Checklist as ChecklistClass,
+} from './checklist';
+import { TourItem as TourItemClass, Tour as TourClass } from './tour';
 
 import {
   blocksApi,
@@ -449,6 +455,13 @@ export class Dopt {
    * @returns A {@link Block} instance corresponding to the id.
    */
   public block<T>(id: string) {
+    return this._block<BlockClass<T>>(id, (props) => new BlockClass<T>(props));
+  }
+
+  private _block<C extends BlockClass>(
+    id: string,
+    creator: (_: BlockProps) => C
+  ) {
     const {
       logger,
       blocksApi: { blockIntent: intent },
@@ -464,7 +477,7 @@ export class Dopt {
     const block =
       blockStore.getState()[uid] || getDefaultBlockState(uid, id, -1);
 
-    return new BlockClass<T>({
+    return creator({
       intent,
       block,
       optimisticUpdates: this.optimisticUpdates,
@@ -500,5 +513,132 @@ export class Dopt {
         fieldMap: this.blockFields.get(block.uid) || null,
       });
     });
+  }
+
+  /**
+   * Returns the {@link Modal} associated with this `id`.
+   *
+   * @remarks
+   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
+   *
+   * @example
+   * ```js
+   * const modal = dopt.modal("flow-one.my-modal");
+   * ```
+   *
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the modal.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link Modal} instance corresponding to the id.
+   */
+  public modal(id: string) {
+    return this._block<ModalClass>(id, (props) => new ModalClass(props));
+  }
+
+  /**
+   * Returns the {@link Checklist} associated with this `id`.
+   *
+   * @remarks
+   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
+   *
+   * @example
+   * ```js
+   * const checklist = dopt.checklist("flow-two.my-checklist");
+   * ```
+   *
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the modal.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link Checklist} instance corresponding to the id.
+   */
+  public checklist(id: string) {
+    return this._block<ChecklistClass>(
+      id,
+      (props) =>
+        new ChecklistClass({
+          ...props,
+          createBlock: this._block.bind(this),
+        })
+    );
+  }
+
+  /**
+   * Returns the {@link ChecklistItem} associated with this `id`.
+   *
+   * @remarks
+   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
+   *
+   * @example
+   * ```js
+   * const checklistItem = dopt.checklistItem("flow-two.my-checklist-item");
+   * ```
+   *
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the checklist item.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link ChecklistItem} instance corresponding to the id.
+   */
+  public checklistItem(id: string) {
+    return this._block<ChecklistItemClass>(
+      id,
+      (props) => new ChecklistItemClass(props)
+    );
+  }
+
+  /**
+   * Returns the {@link Tour} associated with this `id`.
+   *
+   * @remarks
+   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
+   *
+   * @example
+   * ```js
+   * const checklist = dopt.checklist("flow-three.my-tour");
+   * ```
+   *
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the modal.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link Tour} instance corresponding to the id.
+   */
+  public tour(id: string) {
+    return this._block<TourClass>(
+      id,
+      (props) =>
+        new TourClass({
+          ...props,
+          createBlock: this._block.bind(this),
+        })
+    );
+  }
+
+  /**
+   * Returns the {@link TourItem} associated with this `id`.
+   *
+   * @remarks
+   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
+   *
+   * @example
+   * ```js
+   * const tourItem = dopt.tourItem("flow-three.my-tour-item");
+   * ```
+   *
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the checklist item.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link TourItem} instance corresponding to the id.
+   */
+  public tourItem(id: string) {
+    return this._block<TourItemClass>(
+      id,
+      (props) =>
+        new TourItemClass({
+          ...props,
+          dismissTour: () => {
+            const uid = this.blockUidBySid.get(id) || id;
+            const { containerUid } = blockStore.getState()[uid] || {};
+            if (containerUid != null) {
+              const parentBlock =
+                this.block<['complete', 'dismiss']>(containerUid);
+              parentBlock.transition('dismiss');
+            }
+          },
+        })
+    );
   }
 }

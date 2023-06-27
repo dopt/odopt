@@ -1,6 +1,6 @@
 {
   "name": "@bodo/tokens",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "Bodo Design System: Tokens Component",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40bodo/tokens",
