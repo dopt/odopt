@@ -1,3 +1,4 @@
+import { RichText } from '@dopt/core-rich-text';
 import { FIELD_VALUE_UNION_TYPE, FIELD_VALUE_LITERALS, Field } from './fields';
 
 type SERIALIZED = string | undefined | null;
@@ -22,9 +23,8 @@ export const fieldFromString = (
         return value as boolean;
       case 'string':
         return value as string;
-
       case 'richText':
-        return value as string;
+        return value as RichText;
     }
   } catch (e) {
     throw new Error(`value: ${string} cannot be coerced into ${type}`);
@@ -59,6 +59,7 @@ export const castField = ({
         type: 'string',
         value: value as string | null,
       };
+    // TODO: Cast as Richtext
     case 'richText':
       return {
         sid,
