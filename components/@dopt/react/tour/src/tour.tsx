@@ -25,9 +25,9 @@ import {
   offset,
   flip,
   shift,
-  type ReferenceType,
   Side,
   Alignment,
+  Placement,
 } from '@floating-ui/react-dom';
 
 import {
@@ -129,7 +129,7 @@ function TourPopover(props: PopoverProps) {
 
   const { active, anchor } = useContext(TourItemContext);
 
-  const { refs, floatingStyles } = useFloating({
+  const { refs, floatingStyles, placement } = useFloating({
     middleware: [offset(popoverOffset), flip(), shift()],
     placement: alignment === 'center' ? position : `${position}-${alignment}`,
     whileElementsMounted: autoUpdate,
@@ -144,6 +144,9 @@ function TourPopover(props: PopoverProps) {
     return null;
   }
 
+  const [computedPosition, computedAlignment] =
+    getPositonAndAlignFromPlacement(placement);
+
   return (
     <Portal>
       <div
@@ -151,15 +154,22 @@ function TourPopover(props: PopoverProps) {
         className={cls([
           getThemeClassName({
             theme,
-            className: [classes.popover({ css, position, alignment }), theme],
+            className: [
+              classes.popover({
+                css,
+                position: computedPosition,
+                alignment: computedAlignment,
+              }),
+              theme,
+            ],
           }),
           popoverClassName,
-          `${popoverClassName}--${position}`,
-          `${popoverClassName}--${alignment}`,
+          `${popoverClassName}--${computedPosition}`,
+          `${popoverClassName}--${computedAlignment}`,
           className,
         ])}
-        data-position={position}
-        data-alignment={alignment}
+        data-position={computedPosition}
+        data-alignment={computedAlignment}
         {...restProps}
         ref={refs.setFloating}
       >
@@ -167,6 +177,11 @@ function TourPopover(props: PopoverProps) {
       </div>
     </Portal>
   );
+}
+
+function getPositonAndAlignFromPlacement(placement: Placement) {
+  const [position, align = 'center'] = placement.split('-');
+  return [position as Side, align as Alignment | 'center'] as const;
 }
 
 export interface ContentProps
