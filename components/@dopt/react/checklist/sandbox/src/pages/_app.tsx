@@ -27,7 +27,7 @@ function ChecklistComponent() {
   const checklist = useChecklist('checklist-journey.sequential-block');
 
   return (
-    <Checklist.Root active={checklist.active}>
+    <Checklist.Root>
       <Checklist.Header>
         <Checklist.Title>{checklist.title}</Checklist.Title>
         <Checklist.DismissIcon onClick={checklist.dismiss} />
