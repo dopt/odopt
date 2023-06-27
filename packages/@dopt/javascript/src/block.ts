@@ -44,7 +44,10 @@ export class Block<T = unknown> {
    * If the {@link Block} does not have the field, the `defaultValue`
    * is returned if provided. Otherwise, `null` is returned.
    */
-  field<V extends Field['value']>(name: string, defaultValue?: V): V | null {
+  field<V extends Field['value']>(
+    name: string,
+    defaultValue?: V
+  ): NonNullable<V> | null {
     if (this.fieldMap == null) {
       return null;
     }

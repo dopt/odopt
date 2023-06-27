@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+### Minor Changes
+
+- 6200ee8ea: Update the return type for the field accessor to more accurately represent the values returned.
+
 ## 2.0.6
 
 ### Patch Changes
