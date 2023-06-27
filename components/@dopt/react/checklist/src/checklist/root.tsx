@@ -16,17 +16,11 @@ import {
 
 export interface ChecklistProps
   extends ComponentPropsWithRef<'section'>,
-    StyleProps {
-  active?: boolean;
-}
+    StyleProps {}
 const checklistClassName = classNameRoot;
 
 function Checklist(props: ChecklistProps, ref?: ForwardedRef<HTMLElement>) {
-  const { active = false, css, theme, className, ...restProps } = props;
-
-  if (!active) {
-    return null;
-  }
+  const { css, theme, className, ...restProps } = props;
 
   return (
     <ThemeContext.Provider value={theme}>
