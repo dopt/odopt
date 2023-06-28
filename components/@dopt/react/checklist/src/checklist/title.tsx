@@ -22,13 +22,7 @@ function ChecklistTitle(
   props: TitleProps,
   ref?: ForwardedRef<HTMLHeadingElement>
 ) {
-  const {
-    css,
-    theme: injectedTheme,
-    className,
-    children,
-    ...restProps
-  } = props;
+  const { theme: injectedTheme, className, children, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -37,7 +31,7 @@ function ChecklistTitle(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.title({ css }), theme],
+          className: [classes.title(), theme],
         }),
         titleClassName,
         className,
