@@ -28,13 +28,13 @@ export interface Tour {
 export interface TourItem {
   id: string;
 
-  index: number | null;
+  index: number | null | undefined;
 
-  title: string | null;
-  body: string | null;
+  title: string | null | undefined;
+  body: string | null | undefined;
 
-  nextLabel: string | null;
-  backLabel: string | null;
+  nextLabel: string | null | undefined;
+  backLabel: string | null | undefined;
 
   active: boolean;
 
