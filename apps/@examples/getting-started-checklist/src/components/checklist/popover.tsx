@@ -8,7 +8,7 @@ import { CheckListItem } from './item';
 
 import styles from './popover.module.css';
 
-const getIcon = (iconName: string | null): Icons.TablerIcon => {
+const getIcon = (iconName: string | null | undefined): Icons.TablerIcon => {
   return Icons[iconName as keyof typeof Icons] || Icons.IconFileUnknown;
 };
 
@@ -34,26 +34,26 @@ export function ChecklistPopover({
       </Flex>
       <CheckListItem
         completed={datasourceBlock.state.exited}
-        Icon={getIcon(datasourceBlock.field('panel-icon', ''))}
-        title={datasourceBlock.field('panel-title', '')}
-        panelText={datasourceBlock.field('panel-body', '')}
-        buttonText={datasourceBlock.field('panel-button-text', '')}
+        Icon={getIcon(datasourceBlock.field<string>('panel-icon'))}
+        title={datasourceBlock.field<string>('panel-title')}
+        panelText={datasourceBlock.field<string>('panel-body')}
+        buttonText={datasourceBlock.field<string>('panel-button-text')}
         onClickButton={datasourceModalProps.onOpen}
       />
       <CheckListItem
         completed={chartsBlock.state.exited}
-        Icon={getIcon(chartsBlock.field('panel-icon', ''))}
-        title={chartsBlock.field('panel-title', '')}
-        panelText={chartsBlock.field('panel-body', '')}
-        buttonText={chartsBlock.field('panel-button-text', '')}
+        Icon={getIcon(chartsBlock.field<string>('panel-icon'))}
+        title={chartsBlock.field<string>('panel-title')}
+        panelText={chartsBlock.field<string>('panel-body')}
+        buttonText={chartsBlock.field<string>('panel-button-text')}
         onClickButton={addChartsModalProps.onOpen}
       />
       <CheckListItem
         completed={shareBlock.state.exited}
-        Icon={getIcon(shareBlock.field('panel-icon', ''))}
-        title={shareBlock.field('panel-title', '')}
-        panelText={shareBlock.field('panel-body', '')}
-        buttonText={shareBlock.field('panel-button-text', '')}
+        Icon={getIcon(shareBlock.field<string>('panel-icon'))}
+        title={shareBlock.field<string>('panel-title')}
+        panelText={shareBlock.field<string>('panel-body')}
+        buttonText={shareBlock.field<string>('panel-button-text')}
         onClickButton={inviteModalProps.onOpen}
       />
     </Accordion>
