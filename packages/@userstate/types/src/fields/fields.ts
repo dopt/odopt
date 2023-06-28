@@ -6,12 +6,14 @@ import { RichText } from '@dopt/core-rich-text';
  * This type also includes null for when the field's value is empty.
  */
 
+// TODO: DOPT-3140 Adding object as type temporarily till we get to this
 export type FIELD_VALUE_UNION_TYPE =
   | string
   | number
   | boolean
   | null
-  | RichText;
+  | RichText
+  | object;
 
 /**
  * The literal strings corresponding to field value types, "string", "number", and "boolean".
@@ -50,7 +52,12 @@ export const RichTextField = Type.Intersect(
     BaseField,
     Type.Object({
       type: Type.Readonly(Type.Literal(FIELD_VALUE_LITERALS.richText)),
-      value: Type.Readonly(Type.Union([Type.String(), Type.Null()])),
+      value: Type.Readonly(
+        Type.Union([
+          Type.Array(Type.Record(Type.String(), Type.Any())),
+          Type.Null(),
+        ])
+      ),
     }),
   ],
   { $id: 'RichTextField' }
