@@ -113,6 +113,22 @@ const checklistItem = css({
   },
 });
 
+const checklistItemIconChecked = css({
+  all: 'unset',
+  flexShrink: 0,
+  color: '$primary',
+});
+const checklistItemIconSkipped = css({
+  all: 'unset',
+  flexShrink: 0,
+  color: '$contentLight',
+});
+
+const checklistItemIconCircle = css({
+  all: 'unset',
+  flexShrink: 0,
+});
+
 const checklistItemIcon = css({
   all: 'unset',
   flexShrink: 0,
@@ -123,9 +139,7 @@ const checklistItemIcon = css({
       },
     },
     skipped: {
-      true: {
-        color: '$contentLight',
-      },
+      true: {},
     },
   },
 });
@@ -140,13 +154,7 @@ const checklistItemTitle = css({
   display: 'block',
   fontWeight: '$medium',
   variants: {
-    completed: {
-      true: {
-        color: '$contentLight',
-        textDecoration: 'line-through',
-      },
-    },
-    skipped: {
+    disabled: {
       true: {
         color: '$contentLight',
         textDecoration: 'line-through',
@@ -161,12 +169,7 @@ const checklistItemBody = css({
   fontSize: '$sm',
   lineHeight: '$sm',
   variants: {
-    completed: {
-      true: {
-        color: '$contentLight',
-      },
-    },
-    skipped: {
+    disabled: {
       true: {
         color: '$contentLight',
       },
@@ -240,6 +243,9 @@ export {
   checklistItems as items,
   checklistItem as item,
   checklistItemIcon as itemIcon,
+  checklistItemIconChecked as itemIconChecked,
+  checklistItemIconCircle as itemIconCircle,
+  checklistItemIconSkipped as itemIconSkipped,
   checklistItemContent as itemContent,
   checklistItemTitle as itemTitle,
   checklistItemBody as itemBody,

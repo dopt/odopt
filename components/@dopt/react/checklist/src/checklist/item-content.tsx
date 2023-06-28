@@ -14,33 +14,36 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-export interface ItemsProps extends ComponentPropsWithRef<'ul'>, StyleProps {}
+export interface ChecklistItemContentProps
+  extends ComponentPropsWithRef<'div'>,
+    StyleProps {}
 
-const itemsClassName = `${classNameRoot}__items` as const;
+const itemClassName = `${classNameRoot}__item` as const;
 
-function ChecklistItems(
-  props: ItemsProps,
-  ref?: ForwardedRef<HTMLUListElement>
+function ChecklistItemContent(
+  props: ChecklistItemContentProps,
+  ref?: ForwardedRef<HTMLDivElement>
 ) {
   const { css, theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
-    <ul
+    <div
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.items({ css }), theme],
+          className: classes.itemContent(),
         }),
-        itemsClassName,
-        className,
+        `${itemClassName}-content`,
       ])}
       {...restProps}
       ref={ref}
-    />
+    >
+      {props.children}
+    </div>
   );
 }
 
-const Items = forwardRef(ChecklistItems);
-export { Items, Items as ChecklistItems };
+const ItemContent = forwardRef(ChecklistItemContent);
+export { ItemContent, ItemContent as ChecklistItemContent };
