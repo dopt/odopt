@@ -29,14 +29,7 @@ export interface ModalProps
 }
 
 function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const {
-    active = false,
-    container,
-    css,
-    theme,
-    className,
-    ...restProps
-  } = props;
+  const { active = false, container, theme, className, ...restProps } = props;
 
   if (!active) {
     return null;
@@ -49,7 +42,7 @@ function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
           className={cls([
             getThemeClassName({
               theme,
-              className: [classes.root({ css }), theme],
+              className: [classes.root(), theme],
             }),
             modalClassName,
             className,
@@ -69,7 +62,7 @@ export interface OverlayProps
 const overlayClassName = `${classNameRoot}__overlay` as const;
 
 function ModalOverlay(props: OverlayProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -78,7 +71,7 @@ function ModalOverlay(props: OverlayProps, ref?: ForwardedRef<HTMLDivElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.overlay({ css }), theme],
+          className: [classes.overlay(), theme],
         }),
         overlayClassName,
         className,
@@ -96,7 +89,7 @@ export interface ContentProps
 const contentClassName = `${classNameRoot}__content` as const;
 
 function ModalContent(props: ContentProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -105,7 +98,7 @@ function ModalContent(props: ContentProps, ref?: ForwardedRef<HTMLDivElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.content({ css }), theme],
+          className: [classes.content(), theme],
         }),
         contentClassName,
         className,
@@ -123,7 +116,7 @@ export interface HeaderProps
 const headerClassName = `${classNameRoot}__header` as const;
 
 function ModalHeader(props: HeaderProps, ref?: ForwardedRef<HTMLElement>) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -132,7 +125,7 @@ function ModalHeader(props: HeaderProps, ref?: ForwardedRef<HTMLElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.header({ css }), theme],
+          className: [classes.header(), theme],
         }),
         headerClassName,
         className,
@@ -150,13 +143,7 @@ export interface TitleProps
 const titleClassName = `${classNameRoot}__title` as const;
 
 function ModalTitle(props: TitleProps, ref?: ForwardedRef<HTMLHeadingElement>) {
-  const {
-    css,
-    theme: injectedTheme,
-    className,
-    children,
-    ...restProps
-  } = props;
+  const { theme: injectedTheme, className, children, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -165,7 +152,7 @@ function ModalTitle(props: TitleProps, ref?: ForwardedRef<HTMLHeadingElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.title({ css }), theme],
+          className: [classes.title(), theme],
         }),
         titleClassName,
         className,
@@ -190,7 +177,7 @@ function ModalDismissIcon(
   props: DismissIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { css, theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, onClick, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -218,7 +205,7 @@ function ModalDismissIcon(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.dismissIcon({ css }), theme],
+          className: [classes.dismissIcon(), theme],
         }),
         dismissIconClassName,
         className,
@@ -240,13 +227,7 @@ export interface BodyProps
 const bodyClassName = `${classNameRoot}__body` as const;
 
 function ModalBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const {
-    css,
-    theme: injectedTheme,
-    className,
-    children,
-    ...restProps
-  } = props;
+  const { theme: injectedTheme, className, children, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -255,7 +236,7 @@ function ModalBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.body({ css }), theme],
+          className: [classes.body(), theme],
         }),
         bodyClassName,
         className,
@@ -275,7 +256,7 @@ export interface FooterProps
 const footerClassName = `${classNameRoot}__footer` as const;
 
 function ModalFooter(props: FooterProps, ref?: ForwardedRef<HTMLElement>) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -284,7 +265,7 @@ function ModalFooter(props: FooterProps, ref?: ForwardedRef<HTMLElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.footer({ css }), theme],
+          className: [classes.footer(), theme],
         }),
         footerClassName,
         className,
@@ -309,7 +290,6 @@ function ModalDismissButton(
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
   const {
-    css,
     theme: injectedTheme,
     className,
     children,
@@ -325,7 +305,7 @@ function ModalDismissButton(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.dismissButton({ css }), theme],
+          className: [classes.dismissButton(), theme],
         }),
         dismissButtonClassName,
         className,
@@ -352,7 +332,6 @@ function ModalCompleteButton(
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
   const {
-    css,
     theme: injectedTheme,
     className,
     children,
@@ -368,7 +347,7 @@ function ModalCompleteButton(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.completeButton({ css }), theme],
+          className: [classes.completeButton(), theme],
         }),
         completeButtonClassName,
         className,

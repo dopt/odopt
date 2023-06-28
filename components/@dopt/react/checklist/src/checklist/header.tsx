@@ -24,7 +24,7 @@ function ChecklistHeader(
   props: ChecklistHeaderProps,
   ref?: ForwardedRef<HTMLElement>
 ) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -33,7 +33,7 @@ function ChecklistHeader(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.header({ css }), theme],
+          className: [classes.header(), theme],
         }),
         headerClassName,
         className,

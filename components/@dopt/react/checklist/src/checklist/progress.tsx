@@ -28,7 +28,6 @@ function ChecklistProgress(
   ref?: ForwardedRef<HTMLDivElement>
 ) {
   const {
-    css,
     theme: injectedTheme,
     className,
     value = 0,

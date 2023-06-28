@@ -28,7 +28,7 @@ function ChecklistItemSkipIcon(
   props: ChecklistItemSkipIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { css, theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, onClick, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 

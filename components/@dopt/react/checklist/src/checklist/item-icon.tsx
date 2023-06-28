@@ -24,7 +24,7 @@ function ChecklistItemIcon(
   props: ChecklistItemIconProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -33,12 +33,7 @@ function ChecklistItemIcon(
       className={cls([
         getThemeClassName({
           theme,
-          className: classes.itemIcon({
-            /*
-            completed: item.completed,
-            skipped: item.skipped,
-             */
-          }),
+          className: classes.itemIcon(),
         }),
         `${itemIconClassName}-icon`,
       ])}

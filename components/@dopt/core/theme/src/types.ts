@@ -1,5 +1,3 @@
-import { type CSS } from '@stitches/core';
-
 export type StyleTheme =
   | (string & {
       className: string;
@@ -10,5 +8,4 @@ export type StyleTheme =
 
 export interface StyleProps {
   theme?: StyleTheme;
-  css?: CSS;
 }
