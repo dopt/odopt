@@ -4,7 +4,7 @@ import { FIELD_VALUE_UNION_TYPE, FIELD_VALUE_LITERALS, Field } from './fields';
 type SERIALIZED = string | undefined | null;
 
 export const fieldToString = (field: FIELD_VALUE_UNION_TYPE): SERIALIZED => {
-  return field == null ? null : JSON.stringify(field);
+  return JSON.stringify(field);
 };
 
 export const fieldFromString = (
@@ -59,12 +59,12 @@ export const castField = ({
         type: 'string',
         value: value as string | null,
       };
-    // TODO: Cast as Richtext
+    // TODO: DOPT-3140 Adding object as type temporarily till we get to this Cast as Richtext
     case 'richText':
       return {
         sid,
         type: 'richText',
-        value: value as string | null,
+        value: value as Record<string, any>[] | null,
       };
     default:
       throw new Error(
@@ -82,7 +82,7 @@ export function isValueOfType(
   }
   if (
     typeof value === type ||
-    (type === 'richText' && typeof value === 'string')
+    (type === 'richText' && typeof value === 'object')
   ) {
     return true;
   }
