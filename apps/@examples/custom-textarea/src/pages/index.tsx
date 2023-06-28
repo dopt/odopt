@@ -28,13 +28,13 @@ export function Example() {
           onFocus={() => focus('default')}
           placeholder={
             pulsing.state.active
-              ? pulsing.field('placeholder', '') || ''
+              ? pulsing.field<string>('placeholder') || ''
               : 'Write a message'
           }
           className={`${textareaClass} ${pulsing.state.active && highlight}`}
         />
         <Notification open={tooltip.state.active}>
-          {tooltip.field('tip')}
+          {tooltip.field<string>('tip')}
         </Notification>
       </div>
       <Button
