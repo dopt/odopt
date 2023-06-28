@@ -103,7 +103,9 @@ interface Block {
     exited: boolean;
   };
   readonly transitioned: Record<string, boolean> | undefined;
-  field: <V>(name: string, defaultValue?: V) => V | null;
+  field: <V extends string | number | boolean>(
+    name: string
+  ) => V | null | undefined;
 }
 ```
 

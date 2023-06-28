@@ -40,19 +40,19 @@ export function Example() {
           <div className={item}>
             <Radio checked={redBlock.state.exited} />
             <Text strikeThrough={redBlock.state.exited}>
-              {redBlock.field('checklist-item')}
+              {redBlock.field<string>('checklist-item')}
             </Text>
           </div>
           <div className={item}>
             <Radio checked={blueBlock.state.exited} />
             <Text strikeThrough={blueBlock.state.exited}>
-              {blueBlock.field('checklist-item')}
+              {blueBlock.field<string>('checklist-item')}
             </Text>
           </div>
           <div className={item}>
             <Radio checked={greenBlock.state.exited} />
             <Text strikeThrough={greenBlock.state.exited}>
-              {greenBlock.field('checklist-item')}
+              {greenBlock.field<string>('checklist-item')}
             </Text>
           </div>
         </div>
