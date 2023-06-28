@@ -116,7 +116,6 @@ const popoverClassName = classNameRoot;
 
 function TourPopover(props: PopoverProps) {
   const {
-    css,
     theme: injectedTheme,
     className,
     children,
@@ -156,7 +155,6 @@ function TourPopover(props: PopoverProps) {
             theme,
             className: [
               classes.popover({
-                css,
                 position: computedPosition,
                 alignment: computedAlignment,
               }),
@@ -191,7 +189,7 @@ export interface ContentProps
 const contentClassName = `${classNameRoot}__content` as const;
 
 function TourItemContent(props: ContentProps, ref?: ForwardedRef<HTMLElement>) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -200,7 +198,7 @@ function TourItemContent(props: ContentProps, ref?: ForwardedRef<HTMLElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.content({ css }), theme],
+          className: [classes.content(), theme],
         }),
         contentClassName,
         className,
@@ -218,7 +216,7 @@ export interface HeaderProps
 const headerClassName = `${classNameRoot}__header` as const;
 
 function TourItemHeader(props: HeaderProps, ref?: ForwardedRef<HTMLElement>) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -227,7 +225,7 @@ function TourItemHeader(props: HeaderProps, ref?: ForwardedRef<HTMLElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.header({ css }), theme],
+          className: [classes.header(), theme],
         }),
         headerClassName,
         className,
@@ -246,13 +244,7 @@ function TourItemTitle(
   props: TitleProps,
   ref?: ForwardedRef<HTMLHeadingElement>
 ) {
-  const {
-    css,
-    theme: injectedTheme,
-    className,
-    children,
-    ...restProps
-  } = props;
+  const { theme: injectedTheme, className, children, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -261,7 +253,7 @@ function TourItemTitle(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.title({ css }), theme],
+          className: [classes.title(), theme],
         }),
         titleClassName,
         className,
@@ -286,7 +278,7 @@ function TourItemDismissIcon(
   props: DismissIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { css, theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, onClick, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -314,7 +306,7 @@ function TourItemDismissIcon(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.dismissIcon({ css }), theme],
+          className: [classes.dismissIcon(), theme],
         }),
         dismissIconClassName,
         className,
@@ -336,13 +328,7 @@ export interface BodyProps
 const bodyClassName = `${classNameRoot}__body` as const;
 
 function TourItemBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const {
-    css,
-    theme: injectedTheme,
-    className,
-    children,
-    ...restProps
-  } = props;
+  const { theme: injectedTheme, className, children, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -351,7 +337,7 @@ function TourItemBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.body({ css }), theme],
+          className: [classes.body(), theme],
         }),
         bodyClassName,
         className,
@@ -371,7 +357,7 @@ export interface FooterProps
 const footerClassName = `${classNameRoot}__footer` as const;
 
 function TourItemFooter(props: FooterProps, ref?: ForwardedRef<HTMLElement>) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -380,7 +366,7 @@ function TourItemFooter(props: FooterProps, ref?: ForwardedRef<HTMLElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.footer({ css }), theme],
+          className: [classes.footer(), theme],
         }),
         footerClassName,
         className,
@@ -405,7 +391,6 @@ function TourItemBackButton(
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
   const {
-    css,
     theme: injectedTheme,
     className,
     children,
@@ -421,7 +406,7 @@ function TourItemBackButton(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.backButton({ css }), theme],
+          className: [classes.backButton(), theme],
         }),
         backButtonClassName,
         className,
@@ -448,7 +433,6 @@ function TourItemNextButton(
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
   const {
-    css,
     theme: injectedTheme,
     className,
     children,
@@ -464,7 +448,7 @@ function TourItemNextButton(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.nextButton({ css }), theme],
+          className: [classes.nextButton(), theme],
         }),
         nextButtonClassName,
         className,

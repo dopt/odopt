@@ -19,13 +19,7 @@ export interface BodyProps extends ComponentPropsWithRef<'div'>, StyleProps {}
 const bodyClassName = `${classNameRoot}__body` as const;
 
 function ChecklistBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const {
-    css,
-    theme: injectedTheme,
-    className,
-    children,
-    ...restProps
-  } = props;
+  const { theme: injectedTheme, className, children, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -34,7 +28,7 @@ function ChecklistBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.body({ css }), theme],
+          className: [classes.body(), theme],
         }),
         bodyClassName,
         className,

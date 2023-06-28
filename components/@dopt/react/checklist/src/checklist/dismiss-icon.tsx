@@ -24,7 +24,7 @@ function ChecklistDismissIcon(
   props: DismissIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { css, theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, onClick, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -51,7 +51,7 @@ function ChecklistDismissIcon(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.dismissIcon({ css }), theme],
+          className: [classes.dismissIcon(), theme],
         }),
         dismissIconClassName,
         className,
