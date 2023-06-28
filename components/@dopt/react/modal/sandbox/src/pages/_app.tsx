@@ -32,7 +32,7 @@ function ModalComponent() {
           <Modal.Title>{modal.title}</Modal.Title>
           <Modal.DismissIcon onClick={modal.dismiss} />
         </Modal.Header>
-        <Modal.Body>{modal.body}</Modal.Body>
+        <Modal.Body>{JSON.stringify(modal.body)}</Modal.Body>
         <Modal.Footer>
           <Modal.DismissButton onClick={modal.dismiss}>
             {modal.dismissLabel}
