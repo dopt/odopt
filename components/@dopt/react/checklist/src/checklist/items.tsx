@@ -22,7 +22,7 @@ function ChecklistItems(
   props: ItemsProps,
   ref?: ForwardedRef<HTMLUListElement>
 ) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -31,7 +31,7 @@ function ChecklistItems(
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.items({ css }), theme],
+          className: [classes.items(), theme],
         }),
         itemsClassName,
         className,

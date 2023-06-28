@@ -20,7 +20,7 @@ export interface ChecklistProps
 const checklistClassName = classNameRoot;
 
 function Checklist(props: ChecklistProps, ref?: ForwardedRef<HTMLElement>) {
-  const { css, theme, className, ...restProps } = props;
+  const { theme, className, ...restProps } = props;
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -28,7 +28,7 @@ function Checklist(props: ChecklistProps, ref?: ForwardedRef<HTMLElement>) {
         className={cls([
           getThemeClassName({
             theme,
-            className: [classes.root({ css }), theme],
+            className: [classes.root(), theme],
           }),
           checklistClassName,
           className,

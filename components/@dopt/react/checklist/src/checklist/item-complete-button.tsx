@@ -30,7 +30,6 @@ function ChecklistItemCompleteButton(
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
   const {
-    css,
     theme: injectedTheme,
     className,
     onClick,

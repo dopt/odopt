@@ -29,7 +29,6 @@ function ChecklistItemTitle(
   ref?: ForwardedRef<HTMLDivElement>
 ) {
   const {
-    css,
     theme: injectedTheme,
     className,
     disabled = false,

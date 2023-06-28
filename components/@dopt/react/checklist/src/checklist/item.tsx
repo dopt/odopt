@@ -21,7 +21,7 @@ export interface ItemProps extends ComponentPropsWithRef<'li'>, StyleProps {}
 const itemClassName = `${classNameRoot}__item` as const;
 
 function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -30,7 +30,7 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
       className={cls([
         getThemeClassName({
           theme,
-          className: [classes.item({ css }), theme],
+          className: [classes.item(), theme],
         }),
         itemClassName,
         /*

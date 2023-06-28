@@ -24,7 +24,7 @@ function ChecklistIconCheck(
   props: ChecklistIconCheckProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
-  const { css, theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
