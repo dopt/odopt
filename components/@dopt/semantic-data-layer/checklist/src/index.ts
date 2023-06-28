@@ -11,8 +11,8 @@ export type CountableField = FilterableField;
 export interface Checklist {
   id: string;
 
-  title: string | null;
-  body: string | null;
+  title: string | null | undefined;
+  body: string | null | undefined;
 
   items: ChecklistItem[];
 
@@ -33,12 +33,12 @@ export interface Checklist {
 export interface ChecklistItem {
   id: string;
 
-  index: number | null;
+  index: number | null | undefined;
 
-  title: string | null;
-  body: string | null;
+  title: string | null | undefined;
+  body: string | null | undefined;
 
-  completeLabel: string | null;
+  completeLabel: string | null | undefined;
 
   active: boolean;
 
