@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react';
 import { dialogClass, dialogHeader, dialogTitle } from './index.css';
 
 interface Props extends PropsWithChildren {
-  title: string | null;
+  title: string | null | undefined;
   open?: boolean;
 }
 

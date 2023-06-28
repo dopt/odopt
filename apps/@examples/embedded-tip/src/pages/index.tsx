@@ -11,10 +11,13 @@ export function Example() {
     <div className={example}>
       <Skeletons.Header />
       <div className={embeddedTipContainer}>
-        <Notification title={tip.field('title', '')} open={tip.state.active}>
-          <div>{tip.field('body')}</div>
+        <Notification
+          title={tip.field<string>('title')}
+          open={tip.state.active}
+        >
+          <div>{tip.field<string>('body')}</div>
           <Button color="green" onClick={() => transition('default')}>
-            {tip.field('button')}
+            {tip.field<string>('button')}
           </Button>
         </Notification>
       </div>
