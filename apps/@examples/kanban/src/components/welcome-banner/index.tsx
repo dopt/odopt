@@ -16,12 +16,12 @@ export function WelcomeBanner() {
         <Stack justify="center" align="center" spacing="sm">
           <IconLayoutKanban color="#228BE6" size={47} />
           <Title order={2}>
-            {createAnIssueBlock.field('banner-title', '')}
+            {createAnIssueBlock.field<string>('banner-title')}
           </Title>
           <Text size="lg" align="center">
-            {createAnIssueBlock.field('banner-description', '')}
+            {createAnIssueBlock.field<string>('banner-description')}
             <br />
-            {createAnIssueBlock.field('banner-next-step', '')}
+            {createAnIssueBlock.field<string>('banner-next-step')}
           </Text>
         </Stack>
       </Alert>

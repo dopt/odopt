@@ -27,23 +27,28 @@ export function createBlock<T>({
     }
   };
 
-  const field: Block<T>['field'] = <V extends Field['value']>(
-    name: string,
-    defaultValue?: V
-  ) => {
+  const field: Block<T>['field'] = <V extends Field['value']>(name: string) => {
     const fieldMap = blockFields.get(block.uid);
 
-    if (fetching || fieldMap == null) {
-      return null;
+    /**
+     * If:
+     * - Dopt is still fetching (loading)
+     * - a Block doesn't have fields
+     * - a Block doesn't have the specified field
+     * we return `undefined`.
+     */
+    if (fetching || fieldMap == null || !fieldMap.get(name)) {
+      return undefined;
     }
 
-    const value = fieldMap.get(name)?.value;
+    /**
+     * We return `null` for a value if
+     * that value has been explicitly configured in
+     * Dopt to not have a value.
+     */
+    const { value } = fieldMap.get(name) ?? { value: null };
 
-    return value != null
-      ? (value as V)
-      : defaultValue != null
-      ? defaultValue
-      : null;
+    return value == null ? (value as null) : (value as V);
   };
 
   return { ...block, transitioned, field, transition };
