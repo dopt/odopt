@@ -59,12 +59,11 @@ export const castField = ({
         type: 'string',
         value: value as string | null,
       };
-    // TODO: DOPT-3140 Adding object as type temporarily till we get to this Cast as Richtext
     case 'richText':
       return {
         sid,
         type: 'richText',
-        value: value as Record<string, any>[] | null,
+        value: value as RichText | null,
       };
     default:
       throw new Error(
