@@ -1,3 +1,4 @@
+import { RichText } from '@dopt/core-rich-text';
 import { Block, Container } from '@dopt/react';
 
 import { displayIndexComparator } from '@dopt/react-utilities';
@@ -17,7 +18,7 @@ export function transform(container: Container): Checklist {
     id: container.sid,
 
     title: container.field<string>('title'),
-    body: container.field<string>('body'),
+    body: container.field<RichText>('body'),
 
     items,
 
@@ -64,7 +65,7 @@ export function transformItem(
     index: block.field<number>('display-index'),
 
     title: block.field<string>('title'),
-    body: block.field<string>('body'),
+    body: block.field<RichText>('body'),
     completeLabel: block.field<string>('complete-label'),
 
     active: block.state.active,

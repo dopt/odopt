@@ -38,6 +38,8 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
+import { RichText } from '@dopt/react-rich-text';
+
 import type { TourItem } from '@dopt/semantic-data-layer-tour';
 import { Portal } from '@dopt/react-portal';
 
@@ -320,7 +322,7 @@ function TourItemDismissIcon(
 }
 
 export interface BodyProps
-  extends Omit<ComponentPropsWithRef<'div'>, 'title'>,
+  extends Omit<ComponentPropsWithRef<'div'>, 'children'>,
     StyleProps {
   children?: TourItem['body'];
 }
@@ -345,7 +347,7 @@ function TourItemBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
       {...restProps}
       ref={ref}
     >
-      {children}
+      <RichText>{children}</RichText>
     </div>
   );
 }

@@ -54,10 +54,12 @@
     "unbuild": "1.2.1"
   },
   "dependencies": {
+    "@dopt/core-rich-text": "workspace:*",
+    "@dopt/react-rich-text": "workspace:*",
     "@dopt/react-component": "workspace:*",
-    "@dopt/semantic-data-layer-checklist": "workspace:*",
     "@dopt/react-theme": "workspace:*",
     "@dopt/react-utilities": "workspace:*",
+    "@dopt/semantic-data-layer-checklist": "workspace:*",
     "@stitches/core": "1.2.8"
   }
 }

@@ -18,6 +18,7 @@ import {
 import { classNameRoot } from './const';
 import type { Modal } from '@dopt/semantic-data-layer-modal';
 import { MouseEventHandler } from 'react';
+import { RichText } from '@dopt/react-rich-text';
 
 const modalClassName = classNameRoot;
 
@@ -219,7 +220,7 @@ function ModalDismissIcon(
 }
 
 export interface BodyProps
-  extends Omit<ComponentPropsWithoutRef<'div'>, 'title'>,
+  extends Omit<ComponentPropsWithoutRef<'div'>, 'children'>,
     StyleProps {
   children?: Modal['body'];
 }
@@ -244,7 +245,7 @@ function ModalBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
       {...restProps}
       ref={ref}
     >
-      {children}
+      <RichText>{children}</RichText>
     </div>
   );
 }

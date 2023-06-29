@@ -22,7 +22,7 @@ export function App() {
 }
 
 function ModalComponent() {
-  const modal = useModal('modal.ninety-trams-bow');
+  const modal = useModal('modal.ninety-birds-smash');
 
   return (
     <Modal.Root active={modal.active}>
@@ -32,7 +32,7 @@ function ModalComponent() {
           <Modal.Title>{modal.title}</Modal.Title>
           <Modal.DismissIcon onClick={modal.dismiss} />
         </Modal.Header>
-        <Modal.Body>{JSON.stringify(modal.body)}</Modal.Body>
+        <Modal.Body>{modal.body}</Modal.Body>
         <Modal.Footer>
           <Modal.DismissButton onClick={modal.dismiss}>
             {modal.dismissLabel}
