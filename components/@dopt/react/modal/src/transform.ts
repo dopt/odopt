@@ -1,3 +1,4 @@
+import { RichText } from '@dopt/core-rich-text';
 import { Block, BlockTransition } from '@dopt/react';
 
 import type { Modal } from '@dopt/semantic-data-layer-modal';
@@ -13,7 +14,7 @@ export function transform({
     id: block.sid,
 
     title: block.field<string>('title'),
-    body: block.field<string>('body'),
+    body: block.field<RichText>('body'),
 
     completeLabel: block.field<string>('complete-label'),
     dismissLabel: block.field<string>('dismiss-label'),

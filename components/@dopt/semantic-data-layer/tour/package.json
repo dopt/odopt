@@ -46,6 +46,8 @@
     "typescript": "4.9.5",
     "unbuild": "1.2.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@dopt/core-rich-text": "workspace:*"
+  },
   "openSource": true
 }

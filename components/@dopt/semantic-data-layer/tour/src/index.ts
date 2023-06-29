@@ -1,3 +1,5 @@
+import { RichText } from '@dopt/core-rich-text';
+
 export type FilterableField =
   | 'completed'
   | 'not-completed'
@@ -31,7 +33,7 @@ export interface TourItem {
   index: number | null | undefined;
 
   title: string | null | undefined;
-  body: string | null | undefined;
+  body: RichText | null | undefined;
 
   nextLabel: string | null | undefined;
   backLabel: string | null | undefined;
