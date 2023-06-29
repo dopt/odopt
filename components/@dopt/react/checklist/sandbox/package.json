@@ -40,6 +40,7 @@
     "vite": "4.3.9"
   },
   "dependencies": {
-    "@dopt/react-checklist": "workspace:*"
+    "@dopt/react-checklist": "workspace:*",
+    "@dopt/react-modal": "workspace:*"
   }
 }

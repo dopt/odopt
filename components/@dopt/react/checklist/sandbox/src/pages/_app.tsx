@@ -26,7 +26,7 @@ export function App() {
 }
 
 function ChecklistComponent() {
-  const checklist = useChecklist('checklist.onboarding-checklist');
+  const checklist = useChecklist('checklist.pink-crews-clap');
 
   function finished(item: ChecklistItem) {
     return item.skipped || item.completed;
@@ -58,9 +58,11 @@ function ChecklistComponent() {
                 <Checklist.ItemTitle disabled={finished(item)}>
                   {item.title}
                 </Checklist.ItemTitle>
+
                 <Checklist.ItemBody disabled={finished(item)}>
                   {item.body}
                 </Checklist.ItemBody>
+
                 {!finished(item) && (
                   <Checklist.ItemCompleteButton onClick={item.complete}>
                     {item.completeLabel}

@@ -1,5 +1,6 @@
 import { Block } from './block';
 import { Modal as ModalInterface } from '@dopt/semantic-data-layer-modal';
+import { RichText } from '@dopt/core-rich-text';
 
 /**
  * A modal class obeys the modal interface
@@ -44,6 +45,6 @@ export class Modal
     return this.field<string>('title');
   }
   get body() {
-    return this.field<string>('body');
+    return this.field<RichText>('body');
   }
 }
