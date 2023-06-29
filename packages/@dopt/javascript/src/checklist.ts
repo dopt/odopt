@@ -6,6 +6,7 @@ import {
   FilterableField,
   CountableField,
 } from '@dopt/semantic-data-layer-checklist';
+import { RichText } from '@dopt/core-rich-text';
 
 /**
  * A checklist class obeys the checklist interface
@@ -45,7 +46,7 @@ export class Checklist
     return this.field<string>('title');
   }
   get body() {
-    return this.field<string>('body');
+    return this.field<RichText>('body');
   }
   get items() {
     return this.children.sort((a, b) => (a.index || 0) - (b.index || 0));
@@ -108,7 +109,7 @@ export class ChecklistItem
     return this.field<string>('title');
   }
   get body() {
-    return this.field<string>('body');
+    return this.field<RichText>('body');
   }
   get index() {
     return this.field<number>('display-index');

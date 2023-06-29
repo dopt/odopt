@@ -1,11 +1,13 @@
+import { RichText } from '@dopt/core-rich-text';
+
 export interface Modal {
   id: string;
 
-  title: string | null;
-  body: string | null;
+  title: string | null | undefined;
+  body: RichText | null | undefined;
 
-  completeLabel: string | null;
-  dismissLabel: string | null;
+  completeLabel: string | null | undefined;
+  dismissLabel: string | null | undefined;
 
   active: boolean;
 

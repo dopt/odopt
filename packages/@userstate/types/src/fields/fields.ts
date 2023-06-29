@@ -1,15 +1,20 @@
 import { Static, Type } from '@sinclair/typebox';
+import { RichText } from '@dopt/core-rich-text';
 
 /**
  * The supported types for a field's value: string, number, and boolean.
  * This type also includes null for when the field's value is empty.
  */
+
+// TODO: DOPT-3140 Adding object as type temporarily till we get to this
 export type FIELD_VALUE_UNION_TYPE =
   | string
   | number
   | boolean
   | null
-  | 'richText';
+  | RichText
+  | object;
+
 /**
  * The literal strings corresponding to field value types, "string", "number", and "boolean".
  */
@@ -47,7 +52,12 @@ export const RichTextField = Type.Intersect(
     BaseField,
     Type.Object({
       type: Type.Readonly(Type.Literal(FIELD_VALUE_LITERALS.richText)),
-      value: Type.Readonly(Type.Union([Type.String(), Type.Null()])),
+      value: Type.Readonly(
+        Type.Union([
+          Type.Array(Type.Record(Type.String(), Type.Any())),
+          Type.Null(),
+        ])
+      ),
     }),
   ],
   { $id: 'RichTextField' }
@@ -78,9 +88,12 @@ export const BooleanField = Type.Intersect(
 );
 export type BooleanField = Static<typeof BooleanField>;
 
-export const Field = Type.Union([StringField, NumberField, BooleanField], {
-  $id: 'Field',
-});
+export const Field = Type.Union(
+  [StringField, NumberField, BooleanField, RichTextField],
+  {
+    $id: 'Field',
+  }
+);
 
 /**
  * This type defines all the properties of a field.
