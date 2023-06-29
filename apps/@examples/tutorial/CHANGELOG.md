@@ -1,5 +1,13 @@
 # @examples/tutorial
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [d6732a3b4]
+- Updated dependencies [856005780]
+  - @dopt/react@3.0.0
+
 ## 0.0.4
 
 ### Patch Changes
