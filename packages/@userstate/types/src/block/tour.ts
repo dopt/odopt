@@ -53,8 +53,13 @@ export const TourItemFieldDefinitions: ComponentFieldDefinition<TourItemFieldKey
       displayName: 'Body',
       sid: 'body',
       description: 'Content for the body section',
-      type: 'string',
-      initialValue: fieldToString('Tour item body') as string,
+      type: 'richText',
+      initialValue: fieldToString([
+        {
+          type: 'paragraph',
+          children: [{ text: 'Tour item body' }],
+        },
+      ]) as string,
     },
     {
       displayName: 'Next label',
