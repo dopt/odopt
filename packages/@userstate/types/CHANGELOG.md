@@ -1,5 +1,16 @@
 # @dopt/block-types
 
+## 4.1.0
+
+### Minor Changes
+
+- 856005780: Exposes RichText as a top level field type. This additive change allows for RichText objects to be returned by the blocks API and to be consumed and surfaced via the Blocks client, and React and Javascript SDKs.
+
+### Patch Changes
+
+- Updated dependencies [4f9a8f8c1]
+  - @dopt/core-rich-text@0.0.1
+
 ## 4.0.0
 
 ### Major Changes
