@@ -48,8 +48,13 @@ export const ChecklistFieldDefinitions: ComponentFieldDefinition<ChecklistFieldK
       displayName: 'Body',
       sid: 'body',
       description: 'Content for the main body section',
-      type: 'string',
-      initialValue: fieldToString('Checklist body') as string,
+      type: 'richText',
+      initialValue: fieldToString([
+        {
+          type: 'paragraph',
+          children: [{ text: 'Checklist body' }],
+        },
+      ]) as string,
     },
   ];
 
@@ -79,8 +84,13 @@ export const ChecklistItemFieldDefinitions: ComponentFieldDefinition<ChecklistIt
       displayName: 'Body',
       sid: 'body',
       description: 'Content for the body section',
-      type: 'string',
-      initialValue: fieldToString('Checklist item body') as string,
+      type: 'richText',
+      initialValue: fieldToString([
+        {
+          type: 'paragraph',
+          children: [{ text: 'Checklist item body' }],
+        },
+      ]) as string,
     },
     {
       displayName: 'Complete Label',

@@ -12,39 +12,39 @@ export function Example() {
     <div className={example}>
       <Skeleton>
         <HotSpot position="ne" visible={hotspotA.state.active}>
-          <Dialog title={hotspotA.field('title', '')}>
-            <div>{hotspotA.field('body', '')}</div>
+          <Dialog title={hotspotA.field<string>('title')}>
+            <div>{hotspotA.field<string>('body')}</div>
             <Button
               color="orange"
               onClick={() => hotspotATransition('default')}
             >
-              {hotspotA.field('button', '')}
+              {hotspotA.field<string>('button')}
             </Button>
           </Dialog>
         </HotSpot>
       </Skeleton>
       <Skeleton>
         <HotSpot position="se" visible={hotspotB.state.active}>
-          <Dialog title={hotspotB.field('title', '')}>
-            <div>{hotspotB.field('body', '')}</div>
+          <Dialog title={hotspotB.field<string>('title')}>
+            <div>{hotspotB.field<string>('body')}</div>
             <Button
               color="orange"
               onClick={() => hotspotBTransition('default')}
             >
-              {hotspotB.field('button', '')}
+              {hotspotB.field<string>('button')}
             </Button>
           </Dialog>
         </HotSpot>
       </Skeleton>
       <Skeleton>
         <HotSpot position="ne" visible={hotspotC.state.active}>
-          <Dialog title={hotspotC.field('title', '')}>
-            <div>{hotspotC.field('body', '')}</div>
+          <Dialog title={hotspotC.field<string>('title')}>
+            <div>{hotspotC.field<string>('body')}</div>
             <Button
               color="orange"
               onClick={() => hotspotCTransition('default')}
             >
-              {hotspotC.field('button', '')}
+              {hotspotC.field<string>('button')}
             </Button>
           </Dialog>
         </HotSpot>
