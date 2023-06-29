@@ -1,4 +1,4 @@
-import { CustomText, Descendant, TextAlignType } from '@dopt/core-rich-text';
+import { CustomText, Descendant } from '@dopt/core-rich-text';
 
 import { PropsWithChildren, ReactNode } from 'react';
 import { alignClass, imageContainerClass } from './styles';
@@ -8,8 +8,8 @@ export interface DescendantProps {
   key?: string;
 }
 
-export interface RichTextComponentProps {
-  descendants: Descendant[];
+export interface RichTextProps {
+  children: Descendant[];
 }
 
 export const DescendantComponent = ({
@@ -95,12 +95,10 @@ export const DescendantComponent = ({
   return <p className={baseAlign}>{children}</p>;
 };
 
-export const RichTextComponent = ({
-  descendants,
-}: PropsWithChildren<RichTextComponentProps>): JSX.Element => {
+export const RichText = (props: RichTextProps): JSX.Element => {
   return (
     <div>
-      {descendants.map((descendant: Descendant, index: number) => (
+      {props.children.map((descendant: Descendant, index: number) => (
         <DescendantComponent key={`descendant-${index}`} node={descendant} />
       ))}
     </div>

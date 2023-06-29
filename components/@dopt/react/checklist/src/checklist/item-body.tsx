@@ -15,8 +15,10 @@ import {
 } from '@dopt/react-theme';
 import { ChecklistItem } from '@dopt/semantic-data-layer-checklist';
 
+import { RichText } from '@dopt/react-rich-text';
+
 export interface ChecklistItemBodyProps
-  extends Omit<ComponentPropsWithRef<'div'>, 'title'>,
+  extends Omit<ComponentPropsWithRef<'div'>, 'children'>,
     StyleProps {
   children: ChecklistItem['body'];
   disabled?: boolean;
@@ -56,7 +58,7 @@ function ChecklistItemBody(
       {...restProps}
       ref={ref}
     >
-      {children}
+      <RichText>{children}</RichText>
     </div>
   );
 }
