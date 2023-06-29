@@ -6,6 +6,7 @@ import {
   FilterableField,
   CountableField,
 } from '@dopt/semantic-data-layer-tour';
+import { RichText } from '@dopt/core-rich-text';
 
 /**
  * A tour class obeys the tour interface
@@ -114,7 +115,7 @@ export class TourItem
     return this.field<string>('title');
   }
   get body() {
-    return this.field<string>('body');
+    return this.field<RichText>('body');
   }
   get index() {
     return this.field<number>('display-index');

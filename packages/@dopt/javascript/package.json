@@ -43,6 +43,7 @@
     "dist"
   ],
   "dependencies": {
+    "@dopt/core-rich-text": "workspace:*",
     "@dopt/javascript-common": "workspace:*",
     "@dopt/logger": "workspace:*",
     "@dopt/semantic-data-layer-checklist": "workspace:*",
