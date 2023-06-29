@@ -27,25 +27,25 @@ export function NextStepsModal({
     <Modal isOpen={isOpen} onClose={() => onClose()}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{field('next-steps-title', '')}</ModalHeader>
+        <ModalHeader>{field<string>('next-steps-title')}</ModalHeader>
         <ModalBody>
           <Flex direction="column" gap={4}>
-            <Text>{field('next-steps-analysis-callout', '')}</Text>
+            <Text>{field<string>('next-steps-analysis-callout')}</Text>
             <Text>You can learn how to:</Text>
             <UnorderedList>
               <ListItem>
                 <Link textDecoration="underline">
-                  {field('next-steps-li-1', '')}
+                  {field<string>('next-steps-li-1')}
                 </Link>
               </ListItem>
               <ListItem>
                 <Link textDecoration="underline">
-                  {field('next-steps-li-2', '')}
+                  {field<string>('next-steps-li-2')}
                 </Link>
               </ListItem>
               <ListItem>
                 <Link textDecoration="underline">
-                  {field('next-steps-li-3', '')}
+                  {field<string>('next-steps-li-3')}
                 </Link>
               </ListItem>
             </UnorderedList>
@@ -54,7 +54,7 @@ export function NextStepsModal({
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" onClick={() => transition('default')}>
-            {field('next-steps-button-text', '')}
+            {field<string>('next-steps-button-text')}
           </Button>
         </ModalFooter>
       </ModalContent>
