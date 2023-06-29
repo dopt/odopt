@@ -2,7 +2,7 @@
   "name": "@dopt/react-component",
   "version": "0.0.0",
   "description": "",
-  "private": true,
+  "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/react-component\""
   },
   "files": [
     "dist"
@@ -49,5 +50,6 @@
     "typescript": "4.9.5",
     "unbuild": "1.2.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "openSource": true
 }
