@@ -22,8 +22,8 @@ export function NextStepsBanner() {
         onClose={() => closeTransition('default')}
       >
         <Stack justify="center" align="center" spacing="md">
-          <Title order={5}>{nextSteps.field('banner-title', '')} </Title>
-          <Text size="lg">{nextSteps.field('banner-description', '')}</Text>
+          <Title order={5}>{nextSteps.field<string>('banner-title')} </Title>
+          <Text size="lg">{nextSteps.field<string>('banner-description')}</Text>
           <Group position="center" grow>
             <Card
               radius={8}

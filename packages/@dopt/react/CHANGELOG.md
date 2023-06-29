@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- d6732a3b4: Both @dopt/react and @dopt/javascript SDKs have been updated with respect to how the `field` accessor function works on `Block` instances. After this change, if Dopt is loading or a field doesn't exist on a `Block` (i.e. you try to access a field you haven't created in app.dopt.com), Dopt will return `undefined`. If a field is present, then Dopt will return the value of the field which may be `null` if the field has a value of empty in app.dopt.com. Additionally, both SDKs no longer support the optional `defaultValue` parameter -- if you would like to specify a default for the returned value, you can use the nullish operator: `block.field<string>('title') ?? '(empty)'`. Finally, in this major change for @dopt/javascript, we remove the deprecated and unused version parameter for `dopt.flow('name', <version>)` which was deprecated in 2.x.x.
+
+### Minor Changes
+
+- 856005780: Exposes RichText as a top level field type. This additive change allows for RichText objects to be returned by the blocks API and to be consumed and surfaced via the Blocks client, and React and Javascript SDKs.
+
+### Patch Changes
+
+- @dopt/javascript-common@2.0.2
+
 ## 2.1.0
 
 ### Minor Changes
