@@ -47,5 +47,6 @@
     "typescript": "4.9.5",
     "unbuild": "1.2.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "openSource": true
 }

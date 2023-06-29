@@ -1,8 +1,8 @@
 {
   "name": "@dopt/react-utilities",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
-  "private": true,
+  "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/react-utilities\""
   },
   "files": [
     "dist"
@@ -50,5 +51,6 @@
   },
   "peerDependencies": {
     "@dopt/react": "workspace:*"
-  }
+  },
+  "openSource": true
 }

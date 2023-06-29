@@ -1,8 +1,8 @@
 {
   "name": "@dopt/react-checklist",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
-  "private": true,
+  "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/react-checklist\""
   },
   "files": [
     "dist"
@@ -61,5 +62,6 @@
     "@dopt/react-utilities": "workspace:*",
     "@dopt/semantic-data-layer-checklist": "workspace:*",
     "@stitches/core": "1.2.8"
-  }
+  },
+  "openSource": true
 }
