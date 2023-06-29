@@ -1,8 +1,8 @@
 {
   "name": "@dopt/react-rich-text",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
-  "private": true,
+  "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/react-rich-text\""
   },
   "files": [
     "dist"
@@ -59,5 +60,6 @@
     "@stitches/core": "1.2.8",
     "slate": "0.94.1",
     "slate-react": "0.96.0"
-  }
+  },
+  "openSource": true
 }

@@ -1,8 +1,8 @@
 {
   "name": "@dopt/react-tour",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
-  "private": true,
+  "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/react-tour\""
   },
   "files": [
     "dist"
@@ -64,5 +65,6 @@
     "@floating-ui/react-dom": "2.0.1",
     "@radix-ui/react-compose-refs": "1.0.1",
     "@stitches/core": "1.2.8"
-  }
+  },
+  "openSource": true
 }
