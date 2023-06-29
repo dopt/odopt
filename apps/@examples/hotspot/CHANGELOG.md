@@ -1,5 +1,14 @@
 # @examples/hotspot
 
+## 0.0.24
+
+### Patch Changes
+
+- d6732a3b4: All examples must now accept undefined as a possible value when fields are used to power attributes, i.e. the `title` value can now be `string | null | undefined`. Additionally, `defaultValue` is no longer an accepted optional parameter for the `field` function. See changes in @dopt/react for more context.
+- Updated dependencies [d6732a3b4]
+- Updated dependencies [856005780]
+  - @dopt/react@3.0.0
+
 ## 0.0.23
 
 ### Patch Changes
