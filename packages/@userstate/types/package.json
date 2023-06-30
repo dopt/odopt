@@ -1,6 +1,6 @@
 {
   "name": "@userstate/types",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Schema/Type definitions for @userstate/machine",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40userstate/types",
   "repository": {
@@ -37,7 +37,8 @@
     "dist"
   ],
   "dependencies": {
-    "@sinclair/typebox": "0.25.4"
+    "@sinclair/typebox": "0.25.4",
+    "@dopt/core-rich-text": "workspace:*"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
