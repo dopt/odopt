@@ -35,20 +35,26 @@ export function transform(container: Container): Checklist {
     },
 
     filter: (on: FilterableField) => {
-      switch (on) {
-        case 'completed':
-          return items.filter(({ completed }) => !!completed);
-        case 'not-completed':
-          return items.filter(({ completed }) => !completed);
-        case 'skipped':
-          return items.filter(({ skipped }) => !!skipped);
-        case 'not-skipped':
-          return items.filter(({ skipped }) => !skipped);
-        case 'active':
-          return items.filter(({ active }) => !!active);
-        case 'not-active':
-          return items.filter(({ active }) => !active);
-      }
+      return items.filter((item) => {
+        switch (on) {
+          case 'completed':
+            return item.completed;
+          case 'not-completed':
+            return !item.completed;
+          case 'skipped':
+            return item.skipped;
+          case 'not-skipped':
+            return !item.skipped;
+          case 'active':
+            return item.active;
+          case 'not-active':
+            return !item.active;
+          case 'done':
+            return item.completed || item.skipped;
+          case 'not-done':
+            return !(item.completed || item.skipped);
+        }
+      });
     },
     count: (where: CountableField) => transformed.filter(where).length,
   };
@@ -67,6 +73,8 @@ export function transformItem(
     title: block.field<string>('title'),
     body: block.field<RichText>('body'),
     completeLabel: block.field<string>('complete-label'),
+
+    done: !!(block.transitioned.complete || block.transitioned.skip),
 
     active: block.state.active,
 
