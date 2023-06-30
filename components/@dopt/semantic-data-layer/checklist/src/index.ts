@@ -6,7 +6,9 @@ export type FilterableField =
   | 'skipped'
   | 'not-skipped'
   | 'active'
-  | 'not-active';
+  | 'not-active'
+  | 'done'
+  | 'not-done';
 
 export type CountableField = FilterableField;
 
@@ -41,6 +43,8 @@ export interface ChecklistItem {
   body: RichText | null | undefined;
 
   completeLabel: string | null | undefined;
+
+  done: boolean;
 
   active: boolean;
 
