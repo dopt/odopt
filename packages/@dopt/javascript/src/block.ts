@@ -41,24 +41,32 @@ export class Block<T = unknown> {
 
   /**
    * Gets the field with the `name` contained by this {@link Block}.
-   * If the {@link Block} does not have the field, the `defaultValue`
-   * is returned if provided. Otherwise, `null` is returned.
+   *
+   * If {@link Dopt} is loading or {@link Block} does not have a field
+   * with the specified name, `undefined` is returned.
+   *
+   * `null` is returned when the field has been explicitly
+   * configured in app.dopt.com to have an empty value.
    */
-  field<V extends Field['value']>(
-    name: string,
-    defaultValue?: V
-  ): NonNullable<V> | null {
-    if (this.fieldMap == null) {
-      return null;
+  field<V extends Field['value']>(name: string): V | null | undefined {
+    /**
+     * If:
+     * - a Block doesn't have fields (Dopt is still loading)
+     * - a Block doesn't have the specified field
+     * we return `undefined`.
+     */
+    if (this.fieldMap == null || !this.fieldMap.has(name)) {
+      return undefined;
     }
 
-    const value = this.fieldMap.get(name)?.value;
+    /**
+     * We return `null` for a value if
+     * that value has been explicitly configured in
+     * Dopt to not have a value.
+     */
+    const { value } = this.fieldMap.get(name) ?? { value: null };
 
-    return value != null
-      ? (value as V)
-      : defaultValue != null
-      ? defaultValue
-      : null;
+    return value == null ? (value as null) : (value as V);
   }
 
   get type() {

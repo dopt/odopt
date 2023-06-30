@@ -1,5 +1,11 @@
 # @dopt/blocks-javascript-client
 
+## 1.1.0
+
+### Minor Changes
+
+- 856005780: Exposes RichText as a top level field type. This additive change allows for RichText objects to be returned by the blocks API and to be consumed and surfaced via the Blocks client, and React and Javascript SDKs.
+
 ## 1.0.0
 
 ### Major Changes
