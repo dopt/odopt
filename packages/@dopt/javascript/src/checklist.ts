@@ -69,6 +69,10 @@ export class Checklist
           return item.skipped;
         case 'not-skipped':
           return !item.skipped;
+        case 'done':
+          return item.completed || item.skipped;
+        case 'not-done':
+          return !(item.completed || item.skipped);
       }
     });
   }
@@ -95,6 +99,9 @@ export class ChecklistItem
   }
   get skipped() {
     return this.state.exited && !!this.transitioned.skip;
+  }
+  get done() {
+    return !!(this.transitioned.complete || this.transitioned.skip);
   }
   complete() {
     this.transition('complete');
