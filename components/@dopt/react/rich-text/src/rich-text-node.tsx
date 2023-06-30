@@ -1,20 +1,22 @@
-import { CustomText, Descendant } from '@dopt/core-rich-text';
-
+import { Descendant } from '@dopt/core-rich-text';
 import { PropsWithChildren, ReactNode } from 'react';
+
 import { alignClass, imageContainerClass } from './styles';
 
-export interface DescendantProps {
+import { cls } from '@dopt/react-theme';
+
+import { classNameRoot } from './const';
+
+import { isTextNode } from './util';
+
+export interface RichTextNodeProps {
   node: Descendant;
   key?: string;
 }
 
-export interface RichTextProps {
-  children: Descendant[];
-}
-
-export const DescendantComponent = ({
+export const RichTextNode = ({
   node,
-}: PropsWithChildren<DescendantProps>): JSX.Element => {
+}: PropsWithChildren<RichTextNodeProps>): JSX.Element => {
   let baseAlign = '';
   if ('align' in node) {
     const textAlign = node.align;
@@ -40,30 +42,60 @@ export const DescendantComponent = ({
       children = <u>{children}</u>;
     }
 
-    return <span className={baseAlign}>{children}</span>;
+    return (
+      <span className={cls([`${classNameRoot}__text`, baseAlign])}>
+        {children}
+      </span>
+    );
   }
 
   let children: ReactNode[] | undefined;
   if ('children' in node) {
     children = node.children.map((node: Descendant, index: number) => (
-      <DescendantComponent key={`descendant-child-${index}`} node={node} />
+      <RichTextNode key={`${classNameRoot}__descendant-${index}`} node={node} />
     ));
   }
 
   if ('type' in node)
     switch (node.type) {
       case 'block-quote':
-        return <blockquote className={baseAlign}>{children}</blockquote>;
+        return (
+          <blockquote
+            className={cls([`${classNameRoot}__${node.type}`, baseAlign])}
+          >
+            {children}
+          </blockquote>
+        );
       case 'bulleted-list':
-        return <ul className={baseAlign}>{children}</ul>;
+        return (
+          <ul className={cls([`${classNameRoot}__${node.type}`, baseAlign])}>
+            {children}
+          </ul>
+        );
       case 'numbered-list':
-        return <ol className={baseAlign}>{children}</ol>;
+        return (
+          <ol className={cls([`${classNameRoot}__${node.type}`, baseAlign])}>
+            {children}
+          </ol>
+        );
       case 'heading-one':
-        return <h1 className={baseAlign}>{children}</h1>;
+        return (
+          <h1 className={cls([`${classNameRoot}__${node.type}`, baseAlign])}>
+            {children}
+          </h1>
+        );
       case 'heading-two':
-        return <h2 className={baseAlign}>{children}</h2>;
+        return (
+          <h2 className={cls([`${classNameRoot}__${node.type}`, baseAlign])}>
+            {children}
+          </h2>
+        );
       case 'list-item':
-        return <li className={baseAlign}>{children}</li>;
+        return (
+          <li className={cls([`${classNameRoot}__${node.type}`, baseAlign])}>
+            {children}
+          </li>
+        );
       case 'link':
         return <a href={node.url}>{children}</a>;
       case 'image':
@@ -90,21 +122,15 @@ export const DescendantComponent = ({
           </div>
         );
       default:
-        return <p className={baseAlign}>{children}</p>;
+        return (
+          <p className={cls([`${classNameRoot}__${node.type}`, baseAlign])}>
+            {children}
+          </p>
+        );
     }
-  return <p className={baseAlign}>{children}</p>;
-};
-
-export const RichText = (props: RichTextProps): JSX.Element => {
   return (
-    <div>
-      {props.children.map((descendant: Descendant, index: number) => (
-        <DescendantComponent key={`descendant-${index}`} node={descendant} />
-      ))}
-    </div>
+    <p className={cls([`${classNameRoot}__container`, baseAlign])}>
+      {children}
+    </p>
   );
-};
-
-const isTextNode = (node: Descendant): node is CustomText => {
-  return 'text' in node;
 };
