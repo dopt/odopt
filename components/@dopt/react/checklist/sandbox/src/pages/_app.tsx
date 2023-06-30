@@ -28,10 +28,6 @@ export function App() {
 function ChecklistComponent() {
   const checklist = useChecklist('checklist.pink-crews-clap');
 
-  function finished(item: ChecklistItem) {
-    return item.skipped || item.completed;
-  }
-
   return (
     <>
       <Checklist.Root>
@@ -41,7 +37,7 @@ function ChecklistComponent() {
         </Checklist.Header>
         <Checklist.Body>{checklist.body}</Checklist.Body>
         <Checklist.Progress
-          value={checklist.count('completed') + checklist.count('skipped')}
+          value={checklist.count('done')}
           max={checklist.size}
         />
         <Checklist.Items>
@@ -55,23 +51,21 @@ function ChecklistComponent() {
                 <Checklist.IconCircle />
               )}
               <Checklist.ItemContent>
-                <Checklist.ItemTitle disabled={finished(item)}>
+                <Checklist.ItemTitle disabled={item.done}>
                   {item.title}
                 </Checklist.ItemTitle>
 
-                <Checklist.ItemBody disabled={finished(item)}>
+                <Checklist.ItemBody disabled={item.done}>
                   {item.body}
                 </Checklist.ItemBody>
 
-                {!finished(item) && (
+                {!item.done && (
                   <Checklist.ItemCompleteButton onClick={item.complete}>
                     {item.completeLabel}
                   </Checklist.ItemCompleteButton>
                 )}
               </Checklist.ItemContent>
-              {!finished(item) && (
-                <Checklist.ItemSkipIcon onClick={item.skip} />
-              )}
+              {!item.done && <Checklist.ItemSkipIcon onClick={item.skip} />}
             </Checklist.Item>
           ))}
         </Checklist.Items>
