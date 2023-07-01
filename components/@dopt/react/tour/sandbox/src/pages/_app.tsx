@@ -1,5 +1,5 @@
 import { DoptProvider, useFlow } from '@dopt/react';
-import { useTourItem } from '@dopt/react-tour';
+import { useTourItem, useTour } from '@dopt/react-tour';
 import * as Tour from '@dopt/react-tour';
 
 export function App() {
@@ -8,7 +8,7 @@ export function App() {
       userId="joe_mckenney"
       apiKey="blocks-blocksKey_Mg=="
       flowVersions={{
-        'tour-updates': 0,
+        tour: 0,
       }}
     >
       <div className="containers">
@@ -25,7 +25,7 @@ export function App() {
 }
 
 function TourStepItem1() {
-  const tourStep = useTourItem('tour-updates.tour-step-1');
+  const tourStep = useTourItem('tour.shaggy-horses-sniff');
 
   if (!tourStep) {
     return null;
@@ -40,7 +40,7 @@ function TourStepItem1() {
         <Tour.Content>
           <Tour.Header>
             <Tour.Title>{tourStep.title}</Tour.Title>
-            <Tour.DismissIcon onClick={tourStep.dismiss} />
+            <Tour.DismissIcon onClick={tourStep.tour.dismiss} />
           </Tour.Header>
           <Tour.Body>{tourStep.body}</Tour.Body>
           <Tour.Footer>
@@ -49,6 +49,10 @@ function TourStepItem1() {
               {tourStep.nextLabel}
             </Tour.NextButton>
           </Tour.Footer>
+          <Tour.Progress
+            count={tourStep.tour.size}
+            index={tourStep.index || 0}
+          />
         </Tour.Content>
       </Tour.Popover>
     </Tour.Root>
@@ -56,7 +60,7 @@ function TourStepItem1() {
 }
 
 function TourStepItem2() {
-  const tourStep = useTourItem('tour-updates.tour-step-2');
+  const tourStep = useTourItem('tour.poor-lions-argue');
 
   if (!tourStep) {
     return null;
@@ -71,7 +75,7 @@ function TourStepItem2() {
         <Tour.Content>
           <Tour.Header>
             <Tour.Title>{tourStep.title}</Tour.Title>
-            <Tour.DismissIcon onClick={tourStep.dismiss} />
+            <Tour.DismissIcon onClick={tourStep.tour.dismiss} />
           </Tour.Header>
           <Tour.Body>{tourStep.body}</Tour.Body>
           <Tour.Footer>
@@ -82,6 +86,10 @@ function TourStepItem2() {
               {tourStep.nextLabel}
             </Tour.NextButton>
           </Tour.Footer>
+          <Tour.Progress
+            count={tourStep.tour.size}
+            index={tourStep.index || 0}
+          />
         </Tour.Content>
       </Tour.Popover>
     </Tour.Root>
@@ -89,6 +97,6 @@ function TourStepItem2() {
 }
 
 function ResetButton() {
-  const [, methods] = useFlow('tour-updates');
+  const [, methods] = useFlow('tour');
   return <button onClick={() => methods.reset()}>Reset</button>;
 }
