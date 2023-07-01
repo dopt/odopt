@@ -132,14 +132,16 @@ export interface Block<T = unknown> {
     ? Record<T[number], boolean | undefined>
     : Record<string, boolean | undefined>;
   /**
-   * Gets the field (see {@link Field['value']}) with the `name` (see {@link Field['sid']})
-   * contained by this {@link Block}. If the {@link Block} does not have the field,
-   * the `defaultValue` is returned if provided. Otherwise, `null` is returned.
+   * Gets the field (see {@link Field['value']}) with the `name`
+   * (see {@link Field['sid']}) contained by this {@link Block}.
+   *
+   * If Dopt is loading or {@link Block} does not have a field
+   * with the specified name, `undefined` is returned.
+   *
+   * `null` is returned when the field has been explicitly
+   * configured in app.dopt.com to have an empty value.
    */
-  field: <V extends Field['value']>(
-    name: string,
-    defaultValue?: V
-  ) => NonNullable<V> | null;
+  field: <V extends Field['value']>(name: string) => V | null | undefined;
   /**
    * If a block is contained within another block, for example
    * a "checklistItem" within a "checklist", this property

@@ -6,6 +6,7 @@ import {
   FilterableField,
   CountableField,
 } from '@dopt/semantic-data-layer-tour';
+import { RichText } from '@dopt/core-rich-text';
 
 /**
  * A tour class obeys the tour interface
@@ -64,7 +65,7 @@ export class Tour extends Container<TourItem> implements TourInterface {
   protected childBlockCreator(props: BlockProps) {
     return new TourItem({
       ...props,
-      dismissTour: this.dismiss.bind(this),
+      tour: () => this,
     });
   }
 }
@@ -73,17 +74,14 @@ export class TourItem
   extends Block<['next', 'previous']>
   implements TourItemInterface
 {
-  private dismissTour: () => void;
+  private _tour: () => Tour;
 
   /**
    * @internal
    */
-  constructor({
-    dismissTour,
-    ...blockProps
-  }: BlockProps & { dismissTour: TourItem['dismissTour'] }) {
+  constructor({ tour, ...blockProps }: BlockProps & { tour: () => Tour }) {
     super(blockProps);
-    this.dismissTour = dismissTour;
+    this._tour = tour;
   }
 
   get id() {
@@ -95,14 +93,14 @@ export class TourItem
   get completed() {
     return this.state.exited && !!this.transitioned.next;
   }
+  get tour() {
+    return this._tour();
+  }
   next() {
     this.transition('next');
   }
   back() {
     this.transition('previous');
-  }
-  dismiss() {
-    this.dismissTour();
   }
   get nextLabel() {
     return this.field<string>('next-label');
@@ -114,7 +112,7 @@ export class TourItem
     return this.field<string>('title');
   }
   get body() {
-    return this.field<string>('body');
+    return this.field<RichText>('body');
   }
   get index() {
     return this.field<number>('display-index');

@@ -1,6 +1,6 @@
 {
   "name": "@dopt/javascript",
-  "version": "2.0.4",
+  "version": "3.0.0",
   "description": "",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript",
   "repository": {
@@ -43,6 +43,7 @@
     "dist"
   ],
   "dependencies": {
+    "@dopt/core-rich-text": "workspace:*",
     "@dopt/javascript-common": "workspace:*",
     "@dopt/logger": "workspace:*",
     "@dopt/semantic-data-layer-checklist": "workspace:*",

@@ -1,18 +1,22 @@
+import { RichText } from '@dopt/core-rich-text';
+
 export type FilterableField =
   | 'completed'
   | 'not-completed'
   | 'skipped'
   | 'not-skipped'
   | 'active'
-  | 'not-active';
+  | 'not-active'
+  | 'done'
+  | 'not-done';
 
 export type CountableField = FilterableField;
 
 export interface Checklist {
   id: string;
 
-  title: string | null;
-  body: string | null;
+  title: string | null | undefined;
+  body: RichText | null | undefined;
 
   items: ChecklistItem[];
 
@@ -33,12 +37,14 @@ export interface Checklist {
 export interface ChecklistItem {
   id: string;
 
-  index: number | null;
+  index: number | null | undefined;
 
-  title: string | null;
-  body: string | null;
+  title: string | null | undefined;
+  body: RichText | null | undefined;
 
-  completeLabel: string | null;
+  completeLabel: string | null | undefined;
+
+  done: boolean;
 
   active: boolean;
 
