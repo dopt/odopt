@@ -274,6 +274,29 @@ const tourItemNextButton = css({
   },
 });
 
+const tourItemProgress = css({
+  all: 'unset',
+  display: 'flex',
+  gap: '$2',
+  justifyContent: 'center',
+  listStyle: 'none',
+  paddingTop: '$2',
+});
+
+const tourItemProgressItem = css({
+  width: '$3',
+  height: '$3',
+  borderRadius: '$round',
+  backgroundColor: '$secondaryLight',
+  variants: {
+    active: {
+      true: {
+        backgroundColor: '$primary',
+      },
+    },
+  },
+});
+
 export {
   tourItemPopover,
   tourItemContent,
@@ -284,6 +307,8 @@ export {
   tourItemFooter,
   tourItemBackButton,
   tourItemNextButton,
+  tourItemProgress,
+  tourItemProgressItem,
   tourItemPopover as popover,
   tourItemContent as content,
   tourItemHeader as header,
@@ -293,4 +318,6 @@ export {
   tourItemFooter as footer,
   tourItemBackButton as backButton,
   tourItemNextButton as nextButton,
+  tourItemProgress as progress,
+  tourItemProgressItem as progressItem,
 };
