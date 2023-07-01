@@ -619,14 +619,16 @@ export class Dopt {
       (props) =>
         new TourItemClass({
           ...props,
-          dismissTour: () => {
-            const uid = this.blockUidBySid.get(id) || id;
-            const { containerUid } = blockStore.getState()[uid] || {};
-            if (containerUid != null) {
-              const parentBlock =
-                this.block<['complete', 'dismiss']>(containerUid);
-              parentBlock.transition('dismiss');
+          tour: () => {
+            const { containerUid } = props.block;
+
+            if (!containerUid) {
+              throw new Error(
+                'Cannot construct tour item from block with no tour parent'
+              );
             }
+
+            return this.tour(containerUid);
           },
         })
     );

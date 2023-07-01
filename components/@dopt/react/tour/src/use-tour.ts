@@ -12,5 +12,5 @@ export function useTourItem(id: string): TourItem {
   const [block] = useBlock<['previous', 'next']>(id);
   const container = useContainer(block?.containerUid || '');
 
-  return transformItem(block, container);
+  return transformItem(block, transform(container));
 }
