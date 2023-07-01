@@ -54,6 +54,7 @@ export const theme = createStitches({
     radii: {
       1: '4px',
       2: '8px',
+      round: '100%',
     },
     shadows: {
       0: 'none',

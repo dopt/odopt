@@ -13,14 +13,8 @@ import type {
 export function transform(container: Container): Tour {
   const { children } = container;
 
-  const items = children
-    .sort(displayIndexComparator)
-    .map((child) => transformItem(child, container));
-
-  const transformed = {
+  const tour: Tour = {
     id: container.sid,
-
-    items,
 
     active: container.state.active,
 
@@ -46,18 +40,28 @@ export function transform(container: Container): Tour {
           return items.filter(({ active }) => !active);
       }
     },
-    count: (where: CountableField) => transformed.filter(where).length,
-  };
+    count: (where: CountableField) => tour.filter(where).length,
+  } as Tour;
 
-  return transformed;
+  const items: TourItem[] = children
+    .sort(displayIndexComparator)
+    .map((child) => transformItem(child, tour));
+
+  tour.items = items;
+
+  return tour;
 }
 
 export function transformItem(
   block: Block<['previous', 'next']>,
-  container: Container
+  tour: Tour
 ): TourItem {
   return {
     id: block.sid,
+
+    get tour() {
+      return tour;
+    },
 
     index: block.field<number>('display-index'),
 
@@ -73,7 +77,5 @@ export function transformItem(
 
     next: () => block.transition('next'),
     back: () => block.transition('previous'),
-
-    dismiss: () => container.transition('dismiss'),
   };
 }

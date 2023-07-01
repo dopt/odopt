@@ -30,6 +30,8 @@ export interface Tour {
 export interface TourItem {
   id: string;
 
+  tour: Tour;
+
   index: number | null | undefined;
 
   title: string | null | undefined;
@@ -44,6 +46,4 @@ export interface TourItem {
 
   next: () => void;
   back: () => void;
-
-  dismiss: () => void;
 }
