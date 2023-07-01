@@ -41,8 +41,13 @@ export const ModalFieldDefinitions: ComponentFieldDefinition<ModalFieldKeys>[] =
       displayName: 'Body',
       sid: 'body',
       description: 'Content for the body section',
-      type: 'string',
-      initialValue: fieldToString('Modal body') as string,
+      type: 'richText',
+      initialValue: fieldToString([
+        {
+          type: 'paragraph',
+          children: [{ text: 'Modal body' }],
+        },
+      ]) as string,
     },
     {
       displayName: 'Complete Label',

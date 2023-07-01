@@ -1,9 +1,10 @@
+import { RichText } from '@dopt/core-rich-text';
 import { FIELD_VALUE_UNION_TYPE, FIELD_VALUE_LITERALS, Field } from './fields';
 
 type SERIALIZED = string | undefined | null;
 
 export const fieldToString = (field: FIELD_VALUE_UNION_TYPE): SERIALIZED => {
-  return field == null ? null : JSON.stringify(field);
+  return JSON.stringify(field);
 };
 
 export const fieldFromString = (
@@ -22,9 +23,8 @@ export const fieldFromString = (
         return value as boolean;
       case 'string':
         return value as string;
-
       case 'richText':
-        return value as string;
+        return value as RichText;
     }
   } catch (e) {
     throw new Error(`value: ${string} cannot be coerced into ${type}`);
@@ -63,7 +63,7 @@ export const castField = ({
       return {
         sid,
         type: 'richText',
-        value: value as string | null,
+        value: value as RichText | null,
       };
     default:
       throw new Error(
@@ -81,7 +81,7 @@ export function isValueOfType(
   }
   if (
     typeof value === type ||
-    (type === 'richText' && typeof value === 'string')
+    (type === 'richText' && typeof value === 'object')
   ) {
     return true;
   }
