@@ -22,7 +22,7 @@ export function App() {
 }
 
 function ModalComponent() {
-  const modal = useModal('modal.ninety-birds-smash');
+  const modal = useModal('modal.two-lions-wash');
 
   return (
     <Modal.Root active={modal.active}>
