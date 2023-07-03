@@ -1,5 +1,12 @@
 # @dopt/javascript-common
 
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [856005780]
+  - @dopt/block-api-types@1.1.0
+
 ## 2.0.1
 
 ### Patch Changes

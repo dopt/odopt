@@ -368,25 +368,15 @@ export class Dopt {
    * ```
    *
    * @param uid {@link Flow['uid']} The id of the flow.
-   * @param version {@link Flow['version']} **Deprecated**.
-   * Previously, this parameter allowed specification of the version of the flow.
-   * Now, Dopt pulls the flow's version from the {@link DoptConfig}'s `flowVersions` property.
    *
    * @returns A {@link Flow} instance which matches the given `id`.
    */
-  public flow(sid: Flow['sid'], version?: number) {
+  public flow(sid: Flow['sid']) {
     const {
       logger,
       flowBlocks,
       blocksApi: { flowIntent: intent },
     } = this;
-
-    /**
-     * `version` is deprecated but is kept for backwards compatibility.
-     */
-    if (version != null) {
-      logger.info('The version parameter is deprecated and will not be used.');
-    }
 
     if (!this._setup) {
       logger.info(
@@ -629,14 +619,16 @@ export class Dopt {
       (props) =>
         new TourItemClass({
           ...props,
-          dismissTour: () => {
-            const uid = this.blockUidBySid.get(id) || id;
-            const { containerUid } = blockStore.getState()[uid] || {};
-            if (containerUid != null) {
-              const parentBlock =
-                this.block<['complete', 'dismiss']>(containerUid);
-              parentBlock.transition('dismiss');
+          tour: () => {
+            const { containerUid } = props.block;
+
+            if (!containerUid) {
+              throw new Error(
+                'Cannot construct tour item from block with no tour parent'
+              );
             }
+
+            return this.tour(containerUid);
           },
         })
     );

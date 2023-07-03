@@ -57,11 +57,14 @@ export function AddChartsModal({
                     };
                   });
                 }}
-                className={`${styles.chart} ${
-                  selection.newActiveUsers ? styles.chartIsSelected : ''
-                }`}
               >
-                <NewActiveUsers />
+                <Flex
+                  className={`${styles.chart} ${
+                    selection.newActiveUsers ? styles.chartIsSelected : ''
+                  }`}
+                >
+                  <NewActiveUsers />
+                </Flex>
               </Card>
               <Card
                 variant="unstyled"
@@ -73,11 +76,14 @@ export function AddChartsModal({
                     };
                   });
                 }}
-                className={`${styles.chart} ${
-                  selection.mostActiveUsers ? styles.chartIsSelected : ''
-                }`}
               >
-                <MostActiveUsers />
+                <Flex
+                  className={`${styles.chart} ${
+                    selection.mostActiveUsers ? styles.chartIsSelected : ''
+                  }`}
+                >
+                  <MostActiveUsers />
+                </Flex>
               </Card>
             </Flex>
             <Flex gap={4}>
@@ -91,11 +97,14 @@ export function AddChartsModal({
                     };
                   });
                 }}
-                className={`${styles.chart} ${
-                  selection.activeToday ? styles.chartIsSelected : ''
-                }`}
               >
-                <ActiveToday />
+                <Flex
+                  className={`${styles.chart} ${
+                    selection.activeToday ? styles.chartIsSelected : ''
+                  }`}
+                >
+                  <ActiveToday />
+                </Flex>
               </Card>
               <Card
                 variant="unstyled"
@@ -107,11 +116,14 @@ export function AddChartsModal({
                     };
                   });
                 }}
-                className={`${styles.chart} ${
-                  selection.monthlyActiveUsers ? styles.chartIsSelected : ''
-                }`}
               >
-                <MonthlyActiveUsers />
+                <Flex
+                  className={`${styles.chart} ${
+                    selection.monthlyActiveUsers ? styles.chartIsSelected : ''
+                  }`}
+                >
+                  <MonthlyActiveUsers />
+                </Flex>
               </Card>
             </Flex>
           </Flex>
