@@ -65,11 +65,10 @@ export type ImageElement = {
   children: EmptyText[];
 };
 
-export type HeadingTypes = [
-  HeadingOneElement['type'],
-  HeadingTwoElement['type'],
-  HeadingThreeElement['type']
-];
+export type HeadingTypes =
+  | HeadingOneElement['type']
+  | HeadingTwoElement['type']
+  | HeadingThreeElement['type'];
 
 export type LinkElement = { type: 'link'; url: string; children: Descendant[] };
 
