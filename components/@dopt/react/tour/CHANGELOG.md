@@ -1,5 +1,13 @@
 # @dopt/react-tour
 
+## 1.0.1
+
+### Patch Changes
+
+- 2699499c0: Add tour progress component.
+- Updated dependencies [d5141cc68]
+  - @dopt/react-rich-text@1.0.1
+
 ## 1.0.0
 
 ### Patch Changes
