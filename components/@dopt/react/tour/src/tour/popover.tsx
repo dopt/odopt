@@ -21,7 +21,7 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-import { Portal } from '@dopt/react-portal';
+import Portal from '@dopt/react-portal';
 import { TourItemContext } from './root';
 
 export interface PopoverProps extends ComponentPropsWithRef<'div'>, StyleProps {
@@ -65,7 +65,7 @@ function TourPopover(props: PopoverProps) {
     getPositonAndAlignFromPlacement(placement);
 
   return (
-    <Portal>
+    <Portal.Root>
       <div
         style={{ ...style, ...floatingStyles }}
         className={cls([
@@ -91,7 +91,7 @@ function TourPopover(props: PopoverProps) {
       >
         {children}
       </div>
-    </Portal>
+    </Portal.Root>
   );
 }
 
@@ -101,4 +101,4 @@ function getPositonAndAlignFromPlacement(placement: Placement) {
 }
 
 const Popover = TourPopover;
-export { Popover, Popover as TourPopover };
+export { Popover };

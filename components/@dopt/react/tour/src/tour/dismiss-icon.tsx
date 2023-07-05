@@ -69,4 +69,4 @@ function TourItemDismissIcon(
 }
 
 const DismissIcon = forwardRef(TourItemDismissIcon);
-export { DismissIcon, DismissIcon as TourItemDismissIcon };
+export { DismissIcon };

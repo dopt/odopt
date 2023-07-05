@@ -55,4 +55,4 @@ function RichText(props: RichTextProps, ref?: ForwardedRef<HTMLDivElement>) {
 }
 
 const Root = forwardRef(RichText);
-export { Root, Root as RichText };
+export { Root as RichText };
