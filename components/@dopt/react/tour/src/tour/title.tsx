@@ -45,4 +45,4 @@ function TourItemTitle(
 }
 const Title = forwardRef(TourItemTitle);
 
-export { Title, Title as TourItemTitle };
+export { Title };
