@@ -44,4 +44,4 @@ function TourItemAnchor(
 }
 
 const Anchor = forwardRef(TourItemAnchor);
-export { Anchor, Anchor as TourItemAnchor };
+export { Anchor };

@@ -63,4 +63,4 @@ function ChecklistIconCheck(
 }
 
 const IconCheck = forwardRef(ChecklistIconCheck);
-export { IconCheck, IconCheck as ChecklistIconCheck };
+export { IconCheck };
