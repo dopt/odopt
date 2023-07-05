@@ -1,5 +1,12 @@
 # @dopt/react-checklist-sandbox
 
+## 0.0.3
+
+### Patch Changes
+
+- @dopt/react-checklist@1.0.1
+- @dopt/react-modal@1.0.1
+
 ## 0.0.2
 
 ### Patch Changes

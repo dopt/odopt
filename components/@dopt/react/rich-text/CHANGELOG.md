@@ -1,5 +1,11 @@
 # @dopt/react-rich-text
 
+## 1.0.1
+
+### Patch Changes
+
+- d5141cc68: Add styling API to the RichText component + add fix for handling null children.
+
 ## 1.0.0
 
 ### Patch Changes
