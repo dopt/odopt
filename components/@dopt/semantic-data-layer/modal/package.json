@@ -1,7 +1,14 @@
 {
   "name": "@dopt/semantic-data-layer-modal",
   "version": "0.0.2",
-  "description": "",
+  "description": "An interface definition for Dopt's modal component",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/semantic-data-layer/modal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "components/@dopt/semantic-data-layer/modal"
+  },
+  "license": "MIT",
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
