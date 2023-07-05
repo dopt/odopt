@@ -1,6 +1,6 @@
 import * as classes from './styles';
 
-import { Portal, PortalProps } from '@dopt/react-portal';
+import Portal from '@dopt/react-portal';
 
 import {
   forwardRef,
@@ -26,7 +26,7 @@ export interface ModalProps
   extends ComponentPropsWithoutRef<'div'>,
     StyleProps {
   active?: boolean;
-  container?: PortalProps['container'];
+  container?: Portal.PortalProps['container'];
 }
 
 function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
@@ -38,7 +38,7 @@ function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <Portal container={container}>
+      <Portal.Root container={container}>
         <div
           className={cls([
             getThemeClassName({
@@ -51,7 +51,7 @@ function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
           {...restProps}
           ref={ref}
         />
-      </Portal>
+      </Portal.Root>
     </ThemeContext.Provider>
   );
 }
@@ -383,14 +383,4 @@ export {
   DismissIcon,
   DismissButton,
   CompleteButton,
-  Root as Modal,
-  Overlay as ModalOverlay,
-  Content as ModalContent,
-  Header as ModalHeader,
-  Title as ModalTitle,
-  Body as ModalBody,
-  Footer as ModalFooter,
-  DismissIcon as ModalDismissIcon,
-  DismissButton as ModalDismissButton,
-  CompleteButton as ModalCompleteButton,
 };

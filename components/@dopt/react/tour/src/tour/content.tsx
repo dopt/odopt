@@ -42,4 +42,4 @@ function TourItemContent(props: ContentProps, ref?: ForwardedRef<HTMLElement>) {
 }
 
 const Content = forwardRef(TourItemContent);
-export { Content, Content as TourItemContent };
+export { Content };

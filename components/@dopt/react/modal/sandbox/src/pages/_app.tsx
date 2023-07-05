@@ -1,8 +1,6 @@
 import { DoptProvider, useFlow } from '@dopt/react';
 
-import { useModal } from '@dopt/react-modal';
-
-import * as Modal from '@dopt/react-modal';
+import Modal, { useModal } from '@dopt/react-modal';
 
 export function App() {
   return (
