@@ -64,4 +64,4 @@ function ChecklistItemBody(
 }
 
 const ItemBody = forwardRef(ChecklistItemBody);
-export { ItemBody, ItemBody as ChecklistItemBody };
+export { ItemBody };
