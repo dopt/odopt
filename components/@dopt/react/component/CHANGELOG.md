@@ -1,5 +1,11 @@
 # @dopt/react-component
 
+## 0.0.2
+
+### Patch Changes
+
+- e57fc0407: Update README.md and package.json to improve npm registry.
+
 ## 0.0.1
 
 ### Patch Changes
