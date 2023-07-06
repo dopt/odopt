@@ -1,5 +1,13 @@
 # @dopt/react-utilities
 
+## 1.0.1
+
+### Patch Changes
+
+- e57fc0407: Update README.md and package.json to improve npm registry.
+- Updated dependencies [e57fc0407]
+  - @dopt/react@3.0.1
+
 ## 1.0.0
 
 ### Patch Changes

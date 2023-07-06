@@ -1,5 +1,13 @@
 # @dopt/javascript-common
 
+## 2.0.3
+
+### Patch Changes
+
+- e57fc0407: Update README.md and package.json to improve npm registry.
+- Updated dependencies [e57fc0407]
+  - @dopt/block-api-types@1.1.1
+
 ## 2.0.2
 
 ### Patch Changes

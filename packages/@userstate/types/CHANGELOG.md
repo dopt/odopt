@@ -1,5 +1,13 @@
 # @dopt/block-types
 
+## 4.1.1
+
+### Patch Changes
+
+- e57fc0407: Update README.md and package.json to improve npm registry.
+- Updated dependencies [bcc6cb36f]
+  - @dopt/core-rich-text@0.0.2
+
 ## 4.1.0
 
 ### Minor Changes
