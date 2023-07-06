@@ -45,4 +45,4 @@ function ChecklistHeader(
 }
 
 const Header = forwardRef(ChecklistHeader);
-export { Header, Header as ChecklistHeader };
+export { Header };

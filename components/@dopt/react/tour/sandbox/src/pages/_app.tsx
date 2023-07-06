@@ -1,6 +1,5 @@
 import { DoptProvider, useFlow } from '@dopt/react';
-import { useTourItem, useTour } from '@dopt/react-tour';
-import * as Tour from '@dopt/react-tour';
+import Tour, { useTourItem } from '@dopt/react-tour';
 
 export function App() {
   return (

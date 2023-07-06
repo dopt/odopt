@@ -62,7 +62,4 @@ function ChecklistItemCompleteButton(
 }
 
 const ItemCompleteButton = forwardRef(ChecklistItemCompleteButton);
-export {
-  ItemCompleteButton,
-  ItemCompleteButton as ChecklistItemCompleteButton,
-};
+export { ItemCompleteButton };

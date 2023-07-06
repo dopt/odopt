@@ -46,4 +46,4 @@ function ChecklistItemContent(
 }
 
 const ItemContent = forwardRef(ChecklistItemContent);
-export { ItemContent, ItemContent as ChecklistItemContent };
+export { ItemContent };

@@ -47,4 +47,4 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
   );
 }
 const Item = forwardRef(ChecklistItem);
-export { Item, Item as ChecklistItem };
+export { Item };
