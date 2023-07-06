@@ -1,7 +1,7 @@
 {
   "name": "@dopt/javascript",
   "version": "3.0.0",
-  "description": "",
+  "description": "A JavaScript(-only) SDK for accessing and transitioning block state in Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript",
   "repository": {
     "type": "git",
