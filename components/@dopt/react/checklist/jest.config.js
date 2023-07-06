@@ -1,4 +1,5 @@
-const { jest } = require('@dopt/config');
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  ...jest,
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
 };

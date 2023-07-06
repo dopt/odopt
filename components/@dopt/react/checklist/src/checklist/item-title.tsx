@@ -59,4 +59,4 @@ function ChecklistItemTitle(
 }
 
 const ItemTitle = forwardRef(ChecklistItemTitle);
-export { ItemTitle, ItemTitle as ChecklistItemTitle };
+export { ItemTitle };

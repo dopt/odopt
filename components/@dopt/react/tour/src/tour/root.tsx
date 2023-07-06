@@ -39,4 +39,4 @@ function TourItem(props: TourItemProps) {
 }
 
 const Root = TourItem;
-export { Root, Root as TourItem };
+export { Root };
