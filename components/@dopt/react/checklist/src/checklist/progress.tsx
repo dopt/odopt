@@ -83,4 +83,4 @@ function ChecklistProgress(
   );
 }
 const Progress = forwardRef(ChecklistProgress);
-export { Progress, Progress as ChecklistProgress };
+export { Progress };

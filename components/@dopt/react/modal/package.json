@@ -1,7 +1,14 @@
 {
   "name": "@dopt/react-modal",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "description": "A React modal component for building experiences with Dopt",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/modal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "components/@dopt/react/modal"
+  },
+  "license": "MIT",
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
