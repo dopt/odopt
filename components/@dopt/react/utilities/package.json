@@ -1,7 +1,13 @@
 {
   "name": "@dopt/react-utilities",
   "version": "1.0.0",
-  "description": "",
+  "description": "Common utilities shared between @dopt React components",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/utilities",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "components/@dopt/react/utilities"
+  },
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
