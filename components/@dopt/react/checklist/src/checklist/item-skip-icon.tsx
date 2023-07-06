@@ -51,4 +51,4 @@ function ChecklistItemSkipIcon(
 }
 
 const ItemSkipIcon = forwardRef(ChecklistItemSkipIcon);
-export { ItemSkipIcon, ItemSkipIcon as ChecklistItemSkipIcon };
+export { ItemSkipIcon };

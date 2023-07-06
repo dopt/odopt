@@ -45,4 +45,4 @@ function ChecklistTitle(
 }
 
 const Title = forwardRef(ChecklistTitle);
-export { Title, Title as ChecklistTitle };
+export { Title };

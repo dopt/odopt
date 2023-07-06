@@ -1,5 +1,11 @@
 # @dopt/core-rich-text
 
+## 0.0.2
+
+### Patch Changes
+
+- bcc6cb36f: retaining selection on header and align
+
 ## 0.0.1
 
 ### Patch Changes

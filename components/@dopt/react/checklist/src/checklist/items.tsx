@@ -43,4 +43,4 @@ function ChecklistItems(
 }
 
 const Items = forwardRef(ChecklistItems);
-export { Items, Items as ChecklistItems };
+export { Items };
