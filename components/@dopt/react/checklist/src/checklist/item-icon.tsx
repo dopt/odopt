@@ -44,4 +44,4 @@ function ChecklistItemIcon(
 }
 
 const ItemIcon = forwardRef(ChecklistItemIcon);
-export { ItemIcon, ItemIcon as ChecklistItemIcon };
+export { ItemIcon };

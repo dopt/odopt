@@ -42,4 +42,4 @@ function TourItemHeader(props: HeaderProps, ref?: ForwardedRef<HTMLElement>) {
 }
 
 const Header = forwardRef(TourItemHeader);
-export { Header, Header as TourItemHeader };
+export { Header };
