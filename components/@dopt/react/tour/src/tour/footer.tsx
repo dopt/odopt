@@ -43,4 +43,4 @@ function TourItemFooter(props: FooterProps, ref?: ForwardedRef<HTMLElement>) {
 
 const Footer = forwardRef(TourItemFooter);
 
-export { Footer, Footer as TourItemFooter };
+export { Footer };

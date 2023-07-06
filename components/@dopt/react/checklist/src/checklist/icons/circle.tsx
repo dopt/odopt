@@ -59,4 +59,4 @@ function ChecklistIconCircle(
 }
 
 const IconCircle = forwardRef(ChecklistIconCircle);
-export { IconCircle, IconCircle as ChecklistIconCircle };
+export { IconCircle };

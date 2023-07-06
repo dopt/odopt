@@ -1,7 +1,13 @@
 {
   "name": "@dopt/react-portal",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "Portal component used in other @dopt React components",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/portal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "components/@dopt/react/portal"
+  },
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
