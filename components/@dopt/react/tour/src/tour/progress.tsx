@@ -59,4 +59,4 @@ function TourProgress(
 }
 
 const Progress = forwardRef(TourProgress);
-export { Progress, Progress as TourProgress };
+export { Progress };

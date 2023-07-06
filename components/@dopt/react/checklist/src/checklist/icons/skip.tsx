@@ -60,4 +60,4 @@ function ChecklistIconSkip(
 }
 
 const IconSkip = forwardRef(ChecklistIconSkip);
-export { IconSkip, IconSkip as ChecklistIconSkip };
+export { IconSkip };

@@ -48,4 +48,4 @@ function ChecklistBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
 }
 
 const Body = forwardRef(ChecklistBody);
-export { Body, Body as ChecklistBody };
+export { Body };

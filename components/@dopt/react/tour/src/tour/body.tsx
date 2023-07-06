@@ -50,4 +50,4 @@ function TourItemBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
 }
 
 const Body = forwardRef(TourItemBody);
-export { Body, Body as TourItemBody };
+export { Body };
