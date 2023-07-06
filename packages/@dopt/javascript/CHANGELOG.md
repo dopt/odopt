@@ -1,5 +1,18 @@
 # @dopt/javascript
 
+## 3.0.1
+
+### Patch Changes
+
+- e57fc0407: Update README.md and package.json to improve npm registry.
+- Updated dependencies [e57fc0407]
+- Updated dependencies [bcc6cb36f]
+  - @dopt/semantic-data-layer-checklist@0.0.2
+  - @dopt/semantic-data-layer-tour@0.0.2
+  - @dopt/javascript-common@2.0.3
+  - @dopt/core-rich-text@0.0.2
+  - @dopt/semantic-data-layer-modal@0.0.3
+
 ## 3.0.0
 
 ### Major Changes
