@@ -19,5 +19,5 @@ Component.displayName = 'Portal';
 
 const Root = Component;
 
-export { Component as Portal, Root };
+export { Root };
 export type { PortalProps };

@@ -66,4 +66,4 @@ function ChecklistDismissIcon(
 }
 
 const DismissIcon = forwardRef(ChecklistDismissIcon);
-export { DismissIcon, DismissIcon as ChecklistDismissIcon };
+export { DismissIcon };
