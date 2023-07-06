@@ -43,7 +43,7 @@ function ChecklistComponent() {
         />
         <Checklist.Items>
           {checklist.items.map((item, i) => (
-            <Checklist.Item key={i}>
+            <Checklist.Item index={i} key={i}>
               {item.completed ? (
                 <Checklist.IconCheck />
               ) : item.skipped ? (
