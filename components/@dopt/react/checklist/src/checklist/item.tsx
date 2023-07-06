@@ -16,12 +16,14 @@ import {
 
 import type { ChecklistItem } from '@dopt/semantic-data-layer-checklist';
 
-export interface ItemProps extends ComponentPropsWithRef<'li'>, StyleProps {}
+export interface ItemProps extends ComponentPropsWithRef<'li'>, StyleProps {
+  index?: number;
+}
 
 const itemClassName = `${classNameRoot}__item` as const;
 
 function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, index, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -33,12 +35,7 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
           className: [classes.item(), theme],
         }),
         itemClassName,
-        /*
-        `${itemClassName}--${(item.index || 0) + 1}`,
-        item.active ? `${itemClassName}--active` : undefined,
-        item.completed ? `${itemClassName}--completed` : undefined,
-        item.skipped ? `${itemClassName}--skipped` : undefined,
-         */
+        index !== undefined ? `${itemClassName}--${index + 1}` : undefined,
         className,
       ])}
       {...restProps}
