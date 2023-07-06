@@ -28,8 +28,7 @@ pnpm add @dopt/react-modal
 Compose and style the modal component to fit your needs.
 
 ```jsx
-import { useModal } from '@dopt/react-modal';
-import * as Modal from '@dopt/react-modal';
+import Modal, { useModal } from '@dopt/react-modal';
 
 function MyModal() {
   const modal = useModal('my-flow.four-pandas-jam');
@@ -60,21 +59,46 @@ function MyModal() {
 ### Headless
 
 Break out completely and leverage `useModal` to access the modal headlessly.
+Returned values from `useModal` implement the `Modal` interface in [@dopt/semantic-data-layer-modal](https://www.npmjs.com/package/@dopt/semantic-data-layer-modal).
 
 ```jsx
 import { useModal } from '@dopt/react-modal';
-import { Modal } from './modal';
+import RichText from '@dopt/react-rich-text';
 
 function MyModal() {
-  const modal = useModal('my-flow.four-pandas-jam');
+  const {
+    id,
+    title,
+    body,
+    completeLabel,
+    dismissLabel,
+    active,
+    completed,
+    dismissed,
+    complete,
+    dismiss,
+  } = useModal('my-flow.four-pandas-jam');
 
   return (
-    <Modal isOpen={modal.active}>
-      <h1>{modal.title}</h1>
-      {modal.body}
-      <button onClick={modal.dismiss}>{modal.dismissLabel}</button>
-      <button onClick={modal.complete}>{modal.completeLabel}</button>
-    </Modal>
+    <div>
+      <div id="states">
+        <div>modal.active: {active}</div>
+        <div>modal.completed: {completed}</div>
+        <div>modal.dismissed: {dismissed}</div>
+      </div>
+      <div id="actions">
+        <button onClick={complete}>{completeLabel}</button>
+        <button onClick={dismiss}>{dismissLabel}</button>
+      </div>
+      <div id="content">
+        <div>modal.title: {title}</div>
+        <div>
+          modal.body: <RichText.Root>{body}</RichText.Root>
+        </div>
+        <div>modal.completeLabel: {completeLabel}</div>
+        <div>modal.dismissLabel: {dismissLabel}</div>
+      </div>
+    </div>
   );
 }
 ```
