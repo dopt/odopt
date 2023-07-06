@@ -1,5 +1,13 @@
 # @dopt/block-api-types
 
+## 1.1.1
+
+### Patch Changes
+
+- e57fc0407: Update README.md and package.json to improve npm registry.
+- Updated dependencies [e57fc0407]
+  - @userstate/types@4.1.1
+
 ## 1.1.0
 
 ### Minor Changes
