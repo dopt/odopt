@@ -1,7 +1,14 @@
 {
   "name": "@dopt/react-tour",
   "version": "1.0.2",
-  "description": "",
+  "description": "A React tour component for building experiences with Dopt",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/tour",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "components/@dopt/react/tour"
+  },
+  "license": "MIT",
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
