@@ -1,3 +1,3 @@
-## BlockTypes
+# @userstate/types
 
-Some guidance for writing great READMEs can be found (here)[https://www.makeareadme.com/]
+This package contains the underlying type definitions used by @dopt's SDKs to execute state machines.

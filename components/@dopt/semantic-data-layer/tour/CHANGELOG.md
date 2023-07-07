@@ -1,5 +1,13 @@
 # @dopt/semantic-data-layer-tour
 
+## 0.0.2
+
+### Patch Changes
+
+- e57fc0407: Update README.md and package.json to improve npm registry.
+- Updated dependencies [bcc6cb36f]
+  - @dopt/core-rich-text@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes

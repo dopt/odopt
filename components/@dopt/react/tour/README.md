@@ -1,1 +1,290 @@
-## Dopt's React Checklist Component
+# @dopt/react-tour
+
+## Overview
+
+A React tour component for building experiences with Dopt.
+
+You can use the tour component out of the box as a pre-built component or break out and use it headlessly with your own UI component.
+
+[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/tour/)
+
+## Installation
+
+```bash
+# npm
+npm install @dopt/react-tour
+
+# Yarn
+yarn add @dopt/react-tour
+
+# pnpm
+pnpm add @dopt/react-tour
+```
+
+## UI components
+
+### TourItem
+
+The default export from `@dopt/react-tour` is a collection of components that you can use to structure and compose a tour item.
+
+```jsx
+import TourItem, { useTourItem } from '@dopt/react-tour';
+
+function MyTourStep() {
+  const tourItem = useTourItem('tour.shaggy-horses-sniff');
+
+  if (!tourItem) {
+    return null;
+  }
+
+  return (
+    <TourItem.Root active={tourStep.active}>
+      <TourItem.Anchor>
+        <button>Anchoring element</button>
+      </TourItem.Anchor>
+      <TourItem.Popover>
+        <TourItem.Content>
+          <TourItem.Header>
+            <TourItem.Title>{tourStep.title}</TourItem.Title>
+            <TourItem.DismissIcon onClick={tourStep.tour.dismiss} />
+          </TourItem.Header>
+          <TourItem.Body>{tourStep.body}</TourItem.Body>
+          <TourItem.Footer>
+            <TourItem.BackButton>{tourStep.backLabel}</TourItem.BackButton>
+            <TourItem.NextButton onClick={tourStep.next}>
+              {tourStep.nextLabel}
+            </TourItem.NextButton>
+          </TourItem.Footer>
+          <TourItem.Progress
+            count={tourStep.tour.size}
+            index={tourStep.index}
+          />
+        </TourItem.Content>
+      </TourItem.Popover>
+    </TourItem.Root>
+  );
+}
+```
+
+## Hooks
+
+### useTour
+
+- **useTour**(`id`: string): [Tour](#tour)
+
+A React hook for accessing and updating a Tour's state.
+
+```tsx
+import { useTour } from '@dopt/react-tour';
+
+export function MyTourStep() {
+  const {
+    id,
+    items,
+    active,
+    completed,
+    dismissed,
+    complete,
+    dismiss,
+    filter,
+    count,
+    size,
+  } = useTour('onboarding-tour.tour-component');
+
+  return (
+    <div>
+      <div id="states">
+        <div>tour.active: {active}</div>
+        <div>tour.completed: {completed}</div>
+        <div>tour.dismissed: {dismissed}</div>
+      </div>
+      <div id="actions">
+        <button onClick={complete}>Complete</button>
+        <button onClick={dismiss}>Dismiss</button>
+      </div>
+      <div id="children">
+        <div>tour.items: {JSON.stringify(items.map((item) => item.id))}</div>
+      </div>
+      <div id="filtering">
+        <div id="active-items">{JSON.stringify(filter('active'))}</div>
+        <div id="not-active-items">{JSON.stringify(filter('not-active'))}</div>
+        <div id="completed-items">{JSON.stringify(filter('completed'))}</div>
+        <div id="not-completed-items">
+          {JSON.stringify(filter('not-completed'))}
+        </div>
+      </div>
+      <div id="metadata">
+        <div>tour.size: {size}</div>
+      </div>
+    </div>
+  );
+}
+```
+
+### useTourItem
+
+- **useTourItem**(`id`): [TourItem](#touritem-1)
+
+A React hook for accessing and updating a tour item's state.
+
+```tsx
+import { useTourItem } from '@dopt/react-tour';
+import RichText from '@dopt/react-rich-text';
+
+export function Application() {
+  const {
+    id,
+    tour,
+    index,
+    title,
+    body,
+    nextLabel,
+    backLabel,
+    active,
+    completed,
+    next,
+    back,
+  } = useTourItem('onboarding-tour.step-1');
+
+  return (
+    <div>
+      <div id="states">
+        <div>tourItem.active: {active}</div>
+        <div>tourItem.completed: {completed}</div>
+      </div>
+      <div id="actions">
+        <button onClick={next}>{nextLabel}</button>
+        <button onClick={back}>{backLabel}</button>
+      </div>
+      <div id="content">
+        <div>tourItem.title: {title}</div>
+        <div>
+          tourItem.body: <RichText.Root>{body}</RichText.Root>
+        </div>
+        <div>tourItem.nextLabel: {nextLabel}</div>
+        <div>tourItem.backLabel: {backLabel}</div>
+      </div>
+      <div id="parent">
+        <div>tourItem.tour: {JSON.stringify(tour)}</div>
+      </div>
+      <div id="metadata">
+        <div>tourItem.index: {tourItem.index}</div>
+      </div>
+    </div>
+  );
+}
+```
+
+## Styling API
+
+[Learn more about styling and theming →](https://docs.dopt.com/components/styling/)
+
+| Name         | Selector                         | Description                              |
+| ------------ | -------------------------------- | ---------------------------------------- |
+| popover      | `.dopt-tour-item`                | Popover element                          |
+| content      | `.dopt-tour-item__content`       | Content container                        |
+| header       | `.dopt-tour-item__header`        | Header containing title and dismiss icon |
+| title        | `.dopt-tour-item__title`         | Title heading                            |
+| dismissIcon  | `.dopt-tour-item__dismiss-icon`  | Disiss icon button                       |
+| body         | `.dopt-tour-item__body`          | Body content                             |
+| footer       | `.dopt-tour-item__footer`        | Footer containing back and next buttons  |
+| backButton   | `.dopt-tour-item__back-button`   | Back button                              |
+| nextButton   | `.dopt-tour-item__next-button`   | Next button                              |
+| progress     | `.dopt-tour-item__progress`      | Progress indicators                      |
+| progressItem | `.dopt-tour-item-progress__item` | Progress indicator item                  |
+
+### Popover position
+
+| Name   | Selector                   | Description       |
+| ------ | -------------------------- | ----------------- |
+| top    | `.dopt-tour-item--top`     | Positioned top    |
+| top    | `[data-position="top"]`    | Positioned top    |
+| right  | `.dopt-tour-item--right`   | Positioned right  |
+| right  | `[data-position="right"]`  | Positioned right  |
+| bottom | `.dopt-tour-item--bottom`  | Positioned bottom |
+| bottom | `[data-position="bottom"]` | Positioned bottom |
+| left   | `.dopt-tour-item--left`    | Positioned left   |
+| left   | `[data-position="left"]`   | Positioned left   |
+
+### Popover alignment
+
+| Name   | Selector                    | Description    |
+| ------ | --------------------------- | -------------- |
+| start  | `.dopt-tour-item--start`    | Aligned start  |
+| start  | `[data-alignment="start"]`  | Aligned start  |
+| center | `.dopt-tour-item--center`   | Aligned center |
+| center | `[data-alignment="center"]` | Aligned center |
+| end    | `.dopt-tour-item--end`      | Aligned end    |
+| end    | `[data-alignment="end"]`    | Aligned end    |
+
+### Progress item state
+
+| Name   | Selector                                 | Description          |
+| ------ | ---------------------------------------- | -------------------- |
+| active | `.dopt-tour-item-progress__item--active` | Active progress item |
+
+## Types
+
+### Tour
+
+A stateful container for tour items.
+
+```ts
+interface Tour {
+  id: string;
+
+  items: TourItem[];
+
+  active: boolean;
+
+  completed: boolean;
+  dismissed: boolean;
+
+  complete: () => void;
+  dismiss: () => void;
+
+  size: number;
+
+  filter(on: FilterableField): TourItem[];
+  count(where: CountableField): number;
+}
+```
+
+### TourItem
+
+A child of the Tour. Includes state accessors and methods for updating state along with content configured in Dopt.
+
+```ts
+interface TourItem {
+  id: string;
+
+  tour: Tour;
+
+  index: number | null | undefined;
+
+  title: string | null | undefined;
+  body: RichText | null | undefined;
+
+  nextLabel: string | null | undefined;
+  backLabel: string | null | undefined;
+
+  active: boolean;
+
+  completed: boolean;
+
+  next: () => void;
+  back: () => void;
+}
+```
+
+### FilterableField
+
+```ts
+type FilterableField = 'completed' | 'not-completed' | 'active' | 'not-active';
+```
+
+### CountableField
+
+```ts
+type CountableField = FilterableField;
+```
