@@ -1,5 +1,11 @@
 # @examples/hotspot
 
+## 0.0.26
+
+### Patch Changes
+
+- @dopt/react@3.0.2
+
 ## 0.0.25
 
 ### Patch Changes
