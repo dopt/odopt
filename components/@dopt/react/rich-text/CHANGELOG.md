@@ -1,5 +1,12 @@
 # @dopt/react-rich-text
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [b702ab075]
+  - @dopt/react-theme@0.0.2
+
 ## 1.0.2
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @dopt/react-tour
 
+## 1.0.3
+
+### Patch Changes
+
+- ff2a803fc: update README.md and package.json and add new links and usage patterns
+- 36c73ceb9: update readme
+- Updated dependencies [b702ab075]
+  - @dopt/react-theme@0.0.2
+  - @dopt/react-rich-text@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes
