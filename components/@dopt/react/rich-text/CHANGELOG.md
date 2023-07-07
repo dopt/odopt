@@ -1,5 +1,14 @@
 # @dopt/react-rich-text
 
+## 1.0.4
+
+### Patch Changes
+
+- ea44007e8: add rich text README.md, package.json, and docs
+- Updated dependencies [ea44007e8]
+  - @dopt/core-rich-text@0.0.3
+  - @dopt/react@3.0.2
+
 ## 1.0.3
 
 ### Patch Changes
