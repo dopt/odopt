@@ -1,7 +1,14 @@
 {
   "name": "@dopt/core-rich-text",
-  "version": "0.0.2",
-  "description": "",
+  "version": "0.0.3",
+  "description": "A package which contains type definitions and schemas for Dopt's rich text fields",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/core/rich-text",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "components/@dopt/core/rich-text"
+  },
+  "license": "MIT",
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
