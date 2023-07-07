@@ -1,5 +1,11 @@
 # @dopt/core-rich-text
 
+## 0.0.3
+
+### Patch Changes
+
+- ea44007e8: add rich text README.md, package.json, and docs
+
 ## 0.0.2
 
 ### Patch Changes
