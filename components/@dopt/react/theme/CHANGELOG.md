@@ -1,5 +1,13 @@
 # @dopt/react-theme
 
+## 0.0.2
+
+### Patch Changes
+
+- b702ab075: Update README.md, package.json, and code blocks for themes and styles packages
+- Updated dependencies [b702ab075]
+  - @dopt/core-theme@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
