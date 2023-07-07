@@ -41,4 +41,4 @@ function Checklist(props: ChecklistProps, ref?: ForwardedRef<HTMLElement>) {
 }
 
 const Root = forwardRef(Checklist);
-export { Root, Root as Checklist };
+export { Root };

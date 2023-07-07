@@ -1,7 +1,14 @@
 {
   "name": "@dopt/react-theme",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "A library for creating themes to style Dopt's React components",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/theme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "components/@dopt/react/theme"
+  },
+  "license": "MIT",
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

@@ -1,5 +1,32 @@
 # @dopt/react-modal
 
+## 1.0.3
+
+### Patch Changes
+
+- ff2a803fc: update README.md and package.json and add new links and usage patterns
+- 36c73ceb9: update readme
+- Updated dependencies [b702ab075]
+  - @dopt/react-theme@0.0.2
+  - @dopt/react-rich-text@1.0.3
+
+## 1.0.2
+
+### Patch Changes
+
+- 0b7a1e60c: React components export all of their UI Components as the default export for cleaner import of UI components and hooks.
+- 533bf81e3: - update readme
+  - update description, homepage, repository, and license in package.json
+- Updated dependencies [e57fc0407]
+- Updated dependencies [0b7a1e60c]
+- Updated dependencies [bcc6cb36f]
+  - @dopt/react-component@0.0.2
+  - @dopt/react@3.0.1
+  - @dopt/react-portal@0.0.2
+  - @dopt/react-rich-text@1.0.2
+  - @dopt/core-rich-text@0.0.2
+  - @dopt/semantic-data-layer-modal@0.0.3
+
 ## 1.0.1
 
 ### Patch Changes

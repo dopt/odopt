@@ -1,6 +1,6 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react';
 
-import * as Modal from '../';
+import Modal from '../';
 import * as ModalSdl from '@dopt/semantic-data-layer-modal';
 
 const ModalTest = (props: Partial<ModalSdl.Modal>) => (

@@ -1,5 +1,12 @@
 # @dopt/semantic-data-layer-modal
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [bcc6cb36f]
+  - @dopt/core-rich-text@0.0.2
+
 ## 0.0.2
 
 ### Patch Changes
