@@ -1,5 +1,12 @@
 # @dopt/semantic-data-layer-tour
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [ea44007e8]
+  - @dopt/core-rich-text@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
