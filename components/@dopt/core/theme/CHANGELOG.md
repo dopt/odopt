@@ -1,5 +1,11 @@
 # @dopt/core-theme
 
+## 0.0.2
+
+### Patch Changes
+
+- b702ab075: Update README.md, package.json, and code blocks for themes and styles packages
+
 ## 0.0.1
 
 ### Patch Changes

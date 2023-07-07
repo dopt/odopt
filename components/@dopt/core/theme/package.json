@@ -1,6 +1,6 @@
 {
   "name": "@dopt/core-theme",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A package which contains base themes and utilities for styling Dopt's React components",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/core/theme",
   "repository": {
