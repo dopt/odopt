@@ -21,17 +21,17 @@ yarn add @dopt/react-checklist
 pnpm add @dopt/react-checklist
 ```
 
-## Usage
+## UI Components
 
-### Pre-built component
+### Checklist
 
-Compose and style the checklist component to fit your needs.
+The default export from `@dopt/react-checklist` is a collection of components that you can use to structure and compose a checklist.
 
 ```jsx
 import Checklist, { useChecklist } from '@dopt/react-checklist';
 
 function MyChecklist() {
-  const checklist = useChecklist('my-flow.onboarding-checklist');
+  const checklist = useChecklist('checklist.pink-crews-clap');
 
   return (
     <Checklist.Root>
@@ -46,7 +46,7 @@ function MyChecklist() {
       />
       <Checklist.Items>
         {checklist.items.map((item, i) => (
-          <Checklist.Item index={i} key={i}>
+          <Checklist.Item key={i}>
             {item.completed ? (
               <Checklist.IconCheck />
             ) : item.skipped ? (
@@ -78,19 +78,19 @@ function MyChecklist() {
 }
 ```
 
-### Headless
+## Hooks
 
-Break out completely and leverage `useChecklist` and `useChecklistItem` hooks to access checklists and checklist items headlessly.
+### useChecklist
 
-Returned values from `useChecklist` and `useChecklistItem` implement the `Checklist` and `ChecklistItem` interfaces in [@dopt/semantic-data-layer-checklist](https://www.npmjs.com/package/@dopt/semantic-data-layer-checklist).
+- **useChecklist**(`id`: string): [Checklist](#checklist-1)
 
-`Checklist` instances contain all state, data, and functions necessary to render and interact with checklists. Each instance also access for all its child `ChecklistItem` instances, and you can also access individual `ChecklistItem` instances via `useChecklistItem`. Using the individual checklist items can help perform actions on specific items like skipping or completing an item separately from rendering a checklist.
+A React hook for managing a checklist's state and content.
 
-```jsx
+```tsx
 import { useChecklist } from '@dopt/react-checklist';
 import RichText from '@dopt/react-rich-text';
 
-function MyChecklist() {
+export function MyChecklist() {
   const {
     id,
     title,
@@ -104,7 +104,7 @@ function MyChecklist() {
     filter,
     count,
     size,
-  } = useChecklist('my-flow.onboarding-checklist');
+  } = useChecklist('onboarding-checklist.checklist-component');
 
   return (
     <div>
@@ -156,6 +156,56 @@ function MyChecklist() {
 }
 ```
 
+### useChecklistItem
+
+- **useChecklistItem**(`id`: string): [ChecklistItem](#checklistitem)
+
+A React hook for managing a checklist item's state and content.
+
+```tsx
+import { useChecklistItem } from '@dopt/react-checklist';
+import RichText from '@dopt/react-rich-text';
+
+export function MyChecklistItem() {
+  const {
+    id,
+    index,
+    title,
+    body,
+    completeLabel,
+    done,
+    active,
+    skipped,
+    completed,
+    complete,
+    skip,
+  } = useChecklistItem("onboarding-checklist.item-1");
+
+  return (
+    <div>
+      <div id="states">
+        <div>checklistItem.active: {active}</div>
+        <div>checklistItem.skipped: {skipped}</div>
+        <div>checklistItem.completed: {completed}</div>
+        <div>checklistItem.done: {done}</div>
+      </div>
+      <div id="actions">
+        <button onClick={complete}>{completeLabel}</button>
+        <button onClick={skip}>Skip</button>
+      </div>
+      <div id="content">
+        <div>checklistItem.title: {title}</div>
+        <div>checklistItem.body: <RichText.Root>{body}</RichText.Root></div>
+        <div>checklistItem.completeLabel: {completeLabel}</div>
+      </div>
+      <div id="metadata">
+        <div>checklistItem.index: {checklistItem.index}</div>
+      </div>
+    <div>
+  )
+}
+```
+
 ## Styling API
 
 [Learn more about styling and theming →](https://docs.dopt.com/components/styling/)
@@ -198,3 +248,80 @@ function MyChecklist() {
 | --------- | ---------------------------------- | -------------- |
 | active    | `.dopt-checklist__item--active`    | Active item    |
 | completed | `.dopt-checklist__item--completed` | Completed item |
+
+## Types
+
+### Checklist
+
+A stateful container for checklist items.
+
+```ts
+interface Checklist {
+  id: string;
+
+  title: string | null | undefined;
+  body: RichText | null | undefined;
+
+  items: ChecklistItem[];
+
+  active: boolean;
+
+  completed: boolean;
+  dismissed: boolean;
+
+  complete: () => void;
+  dismiss: () => void;
+
+  size: number;
+
+  filter(on: FilterableField): ChecklistItem[];
+  count(where: CountableField): number;
+}
+```
+
+### ChecklistItem
+
+A child of the Checklist. Includes state accessors and methods for updating state along with content configured in Dopt.
+
+```ts
+interface ChecklistItem {
+  id: string;
+
+  index: number | null | undefined;
+
+  title: string | null | undefined;
+  body: RichText | null | undefined;
+
+  completeLabel: string | null | undefined;
+
+  done: boolean;
+
+  active: boolean;
+
+  skipped: boolean;
+  completed: boolean;
+
+  complete: () => void;
+  skip: () => void;
+}
+```
+
+### FilterableField
+
+```ts
+type FilterableField =
+  | 'completed'
+  | 'not-completed'
+  | 'skipped'
+  | 'not-skipped'
+  | 'active'
+  | 'not-active'
+  | 'done'
+  | 'not-done';
+```
+
+### CountableField
+
+```ts
+type CountableField = FilterableField;
+```
