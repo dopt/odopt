@@ -21,11 +21,11 @@ yarn add @dopt/react-modal
 pnpm add @dopt/react-modal
 ```
 
-## Usage
+## UI components
 
-### Pre-built component
+### Modal
 
-Compose and style the modal component to fit your needs.
+The default export from `@dopt/react-modal` is a collection of components that you can use to structure and compose a modal.
 
 ```jsx
 import Modal, { useModal } from '@dopt/react-modal';
@@ -56,10 +56,13 @@ function MyModal() {
 }
 ```
 
-### Headless
+## Hooks
 
-Break out completely and leverage `useModal` to access the modal headlessly.
-Returned values from `useModal` implement the `Modal` interface in [@dopt/semantic-data-layer-modal](https://www.npmjs.com/package/@dopt/semantic-data-layer-modal).
+### useModal
+
+- **useModal**(`id`: string): [Modal](#modal-1)
+
+A React hook for accessing and updating a modal's state.
 
 ```jsx
 import { useModal } from '@dopt/react-modal';
@@ -119,3 +122,29 @@ function MyModal() {
 | footer         | `.dopt-modal__footer`          | Footer containing dismiss and complete buttons |
 | dismissButton  | `.dopt-modal__dismiss-button`  | Dismiss button                                 |
 | completeButton | `.dopt-modal__complete-button` | Complete button                                |
+
+## Types
+
+### Modal
+
+Modal state accessors and methods for updating state along with content configured in Dopt.
+
+```ts
+interface Modal {
+  id: string;
+
+  title: string | null | undefined;
+  body: RichText | null | undefined;
+
+  completeLabel: string | null | undefined;
+  dismissLabel: string | null | undefined;
+
+  active: boolean;
+
+  completed: boolean;
+  dismissed: boolean;
+
+  complete: () => void;
+  dismiss: () => void;
+}
+```
