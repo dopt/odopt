@@ -1,5 +1,14 @@
 # @dopt/react-portal
 
+## 0.0.2
+
+### Patch Changes
+
+- e57fc0407: Update README.md and package.json to improve npm registry.
+- 0b7a1e60c: React components export all of their UI Components as the default export for cleaner import of UI components and hooks.
+- Updated dependencies [e57fc0407]
+  - @dopt/react-component@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes

@@ -1,8 +1,9 @@
 import { DoptProvider, useFlow } from '@dopt/react';
 
-import { useChecklist, useChecklistItem } from '@dopt/react-checklist';
-import * as Checklist from '@dopt/react-checklist';
-import { ChecklistItem } from '@dopt/semantic-data-layer-checklist';
+import Checklist, {
+  useChecklist,
+  useChecklistItem,
+} from '@dopt/react-checklist';
 
 export function App() {
   return (
@@ -42,7 +43,7 @@ function ChecklistComponent() {
         />
         <Checklist.Items>
           {checklist.items.map((item, i) => (
-            <Checklist.Item key={i}>
+            <Checklist.Item index={i} key={i}>
               {item.completed ? (
                 <Checklist.IconCheck />
               ) : item.skipped ? (

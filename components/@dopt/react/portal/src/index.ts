@@ -1,1 +1,1 @@
-export * from './portal';
+export * as default from './portal';
