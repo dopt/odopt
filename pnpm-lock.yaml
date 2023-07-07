@@ -97,6 +97,8 @@ importers:
       '@dopt/react-utilities': workspace:*
       '@dopt/semantic-data-layer-checklist': workspace:*
       '@stitches/core': 1.2.8
+      '@testing-library/jest-dom': 5.16.5
+      '@testing-library/react': 13.4.0
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       '@typescript-eslint/eslint-plugin': 5.59.11
@@ -107,11 +109,13 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
+      jest-environment-jsdom: 29.5.0
       nodemon: 2.0.22
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       shx: 0.3.4
+      ts-jest: ^29.0.3
       typescript: 4.9.5
       unbuild: 1.2.1
     dependencies:
@@ -127,6 +131,8 @@ importers:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/react': link:../../../../packages/@dopt/react
+      '@testing-library/jest-dom': 5.16.5
+      '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
@@ -137,10 +143,12 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
+      jest-environment-jsdom: 29.5.0
       nodemon: 2.0.22
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
+      ts-jest: 29.1.1_znclkreqhuisro53wu5fa76vfy
       typescript: 4.9.5
       unbuild: 1.2.1
 
@@ -490,6 +498,8 @@ importers:
       '@floating-ui/react-dom': 2.0.1
       '@radix-ui/react-compose-refs': 1.0.1
       '@stitches/core': 1.2.8
+      '@testing-library/jest-dom': 5.16.5
+      '@testing-library/react': 13.4.0
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       '@typescript-eslint/eslint-plugin': 5.59.11
@@ -500,11 +510,13 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
+      jest-environment-jsdom: 29.5.0
       nodemon: 2.0.22
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       shx: 0.3.4
+      ts-jest: ^29.0.3
       typescript: 4.9.5
       unbuild: 1.2.1
     dependencies:
@@ -523,6 +535,8 @@ importers:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/react': link:../../../../packages/@dopt/react
+      '@testing-library/jest-dom': 5.16.5
+      '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
@@ -533,10 +547,12 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
+      jest-environment-jsdom: 29.5.0
       nodemon: 2.0.22
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
+      ts-jest: 29.1.1_znclkreqhuisro53wu5fa76vfy
       typescript: 4.9.5
       unbuild: 1.2.1
 
@@ -6093,7 +6109,7 @@ packages:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
     dependencies:
       function-bind: 1.1.1
-      get-intrinsic: 1.1.3
+      get-intrinsic: 1.2.1
 
   /callsites/3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
@@ -6809,12 +6825,12 @@ packages:
       es-to-primitive: 1.2.1
       function-bind: 1.1.1
       function.prototype.name: 1.1.5
-      get-intrinsic: 1.1.3
+      get-intrinsic: 1.2.1
       get-symbol-description: 1.0.0
       has: 1.0.3
       has-property-descriptors: 1.0.0
       has-symbols: 1.0.3
-      internal-slot: 1.0.3
+      internal-slot: 1.0.5
       is-callable: 1.2.7
       is-negative-zero: 2.0.2
       is-regex: 1.1.4
@@ -6824,7 +6840,7 @@ packages:
       object-inspect: 1.12.2
       object-keys: 1.1.1
       object.assign: 4.1.4
-      regexp.prototype.flags: 1.4.3
+      regexp.prototype.flags: 1.5.0
       safe-regex-test: 1.0.0
       string.prototype.trimend: 1.0.5
       string.prototype.trimstart: 1.0.5
@@ -7601,7 +7617,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.1.4
+      define-properties: 1.2.0
       es-abstract: 1.20.4
       functions-have-names: 1.2.3
 
@@ -7636,6 +7652,7 @@ packages:
       function-bind: 1.1.1
       has: 1.0.3
       has-symbols: 1.0.3
+    dev: true
 
   /get-intrinsic/1.2.1:
     resolution: {integrity: sha512-2DcsyfABl+gVHEfCOaTrWgyt+tb6MSEGmKq+kI5HwLbIYgjgmMcV8KQ41uaKz1xxUcn9tJtgFbQUEVcEbd0FYw==}
@@ -7685,7 +7702,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.1.3
+      get-intrinsic: 1.2.1
 
   /get-value/2.0.6:
     resolution: {integrity: sha512-Ln0UQDlxH1BapMu3GPtf7CuYNwRZf2gwCuPqbyG6pB8WfmFpzqcy4xtAaAMUhnNqjMKTiCPZG2oMT3YSx8U2NA==}
@@ -7851,7 +7868,7 @@ packages:
   /has-property-descriptors/1.0.0:
     resolution: {integrity: sha512-62DVLZGoiEBDHQyqG4w9xCuZ7eJEwNmJRWw2VY84Oedb7WFcA27fiEVe8oUQx9hAUJ4ekurquucTGwsyO1XGdQ==}
     dependencies:
-      get-intrinsic: 1.1.3
+      get-intrinsic: 1.2.1
 
   /has-proto/1.0.1:
     resolution: {integrity: sha512-7qE+iP+O+bgF9clE5+UoBFzE65mlBiVj3tKCrlNQ0Ogwm0BjpT/gK4SlLYDMybDh5I3TCTKnPPa0oMG7JDYrhg==}
@@ -8083,9 +8100,10 @@ packages:
     resolution: {integrity: sha512-O0DB1JC/sPyZl7cIo78n5dR7eUSwwpYPiXRhTzNxZVAMUuB8vlnRFyLxdrVToks6XPLVnFfbzaVd5WLjhgg+vA==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.1.3
+      get-intrinsic: 1.2.1
       has: 1.0.3
       side-channel: 1.0.4
+    dev: true
 
   /internal-slot/1.0.5:
     resolution: {integrity: sha512-Y+R5hJrzs52QCG2laLn4udYVnxsfny9CpOhNhUvk/SSSVyF6T27FzRbF0sroPidSu3X8oEAkOn2K804mjpt6UQ==}
@@ -8094,7 +8112,6 @@ packages:
       get-intrinsic: 1.2.1
       has: 1.0.3
       side-channel: 1.0.4
-    dev: true
 
   /interpret/1.4.0:
     resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}
@@ -9936,7 +9953,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.1.4
+      define-properties: 1.2.0
     dev: true
 
   /object-keys/1.1.1:
@@ -10646,8 +10663,9 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.1.4
+      define-properties: 1.2.0
       functions-have-names: 1.2.3
+    dev: true
 
   /regexp.prototype.flags/1.5.0:
     resolution: {integrity: sha512-0SutC3pNudRKgquxGoRGIz946MZVHqbNfPjBdxeOhBrdgDKlRoXmYLQN9xRbrR09ZXWeGAdPuif7egofn6v5LA==}
@@ -10656,7 +10674,6 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       functions-have-names: 1.2.3
-    dev: true
 
   /remove-trailing-separator/1.1.0:
     resolution: {integrity: sha512-/hS+Y0u3aOfIETiaiirUFwDBDzmXPvO+jAfKTitUngIPzdKc6Z0LoFjM/CK5PL4C+eKwHohlHAb6H0VFfmmUsw==}
@@ -10918,7 +10935,7 @@ packages:
     resolution: {integrity: sha512-JBUUzyOgEwXQY1NuPtvcj/qcBDbDmEvWufhlnXZIm75DEHp+afM1r1ujJpJsV/gSM4t59tpDyPi1sd6ZaPFfsA==}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.1.3
+      get-intrinsic: 1.2.1
       is-regex: 1.1.4
 
   /safe-regex/1.1.0:
@@ -11071,7 +11088,7 @@ packages:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.1.3
+      get-intrinsic: 1.2.1
       object-inspect: 1.12.2
 
   /signal-exit/3.0.7:
@@ -11432,7 +11449,7 @@ packages:
     resolution: {integrity: sha512-I7RGvmjV4pJ7O3kdf+LXFpVfdNOxtCW/2C8f6jNiW4+PQchwxkCDzlk1/7p+Wl4bqFIZeF47qAHXLuHHWKAxog==}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.1.4
+      define-properties: 1.2.0
       es-abstract: 1.20.4
 
   /string.prototype.trimstart/1.0.5:
