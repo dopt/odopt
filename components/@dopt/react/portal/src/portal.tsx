@@ -1,23 +1,17 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ComponentPropsWithRef } from '@dopt/react-component';
-
-interface PortalProps extends ComponentPropsWithRef<'div'> {
+interface PortalProps {
+  children: React.ReactNode;
   container?: HTMLElement | null;
 }
 
-function Portal(props: PortalProps, ref?: React.ForwardedRef<HTMLDivElement>) {
-  const { container = globalThis?.document?.body, ...restProps } = props;
-  return container
-    ? ReactDOM.createPortal(<div {...restProps} ref={ref} />, container)
-    : null;
+function Portal(props: PortalProps) {
+  const { children, container = globalThis?.document?.body } = props;
+  return (
+    <>{container ? ReactDOM.createPortal(children, container) : children}</>
+  );
 }
 
-const Component = React.forwardRef(Portal);
-Component.displayName = 'Portal';
-
-const Root = Component;
-
-export { Root };
+export { Portal as Root };
 export type { PortalProps };
