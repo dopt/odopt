@@ -1,5 +1,12 @@
 # @dopt/react-tour
 
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies [8963a5c29]
+  - @dopt/react-portal@0.1.0
+
 ## 1.0.4
 
 ### Patch Changes
