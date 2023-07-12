@@ -1,5 +1,13 @@
 # @dopt/react-modal
 
+## 1.0.5
+
+### Patch Changes
+
+- 8963a5c29: fix overlay positioning
+- Updated dependencies [8963a5c29]
+  - @dopt/react-portal@0.1.0
+
 ## 1.0.4
 
 ### Patch Changes
