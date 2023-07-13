@@ -1,9 +1,12 @@
 import { DoptProvider } from '@dopt/react';
 import { useIdentifyUser } from '@/hooks';
 
-import { Example } from '@/pages/';
+import { Home } from '@/pages';
+
+import './_app.css';
 
 export function App() {
+  // Identify a dummy user to Dopt when the app loads
   const userId = useIdentifyUser({
     company: 'Dopt',
     role: 'admin',
@@ -14,9 +17,9 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ modal: 2 }}
+      flowVersions={{ 'modal-component': 1 }}
     >
-      <Example />
+      <Home />
     </DoptProvider>
   );
 }

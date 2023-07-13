@@ -1,5 +1,12 @@
 # @dopt/react-portal
 
+## 0.1.0
+
+### Minor Changes
+
+- 8963a5c29: - remove wrapping element
+  - return child element when container is null
+
 ## 0.0.2
 
 ### Patch Changes

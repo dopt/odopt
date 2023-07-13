@@ -1,0 +1,18 @@
+.button {
+  display: inline-block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  border-radius: 8px;
+  padding: 8px 12px;
+  border: 1px solid #40c057;
+  background: #37b24d;
+  transition: background 200ms ease;
+}
+
+.button:hover,
+.button:active,
+.button:focus {
+  background: #2f9e44;
+}
