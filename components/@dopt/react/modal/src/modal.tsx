@@ -58,28 +58,32 @@ function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
 
 export interface OverlayProps
   extends ComponentPropsWithoutRef<'div'>,
-    StyleProps {}
+    StyleProps {
+  container?: Portal.PortalProps['container'];
+}
 
 const overlayClassName = `${classNameRoot}__overlay` as const;
 
 function ModalOverlay(props: OverlayProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { container, theme: injectedTheme, className, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
-    <div
-      className={cls([
-        getThemeClassName({
-          theme,
-          className: [classes.overlay(), theme],
-        }),
-        overlayClassName,
-        className,
-      ])}
-      {...restProps}
-      ref={ref}
-    />
+    <Portal.Root container={container}>
+      <div
+        className={cls([
+          getThemeClassName({
+            theme,
+            className: [classes.overlay(), theme],
+          }),
+          overlayClassName,
+          className,
+        ])}
+        {...restProps}
+        ref={ref}
+      />
+    </Portal.Root>
   );
 }
 
