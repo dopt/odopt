@@ -1,11 +1,11 @@
-# Dopt Demo
+# @dopt/react-modal example
 
-A demo app to showcase how Dopt works.
+A demo app showcasing how [`@dopt/react-modal`](https://github.com/dopt/odopt/tree/main/components/%40dopt/react/modal) works.
 
 ## Requirements
 
-- [node.js](https://nodejs.org/) (v16.17.x)
-- [pnpm](https://pnpm.io/) (v7.13.x)
+- [node.js](https://nodejs.org/) (v18.16.x)
+- [pnpm](https://pnpm.io/) (v7.17.x)
 
 Older versions may work, but have not been tested.
 
@@ -15,9 +15,9 @@ Clone the repository and run `pnpm install` in the project directory.
 
 ## Setup
 
-### Environment variables
+### API keys
 
-There are two enviroment variables that store the Dopt users and blocks API keys.
+There are two enviroment variables that store the Dopt users and blocks [API keys](https://docs.dopt.com/setup/api-keys/).
 
 Create a file at the root of the project called `.env.local` with the following content:
 
@@ -28,10 +28,14 @@ VITE_DOPT_BLOCKS_API_KEY=$YOUR_BLOCKS_API_KEY_HERE
 
 Replace the values prefixed with `$` with your API keys.
 
-You can set up different variables for different environments as you see fit ([learn more](https://vitejs.dev/guide/env-and-mode.html)).
+### Dopt flow
 
-### Block IDs
+Create a Dopt flow with a [modal block](https://docs.dopt.com/concepts/blocks/modal/). Note the flow and modal block's identifiers.
 
-## Starting the demo
+Update line 20 in [`src/pages/_app.tsx`](./src/pages/_app.tsx#L20) with the flow's identifier and version number.
 
-Run `pnpm dev` to start the demo and navigate to [http://localhost:5173/](http://localhost:5173/). Any code changes you make will immediately be reflected.
+Update line 9 in [`src/pages/index.tsx`](./src/pages/index.tsx#L9) with the modal block's identifier.
+
+## Starting the app
+
+Run `pnpm dev` to start the demo and navigate to [http://localhost:5633/](http://localhost:5633/). Any code changes you make will immediately be reflected.
