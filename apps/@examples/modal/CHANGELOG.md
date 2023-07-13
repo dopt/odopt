@@ -1,5 +1,11 @@
 # @examples/modal
 
+## 0.0.28
+
+### Patch Changes
+
+- 2ed9bb80d: use @dopt/react-modal
+
 ## 0.0.27
 
 ### Patch Changes
