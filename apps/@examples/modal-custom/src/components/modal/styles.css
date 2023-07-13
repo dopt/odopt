@@ -1,0 +1,22 @@
+.modal {
+  width: 100%;
+  max-width: 500px;
+  color: #fff;
+  padding: 24px;
+  border: 1px solid #495057;
+  border-radius: 12px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4), 0 16px 32px rgba(0, 0, 0, 0.4);
+  background: #212529;
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal__title {
+  font-size: 1.25rem;
+  text-align: center;
+  margin: 0;
+}

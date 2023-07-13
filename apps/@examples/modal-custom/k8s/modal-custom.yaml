@@ -1,0 +1,49 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    name: example-modal-custom-service
+    env: prod
+  name: example-modal-custom-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: example-modal-custom
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: example-modal-custom-deployment
+    env: prod
+  name: example-modal-custom-deployment
+spec:
+  selector:
+    matchLabels:
+      app: example-modal-custom
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: example-modal-custom
+    spec:
+      containers:
+        - name: example-modal-custom
+          image: KUSTOMIZE_IMAGE
+          ports:
+            - containerPort: 80
+              name: http
+          lifecycle:
+            preStop:
+              exec:
+                command: ['/usr/sbin/nginx', '-s', 'quit']
