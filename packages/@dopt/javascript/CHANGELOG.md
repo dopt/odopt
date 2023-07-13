@@ -1,5 +1,16 @@
 # @dopt/javascript
 
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies [0cab59fd1]
+  - @dopt/core-rich-text@0.0.4
+  - @dopt/semantic-data-layer-checklist@0.0.4
+  - @dopt/semantic-data-layer-modal@0.0.5
+  - @dopt/semantic-data-layer-tour@0.0.4
+  - @dopt/javascript-common@2.0.5
+
 ## 3.0.2
 
 ### Patch Changes

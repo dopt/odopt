@@ -1,5 +1,16 @@
 # @dopt/react-modal
 
+## 1.0.6
+
+### Patch Changes
+
+- 22a71df13: use portal for overlay
+- Updated dependencies [0cab59fd1]
+  - @dopt/react-rich-text@1.0.5
+  - @dopt/core-rich-text@0.0.4
+  - @dopt/semantic-data-layer-modal@0.0.5
+  - @dopt/react@3.0.3
+
 ## 1.0.5
 
 ### Patch Changes
