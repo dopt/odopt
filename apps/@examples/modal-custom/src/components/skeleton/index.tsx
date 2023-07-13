@@ -2,7 +2,7 @@ export function Skeleton() {
   return (
     <svg
       viewBox="0 0 800 578"
-      fill="#F1F3F5"
+      fill="#343a40"
       xmlns="http://www.w3.org/2000/svg"
       className="skeleton"
     >

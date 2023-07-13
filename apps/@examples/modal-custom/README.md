@@ -1,6 +1,6 @@
-# @dopt/react-modal example
+# Custom @dopt/react-modal example
 
-A demo app showcasing how [`@dopt/react-modal`](https://github.com/dopt/odopt/tree/main/components/%40dopt/react/modal) works.
+A demo app showcasing how a custom modal built on top of [`@dopt/react-modal`](https://github.com/dopt/odopt/tree/main/components/%40dopt/react/modal) works.
 
 ## Requirements
 
@@ -34,8 +34,8 @@ Create a Dopt flow with a [modal block](https://docs.dopt.com/concepts/blocks/mo
 
 Update line 20 in [`src/pages/_app.tsx`](./src/pages/_app.tsx#L20) with the flow's identifier and version number.
 
-Update line 9 in [`src/pages/index.tsx`](./src/pages/index.tsx#L9) with the modal block's identifier.
+Update line 8 in [`src/pages/index.tsx`](./src/pages/index.tsx#L8) with the modal block's identifier.
 
 ## Starting the app
 
-Run `pnpm dev` to start the demo and navigate to [http://localhost:5633/](http://localhost:5633/). Any code changes you make will immediately be reflected.
+Run `pnpm dev` to start the demo and navigate to [http://localhost:5631/](http://localhost:5631/). Any code changes you make will immediately be reflected.
