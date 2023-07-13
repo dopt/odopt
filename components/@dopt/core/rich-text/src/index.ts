@@ -63,6 +63,7 @@ export type ImageElement = {
   height?: string;
   altText?: string;
   children: EmptyText[];
+  align?: string;
 };
 
 export type HeadingTypes =
@@ -70,7 +71,12 @@ export type HeadingTypes =
   | HeadingTwoElement['type']
   | HeadingThreeElement['type'];
 
-export type LinkElement = { type: 'link'; url: string; children: Descendant[] };
+export type LinkElement = {
+  type: 'link';
+  url: string;
+  children: Descendant[];
+  align?: string;
+};
 
 export type ButtonElement = { type: 'button'; children: Descendant[] };
 
@@ -98,6 +104,7 @@ export type VideoElement = {
   width?: string;
   height?: string;
   children: EmptyText[];
+  align?: string;
 };
 
 export type CodeBlockElement = {
