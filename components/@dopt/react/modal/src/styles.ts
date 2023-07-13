@@ -5,6 +5,8 @@ const { css } = theme;
 
 const modalRoot = css({
   all: 'revert',
+  position: 'fixed',
+  inset: 0,
   fontFamily: '$sans',
   fontSize: '$base',
   color: '$content',
@@ -73,6 +75,7 @@ const modalDismissIcon = css({
 
 const modalBody = css({
   all: 'unset',
+  display: 'block',
   paddingTop: '$4',
   paddingBottom: '$4',
 });

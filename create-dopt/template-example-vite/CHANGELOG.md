@@ -1,5 +1,11 @@
 # @examples/**PACKAGE_NAME**
 
+## 0.0.26
+
+### Patch Changes
+
+- @dopt/react@3.0.3
+
 ## 0.0.25
 
 ### Patch Changes

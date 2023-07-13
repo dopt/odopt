@@ -1,5 +1,23 @@
 # @dopt/react-tour
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [0cab59fd1]
+  - @dopt/react-rich-text@1.0.5
+  - @dopt/core-rich-text@0.0.4
+  - @dopt/semantic-data-layer-tour@0.0.4
+  - @dopt/react@3.0.3
+  - @dopt/react-utilities@1.0.3
+
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies [8963a5c29]
+  - @dopt/react-portal@0.1.0
+
 ## 1.0.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @dopt/react-rich-text
 
+## 1.0.5
+
+### Patch Changes
+
+- 0cab59fd1: @dopt/rich-text supports alignment
+- Updated dependencies [0cab59fd1]
+  - @dopt/core-rich-text@0.0.4
+  - @dopt/react@3.0.3
+
 ## 1.0.4
 
 ### Patch Changes
