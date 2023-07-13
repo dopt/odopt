@@ -97,10 +97,17 @@ export const RichTextNode = ({
           </li>
         );
       case 'link':
-        return <a href={node.url}>{children}</a>;
+        return (
+          <a
+            href={node.url}
+            className={cls([`${classNameRoot}__${node.type}`])}
+          >
+            {children}
+          </a>
+        );
       case 'image':
         return (
-          <div>
+          <div className={cls([`${classNameRoot}__${node.type}`, baseAlign])}>
             {children}
             <div className={imageContainerClass()}>
               <img
@@ -114,7 +121,7 @@ export const RichTextNode = ({
         );
       case 'video':
         return (
-          <div>
+          <div className={cls([`${classNameRoot}__${node.type}`, baseAlign])}>
             <div>
               <iframe src={node.url} width={node.width} height={node.height} />
             </div>
