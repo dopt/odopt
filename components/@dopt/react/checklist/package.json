@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-checklist",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A React checklist component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/checklist",
   "repository": {
@@ -57,7 +57,7 @@
     "eslint-plugin-react": "7.32.2",
     "jest": "29.5.0",
     "jest-environment-jsdom": "29.5.0",
-    "nodemon": "2.0.22",
+    "nodemon": "3.0.1",
     "prettier": "2.8.8",
     "react-dom": "18.2.0",
     "shx": "0.3.4",
