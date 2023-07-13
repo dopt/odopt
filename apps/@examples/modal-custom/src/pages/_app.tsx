@@ -17,7 +17,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'modal-component': 1 }}
+      flowVersions={{ 'custom-modal-component': 0 }}
     >
       <Home />
     </DoptProvider>

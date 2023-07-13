@@ -1,0 +1,9 @@
+.home {
+  max-width: 980px;
+  padding: 0 24px;
+  margin: 64px auto;
+}
+
+.welcome-modal .dopt-modal__footer {
+  justify-content: center;
+}
