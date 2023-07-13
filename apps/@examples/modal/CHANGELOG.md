@@ -1,5 +1,11 @@
 # @examples/modal
 
+## 0.0.27
+
+### Patch Changes
+
+- @dopt/react@3.0.3
+
 ## 0.0.26
 
 ### Patch Changes

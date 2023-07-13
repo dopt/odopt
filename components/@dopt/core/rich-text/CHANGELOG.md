@@ -1,5 +1,11 @@
 # @dopt/core-rich-text
 
+## 0.0.4
+
+### Patch Changes
+
+- 0cab59fd1: @dopt/rich-text supports alignment
+
 ## 0.0.3
 
 ### Patch Changes
