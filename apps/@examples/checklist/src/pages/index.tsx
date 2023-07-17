@@ -1,72 +1,91 @@
-import { useBlock } from '@dopt/react';
+import Checklist, {
+  useChecklist,
+  useChecklistItem,
+} from '@dopt/react-checklist';
 
-import {
-  buttons,
-  checklist,
-  progressBar,
-  example,
-  item,
-  items,
-  title,
-} from '@/pages/index.css';
+import './index.css';
 
-import { Text, Button, Radio, ProgressBar } from '@/components/';
+export function Home() {
+  // Access the checklist data from the checklist block in the flow
+  const checklist = useChecklist('checklist-component.sad-toes-dream');
 
-function PercentageTrue(conditions: boolean[]) {
-  const trueConditions = conditions.filter((condition) => condition);
-  return Math.floor((trueConditions.length / conditions.length) * 100);
-}
+  // Access the data from the checklist's second step from the checklist block in the flow
+  const checklistItem2 = useChecklistItem(
+    'checklist-component.heavy-lands-lose'
+  );
 
-export function Example() {
-  const [redBlock, redTransition] = useBlock<['default']>('checklist.red');
-  const [blueBlock, blueTransition] = useBlock<['default']>('checklist.blue');
-  const [greenBlock, greenTransition] =
-    useBlock<['default']>('checklist.green');
+  // Access the data from the checklist's third step from the checklist block in the flow
+  const checklistItem3 = useChecklistItem(
+    'checklist-component.stale-banks-drum'
+  );
 
   return (
-    <div className={example}>
-      <div className={checklist}>
-        <div className={title}>Checklist</div>
-        <div className={progressBar}>
-          <ProgressBar
-            value={PercentageTrue([
-              redBlock.state.exited,
-              blueBlock.state.exited,
-              greenBlock.state.exited,
-            ])}
+    <div className="home">
+      <div className="checklist">
+        <Checklist.Root>
+          <Checklist.Header>
+            <Checklist.Title>{checklist.title}</Checklist.Title>
+          </Checklist.Header>
+          <Checklist.Body>{checklist.body}</Checklist.Body>
+          <Checklist.Progress
+            value={checklist.count('done')}
+            max={checklist.size}
           />
-        </div>
-        <div className={items}>
-          <div className={item}>
-            <Radio checked={redBlock.state.exited} />
-            <Text strikeThrough={redBlock.state.exited}>
-              {redBlock.field<string>('checklist-item')}
-            </Text>
-          </div>
-          <div className={item}>
-            <Radio checked={blueBlock.state.exited} />
-            <Text strikeThrough={blueBlock.state.exited}>
-              {blueBlock.field<string>('checklist-item')}
-            </Text>
-          </div>
-          <div className={item}>
-            <Radio checked={greenBlock.state.exited} />
-            <Text strikeThrough={greenBlock.state.exited}>
-              {greenBlock.field<string>('checklist-item')}
-            </Text>
-          </div>
-        </div>
+          <Checklist.Items>
+            {checklist.items.map((item, i) => (
+              <Checklist.Item index={i} key={i}>
+                {item.completed ? (
+                  <Checklist.IconCheck />
+                ) : item.skipped ? (
+                  <Checklist.IconSkip />
+                ) : (
+                  <Checklist.IconCircle />
+                )}
+                <Checklist.ItemContent>
+                  <Checklist.ItemTitle disabled={item.done}>
+                    {item.title}
+                  </Checklist.ItemTitle>
+                  <Checklist.ItemBody disabled={item.done}>
+                    {item.body}
+                  </Checklist.ItemBody>
+                  {!item.done && (
+                    <Checklist.ItemCompleteButton onClick={item.complete}>
+                      {item.completeLabel}
+                    </Checklist.ItemCompleteButton>
+                  )}
+                </Checklist.ItemContent>
+                {!item.done && <Checklist.ItemSkipIcon onClick={item.skip} />}
+              </Checklist.Item>
+            ))}
+          </Checklist.Items>
+        </Checklist.Root>
       </div>
-      <div className={buttons}>
-        <Button color="red" onClick={() => redTransition('default')}>
-          Red Button
-        </Button>
-        <Button color="blue" onClick={() => blueTransition('default')}>
-          Blue Button
-        </Button>
-        <Button color="green" onClick={() => greenTransition('default')}>
-          Green Button
-        </Button>
+      <div className="controls">
+        <button
+          className="control"
+          // Add a click handler to complete the second step
+          onClick={checklistItem2.complete}
+          // Disable the button when the second step is completed or skipped
+          disabled={checklistItem2.completed || checklistItem2.skipped}
+        >
+          Complete step 2
+        </button>
+
+        <input
+          type="email"
+          pattern=".+@.+\..+"
+          placeholder="Enter an email to complete step 3"
+          required
+          className="control"
+          // Add a change handler to complete the third step when a valid email is entered
+          onChange={(e) => {
+            if (e.target.validity.valid) {
+              checklistItem3.complete();
+            }
+          }}
+          // Disable the button when the third step is skipped
+          disabled={checklistItem3.skipped}
+        />
       </div>
     </div>
   );
