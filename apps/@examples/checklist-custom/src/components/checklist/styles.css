@@ -1,0 +1,103 @@
+.checklist {
+  display: grid;
+  gap: 24px;
+}
+
+.checklist__header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.checklist__progress {
+  display: flex;
+  gap: 12px;
+}
+
+.checklist__progress-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.checklist__progress-content-status,
+.checklist__progress-content-message {
+  margin: 0;
+  text-align: right;
+}
+
+.checklist__progress-content-status {
+  font-weight: bold;
+}
+
+.checklist__progress-content-message {
+  font-size: 0.75rem;
+}
+
+.checklist__progress-meter {
+  rotate: -90deg;
+}
+
+.checklist__progress-meter-fill {
+  transition: stroke-dashoffset 200ms ease;
+}
+
+.checklist__title {
+  margin: 0;
+}
+
+.checklist__items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklist__item {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  padding: 16px 8px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.checklist__item:first-child {
+  padding-top: 0;
+}
+
+.checklist__item--complete .checklist__item-icon {
+  color: #22b8cf;
+}
+
+.checklist__item-content {
+  display: grid;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.checklist__item--complete .checklist__item-content {
+  color: #868e96;
+}
+
+.checklist__item-title {
+  margin: 0;
+}
+
+.checklist__item--complete .checklist__item-title {
+  text-decoration-line: line-through;
+  text-decoration-style: wavy;
+  text-decoration-color: #22b8cf;
+}
+
+.checklist__item-skip {
+  align-self: center;
+  font-size: 1rem;
+  color: #22b8cf;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transition: color 200ms ease;
+}
+
+.checklist__item-skip:hover {
+  color: #0c8599;
+}
