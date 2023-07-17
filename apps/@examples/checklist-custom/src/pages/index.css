@@ -1,0 +1,63 @@
+.home {
+  max-width: 980px;
+  padding: 0 24px;
+  margin: 64px auto;
+}
+
+.button {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #22b8cf;
+  outline: none;
+  transition: background 200ms ease;
+}
+
+.button:not([disabled]):hover,
+.button:focus-visible {
+  background: #0c8599;
+}
+
+.input {
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border: 2px solid #adb5bd;
+  border-radius: 8px;
+  background: #fff;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.input:focus-visible {
+  border-color: #22b8cf;
+}
+
+.select {
+  appearance: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #000;
+  padding: 8px 42px 8px 12px;
+  border: 2px solid #adb5bd;
+  border-radius: 8px;
+  background-color: #fff;
+  background-image: url('/chevron-down.svg');
+  background-repeat: no-repeat;
+  background-position: center right 12px;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.select:focus-visible {
+  border-color: #22b8cf;
+}
+
+.button[disabled],
+.input[disabled],
+.select[disabled] {
+  opacity: 0.4;
+}
