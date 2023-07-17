@@ -1,5 +1,12 @@
 # @examples/tutorial
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [9d0a4c592]
+  - @dopt/users-javascript-browser-client@1.0.0
+
 ## 0.0.8
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @examples/**PACKAGE_NAME**
 
+## 0.0.27
+
+### Patch Changes
+
+- Updated dependencies [9d0a4c592]
+  - @dopt/users-javascript-browser-client@1.0.0
+
 ## 0.0.26
 
 ### Patch Changes
