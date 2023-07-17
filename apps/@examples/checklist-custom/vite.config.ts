@@ -7,6 +7,6 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: process.env.NODE_ENV === 'production' ? `/modal-custom/` : '/',
+  base: process.env.NODE_ENV === 'production' ? `/checklist-custom/` : '/',
   plugins: [react()],
 });

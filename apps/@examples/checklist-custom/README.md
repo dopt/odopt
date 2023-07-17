@@ -1,6 +1,6 @@
-# @dopt/react-checklist example
+# Custom @dopt/react-checklist example
 
-A demo app showcasing how [`@dopt/react-checklist`](https://github.com/dopt/odopt/tree/main/components/%40dopt/react/checklist) works.
+A demo app showcasing how a custom checklist built on top of [`@dopt/react-checklist`](https://github.com/dopt/odopt/tree/main/components/%40dopt/react/checklist) works.
 
 ## Requirements
 
@@ -36,9 +36,7 @@ Update line 20 in [`src/pages/_app.tsx`](./src/pages/_app.tsx#L20) with the flow
 
 Update line 10 in [`src/pages/index.tsx`](./src/pages/index.tsx#L10) with the checklist block's identifier.
 
-Update line 14 in [`src/pages/index.tsx`](./src/pages/index.tsx#L14) with the identifier of the second item in the checklist block.
-
-Update line 19 in [`src/pages/index.tsx`](./src/pages/index.tsx#L19) with the identifier of the third item in the checklist block.
+Update line 14-16 in [`src/pages/index.tsx`](./src/pages/index.tsx#L14-L16) with the identifiers of the checklist block items.
 
 ## Starting the app
 

@@ -1,0 +1,25 @@
+.home {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: 980px;
+  padding: 0 24px;
+  margin: 64px auto;
+}
+
+.checklist,
+.controls {
+  width: 50%;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.control {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
