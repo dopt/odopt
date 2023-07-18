@@ -1,5 +1,11 @@
 # @examples/tour
 
+## 0.1.0
+
+### Minor Changes
+
+- d3cf8e941: use @dopt/react-tour
+
 ## 0.0.28
 
 ### Patch Changes
