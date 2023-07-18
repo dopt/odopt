@@ -1,7 +1,7 @@
 {
   "name": "@examples/modal-custom",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5631",
@@ -16,7 +16,7 @@
     "@dopt/react": "workspace:*",
     "@dopt/react-modal": "workspace:*",
     "@dopt/react-rich-text": "workspace:*",
-    "@dopt/users-javascript-client": "workspace:*",
+    "@dopt/users-javascript-client": "npm:@dopt/users-javascript-browser-client@*",
     "nanoid": "4.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"

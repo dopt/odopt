@@ -1,5 +1,19 @@
 # @examples/embedded-tip
 
+## 0.0.31
+
+### Patch Changes
+
+- Updated dependencies [6eef0f305]
+  - @dopt/users-javascript-browser-client@1.0.1
+
+## 0.0.30
+
+### Patch Changes
+
+- Updated dependencies [9d0a4c592]
+  - @dopt/users-javascript-browser-client@1.0.0
+
 ## 0.0.29
 
 ### Patch Changes

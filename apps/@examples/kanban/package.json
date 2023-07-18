@@ -1,7 +1,7 @@
 {
   "name": "@examples/kanban",
   "private": true,
-  "version": "0.0.35",
+  "version": "0.0.37",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5432",
@@ -15,7 +15,7 @@
   "dependencies": {
     "@asseinfo/react-kanban": "2.2.0",
     "@dopt/react": "workspace:*",
-    "@dopt/users-javascript-client": "workspace:*",
+    "@dopt/users-javascript-client": "npm:@dopt/users-javascript-browser-client@*",
     "@emotion/react": "11.11.1",
     "@mantine/core": "5.10.5",
     "@mantine/form": "5.10.5",
