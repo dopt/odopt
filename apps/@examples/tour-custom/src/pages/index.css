@@ -1,0 +1,19 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 980px;
+  padding: 128px 24px;
+  margin: 0 auto;
+}
+
+.phase {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
