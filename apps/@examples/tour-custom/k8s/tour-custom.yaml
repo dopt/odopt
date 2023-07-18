@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    name: example-tour-custom-service
+    env: prod
+  name: example-tour-custom-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: example-tour-custom
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: example-tour-custom-deployment
+    env: prod
+  name: example-tour-custom-deployment
+spec:
+  selector:
+    matchLabels:
+      app: example-tour-custom
+  template:
+    metadata:
+      labels:
+        app: example-tour-custom
+    spec:
+      containers:
+        - name: example-tour-custom
+          image: KUSTOMIZE_IMAGE
+          ports:
+            - containerPort: 80
+              name: http
+          lifecycle:
+            preStop:
+              exec:
+                command: ['/usr/sbin/nginx', '-s', 'quit']

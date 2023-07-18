@@ -1,7 +1,7 @@
 {
-  "name": "@examples/tour",
+  "name": "@examples/tour-custom",
   "private": true,
-  "version": "0.0.28",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5633",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@dopt/react": "workspace:*",
+    "@dopt/react-rich-text": "workspace:*",
     "@dopt/react-tour": "workspace:*",
     "@dopt/users-javascript-browser-client": "workspace:*",
     "nanoid": "4.0.2",
