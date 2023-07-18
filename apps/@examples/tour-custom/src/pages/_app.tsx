@@ -17,7 +17,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'tour-component': 1 }}
+      flowVersions={{ 'custom-tour-component': 1 }}
     >
       <Home />
     </DoptProvider>

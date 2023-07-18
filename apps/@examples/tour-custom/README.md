@@ -1,6 +1,6 @@
-# @dopt/react-tour example
+# Custom @dopt/react-tour example
 
-A demo app showcasing how [`@dopt/react-tour`](https://github.com/dopt/odopt/tree/main/components/%40dopt/react/tour) works.
+A demo app showcasing how a custom tour built on top of [`@dopt/react-tour`](https://github.com/dopt/odopt/tree/main/components/%40dopt/react/tour) works.
 
 ## Requirements
 
@@ -34,7 +34,7 @@ Create a Dopt flow with a [tour block](https://docs.dopt.com/concepts/blocks/tou
 
 Update line 20 in [`src/pages/_app.tsx`](./src/pages/_app.tsx#L20) with the flow's identifier and version number.
 
-Update lines 9-15 in [`src/pages/index.tsx`](./src/pages/index.tsx#L9-L15) with the identifiers of the tour block items.
+Update lines 9-30 in [`src/pages/index.tsx`](./src/pages/index.tsx#L9-L30) with the identifiers of the tour block items.
 
 ## Starting the app
 
