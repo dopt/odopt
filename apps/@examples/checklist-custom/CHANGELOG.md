@@ -1,5 +1,11 @@
 # @examples/checklist-custom
 
+## 0.0.3
+
+### Patch Changes
+
+- a0cdf8c5c: use correct page titles
+
 ## 0.0.2
 
 ### Patch Changes

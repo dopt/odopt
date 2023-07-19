@@ -1,31 +1,33 @@
 import { css } from '@stitches/core';
 
-export const imageContainerClass = css({
-  position: 'relative',
-  display: 'block',
+export const richTextRoot = css({
+  '& > *:first-child': {
+    marginBlockStart: 0,
+  },
+  '& > *:last-child': {
+    marginBlockEnd: 0,
+  },
 });
 
-export const alignClass = css({
+export const richTextAlignment = css({
   variants: {
-    left: {
-      true: {
+    align: {
+      left: {
         textAlign: 'left',
       },
-    },
-    right: {
-      true: {
+      right: {
         textAlign: 'right',
       },
-    },
-    center: {
-      true: {
+      center: {
         textAlign: 'center',
       },
-    },
-    justify: {
-      true: {
+      justify: {
         textAlign: 'justify',
       },
     },
   },
+});
+
+export const richTextVideo = css({
+  border: 0,
 });
