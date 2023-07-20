@@ -5,6 +5,7 @@ import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
 import { Block as BlockClass, BlockProps } from './block';
 import { Flow as FlowClass } from './flow';
 import { Modal as ModalClass } from './modal';
+import { Card as CardClass } from './card';
 import {
   ChecklistItem as ChecklistItemClass,
   Checklist as ChecklistClass,
@@ -522,6 +523,25 @@ export class Dopt {
    */
   public modal(id: string) {
     return this._block<ModalClass>(id, (props) => new ModalClass(props));
+  }
+
+  /**
+   * Returns the {@link Card} associated with this `id`.
+   *
+   * @remarks
+   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
+   *
+   * @example
+   * ```js
+   * const card = dopt.card("flow-one.my-card");
+   * ```
+   *
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the card.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link Card} instance corresponding to the id.
+   */
+  public card(id: string) {
+    return this._block<CardClass>(id, (props) => new CardClass(props));
   }
 
   /**

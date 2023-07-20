@@ -1,5 +1,11 @@
 # @examples/getting-started-checklist
 
+## 0.0.39
+
+### Patch Changes
+
+- @dopt/react@3.0.4
+
 ## 0.0.38
 
 ### Patch Changes

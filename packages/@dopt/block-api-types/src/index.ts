@@ -18,6 +18,7 @@ export type Field = UserStateTypeField;
 
 export const BLOCK_API_TYPES = {
   custom: 'custom' as const,
+  card: 'card' as const,
   modal: 'modal' as const,
   checklist: 'checklist' as const,
   checklistItem: 'checklistItem' as const,
@@ -44,6 +45,8 @@ export type Block = Static<typeof Block>;
 export function getBlockApiType(type: BlockTypes): Block['type'] {
   if (type === BLOCK_TYPES.model) {
     return BLOCK_API_TYPES.custom;
+  } else if (type === BLOCK_TYPES.card) {
+    return BLOCK_API_TYPES.card;
   } else if (type === BLOCK_TYPES.modal) {
     return BLOCK_API_TYPES.modal;
   } else if (type === BLOCK_TYPES.checklist) {
