@@ -1,5 +1,11 @@
 # @dopt/core-rich-text
 
+## 1.0.0
+
+### Major Changes
+
+- 80cd31924: clean up types
+
 ## 0.0.4
 
 ### Patch Changes
