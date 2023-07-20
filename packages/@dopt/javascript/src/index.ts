@@ -1,6 +1,7 @@
 export * from './dopt';
 export * from './flow';
 export * from './block';
+export * from './card';
 export * from './modal';
 export * from './checklist';
 export * from './tour';
