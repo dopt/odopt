@@ -6,6 +6,7 @@ import { Gate } from './gate';
 import { Boolean as BooleanType } from './boolean';
 import { Model } from './model';
 import { Modal } from './modal';
+import { Card } from './card';
 import { Webhook } from './webhook';
 import { Nary } from './base';
 import { ContainerStart, ContainerEnd } from './container';
@@ -17,6 +18,7 @@ export * from './finish';
 export * from './boolean';
 export * from './model';
 export * from './modal';
+export * from './card';
 export * from './webhook';
 export * from './gate';
 export * from './checklist';
@@ -30,6 +32,7 @@ export const BLOCK_TYPES = {
   finish: Finish.properties.type.const,
   webhook: Webhook.properties.type.const,
   gate: Gate.properties.type.const,
+  card: Card.properties.type.const,
   modal: Modal.properties.type.const,
   containerStart: ContainerStart.properties.type.const,
   containerEnd: ContainerEnd.properties.type.const,
@@ -46,6 +49,7 @@ export const BlockTypes = Type.Union([
   Finish.properties.type,
   Webhook.properties.type,
   Gate.properties.type,
+  Card.properties.type,
   Modal.properties.type,
   ContainerStart.properties.type,
   ContainerEnd.properties.type,
@@ -64,6 +68,7 @@ export const Block = Type.Union(
     Type.Ref(Finish),
     Type.Ref(Webhook),
     Type.Ref(Gate),
+    Type.Ref(Card),
     Type.Ref(Modal),
     Type.Ref(ContainerStart),
     Type.Ref(ContainerEnd),
@@ -86,6 +91,7 @@ export type Block =
   | Model
   | Webhook
   | Gate
+  | Card
   | Modal
   | ContainerStart
   | ContainerEnd
@@ -101,6 +107,7 @@ export function isExternalBlock(type: BlockTypes) {
   return (
     type === BLOCK_TYPES.model ||
     type === BLOCK_TYPES.modal ||
+    type === BLOCK_TYPES.card ||
     type === BLOCK_TYPES.checklist ||
     type === BLOCK_TYPES.checklistItem ||
     type === BLOCK_TYPES.tour ||
@@ -111,6 +118,7 @@ export function isExternalBlock(type: BlockTypes) {
 export type ExternalBlock =
   | Model
   | Modal
+  | Card
   | Checklist
   | ChecklistItem
   | Tour
@@ -219,6 +227,18 @@ export function getDefaultBlock(
           ...transitioned,
         },
         expression: async () => false,
+      };
+    case 'card':
+      return {
+        kind: 'block',
+        fields: [],
+        ...props,
+        state: defaultState,
+        transitioned: {
+          ...{ complete: false, dismiss: false },
+          ...transitioned,
+        },
+        type: 'card',
       };
     case 'modal':
       return {
