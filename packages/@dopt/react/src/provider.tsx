@@ -12,7 +12,7 @@ import {
   FlowStatus,
   ProviderConfig,
 } from './types';
-import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
+import { PKG_NAME, PKG_VERSION, URL_PREFIX, SOCKET_PREFIX } from './utils';
 
 import type {
   Block as APIBlock,
@@ -252,7 +252,7 @@ export function DoptProvider(props: ProviderConfig) {
       userId,
       groupId,
       log,
-      urlPrefix: URL_PREFIX,
+      urlPrefix: SOCKET_PREFIX,
     });
 
     if (!_socket) {

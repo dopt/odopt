@@ -1,6 +1,6 @@
 import { Logger, LoggerProps } from '@dopt/logger';
 
-import { PKG_NAME, PKG_VERSION, URL_PREFIX } from './utils';
+import { PKG_NAME, PKG_VERSION, URL_PREFIX, SOCKET_PREFIX } from './utils';
 
 import { Block as BlockClass, BlockProps } from './block';
 import { Flow as FlowClass } from './flow';
@@ -212,7 +212,7 @@ export class Dopt {
       apiKey,
       userId,
       log: logger,
-      urlPrefix: URL_PREFIX,
+      urlPrefix: SOCKET_PREFIX,
       groupId,
     });
 
