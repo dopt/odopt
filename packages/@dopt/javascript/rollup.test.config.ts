@@ -23,6 +23,11 @@ const config = [
             ? 'https://blocks.dopt.com'
             : 'http://localhost:7071'
         ),
+        'process.env.SOCKET_PREFIX': JSON.stringify(
+          process.env.NODE_ENV === 'production'
+            ? 'https://blocks.dopt.com'
+            : 'http://localhost:7072'
+        ),
         preventAssignment: true,
       }),
       typescript({
