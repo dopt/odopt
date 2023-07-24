@@ -11,8 +11,8 @@ NODE_ENV=production pnpm exec rollup --config rollup.test.config.ts --configPlug
 rm -rf ./tmp/types
 OUTPUT=$(node ./src/__tests__/scripts/extract-base-url.js ./tmp/index.cjs.js)
 
-if [ $OUTPUT != "https://blocks.dopt.com" ]; then
-  echo -e "Expected https://blocks.dopt.com, got $OUTPUT"
+if [ $OUTPUT != "https://blocks.dopt.com https://blocks.dopt.com" ]; then
+  echo -e "Expected 'https://blocks.dopt.com https://blocks.dopt.com', got '$OUTPUT'"
   TEST_FAILURES=$((TEST_FAILURES + 1))
 else
   echo -e "Passed #1"
@@ -28,8 +28,8 @@ NODE_ENV=development pnpm exec rollup --config rollup.test.config.ts --configPlu
 rm -rf ./tmp/types
 OUTPUT=$(node ./src/__tests__/scripts/extract-base-url.js ./tmp/index.cjs.js)
 
-if [ $OUTPUT != "http://localhost:7071" ]; then
-  echo -e "Expected http://localhost:7071, got $OUTPUT"
+if [ $OUTPUT != "http://localhost:7071 http://localhost:7072" ]; then
+  echo -e "Expected 'http://localhost:7071 http://localhost:7072', got '$OUTPUT'"
   TEST_FAILURES=$((TEST_FAILURES + 1))
 else
   echo -e "Passed #2"

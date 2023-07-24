@@ -1,5 +1,17 @@
 # @dopt/react-checklist
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [80cd31924]
+- Updated dependencies [80cd31924]
+  - @dopt/core-rich-text@1.0.0
+  - @dopt/react-rich-text@1.1.0
+  - @dopt/semantic-data-layer-checklist@0.0.5
+  - @dopt/react@3.0.4
+  - @dopt/react-utilities@1.0.4
+
 ## 1.0.5
 
 ### Patch Changes

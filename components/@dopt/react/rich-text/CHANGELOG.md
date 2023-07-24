@@ -1,5 +1,19 @@
 # @dopt/react-rich-text
 
+## 1.1.0
+
+### Minor Changes
+
+- 80cd31924: - add styles for root and video
+  - add static class names
+  - fix up types from @dopt/core-rich-text
+
+### Patch Changes
+
+- Updated dependencies [80cd31924]
+  - @dopt/core-rich-text@1.0.0
+  - @dopt/react@3.0.4
+
 ## 1.0.5
 
 ### Patch Changes
