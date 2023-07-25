@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { ChecklistProgress } from './progress';
-import { RichText } from '@dopt/react-rich-text';
+import RichText from '@dopt/react-rich-text';
 
 import './styles.css';
 
