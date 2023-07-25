@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react';
 import { useTourItem } from '@dopt/react-tour';
-import { RichText } from '@dopt/react-rich-text';
+import RichText from '@dopt/react-rich-text';
 import { Button } from '../button';
 
 import './styles.css';
@@ -27,7 +27,7 @@ export function Tour(props: TourProps) {
           <header className="tour__popover-header">
             <h1 className="tour__popover-title">{item.title}</h1>
           </header>
-          {item.body && <RichText>{item.body}</RichText>}
+          <RichText>{item.body}</RichText>
           <footer className="tour__popover-footer">
             {item.index !== 0 && (
               <Button variant="secondary" onClick={item.back}>

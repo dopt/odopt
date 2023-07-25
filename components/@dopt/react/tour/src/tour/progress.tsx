@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,11 +6,12 @@ import {
   forwardRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -25,17 +26,25 @@ function TourProgress(
   props: ProgressProps,
   ref?: ForwardedRef<HTMLOListElement>
 ) {
-  const { theme: injectedTheme, className, index, count, ...restProps } = props;
+  const {
+    theme: injectedTheme,
+    className,
+    style,
+    index,
+    count,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <ol
-      className={cls([
-        getThemeClassName({ theme, className: [classes.progress(), theme] }),
+      className={clsx([
+        themeClassName({ theme, className: classes.tourItemProgress }),
         progressClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -44,13 +53,15 @@ function TourProgress(
         .map((_, i) => (
           <li
             key={i}
-            className={cls([
-              getThemeClassName({
+            className={clsx([
+              themeClassName({
                 theme,
-                className: classes.progressItem({ active: i === index }),
+                className: classes.tourItemProgressItem({
+                  active: i === index,
+                }),
               }),
               `${progressClassName}-item`,
-              i === index ? `${progressClassName}-item--active` : '',
+              i === index ? `${progressClassName}-item--active` : null,
             ])}
           />
         ))}

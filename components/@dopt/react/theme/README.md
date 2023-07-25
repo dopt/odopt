@@ -7,10 +7,8 @@ All of Dopt's React components have a `theme` prop that you can use to pass in y
 Let’s walk through an example of creating a custom theme and then apply it to the [Modal component](https://docs.dopt.com/components/modal/):
 
 ```jsx
-import { theme } from '@dopt/react-theme';
+import { createTheme } from '@dopt/react-theme';
 import * as Modal from '@dopt/react-modal';
-
-const { createTheme } = theme;
 
 const customTheme = createTheme({
   colors: {

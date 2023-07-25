@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,11 +6,12 @@ import {
   type ForwardedRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -30,6 +31,7 @@ function ChecklistProgress(
   const {
     theme: injectedTheme,
     className,
+    style,
     value = 0,
     max = 1,
     ...restProps
@@ -39,14 +41,15 @@ function ChecklistProgress(
 
   return (
     <div
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.progress(), theme],
+          className: classes.checklistProgress,
         }),
         progressClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -58,22 +61,28 @@ function ChecklistProgress(
         aria-label="Completed"
         data-value={value}
         data-max={max}
-        className={cls([
-          getThemeClassName({ theme, className: classes.progressMeter() }),
+        className={clsx([
+          themeClassName({ theme, className: classes.checklistProgressMeter }),
           `${progressClassName}-meter`,
         ])}
       >
         <div
-          className={cls([
-            getThemeClassName({ theme, className: classes.progressMeterBar() }),
+          className={clsx([
+            themeClassName({
+              theme,
+              className: classes.checklistProgressMeterBar,
+            }),
             `${progressClassName}-meter-bar`,
           ])}
           style={{ width: `${(value / max) * 100}%` }}
         ></div>
       </div>
       <div
-        className={cls([
-          getThemeClassName({ theme, className: classes.progressContent() }),
+        className={clsx([
+          themeClassName({
+            theme,
+            className: classes.checklistProgressContent,
+          }),
           `${progressClassName}-content`,
         ])}
       >
