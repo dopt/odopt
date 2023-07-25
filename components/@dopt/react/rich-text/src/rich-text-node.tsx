@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { type Descendant, type Alignment } from '@dopt/core-rich-text';
-import { richTextAlignment, richTextVideo } from './styles';
-import { cls } from '@dopt/react-theme';
+import * as classes from './styles.css';
+import { clsx } from 'clsx';
 import { classNameRoot } from './const';
 import { isTextNode } from './util';
 
@@ -16,10 +16,10 @@ export const RichTextNode = (props: RichTextNodeProps) => {
 
   const alignment =
     'align' in node
-      ? cls([
+      ? clsx([
           noStyles
             ? null
-            : richTextAlignment({
+            : classes.richTextAlignment({
                 align: node.align as Alignment,
               }),
           `${classNameRoot}__node--align-${node.align}`,
@@ -70,27 +70,27 @@ export const RichTextNode = (props: RichTextNodeProps) => {
     switch (node.type) {
       case 'bulleted-list':
         return (
-          <ul className={cls([commonClassNames, alignment])}>{children}</ul>
+          <ul className={clsx([commonClassNames, alignment])}>{children}</ul>
         );
       case 'numbered-list':
         return (
-          <ol className={cls([commonClassNames, alignment])}>{children}</ol>
+          <ol className={clsx([commonClassNames, alignment])}>{children}</ol>
         );
       case 'heading-one':
         return (
-          <h1 className={cls([commonClassNames, alignment])}>{children}</h1>
+          <h1 className={clsx([commonClassNames, alignment])}>{children}</h1>
         );
       case 'heading-two':
         return (
-          <h2 className={cls([commonClassNames, alignment])}>{children}</h2>
+          <h2 className={clsx([commonClassNames, alignment])}>{children}</h2>
         );
       case 'heading-three':
         return (
-          <h3 className={cls([commonClassNames, alignment])}>{children}</h3>
+          <h3 className={clsx([commonClassNames, alignment])}>{children}</h3>
         );
       case 'list-item':
         return (
-          <li className={cls([commonClassNames, alignment])}>{children}</li>
+          <li className={clsx([commonClassNames, alignment])}>{children}</li>
         );
       case 'link':
         return (
@@ -100,7 +100,7 @@ export const RichTextNode = (props: RichTextNodeProps) => {
         );
       case 'image':
         return (
-          <div className={cls([`${commonClassNames}-wrapper`, alignment])}>
+          <div className={clsx([`${commonClassNames}-wrapper`, alignment])}>
             <img
               src={node.url}
               alt={node.altText}
@@ -112,20 +112,22 @@ export const RichTextNode = (props: RichTextNodeProps) => {
         );
       case 'video':
         return (
-          <div className={cls([`${commonClassNames}-wrapper`, alignment])}>
+          <div className={clsx([`${commonClassNames}-wrapper`, alignment])}>
             <iframe
               src={node.url}
               width={node.width}
               height={node.height}
-              className={cls([
-                noStyles ? null : richTextVideo(),
+              className={clsx([
+                noStyles ? null : classes.richTextVideo,
                 `${classNameRoot}__${node.type}`,
               ])}
             />
           </div>
         );
       default:
-        return <p className={cls([commonClassNames, alignment])}>{children}</p>;
+        return (
+          <p className={clsx([commonClassNames, alignment])}>{children}</p>
+        );
     }
   }
 

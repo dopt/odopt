@@ -18,6 +18,11 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
+    },
+    "./styles": {
+      "require": "./dist/styles.cjs",
+      "import": "./dist/styles.mjs",
+      "types": "./dist/styles.d.ts"
     }
   },
   "scripts": {
@@ -60,8 +65,8 @@
     "unbuild": "1.2.1"
   },
   "dependencies": {
-    "@stitches/core": "1.2.8",
-    "@dopt/core-theme": "workspace:*"
+    "@dopt/core-theme": "workspace:*",
+    "@vanilla-extract/dynamic": "2.0.3"
   },
   "openSource": true
 }

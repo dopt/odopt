@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,16 +6,17 @@ import {
   type ForwardedRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 import { ChecklistItem } from '@dopt/semantic-data-layer-checklist';
 
-import { RichText } from '@dopt/react-rich-text';
+import RichText from '@dopt/react-rich-text';
 
 export interface ChecklistItemBodyProps
   extends Omit<ComponentPropsWithRef<'div'>, 'children'>,
@@ -33,6 +34,7 @@ function ChecklistItemBody(
   const {
     theme: injectedTheme,
     className,
+    style,
     disabled = false,
     children,
     ...restProps
@@ -46,15 +48,16 @@ function ChecklistItemBody(
 
   return (
     <div
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: classes.itemBody({
+          className: classes.checklistItemBody({
             disabled,
           }),
         }),
         `${itemClassName}-body`,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >

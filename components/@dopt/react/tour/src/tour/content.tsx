@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,11 +6,12 @@ import {
   type ComponentPropsWithRef,
   forwardRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -21,20 +22,21 @@ export interface ContentProps
 const contentClassName = `${classNameRoot}__content` as const;
 
 function TourItemContent(props: ContentProps, ref?: ForwardedRef<HTMLElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <section
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.content(), theme],
+          className: classes.tourItemContent,
         }),
         contentClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />

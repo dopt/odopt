@@ -1,8 +1,19 @@
 import { useContext } from 'react';
 import { ThemeContext } from './context';
-import type { StyleTheme } from '@dopt/core-theme';
+import { type Theme } from '@dopt/core-theme';
 
-export function useTheme(theme: StyleTheme): StyleTheme {
+export function useTheme(theme: Theme, inheritParentTheme = false): Theme {
   const parentTheme = useContext(ThemeContext);
-  return theme !== undefined ? theme : parentTheme;
+
+  if (theme === undefined) {
+    if (inheritParentTheme) {
+      return parentTheme;
+    }
+
+    if (parentTheme === null) {
+      return null;
+    }
+  }
+
+  return theme;
 }

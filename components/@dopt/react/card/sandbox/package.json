@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@dopt/react-card": "workspace:*",
+    "@dopt/react-theme": "workspace:*",
     "@radix-ui/react-tabs": "1.0.4"
   }
 }

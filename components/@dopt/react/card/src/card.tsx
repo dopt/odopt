@@ -1,22 +1,25 @@
-import * as classes from './styles';
+import * as classes from './styles.css';
 
 import {
   forwardRef,
   type ForwardedRef,
   type ComponentPropsWithoutRef,
 } from 'react';
+import clsx from 'clsx';
+
 import {
-  cls,
   type StyleProps,
   ThemeContext,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
 import { classNameRoot } from './const';
 import type { Card } from '@dopt/semantic-data-layer-card';
-import { MouseEventHandler } from 'react';
-import { RichText } from '@dopt/react-rich-text';
+import RichText from '@dopt/react-rich-text';
+
+import '@dopt/react-theme/styles';
 
 const cardClassName = classNameRoot;
 
@@ -25,7 +28,7 @@ export interface CardProps extends ComponentPropsWithoutRef<'div'>, StyleProps {
 }
 
 function Card(props: CardProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { active = false, theme, className, ...restProps } = props;
+  const { active = false, theme, className, style, ...restProps } = props;
 
   if (!active) {
     return null;
@@ -34,14 +37,15 @@ function Card(props: CardProps, ref?: ForwardedRef<HTMLDivElement>) {
   return (
     <ThemeContext.Provider value={theme}>
       <div
-        className={cls([
-          getThemeClassName({
+        className={clsx([
+          themeClassName({
             theme,
-            className: [classes.root(), theme],
+            className: classes.cardRoot,
           }),
           cardClassName,
           className,
         ])}
+        style={themeStyle({ theme, style })}
         {...restProps}
         ref={ref}
       />
@@ -56,20 +60,21 @@ export interface ContentProps
 const contentClassName = `${classNameRoot}__content` as const;
 
 function CardContent(props: ContentProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <section
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.content(), theme],
+          className: classes.cardContent,
         }),
         contentClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />
@@ -83,20 +88,21 @@ export interface HeaderProps
 const headerClassName = `${classNameRoot}__header` as const;
 
 function CardHeader(props: HeaderProps, ref?: ForwardedRef<HTMLElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <header
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.header(), theme],
+          className: classes.cardHeader,
         }),
         headerClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />
@@ -110,20 +116,27 @@ export interface TitleProps
 const titleClassName = `${classNameRoot}__title` as const;
 
 function CardTitle(props: TitleProps, ref?: ForwardedRef<HTMLHeadingElement>) {
-  const { theme: injectedTheme, className, children, ...restProps } = props;
+  const {
+    theme: injectedTheme,
+    className,
+    style,
+    children,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return children == undefined ? null : (
     <h1
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.title(), theme],
+          className: classes.cardTitle,
         }),
         titleClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -134,9 +147,7 @@ function CardTitle(props: TitleProps, ref?: ForwardedRef<HTMLHeadingElement>) {
 
 export interface DismissIconProps
   extends ComponentPropsWithoutRef<'button'>,
-    StyleProps {
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-}
+    StyleProps {}
 
 const dismissIconClassName = `${classNameRoot}__dismiss-icon` as const;
 
@@ -144,7 +155,7 @@ function CardDismissIcon(
   props: DismissIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -168,15 +179,15 @@ function CardDismissIcon(
 
   return (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.dismissIcon(), theme],
+          className: classes.cardDismissIcon,
         }),
         dismissIconClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -194,20 +205,27 @@ export interface BodyProps
 const bodyClassName = `${classNameRoot}__body` as const;
 
 function CardBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { theme: injectedTheme, className, children, ...restProps } = props;
+  const {
+    theme: injectedTheme,
+    className,
+    style,
+    children,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return children == undefined ? null : (
     <div
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.body(), theme],
+          className: classes.cardBody,
         }),
         bodyClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -223,20 +241,21 @@ export interface FooterProps
 const footerClassName = `${classNameRoot}__footer` as const;
 
 function CardFooter(props: FooterProps, ref?: ForwardedRef<HTMLElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <footer
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.footer(), theme],
+          className: classes.cardFooter,
         }),
         footerClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />
@@ -247,7 +266,6 @@ export interface DismissButtonProps
   extends ComponentPropsWithoutRef<'button'>,
     StyleProps {
   children?: Card['dismissLabel'];
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const dismissButtonClassName = `${classNameRoot}__dismiss-button` as const;
@@ -260,7 +278,7 @@ function CardDismissButton(
     theme: injectedTheme,
     className,
     children,
-    onClick,
+    style,
     ...restProps
   } = props;
 
@@ -268,15 +286,15 @@ function CardDismissButton(
 
   return children == undefined ? null : (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.dismissButton(), theme],
+          className: classes.cardDismissButton,
         }),
         dismissButtonClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -289,7 +307,6 @@ export interface CompleteButtonProps
   extends ComponentPropsWithoutRef<'button'>,
     StyleProps {
   children?: Card['completeLabel'];
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const completeButtonClassName = `${classNameRoot}__complete-button` as const;
@@ -301,8 +318,8 @@ function CardCompleteButton(
   const {
     theme: injectedTheme,
     className,
+    style,
     children,
-    onClick,
     ...restProps
   } = props;
 
@@ -310,15 +327,15 @@ function CardCompleteButton(
 
   return children == undefined ? null : (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.completeButton(), theme],
+          className: classes.cardCompleteButton,
         }),
         completeButtonClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >

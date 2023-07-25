@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@dopt/react-checklist": "workspace:*",
-    "@dopt/react-modal": "workspace:*"
+    "@dopt/react-modal": "workspace:*",
+    "@dopt/react-theme": "workspace:*"
   }
 }
