@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,13 +6,9 @@ import {
   forwardRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
-import {
-  cls,
-  type StyleProps,
-  getThemeClassName,
-  useTheme,
-} from '@dopt/react-theme';
+import { type StyleProps, themeClassName, themeStyle } from '@dopt/react-theme';
 
 export interface TitleProps extends ComponentPropsWithRef<'h1'>, StyleProps {}
 
@@ -22,20 +18,19 @@ function TourItemTitle(
   props: TitleProps,
   ref?: ForwardedRef<HTMLHeadingElement>
 ) {
-  const { theme: injectedTheme, className, children, ...restProps } = props;
-
-  const theme = useTheme(injectedTheme);
+  const { theme, className, style, children, ...restProps } = props;
 
   return children == undefined ? null : (
     <h1
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.title(), theme],
+          className: classes.tourItemTitle,
         }),
         titleClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -43,6 +38,6 @@ function TourItemTitle(
     </h1>
   );
 }
-const Title = forwardRef(TourItemTitle);
 
+const Title = forwardRef(TourItemTitle);
 export { Title };

@@ -1,17 +1,17 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
   type ForwardedRef,
   forwardRef,
-  type MouseEventHandler,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -21,7 +21,6 @@ export interface NextButtonProps
   extends ComponentPropsWithRef<'button'>,
     StyleProps {
   children?: TourItem['nextLabel'];
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const nextButtonClassName = `${classNameRoot}__next-button` as const;
@@ -33,8 +32,8 @@ function TourItemNextButton(
   const {
     theme: injectedTheme,
     className,
+    style,
     children,
-    onClick,
     ...restProps
   } = props;
 
@@ -42,15 +41,15 @@ function TourItemNextButton(
 
   return children == undefined ? null : (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.nextButton(), theme],
+          className: classes.tourItemNextButton,
         }),
         nextButtonClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >

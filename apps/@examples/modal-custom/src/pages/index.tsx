@@ -1,6 +1,6 @@
 import { Button, Modal, Skeleton } from '@/components';
 import { useModal } from '@dopt/react-modal';
-import { RichText } from '@dopt/react-rich-text';
+import RichText from '@dopt/react-rich-text';
 
 import './index.css';
 
@@ -11,7 +11,7 @@ export function Home() {
   return (
     <div className="home">
       <Modal title={modal.title} open={modal.active}>
-        {modal.body && <RichText>{modal.body}</RichText>}
+        <RichText>{modal.body}</RichText>
         <Button onClick={modal.dismiss}>{modal.completeLabel}</Button>
       </Modal>
 

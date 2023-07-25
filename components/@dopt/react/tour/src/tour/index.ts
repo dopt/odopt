@@ -1,3 +1,4 @@
+import '@dopt/react-theme/styles';
 export * from './root';
 export * from './anchor';
 export * from './popover';

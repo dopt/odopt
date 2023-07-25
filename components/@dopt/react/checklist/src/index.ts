@@ -1,3 +1,3 @@
 export * as default from './checklist/';
 export * from './use-checklist';
-export * as classes from './styles';
+export * as classes from './checklist/styles.css';
