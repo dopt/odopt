@@ -1,20 +1,12 @@
-import type { StyleTheme } from './types';
+import type { Theme } from './types';
+import clsx, { type ClassValue } from 'clsx';
 
-export type ClassName = HTMLElement['className'] | null | undefined;
-
-export function cls(className: ClassName | ClassName[]) {
-  if (Array.isArray(className)) {
-    return className.filter(Boolean).join(' ').trim();
-  }
-  return className ? className : '';
-}
-
-export function getThemeClassName({
+export function themeClassName({
   theme,
   className,
 }: {
-  theme: StyleTheme;
-  className: ClassName | ClassName[];
+  theme: Theme;
+  className: ClassValue;
 }) {
-  return cls(theme !== null ? className : null);
+  return clsx(theme !== null ? className : null);
 }

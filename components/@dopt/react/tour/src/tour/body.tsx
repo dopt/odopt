@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,15 +6,16 @@ import {
   forwardRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
-import { RichText } from '@dopt/react-rich-text';
+import RichText from '@dopt/react-rich-text';
 
 import type { TourItem } from '@dopt/semantic-data-layer-tour';
 
@@ -27,20 +28,27 @@ export interface BodyProps
 const bodyClassName = `${classNameRoot}__body` as const;
 
 function TourItemBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { theme: injectedTheme, className, children, ...restProps } = props;
+  const {
+    theme: injectedTheme,
+    className,
+    style,
+    children,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return children == undefined ? null : (
     <div
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.body(), theme],
+          className: classes.tourItemBody,
         }),
         bodyClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
