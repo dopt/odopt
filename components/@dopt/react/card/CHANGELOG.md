@@ -1,4 +1,4 @@
-# @dopt/react-theme
+# @dopt/react-card
 
 ## 1.0.0
 
@@ -53,23 +53,13 @@
   import '@dopt/react-modal/styles';
   ```
 
+- 3d6534705: Release the 1.0.0 of the card component SDKs.
+
 ### Patch Changes
 
 - Updated dependencies [6cf837db3]
-  - @dopt/core-theme@1.0.0
-
-## 0.0.2
-
-### Patch Changes
-
-- b702ab075: Update README.md, package.json, and code blocks for themes and styles packages
-- Updated dependencies [b702ab075]
-  - @dopt/core-theme@0.0.2
-
-## 0.0.1
-
-### Patch Changes
-
-- 4f9a8f8c1: The initial set of packages that comprise Dopt UI Components. Broken down into core packages that are framework agnostic and react specific packages. Initially we're offering three UI components, a modal, a checklist, and a tour.
-- Updated dependencies [4f9a8f8c1]
-  - @dopt/core-theme@0.0.1
+- Updated dependencies [3d6534705]
+- Updated dependencies [6cf837db3]
+  - @dopt/react-rich-text@2.0.0
+  - @dopt/react-theme@1.0.0
+  - @dopt/semantic-data-layer-card@1.0.0

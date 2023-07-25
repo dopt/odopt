@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-modal",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "A React modal component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/modal",
   "repository": {

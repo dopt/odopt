@@ -1,5 +1,12 @@
 # @dopt/javascript
 
+## 3.0.5
+
+### Patch Changes
+
+- Updated dependencies [3d6534705]
+  - @dopt/semantic-data-layer-card@1.0.0
+
 ## 3.0.4
 
 ### Patch Changes
