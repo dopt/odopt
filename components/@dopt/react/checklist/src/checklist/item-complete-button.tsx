@@ -1,17 +1,17 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
   forwardRef,
   type ForwardedRef,
   type ComponentPropsWithRef,
-  MouseEventHandler,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 import { ChecklistItem } from '@dopt/semantic-data-layer-checklist';
@@ -20,7 +20,6 @@ export interface ChecklistItemCompleteButtonProps
   extends ComponentPropsWithRef<'button'>,
     StyleProps {
   children?: ChecklistItem['completeLabel'];
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const itemClassName = `${classNameRoot}__item` as const;
@@ -32,7 +31,7 @@ function ChecklistItemCompleteButton(
   const {
     theme: injectedTheme,
     className,
-    onClick,
+    style,
     children,
     ...restProps
   } = props;
@@ -45,14 +44,14 @@ function ChecklistItemCompleteButton(
 
   return (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: classes.itemCompleteButton(),
+          className: classes.checklistItemCompleteButton,
         }),
         `${itemClassName}-complete-button`,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >

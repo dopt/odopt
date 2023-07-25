@@ -1,17 +1,17 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
   type ForwardedRef,
   forwardRef,
-  type MouseEventHandler,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -21,7 +21,6 @@ export interface BackButtonProps
   extends ComponentPropsWithRef<'button'>,
     StyleProps {
   children?: TourItem['backLabel'];
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const backButtonClassName = `${classNameRoot}__back-button` as const;
@@ -33,8 +32,8 @@ function TourItemBackButton(
   const {
     theme: injectedTheme,
     className,
+    style,
     children,
-    onClick,
     ...restProps
   } = props;
 
@@ -42,15 +41,15 @@ function TourItemBackButton(
 
   return children == undefined ? null : (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.backButton(), theme],
+          className: classes.tourItemBackButton,
         }),
         backButtonClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
