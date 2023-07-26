@@ -93,14 +93,14 @@ export const ChecklistItemFieldDefinitions: ComponentFieldDefinition<ChecklistIt
       ]) as string,
     },
     {
-      displayName: 'Complete Label',
+      displayName: 'Complete label',
       sid: 'complete-label',
       description: 'Content for the complete button',
       type: 'string',
       initialValue: fieldToString('Complete') as string,
     },
     {
-      displayName: 'Display Index',
+      displayName: 'Display index',
       sid: 'display-index',
       description: 'Internal checklist item display index',
       type: 'number',

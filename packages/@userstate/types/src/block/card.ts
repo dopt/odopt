@@ -49,14 +49,14 @@ export const CardFieldDefinitions: ComponentFieldDefinition<CardFieldKeys>[] = [
     ]) as string,
   },
   {
-    displayName: 'Complete Label',
+    displayName: 'Complete label',
     sid: 'complete-label',
     description: 'Content for the complete button',
     type: 'string',
     initialValue: fieldToString('Complete') as string,
   },
   {
-    displayName: 'Dismiss Label',
+    displayName: 'Dismiss label',
     sid: 'dismiss-label',
     description: 'Content for the dismiss button',
     type: 'string',
