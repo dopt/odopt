@@ -1,5 +1,13 @@
 # @examples/modal
 
+## 0.0.33
+
+### Patch Changes
+
+- Updated dependencies [cfba4ee5f]
+  - @dopt/react-modal@3.0.0
+  - @dopt/react@3.0.5
+
 ## 0.0.32
 
 ### Patch Changes
