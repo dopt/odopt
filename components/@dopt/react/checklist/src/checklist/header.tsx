@@ -15,16 +15,13 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-export interface ChecklistHeaderProps
+export interface HeaderProps
   extends ComponentPropsWithRef<'header'>,
     StyleProps {}
 
 const headerClassName = `${classNameRoot}__header` as const;
 
-function ChecklistHeader(
-  props: ChecklistHeaderProps,
-  ref?: ForwardedRef<HTMLElement>
-) {
+function ChecklistHeader(props: HeaderProps, ref?: ForwardedRef<HTMLElement>) {
   const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);

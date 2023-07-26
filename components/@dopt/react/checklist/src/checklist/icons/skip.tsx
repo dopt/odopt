@@ -15,14 +15,14 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-export interface ChecklistIconSkipProps
+export interface IconSkipProps
   extends ComponentPropsWithRef<'div'>,
     StyleProps {}
 
 const itemIconClassName = `${classNameRoot}__item-icon` as const;
 
 function ChecklistIconSkip(
-  props: ChecklistIconSkipProps,
+  props: IconSkipProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
   const { theme: injectedTheme, className, style, ...restProps } = props;

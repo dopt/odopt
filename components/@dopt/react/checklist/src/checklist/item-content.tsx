@@ -15,14 +15,14 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-export interface ChecklistItemContentProps
+export interface ItemContentProps
   extends ComponentPropsWithRef<'div'>,
     StyleProps {}
 
 const itemClassName = `${classNameRoot}__item` as const;
 
 function ChecklistItemContent(
-  props: ChecklistItemContentProps,
+  props: ItemContentProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
   const { theme: injectedTheme, className, style, ...restProps } = props;

@@ -16,7 +16,7 @@ import {
 } from '@dopt/react-theme';
 import { ChecklistItem } from '@dopt/semantic-data-layer-checklist';
 
-export interface ChecklistItemCompleteButtonProps
+export interface ItemCompleteButtonProps
   extends ComponentPropsWithRef<'button'>,
     StyleProps {
   children?: ChecklistItem['completeLabel'];
@@ -25,7 +25,7 @@ export interface ChecklistItemCompleteButtonProps
 const itemClassName = `${classNameRoot}__item` as const;
 
 function ChecklistItemCompleteButton(
-  props: ChecklistItemCompleteButtonProps,
+  props: ItemCompleteButtonProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
   const {
