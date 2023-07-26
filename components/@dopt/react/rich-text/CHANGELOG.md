@@ -1,5 +1,11 @@
 # @dopt/react-rich-text
 
+## 2.0.1
+
+### Patch Changes
+
+- @dopt/react@3.0.5
+
 ## 2.0.0
 
 ### Major Changes

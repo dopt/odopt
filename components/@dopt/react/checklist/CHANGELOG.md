@@ -1,5 +1,17 @@
 # @dopt/react-checklist
 
+## 3.0.0
+
+### Major Changes
+
+- cfba4ee5f: unravel component props from default export
+
+### Patch Changes
+
+- @dopt/react@3.0.5
+- @dopt/react-rich-text@2.0.1
+- @dopt/react-utilities@1.0.5
+
 ## 2.0.0
 
 ### Major Changes
