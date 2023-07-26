@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,11 +6,12 @@ import {
   type ForwardedRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -23,21 +24,22 @@ export interface ItemProps extends ComponentPropsWithRef<'li'>, StyleProps {
 const itemClassName = `${classNameRoot}__item` as const;
 
 function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
-  const { theme: injectedTheme, className, index, ...restProps } = props;
+  const { theme: injectedTheme, className, style, index, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <li
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.item(), theme],
+          className: classes.checklistItem,
         }),
         itemClassName,
         index !== undefined ? `${itemClassName}--${index + 1}` : undefined,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />

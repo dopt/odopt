@@ -21,7 +21,7 @@ export interface TourItemProps extends PropsWithChildren, StyleProps {
 }
 
 function TourItem(props: TourItemProps) {
-  const { active = false, theme, children } = props;
+  const { theme, active = false, children } = props;
 
   const [anchor, setAnchor] = useState<Measurable | null>(null);
 

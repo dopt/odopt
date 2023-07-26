@@ -1,47 +1,45 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
   forwardRef,
   type ForwardedRef,
   type ComponentPropsWithRef,
-  MouseEventHandler,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 import { IconX } from './icons';
 
-export interface ChecklistItemSkipIconProps
+export interface ItemSkipIconProps
   extends Omit<ComponentPropsWithRef<'button'>, 'title'>,
-    StyleProps {
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-}
+    StyleProps {}
 
 const itemClassName = `${classNameRoot}__item` as const;
 
 function ChecklistItemSkipIcon(
-  props: ChecklistItemSkipIconProps,
+  props: ItemSkipIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: classes.itemSkipIcon(),
+          className: classes.checklistItemSkipIcon,
         }),
         `${itemClassName}-skip-icon`,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >

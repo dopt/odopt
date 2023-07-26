@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { RichText } from '@dopt/react-rich-text';
+import RichText from '@dopt/react-rich-text';
 
 export interface ChecklistItemProps {
   completed?: boolean;

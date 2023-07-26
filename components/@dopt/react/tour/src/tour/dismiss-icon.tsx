@@ -1,25 +1,23 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
   type ForwardedRef,
   forwardRef,
-  type MouseEventHandler,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
 export interface DismissIconProps
   extends ComponentPropsWithRef<'button'>,
-    StyleProps {
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-}
+    StyleProps {}
 
 const dismissIconClassName = `${classNameRoot}__dismiss-icon` as const;
 
@@ -27,7 +25,7 @@ function TourItemDismissIcon(
   props: DismissIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -51,15 +49,15 @@ function TourItemDismissIcon(
 
   return (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.dismissIcon(), theme],
+          className: classes.tourItemDismissIcon,
         }),
         dismissIconClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
