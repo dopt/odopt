@@ -15,14 +15,14 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-export interface ChecklistIconCircleProps
+export interface IconCircleProps
   extends ComponentPropsWithRef<'div'>,
     StyleProps {}
 
 const itemIconClassName = `${classNameRoot}__item-icon` as const;
 
 function ChecklistIconCircle(
-  props: ChecklistIconCircleProps,
+  props: IconCircleProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
   const { theme: injectedTheme, className, style, ...restProps } = props;
