@@ -1,4 +1,4 @@
-import * as classes from '../../styles';
+import * as classes from '../styles.css';
 import { classNameRoot } from '../../const';
 
 import {
@@ -6,37 +6,40 @@ import {
   type ForwardedRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
-export interface ChecklistIconCheckProps
+export interface IconCheckProps
   extends ComponentPropsWithRef<'div'>,
     StyleProps {}
 
 const itemIconClassName = `${classNameRoot}__item-icon` as const;
 
 function ChecklistIconCheck(
-  props: ChecklistIconCheckProps,
+  props: IconCheckProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <div
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: classes.itemIconChecked(),
+          className: classes.checklistItemIconChecked,
         }),
+        itemIconClassName,
         `${itemIconClassName}-checked`,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >

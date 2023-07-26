@@ -653,4 +653,11 @@ export class Dopt {
         })
     );
   }
+
+  /**
+   * Closes the socket connection.
+   */
+  public destroy() {
+    this.socket?.close();
+  }
 }

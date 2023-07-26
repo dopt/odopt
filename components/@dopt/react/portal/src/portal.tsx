@@ -1,17 +1,12 @@
-import * as React from 'react';
-import ReactDOM from 'react-dom';
+import { type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 
-interface PortalProps {
-  children: React.ReactNode;
+export interface PortalProps {
+  children: ReactNode;
   container?: HTMLElement | null;
 }
 
-function Portal(props: PortalProps) {
+export function Portal(props: PortalProps) {
   const { children, container = globalThis?.document?.body } = props;
-  return (
-    <>{container ? ReactDOM.createPortal(children, container) : children}</>
-  );
+  return <>{container ? createPortal(children, container) : children}</>;
 }
-
-export { Portal as Root };
-export type { PortalProps };

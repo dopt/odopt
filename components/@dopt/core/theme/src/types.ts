@@ -1,11 +1,11 @@
-export type StyleTheme =
-  | (string & {
-      className: string;
-      selector: string;
-    })
-  | null
-  | undefined;
+import { type Tokens } from './tokens';
+
+export type Theme = Tokens | null | undefined;
 
 export interface StyleProps {
-  theme?: StyleTheme;
+  theme?: Theme;
 }
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+};

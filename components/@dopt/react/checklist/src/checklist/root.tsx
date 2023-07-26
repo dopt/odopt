@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,12 +6,13 @@ import {
   type ForwardedRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
   ThemeContext,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
 } from '@dopt/react-theme';
 
 export interface ChecklistProps
@@ -20,19 +21,20 @@ export interface ChecklistProps
 const checklistClassName = classNameRoot;
 
 function Checklist(props: ChecklistProps, ref?: ForwardedRef<HTMLElement>) {
-  const { theme, className, ...restProps } = props;
+  const { theme, className, style, ...restProps } = props;
 
   return (
     <ThemeContext.Provider value={theme}>
       <section
-        className={cls([
-          getThemeClassName({
+        className={clsx([
+          themeClassName({
             theme,
-            className: [classes.root(), theme],
+            className: classes.checklistRoot,
           }),
           checklistClassName,
           className,
         ])}
+        style={themeStyle({ theme, style })}
         {...restProps}
         ref={ref}
       />

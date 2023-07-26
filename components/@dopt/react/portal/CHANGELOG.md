@@ -1,5 +1,11 @@
 # @dopt/react-portal
 
+## 1.0.0
+
+### Major Changes
+
+- 6cf837db3: export portal as non-compound component
+
 ## 0.1.0
 
 ### Minor Changes

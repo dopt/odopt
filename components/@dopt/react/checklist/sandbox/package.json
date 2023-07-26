@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-checklist-sandbox",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "private": true,
   "type": "module",
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@dopt/react-checklist": "workspace:*",
-    "@dopt/react-modal": "workspace:*"
+    "@dopt/react-modal": "workspace:*",
+    "@dopt/react-theme": "workspace:*"
   }
 }
