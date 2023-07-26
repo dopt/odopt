@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,11 +6,12 @@ import {
   type ForwardedRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -22,20 +23,27 @@ function ChecklistTitle(
   props: TitleProps,
   ref?: ForwardedRef<HTMLHeadingElement>
 ) {
-  const { theme: injectedTheme, className, children, ...restProps } = props;
+  const {
+    theme: injectedTheme,
+    className,
+    style,
+    children,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return children == undefined ? null : (
     <h1
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.title(), theme],
+          className: classes.checklistTitle,
         }),
         titleClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >

@@ -76,7 +76,7 @@ export const TourItemFieldDefinitions: ComponentFieldDefinition<TourItemFieldKey
       initialValue: fieldToString('Back') as string,
     },
     {
-      displayName: 'Display Index',
+      displayName: 'Display index',
       sid: 'display-index',
       description: 'Internal tour item display index',
       type: 'number',

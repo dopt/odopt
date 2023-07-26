@@ -2,4 +2,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  transform: {
+    '\\.css(.ts)?$': '@dopt/jest-style-transform',
+  },
 };

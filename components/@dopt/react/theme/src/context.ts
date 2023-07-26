@@ -1,4 +1,4 @@
 import { createContext } from 'react';
-import type { StyleTheme } from '@dopt/core-theme';
+import { type Theme } from '@dopt/core-theme';
 
-export const ThemeContext = createContext<StyleTheme>(undefined);
+export const ThemeContext = createContext<Theme>(undefined);

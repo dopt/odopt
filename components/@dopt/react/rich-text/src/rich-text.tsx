@@ -5,9 +5,9 @@ import {
 } from 'react';
 import { type Descendant } from '@dopt/core-rich-text';
 import { RichTextNode } from './rich-text-node';
-import { cls } from '@dopt/react-theme';
+import { clsx } from 'clsx';
 import { classNameRoot } from './const';
-import { richTextRoot } from './styles';
+import * as classes from './styles.css';
 
 const richTextClassName = classNameRoot;
 
@@ -26,8 +26,8 @@ function RichText(props: RichTextProps, ref?: ForwardedRef<HTMLDivElement>) {
 
   return (
     <div
-      className={cls([
-        noStyles ? null : richTextRoot(),
+      className={clsx([
+        noStyles ? null : classes.richTextRoot,
         richTextClassName,
         className,
       ])}
@@ -45,5 +45,6 @@ function RichText(props: RichTextProps, ref?: ForwardedRef<HTMLDivElement>) {
   );
 }
 
-const Root = forwardRef(RichText);
-export { Root as RichText };
+const Component = forwardRef(RichText);
+
+export { Component as RichText };

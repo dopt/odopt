@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-card-sandbox",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "private": true,
   "type": "module",
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@dopt/react-card": "workspace:*",
+    "@dopt/react-theme": "workspace:*",
     "@radix-ui/react-tabs": "1.0.4"
   }
 }

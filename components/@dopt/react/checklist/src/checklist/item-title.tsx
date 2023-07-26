@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,11 +6,12 @@ import {
   type ForwardedRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 import { ChecklistItem } from '@dopt/semantic-data-layer-checklist';
@@ -31,6 +32,7 @@ function ChecklistItemTitle(
   const {
     theme: injectedTheme,
     className,
+    style,
     disabled = false,
     ...restProps
   } = props;
@@ -43,15 +45,16 @@ function ChecklistItemTitle(
 
   return (
     <div
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: classes.itemTitle({
+          className: classes.checklistItemTitle({
             disabled,
           }),
         }),
         `${itemClassName}-title`,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />
