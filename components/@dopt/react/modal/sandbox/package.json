@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-modal-sandbox",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "",
   "private": true,
   "type": "module",
@@ -41,6 +41,6 @@
   },
   "dependencies": {
     "@dopt/react-modal": "workspace:*",
-    "@radix-ui/react-tabs": "1.0.4"
+    "@dopt/react-theme": "workspace:*"
   }
 }

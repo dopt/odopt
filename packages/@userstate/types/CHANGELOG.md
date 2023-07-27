@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 4.1.5
+
+### Patch Changes
+
+- b65abb9ba: sentence case display names
+
 ## 4.1.4
 
 ### Patch Changes

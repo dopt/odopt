@@ -16,6 +16,7 @@ export function getLibraryMap() {
 
     if (
       exports['./styles'] &&
+      typeof exports['./styles'] == 'string' &&
       fs.existsSync(path.join(packageRoot, exports['./styles']))
     ) {
       memo[name] = `${name}/styles`;

@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import {
@@ -6,11 +6,12 @@ import {
   type ForwardedRef,
   type ComponentPropsWithRef,
 } from 'react';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -24,7 +25,7 @@ function ChecklistDismissIcon(
   props: DismissIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -48,15 +49,15 @@ function ChecklistDismissIcon(
 
   return (
     <button
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.dismissIcon(), theme],
+          className: classes.checklistDismissIcon,
         }),
         dismissIconClassName,
         className,
       ])}
-      onClick={onClick}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
