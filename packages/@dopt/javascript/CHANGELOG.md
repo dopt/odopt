@@ -1,5 +1,22 @@
 # @dopt/javascript
 
+## 3.1.0
+
+### Minor Changes
+
+- 40122596e: Add a destroy method that manually closes the socket connection.
+
+### Patch Changes
+
+- @dopt/javascript-common@2.0.7
+
+## 3.0.5
+
+### Patch Changes
+
+- Updated dependencies [3d6534705]
+  - @dopt/semantic-data-layer-card@1.0.0
+
 ## 3.0.4
 
 ### Patch Changes

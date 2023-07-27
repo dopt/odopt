@@ -1,4 +1,4 @@
-import * as classes from '../styles';
+import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
 import { useContext, type ComponentPropsWithRef } from 'react';
@@ -13,11 +13,12 @@ import {
   Alignment,
   Placement,
 } from '@floating-ui/react-dom';
+import clsx from 'clsx';
 
 import {
-  cls,
   type StyleProps,
-  getThemeClassName,
+  themeClassName,
+  themeStyle,
   useTheme,
 } from '@dopt/react-theme';
 
@@ -36,13 +37,15 @@ function TourPopover(props: PopoverProps) {
   const {
     theme: injectedTheme,
     className,
+    style,
     children,
     offset: popoverOffset = 10,
     position = 'top',
     alignment = 'center',
-    style,
     ...restProps
   } = props;
+
+  const theme = useTheme(injectedTheme, true);
 
   const { active, anchor } = useContext(TourItemContext);
 
@@ -55,8 +58,6 @@ function TourPopover(props: PopoverProps) {
     },
   });
 
-  const theme = useTheme(injectedTheme);
-
   if (!active || !anchor) {
     return null;
   }
@@ -65,25 +66,22 @@ function TourPopover(props: PopoverProps) {
     getPositonAndAlignFromPlacement(placement);
 
   return (
-    <Portal.Root>
+    <Portal>
       <div
-        style={{ ...style, ...floatingStyles }}
-        className={cls([
-          getThemeClassName({
+        className={clsx([
+          themeClassName({
             theme,
-            className: [
-              classes.popover({
-                position: computedPosition,
-                alignment: computedAlignment,
-              }),
-              theme,
-            ],
+            className: classes.tourItemPopover({
+              position: computedPosition,
+              alignment: computedAlignment,
+            }),
           }),
           popoverClassName,
           `${popoverClassName}--${computedPosition}`,
           `${popoverClassName}--${computedAlignment}`,
           className,
         ])}
+        style={themeStyle({ theme, style: { ...style, ...floatingStyles } })}
         data-position={computedPosition}
         data-alignment={computedAlignment}
         {...restProps}
@@ -91,7 +89,7 @@ function TourPopover(props: PopoverProps) {
       >
         {children}
       </div>
-    </Portal.Root>
+    </Portal>
   );
 }
 

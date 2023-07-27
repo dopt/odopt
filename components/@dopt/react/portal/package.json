@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-portal",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Portal component used in other @dopt React components",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/portal",
   "repository": {
@@ -58,8 +58,6 @@
     "typescript": "4.9.5",
     "unbuild": "1.2.1"
   },
-  "dependencies": {
-    "@dopt/react-component": "workspace:*"
-  },
+  "dependencies": {},
   "openSource": true
 }

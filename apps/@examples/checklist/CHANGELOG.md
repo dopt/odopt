@@ -1,5 +1,20 @@
 # @examples/checklist
 
+## 0.1.27
+
+### Patch Changes
+
+- Updated dependencies [cfba4ee5f]
+  - @dopt/react-checklist@3.0.0
+  - @dopt/react@3.0.5
+
+## 0.1.26
+
+### Patch Changes
+
+- Updated dependencies [6cf837db3]
+  - @dopt/react-checklist@2.0.0
+
 ## 0.1.25
 
 ### Patch Changes

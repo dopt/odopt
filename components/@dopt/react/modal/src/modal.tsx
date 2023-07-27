@@ -1,24 +1,27 @@
-import * as classes from './styles';
-
-import Portal from '@dopt/react-portal';
+import * as classes from './styles.css';
+import { classNameRoot } from './const';
 
 import {
   forwardRef,
   type ForwardedRef,
   type ComponentPropsWithoutRef,
 } from 'react';
+import clsx from 'clsx';
+
 import {
-  cls,
   type StyleProps,
+  themeClassName,
+  themeStyle,
   ThemeContext,
-  getThemeClassName,
   useTheme,
 } from '@dopt/react-theme';
 
-import { classNameRoot } from './const';
+import Portal, { type PortalProps } from '@dopt/react-portal';
+import RichText from '@dopt/react-rich-text';
+
 import type { Modal } from '@dopt/semantic-data-layer-modal';
-import { MouseEventHandler } from 'react';
-import { RichText } from '@dopt/react-rich-text';
+
+import '@dopt/react-theme/styles';
 
 const modalClassName = classNameRoot;
 
@@ -26,11 +29,18 @@ export interface ModalProps
   extends ComponentPropsWithoutRef<'div'>,
     StyleProps {
   active?: boolean;
-  container?: Portal.PortalProps['container'];
+  container?: PortalProps['container'];
 }
 
 function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { active = false, container, theme, className, ...restProps } = props;
+  const {
+    active = false,
+    container,
+    theme,
+    className,
+    style,
+    ...restProps
+  } = props;
 
   if (!active) {
     return null;
@@ -38,20 +48,21 @@ function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <Portal.Root container={container}>
+      <Portal container={container}>
         <div
-          className={cls([
-            getThemeClassName({
+          className={clsx([
+            themeClassName({
               theme,
-              className: [classes.root(), theme],
+              className: classes.modalRoot,
             }),
             modalClassName,
             className,
           ])}
+          style={themeStyle({ style, theme })}
           {...restProps}
           ref={ref}
         />
-      </Portal.Root>
+      </Portal>
     </ThemeContext.Provider>
   );
 }
@@ -59,31 +70,38 @@ function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
 export interface OverlayProps
   extends ComponentPropsWithoutRef<'div'>,
     StyleProps {
-  container?: Portal.PortalProps['container'];
+  container?: PortalProps['container'];
 }
 
 const overlayClassName = `${classNameRoot}__overlay` as const;
 
 function ModalOverlay(props: OverlayProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { container, theme: injectedTheme, className, ...restProps } = props;
+  const {
+    container,
+    theme: injectedTheme,
+    className,
+    style,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
-    <Portal.Root container={container}>
+    <Portal container={container}>
       <div
-        className={cls([
-          getThemeClassName({
+        className={clsx([
+          themeClassName({
             theme,
-            className: [classes.overlay(), theme],
+            className: classes.modalOverlay,
           }),
           overlayClassName,
           className,
         ])}
+        style={themeStyle({ theme, style })}
         {...restProps}
         ref={ref}
       />
-    </Portal.Root>
+    </Portal>
   );
 }
 
@@ -94,20 +112,21 @@ export interface ContentProps
 const contentClassName = `${classNameRoot}__content` as const;
 
 function ModalContent(props: ContentProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <section
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.content(), theme],
+          className: classes.modalContent,
         }),
         contentClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />
@@ -121,20 +140,21 @@ export interface HeaderProps
 const headerClassName = `${classNameRoot}__header` as const;
 
 function ModalHeader(props: HeaderProps, ref?: ForwardedRef<HTMLElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <header
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.header(), theme],
+          className: classes.modalHeader,
         }),
         headerClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />
@@ -148,20 +168,27 @@ export interface TitleProps
 const titleClassName = `${classNameRoot}__title` as const;
 
 function ModalTitle(props: TitleProps, ref?: ForwardedRef<HTMLHeadingElement>) {
-  const { theme: injectedTheme, className, children, ...restProps } = props;
+  const {
+    theme: injectedTheme,
+    className,
+    style,
+    children,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return children == undefined ? null : (
     <h1
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.title(), theme],
+          className: classes.modalTitle,
         }),
         titleClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -172,9 +199,7 @@ function ModalTitle(props: TitleProps, ref?: ForwardedRef<HTMLHeadingElement>) {
 
 export interface DismissIconProps
   extends ComponentPropsWithoutRef<'button'>,
-    StyleProps {
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-}
+    StyleProps {}
 
 const dismissIconClassName = `${classNameRoot}__dismiss-icon` as const;
 
@@ -182,7 +207,7 @@ function ModalDismissIcon(
   props: DismissIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
-  const { theme: injectedTheme, className, onClick, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -206,15 +231,15 @@ function ModalDismissIcon(
 
   return (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.dismissIcon(), theme],
+          className: classes.modalDismissIcon,
         }),
         dismissIconClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -232,20 +257,27 @@ export interface BodyProps
 const bodyClassName = `${classNameRoot}__body` as const;
 
 function ModalBody(props: BodyProps, ref?: ForwardedRef<HTMLDivElement>) {
-  const { theme: injectedTheme, className, children, ...restProps } = props;
+  const {
+    theme: injectedTheme,
+    className,
+    style,
+    children,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return children == undefined ? null : (
     <div
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.body(), theme],
+          className: classes.modalBody,
         }),
         bodyClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -261,20 +293,21 @@ export interface FooterProps
 const footerClassName = `${classNameRoot}__footer` as const;
 
 function ModalFooter(props: FooterProps, ref?: ForwardedRef<HTMLElement>) {
-  const { theme: injectedTheme, className, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
     <footer
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.footer(), theme],
+          className: classes.modalFooter,
         }),
         footerClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     />
@@ -285,7 +318,6 @@ export interface DismissButtonProps
   extends ComponentPropsWithoutRef<'button'>,
     StyleProps {
   children?: Modal['dismissLabel'];
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const dismissButtonClassName = `${classNameRoot}__dismiss-button` as const;
@@ -297,8 +329,8 @@ function ModalDismissButton(
   const {
     theme: injectedTheme,
     className,
+    style,
     children,
-    onClick,
     ...restProps
   } = props;
 
@@ -306,15 +338,15 @@ function ModalDismissButton(
 
   return children == undefined ? null : (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.dismissButton(), theme],
+          className: classes.modalDismissButton,
         }),
         dismissButtonClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
@@ -327,7 +359,6 @@ export interface CompleteButtonProps
   extends ComponentPropsWithoutRef<'button'>,
     StyleProps {
   children?: Modal['completeLabel'];
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const completeButtonClassName = `${classNameRoot}__complete-button` as const;
@@ -339,8 +370,8 @@ function ModalCompleteButton(
   const {
     theme: injectedTheme,
     className,
+    style,
     children,
-    onClick,
     ...restProps
   } = props;
 
@@ -348,15 +379,15 @@ function ModalCompleteButton(
 
   return children == undefined ? null : (
     <button
-      onClick={onClick}
-      className={cls([
-        getThemeClassName({
+      className={clsx([
+        themeClassName({
           theme,
-          className: [classes.completeButton(), theme],
+          className: classes.modalCompleteButton,
         }),
         completeButtonClassName,
         className,
       ])}
+      style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
     >
