@@ -177,7 +177,7 @@ export function DoptProvider(props: ProviderConfig) {
 
         log.info('Flows & Blocks fetching successful');
       })
-      .catch((error) => {
+      .catch((_) => {
         log.error(`
             An error occurred while fetching blocks for the
             flow versions specified: \`${JSON.stringify(flowVersions)}\`
@@ -256,7 +256,9 @@ export function DoptProvider(props: ProviderConfig) {
     });
 
     if (!_socket) {
-      return () => {};
+      return () => {
+        /* no-op */
+      };
     }
 
     _socket.on('ready', () => {
@@ -299,7 +301,7 @@ export function DoptProvider(props: ProviderConfig) {
       log.warn('Socket listeners to `flow` are growing unexpectedly.');
     }
 
-    for (let uid in blocks) {
+    for (const uid in blocks) {
       const version = blocks[uid].version;
 
       socket.emit('watch:block', uid, version);
@@ -368,7 +370,9 @@ export function DoptProvider(props: ProviderConfig) {
 
   const blockIntention: BlockTransitionHandler = useMemo(() => {
     if (fetching) {
-      return () => {};
+      return () => {
+        /* no-op */
+      };
     }
 
     return (uid, transitions) => {
@@ -401,10 +405,18 @@ export function DoptProvider(props: ProviderConfig) {
   const flowIntention: FlowIntentHandler = useMemo(() => {
     if (fetching) {
       return {
-        start: () => {},
-        reset: () => {},
-        finish: () => {},
-        stop: () => {},
+        start: () => {
+          /* no-op */
+        },
+        reset: () => {
+          /* no-op */
+        },
+        finish: () => {
+          /* no-op */
+        },
+        stop: () => {
+          /* no-op */
+        },
       };
     }
 
