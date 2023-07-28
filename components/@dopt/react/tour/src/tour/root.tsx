@@ -11,7 +11,9 @@ export interface TourItemContext {
 export const TourItemContext = createContext<TourItemContext>({
   active: false,
   anchor: null,
-  setAnchor: () => {},
+  setAnchor: () => {
+    /* no-op */
+  },
 });
 
 export type Measurable = { getBoundingClientRect(): ClientRect };
