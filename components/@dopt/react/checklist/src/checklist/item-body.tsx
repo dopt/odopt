@@ -33,7 +33,7 @@ function ChecklistItemBody(
 ) {
   const {
     theme: injectedTheme,
-    className,
+    className: _,
     style,
     disabled = false,
     children,
