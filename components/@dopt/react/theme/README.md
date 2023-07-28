@@ -4,11 +4,26 @@ Dopt's React components leverage a unified theme which consists of tokens for th
 
 All of Dopt's React components have a `theme` prop that you can use to pass in your custom theme definition.
 
-Let’s walk through an example of creating a custom theme and then apply it to the [Modal component](https://docs.dopt.com/components/modal/):
+[Learn more about Dopt's styling and theming →](https://docs.dopt.com/components/styling/).
+
+## Installation
+
+```bash
+# npm
+npm install @dopt/react-theme
+
+# Yarn
+yarn add @dopt/react-theme
+
+# pnpm
+pnpm add @dopt/react-theme
+```
+
+## Usage
 
 ```jsx
 import { createTheme } from '@dopt/react-theme';
-import * as Modal from '@dopt/react-modal';
+import Modal from '@dopt/react-modal';
 
 const customTheme = createTheme({
   colors: {
@@ -20,12 +35,96 @@ const customTheme = createTheme({
 });
 
 function MyModal() {
-  return (
-    <Modal.Root theme={customTheme} css={{ background: '$primary' }}>
-      ...
-    </Modal.Root>
-  );
+  return <Modal.Root theme={customTheme}>...</Modal.Root>;
 }
 ```
 
-[Learn more about Dopt's styling and theming →](https://docs.dopt.com/components/styling/).
+## Theme interface
+
+When defining a custom theme, you will need adhere to a strict interface that maps to specific [theme tokens](https://docs.dopt.com/components/tokens/) as defined in [@dopt/core-theme](https://www.npmjs.com/package/@dopt/core-theme).
+
+```ts
+interface Theme {
+  colors?: {
+    black?: string;
+    white?: string;
+    primary?: string;
+    primaryLight?: string;
+    primaryDark?: string;
+    secondary?: string;
+    secondaryLight?: string;
+    secondaryDark?: string;
+    content?: string;
+    contentLight?: string;
+    contentContrast?: string;
+    border?: string;
+    overlay?: string;
+    background?: string;
+  };
+  space?: {
+    1?: string;
+    2?: string;
+    3?: string;
+    4?: string;
+    5?: string;
+    6?: string;
+    7?: string;
+    8?: string;
+    9?: string;
+    10?: string;
+    12?: string;
+    16?: string;
+  };
+  sizes?: {
+    1?: string;
+    2?: string;
+    3?: string;
+    4?: string;
+    5?: string;
+    6?: string;
+    7?: string;
+    8?: string;
+    9?: string;
+    10?: string;
+    12?: string;
+    16?: string;
+  };
+  radii?: {
+    1?: string;
+    2?: string;
+    round?: string;
+  };
+  shadows?: {
+    1?: string;
+    2?: string;
+  };
+  fonts?: {
+    sans?: string;
+    mono?: string;
+  };
+  fontSizes?: {
+    base?: string;
+    sm?: string;
+    md?: string;
+    lg?: string;
+  };
+  fontWeights?: {
+    normal?: string;
+    medium?: string;
+    bold?: string;
+  };
+  lineHeights?: {
+    base?: string;
+    sm?: string;
+    md?: string;
+    lg?: string;
+  };
+  borderWidths?: {
+    1?: string;
+    2?: string;
+  };
+  transitions?: {
+    ease?: string;
+  };
+}
+```

@@ -31,7 +31,7 @@ function TourItemAnchor(
 
   const composedRefs = useComposedRefs(forwardedRef, ref);
 
-  let anchorElement = Children.only(children);
+  const anchorElement = Children.only(children);
 
   useEffect(() => {
     setAnchor(ref.current);

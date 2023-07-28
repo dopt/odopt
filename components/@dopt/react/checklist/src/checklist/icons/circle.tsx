@@ -25,7 +25,7 @@ function ChecklistIconCircle(
   props: IconCircleProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
-  const { theme: injectedTheme, className, style, ...restProps } = props;
+  const { theme: injectedTheme, className: _, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 

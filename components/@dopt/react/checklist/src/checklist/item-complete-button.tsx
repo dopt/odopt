@@ -30,7 +30,7 @@ function ChecklistItemCompleteButton(
 ) {
   const {
     theme: injectedTheme,
-    className,
+    className: _,
     style,
     children,
     ...restProps
