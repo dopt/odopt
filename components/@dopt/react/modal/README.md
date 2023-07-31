@@ -62,12 +62,13 @@ Check out our [modal example](https://www.dopt.com/examples/modal) and our [head
 
 The root element of the modal. Extends `HTMLDivElement`.
 
-| Name       | Type                                                               | Description                                                           |
-| ---------- | ------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| active?    | boolean                                                            | Determines the visibility of the component (default: `false`)         |
-| children?  | ReactNode                                                          | The contents of the component                                         |
-| container? | HTMLElement                                                        | An HTML element to portal the component to (default: `document.body`) |
-| theme?     | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component                         |
+| Name        | Type                                                               | Description                                                                                           |
+| ----------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| active?     | boolean                                                            | Determines the visibility of the component (default: `false`)                                         |
+| children?   | ReactNode                                                          | The contents of the component                                                                         |
+| container?  | HTMLElement                                                        | An HTML element to portal the component to (default: `document.body`)                                 |
+| lockScroll? | boolean                                                            | Determines if the document body should be scrollable when the component is `active` (default: `true`) |
+| theme?      | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component                                                         |
 
 ### Overlay
 
