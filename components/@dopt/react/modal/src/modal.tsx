@@ -5,6 +5,7 @@ import {
   forwardRef,
   type ForwardedRef,
   type ComponentPropsWithoutRef,
+  useEffect,
 } from 'react';
 import clsx from 'clsx';
 
@@ -30,17 +31,30 @@ export interface ModalProps
     StyleProps {
   active?: boolean;
   container?: PortalProps['container'];
+  lockScroll?: boolean;
 }
 
 function Modal(props: ModalProps, ref?: ForwardedRef<HTMLDivElement>) {
   const {
     active = false,
     container,
+    lockScroll = true,
     theme,
     className,
     style,
     ...restProps
   } = props;
+
+  useEffect(() => {
+    if (lockScroll) {
+      const bodyClassList = document.body.classList;
+      if (active) {
+        bodyClassList.add(classes.lockScroll);
+      } else {
+        bodyClassList.remove(classes.lockScroll);
+      }
+    }
+  }, [lockScroll, active]);
 
   if (!active) {
     return null;
