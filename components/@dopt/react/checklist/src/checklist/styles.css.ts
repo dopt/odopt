@@ -115,19 +115,7 @@ export const checklistItem = style({
   },
 });
 
-export const checklistItemIconChecked = style({
-  all: 'unset',
-  flexShrink: 0,
-  color: vars.colors.primary,
-});
-
-export const checklistItemIconSkipped = style({
-  all: 'unset',
-  flexShrink: 0,
-  color: vars.colors.contentLight,
-});
-
-export const checklistItemIconCircle = style({
+export const checklistItemIcon = style({
   all: 'unset',
   flexShrink: 0,
 });

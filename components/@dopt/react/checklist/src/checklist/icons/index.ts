@@ -1,4 +1,3 @@
-export * from './check';
-export * from './circle';
-export * from './skip';
-export * from './x';
+export * from './completed';
+export * from './active';
+export * from './skipped';

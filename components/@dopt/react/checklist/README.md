@@ -45,13 +45,15 @@ function MyChecklist() {
       <Checklist.Items>
         {checklist.items.map((item, i) => (
           <Checklist.Item key={i}>
-            {item.completed ? (
-              <Checklist.IconCheck />
-            ) : item.skipped ? (
-              <Checklist.IconSkip />
-            ) : (
-              <Checklist.IconCircle />
-            )}
+            <Checklist.ItemIcon>
+              {item.completed ? (
+                <Checklist.IconCompleted />
+              ) : item.skipped ? (
+                <Checklist.IconSkipped />
+              ) : (
+                <Checklist.IconActive />
+              )}
+            </Checklist.ItemIcon>
             <Checklist.ItemContent>
               <Checklist.ItemTitle disabled={item.done}>
                 {item.title}
@@ -134,30 +136,6 @@ The progress meter of the checklist. Extends `HTMLDivElement`.
 | theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component      |
 | value  | number                                                             | The current number of items progressed             |
 
-### IconCheck
-
-The check icon. Extends `HTMLDivElement`.
-
-| Name   | Type                                                               | Description                                   |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
-
-### IconCircle
-
-The circle icon. Extends `HTMLDivElement`.
-
-| Name   | Type                                                               | Description                                   |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
-
-### IconSkip
-
-The skip icon. Extends `HTMLDivElement`.
-
-| Name   | Type                                                               | Description                                   |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
-
 ### Items
 
 The items of the checklist. Extends `HTMLUListElement`.
@@ -176,6 +154,27 @@ A checklist item. Extends `HTMLLIElement`.
 | children? | ReactNode                                                          | The contents of the component                 |
 | index?    | number                                                             | The index of the item                         |
 | theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
+### ItemIcon
+
+The icon of a checklist item. Extends `HTMLDivElement`.
+
+| Name      | Type                                   | Description                                   |
+| --------- | -------------------------------------- | --------------------------------------------- |
+| children? | ReactNode                              | The contents of the component                 |
+| theme?    | [Theme](./styling.mdx#theme-interface) | A theme definition to attach to the component |
+
+### IconActive
+
+The active icon. Extends `SVGSVGElement`.
+
+### IconCompleted
+
+The completed icon. Extends `SVGSVGElement`.
+
+### IconSkipped
+
+The skipped icon. Extends `SVGSVGElement`.
 
 ### ItemContent
 
@@ -372,6 +371,7 @@ export function MyChecklistItem() {
 | Name               | Selector                                | Description                                         |
 | ------------------ | --------------------------------------- | --------------------------------------------------- |
 | item               | `.dopt-checklist__item`                 | Item containing icon, content, and skip icon        |
+| item               | `.dopt-checklist__item--$index`         | Item by index (starting at 1)                       |
 | itemIcon           | `.dopt-checklist__item-icon`            | State icon                                          |
 | itemContent        | `.dopt-checklist__item-content`         | Content containing title, body, and complete button |
 | itemTitle          | `.dopt-checklist__item-title`           | Title heading                                       |
@@ -379,19 +379,14 @@ export function MyChecklistItem() {
 | itemCompleteButton | `.dopt-checklist__item-complete-button` | Complete button                                     |
 | itemSkipIcon       | `.dopt-checklist__item-skip-icon`       | Skip icon button                                    |
 
-### Item unique
+### Icon
 
-| Name | Selector                        | Description                   |
-| ---- | ------------------------------- | ----------------------------- |
-| item | `.dopt-checklist__item--$index` | Item by index (starting at 1) |
-| item | `[data-item-id="$id"]`          | Item by identifier            |
-
-### Item state
-
-| Name      | Selector                           | Description    |
-| --------- | ---------------------------------- | -------------- |
-| active    | `.dopt-checklist__item--active`    | Active item    |
-| completed | `.dopt-checklist__item--completed` | Completed item |
+| Name      | Selector                          | Description    |
+| --------- | --------------------------------- | -------------- |
+| icon      | `.dopt-checklist__icon`           | Icon element   |
+| active    | `.dopt-checklist__icon-active`    | Active icon    |
+| completed | `.dopt-checklist__icon-completed` | Completed icon |
+| skipped   | `.dopt-checklist__icon-skipped`   | Skipped icon   |
 
 ## Types
 

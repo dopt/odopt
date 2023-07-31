@@ -33,7 +33,7 @@ function ChecklistItemBody(
 ) {
   const {
     theme: injectedTheme,
-    className: _,
+    className,
     style,
     disabled = false,
     children,
@@ -56,6 +56,7 @@ function ChecklistItemBody(
           }),
         }),
         `${itemClassName}-body`,
+        className,
       ])}
       style={themeStyle({ theme, style })}
       {...restProps}
