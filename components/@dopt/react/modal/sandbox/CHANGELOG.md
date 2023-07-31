@@ -1,5 +1,15 @@
 # @dopt/react-modal-sandbox
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [623a7b32c]
+- Updated dependencies [819a456d7]
+- Updated dependencies [819a456d7]
+  - @dopt/react-modal@4.0.0
+  - @dopt/react-theme@1.0.1
+
 ## 0.0.11
 
 ### Patch Changes

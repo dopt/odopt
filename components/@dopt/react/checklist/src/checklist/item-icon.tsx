@@ -15,17 +15,17 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-export interface ItemContentProps
+export interface ItemIconProps
   extends ComponentPropsWithRef<'div'>,
     StyleProps {}
 
 const itemClassName = `${classNameRoot}__item` as const;
 
-function ChecklistItemContent(
-  props: ItemContentProps,
+function ChecklistItemIcon(
+  props: ItemIconProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
-  const { theme: injectedTheme, className: _, style, ...restProps } = props;
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
@@ -34,9 +34,10 @@ function ChecklistItemContent(
       className={clsx([
         themeClassName({
           theme,
-          className: classes.checklistItemContent,
+          className: classes.checklistItemIcon,
         }),
-        `${itemClassName}-content`,
+        `${itemClassName}-icon`,
+        className,
       ])}
       style={themeStyle({ theme, style })}
       {...restProps}
@@ -47,5 +48,5 @@ function ChecklistItemContent(
   );
 }
 
-const ItemContent = forwardRef(ChecklistItemContent);
-export { ItemContent };
+const ItemIcon = forwardRef(ChecklistItemIcon);
+export { ItemIcon };

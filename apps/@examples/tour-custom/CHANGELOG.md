@@ -1,5 +1,16 @@
 # @examples/tour-custom
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [623a7b32c]
+- Updated dependencies [819a456d7]
+- Updated dependencies [58ec892d7]
+  - @dopt/react-rich-text@3.0.0
+  - @dopt/react-tour@4.0.0
+  - @dopt/react@3.0.6
+
 ## 0.0.4
 
 ### Patch Changes

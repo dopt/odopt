@@ -1,1 +1,1 @@
-import '@dopt/core-theme/styles';
+import '@dopt/core-theme/styles.css';

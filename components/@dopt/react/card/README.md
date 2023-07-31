@@ -1,74 +1,156 @@
-# @dopt/react-modal
+# @dopt/react-card
 
 ## Overview
 
-A React modal component for building experiences with Dopt.
+A React card component for building experiences with Dopt.
 
-You can use the modal component out of the box as a pre-built component or break out and use it headlessly with your own UI component.
+You can use the card component out of the box as a pre-built component or break out and use it headlessly with your own UI component.
 
-[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/modal/)
+[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/card/)
 
 ## Installation
 
 ```bash
 # npm
-npm install @dopt/react-modal
+npm install @dopt/react-card
 
 # Yarn
-yarn add @dopt/react-modal
+yarn add @dopt/react-card
 
 # pnpm
-pnpm add @dopt/react-modal
+pnpm add @dopt/react-card
 ```
 
-## UI components
+## Usage
 
 ### Modal
 
-The default export from `@dopt/react-modal` is a collection of components that you can use to structure and compose a modal.
+The default export from `@dopt/react-card` is a collection of components that you can use to structure and compose a modal.
 
 ```jsx
-import Modal, { useModal } from '@dopt/react-modal';
+import Card, { useCard } from '@dopt/react-card';
 
-function MyModal() {
-  const modal = useModal('my-flow.four-pandas-jam');
+function MyCard() {
+  const card = useCard('my-flow.four-pandas-jam');
 
   return (
-    <Modal.Root active={modal.active}>
-      <Modal.Overlay />
-      <Modal.Content>
-        <Modal.Header>
-          <Modal.Title>{modal.title}</Modal.Title>
-          <Modal.DismissIcon onClick={modal.dismiss} />
-        </Modal.Header>
-        <Modal.Body>{modal.body}</Modal.Body>
-        <Modal.Footer>
-          <Modal.DismissButton onClick={modal.dismiss}>
-            {modal.dismissLabel}
-          </Modal.DismissButton>
-          <Modal.CompleteButton onClick={modal.complete}>
-            {modal.completeLabel}
-          </Modal.CompleteButton>
-        </Modal.Footer>
-      </Modal.Content>
-    </Modal.Root>
+    <Card.Root active={card.active}>
+      <Card.Content>
+        <Card.Header>
+          <Card.Title>{card.title}</Card.Title>
+          <Card.DismissIcon onClick={card.dismiss} />
+        </Card.Header>
+        <Card.Body>{card.body}</Card.Body>
+        <Card.Footer>
+          <Card.DismissButton onClick={card.dismiss}>
+            {card.dismissLabel}
+          </Card.DismissButton>
+          <Card.CompleteButton onClick={card.complete}>
+            {card.completeLabel}
+          </Card.CompleteButton>
+        </Card.Footer>
+      </Card.Content>
+    </Card.Root>
   );
 }
 ```
 
+## Props
+
+### Root
+
+The root element of the card. Extends `HTMLDivElement`.
+
+| Name      | Type                                                               | Description                                                   |
+| --------- | ------------------------------------------------------------------ | ------------------------------------------------------------- |
+| active?   | boolean                                                            | Determines the visibility of the component (default: `false`) |
+| children? | ReactNode                                                          | The contents of the component                                 |
+| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component                 |
+
+### Content
+
+The card content. Extends `HTMLDivElement`.
+
+| Name      | Type                                                               | Description                                   |
+| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                          | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
+### Header
+
+The header of the card. Extends `HTMLElement`.
+
+| Name      | Type                                                               | Description                                   |
+| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                          | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
+### Title
+
+The title of the card. Extends `HTMLHeadingElement`.
+
+| Name      | Type                                                               | Description                                   |
+| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                          | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
+### DismissIcon
+
+The dismiss icon of the card. Extends `HTMLButtonElement`.
+
+| Name   | Type                                                               | Description                                   |
+| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
+| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
+### Body
+
+The body of the card. Extends `HTMLDivElement`.
+
+| Name      | Type                                                               | Description                                   |
+| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
+| children? | [RichText](https://docs.dopt.com/components/rich-text/#richtext-1) | The rich text contents of the component       |
+| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
+### Footer
+
+The footer of the card. Extends `HTMLElement`.
+
+| Name      | Type                                                               | Description                                   |
+| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                          | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
+### DismissButton
+
+The dismiss button of the card. Extends `HTMLButtonElement`.
+
+| Name      | Type                                                               | Description                                   |
+| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                          | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
+### CompleteButton
+
+The complete button of the card. Extends `HTMLButtonElement`.
+
+| Name      | Type                                                               | Description                                   |
+| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                          | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+
 ## Hooks
 
-### useModal
+### useCard
 
-- **useModal**(`id`: string): [Modal](#modal-1)
+- **useCard**(`id`: string): [Card](#card)
 
-A React hook for accessing and updating a modal's state.
+A React hook for accessing and updating a card's state and content.
 
 ```jsx
-import { useModal } from '@dopt/react-modal';
+import { useCard } from '@dopt/react-card';
 import RichText from '@dopt/react-rich-text';
 
-function MyModal() {
+function MyCard() {
   const {
     id,
     title,
@@ -80,26 +162,26 @@ function MyModal() {
     dismissed,
     complete,
     dismiss,
-  } = useModal('my-flow.four-pandas-jam');
+  } = useCard('my-flow.four-pandas-jam');
 
   return (
     <div>
       <div id="states">
-        <div>modal.active: {active}</div>
-        <div>modal.completed: {completed}</div>
-        <div>modal.dismissed: {dismissed}</div>
+        <div>card.active: {active}</div>
+        <div>card.completed: {completed}</div>
+        <div>card.dismissed: {dismissed}</div>
       </div>
       <div id="actions">
         <button onClick={complete}>{completeLabel}</button>
         <button onClick={dismiss}>{dismissLabel}</button>
       </div>
       <div id="content">
-        <div>modal.title: {title}</div>
+        <div>card.title: {title}</div>
         <div>
-          modal.body: <RichText.Root>{body}</RichText.Root>
+          card.body: <RichText>{body}</RichText>
         </div>
-        <div>modal.completeLabel: {completeLabel}</div>
-        <div>modal.dismissLabel: {dismissLabel}</div>
+        <div>card.completeLabel: {completeLabel}</div>
+        <div>card.dismissLabel: {dismissLabel}</div>
       </div>
     </div>
   );
@@ -125,12 +207,12 @@ function MyModal() {
 
 ## Types
 
-### Modal
+### Card
 
-Modal state accessors and methods for updating state along with content configured in Dopt.
+Card state accessors and methods for updating state along with content configured in Dopt.
 
 ```ts
-interface Modal {
+interface Card {
   id: string;
 
   title: string | null | undefined;
