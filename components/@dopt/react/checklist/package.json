@@ -19,7 +19,7 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
-    "./styles": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css"
   },
   "scripts": {
     "👇required package scripts": "",
