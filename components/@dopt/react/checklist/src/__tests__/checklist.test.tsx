@@ -18,13 +18,15 @@ const ChecklistTest = (props: Partial<ChecklistSdl.Checklist>) => (
       <Checklist.Items>
         {(props.items || []).map((item, i) => (
           <Checklist.Item index={i} key={i}>
-            {item.completed ? (
-              <Checklist.IconCheck />
-            ) : item.skipped ? (
-              <Checklist.IconSkip />
-            ) : (
-              <Checklist.IconCircle />
-            )}
+            <Checklist.ItemIcon>
+              {item.completed ? (
+                <Checklist.IconCompleted />
+              ) : item.skipped ? (
+                <Checklist.IconSkipped />
+              ) : (
+                <Checklist.IconActive />
+              )}
+            </Checklist.ItemIcon>
             <Checklist.ItemContent>
               <Checklist.ItemTitle disabled={item.done}>
                 {item.title}

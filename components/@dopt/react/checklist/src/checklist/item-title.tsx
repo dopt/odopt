@@ -31,7 +31,7 @@ function ChecklistItemTitle(
 ) {
   const {
     theme: injectedTheme,
-    className: _,
+    className,
     style,
     disabled = false,
     ...restProps
@@ -53,6 +53,7 @@ function ChecklistItemTitle(
           }),
         }),
         `${itemClassName}-title`,
+        className,
       ])}
       style={themeStyle({ theme, style })}
       {...restProps}

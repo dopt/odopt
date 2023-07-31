@@ -15,35 +15,38 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-import type { ChecklistItem } from '@dopt/semantic-data-layer-checklist';
-
-export interface ItemProps extends ComponentPropsWithRef<'li'>, StyleProps {
-  index?: number;
-}
+export interface ItemIconProps
+  extends ComponentPropsWithRef<'div'>,
+    StyleProps {}
 
 const itemClassName = `${classNameRoot}__item` as const;
 
-function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
-  const { theme: injectedTheme, className, style, index, ...restProps } = props;
+function ChecklistItemIcon(
+  props: ItemIconProps,
+  ref?: ForwardedRef<HTMLDivElement>
+) {
+  const { theme: injectedTheme, className, style, ...restProps } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
-    <li
+    <div
       className={clsx([
         themeClassName({
           theme,
-          className: classes.checklistItem,
+          className: classes.checklistItemIcon,
         }),
-        itemClassName,
-        index !== undefined ? `${itemClassName}--${index + 1}` : null,
+        `${itemClassName}-icon`,
         className,
       ])}
       style={themeStyle({ theme, style })}
       {...restProps}
       ref={ref}
-    />
+    >
+      {props.children}
+    </div>
   );
 }
-const Item = forwardRef(ChecklistItem);
-export { Item };
+
+const ItemIcon = forwardRef(ChecklistItemIcon);
+export { ItemIcon };
