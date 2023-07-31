@@ -1,5 +1,15 @@
 # @dopt/core-theme
 
+## 2.0.0
+
+### Major Changes
+
+- 819a456d7: export styles at ./styles.css rather than ./styles
+
+### Patch Changes
+
+- 623a7b32c: update readme
+
 ## 1.0.0
 
 ### Major Changes

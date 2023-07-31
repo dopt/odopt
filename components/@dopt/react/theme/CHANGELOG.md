@@ -1,5 +1,15 @@
 # @dopt/react-theme
 
+## 1.0.1
+
+### Patch Changes
+
+- 623a7b32c: update readme
+- 819a456d7: update core-theme style import
+- Updated dependencies [623a7b32c]
+- Updated dependencies [819a456d7]
+  - @dopt/core-theme@2.0.0
+
 ## 1.0.0
 
 ### Major Changes

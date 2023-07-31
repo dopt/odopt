@@ -1,5 +1,12 @@
 # @dopt/block-types
 
+## 4.1.6
+
+### Patch Changes
+
+- Updated dependencies [623a7b32c]
+  - @dopt/core-rich-text@1.0.1
+
 ## 4.1.5
 
 ### Patch Changes

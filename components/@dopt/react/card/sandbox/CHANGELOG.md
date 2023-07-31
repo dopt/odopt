@@ -1,5 +1,15 @@
 # @dopt/react-card-sandbox
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [623a7b32c]
+- Updated dependencies [819a456d7]
+- Updated dependencies [819a456d7]
+  - @dopt/react-theme@1.0.1
+  - @dopt/react-card@3.0.0
+
 ## 0.0.10
 
 ### Patch Changes

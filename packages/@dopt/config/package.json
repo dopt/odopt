@@ -1,6 +1,6 @@
 {
   "name": "@dopt/config",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "Shared configuration",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/config",
