@@ -15,9 +15,11 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
+import type { Tour, TourItem } from '@dopt/semantic-data-layer-tour';
+
 export interface ProgressProps extends ComponentPropsWithRef<'ol'>, StyleProps {
-  count: number;
-  index: number;
+  count: Tour['size'];
+  index: TourItem['index'];
 }
 
 const progressClassName = `${classNameRoot}__progress` as const;
