@@ -1,5 +1,12 @@
 # @dopt/react-tour
 
+## 4.0.1
+
+### Patch Changes
+
+- 04e2595f5: set correct types on progress props
+- 0750b62c6: fix usage example
+
 ## 4.0.0
 
 ### Major Changes
