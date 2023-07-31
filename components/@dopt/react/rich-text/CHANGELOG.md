@@ -1,5 +1,19 @@
 # @dopt/react-rich-text
 
+## 3.0.0
+
+### Major Changes
+
+- 819a456d7: export styles at ./styles.css rather than ./styles
+
+### Patch Changes
+
+- 623a7b32c: update readme
+- Updated dependencies [623a7b32c]
+- Updated dependencies [58ec892d7]
+  - @dopt/core-rich-text@1.0.1
+  - @dopt/react@3.0.6
+
 ## 2.0.1
 
 ### Patch Changes

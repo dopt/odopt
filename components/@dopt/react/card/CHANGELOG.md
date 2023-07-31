@@ -1,5 +1,25 @@
 # @dopt/react-card
 
+## 3.0.0
+
+### Major Changes
+
+- 819a456d7: export styles at ./styles.css rather than ./styles
+
+### Patch Changes
+
+- 623a7b32c: update readme
+- Updated dependencies [623a7b32c]
+- Updated dependencies [819a456d7]
+- Updated dependencies [819a456d7]
+- Updated dependencies [58ec892d7]
+  - @dopt/react-rich-text@3.0.0
+  - @dopt/react-theme@1.0.1
+  - @dopt/core-rich-text@1.0.1
+  - @dopt/react@3.0.6
+  - @dopt/semantic-data-layer-card@1.0.1
+  - @dopt/react-component@0.0.2
+
 ## 2.0.0
 
 ### Major Changes
