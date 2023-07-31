@@ -119,3 +119,7 @@ export const modalCompleteButton = style({
     outline: 'revert',
   },
 });
+
+export const lockScroll = style({
+  overflow: 'hidden !important',
+});

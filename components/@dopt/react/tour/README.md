@@ -36,24 +36,24 @@ function MyTourStep({ children }) {
   }
 
   return (
-    <TourItem.Root active={tourStep.active}>
+    <TourItem.Root active={tourItem.active}>
       <TourItem.Anchor>{children}</TourItem.Anchor>
       <TourItem.Popover>
         <TourItem.Content>
           <TourItem.Header>
-            <TourItem.Title>{tourStep.title}</TourItem.Title>
-            <TourItem.DismissIcon onClick={tourStep.tour.dismiss} />
+            <TourItem.Title>{tourItem.title}</TourItem.Title>
+            <TourItem.DismissIcon onClick={tourItem.tour.dismiss} />
           </TourItem.Header>
-          <TourItem.Body>{tourStep.body}</TourItem.Body>
+          <TourItem.Body>{tourItem.body}</TourItem.Body>
           <TourItem.Footer>
-            <TourItem.BackButton>{tourStep.backLabel}</TourItem.BackButton>
-            <TourItem.NextButton onClick={tourStep.next}>
-              {tourStep.nextLabel}
+            <TourItem.BackButton>{tourItem.backLabel}</TourItem.BackButton>
+            <TourItem.NextButton onClick={tourItem.next}>
+              {tourItem.nextLabel}
             </TourItem.NextButton>
           </TourItem.Footer>
           <TourItem.Progress
-            count={tourStep.tour.size}
-            index={tourStep.index}
+            count={tourItem.tour.size}
+            index={tourItem.index}
           />
         </TourItem.Content>
       </TourItem.Popover>
