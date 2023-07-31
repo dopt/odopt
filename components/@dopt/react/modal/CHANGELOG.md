@@ -1,5 +1,11 @@
 # @dopt/react-modal
 
+## 4.1.0
+
+### Minor Changes
+
+- d52105138: add body scroll locking via lockScroll prop
+
 ## 4.0.0
 
 ### Major Changes
