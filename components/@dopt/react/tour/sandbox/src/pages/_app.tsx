@@ -48,10 +48,7 @@ function TourStepItem1() {
               {tourStep.nextLabel}
             </Tour.NextButton>
           </Tour.Footer>
-          <Tour.Progress
-            count={tourStep.tour.size}
-            index={tourStep.index || 0}
-          />
+          <Tour.Progress count={tourStep.tour.size} index={tourStep.index} />
         </Tour.Content>
       </Tour.Popover>
     </Tour.Root>
