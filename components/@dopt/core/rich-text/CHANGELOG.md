@@ -1,5 +1,11 @@
 # @dopt/core-rich-text
 
+## 1.0.1
+
+### Patch Changes
+
+- 623a7b32c: update readme
+
 ## 1.0.0
 
 ### Major Changes

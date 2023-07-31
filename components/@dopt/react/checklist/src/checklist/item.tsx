@@ -36,7 +36,7 @@ function ChecklistItem(props: ItemProps, ref?: ForwardedRef<HTMLLIElement>) {
           className: classes.checklistItem,
         }),
         itemClassName,
-        index !== undefined ? `${itemClassName}--${index + 1}` : undefined,
+        index !== undefined ? `${itemClassName}--${index + 1}` : null,
         className,
       ])}
       style={themeStyle({ theme, style })}

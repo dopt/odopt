@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.6
+
+### Patch Changes
+
+- 58ec892d7: configure .tsx linting in @dopt/config and lint and update all packages which surface linting errors.
+  - @dopt/javascript-common@2.0.8
+  - @dopt/logger@0.0.3
+
 ## 3.0.5
 
 ### Patch Changes

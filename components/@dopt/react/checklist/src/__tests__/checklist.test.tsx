@@ -1,4 +1,4 @@
-import { fireEvent, render, RenderResult } from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
 
 import Checklist from '../';
 import * as ChecklistSdl from '@dopt/semantic-data-layer-checklist';
@@ -18,13 +18,15 @@ const ChecklistTest = (props: Partial<ChecklistSdl.Checklist>) => (
       <Checklist.Items>
         {(props.items || []).map((item, i) => (
           <Checklist.Item index={i} key={i}>
-            {item.completed ? (
-              <Checklist.IconCheck />
-            ) : item.skipped ? (
-              <Checklist.IconSkip />
-            ) : (
-              <Checklist.IconCircle />
-            )}
+            <Checklist.ItemIcon>
+              {item.completed ? (
+                <Checklist.IconCompleted />
+              ) : item.skipped ? (
+                <Checklist.IconSkipped />
+              ) : (
+                <Checklist.IconActive />
+              )}
+            </Checklist.ItemIcon>
             <Checklist.ItemContent>
               <Checklist.ItemTitle disabled={item.done}>
                 {item.title}
@@ -50,7 +52,6 @@ const ChecklistTest = (props: Partial<ChecklistSdl.Checklist>) => (
 
 describe('@dopt/react-checklist', () => {
   let rendered: RenderResult;
-  let container: HTMLElement;
 
   describe('checklist content and classes', () => {
     describe('visibility', () => {
@@ -135,8 +136,12 @@ describe('@dopt/react-checklist', () => {
       active: true,
       skipped: false,
       completed: false,
-      complete: () => {},
-      skip: () => {},
+      complete: () => {
+        /* no-op */
+      },
+      skip: () => {
+        /* no-op */
+      },
       ...item,
     };
   }
@@ -178,7 +183,6 @@ describe('@dopt/react-checklist', () => {
       });
       it('adds the correct static class to the body element', () => {
         rendered = render(<ChecklistTest items={[getChecklistItem(0)]} />);
-        const body = rendered.getByText('checklist-item-body-0');
         expect(
           rendered.container.querySelector(
             '.dopt-checklist__item--1 .dopt-checklist__item-body'

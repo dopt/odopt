@@ -56,6 +56,7 @@ function ChecklistItemBody(
           }),
         }),
         `${itemClassName}-body`,
+        className,
       ])}
       style={themeStyle({ theme, style })}
       {...restProps}

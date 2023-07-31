@@ -1,5 +1,17 @@
 # @examples/checklist
 
+## 0.1.28
+
+### Patch Changes
+
+- 62a1f20e7: use updated structure
+- Updated dependencies [623a7b32c]
+- Updated dependencies [819a456d7]
+- Updated dependencies [58ec892d7]
+- Updated dependencies [62a1f20e7]
+  - @dopt/react-checklist@4.0.0
+  - @dopt/react@3.0.6
+
 ## 0.1.27
 
 ### Patch Changes

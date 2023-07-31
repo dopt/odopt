@@ -1,6 +1,6 @@
 {
   "name": "@dopt/core-theme",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A package which contains base themes and utilities for styling Dopt's React components",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/core/theme",
   "repository": {
@@ -19,7 +19,7 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
-    "./styles": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css"
   },
   "scripts": {
     "👇required package scripts": "",

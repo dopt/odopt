@@ -53,6 +53,7 @@ function ChecklistItemTitle(
           }),
         }),
         `${itemClassName}-title`,
+        className,
       ])}
       style={themeStyle({ theme, style })}
       {...restProps}
