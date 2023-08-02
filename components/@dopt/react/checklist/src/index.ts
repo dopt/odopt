@@ -56,5 +56,5 @@ export type {
   ItemSkipIconProps,
 } from './checklist';
 
-export * from './use-checklist';
+export * from './hooks';
 export * as classes from './checklist/styles.css';

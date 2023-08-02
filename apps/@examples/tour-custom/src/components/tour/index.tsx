@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react';
-import { useTourItem } from '@dopt/react-tour';
+import { useTourItem } from '@dopt/react-tour/hooks';
 import RichText from '@dopt/react-rich-text';
 import { Button } from '../button';
 
