@@ -152,6 +152,8 @@ The complete button of the modal. Extends `HTMLButtonElement`.
 
 ## Hooks
 
+If you are planning to only use the modal headlessly, you can import the hooks alone using `@dopt/react-modal/hooks`.
+
 ### useModal
 
 - **useModal**(`id`: string): [Modal](#modal)
