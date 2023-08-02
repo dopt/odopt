@@ -1,5 +1,11 @@
 # @examples/tutorial
 
+## 0.0.14
+
+### Patch Changes
+
+- @dopt/react@3.0.7
+
 ## 0.0.13
 
 ### Patch Changes
