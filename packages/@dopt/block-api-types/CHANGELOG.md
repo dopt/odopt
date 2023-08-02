@@ -1,5 +1,12 @@
 # @dopt/block-api-types
 
+## 1.1.7
+
+### Patch Changes
+
+- Updated dependencies [cb25c6b04]
+  - @userstate/types@4.2.0
+
 ## 1.1.6
 
 ### Patch Changes

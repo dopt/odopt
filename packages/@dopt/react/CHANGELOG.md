@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.7
+
+### Patch Changes
+
+- @dopt/javascript-common@2.0.9
+
 ## 3.0.6
 
 ### Patch Changes

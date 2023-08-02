@@ -1,5 +1,18 @@
 # @dopt/react-modal
 
+## 4.1.1
+
+### Patch Changes
+
+- @dopt/react@3.0.7
+- @dopt/react-rich-text@3.0.1
+
+## 4.1.0
+
+### Minor Changes
+
+- d52105138: add body scroll locking via lockScroll prop
+
 ## 4.0.0
 
 ### Major Changes
