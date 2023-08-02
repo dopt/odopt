@@ -83,6 +83,7 @@ export type BlockParams = {
 export type FlowParams = {
   sid: Flow['sid'];
   version: Flow['version'];
+  force?: boolean;
 };
 
 export type BlockIntentParams = BlockParams & {
@@ -99,10 +100,10 @@ export const queryParams =
     userId: BlocksApi['userId'];
     groupId?: BlocksApi['groupId'];
   }) =>
-  ({ version }: { version: number }) =>
+  ({ version, force }: { version: number; force?: boolean }) =>
     `version=${version}&userIdentifier=${userId}${
       groupId ? `&groupIdentifier=${groupId}` : ``
-    }`;
+    }${force ? `&force=${force}` : ``}`;
 
 export function blocksApi({
   apiKey,
@@ -162,12 +163,37 @@ export function blocksApi({
       sid,
       version,
       intent,
+      force,
     }: FlowIntentParams): Promise<boolean> {
+      /**
+       * We add this check here to prevent SDK callers from mistakenly passing in
+       * truth-y values like objects, etc.
+       *
+       * We will only force with `force: true`.
+       */
+      if (force !== true) {
+        force = false;
+      }
+
+      /**
+       * We add this check here to prevent SDK callers from mistakenly passing in
+       * force for non-start and non-reset intents. The API will throw an error
+       * if we try to force those intents.
+       */
+      if (force && intent !== 'start' && intent !== 'reset') {
+        logger.warn(
+          `Calling \`${intent}\` with force is not supported. \`force\` will be ignored`
+        );
+
+        force = false;
+      }
+
+      const forceful = force ? ' with ?force=true' : '';
       logger.info(
-        `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}>`
+        `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}>${forceful}`
       );
 
-      const url = `/v2/flow/${sid}/${intent}?${query({ version })}`;
+      const url = `/v2/flow/${sid}/${intent}?${query({ version, force })}`;
 
       logger.debug(`Formed url: ${url}`);
 
@@ -181,13 +207,13 @@ export function blocksApi({
 
       if (response && response.ok) {
         logger.info(
-          `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}> was successful.`
+          `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}>${forceful} was successful.`
         );
 
         return Promise.resolve(hasSideEffects(response as Response));
       }
       logger.error(
-        `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}> failed.`
+        `Calling \`${intent}\` on Flow<{"sid":"${sid}","version":${version}}>${forceful} failed.`
       );
       return Promise.reject();
     },

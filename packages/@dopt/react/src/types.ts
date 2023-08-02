@@ -31,7 +31,11 @@ export type Flows = Record<APIFlow['sid'], APIFlow>;
 
 export type FlowIntentHandler = Record<
   FlowIntentParams['intent'],
-  (sid: APIFlow['sid'], version: APIFlow['version']) => void | undefined
+  (
+    sid: APIFlow['sid'],
+    version: APIFlow['version'],
+    force?: boolean
+  ) => void | undefined
 >;
 
 /**
@@ -186,8 +190,8 @@ export interface Block<T = unknown> {
  * ```
  *
  * @modifies
- * Sets {@link Block['state']['exited']} to true
- * Sets {@link Block['state']['active']} to false
+ * Sets Block's {@link Block['state']['exited']} to true.
+ * Sets Block's {@link Block['state']['active']} to false.
  */
 export type BlockTransition<T> = (
   ...inputs: T extends BlockTransitionInputs
@@ -219,37 +223,58 @@ export interface Flow {
  */
 export interface FlowIntent {
   /**
-   * Resets the flow's state and all of its
-   * associated blocks and their state to the
-   * original/default state.
+   * Starts the flow (with `force`).
+   *
+   * If `options?.force` is passed as `true`,
+   * the flow will be started despite
+   * any targeting or entry conditions.
+   * Otherwise, the flow will only be started
+   * if all conditions are met.
    *
    * @modifies
-   *
-   * Sets {@link Flow['state']['stopped']} to false
-   * Sets {@link Flow['state']['finished']} to false
-   * Sets {@link Flow['state']['started']} to false
-   * Sets all {@link Block['state']['active']} to false
-   * Sets all {@link Block['state']['finished']} to false
+   * This intent will only modify state if the flow is started.
+   * Sets flow's {@link Flow['state']['started']} to true.
+   * Sets all blocks' {@link Block['state']['active']} connected to the entry block to true.
+   * Sets all blocks' {@link Block['state']['entered']} connected to the entry block to true.
    */
-  reset: () => void | undefined;
+  start(options?: { force?: boolean }): void | undefined;
+  start(): void | undefined;
+  /**
+   * Resets the flow's state and all of its
+   * associated blocks and their state to the
+   * original/default state. After the reset
+   * is performed, starts the flow with `options?.force`.
+   *
+   * @modifies
+   * Sets flow's {@link Flow['state']['stopped']} to false.
+   * Sets flow's {@link Flow['state']['finished']} to false.
+   * Sets flow's {@link Flow['state']['started']} to false.
+   * Sets all blocks' {@link Block['state']['active']} to false.
+   * Sets all blocks' {@link Block['state']['exited']} to false.
+   * Sets all blocks' {@link Block['state']['entered']} to false.
+   *
+   * Subsequently calls {@link FlowIntent.start} with `force`.
+   */
+  reset(options?: { force?: boolean }): void | undefined;
+  reset(): void | undefined;
   /**
    * Stops the flow.
    *
    * @modifies
-   * Sets {@link Flow['state']['stopped']} to true
-   * Sets all {@link Block['state']['active']} to false
+   * Sets flow's {@link Flow['state']['stopped']} to true.
+   * Sets all blocks' {@link Block['state']['active']} to false.
    */
-  stop: () => void | undefined;
+  stop(): void | undefined;
   /**
    * Finishes the flow, independent of
    * exited states that might be derived from
    * its {@link Block[]}.
    *
    * @modifies
-   * Sets {@link Flow['state']['finished']} to true
-   * Sets all {@link Block['state']['active']} to false
+   * Sets flow's {@link Flow['state']['finished']} to true.
+   * Sets all blocks' {@link Block['state']['active']} to false.
    */
-  finish: () => void | undefined;
+  finish(): void | undefined;
 }
 
 /**
