@@ -1,5 +1,13 @@
 # @examples/tour-custom
 
+## 0.0.8
+
+### Patch Changes
+
+- ea0653a7b: use @dopt/react-\*/hooks export
+- Updated dependencies [ea0653a7b]
+  - @dopt/react-tour@4.1.0
+
 ## 0.0.7
 
 ### Patch Changes
