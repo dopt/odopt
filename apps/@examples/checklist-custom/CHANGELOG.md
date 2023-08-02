@@ -1,5 +1,21 @@
 # @examples/checklist-custom
 
+## 0.0.9
+
+### Patch Changes
+
+- ea0653a7b: use @dopt/react-\*/hooks export
+- Updated dependencies [ea0653a7b]
+  - @dopt/react-checklist@4.1.0
+
+## 0.0.8
+
+### Patch Changes
+
+- @dopt/react@3.0.7
+- @dopt/react-checklist@4.0.1
+- @dopt/react-rich-text@3.0.1
+
 ## 0.0.7
 
 ### Patch Changes

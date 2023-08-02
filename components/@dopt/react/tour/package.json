@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-tour",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "A React tour component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/tour",
   "repository": {
@@ -19,7 +19,19 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
+    "./hooks": {
+      "require": "./dist/hooks.cjs",
+      "import": "./dist/hooks.mjs",
+      "types": "./dist/hooks.d.ts"
+    },
     "./styles.css": "./dist/styles.css"
+  },
+  "typesVersions": {
+    "*": {
+      "hooks": [
+        "./dist/hooks.d.ts"
+      ]
+    }
   },
   "scripts": {
     "👇required package scripts": "",

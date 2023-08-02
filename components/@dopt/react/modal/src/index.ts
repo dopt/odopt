@@ -37,5 +37,5 @@ export type {
   CompleteButtonProps,
 } from './modal';
 
-export * from './use-modal';
+export * from './hooks';
 export * as classes from './styles.css';

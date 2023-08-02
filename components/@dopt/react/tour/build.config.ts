@@ -2,7 +2,7 @@ import { defineBuildConfig } from 'unbuild';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 
 export default defineBuildConfig({
-  entries: ['src/index'],
+  entries: ['src/index', 'src/hooks'],
   externals: ['@dopt/react', 'react'],
   clean: false,
   rollup: {

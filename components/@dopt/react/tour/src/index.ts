@@ -43,5 +43,5 @@ export type {
   TitleProps,
 } from './tour';
 
-export * from './use-tour';
+export * from './hooks';
 export * as classes from './tour/styles.css';

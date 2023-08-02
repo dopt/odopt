@@ -1,5 +1,11 @@
 # @dopt/react-theme
 
+## 1.0.2
+
+### Patch Changes
+
+- ea0653a7b: add typeVersions definition for styles export
+
 ## 1.0.1
 
 ### Patch Changes

@@ -34,5 +34,5 @@ export type {
   CompleteButtonProps,
 } from './card';
 
-export * from './use-card';
+export * from './hooks';
 export * as classes from './styles.css';
