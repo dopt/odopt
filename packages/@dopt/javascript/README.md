@@ -62,9 +62,7 @@ The SDK gives you access to two related objects: flows and blocks. Flows are ent
 Flow objects available through the SDK are represented by the following type definition:
 
 ```ts
-interface Flow<T = 'flow'> {
-  readonly kind: 'flow';
-  readonly type: T;
+interface Flow {
   readonly uid: string;
   readonly sid: string;
   readonly version: number;
@@ -81,8 +79,6 @@ The states of a flow are 1:1 with the actions you can perform on a flow. Flows h
 
 ```ts
 interface Block {
-  readonly kind: 'block';
-  readonly type: 'model';
   readonly uid: string;
   readonly sid: string;
   readonly version: number;
