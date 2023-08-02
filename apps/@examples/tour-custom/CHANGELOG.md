@@ -1,5 +1,13 @@
 # @examples/tour-custom
 
+## 0.0.7
+
+### Patch Changes
+
+- @dopt/react@3.0.7
+- @dopt/react-rich-text@3.0.1
+- @dopt/react-tour@4.0.2
+
 ## 0.0.6
 
 ### Patch Changes
