@@ -188,6 +188,8 @@ The progress indicators of the tour item popover. Extends `HTMLOListElement`.
 
 ## Hooks
 
+If you are planning to only use the tour headlessly, you can import the hooks alone using `@dopt/react-tour/hooks`.
+
 ### useTour
 
 - **useTour**(`id`: string): [Tour](#tour)

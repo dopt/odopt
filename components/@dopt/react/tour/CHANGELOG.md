@@ -1,5 +1,24 @@
 # @dopt/react-tour
 
+## 4.1.0
+
+### Minor Changes
+
+- ea0653a7b: add standalone hooks export
+
+### Patch Changes
+
+- Updated dependencies [ea0653a7b]
+  - @dopt/react-theme@1.0.2
+
+## 4.0.2
+
+### Patch Changes
+
+- @dopt/react@3.0.7
+- @dopt/react-rich-text@3.0.1
+- @dopt/react-utilities@1.0.7
+
 ## 4.0.1
 
 ### Patch Changes

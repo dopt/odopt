@@ -1,4 +1,4 @@
-import { useChecklist, useChecklistItem } from '@dopt/react-checklist';
+import { useChecklist, useChecklistItem } from '@dopt/react-checklist/hooks';
 
 import { Checklist, ChecklistItem } from '@/components';
 

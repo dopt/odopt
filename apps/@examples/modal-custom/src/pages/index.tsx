@@ -1,5 +1,5 @@
 import { Button, Modal, Skeleton } from '@/components';
-import { useModal } from '@dopt/react-modal';
+import { useModal } from '@dopt/react-modal/hooks';
 import RichText from '@dopt/react-rich-text';
 
 import './index.css';

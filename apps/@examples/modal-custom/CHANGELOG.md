@@ -1,5 +1,28 @@
 # @examples/modal-custom
 
+## 0.0.9
+
+### Patch Changes
+
+- ea0653a7b: use @dopt/react-\*/hooks export
+- Updated dependencies [ea0653a7b]
+  - @dopt/react-modal@4.2.0
+
+## 0.0.8
+
+### Patch Changes
+
+- @dopt/react@3.0.7
+- @dopt/react-modal@4.1.1
+- @dopt/react-rich-text@3.0.1
+
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [d52105138]
+  - @dopt/react-modal@4.1.0
+
 ## 0.0.6
 
 ### Patch Changes

@@ -223,6 +223,8 @@ The skip icon of a checklist item. Extends `HTMLButtonElement`.
 
 ## Hooks
 
+If you are planning to only use the checklist headlessly, you can import the hooks alone using `@dopt/react-checklist/hooks`.
+
 ### useChecklist
 
 - **useChecklist**(`id`: string): [Checklist](#checklist)

@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-card",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "A React card component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/card",
   "repository": {
@@ -19,7 +19,19 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
+    "./hooks": {
+      "require": "./dist/hooks.cjs",
+      "import": "./dist/hooks.mjs",
+      "types": "./dist/hooks.d.ts"
+    },
     "./styles.css": "./dist/styles.css"
+  },
+  "typesVersions": {
+    "*": {
+      "hooks": [
+        "./dist/hooks.d.ts"
+      ]
+    }
   },
   "scripts": {
     "👇required package scripts": "",

@@ -140,6 +140,8 @@ The complete button of the card. Extends `HTMLButtonElement`.
 
 ## Hooks
 
+If you are planning to only use the card headlessly, you can import the hooks alone using `@dopt/react-card/hooks`.
+
 ### useCard
 
 - **useCard**(`id`: string): [Card](#card)
