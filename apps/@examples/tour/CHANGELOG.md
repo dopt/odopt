@@ -1,5 +1,12 @@
 # @examples/tour
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [ea0653a7b]
+  - @dopt/react-tour@4.1.0
+
 ## 0.1.6
 
 ### Patch Changes
