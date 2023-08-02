@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 4.2.0
+
+### Minor Changes
+
+- cb25c6b04: Add optional force parameters to `/v2/flow/:id:/start` and `/v2/flow/:id/reset` endpoints. If this parameter is set to true in the querystring of the request, then then the flow will always be started despite any entry conditions for the flow. This allows developers to override and forcefully start a flow (or reset a flow) from the API. This change will also subsequently be included in the React and JS SDKs.
+
 ## 4.1.6
 
 ### Patch Changes
