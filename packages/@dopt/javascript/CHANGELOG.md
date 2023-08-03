@@ -1,5 +1,16 @@
 # @dopt/javascript
 
+## 3.2.0
+
+### Minor Changes
+
+- e18bb04b4: Add force? options to @dopt/react and @dopt/javascript SDKs. This introduces functionality keeping the SDKs in line with our APIs and clients. When `force: true` is passed into the `start` or `reset` functions from `useFlow` and `Flow` respectively, those intents will forcefully start the flow. This means that they will start the flow despite any targeting or entry conditions. Otherwise, the intents will only start the flow if those conditions are met.
+
+### Patch Changes
+
+- Updated dependencies [e18bb04b4]
+  - @dopt/javascript-common@2.1.0
+
 ## 3.1.2
 
 ### Patch Changes
