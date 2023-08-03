@@ -129,17 +129,22 @@ export class Flow {
     return uids?.map((uid) => this.createBlock(uid)) || [];
   }
 
-  private _intent(intent: FlowIntentParams['intent']) {
+  private _intent(intent: FlowIntentParams['intent'], force?: boolean) {
     const { sid, version } = this.flow;
     const storedFlow = flowStore.getState()[this.flow.sid];
 
     if (storedFlow) {
-      this.intent({ sid, version, intent });
+      this.intent({ sid, version, intent, force });
     }
   }
 
   /**
    * Start this flow. Will also update the state of blocks within this flow, as appropriate.
+   *
+   * @param force
+   * If `options?.force` is passed in as `true`, this flow will be started
+   * despite any targeting or entry conditions. Otherwise,
+   * this flow will only be started if those conditions are met.
    *
    * @remarks
    * This function will update state with Dopt and trigger changes. Subscribe to the
@@ -147,8 +152,10 @@ export class Flow {
    *
    * @returns void
    */
-  start() {
-    this._intent('start');
+  start(options?: { force?: boolean }): void;
+  start(): void;
+  start(options?: { force?: boolean }) {
+    this._intent('start', options?.force);
   }
 
   /**
@@ -160,7 +167,7 @@ export class Flow {
    *
    * @returns void
    */
-  finish() {
+  finish(): void {
     this._intent('finish');
   }
 
@@ -173,12 +180,19 @@ export class Flow {
    *
    * @returns void
    */
-  stop() {
+  stop(): void {
     this._intent('stop');
   }
 
   /**
    * Reset this flow. Will also update the state of blocks within this flow, as appropriate.
+   * Under the hood, this method sets flows and blocks to their original/default states
+   * and subsequently calls {@link Flow.start}.
+   *
+   * @param force
+   * If `options?.force` is passed in as `true`, this flow will be started
+   * despite any targeting or entry conditions. Otherwise,
+   * this flow will only be started if those conditions are met.
    *
    * @remarks
    * This function will update state with Dopt and trigger changes. Subscribe to the
@@ -186,8 +200,10 @@ export class Flow {
    *
    * @returns void
    */
-  reset() {
-    this._intent('reset');
+  reset(options?: { force?: boolean }): void;
+  reset(): void;
+  reset(options?: { force?: boolean }) {
+    this._intent('reset', options?.force);
   }
 
   /**

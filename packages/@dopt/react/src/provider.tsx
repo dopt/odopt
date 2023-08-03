@@ -421,11 +421,11 @@ export function DoptProvider(props: ProviderConfig) {
     }
 
     return {
-      start: (sid, version) => {
-        flowIntent({ sid, version, intent: 'start' });
+      start: (sid, version, force) => {
+        flowIntent({ sid, version, intent: 'start', force });
       },
-      reset: (sid, version) => {
-        flowIntent({ sid, version, intent: 'reset' });
+      reset: (sid, version, force) => {
+        flowIntent({ sid, version, intent: 'reset', force });
       },
       finish: (sid, version) => {
         flowIntent({ sid, version, intent: 'finish' });

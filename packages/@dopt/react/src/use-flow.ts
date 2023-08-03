@@ -70,11 +70,23 @@ export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
     return flow.version;
   }, [fetching, flows, sid]);
 
-  const reset = useCallback(() => {
-    if (!fetching) {
-      flowIntention.reset(sid, version);
-    }
-  }, [fetching, flowIntention, sid, version]);
+  const start = useCallback(
+    (options?: { force?: boolean }) => {
+      if (!fetching) {
+        flowIntention.start(sid, version, options?.force);
+      }
+    },
+    [fetching, flowIntention, sid, version]
+  );
+
+  const reset = useCallback(
+    (options?: { force?: boolean }) => {
+      if (!fetching) {
+        flowIntention.reset(sid, version, options?.force);
+      }
+    },
+    [fetching, flowIntention, sid, version]
+  );
 
   const stop = useCallback(() => {
     if (!fetching) {
@@ -99,5 +111,5 @@ export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
     return { ...updatedFlow, blocks: updatedBlocks };
   }, [fetching, sid, version, flows, flowBlocks, blocks, blockFields]);
 
-  return [flow, { reset, stop, finish }];
+  return [flow, { start, reset, stop, finish }];
 }
