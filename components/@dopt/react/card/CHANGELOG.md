@@ -1,5 +1,13 @@
 # @dopt/react-card
 
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies [e18bb04b4]
+  - @dopt/react@3.1.0
+  - @dopt/react-rich-text@4.0.0
+
 ## 3.1.0
 
 ### Minor Changes

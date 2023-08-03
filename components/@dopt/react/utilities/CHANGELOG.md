@@ -1,5 +1,12 @@
 # @dopt/react-utilities
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies [e18bb04b4]
+  - @dopt/react@3.1.0
+
 ## 1.0.7
 
 ### Patch Changes
