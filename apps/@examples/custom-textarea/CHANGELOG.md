@@ -1,5 +1,12 @@
 # @examples/custom-textarea
 
+## 0.0.34
+
+### Patch Changes
+
+- Updated dependencies [e18bb04b4]
+  - @dopt/react@3.1.0
+
 ## 0.0.33
 
 ### Patch Changes
