@@ -4,8 +4,6 @@ import { vars } from '@dopt/react-theme';
 export const cardRoot = style({
   all: 'revert',
   boxSizing: 'border-box',
-  position: 'relative',
-  display: 'flex',
   fontFamily: vars.fonts.sans,
   fontSize: vars.fontSizes.base,
   color: vars.colors.content,
@@ -26,7 +24,6 @@ export const cardContent = style({
   borderStyle: 'solid',
   borderColor: vars.colors.border,
   borderRadius: vars.radii[2],
-  margin: `${vars.space[16]} auto`,
   backgroundColor: vars.colors.background,
   ':focus': { outline: 'none' },
 });
