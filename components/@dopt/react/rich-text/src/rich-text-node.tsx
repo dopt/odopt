@@ -117,6 +117,8 @@ export const RichTextNode = (props: RichTextNodeProps) => {
               src={node.url}
               width={node.width}
               height={node.height}
+              allowFullScreen
+              allow="autoplay; picture-in-picture; fullscreen"
               className={clsx([
                 noStyles ? null : classes.richTextVideo,
                 `${classNameRoot}__${node.type}`,
