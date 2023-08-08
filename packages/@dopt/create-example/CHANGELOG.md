@@ -1,5 +1,11 @@
 # @dopt/create-example
 
+## 0.1.0
+
+### Minor Changes
+
+- 8f63159e2: add quick-start template
+
 ## 0.0.4
 
 ### Patch Changes

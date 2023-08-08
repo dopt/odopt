@@ -1,0 +1,29 @@
+.card {
+  display: flex;
+  color: #fff;
+  padding: 16px;
+  border: 1px solid #495057;
+  border-radius: 12px;
+  flex-direction: column;
+  gap: 12px;
+  background: #212529;
+}
+
+.card__title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.card__body .dopt-rich-text {
+  display: flex;
+  gap: 16px;
+}
+
+.card__body .dopt-rich-text__video {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card__body .dopt-rich-text__paragraph {
+  margin: 0;
+}
