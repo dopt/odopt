@@ -1,5 +1,11 @@
 # @dopt/react-card
 
+## 4.0.1
+
+### Patch Changes
+
+- 4f835c549: improve base styling
+
 ## 4.0.0
 
 ### Patch Changes

@@ -55,6 +55,8 @@ function MyCard() {
 }
 ```
 
+Check out our [card example](https://www.dopt.com/examples/card) and our [headless card example](https://www.dopt.com/examples/card-custom) for more in-depth usage.
+
 ## Props
 
 ### Root
