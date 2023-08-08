@@ -1,5 +1,11 @@
 # @dopt/react-rich-text
 
+## 4.0.1
+
+### Patch Changes
+
+- cdae973c7: allow fullscreen, pnp, and autoplay for video nodes
+
 ## 4.0.0
 
 ### Patch Changes
