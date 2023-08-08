@@ -78,7 +78,7 @@ function MyChecklist() {
 }
 ```
 
-Check out our [checklist example](https://www.dopt.com/examples/checklist) and our [headless checklist example](https://www.dopt.com/examples/checklist-custom) for more in-dept usage.
+Check out our [checklist example](https://www.dopt.com/examples/checklist) and our [headless checklist example](https://www.dopt.com/examples/checklist-custom) for more in-depth usage.
 
 ## Props
 
