@@ -1,5 +1,14 @@
 # @dopt/react-checklist
 
+## 5.0.1
+
+### Patch Changes
+
+- cd75a6a13: - update @dopt/react-card readme with example links
+  - fix typo in @dopt/react-checklist readme
+- Updated dependencies [cdae973c7]
+  - @dopt/react-rich-text@4.0.1
+
 ## 5.0.0
 
 ### Patch Changes

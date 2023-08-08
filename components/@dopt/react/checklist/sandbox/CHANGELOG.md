@@ -1,5 +1,13 @@
 # @dopt/react-checklist-sandbox
 
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies [cd75a6a13]
+  - @dopt/react-checklist@5.0.1
+  - @dopt/react-modal@5.0.1
+
 ## 0.0.16
 
 ### Patch Changes
