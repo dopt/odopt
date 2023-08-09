@@ -1,5 +1,13 @@
 # @dopt/react-tour
 
+## 5.0.2
+
+### Patch Changes
+
+- @dopt/react@3.1.1
+- @dopt/react-rich-text@4.0.2
+- @dopt/react-utilities@2.0.1
+
 ## 5.0.1
 
 ### Patch Changes
