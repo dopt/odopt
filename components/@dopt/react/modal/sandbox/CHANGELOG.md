@@ -1,5 +1,11 @@
 # @dopt/react-modal-sandbox
 
+## 0.0.18
+
+### Patch Changes
+
+- @dopt/react-modal@5.0.2
+
 ## 0.0.17
 
 ### Patch Changes
