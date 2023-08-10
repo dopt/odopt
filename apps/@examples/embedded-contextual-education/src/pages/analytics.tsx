@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react';
 import { useBlock } from '@dopt/react';
 
 export function Analytics() {
-  const [{ state, field }, transition] = useBlock<['default']>(ANALYTICS_TIP);
+  const [{ state, field }, transition] = useBlock<['complete']>(ANALYTICS_TIP);
   return (
     <Layout title="Analytics">
       <Flex direction="column" w="100%" gap={4}>
@@ -15,7 +15,7 @@ export function Analytics() {
             description={field('body') || ''}
             url={field('learn-more-url') || ''}
             videoId={field('video-id') || ''}
-            onComplete={() => transition('default')}
+            onComplete={() => transition('complete')}
           />
         )}
         <Flex gap={4}>
