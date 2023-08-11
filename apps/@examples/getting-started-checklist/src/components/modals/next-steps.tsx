@@ -22,7 +22,7 @@ export function NextStepsModal({
   onClose = () => undefined,
   isOpen = false,
 }: Pick<UseDisclosureProps, 'isOpen' | 'onClose'>) {
-  const [{ field }, transition] = useBlock<['default']>(NEXT_STEPS);
+  const [{ field }, transition] = useBlock<['complete']>(NEXT_STEPS);
   return (
     <Modal isOpen={isOpen} onClose={() => onClose()}>
       <ModalOverlay />
@@ -53,7 +53,7 @@ export function NextStepsModal({
           </Flex>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" onClick={() => transition('default')}>
+          <Button colorScheme="blue" onClick={() => transition('complete')}>
             {field<string>('next-steps-button-text')}
           </Button>
         </ModalFooter>

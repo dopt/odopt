@@ -4,7 +4,7 @@ import { useBlock } from '@dopt/react';
 import { LIBRARY_TIP } from '@/const';
 
 export function Index() {
-  const [{ state, field }, transition] = useBlock<['default']>(LIBRARY_TIP);
+  const [{ state, field }, transition] = useBlock<['complete']>(LIBRARY_TIP);
 
   const allHandsVideo = (
     <Video
@@ -39,7 +39,7 @@ export function Index() {
             description={field('body') || ''}
             url={field('learn-more-url') || ''}
             videoId={field('video-id') || ''}
-            onComplete={() => transition('default')}
+            onComplete={() => transition('complete')}
           />
         )}
         {[...Array(6)].map((e, i) => {
