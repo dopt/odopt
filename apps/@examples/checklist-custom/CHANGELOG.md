@@ -1,5 +1,13 @@
 # @examples/checklist-custom
 
+## 0.0.12
+
+### Patch Changes
+
+- @dopt/react@3.1.1
+- @dopt/react-checklist@5.0.2
+- @dopt/react-rich-text@4.0.2
+
 ## 0.0.11
 
 ### Patch Changes

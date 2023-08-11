@@ -124,7 +124,7 @@ export type ExternalBlock =
   | Tour
   | TourItem;
 
-function getDefaultTransition(props: Pick<Nary, 'transitioned'>): {
+function getDefaultTransition(props: { transitioned: Nary['transitioned'] }): {
   default: boolean;
 } {
   const defaultTransition = Object.entries(props.transitioned).filter(
@@ -153,35 +153,30 @@ function getContainerUid({
   return containerUid;
 }
 
-export function getDefaultBlock(
-  props: Partial<Omit<Nary, 'kind'>> & { type: BlockTypes } & Pick<
-      Nary,
-      'version' | 'uid' | 'sid' | 'containerUid'
-    >
-): Block {
-  const defaultState = {
-    active: false,
-    entered: false,
-    exited: false,
-    ...props.state,
-  };
-  const { transitioned } = { transitioned: props.transitioned || {} };
-  switch (props.type) {
+export function getDefaultBlock(props: {
+  type: BlockTypes;
+  version: Nary['version'];
+  uid: Nary['uid'];
+  sid: Nary['sid'];
+  state: Nary['state'];
+  transitioned: Nary['transitioned'];
+  containerUid: Nary['containerUid'];
+}): Block {
+  const { type, transitioned } = props;
+
+  switch (type) {
     case 'model':
       return {
-        kind: 'block',
-        fields: [],
-        transitioned: getDefaultTransition({ transitioned }),
-        state: defaultState,
         ...props,
         type: 'model',
+        kind: 'block',
+        fields: [],
       };
     case 'webhook':
       return {
         ...props,
         type: 'webhook',
         kind: 'block',
-        state: defaultState,
         transitioned: getDefaultTransition({ transitioned }),
         request: async () => ({
           ok: true,
@@ -196,32 +191,28 @@ export function getDefaultBlock(
         ...props,
         type: 'entry',
         kind: 'block',
-        state: defaultState,
         transitioned: getDefaultTransition({ transitioned }),
         expression: async () => false,
       };
     case 'finish':
       return {
         ...props,
-        state: defaultState,
-        transitioned: {},
         type: 'finish',
         kind: 'block',
+        transitioned: {},
       };
     case 'gate':
       return {
-        kind: 'block',
-        transitioned: getDefaultTransition({ transitioned }),
-        state: defaultState,
         ...props,
         type: 'gate',
+        kind: 'block',
+        transitioned: getDefaultTransition({ transitioned }),
       };
     case 'boolean':
       return {
         ...props,
         type: 'boolean',
         kind: 'block',
-        state: defaultState,
         transitioned: {
           ...{ true: false, false: false },
           ...transitioned,
@@ -230,95 +221,87 @@ export function getDefaultBlock(
       };
     case 'card':
       return {
-        kind: 'block',
-        fields: [],
         ...props,
-        state: defaultState,
+        type: 'card',
+        kind: 'block',
         transitioned: {
           ...{ complete: false, dismiss: false },
           ...transitioned,
         },
-        type: 'card',
+        fields: [],
       };
     case 'modal':
       return {
-        kind: 'block',
-        fields: [],
         ...props,
-        state: defaultState,
+        type: 'modal',
+        kind: 'block',
         transitioned: {
           ...{ complete: false, dismiss: false },
           ...transitioned,
         },
-        type: 'modal',
+        fields: [],
       };
     case 'checklist':
       return {
-        kind: 'block',
-        fields: [],
         ...props,
-        state: defaultState,
+        type: 'checklist',
+        kind: 'block',
         transitioned: {
           ...{ complete: false, dismiss: false },
           ...transitioned,
         },
-        type: 'checklist',
+        fields: [],
       };
     case 'checklistItem':
       return {
-        kind: 'block',
-        fields: [],
         ...props,
-        state: defaultState,
+        type: 'checklistItem',
+        kind: 'block',
         transitioned: {
           ...{ complete: false, skip: false },
           ...transitioned,
         },
         containerUid: getContainerUid(props),
-        type: 'checklistItem',
+        fields: [],
       };
     case 'tour':
       return {
-        kind: 'block',
-        fields: [],
         ...props,
-        state: defaultState,
+        type: 'tour',
+        kind: 'block',
         transitioned: {
           ...{ complete: false, dismiss: false },
           ...transitioned,
         },
-        type: 'tour',
+        fields: [],
       };
     case 'tourItem':
       return {
-        kind: 'block',
-        fields: [],
         ...props,
-        state: defaultState,
+        type: 'tourItem',
+        kind: 'block',
         transitioned: {
           ...{ next: false, previous: false },
           ...transitioned,
         },
         containerUid: getContainerUid(props),
-        type: 'tourItem',
+        fields: [],
       };
     case 'containerEnd':
       return {
-        kind: 'block',
         ...props,
-        state: defaultState,
+        type: 'containerEnd',
+        kind: 'block',
         transitioned: {},
         containerUid: getContainerUid(props),
-        type: 'containerEnd',
       };
     case 'containerStart':
       return {
-        kind: 'block',
         ...props,
-        state: defaultState,
+        type: 'containerStart',
+        kind: 'block',
         transitioned: getDefaultTransition({ transitioned }),
         containerUid: getContainerUid(props),
-        type: 'containerStart',
       };
   }
 }
