@@ -65,7 +65,7 @@ export abstract class Container<C extends Block> extends Block<
    * @example
    * ```js
    * const container = dopt.container("my-flow.my-container");
-   * const unsubscribe = container.subscribe(async blockData => {
+   * const unsubscribe = container.subscribe(async (container: Container) => {
    *   if (container.state.exited) {
    *     await showModal("Yay, you've completed all steps");
    *     unsubscribe();
