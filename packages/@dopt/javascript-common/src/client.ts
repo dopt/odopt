@@ -1,6 +1,6 @@
 import { getDefaultBlockState, getDefaultFlowState } from './utils';
 
-import { INTENT_SIDE_EFFECT_HEADER } from '@dopt/block-api-types';
+import { FlowTags, INTENT_SIDE_EFFECT_HEADER } from '@dopt/block-api-types';
 import type {
   Block,
   Flow,
@@ -82,7 +82,7 @@ export type BlockParams = {
 
 export type FlowParams = {
   sid: Flow['sid'];
-  version: Flow['version'];
+  version: Flow['version'] | FlowTags;
   force?: boolean;
 };
 
@@ -100,8 +100,10 @@ export const queryParams =
     userId: BlocksApi['userId'];
     groupId?: BlocksApi['groupId'];
   }) =>
-  ({ version, force }: { version: number; force?: boolean }) =>
-    `version=${version}&userIdentifier=${userId}${
+  ({ version, force }: { version: number | string; force?: boolean }) =>
+    `${
+      typeof version === 'number' ? 'version' : 'tag'
+    }=${version}&userIdentifier=${userId}${
       groupId ? `&groupIdentifier=${groupId}` : ``
     }${force ? `&force=${force}` : ``}`;
 
@@ -136,7 +138,7 @@ export function blocksApi({
         );
       }
 
-      return flow || getDefaultFlowState(sid, version);
+      return flow || getDefaultFlowState(sid, -1);
     },
     async getBlock({ uid, sid, version }: BlockParams): Promise<Block> {
       const block = (await client({

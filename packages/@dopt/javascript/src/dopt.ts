@@ -20,6 +20,7 @@ import {
   Flow,
   Block,
   Field,
+  FlowParams,
 } from '@dopt/javascript-common';
 
 import { Socket } from 'socket.io-client';
@@ -52,8 +53,27 @@ export interface DoptConfig {
   logLevel?: LoggerProps['logLevel'];
   /**
    * An object containing all flows and versions you'd like to fetch.
+   *
+   * The versions can be a number (a fixed version),
+   * "uncommitted" which references the uncommitted version in Dopt,
+   * or "latest" which references the most recently created version in Dopt.
+   *
+   * @remarks
+   * **⚠️ Warning ⚠️**: Using either "uncommitted" or "latest" will cause
+   * updates made in Dopt to be reflected in the provider upon window reload
+   * without needing to update or deploy code.
+   *
+   * @example
+   * ```js
+   * {
+   *   "welcome-to-dopt": 3,
+   *   "test-flow": "uncommitted",
+   *   "feature-announcements": "latest",
+   * };
+   * ```
+   *
    */
-  flowVersions: Record<string, number>;
+  flowVersions: Record<string, FlowParams['version']>;
   /**
    * A boolean which defines whether complete intents on step blocks should
    * optimistically update the client before hearing back that the change
@@ -349,7 +369,7 @@ export class Dopt {
       });
     });
 
-    Object.entries(flowVersions).forEach(([sid, version]) => {
+    Object.values(flowStore.getState()).forEach(({ sid, version }) => {
       this.socket?.emit('watch:flow', sid, version);
       this.socket?.on(`${sid}_${version}`, (flow: Flow) => {
         updateFlowState(flow);
@@ -385,9 +405,7 @@ export class Dopt {
       );
     }
 
-    const flow =
-      flowStore.getState()[sid] ||
-      getDefaultFlowState(sid, this.flowVersions[sid]);
+    const flow = flowStore.getState()[sid] || getDefaultFlowState(sid, -1);
 
     return new FlowClass({
       intent,

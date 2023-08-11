@@ -6,6 +6,7 @@ import type {
   Block as APIBlock,
   BlockIntentParams,
   Field as APIField,
+  FlowParams,
 } from '@dopt/javascript-common';
 
 /**
@@ -33,7 +34,7 @@ export type FlowIntentHandler = Record<
   FlowIntentParams['intent'],
   (
     sid: APIFlow['sid'],
-    version: APIFlow['version'],
+    version: FlowParams['version'],
     force?: boolean
   ) => void | undefined
 >;
@@ -68,8 +69,27 @@ export interface ProviderConfig {
   logLevel?: LoggerProps['logLevel'];
   /**
    * An object containing all flows and versions you'd like to fetch.
+   *
+   * The versions can be a number (a fixed version),
+   * "uncommitted" which references the uncommitted version in Dopt,
+   * or "latest" which references the most recently created version in Dopt.
+   *
+   * @remarks
+   * **⚠️ Warning ⚠️**: Using either "uncommitted" or "latest" will cause
+   * updates made in Dopt to be reflected in the provider upon window reload
+   * without needing to update or deploy code.
+   *
+   * @example
+   * ```js
+   * {
+   *   "welcome-to-dopt": 3,
+   *   "test-flow": "uncommitted",
+   *   "feature-announcements": "latest",
+   * };
+   * ```
+   *
    */
-  flowVersions: Record<string, number>;
+  flowVersions: Record<string, FlowParams['version']>;
   /**
    * A boolean which defines whether transitions on step blocks should
    * optimistically update the client before hearing back that the change
