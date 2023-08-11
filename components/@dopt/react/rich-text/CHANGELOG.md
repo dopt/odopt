@@ -1,5 +1,11 @@
 # @dopt/react-rich-text
 
+## 4.0.2
+
+### Patch Changes
+
+- @dopt/react@3.1.1
+
 ## 4.0.1
 
 ### Patch Changes

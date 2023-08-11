@@ -48,9 +48,9 @@ export function GettingStartedChecklist({
   const nextStepsModalProps = useDisclosure();
 
   const [datasourceBlock, datasourceTransition] =
-    useBlock<['default']>(CONNECT_DATASOURCE);
-  const [chartsBlock, chartsTransition] = useBlock<['default']>(ADD_CHARTS);
-  const [shareBlock, shareTransition] = useBlock<['default']>(SHARE_DASHBOARD);
+    useBlock<['complete']>(CONNECT_DATASOURCE);
+  const [chartsBlock, chartsTransition] = useBlock<['complete']>(ADD_CHARTS);
+  const [shareBlock, shareTransition] = useBlock<['complete']>(SHARE_DASHBOARD);
   const [nextStepsBlock] = useBlock(NEXT_STEPS);
 
   const isNextSteps = nextStepsBlock.state.active;
@@ -106,7 +106,7 @@ export function GettingStartedChecklist({
           onClose={datasourceModalProps.onClose}
           isOpen={datasourceModalProps.isOpen}
           onFinish={() => {
-            datasourceTransition('default');
+            datasourceTransition('complete');
             datasourceModalProps.onClose();
           }}
         />
@@ -118,7 +118,7 @@ export function GettingStartedChecklist({
             if (
               Object.values(selection).filter((val) => val == true).length > 1
             ) {
-              chartsTransition('default');
+              chartsTransition('complete');
             }
             addChartsModalProps.onClose();
           }}
@@ -127,7 +127,7 @@ export function GettingStartedChecklist({
           onClose={inviteModalProps.onClose}
           isOpen={inviteModalProps.isOpen}
           onFinish={() => {
-            shareTransition('default');
+            shareTransition('complete');
             inviteModalProps.onClose();
           }}
         />
