@@ -113,10 +113,10 @@ export class Flow {
    *
    * @example
    * ```js
-   * const data = flow.blocks();
+   * const blocks = flow.blocks();
    *
    * // can access state properties safely
-   * const states = data.map(({ state }) => state);
+   * const states = blocks.map((block) => block.state);
    *
    * // to transition these blocks
    * data.map(block => block.transition('default'));
@@ -212,10 +212,8 @@ export class Flow {
    * @example
    * ```js
    * const flow = dopt.flow("welcome-to-dopt");
-   * const unsubscribe = flow.subscribe(async flowData => {
-   *  // access .state instead of .state()
-   *  // since flowData is an object of `FlowType`
-   *  if (flowData.state.completed) {
+   * const unsubscribe = flow.subscribe(async (flow: Flow) => {
+   *  if (flow.state.completed) {
    *     await showModal("Yay, you've completed your first tour!");
    *     unsubscribe();
    *  }
