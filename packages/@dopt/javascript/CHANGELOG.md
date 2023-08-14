@@ -1,5 +1,22 @@
 # @dopt/javascript
 
+## 3.3.0
+
+### Minor Changes
+
+- 9d4037411: @dopt/javascript-common's API client now supports specifying "uncommitted" and "latest" as tags for a flow version when calling `GET` or `POST` on the flow. This update to the API client is also wired through @dopt/javascript and @dopt/react so users can specify those flow tags when initializing the packages. READMEs are also updated for both packages.
+
+### Patch Changes
+
+- Updated dependencies [9d4037411]
+  - @dopt/javascript-common@2.2.0
+
+## 3.2.1
+
+### Patch Changes
+
+- @dopt/javascript-common@2.1.1
+
 ## 3.2.0
 
 ### Minor Changes

@@ -192,7 +192,7 @@ export class Block<T = unknown> {
    * @example
    * ```js
    * const block = dopt.block("HNWvcT78tyTwygnbzU6SW");
-   * const unsubscribe = block.subscribe(async blockData => {
+   * const unsubscribe = block.subscribe(async (block: Block) => {
    *  if (block.state.exited) {
    *     await showModal("Yay, you've completed your first step!");
    *     unsubscribe();

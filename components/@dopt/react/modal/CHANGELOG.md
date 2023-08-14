@@ -1,5 +1,20 @@
 # @dopt/react-modal
 
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies [9d4037411]
+  - @dopt/react@3.2.0
+  - @dopt/react-rich-text@5.0.0
+
+## 5.0.2
+
+### Patch Changes
+
+- @dopt/react@3.1.1
+- @dopt/react-rich-text@4.0.2
+
 ## 5.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @dopt/block-api-types
 
+## 1.2.0
+
+### Minor Changes
+
+- 28d6d277a: Create "uncommitted" and "latest" tags for accessing the draft (0) and latest versions. These tags will be exposed through an optional query parameter in @blocks/api for all the flows APIs. Because tags can now be specified, the version query parameter is made optional. As of this change, these tags are only accessible through the API (or clients). A follow up change will expose these tags in the SDK providers.
+
 ## 1.1.7
 
 ### Patch Changes
