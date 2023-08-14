@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-rich-text",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "description": "A React rich text component for rendering rich text fields",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/rich-text",
   "repository": {
