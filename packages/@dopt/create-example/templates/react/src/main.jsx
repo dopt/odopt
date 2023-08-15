@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { DoptProvider } from '@dopt/react';
-import App from './App.jsx';
+import App from './app';
 import './index.css';
+
+import { DoptProvider } from '@dopt/react';
+import { DOPT_FLOW_ID } from './const';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <DoptProvider
-      apiKey="$BLOCKS_API_KEY"
       userId="$USER_ID"
-      flowVersions={{
-        // prettier-ignore
-        '$FLOW_ID': 1,
-      }}
+      apiKey="$BLOCKS_API_KEY"
+      flowVersions={{ [DOPT_FLOW_ID]: 1 }}
     >
       <App />
     </DoptProvider>
