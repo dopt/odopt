@@ -1,0 +1,27 @@
+.next-steps-wrapper {
+  display: grid;
+  max-width: 400px;
+  gap: var(--dopt-space-4);
+  padding: var(--dopt-space-6);
+  margin: 0 auto;
+  border: var(--dopt-borderWidths-2) solid var(--dopt-colors-border);
+  border-radius: var(--dopt-radii-2);
+  background: var(--dopt-colors-white);
+}
+
+.next-steps__title {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.next-steps__text {
+  margin: 0;
+}
+
+.next-steps__list {
+  display: grid;
+  gap: var(--dopt-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
