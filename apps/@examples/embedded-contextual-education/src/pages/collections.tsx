@@ -4,7 +4,8 @@ import { Flex } from '@chakra-ui/react';
 import { useBlock } from '@dopt/react';
 
 export function Collections() {
-  const [{ state, field }, transition] = useBlock<['default']>(COLLECTIONS_TIP);
+  const [{ state, field }, transition] =
+    useBlock<['complete']>(COLLECTIONS_TIP);
 
   const productDemoCollection = (
     <Collection
@@ -31,7 +32,7 @@ export function Collections() {
             description={field('body') || ''}
             url={field('learn-more-url') || ''}
             videoId={field('video-id') || ''}
-            onComplete={() => transition('default')}
+            onComplete={() => transition('complete')}
           />
         )}
         {[...Array(7)].map((e, i) => {

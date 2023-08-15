@@ -64,7 +64,11 @@ ReactDOM.render(
 );
 ```
 
-**Note:** If `userId` is `undefined`, default objects with default states (e.g. all state values will default to `false`) will be returned from the associated hooks.
+Flow versions can be pegged to a fixed version by specifying a number. Alternately, using `"uncommitted"` will reference the uncommitted version in Dopt, and using `"latest"` will references the most recently created version in Dopt.
+
+**⚠️ Warning ⚠️**: Using either `"uncommitted"` or `"latest"` for a flow version will cause updates made in Dopt to be reflected in the provider upon window reload without needing to update or deploy code.
+
+**Note:** If `userId` is `undefined`, default objects with default states (e.g. all state values will default to `false`) will be returned from the associated hooks. Any subsequent updates to `userId` will trigger all hooks within the `DoptProvider` again and lead to fetching the appropriate states.
 
 ### Flows and blocks
 

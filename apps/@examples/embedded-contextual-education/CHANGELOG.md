@@ -1,5 +1,19 @@
 # @examples/embedded-contextual-education
 
+## 0.1.30
+
+### Patch Changes
+
+- 193986ab7: update flow ids and transitions
+- Updated dependencies [9d4037411]
+  - @dopt/react@3.2.0
+
+## 0.1.29
+
+### Patch Changes
+
+- @dopt/react@3.1.1
+
 ## 0.1.28
 
 ### Patch Changes

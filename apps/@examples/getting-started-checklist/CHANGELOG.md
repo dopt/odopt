@@ -1,5 +1,19 @@
 # @examples/getting-started-checklist
 
+## 0.0.45
+
+### Patch Changes
+
+- 193986ab7: update flow ids and transitions
+- Updated dependencies [9d4037411]
+  - @dopt/react@3.2.0
+
+## 0.0.44
+
+### Patch Changes
+
+- @dopt/react@3.1.1
+
 ## 0.0.43
 
 ### Patch Changes

@@ -82,5 +82,11 @@ export type Transitions = {
   transitions: [string, ...string[]];
 };
 
+export const FlowTags = Type.Union([
+  Type.Literal('uncommitted'),
+  Type.Literal('latest'),
+]);
+export type FlowTags = Static<typeof FlowTags>;
+
 export const INTENT_SIDE_EFFECT_HEADER = 'X-Dopt-Intent-Side-Effects';
 export const SOCKET_PATH = '/v2/socket/';

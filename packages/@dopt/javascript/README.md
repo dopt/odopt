@@ -55,6 +55,10 @@ const dopt = new Dopt({
 });
 ```
 
+Flow versions can be pegged to a fixed version by specifying a number. Alternately, using `"uncommitted"` will reference the uncommitted version in Dopt, and using `"latest"` will references the most recently created version in Dopt.
+
+**⚠️ Warning ⚠️**: Using either `"uncommitted"` or `"latest"` for a flow version will cause updates made in Dopt to be reflected in the provider upon window reload without needing to update or deploy code.
+
 ### Flows and blocks
 
 The SDK gives you access to two related objects: flows and blocks. Flows are entities representing the flow you designed in Dopt. Blocks are a subset of the blocks in that flow.
@@ -106,13 +110,22 @@ You can use the `blocks()` method to access all blocks associated with the `flow
 
 ```js
 const blocks = dopt.blocks();
-
+/**
+ * All returned instances are special, they are Block instances.
+ * They contain internal attributes including data representations
+ * which may be stale. Instead of relying on the internal properties of
+ * these objects, using getters like block.state and block.transitioned will
+ * always return up to date values.
+ */
 blocks.forEach((block) => console.log(block));
 ```
 
 You can access individual blocks via the `block(identifier: string)` method:
 
 ```js
+/**
+ * Also a Block instance.
+ */
 const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
 console.log(
   "I'm the 'twenty-llamas-attack' block in version 3 of the 'new-user-onboarding' flow",
@@ -124,13 +137,19 @@ We also expose flow accessors. You can use the `flows()` method to access all fl
 
 ```js
 const flows = dopt.flows();
-
+/**
+ * Flow instances behave just like Block instances
+ * though they may have different methods and getters.
+ */
 flows.forEach((flow) => console.log(flow));
 ```
 
 Additionally, you can access individual flows via the `flow(id: string, version: number)` method:
 
 ```js
+/**
+ * Also a Flow instance.
+ */
 const flow = dopt.flow('new-user-onboarding');
 console.log("I'm version 3 of the 'new-user-onboarding' flow", flow);
 ```
@@ -139,7 +158,9 @@ The `dopt` object exposes an `initialized` method which you can use to guard cal
 
 ```js
 dopt.initialized().then(() => {
-  // Safely access block(s) or flow(s)!
+  /**
+   * Safely access Block instances (or Flow instances).
+   */
   const blocks = dopt.blocks();
   const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
 });
@@ -147,7 +168,7 @@ dopt.initialized().then(() => {
 
 ### Subscribing to flow or block state change
 
-You can use the `subscribe()` method on the flow and block classes to listen for changes to then underlying object:
+You can use the `subscribe()` method on the flow and block instances to listen for changes:
 
 ```js
 const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
@@ -167,13 +188,13 @@ flow.subscribe((flow: Flow) =>
 
 ### Using transitions to trigger block state changes
 
-Our block class provides a transition method which you can use to progress and update the state of a block. For example, when you need to progress a specific step in your onboarding flow, you can call `block.transition("complete")` to transition along the `complete` path as defined in your flow.
+Our `Block` class provides a transition method which you can use to progress and update the state of a block. For example, when you need to progress a specific step in your onboarding flow, you can call `block.transition("complete")` to transition along the `complete` path as defined in your flow.
 
 These the `block.transition` method is defined with a signature that explicitly does not return values: `(...inputs: string[]) => void`. We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then the client will reactively update and re-render components based on the subscriptions you've defined via `block.subscribe(...)`. Calling a transition only means that at sometime in the future, the client's state will be updated.
 
 ### Using intents to trigger flow state changes
 
-Our flow class provides intention methods which you can use to progress and update the state of a flow. For example, when you need to prematurely finish a flow, you can call `flow.finish()`.
+Our `Flow` class provides intention methods which you can use to progress and update the state of a flow. For example, when you need to prematurely finish a flow, you can call `flow.finish()`.
 
 These methods, like `flow.finish()` or `flow.reset()` are defined with signatures that explicitly do not return values: `() => void`. We do this because each intention may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then the client will reactively update and re-render components based on the subscriptions you've defined via `flow.subscribe(...)`. Calling an intention only means that at sometime in the future, the client's state will be updated.
 
