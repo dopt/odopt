@@ -1,5 +1,11 @@
 # @dopt/create-example
 
+## 0.2.0
+
+### Minor Changes
+
+- 177136368: update react and react-ts templates
+
 ## 0.1.0
 
 ### Minor Changes

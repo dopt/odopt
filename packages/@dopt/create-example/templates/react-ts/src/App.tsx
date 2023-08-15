@@ -1,5 +1,21 @@
+import {
+  Header,
+  ChecklistWrapper,
+  TourWrapper,
+  ModalWrapper,
+  NextSteps,
+} from './components';
+
 function App() {
-  return 'Follow the remaining steps in the tutorial';
+  return (
+    <>
+      <Header />
+      <ChecklistWrapper />
+      <TourWrapper />
+      <ModalWrapper />
+      <NextSteps />
+    </>
+  );
 }
 
 export default App;
