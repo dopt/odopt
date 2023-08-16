@@ -3,23 +3,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "packages/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "pnpm-workspace.yaml"
-      - ".github/workflows/*"
   pull_request:
     type:
       - opened
       - synchronize
       - reopened
-    paths:
-      - "packages/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "pnpm-workspace.yaml"
-      - ".github/workflows/*"
 jobs:
   test:
     runs-on: ubuntu-latest
