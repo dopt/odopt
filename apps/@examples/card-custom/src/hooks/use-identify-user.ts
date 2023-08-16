@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {
   DoptApi,
   DoptApiClient as UsersApiClient,
-} from '@dopt/users-javascript-client';
+} from '@dopt/users-javascript-browser-client';
 
 import { getUserId } from '@/utils/user';
 

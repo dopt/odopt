@@ -1,0 +1,57 @@
+.checklist-wrapper {
+  display: flex;
+  gap: 100px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dopt-checklist {
+  max-width: 615px;
+}
+
+.invite {
+  padding: var(--dopt-space-6);
+  border: var(--dopt-borderWidths-2) solid var(--dopt-colors-border);
+  border-radius: var(--dopt-radii-2);
+  background: var(--dopt-colors-white);
+}
+
+.invite__form {
+  display: grid;
+  gap: var(--dopt-space-4);
+}
+
+.invite__title {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.invite__form-field {
+  display: grid;
+}
+
+.invite__form-field-label {
+  font-weight: var(--dopt-fontWeights-medium);
+}
+
+.invite__form-field-input {
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: var(--dopt-space-2) var(--dopt-space-3);
+  border: var(--dopt-borderWidths-1) solid var(--dopt-colors-border);
+  border-radius: var(--dopt-radii-2);
+}
+
+.invite__text {
+  margin: 0;
+}
+
+.invite__button {
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 0;
+  color: var(--dopt-colors-contentContrast);
+  background: var(--dopt-colors-primary);
+  padding: var(--dopt-space-2) var(--dopt-space-3);
+  border-radius: var(--dopt-radii-2);
+}

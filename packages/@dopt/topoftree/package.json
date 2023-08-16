@@ -1,8 +1,8 @@
 {
   "name": "@dopt/topoftree",
-  "version": "0.0.0",
-  "private": true,
-  "description": "A CLI for generating packages in the Dopt monorepo",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A tiny function/CLI for getting the absolute path to repo root.",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/topoftree",
   "repository": {
     "type": "git",
@@ -31,7 +31,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/topoftree\""
   },
   "files": [
     "dist"
