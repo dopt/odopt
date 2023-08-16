@@ -1,6 +1,6 @@
 {
   "name": "@dopt/wutils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "description": "Utilities for working with Pnpm workspace",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/wutils",

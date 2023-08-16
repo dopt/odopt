@@ -1,5 +1,11 @@
 # @dopt/create-example
 
+## 0.2.1
+
+### Patch Changes
+
+- 80ca3bf63: use proper file name for App import
+
 ## 0.2.0
 
 ### Minor Changes

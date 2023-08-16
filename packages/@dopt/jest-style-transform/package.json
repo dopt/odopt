@@ -1,6 +1,6 @@
 {
   "name": "@dopt/jest-style-transform",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A Jest transformer for handling styles",
   "private": false,
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/jest-style-transform",
