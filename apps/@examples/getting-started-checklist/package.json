@@ -15,7 +15,7 @@
   "dependencies": {
     "@chakra-ui/react": "2.7.0",
     "@dopt/react": "workspace:*",
-    "@dopt/users-javascript-browser-client": "workspace:*",
+    "@dopt/users-javascript-browser-client": "*",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
     "@tabler/icons": "1.119.0",
