@@ -1,8 +1,8 @@
 {
   "name": "@dopt/tsup",
   "version": "0.0.1",
-  "private": true,
-  "description": "Shared tsup configuration",
+  "private": false,
+  "description": "A centralized configuration for node/react packages built with tsup",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/tsup",
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/tsup\""
   },
   "files": [
     "dist"

@@ -1,8 +1,8 @@
 {
   "name": "@dopt/config",
   "version": "0.0.1",
-  "private": true,
-  "description": "Shared configuration",
+  "private": false,
+  "description": "Centralized and shared configuration for eslint, jest,prettier, and tsconfig ",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/config",
   "repository": {
     "type": "git",
@@ -31,7 +31,8 @@
     "lint": "eslint .",
     "test": "jest --passWithNoTests",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/config\""
   },
   "files": [
     "dist",
