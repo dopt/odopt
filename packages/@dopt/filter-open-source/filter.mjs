@@ -36,7 +36,7 @@ console.log(
 
 execSync(
   `git filter-repo --force ${packages
-    .filter(({ name }) => dependentPackages.has(name))
+    .filter(({ name }) => openPackageNames.has(name))
     .map(({ location }) => `--path ${location}`)
     .join(' ')}`
 ).toString();
