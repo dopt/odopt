@@ -1,7 +1,7 @@
 {
   "name": "@dopt/check-formatting",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "A CLI for checking whether a package's files are formatted correctly",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/check-formatting",
   "repository": {
@@ -21,7 +21,8 @@
     "lint": "echo \"@dopt/check-formatting does not require lint\"; exit 0;",
     "test": "echo \"@dopt/check-formatting does not require test\"; exit 0;",
     "typecheck": "echo \"@dopt/check-formatting does not require typecheck\"; exit 0;",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/check-formatting\""
   },
   "files": [
     "dist"

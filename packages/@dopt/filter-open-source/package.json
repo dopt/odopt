@@ -1,8 +1,8 @@
 {
   "name": "@dopt/filter-open-source",
   "version": "0.0.0",
-  "private": true,
-  "description": "A package to filter the open-source pieces of a monorepo",
+  "private": false,
+  "description": "A package that filters the monorepo down to commits against open source packages",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/filter-open-source",
   "repository": {
     "type": "git",
@@ -19,7 +19,8 @@
     "lint": "echo \"@dopt/filter-open-source does not require lint\"; exit 0;",
     "test": "echo \"@dopt/filter-open-source does not require test\"; exit 0;",
     "typecheck": "echo \"@dopt/filter-open-source does not require typecheck\"; exit 0;",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/filter-open-source\""
   },
   "dependencies": {
     "@dopt/wutils": "workspace:*",

@@ -1,8 +1,8 @@
 {
   "name": "@dopt/esbuild-plugins",
   "version": "0.0.1",
-  "private": true,
-  "description": "A CLI for generating packages in the Dopt monorepo",
+  "private": false,
+  "description": "A collection of esbuild plugins used in the Dopt monorepo",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/esbuild-plugins",
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/esbuild-plugins\""
   },
   "files": [
     "dist"
