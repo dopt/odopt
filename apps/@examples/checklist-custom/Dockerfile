@@ -8,10 +8,11 @@ RUN corepack enable && corepack prepare ${PACKAGE_MANAGER} --activate
 WORKDIR /app
 
 FROM base AS sourcer
-COPY . . 
+COPY . .
 
 FROM sourcer AS minimal-monorepo
 RUN pnpm exec turbo prune --scope="@examples/checklist-custom" --docker
+RUN cp buf.work.yaml ./out/full/
 RUN rm -rf $(ls | grep -v out)
 RUN mv ./out/full/* .
 RUN mv ./out/pnpm-lock.yaml .

@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+}
+
+.header__button {
+  font-size: 1rem;
+  line-height: 1.5;
+  border: var(--dopt-borderWidths-1) solid var(--dopt-colors-border);
+  color: var(--dopt-colors-content);
+  background: var(--dopt-colors-white);
+  padding: var(--dopt-space-2) var(--dopt-space-3);
+  border-radius: var(--dopt-radii-2);
+}

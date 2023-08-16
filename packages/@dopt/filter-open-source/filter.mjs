@@ -21,41 +21,22 @@ const openPackages = getPackageLocationsSync()
   )
   .filter((pkg) => pkg.openSource);
 
-console.log('\nThe following packages were tagged as "openSource":\n');
-console.log(openPackages.map(({ name }) => `  ${name}`).join('\n'));
+const openPackageNames = new Set(openPackages.map(({ name }) => name));
 
-console.log('\nCalculating dependent packages w/ the following command:\n');
-console.log(
-  `pnpm ls -r --depth -1 ${openPackages
-    .map(({ name }) => ` --filter ${name}... `)
-    .join('')} --json`
-);
+console.log('\nFollowing packages were tagged as "openSource", filtering to commits against them:\n');
+openPackageNames.forEach((pkg) => console.log(pkg));
 
-const dependentPackages = JSON.parse(
-  execSync(
-    `pnpm ls -r --depth -1 ${openPackages
-      .map(({ name }) => ` --filter ${name}... `)
-      .join('')} --json`
-  ).toString()
-).reduce((acc, pkg) => {
-  acc.add(pkg.name);
-  return acc;
-}, new Set());
-
-console.log('\nFiltering to commits against the following packages:\n');
-dependentPackages.forEach((pkg) => console.log(pkg));
-
-console.log('\nThe following command will be run to filter commits:\n');
+console.log('\nFollowing command will be run to filter commits:\n');
 console.log(
   `  git filter-repo \\\n${packages
-    .filter(({ name }) => dependentPackages.has(name))
+    .filter(({ name }) => openPackageNames.has(name))
     .map(({ location }) => `    --path ${location}`)
     .join(' \\\n')}`
 );
 
 execSync(
   `git filter-repo --force ${packages
-    .filter(({ name }) => dependentPackages.has(name))
+    .filter(({ name }) => openPackageNames.has(name))
     .map(({ location }) => `--path ${location}`)
     .join(' ')}`
 ).toString();

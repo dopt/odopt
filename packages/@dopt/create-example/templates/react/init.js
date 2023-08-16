@@ -4,11 +4,11 @@ import path from 'node:path';
 import { readFileSync, writeFileSync, rmSync } from 'node:fs';
 
 const args = process.argv.slice(2);
+const [BLOCKS_API_KEY, USER_ID, FLOW_ID] = args;
 
-async function init() {
+async function updateMainJsx() {
   const filePath = path.resolve('./src/main.jsx');
   const file = readFileSync(filePath, { encoding: 'utf8' });
-  const [BLOCKS_API_KEY, USER_ID, FLOW_ID] = args;
 
   let newFile = file;
 
@@ -20,11 +20,25 @@ async function init() {
     newFile = newFile.replace(/\$USER_ID/g, USER_ID);
   }
 
+  writeFileSync(filePath, newFile, { encoding: 'utf8' });
+}
+
+async function updateConstJs() {
+  const filePath = path.resolve('./src/const.js');
+  const file = readFileSync(filePath, { encoding: 'utf8' });
+
+  let newFile = file;
+
   if (FLOW_ID) {
     newFile = newFile.replace(/\$FLOW_ID/g, FLOW_ID);
   }
 
   writeFileSync(filePath, newFile, { encoding: 'utf8' });
+}
+
+async function init() {
+  updateMainJsx();
+  updateConstJs();
 
   rmSync('./init.js');
 }

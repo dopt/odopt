@@ -1,8 +1,8 @@
 {
   "name": "@dopt/rollup",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Shared rollup configuration",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A reusable rollup configuration, used by our open source browser packages",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/rollup",
   "repository": {
     "type": "git",
@@ -34,7 +34,8 @@
     "lint": "eslint .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "☝️ required package scripts": ""
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/rollup\""
   },
   "files": [
     "dist"

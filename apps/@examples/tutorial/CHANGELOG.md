@@ -1,5 +1,19 @@
 # @examples/tutorial
 
+## 0.1.0
+
+### Minor Changes
+
+- 80ca3bf63: update to match new getting started tutorial
+
+### Patch Changes
+
+- @dopt/react-checklist@6.0.0
+- @dopt/react-modal@6.0.0
+- @dopt/react-tour@6.0.0
+- @dopt/react@3.2.0
+- @dopt/users-javascript-browser-client@1.0.5
+
 ## 0.0.17
 
 ### Patch Changes
