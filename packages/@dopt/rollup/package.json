@@ -1,6 +1,6 @@
 {
   "name": "@dopt/rollup",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "description": "A reusable rollup configuration, used by our open source browser packages",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/rollup",

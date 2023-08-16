@@ -1,6 +1,6 @@
 {
   "name": "@dopt/filter-open-source",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "description": "A package that filters the monorepo down to commits against open source packages",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/filter-open-source",

@@ -1,4 +1,4 @@
-# @dopt/tsup
+# @dopt/wutils
 
 ## 1.0.0
 
@@ -9,12 +9,5 @@
 ### Patch Changes
 
 - Updated dependencies [8cd74acd5]
-  - @dopt/esbuild-plugins@1.0.0
+  - @dopt/topoftree@1.0.0
   - @dopt/env@1.0.0
-
-## 0.0.1
-
-### Patch Changes
-
-- Updated dependencies [6cf837db3]
-  - @dopt/esbuild-plugins@0.0.1
