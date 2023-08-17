@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
-
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 import { DoptProvider } from '@dopt/react';
+import { useIdentifyUser } from '@dopt/react-users';
 
-import { useIdentifyUser } from '@/hooks';
+import { useMemo } from 'react';
+import { nanoid } from 'nanoid';
+
 import { GettingStartedChecklistExample } from '@/pages';
 
 const theme = extendTheme({
@@ -16,22 +17,25 @@ const theme = extendTheme({
 });
 
 export function App() {
-  const userId = useIdentifyUser({
-    company: 'Dopt',
-    role: 'admin',
-    inTrial: true,
-  });
+  /**
+   * Create a static example user.
+   */
+  const user = useMemo(
+    () => ({
+      identifier: nanoid(),
+      properties: {
+        company: 'Dopt',
+        role: 'admin',
+        inTrial: true,
+      },
+    }),
+    []
+  );
 
-  useEffect(() => {
-    if (userId) {
-      if (document.referrer !== '') {
-        window.parent.postMessage(
-          JSON.stringify({ userId }),
-          document.referrer
-        );
-      }
-    }
-  }, [userId]);
+  /**
+   * Identify the example user to Dopt the first time the App loads.
+   */
+  const userId = useIdentifyUser(user);
 
   return (
     <DoptProvider
