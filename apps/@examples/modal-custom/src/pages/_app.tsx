@@ -1,17 +1,32 @@
 import { DoptProvider } from '@dopt/react';
-import { useIdentifyUser } from '@/hooks';
+import { useIdentifyUser } from '@dopt/react-users';
+
+import { useMemo } from 'react';
+import { nanoid } from 'nanoid';
 
 import { Home } from '@/pages';
-
 import './_app.css';
 
 export function App() {
-  // Identify a dummy user to Dopt when the app loads
-  const userId = useIdentifyUser({
-    company: 'Dopt',
-    role: 'admin',
-    inTrial: true,
-  });
+  /**
+   * Create a static example user.
+   */
+  const user = useMemo(
+    () => ({
+      identifier: nanoid(),
+      properties: {
+        company: 'Dopt',
+        role: 'admin',
+        inTrial: true,
+      },
+    }),
+    []
+  );
+
+  /**
+   * Identify the example user to Dopt the first time the App loads.
+   */
+  const userId = useIdentifyUser(user);
 
   return (
     <DoptProvider
