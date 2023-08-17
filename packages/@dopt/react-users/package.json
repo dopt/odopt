@@ -58,7 +58,7 @@
     "unbuild": "1.2.1"
   },
   "dependencies": {
-    "@dopt/users-javascript-browser-client": "workspace:*"
+    "@dopt/users-javascript-browser-client": "*"
   },
   "openSource": true
 }
