@@ -1,5 +1,12 @@
 # @examples/tutorial
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [2e7079e55]
+  - @dopt/react-users@0.0.1
+
 ## 0.1.0
 
 ### Minor Changes
