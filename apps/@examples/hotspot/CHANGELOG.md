@@ -1,5 +1,12 @@
 # @examples/hotspot
 
+## 0.0.37
+
+### Patch Changes
+
+- Updated dependencies [2e7079e55]
+  - @dopt/react-users@0.0.1
+
 ## 0.0.36
 
 ### Patch Changes
