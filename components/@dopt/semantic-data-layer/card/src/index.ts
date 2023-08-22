@@ -1,10 +1,10 @@
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 
 export interface Card {
   id: string;
 
   title: string | null | undefined;
-  body: RichText | null | undefined;
+  body: Children | null | undefined;
 
   completeLabel: string | null | undefined;
   dismissLabel: string | null | undefined;

@@ -1,6 +1,6 @@
 import { Block } from './block';
 import { Card as CardInterface } from '@dopt/semantic-data-layer-card';
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 
 /**
  * A card class obeys the card interface
@@ -45,6 +45,6 @@ export class Card
     return this.field<string>('title');
   }
   get body() {
-    return this.field<RichText>('body');
+    return this.field<Children>('body');
   }
 }
