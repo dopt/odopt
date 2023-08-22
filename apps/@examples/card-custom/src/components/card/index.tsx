@@ -1,9 +1,10 @@
 import { type ComponentPropsWithoutRef } from 'react';
+import { type Card } from '@dopt/react-card';
 import './styles.css';
 
 export interface CardProps
   extends Omit<ComponentPropsWithoutRef<'dialog'>, 'title'> {
-  title?: string | null;
+  title?: Card['title'];
 }
 
 export function Card(props: CardProps) {

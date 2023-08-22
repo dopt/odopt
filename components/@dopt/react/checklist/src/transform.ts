@@ -1,4 +1,4 @@
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 import { Block, Container } from '@dopt/react';
 
 import { displayIndexComparator } from '@dopt/react-utilities';
@@ -18,7 +18,7 @@ export function transform(container: Container): Checklist {
     id: container.sid,
 
     title: container.field<string>('title'),
-    body: container.field<RichText>('body'),
+    body: container.field<Children>('body'),
 
     items,
 
@@ -71,7 +71,7 @@ export function transformItem(
     index: block.field<number>('display-index'),
 
     title: block.field<string>('title'),
-    body: block.field<RichText>('body'),
+    body: block.field<Children>('body'),
     completeLabel: block.field<string>('complete-label'),
 
     done: !!(block.transitioned.complete || block.transitioned.skip),
