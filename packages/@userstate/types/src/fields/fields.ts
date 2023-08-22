@@ -1,15 +1,15 @@
 import { Static, Type } from '@sinclair/typebox';
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 
 /**
- * The supported types for a field's value: string, number, boolean, and RichText.
+ * The supported types for a field's value: string, number, boolean, and Children.
  * This type also includes null for when the field's value is empty.
  */
 export type FIELD_VALUE_UNION_TYPE =
   | string
   | number
   | boolean
-  | RichText
+  | Children
   | null;
 
 /**

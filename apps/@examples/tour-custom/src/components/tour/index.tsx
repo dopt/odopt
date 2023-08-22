@@ -1,12 +1,12 @@
 import { type ReactElement } from 'react';
-import { useTourItem } from '@dopt/react-tour/hooks';
+import { type TourItem, useTourItem } from '@dopt/react-tour/hooks';
 import RichText from '@dopt/react-rich-text';
 import { Button } from '../button';
 
 import './styles.css';
 
 export interface TourProps {
-  id: string;
+  id: TourItem['id'];
   children: ReactElement;
   position?: 'top' | 'right' | 'bottom' | 'left';
 }
