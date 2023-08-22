@@ -1,4 +1,4 @@
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 import { Block, BlockTransition } from '@dopt/react';
 
 import type { Card } from '@dopt/semantic-data-layer-card';
@@ -14,7 +14,7 @@ export function transform({
     id: block.sid,
 
     title: block.field<string>('title'),
-    body: block.field<RichText>('body'),
+    body: block.field<Children>('body'),
 
     completeLabel: block.field<string>('complete-label'),
     dismissLabel: block.field<string>('dismiss-label'),

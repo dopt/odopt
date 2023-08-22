@@ -1,12 +1,13 @@
 import { type ReactNode } from 'react';
 import { ChecklistProgress } from './progress';
+import { type Checklist } from '@dopt/react-checklist';
 import RichText from '@dopt/react-rich-text';
 
 import './styles.css';
 
 export interface ChecklistProps {
-  title?: string | null;
-  body?: any;
+  title?: Checklist['title'];
+  body?: Checklist['body'];
   value: number;
   max: number;
   children?: ReactNode;

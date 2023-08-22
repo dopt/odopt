@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { type Descendant, type Alignment } from '@dopt/core-rich-text';
+import type { Node, Alignment } from '@dopt/core-rich-text';
 import * as classes from './styles.css';
 import { clsx } from 'clsx';
 import { classNameRoot } from './const';
@@ -7,7 +7,7 @@ import { isTextNode } from './util';
 
 export interface RichTextNodeProps {
   children?: ReactNode;
-  node: Descendant;
+  node: Node;
   noStyles?: boolean;
 }
 
@@ -59,7 +59,7 @@ export const RichTextNode = (props: RichTextNodeProps) => {
 
   let children: ReactNode[] | undefined;
   if ('children' in node) {
-    children = node.children.map((node: Descendant, index) => (
+    children = node.children.map((node: Node, index) => (
       <RichTextNode key={`${classNameRoot}__descendant-${index}`} node={node} />
     ));
   }

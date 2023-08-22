@@ -3,7 +3,7 @@ import {
   type ForwardedRef,
   type ComponentPropsWithoutRef,
 } from 'react';
-import { type Descendant } from '@dopt/core-rich-text';
+import type { Children, Node } from '@dopt/core-rich-text';
 import { RichTextNode } from './rich-text-node';
 import { clsx } from 'clsx';
 import { classNameRoot } from './const';
@@ -13,7 +13,7 @@ const richTextClassName = classNameRoot;
 
 export interface RichTextProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
-  children?: Descendant[] | null;
+  children?: Children | null;
   noStyles?: boolean;
 }
 
@@ -34,7 +34,7 @@ function RichText(props: RichTextProps, ref?: ForwardedRef<HTMLDivElement>) {
       {...restProps}
       ref={ref}
     >
-      {children.map((descendant: Descendant, index: number) => (
+      {children.map((descendant: Node, index: number) => (
         <RichTextNode
           key={`${classNameRoot}__descendant-${index}`}
           node={descendant}

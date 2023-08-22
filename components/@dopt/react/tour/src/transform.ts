@@ -1,4 +1,4 @@
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 import { Block, Container } from '@dopt/react';
 
 import { displayIndexComparator } from '@dopt/react-utilities';
@@ -66,7 +66,7 @@ export function transformItem(
     index: block.field<number>('display-index'),
 
     title: block.field<string>('title'),
-    body: block.field<RichText>('body'),
+    body: block.field<Children>('body'),
 
     backLabel: block.field<string>('back-label'),
     nextLabel: block.field<string>('next-label'),
