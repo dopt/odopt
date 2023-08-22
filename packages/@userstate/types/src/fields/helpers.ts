@@ -1,4 +1,4 @@
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 import { FIELD_VALUE_UNION_TYPE, FIELD_VALUE_LITERALS, Field } from './fields';
 
 type SERIALIZED = string | undefined | null;
@@ -24,7 +24,7 @@ export const fieldFromString = (
       case 'string':
         return value as string;
       case 'richText':
-        return value as RichText;
+        return value as Children;
     }
   } catch (e) {
     throw new Error(`value: ${string} cannot be coerced into ${type}`);
@@ -63,7 +63,7 @@ export const castField = ({
       return {
         sid,
         type: 'richText',
-        value: value as RichText | null,
+        value: value as Children | null,
       };
     default:
       throw new Error(

@@ -1,10 +1,11 @@
 import { type ReactNode } from 'react';
+import { type ChecklistItem } from '@dopt/react-checklist';
 import RichText from '@dopt/react-rich-text';
 
 export interface ChecklistItemProps {
-  completed?: boolean;
-  title?: string | null;
-  body?: any;
+  completed?: ChecklistItem['completed'];
+  title?: ChecklistItem['title'];
+  body?: ChecklistItem['body'];
   onSkip?: () => void;
   children?: ReactNode;
 }
