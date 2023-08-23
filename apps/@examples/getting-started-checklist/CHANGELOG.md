@@ -1,5 +1,13 @@
 # @examples/getting-started-checklist
 
+## 0.0.47
+
+### Patch Changes
+
+- Updated dependencies [4436d4f1d]
+  - @dopt/react-users@0.1.0
+  - @dopt/react@3.2.1
+
 ## 0.0.46
 
 ### Patch Changes

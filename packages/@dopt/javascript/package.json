@@ -1,6 +1,6 @@
 {
   "name": "@dopt/javascript",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "A JavaScript(-only) SDK for accessing and transitioning block state in Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript",
   "repository": {
@@ -57,6 +57,7 @@
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/rollup": "workspace:*",
+    "@rollup/plugin-node-resolve": "15.1.0",
     "@rollup/plugin-replace": "^5.0.0",
     "@rollup/plugin-typescript": "11.1.1",
     "rollup-plugin-dts": "5.3.0",

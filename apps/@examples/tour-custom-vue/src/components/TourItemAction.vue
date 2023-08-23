@@ -1,0 +1,44 @@
+<script setup lang="ts">
+const { variant } = defineProps<{
+  variant?: 'primary' | 'secondary';
+}>();
+</script>
+
+<template>
+  <button
+    class="button"
+    :class="{ 'button--secondary': variant === 'secondary' }"
+  >
+    <slot></slot>
+  </button>
+</template>
+
+<style>
+.button {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  padding: 8px 12px;
+  border: 1px solid #212529;
+  border-radius: 8px;
+  background: #212529;
+  transition: background 200ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: #000;
+}
+
+.button--secondary {
+  color: #000;
+  border-color: #868e96;
+  background: #fff;
+}
+
+.button--secondary:hover,
+.button--secondary:focus-visible {
+  background: #f8f9fa;
+}
+</style>

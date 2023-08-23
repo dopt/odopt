@@ -1,5 +1,18 @@
 # @examples/checklist-custom
 
+## 0.0.15
+
+### Patch Changes
+
+- eee149c59: use sdl types
+- Updated dependencies [4436d4f1d]
+- Updated dependencies [eee149c59]
+- Updated dependencies [eee149c59]
+  - @dopt/react-users@0.1.0
+  - @dopt/react-rich-text@5.1.0
+  - @dopt/react-checklist@6.1.0
+  - @dopt/react@3.2.1
+
 ## 0.0.14
 
 ### Patch Changes

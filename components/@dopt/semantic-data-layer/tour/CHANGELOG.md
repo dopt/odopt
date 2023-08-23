@@ -1,5 +1,13 @@
 # @dopt/semantic-data-layer-tour
 
+## 0.0.7
+
+### Patch Changes
+
+- eee149c59: refactor rich text types
+- Updated dependencies [eee149c59]
+  - @dopt/core-rich-text@2.0.0
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @dopt/core-rich-text
 
+## 2.0.0
+
+### Major Changes
+
+- eee149c59: refactor rich text types
+
 ## 1.0.1
 
 ### Patch Changes

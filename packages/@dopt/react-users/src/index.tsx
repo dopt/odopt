@@ -42,9 +42,9 @@ export function DoptUsersProvider({
   );
 }
 
-export type IdentifyUserParameters = Parameters<
+export type IdentifyUserRequest = Parameters<
   UsersApiClient['users']['identifyUser']
->;
+>[0];
 
 /**
  * This hook wraps `@dopt/users-javascript-browser-client` `users.identifyUser`.
@@ -57,33 +57,37 @@ export type IdentifyUserParameters = Parameters<
  * and call `users.identifyUser`. Once the `identifyUser` call completes,
  * it will return the new `userIdentifier`.
  *
- * @param params `users.identifyUser` parameters from `@dopt/users-javascript-browser-client`
+ * @remarks
+ * Internally, this hook uses the `request` as a dependency to a `useEffect` hook
+ * which will be only be triggered when the `request` reference changes.
+ *
+ * @param request `users.identifyUser` request body, consisting of a user `identifier`, a `properties` object, and optional `groups` (see `identifyGroup`)
  * @returns the `userIdentifier` string (or `undefined` on initial call)
  */
-export function useIdentifyUser(...params: IdentifyUserParameters) {
+export function useIdentifyUser(request: IdentifyUserRequest) {
   const { client } = useContext(DoptUsersContext);
   const [userId, setUserId] = useState<string>();
 
   useEffect(() => {
     async function identifyUser() {
       try {
-        await client.users.identifyUser(...params);
+        await client.users.identifyUser(request);
       } catch (e) {
         errorHandler(e, 'useIdentifyUser');
       }
 
-      setUserId(params[0].identifier);
+      setUserId(request.identifier);
     }
 
     identifyUser();
-  }, [client, params]);
+  }, [client, request]);
 
   return userId;
 }
 
-export type IdentifyGroupParameters = Parameters<
+export type IdentifyGroupRequest = Parameters<
   UsersApiClient['groups']['identifyGroup']
->;
+>[0];
 
 /**
  * This hook wraps `@dopt/users-javascript-browser-client` `groups.identifyGroup`.
@@ -96,25 +100,29 @@ export type IdentifyGroupParameters = Parameters<
  * and call `groups.identifyGroup`. Once the `identifyGroup` call completes,
  * it will return the new `groupIdentifier`.
  *
- * @param params `groups.identifyGroup` parameters from `@dopt/users-javascript-browser-client`
+ * @remarks
+ * Internally, this hook uses the `request` as a dependency to a `useEffect` hook
+ * which will be only be triggered when the `request` reference changes.
+ *
+ * @param request `users.identifyGroup` request body, consisting of a group `identifier` and a `properties` object
  * @returns the `groupIdentifier` string (or `undefined` on initial call)
  */
-export function useIdentifyGroup(...params: IdentifyGroupParameters) {
+export function useIdentifyGroup(request: IdentifyGroupRequest) {
   const { client } = useContext(DoptUsersContext);
   const [groupId, setGroupId] = useState<string>();
 
   useEffect(() => {
     async function identifyGroup() {
       try {
-        await client.groups.identifyGroup(...params);
+        await client.groups.identifyGroup(request);
       } catch (e) {
         errorHandler(e, 'useIdentifyGroup');
       }
-      setGroupId(params[0].identifier);
+      setGroupId(request.identifier);
     }
 
     identifyGroup();
-  }, [client, params]);
+  }, [client, request]);
 
   return groupId;
 }

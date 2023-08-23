@@ -1,5 +1,22 @@
 # @dopt/javascript
 
+## 3.4.0
+
+### Minor Changes
+
+- 01e63c702: internalize @dopt/javascript's `zustand/vanilla` and `zustand/middleware` dependencies by changing how the package is built. zustand generates non-compatible CJS, which previously required workarounds if using @dopt/javascript in CJS. after this version, all consumed zustand code will be internalized within the @dopt/javascript bundle, ensuring that the library is CJS compatible.
+
+### Patch Changes
+
+- eee149c59: refactor rich text types
+- Updated dependencies [eee149c59]
+  - @dopt/core-rich-text@2.0.0
+  - @dopt/semantic-data-layer-checklist@0.0.7
+  - @dopt/semantic-data-layer-modal@0.0.8
+  - @dopt/semantic-data-layer-card@1.0.2
+  - @dopt/semantic-data-layer-tour@0.0.7
+  - @dopt/javascript-common@2.2.1
+
 ## 3.3.0
 
 ### Minor Changes
