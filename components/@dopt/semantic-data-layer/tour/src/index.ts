@@ -1,4 +1,4 @@
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 
 export type FilterableField =
   | 'completed'
@@ -35,7 +35,7 @@ export interface TourItem {
   index: number | null | undefined;
 
   title: string | null | undefined;
-  body: RichText | null | undefined;
+  body: Children | null | undefined;
 
   nextLabel: string | null | undefined;
   backLabel: string | null | undefined;
