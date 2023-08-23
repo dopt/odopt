@@ -1,5 +1,21 @@
 # @dopt/react-tour
 
+## 6.1.0
+
+### Minor Changes
+
+- eee149c59: expose data layer types
+
+### Patch Changes
+
+- Updated dependencies [eee149c59]
+- Updated dependencies [eee149c59]
+  - @dopt/core-rich-text@2.0.0
+  - @dopt/semantic-data-layer-tour@0.0.7
+  - @dopt/react-rich-text@5.1.0
+  - @dopt/react@3.2.1
+  - @dopt/react-utilities@3.0.1
+
 ## 6.0.0
 
 ### Patch Changes

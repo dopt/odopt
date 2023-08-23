@@ -1,5 +1,20 @@
 # @dopt/react-card
 
+## 5.1.0
+
+### Minor Changes
+
+- eee149c59: expose data layer types
+
+### Patch Changes
+
+- Updated dependencies [eee149c59]
+- Updated dependencies [eee149c59]
+  - @dopt/core-rich-text@2.0.0
+  - @dopt/semantic-data-layer-card@1.0.2
+  - @dopt/react-rich-text@5.1.0
+  - @dopt/react@3.2.1
+
 ## 5.0.0
 
 ### Patch Changes
