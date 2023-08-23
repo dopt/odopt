@@ -1,4 +1,5 @@
 import replace from '@rollup/plugin-replace';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 import { rollup } from '@dopt/rollup';
 
@@ -23,5 +24,6 @@ export default rollup({
       'process.env.PKG_NAME': JSON.stringify(pkg.name),
       preventAssignment: true,
     }),
+    nodeResolve(),
   ],
 });
