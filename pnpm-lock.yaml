@@ -1168,6 +1168,7 @@ importers:
       '@dopt/semantic-data-layer-checklist': workspace:*
       '@dopt/semantic-data-layer-modal': workspace:*
       '@dopt/semantic-data-layer-tour': workspace:*
+      '@rollup/plugin-node-resolve': 15.1.0
       '@rollup/plugin-replace': ^5.0.0
       '@rollup/plugin-typescript': 11.1.1
       '@types/node': 18.16.18
@@ -1198,6 +1199,7 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
+      '@rollup/plugin-node-resolve': 15.1.0_rollup@3.25.1
       '@rollup/plugin-replace': 5.0.0_rollup@3.25.1
       '@rollup/plugin-typescript': 11.1.1_hy2hs6cxbetposvfaofwksio3i
       '@types/node': 18.16.18
