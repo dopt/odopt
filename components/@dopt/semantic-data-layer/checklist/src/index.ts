@@ -1,4 +1,4 @@
-import { RichText } from '@dopt/core-rich-text';
+import type { Children } from '@dopt/core-rich-text';
 
 export type FilterableField =
   | 'completed'
@@ -16,7 +16,7 @@ export interface Checklist {
   id: string;
 
   title: string | null | undefined;
-  body: RichText | null | undefined;
+  body: Children | null | undefined;
 
   items: ChecklistItem[];
 
@@ -40,7 +40,7 @@ export interface ChecklistItem {
   index: number | null | undefined;
 
   title: string | null | undefined;
-  body: RichText | null | undefined;
+  body: Children | null | undefined;
 
   completeLabel: string | null | undefined;
 
