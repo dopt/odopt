@@ -1,5 +1,13 @@
 # @dopt/semantic-data-layer-modal
 
+## 0.0.8
+
+### Patch Changes
+
+- eee149c59: refactor rich text types
+- Updated dependencies [eee149c59]
+  - @dopt/core-rich-text@2.0.0
+
 ## 0.0.7
 
 ### Patch Changes
