@@ -1,9 +1,10 @@
 import { type ComponentPropsWithoutRef } from 'react';
+import { type Modal } from '@dopt/react-modal';
 import './styles.css';
 
 export interface ModalProps
   extends Omit<ComponentPropsWithoutRef<'dialog'>, 'title'> {
-  title?: string | null;
+  title?: Modal['title'];
 }
 
 export function Modal(props: ModalProps) {

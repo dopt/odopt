@@ -1,5 +1,20 @@
 # @dopt/react-modal
 
+## 6.1.0
+
+### Minor Changes
+
+- eee149c59: expose data layer types
+
+### Patch Changes
+
+- Updated dependencies [eee149c59]
+- Updated dependencies [eee149c59]
+  - @dopt/core-rich-text@2.0.0
+  - @dopt/semantic-data-layer-modal@0.0.8
+  - @dopt/react-rich-text@5.1.0
+  - @dopt/react@3.2.1
+
 ## 6.0.0
 
 ### Patch Changes
