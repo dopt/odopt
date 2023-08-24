@@ -1,6 +1,7 @@
 {
   "extends": "@dopt/config/tsconfig/base.json",
   "compilerOptions": {
+    "strict": true,
     "strictPropertyInitialization": false,
     "downlevelIteration": true,
     "noEmit": false,
