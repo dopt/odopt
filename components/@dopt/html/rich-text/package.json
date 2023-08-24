@@ -1,12 +1,12 @@
 {
-  "name": "@dopt/core-rich-text",
-  "version": "2.0.0",
-  "description": "A package which contains type definitions and schemas for Dopt's rich text fields",
-  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/core/rich-text",
+  "name": "@dopt/html-rich-text",
+  "version": "0.0.0",
+  "description": "A package which contains an HTML renderer for Dopt's rich text fields",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/html/rich-text",
   "repository": {
     "type": "git",
     "url": "https://github.com/dopt/odopt.git",
-    "directory": "components/@dopt/core/rich-text"
+    "directory": "components/@dopt/html/rich-text"
   },
   "license": "MIT",
   "private": false,
@@ -19,7 +19,18 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
-    "./styles.css": "./dist/styles.css"
+    "./core": {
+      "require": "./dist/core.cjs",
+      "import": "./dist/core.mjs",
+      "types": "./dist/core.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "core": [
+        "./dist/core.d.ts"
+      ]
+    }
   },
   "scripts": {
     "👇required package scripts": "",
@@ -32,7 +43,7 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/core-rich-text\""
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/html-rich-text\""
   },
   "files": [
     "dist"
@@ -43,7 +54,6 @@
     "@types/jest": "29.5.2",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
-    "@vanilla-extract/rollup-plugin": "1.2.2",
     "concurrently": "8.2.0",
     "esbuild": "0.18.2",
     "esbuild-jest": "0.5.0",
@@ -57,7 +67,8 @@
     "unbuild": "1.2.1"
   },
   "dependencies": {
-    "@vanilla-extract/css": "1.11.1"
+    "@dopt/core-rich-text": "workspace:*",
+    "clsx": "1.2.1"
   },
   "openSource": true
 }

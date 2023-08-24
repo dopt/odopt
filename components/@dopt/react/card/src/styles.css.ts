@@ -1,5 +1,5 @@
 import { globalStyle, style } from '@vanilla-extract/css';
-import { vars } from '@dopt/react-theme';
+import { vars } from '@dopt/react-theme/core';
 
 export const cardRoot = style({
   all: 'revert',

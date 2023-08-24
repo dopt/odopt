@@ -2,12 +2,17 @@
 import { Dopt } from '@dopt/javascript';
 import { DoptApiClient as UsersApiClient } from '@dopt/users-javascript-browser-client';
 
-import { ref } from 'vue';
+import { provide, ref, readonly } from 'vue';
 import { nanoid } from 'nanoid';
 
 import HomePage from './HomePage.vue';
 
-const dopt = ref();
+const dopt = ref<Dopt>();
+
+/**
+ * Create a provider for dopt for all children.
+ */
+provide('dopt', readonly(dopt));
 
 (async function () {
   /**
@@ -45,7 +50,7 @@ const dopt = ref();
 
 <template>
   <template v-if="dopt">
-    <HomePage :dopt="dopt" />
+    <HomePage />
   </template>
 </template>
 
