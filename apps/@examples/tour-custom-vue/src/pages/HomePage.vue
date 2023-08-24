@@ -1,66 +1,31 @@
 <script setup lang="ts">
-import { Dopt } from '@dopt/javascript';
 import TourItem from '../components/TourItem.vue';
-
-const { dopt } = defineProps<{ dopt: Dopt }>();
 </script>
 
 <template>
   <div class="home">
-    <TourItem
-      id="custom-tour-component.pretty-books-vanish"
-      position="left"
-      :dopt="dopt"
-    >
+    <TourItem id="custom-tour-component.pretty-books-vanish" position="left">
       <div class="phase">🌑</div>
     </TourItem>
-    <TourItem
-      id="custom-tour-component.breezy-queens-greet"
-      position="left"
-      :dopt="dopt"
-    >
+    <TourItem id="custom-tour-component.breezy-queens-greet" position="left">
       <div class="phase">🌘</div>
     </TourItem>
-    <TourItem
-      id="custom-tour-component.smooth-doodles-double"
-      position="right"
-      :dopt="dopt"
-    >
+    <TourItem id="custom-tour-component.smooth-doodles-double" position="right">
       <div class="phase">🌓</div>
     </TourItem>
-    <TourItem
-      id="custom-tour-component.eighty-flies-repeat"
-      position="top"
-      :dopt="dopt"
-    >
+    <TourItem id="custom-tour-component.eighty-flies-repeat" position="top">
       <div class="phase">🌔</div>
     </TourItem>
-    <TourItem
-      id="custom-tour-component.empty-banks-tell"
-      position="bottom"
-      :dopt="dopt"
-    >
+    <TourItem id="custom-tour-component.empty-banks-tell" position="bottom">
       <div class="phase">🌕</div>
     </TourItem>
-    <TourItem
-      id="custom-tour-component.tricky-toes-eat"
-      position="left"
-      :dopt="dopt"
-    >
+    <TourItem id="custom-tour-component.tricky-toes-eat" position="left">
       <div class="phase">🌖</div>
     </TourItem>
-    <TourItem
-      id="custom-tour-component.cold-carrots-lay"
-      position="right"
-      :dopt="dopt"
-    >
+    <TourItem id="custom-tour-component.cold-carrots-lay" position="right">
       <div class="phase">🌗</div>
     </TourItem>
-    <TourItem
-      id="custom-tour-component.fair-eyes-wave"
-      position="top"
-      :dopt="dopt"
-    >
+    <TourItem id="custom-tour-component.fair-eyes-wave" position="top">
       <div class="phase">🌘</div>
     </TourItem>
   </div>

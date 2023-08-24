@@ -1,4 +1,3 @@
-import '@dopt/react-theme/styles';
 export * from './root';
 export * from './header';
 export * from './title';

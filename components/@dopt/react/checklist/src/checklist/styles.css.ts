@@ -1,6 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
-import { vars } from '@dopt/react-theme';
+import { vars } from '@dopt/react-theme/core';
 
 export const checklistRoot = style({
   all: 'revert',
