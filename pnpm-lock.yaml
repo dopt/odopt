@@ -24,14 +24,14 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     devDependencies:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
       '@dopt/config': link:../../../../packages/@dopt/config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -41,7 +41,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/core/theme:
@@ -66,7 +66,7 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@vanilla-extract/css': 1.11.1
@@ -77,8 +77,8 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@types/jest': 29.5.2
       '@types/lodash.merge': 4.6.7
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       concurrently: 8.2.0
       esbuild: 0.18.2
@@ -90,7 +90,7 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/card:
@@ -126,7 +126,7 @@ importers:
       react-dom: 18.2.0
       shx: 0.3.4
       ts-jest: ^29.0.3
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -146,8 +146,8 @@ importers:
       '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       concurrently: 8.2.0
       esbuild: 0.18.2
@@ -160,8 +160,8 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
-      ts-jest: 29.1.1_znclkreqhuisro53wu5fa76vfy
-      typescript: 4.9.5
+      ts-jest: 29.1.1_i6mabmdhyahdba2uzsgbwe64m4
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/card/sandbox:
@@ -182,7 +182,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       vite: 4.3.9
     dependencies:
       '@dopt/react-card': link:..
@@ -193,8 +193,8 @@ importers:
       '@dopt/config': link:../../../../../packages/@dopt/config
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vitejs/plugin-react': 4.0.0_vite@4.3.9
       concurrently: 8.2.0
       eslint: 8.42.0
@@ -202,7 +202,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       vite: 4.3.9
 
   components/@dopt/react/checklist:
@@ -239,7 +239,7 @@ importers:
       react-dom: 18.2.0
       shx: 0.3.4
       ts-jest: ^29.0.3
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -260,8 +260,8 @@ importers:
       '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       concurrently: 8.2.0
       esbuild: 0.18.2
@@ -274,8 +274,8 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
-      ts-jest: 29.1.1_znclkreqhuisro53wu5fa76vfy
-      typescript: 4.9.5
+      ts-jest: 29.1.1_i6mabmdhyahdba2uzsgbwe64m4
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/checklist/sandbox:
@@ -296,7 +296,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       vite: 4.3.9
     dependencies:
       '@dopt/react-checklist': link:..
@@ -307,8 +307,8 @@ importers:
       '@dopt/config': link:../../../../../packages/@dopt/config
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vitejs/plugin-react': 4.0.0_vite@4.3.9
       concurrently: 8.2.0
       eslint: 8.42.0
@@ -316,7 +316,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       vite: 4.3.9
 
   components/@dopt/react/component:
@@ -336,7 +336,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       react: 18.2.0
@@ -345,8 +345,8 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -355,7 +355,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/modal:
@@ -391,7 +391,7 @@ importers:
       react-dom: 18.2.0
       shx: 0.3.4
       ts-jest: ^29.0.3
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -411,8 +411,8 @@ importers:
       '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       concurrently: 8.2.0
       esbuild: 0.18.2
@@ -425,8 +425,8 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
-      ts-jest: 29.1.1_znclkreqhuisro53wu5fa76vfy
-      typescript: 4.9.5
+      ts-jest: 29.1.1_i6mabmdhyahdba2uzsgbwe64m4
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/modal/sandbox:
@@ -446,7 +446,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       vite: 4.3.9
     dependencies:
       '@dopt/react-modal': link:..
@@ -456,8 +456,8 @@ importers:
       '@dopt/config': link:../../../../../packages/@dopt/config
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vitejs/plugin-react': 4.0.0_vite@4.3.9
       concurrently: 8.2.0
       eslint: 8.42.0
@@ -465,7 +465,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       vite: 4.3.9
 
   components/@dopt/react/portal:
@@ -487,7 +487,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       react: 18.2.0
@@ -498,8 +498,8 @@ importers:
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -508,7 +508,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/rich-text:
@@ -538,7 +538,7 @@ importers:
       shx: 0.3.4
       slate: 0.94.1
       slate-react: 0.96.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -554,8 +554,8 @@ importers:
       '@dopt/react': link:../../../../packages/@dopt/react
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       concurrently: 8.2.0
       esbuild: 0.18.2
@@ -567,7 +567,7 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/theme:
@@ -591,7 +591,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-theme': link:../../core/theme
@@ -602,8 +602,8 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -614,7 +614,7 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/tour:
@@ -655,7 +655,7 @@ importers:
       react-dom: 18.2.0
       shx: 0.3.4
       ts-jest: ^29.0.3
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -680,8 +680,8 @@ importers:
       '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       concurrently: 8.2.0
       esbuild: 0.18.2
@@ -694,8 +694,8 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
-      ts-jest: 29.1.1_znclkreqhuisro53wu5fa76vfy
-      typescript: 4.9.5
+      ts-jest: 29.1.1_i6mabmdhyahdba2uzsgbwe64m4
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/react/tour/sandbox:
@@ -715,7 +715,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       vite: 4.3.9
     dependencies:
       '@dopt/react-theme': link:../../theme
@@ -725,8 +725,8 @@ importers:
       '@dopt/config': link:../../../../../packages/@dopt/config
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vitejs/plugin-react': 4.0.0_vite@4.3.9
       concurrently: 8.2.0
       eslint: 8.42.0
@@ -734,7 +734,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       vite: 4.3.9
 
   components/@dopt/react/utilities:
@@ -755,15 +755,15 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     devDependencies:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/react': link:../../../../packages/@dopt/react
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -774,7 +774,7 @@ importers:
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/semantic-data-layer/card:
@@ -793,7 +793,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -801,8 +801,8 @@ importers:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
       '@dopt/config': link:../../../../packages/@dopt/config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -811,7 +811,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/semantic-data-layer/checklist:
@@ -830,7 +830,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -838,8 +838,8 @@ importers:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
       '@dopt/config': link:../../../../packages/@dopt/config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -848,7 +848,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/semantic-data-layer/modal:
@@ -867,7 +867,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -875,8 +875,8 @@ importers:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
       '@dopt/config': link:../../../../packages/@dopt/config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -885,7 +885,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   components/@dopt/semantic-data-layer/tour:
@@ -904,7 +904,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -912,8 +912,8 @@ importers:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
       '@dopt/config': link:../../../../packages/@dopt/config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -922,7 +922,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   packages/@bodo/tokens:
@@ -946,8 +946,8 @@ importers:
       prettier: 2.8.8
       rollup: 3.25.1
       shx: 0.3.4
-      tslib: ^2.4.0
-      typescript: 4.9.5
+      tslib: ^2.6.2
+      typescript: 5.1.6
     dependencies:
       chroma-js: 2.4.2
     devDependencies:
@@ -955,12 +955,12 @@ importers:
       '@dopt/config': link:../../@dopt/config
       '@dopt/rollup': link:../../@dopt/rollup
       '@rollup/plugin-node-resolve': 15.1.0_rollup@3.25.1
-      '@rollup/plugin-typescript': 11.1.1_hy2hs6cxbetposvfaofwksio3i
+      '@rollup/plugin-typescript': 11.1.1_mlzjm7vjtnhtb7moha5sywgt7q
       '@types/chroma-js': 2.4.0
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -969,8 +969,8 @@ importers:
       prettier: 2.8.8
       rollup: 3.25.1
       shx: 0.3.4
-      tslib: 2.4.0
-      typescript: 4.9.5
+      tslib: 2.6.2
+      typescript: 5.1.6
 
   packages/@dopt/block-api-types:
     specifiers:
@@ -988,7 +988,7 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@sinclair/typebox': 0.25.4
@@ -997,8 +997,8 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1006,7 +1006,7 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   packages/@dopt/check-formatting:
@@ -1031,12 +1031,12 @@ importers:
       shx: 0.3.4
       tsup: 7.0.0
       tsup-node: ^0.1.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@vanilla-extract/css': 1.11.1
       '@vanilla-extract/esbuild-plugin': 2.2.2
       '@vanilla-extract/private': 1.0.3
@@ -1048,9 +1048,9 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      tsup-node: 0.1.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      tsup-node: 0.1.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@dopt/create-example:
     specifiers:
@@ -1069,7 +1069,7 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       minimist: 1.2.8
@@ -1080,15 +1080,15 @@ importers:
       '@types/jest': 29.5.2
       '@types/minimist': 1.2.2
       '@types/node': 18.16.18
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   packages/@dopt/env:
@@ -1099,15 +1099,15 @@ importers:
       eslint: 8.42.0
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     devDependencies:
       '@dopt/config': link:../config
       '@types/node': 18.16.18
       esbuild: 0.18.2
       eslint: 8.42.0
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@dopt/esbuild-plugins:
     specifiers:
@@ -1127,7 +1127,7 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     dependencies:
       '@dopt/env': link:../env
       '@dopt/topoftree': link:../topoftree
@@ -1136,8 +1136,8 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1145,8 +1145,8 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@dopt/filter-open-source:
     specifiers:
@@ -1178,12 +1178,12 @@ importers:
       eslint: 8.42.0
       prettier: 2.8.8
       rollup: 3.25.1
-      rollup-plugin-dts: 5.3.0
+      rollup-plugin-dts: 6.0.0
       rollup-plugin-peer-deps-external: 2.2.4
       shx: 0.3.4
       socket.io-client: 4.6.2
-      tslib: ^2.4.0
-      typescript: 4.9.5
+      tslib: ^2.6.2
+      typescript: 5.1.6
       zustand: ^4.1.3
     dependencies:
       '@dopt/core-rich-text': link:../../../components/@dopt/core/rich-text
@@ -1201,19 +1201,19 @@ importers:
       '@dopt/rollup': link:../rollup
       '@rollup/plugin-node-resolve': 15.1.0_rollup@3.25.1
       '@rollup/plugin-replace': 5.0.0_rollup@3.25.1
-      '@rollup/plugin-typescript': 11.1.1_hy2hs6cxbetposvfaofwksio3i
+      '@rollup/plugin-typescript': 11.1.1_mlzjm7vjtnhtb7moha5sywgt7q
       '@types/node': 18.16.18
       '@types/rollup-plugin-peer-deps-external': 2.2.1
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
       prettier: 2.8.8
       rollup: 3.25.1
-      rollup-plugin-dts: 5.3.0_kiy5yv7g7dmpxbgwdlsemwipi4
+      rollup-plugin-dts: 6.0.0_ijxnqhgxblczc6chmrw7biegtu
       rollup-plugin-peer-deps-external: 2.2.4_rollup@3.25.1
       shx: 0.3.4
-      tslib: 2.4.0
-      typescript: 4.9.5
+      tslib: 2.6.2
+      typescript: 5.1.6
 
   packages/@dopt/javascript-common:
     specifiers:
@@ -1234,8 +1234,8 @@ importers:
       rollup: 3.25.1
       shx: 0.3.4
       socket.io-client: 4.6.2
-      tslib: ^2.4.0
-      typescript: 4.9.5
+      tslib: ^2.6.2
+      typescript: 5.1.6
     dependencies:
       '@dopt/block-api-types': link:../block-api-types
       '@dopt/logger': link:../logger
@@ -1245,18 +1245,18 @@ importers:
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
       '@rollup/plugin-replace': 5.0.0_rollup@3.25.1
-      '@rollup/plugin-typescript': 11.1.1_hy2hs6cxbetposvfaofwksio3i
+      '@rollup/plugin-typescript': 11.1.1_mlzjm7vjtnhtb7moha5sywgt7q
       '@types/jest': 29.5.2
       '@types/node': 18.16.18
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
       jest: 29.5.0_@types+node@18.16.18
       prettier: 2.8.8
       rollup: 3.25.1
       shx: 0.3.4
-      tslib: 2.4.0
-      typescript: 4.9.5
+      tslib: 2.6.2
+      typescript: 5.1.6
 
   packages/@dopt/jest-style-transform:
     specifiers:
@@ -1276,7 +1276,7 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     dependencies:
       '@vanilla-extract/jest-transform': 1.1.1
     devDependencies:
@@ -1285,8 +1285,8 @@ importers:
       '@dopt/tsup': link:../tsup
       '@jest/transform': 29.6.1
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1294,8 +1294,8 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@dopt/logger:
     specifiers:
@@ -1316,8 +1316,8 @@ importers:
       prettier: 2.8.8
       rollup: 3.25.1
       shx: 0.3.4
-      tslib: ^2.4.0
-      typescript: 4.9.5
+      tslib: ^2.6.2
+      typescript: 5.1.6
     dependencies:
       chalk: 4.1.2
       loglevel: 1.8.1
@@ -1325,10 +1325,10 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
-      '@rollup/plugin-typescript': 11.1.1_hy2hs6cxbetposvfaofwksio3i
+      '@rollup/plugin-typescript': 11.1.1_mlzjm7vjtnhtb7moha5sywgt7q
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1337,8 +1337,8 @@ importers:
       prettier: 2.8.8
       rollup: 3.25.1
       shx: 0.3.4
-      tslib: 2.4.0
-      typescript: 4.9.5
+      tslib: 2.6.2
+      typescript: 5.1.6
 
   packages/@dopt/mercator:
     specifiers:
@@ -1356,14 +1356,14 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/tsup': link:../tsup
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1371,8 +1371,8 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@dopt/please:
     specifiers:
@@ -1398,7 +1398,7 @@ importers:
       shx: 0.3.4
       ts-pegjs: 4.2.1
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     dependencies:
       '@pnpm/find-workspace-dir': 6.0.0
       '@pnpm/find-workspace-packages': 6.0.0_q5a3lrpt4r4swrbqgehm5tcuv4
@@ -1411,8 +1411,8 @@ importers:
       '@dopt/config': link:../config
       '@dopt/tsup': link:../tsup
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1422,8 +1422,8 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       ts-pegjs: 4.2.1_peggy@2.0.1
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@dopt/react:
     specifiers:
@@ -1445,12 +1445,12 @@ importers:
       prettier: 2.8.8
       react: '>=16.8.0'
       rollup: 3.25.1
-      rollup-plugin-dts: 5.3.0
+      rollup-plugin-dts: 6.0.0
       rollup-plugin-peer-deps-external: 2.2.4
       shx: 0.3.4
       socket.io-client: 4.6.2
-      tslib: ^2.4.0
-      typescript: 4.9.5
+      tslib: ^2.6.2
+      typescript: 5.1.6
     dependencies:
       '@dopt/javascript-common': link:../javascript-common
       '@dopt/logger': link:../logger
@@ -1461,22 +1461,22 @@ importers:
       '@dopt/config': link:../config
       '@dopt/rollup': link:../rollup
       '@rollup/plugin-replace': 5.0.0_rollup@3.25.1
-      '@rollup/plugin-typescript': 11.1.1_hy2hs6cxbetposvfaofwksio3i
+      '@rollup/plugin-typescript': 11.1.1_mlzjm7vjtnhtb7moha5sywgt7q
       '@types/node': 18.16.18
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
       '@types/rollup-plugin-peer-deps-external': 2.2.1
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       prettier: 2.8.8
       rollup: 3.25.1
-      rollup-plugin-dts: 5.3.0_kiy5yv7g7dmpxbgwdlsemwipi4
+      rollup-plugin-dts: 6.0.0_ijxnqhgxblczc6chmrw7biegtu
       rollup-plugin-peer-deps-external: 2.2.4_rollup@3.25.1
       shx: 0.3.4
-      tslib: 2.4.0
-      typescript: 4.9.5
+      tslib: 2.6.2
+      typescript: 5.1.6
 
   packages/@dopt/react-users:
     specifiers:
@@ -1496,7 +1496,7 @@ importers:
       prettier: 2.8.8
       react: 18.2.0
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
     dependencies:
       '@dopt/users-javascript-browser-client': 1.0.5
@@ -1506,8 +1506,8 @@ importers:
       '@dopt/config': link:../config
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       concurrently: 8.2.0
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
@@ -1516,7 +1516,7 @@ importers:
       nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
       unbuild: 1.2.1
 
   packages/@dopt/rollup:
@@ -1539,15 +1539,15 @@ importers:
       package-json-type: 1.0.3
       prettier: 2.8.8
       rollup: 3.25.1
-      rollup-plugin-dts: 5.3.0
+      rollup-plugin-dts: 6.0.0
       rollup-plugin-peer-deps-external: 2.2.4
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     dependencies:
-      '@rollup/plugin-typescript': 11.1.1_kiy5yv7g7dmpxbgwdlsemwipi4
+      '@rollup/plugin-typescript': 11.1.1_ijxnqhgxblczc6chmrw7biegtu
       rollup: 3.25.1
-      rollup-plugin-dts: 5.3.0_kiy5yv7g7dmpxbgwdlsemwipi4
+      rollup-plugin-dts: 6.0.0_ijxnqhgxblczc6chmrw7biegtu
       rollup-plugin-peer-deps-external: 2.2.4_rollup@3.25.1
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
@@ -1557,8 +1557,8 @@ importers:
       '@dopt/tsup': link:../tsup
       '@types/jest': 29.5.2
       '@types/rollup-plugin-peer-deps-external': 2.2.1
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1567,8 +1567,8 @@ importers:
       package-json-type: 1.0.3
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@dopt/topoftree:
     specifiers:
@@ -1586,14 +1586,14 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/env': link:../env
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1601,8 +1601,8 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@dopt/tsup:
     specifiers:
@@ -1622,18 +1622,18 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     dependencies:
       '@dopt/env': link:../env
       '@dopt/esbuild-plugins': link:../esbuild-plugins
       '@vanilla-extract/esbuild-plugin': 2.2.2
-      tsup: 7.0.0_typescript@4.9.5
+      tsup: 7.0.0_typescript@5.1.6
     devDependencies:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1641,7 +1641,7 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      typescript: 4.9.5
+      typescript: 5.1.6
 
   packages/@dopt/wutils:
     specifiers:
@@ -1665,7 +1665,7 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     dependencies:
       '@dopt/env': link:../env
       '@dopt/topoftree': link:../topoftree
@@ -1678,8 +1678,8 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1687,8 +1687,8 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
   packages/@userstate/types:
     specifiers:
@@ -1708,7 +1708,7 @@ importers:
       prettier: 2.8.8
       shx: 0.3.4
       tsup: 7.0.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     dependencies:
       '@dopt/core-rich-text': link:../../../components/@dopt/core/rich-text
       '@sinclair/typebox': 0.25.4
@@ -1717,8 +1717,8 @@ importers:
       '@dopt/config': link:../../@dopt/config
       '@dopt/tsup': link:../../@dopt/tsup
       '@types/jest': 29.5.2
-      '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
@@ -1726,8 +1726,8 @@ importers:
       jest: 29.5.0
       prettier: 2.8.8
       shx: 0.3.4
-      tsup: 7.0.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsup: 7.0.0_typescript@5.1.6
+      typescript: 5.1.6
 
 packages:
 
@@ -1753,6 +1753,15 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/highlight': 7.18.6
+
+  /@babel/code-frame/7.22.10:
+    resolution: {integrity: sha512-/KKIMG4UEL35WmI9OlvMhurwtytjvXoFcGNrOvyG9zIzA8YmPjVtIZUf7b05+TPO7G7/GEmLHDaoCgACHl9hhA==}
+    engines: {node: '>=6.9.0'}
+    requiresBuild: true
+    dependencies:
+      '@babel/highlight': 7.22.10
+      chalk: 2.4.2
+    optional: true
 
   /@babel/compat-data/7.21.4:
     resolution: {integrity: sha512-/DYyDpeCfaVinT40FPGdkkb+lYSKvsVuMjDAG7jPOWWiM1ibOaB9CXJAlc4d1QpP/U2q2P9jbrSlClKSErd55g==}
@@ -1864,6 +1873,11 @@ packages:
     resolution: {integrity: sha512-awrNfaMtnHUr653GgGEs++LlAvW6w+DcPrOliSMXWCKo597CwL5Acf/wWdNkf/tfEQE3mjkeD1YOVZOUV/od1w==}
     engines: {node: '>=6.9.0'}
 
+  /@babel/helper-validator-identifier/7.22.5:
+    resolution: {integrity: sha512-aJXu+6lErq8ltp+JhkJUfk1MTGyuA4v7f3pA+BJ5HLfNC6nAQ0Cpi9uOquUj8Hehg0aUiHzWQbOVJGao6ztBAQ==}
+    engines: {node: '>=6.9.0'}
+    optional: true
+
   /@babel/helper-validator-option/7.21.0:
     resolution: {integrity: sha512-rmL/B8/f0mKS2baE9ZpyTcTavvEuWhTTW8amjzXNvYG4AwBsqTLikfXsEofsJEfKHf+HQVQbFOHy6o+4cnC/fQ==}
     engines: {node: '>=6.9.0'}
@@ -1885,6 +1899,15 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       chalk: 2.4.2
       js-tokens: 4.0.0
+
+  /@babel/highlight/7.22.10:
+    resolution: {integrity: sha512-78aUtVcT7MUscr0K5mIEnkwxPE0MaxkR5RxRwuHaQ+JuU5AmTPhY+do2mdzVTnIJJpyBglql2pehuBIWHug+WQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/helper-validator-identifier': 7.22.5
+      chalk: 2.4.2
+      js-tokens: 4.0.0
+    optional: true
 
   /@babel/parser/7.21.4:
     resolution: {integrity: sha512-alVJj7k7zIxqBZ7BTRhz0IqJFxW1VJbm6N8JbcYhQ186df9ZBPbZBmWSqAMXwHGsCJdYks7z/voa3ibiS5bCIw==}
@@ -3051,6 +3074,9 @@ packages:
 
   /@jridgewell/sourcemap-codec/1.4.14:
     resolution: {integrity: sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==}
+
+  /@jridgewell/sourcemap-codec/1.4.15:
+    resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
 
   /@jridgewell/trace-mapping/0.3.18:
     resolution: {integrity: sha512-w+niJYzMHdd7USdiH2U6869nqhD2nbfZXND5Yp93qIbEmnDNk7PD48o+YchRVpzMU7M6jVCbenTR7PA1FLQ9pA==}
@@ -4544,7 +4570,7 @@ packages:
       rollup: 3.25.1
     dev: true
 
-  /@rollup/plugin-typescript/11.1.1_hy2hs6cxbetposvfaofwksio3i:
+  /@rollup/plugin-typescript/11.1.1_ijxnqhgxblczc6chmrw7biegtu:
     resolution: {integrity: sha512-Ioir+x5Bejv72Lx2Zbz3/qGg7tvGbxQZALCLoJaGrkNXak/19+vKgKYJYM3i/fJxvsb23I9FuFQ8CUBEfsmBRg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -4560,28 +4586,28 @@ packages:
       '@rollup/pluginutils': 5.0.2_rollup@3.25.1
       resolve: 1.22.1
       rollup: 3.25.1
-      tslib: 2.4.0
-      typescript: 4.9.5
-    dev: true
-
-  /@rollup/plugin-typescript/11.1.1_kiy5yv7g7dmpxbgwdlsemwipi4:
-    resolution: {integrity: sha512-Ioir+x5Bejv72Lx2Zbz3/qGg7tvGbxQZALCLoJaGrkNXak/19+vKgKYJYM3i/fJxvsb23I9FuFQ8CUBEfsmBRg==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^2.14.0||^3.0.0
-      tslib: '*'
-      typescript: '>=3.7.0'
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-      tslib:
-        optional: true
-    dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@3.25.1
-      resolve: 1.22.1
-      rollup: 3.25.1
-      typescript: 4.9.5
+      typescript: 5.1.6
     dev: false
+
+  /@rollup/plugin-typescript/11.1.1_mlzjm7vjtnhtb7moha5sywgt7q:
+    resolution: {integrity: sha512-Ioir+x5Bejv72Lx2Zbz3/qGg7tvGbxQZALCLoJaGrkNXak/19+vKgKYJYM3i/fJxvsb23I9FuFQ8CUBEfsmBRg==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^2.14.0||^3.0.0
+      tslib: '*'
+      typescript: '>=3.7.0'
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+      tslib:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.0.2_rollup@3.25.1
+      resolve: 1.22.1
+      rollup: 3.25.1
+      tslib: 2.6.2
+      typescript: 5.1.6
+    dev: true
 
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -4943,7 +4969,7 @@ packages:
       '@types/yargs-parser': 21.0.0
     dev: true
 
-  /@typescript-eslint/eslint-plugin/5.59.11_khxwfo2nlv6qliptqsbqa3vjsm:
+  /@typescript-eslint/eslint-plugin/5.59.11_35qmp7m56iklxcq7afme4kpjwa:
     resolution: {integrity: sha512-XxuOfTkCUiOSyBWIvHlUraLw/JT/6Io1365RO6ZuI88STKMavJZPNMU0lFcUTeQXEhHiv64CbxYxBNoDVSmghg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4955,23 +4981,23 @@ packages:
         optional: true
     dependencies:
       '@eslint-community/regexpp': 4.4.1
-      '@typescript-eslint/parser': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       '@typescript-eslint/scope-manager': 5.59.11
-      '@typescript-eslint/type-utils': 5.59.11_kigkzfftsmftz3xok324pyvzui
-      '@typescript-eslint/utils': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/type-utils': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
+      '@typescript-eslint/utils': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       debug: 4.3.4
       eslint: 8.42.0
       grapheme-splitter: 1.0.4
       ignore: 5.2.0
       natural-compare-lite: 1.4.0
       semver: 7.3.8
-      tsutils: 3.21.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsutils: 3.21.0_typescript@5.1.6
+      typescript: 5.1.6
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser/5.59.11_kigkzfftsmftz3xok324pyvzui:
+  /@typescript-eslint/parser/5.59.11_2hgafj6nysxfrciqm6sw63gw3m:
     resolution: {integrity: sha512-s9ZF3M+Nym6CAZEkJJeO2TFHHDsKAM3ecNkLuH4i4s8/RCPnF5JRip2GyviYkeEAcwGMJxkqG9h2dAsnA1nZpA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4983,10 +5009,10 @@ packages:
     dependencies:
       '@typescript-eslint/scope-manager': 5.59.11
       '@typescript-eslint/types': 5.59.11
-      '@typescript-eslint/typescript-estree': 5.59.11_typescript@4.9.5
+      '@typescript-eslint/typescript-estree': 5.59.11_typescript@5.1.6
       debug: 4.3.4
       eslint: 8.42.0
-      typescript: 4.9.5
+      typescript: 5.1.6
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4999,7 +5025,7 @@ packages:
       '@typescript-eslint/visitor-keys': 5.59.11
     dev: true
 
-  /@typescript-eslint/type-utils/5.59.11_kigkzfftsmftz3xok324pyvzui:
+  /@typescript-eslint/type-utils/5.59.11_2hgafj6nysxfrciqm6sw63gw3m:
     resolution: {integrity: sha512-LZqVY8hMiVRF2a7/swmkStMYSoXMFlzL6sXV6U/2gL5cwnLWQgLEG8tjWPpaE4rMIdZ6VKWwcffPlo1jPfk43g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -5009,12 +5035,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/typescript-estree': 5.59.11_typescript@4.9.5
-      '@typescript-eslint/utils': 5.59.11_kigkzfftsmftz3xok324pyvzui
+      '@typescript-eslint/typescript-estree': 5.59.11_typescript@5.1.6
+      '@typescript-eslint/utils': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       debug: 4.3.4
       eslint: 8.42.0
-      tsutils: 3.21.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsutils: 3.21.0_typescript@5.1.6
+      typescript: 5.1.6
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5024,7 +5050,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree/5.59.11_typescript@4.9.5:
+  /@typescript-eslint/typescript-estree/5.59.11_typescript@5.1.6:
     resolution: {integrity: sha512-YupOpot5hJO0maupJXixi6l5ETdrITxeo5eBOeuV7RSKgYdU3G5cxO49/9WRnJq9EMrB7AuTSLH/bqOsXi7wPA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -5039,13 +5065,13 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.3
-      tsutils: 3.21.0_typescript@4.9.5
-      typescript: 4.9.5
+      tsutils: 3.21.0_typescript@5.1.6
+      typescript: 5.1.6
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils/5.59.11_kigkzfftsmftz3xok324pyvzui:
+  /@typescript-eslint/utils/5.59.11_2hgafj6nysxfrciqm6sw63gw3m:
     resolution: {integrity: sha512-didu2rHSOMUdJThLk4aZ1Or8IcO3HzCw/ZvEjTTIfjIrcdd5cvSIwwDy2AOlE7htSNp7QIZ10fLMyRCveesMLg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -5056,7 +5082,7 @@ packages:
       '@types/semver': 7.3.12
       '@typescript-eslint/scope-manager': 5.59.11
       '@typescript-eslint/types': 5.59.11
-      '@typescript-eslint/typescript-estree': 5.59.11_typescript@4.9.5
+      '@typescript-eslint/typescript-estree': 5.59.11_typescript@5.1.6
       eslint: 8.42.0
       eslint-scope: 5.1.1
       semver: 7.5.3
@@ -5240,7 +5266,7 @@ packages:
       tar: 6.1.11
       tinylogic: 2.0.0
       treeify: 1.1.0
-      tslib: 2.4.0
+      tslib: 2.6.2
       tunnel: 0.0.6
     transitivePeerDependencies:
       - typanion
@@ -5273,7 +5299,7 @@ packages:
       tar: 6.1.11
       tinylogic: 2.0.0
       treeify: 1.1.0
-      tslib: 2.4.0
+      tslib: 2.6.2
       tunnel: 0.0.6
     transitivePeerDependencies:
       - typanion
@@ -5300,7 +5326,7 @@ packages:
     resolution: {integrity: sha512-rbHwsgg2tCSWJGbk3skChGp6lRDgLybj4EvqBE8MVCXpj+lNxJbJU47Q9xPHdzlShGn/IM6rE3GFEX7ML4s0tA==}
     engines: {node: '>=14.15.0'}
     dependencies:
-      tslib: 2.4.0
+      tslib: 2.6.2
     dev: false
 
   /@yarnpkg/libzip/2.2.4:
@@ -5319,7 +5345,7 @@ packages:
     dependencies:
       '@types/emscripten': 1.39.6
       '@yarnpkg/fslib': 3.0.0-rc.40
-      tslib: 2.4.0
+      tslib: 2.6.2
     dev: false
 
   /@yarnpkg/lockfile/1.1.0:
@@ -5350,7 +5376,7 @@ packages:
     engines: {node: '>=14.15.0'}
     dependencies:
       js-yaml: 3.14.1
-      tslib: 2.4.0
+      tslib: 2.6.2
     dev: false
 
   /@yarnpkg/pnp/2.3.2:
@@ -5400,7 +5426,7 @@ packages:
       cross-spawn: 7.0.3
       fast-glob: 3.2.12
       micromatch: 4.0.5
-      tslib: 2.4.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - typanion
     dev: false
@@ -9145,6 +9171,13 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
+
+  /magic-string/0.30.3:
+    resolution: {integrity: sha512-B7xGbll2fG/VjP+SWg4sX3JynwIU0mjoTc6MPpKNuIvftk6u6vqhDnk1R80b8C2GBR6ywqy+1DcKBrevBg+bmw==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.4.15
 
   /make-dir/3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
@@ -9402,7 +9435,7 @@ packages:
     hasBin: true
     dev: true
 
-  /mkdist/1.2.0_typescript@5.0.4:
+  /mkdist/1.2.0_typescript@5.1.6:
     resolution: {integrity: sha512-UTqu/bXmIk/+VKNVgufAeMyjUcNy1dn9Bl7wL1zZlCKVrpDgj/VllmZBeh3ZCC/2HWqUrt6frNFTKt9TRZbNvQ==}
     hasBin: true
     peerDependencies:
@@ -9422,7 +9455,7 @@ packages:
       mlly: 1.2.0
       mri: 1.2.0
       pathe: 1.1.0
-      typescript: 5.0.4
+      typescript: 5.1.6
     dev: true
 
   /mlly/1.2.0:
@@ -10508,7 +10541,7 @@ packages:
     dependencies:
       glob: 7.2.3
 
-  /rollup-plugin-dts/5.3.0_dktzugqt37he3dymofwuxa5bbe:
+  /rollup-plugin-dts/5.3.0_ijxnqhgxblczc6chmrw7biegtu:
     resolution: {integrity: sha512-8FXp0ZkyZj1iU5klkIJYLjIq/YZSwBoERu33QBDxm/1yw5UU4txrEtcmMkrq+ZiKu3Q4qvPCNqc3ovX6rjqzbQ==}
     engines: {node: '>=v14'}
     peerDependencies:
@@ -10517,23 +10550,23 @@ packages:
     dependencies:
       magic-string: 0.30.0
       rollup: 3.25.1
-      typescript: 5.0.4
+      typescript: 5.1.6
     optionalDependencies:
       '@babel/code-frame': 7.21.4
     dev: true
 
-  /rollup-plugin-dts/5.3.0_kiy5yv7g7dmpxbgwdlsemwipi4:
-    resolution: {integrity: sha512-8FXp0ZkyZj1iU5klkIJYLjIq/YZSwBoERu33QBDxm/1yw5UU4txrEtcmMkrq+ZiKu3Q4qvPCNqc3ovX6rjqzbQ==}
-    engines: {node: '>=v14'}
+  /rollup-plugin-dts/6.0.0_ijxnqhgxblczc6chmrw7biegtu:
+    resolution: {integrity: sha512-A996xSZDAqnx/KfFttzC8mDEuyMjsRpiLCrlGc8effhK8KhE3AG0g1woQiITgFc5HSE8HWU7ccR9CiQ3vXgUlQ==}
+    engines: {node: '>=v18.17.1'}
     peerDependencies:
-      rollup: ^3.0.0
-      typescript: ^4.1 || ^5.0
+      rollup: ^3.25.0
+      typescript: ^4.5 || ^5.0
     dependencies:
-      magic-string: 0.30.0
+      magic-string: 0.30.3
       rollup: 3.25.1
-      typescript: 4.9.5
+      typescript: 5.1.6
     optionalDependencies:
-      '@babel/code-frame': 7.21.4
+      '@babel/code-frame': 7.22.10
 
   /rollup-plugin-peer-deps-external/2.2.4_rollup@3.25.1:
     resolution: {integrity: sha512-AWdukIM1+k5JDdAqV/Cxd+nejvno2FVLVeZ74NKggm3Q5s9cbbcOgUPGdbxPi4BXu7xGaZ8HG12F+thImYu/0g==}
@@ -10585,7 +10618,7 @@ packages:
   /rxjs/7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.4.0
+      tslib: 2.6.2
 
   /safe-buffer/5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
@@ -11388,7 +11421,7 @@ packages:
   /ts-interface-checker/0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /ts-jest/29.1.1_znclkreqhuisro53wu5fa76vfy:
+  /ts-jest/29.1.1_i6mabmdhyahdba2uzsgbwe64m4:
     resolution: {integrity: sha512-D6xjnnbP17cC85nliwGiL+tpoKN0StpgE0TeOjXQTU6MVCfsB4v7aW05CgQ/1OywGb0x/oy9hHFnN+sczTiRaA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -11419,7 +11452,7 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.5.3
-      typescript: 4.9.5
+      typescript: 5.1.6
       yargs-parser: 21.1.1
     dev: true
 
@@ -11444,10 +11477,10 @@ packages:
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
-  /tslib/2.4.0:
-    resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
+  /tslib/2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
-  /tsup-node/0.1.0_typescript@4.9.5:
+  /tsup-node/0.1.0_typescript@5.1.6:
     resolution: {integrity: sha512-A7Y3/OYDiqIoM2BhjoLeTPT/+fPByUY/L6cAwBUvOKDHz55i57WLibHyYvs/gvonA/k9qn7wJVmbDVGcrH2qfQ==}
     hasBin: true
     peerDependencies:
@@ -11469,14 +11502,14 @@ packages:
       rollup: 2.79.1
       sucrase: 3.25.0
       tree-kill: 1.2.2
-      typescript: 4.9.5
+      typescript: 5.1.6
     transitivePeerDependencies:
       - postcss
       - supports-color
       - ts-node
     dev: true
 
-  /tsup/7.0.0_typescript@4.9.5:
+  /tsup/7.0.0_typescript@5.1.6:
     resolution: {integrity: sha512-yYARDRkPq07mO3YUXTvF12ISwWQG57Odve8aFEgLdHyeGungxuKxb19yf9G0W8y59SZFkLnRj1gkoVk1gd5fbQ==}
     engines: {node: '>=16.14'}
     hasBin: true
@@ -11506,19 +11539,19 @@ packages:
       source-map: 0.8.0-beta.0
       sucrase: 3.25.0
       tree-kill: 1.2.2
-      typescript: 4.9.5
+      typescript: 5.1.6
     transitivePeerDependencies:
       - supports-color
       - ts-node
 
-  /tsutils/3.21.0_typescript@4.9.5:
+  /tsutils/3.21.0_typescript@5.1.6:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
-      typescript: 4.9.5
+      typescript: 5.1.6
     dev: true
 
   /tunnel/0.0.6:
@@ -11698,16 +11731,10 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: false
 
-  /typescript/4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
+  /typescript/5.1.6:
+    resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+    engines: {node: '>=14.17'}
     hasBin: true
-
-  /typescript/5.0.4:
-    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
-    engines: {node: '>=12.20'}
-    hasBin: true
-    dev: true
 
   /ufo/1.1.1:
     resolution: {integrity: sha512-MvlCc4GHrmZdAllBc0iUDowff36Q9Ndw/UzqmEKyrfSzokTd9ZCy1i+IIk5hrYKkjoYVQyNbrw7/F8XJ2rEwTg==}
@@ -11746,16 +11773,16 @@ packages:
       hookable: 5.5.3
       jiti: 1.18.2
       magic-string: 0.30.0
-      mkdist: 1.2.0_typescript@5.0.4
+      mkdist: 1.2.0_typescript@5.1.6
       mlly: 1.2.0
       mri: 1.2.0
       pathe: 1.1.0
       pkg-types: 1.0.2
       pretty-bytes: 6.1.0
       rollup: 3.25.1
-      rollup-plugin-dts: 5.3.0_dktzugqt37he3dymofwuxa5bbe
+      rollup-plugin-dts: 5.3.0_ijxnqhgxblczc6chmrw7biegtu
       scule: 1.0.0
-      typescript: 5.0.4
+      typescript: 5.1.6
       untyped: 1.3.2
     transitivePeerDependencies:
       - sass
