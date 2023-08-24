@@ -1,4 +1,4 @@
-# @dopt/react-rich-text
+# @dopt/html-rich-text
 
 ## Overview
 
@@ -12,37 +12,39 @@ It matches rich text types you might find in traditional content management syst
 
 ```bash
 # npm
-npm install @dopt/react-rich-text
+npm install @dopt/html-rich-text
 
 # Yarn
-yarn add @dopt/react-rich-text
+yarn add @dopt/html-rich-text
 
 # pnpm
-pnpm add @dopt/react-rich-text
+pnpm add @dopt/html-rich-text
 ```
 
 ## Usage
 
-The default export from `@dopt/react-rich-text` is a component that you can use to render the contents of Dopt's rich text field.
+The default export from `@dopt/html-rich-text` is a function which produces a string containing HTML.
 
 ```tsx
-import type Children as RichText from '@dopt/react-rich-text';
-import RichText from '@dopt/react-rich-text';
+import type Children as RichText from '@dopt/html-rich-text';
+import RichText from '@dopt/html-rich-text';
 
 function MyContent() {
   const block = useBlock('my-flow.rich-content-block');
 
-  return <RichText>{block.field<RichText>('rich-body')}</RichText>;
+  return RichText({
+    content: block.field<RichText>('rich-body'),
+  });
 }
 ```
 
-## Props
+## Options
 
 ### RichText
 
 | Name      | Type                    | Description                                                                   |
 | --------- | ----------------------- | ----------------------------------------------------------------------------- |
-| children? | [RichText](#richtext-1) | The rich text content for the component                                       |
+| content?  | [RichText](#richtext-1) | The rich text content for the component                                       |
 | noStyles? | boolean                 | Determines if Dopt specified styles are rendered alongside rich text elements |
 
 ## Styling API

@@ -5,7 +5,7 @@ import {
 } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 import { calc } from '@vanilla-extract/css-utils';
-import { vars } from '@dopt/react-theme';
+import { vars } from '@dopt/react-theme/core';
 
 const arrowSize = '--dopt-arrow-size';
 const arrowGap = '--dopt-arrow-gap';

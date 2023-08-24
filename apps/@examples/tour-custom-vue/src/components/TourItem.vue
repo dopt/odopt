@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { Dopt, TourItem } from '@dopt/javascript';
-import { ref, onBeforeUnmount } from 'vue';
+import RichText from '@dopt/html-rich-text';
+import { ref, Ref, inject, onBeforeUnmount } from 'vue';
 import TourItemAction from './TourItemAction.vue';
 
 const indicators = ['🌑', '🌘', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
 
-const {
-  id,
-  dopt,
-  position = 'bottom',
-} = defineProps<{
+const { id, position = 'bottom' } = defineProps<{
   id: TourItem['id'];
-  dopt: Dopt;
   position?: 'top' | 'right' | 'bottom' | 'left';
 }>();
+
+const dopt = inject<Ref<Dopt>>('dopt');
 
 const state = ref<TourItem['state'] | undefined>();
 const item = ref<TourItem | undefined>();
@@ -22,12 +20,12 @@ const unsubscribe = ref<(() => void) | undefined>();
 /**
  * Once dopt is ready
  */
-dopt.initialized().then(() => {
+dopt?.value.initialized().then(() => {
   /**
    * Access the tourItem based on the id
    * passed into the component.
    */
-  item.value = dopt.tourItem(id);
+  item.value = dopt.value.tourItem(id);
 
   /**
    * State is mutable, so we create a ref which updates
@@ -45,26 +43,6 @@ dopt.initialized().then(() => {
 onBeforeUnmount(() => {
   unsubscribe.value && unsubscribe.value();
 });
-
-function body(body: TourItem['body']): string {
-  if (!body || !body[0]) {
-    return '';
-  }
-
-  const p = body[0] as { children: TourItem['body'] };
-
-  if (!p || !p.children || !p.children[0]) {
-    return '';
-  }
-
-  const text = p.children[0] as { text: string };
-
-  if (!text || !text.text) {
-    return '';
-  }
-
-  return text.text;
-}
 </script>
 
 <template>
@@ -78,7 +56,10 @@ function body(body: TourItem['body']): string {
       <header class="tour__popover-header">
         <h1 class="tour__popover-title">{{ item.title }}</h1>
       </header>
-      <p>{{ body(item.body) }}</p>
+      <div
+        class="tour__popover-body"
+        v-html="RichText({ content: item.body })"
+      ></div>
       <footer class="tour__popover-footer">
         <TourItemAction
           v-if="item.index !== 0"

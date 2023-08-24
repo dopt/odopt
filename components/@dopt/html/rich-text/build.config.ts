@@ -2,7 +2,7 @@ import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
   entries: ['src/index', 'src/core'],
-  externals: ['react'],
+  externals: [],
   clean: false,
   rollup: {
     inlineDependencies: true,

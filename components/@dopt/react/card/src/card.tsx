@@ -19,8 +19,6 @@ import { classNameRoot } from './const';
 import type { Card } from '@dopt/semantic-data-layer-card';
 import RichText from '@dopt/react-rich-text';
 
-import '@dopt/react-theme/styles';
-
 const cardClassName = classNameRoot;
 
 export interface CardProps extends ComponentPropsWithoutRef<'div'>, StyleProps {

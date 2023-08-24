@@ -16,6 +16,7 @@
     "vue": "3.3.4",
     "nanoid": "4.0.2",
     "@dopt/javascript": "workspace:*",
+    "@dopt/html-rich-text": "workspace:*",
     "@dopt/users-javascript-browser-client": "workspace:*"
   },
   "devDependencies": {

@@ -6,10 +6,7 @@ import {
 import type { Children, Node } from '@dopt/core-rich-text';
 import { RichTextNode } from './rich-text-node';
 import { clsx } from 'clsx';
-import { classNameRoot } from './const';
-import * as classes from './styles.css';
-
-const richTextClassName = classNameRoot;
+import { themes, classes } from '@dopt/core-rich-text';
 
 export interface RichTextProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
@@ -26,17 +23,13 @@ function RichText(props: RichTextProps, ref?: ForwardedRef<HTMLDivElement>) {
 
   return (
     <div
-      className={clsx([
-        noStyles ? null : classes.richTextRoot,
-        richTextClassName,
-        className,
-      ])}
+      className={clsx([noStyles ? null : themes.root, classes.root, className])}
       {...restProps}
       ref={ref}
     >
       {children.map((descendant: Node, index: number) => (
         <RichTextNode
-          key={`${classNameRoot}__descendant-${index}`}
+          key={`${classes.root}__descendant-${index}`}
           node={descendant}
           noStyles={noStyles}
         />

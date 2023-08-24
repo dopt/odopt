@@ -19,16 +19,16 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
-    "./styles": {
-      "require": "./dist/styles.cjs",
-      "import": "./dist/styles.mjs",
-      "types": "./dist/styles.d.ts"
+    "./core": {
+      "require": "./dist/core.cjs",
+      "import": "./dist/core.mjs",
+      "types": "./dist/core.d.ts"
     }
   },
   "typesVersions": {
     "*": {
-      "styles": [
-        "./dist/styles.d.ts"
+      "core": [
+        "./dist/core.d.ts"
       ]
     }
   },

@@ -1,4 +1,4 @@
-export { RichText as default, type RichTextProps } from './rich-text';
+export { RichText as default, type RichTextOptions } from './rich-text';
 export type { Children } from '@dopt/core-rich-text';
 
 /**
