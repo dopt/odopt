@@ -417,7 +417,7 @@ export function DoptProvider(props: ProviderConfig) {
         stop: () => {
           /* no-op */
         },
-      };
+      } as FlowIntentHandler;
     }
 
     return {
