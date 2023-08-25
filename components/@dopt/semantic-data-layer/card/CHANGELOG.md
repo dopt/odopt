@@ -1,5 +1,12 @@
 # @dopt/semantic-data-layer-card
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [e8e8049bb]
+  - @dopt/core-rich-text@2.1.0
+
 ## 1.0.2
 
 ### Patch Changes

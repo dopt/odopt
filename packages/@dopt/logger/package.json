@@ -10,21 +10,22 @@
   },
   "license": "MIT",
   "private": false,
-  "main": "./dist/index.cjs.js",
+  "main": "./dist/cjs/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs.js",
+      "require": "./dist/cjs/index.cjs.js",
       "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "drb",
+    "build": "pkg-build",
     "clean": "shx rm -rf ./dist",
-    "dev": "drw",
+    "dev": "nodemon --watch ./src --ext '*' --exec pnpm run build",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
@@ -43,8 +44,7 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@dopt/rollup": "workspace:*",
-    "@rollup/plugin-typescript": "11.1.1",
+    "@dopt/pkg-build": "workspace:*",
     "@types/jest": "29.5.2",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
@@ -53,10 +53,9 @@
     "eslint": "8.42.0",
     "eslint-plugin-react": "7.32.2",
     "jest": "29.5.0",
+    "nodemon": "3.0.1",
     "prettier": "2.8.8",
-    "rollup": "3.25.1",
     "shx": "0.3.4",
-    "tslib": "^2.6.2",
     "typescript": "5.1.6"
   },
   "openSource": true

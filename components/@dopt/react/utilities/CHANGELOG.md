@@ -1,5 +1,11 @@
 # @dopt/react-utilities
 
+## 3.0.2
+
+### Patch Changes
+
+- @dopt/react@3.2.2
+
 ## 3.0.1
 
 ### Patch Changes

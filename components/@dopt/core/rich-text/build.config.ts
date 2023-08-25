@@ -1,22 +1,12 @@
-import { defineBuildConfig } from 'unbuild';
+import { external } from '@dopt/pkg-build';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 
-export default defineBuildConfig({
+export default external.browser({
   entries: ['src/index', 'src/styles.css'],
-  clean: false,
-  rollup: {
-    inlineDependencies: true,
-    emitCJS: true,
-    esbuild: {
-      target: 'ESNext',
-      jsx: 'automatic',
-      minify: true,
-    },
-  },
-  declaration: true,
   hooks: {
-    'rollup:options'(_ctx, options) {
+    'rollup:options': (_ctx, options) => {
       if (Array.isArray(options.plugins)) {
+        //@ts-ignore
         options.plugins = [...options.plugins, vanillaExtractPlugin()];
       }
 

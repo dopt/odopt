@@ -7,6 +7,6 @@
     "outDir": "./dist",
     "target": "ESNext"
   },
-  "exclude": ["**/node_modules", "**/dist", "tsup.config.ts"],
+  "exclude": ["**/node_modules", "**/dist", "build.config.ts"],
   "include": ["**/*.ts", "**/*.tsx"]
 }

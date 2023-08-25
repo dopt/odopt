@@ -1,15 +1,3 @@
-import { defineBuildConfig } from 'unbuild';
+import { external } from '@dopt/pkg-build';
 
-export default defineBuildConfig({
-  entries: ['src/index'],
-  clean: false,
-  rollup: {
-    emitCJS: true,
-    esbuild: {
-      target: 'ESNext',
-      jsx: 'automatic',
-      minify: true,
-    },
-  },
-  declaration: true,
-});
+export default external.browser({});

@@ -1,23 +1,13 @@
 {
-  "extends": "@dopt/config/tsconfig/base.json",
+  "extends": "@dopt/config/tsconfig/node.json",
   "compilerOptions": {
+    "resolveJsonModule": true,
     "strict": true,
     "strictPropertyInitialization": false,
     "downlevelIteration": true,
     "noEmit": false,
-    "rootDir": "./src",
-    "declarationMap": false,
-    "declaration": true,
-    "declarationDir": "./types",
-    "outDir": "./dist",
-    "target": "es5"
+    "rootDir": "."
   },
-  "exclude": [
-    "**/node_modules",
-    "**/dist",
-    "rollup.config.ts",
-    "rollup.test.config.ts",
-    "src/__tests__/*"
-  ],
+  "exclude": ["node_modules", "build.config.ts", "dist", "src/__tests__/*"],
   "include": ["**/*.ts"]
 }
