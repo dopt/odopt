@@ -9,20 +9,21 @@
     "directory": "components/@dopt/semantic-data-layer/tour"
   },
   "private": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/cjs/index.cjs.js",
+  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs",
+      "require": "./dist/cjs/index.cjs.js",
+      "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "unbuild",
-    "clean": "shx rm -rf ./dist",
+    "build": "pkg-build",
+    "clean": "pkg-clean",
     "dev": "nodemon --watch ./src --ext '*' --exec pnpm run build",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
@@ -38,7 +39,8 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@types/jest": "29.5.2",
+    "@dopt/pkg-build": "workspace:*",
+    "@dopt/pkg-clean": "workspace:*",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "concurrently": "8.2.0",
@@ -48,9 +50,7 @@
     "jest": "29.5.0",
     "nodemon": "3.0.1",
     "prettier": "2.8.8",
-    "shx": "0.3.4",
-    "typescript": "5.1.6",
-    "unbuild": "1.2.1"
+    "typescript": "5.1.6"
   },
   "dependencies": {
     "@dopt/core-rich-text": "workspace:*"

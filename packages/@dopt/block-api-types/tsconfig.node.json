@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "composite": true,
-    "allowSyntheticDefaultImports": true,
-    "module": "ESNext",
-    "moduleResolution": "Node"
-  },
-  "include": ["build.config.ts"]
-}
