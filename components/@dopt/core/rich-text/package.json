@@ -1,6 +1,6 @@
 {
   "name": "@dopt/core-rich-text",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A package which contains type definitions and schemas for Dopt's rich text fields",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/core/rich-text",
   "repository": {
