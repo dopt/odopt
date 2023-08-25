@@ -96,7 +96,6 @@ export class Dopt {
   private _flowPromises: Map<Flow['sid'], PromiseWithResolver>;
 
   private logger: Logger;
-
   private blocksApi: ReturnType<typeof blocksApi>;
   private flowBlocks: Map<Flow['sid'], Block['uid'][]>;
   private blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
