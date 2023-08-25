@@ -32,6 +32,7 @@ export function transformModernModuleExtensions(
   for (const output of options.output) {
     if (output.format === 'cjs') {
       output.dir = cjs;
+      output.exports = 'named';
       output.entryFileNames = '[name].cjs.js';
       output.chunkFileNames = (chunk) => {
         if (chunk.isDynamicEntry) {
@@ -40,6 +41,7 @@ export function transformModernModuleExtensions(
         return `shared/${ctx.options.name}.[hash].cjs.js`;
       };
     } else if (output.format === 'esm') {
+      output.exports = 'named';
       output.entryFileNames = '[name].esm.js';
       output.chunkFileNames = (chunk) => {
         if (chunk.isDynamicEntry) {
