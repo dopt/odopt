@@ -26,7 +26,7 @@ pnpm add @dopt/react-rich-text
 The default export from `@dopt/react-rich-text` is a component that you can use to render the contents of Dopt's rich text field.
 
 ```tsx
-import type RichText from '@dopt/core-rich-text';
+import type Children as RichText from '@dopt/react-rich-text';
 import RichText from '@dopt/react-rich-text';
 
 function MyContent() {
@@ -40,12 +40,10 @@ function MyContent() {
 
 ### RichText
 
-Extends `HTMLDivElement`.
-
-| Name      | Type                    | Description                                                    |
-| --------- | ----------------------- | -------------------------------------------------------------- |
-| children? | [RichText](#richtext-1) | The rich text content for the component                        |
-| noStyles? | boolean                 | Determines if styles are rendered alongside rich text elements |
+| Name      | Type                    | Description                                                                   |
+| --------- | ----------------------- | ----------------------------------------------------------------------------- |
+| children? | [RichText](#richtext-1) | The rich text content for the component                                       |
+| noStyles? | boolean                 | Determines if Dopt specified styles are rendered alongside rich text elements |
 
 ## Styling API
 

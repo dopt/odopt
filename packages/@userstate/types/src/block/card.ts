@@ -1,5 +1,5 @@
 import { Static, Type } from '@sinclair/typebox';
-import { ComponentFieldDefinition, fieldToString } from 'fields';
+import { ComponentFieldDefinition, fieldToString } from '../fields';
 import { Model } from './model';
 
 export const Card = Type.Object(

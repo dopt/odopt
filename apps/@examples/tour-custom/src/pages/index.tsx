@@ -1,4 +1,3 @@
-// import Tour, { useTourItem } from '@dopt/react-tour';
 import { Tour } from '@/components';
 
 import './index.css';

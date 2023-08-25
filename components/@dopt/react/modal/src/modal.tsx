@@ -22,8 +22,6 @@ import RichText from '@dopt/react-rich-text';
 
 import type { Modal } from '@dopt/semantic-data-layer-modal';
 
-import '@dopt/react-theme/styles';
-
 const modalClassName = classNameRoot;
 
 export interface ModalProps
