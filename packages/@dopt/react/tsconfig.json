@@ -15,12 +15,6 @@
     "rootDir": "./src",
     "target": "es5"
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "rollup.test.config.ts",
-    "rollup.config.ts",
-    "src/__tests__/*"
-  ],
+  "exclude": ["node_modules", "dist", "build.config.ts", "src/__tests__/*"],
   "include": ["**/*.ts", "**/*.tsx"]
 }

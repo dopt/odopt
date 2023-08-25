@@ -37,7 +37,7 @@
   "files": [
     "dist",
     "./tsconfig/base.json",
-    "./tsconfig/node16.json",
+    "./tsconfig/node.json",
     "./tsconfig/nextjs.json",
     "./tsconfig/react-library.json"
   ],

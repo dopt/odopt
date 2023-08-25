@@ -1,0 +1,62 @@
+{
+  "name": "@dopt/pkg-build",
+  "version": "0.0.0",
+  "description": "A utility/tool for building packages",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/pkg/build",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/pkg/build"
+  },
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "bin": "./cli.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "unbuild",
+    "clean": "shx rm -rf ./dist",
+    "dev": "unbuild --stub",
+    "format": "prettier --w .",
+    "formatcheck": "pnpm exec check-formatting",
+    "lint": "eslint .",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "☝️ required package scripts": "",
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/pkg-build\""
+  },
+  "files": [
+    "cli.js",
+    "dist"
+  ],
+  "dependencies": {
+    "@dopt/env": "workspace:*",
+    "citty": "0.1.2",
+    "consola": "3.1.0",
+    "unbuild": "2.0.0"
+  },
+  "devDependencies": {
+    "@dopt/check-formatting": "workspace:*",
+    "@dopt/config": "workspace:*",
+    "@dopt/tsup": "workspace:*",
+    "@types/jest": "29.5.2",
+    "@types/minimist": "1.2.2",
+    "@typescript-eslint/eslint-plugin": "5.59.11",
+    "@typescript-eslint/parser": "5.59.11",
+    "eslint": "8.42.0",
+    "eslint-plugin-react": "7.32.2",
+    "jest": "29.5.0",
+    "prettier": "2.8.8",
+    "shx": "0.3.4",
+    "typescript": "5.1.6"
+  },
+  "openSource": true
+}

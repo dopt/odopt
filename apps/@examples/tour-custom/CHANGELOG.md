@@ -1,5 +1,16 @@
 # @examples/tour-custom
 
+## 0.0.15
+
+### Patch Changes
+
+- ad57aa4e2: remove commented code
+- Updated dependencies [e8e8049bb]
+  - @dopt/react-rich-text@5.2.0
+  - @dopt/react-tour@6.2.0
+  - @dopt/react@3.2.2
+  - @dopt/react-users@0.1.1
+
 ## 0.0.14
 
 ### Patch Changes

@@ -6,6 +6,5 @@
     "outDir": "./dist"
   },
   "exclude": ["**/node_modules", "**/dist", "build.config.ts"],
-  "include": ["**/*.ts", "**/*.tsx"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

@@ -1,6 +1,6 @@
 {
   "name": "@dopt/javascript",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "A JavaScript(-only) SDK for accessing and transitioning block state in Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript",
   "repository": {
@@ -10,34 +10,34 @@
   },
   "license": "MIT",
   "private": false,
-  "main": "./dist/index.cjs.js",
+  "main": "./dist/cjs/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "node": {
-        "require": "./dist/index.cjs.js",
-        "import": "./dist/index.mjs",
+        "require": "./dist/node/index.cjs",
+        "import": "./dist/node/index.mjs",
         "types": "./dist/index.d.ts"
       },
-      "require": "./dist/index.cjs.js",
+      "require": "./dist/cjs/index.cjs.js",
       "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "drb",
-    "clean": "shx rm -rf ./dist",
-    "dev": "NODE_ENV=development drw",
+    "build": "pkg-build",
+    "clean": "pkg-clean",
+    "dev": "NODE_ENV=development nodemon --watch ./src --ext '*' --exec pnpm run build",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",
-    "test": "pnpm test:sh",
+    "test": "echo \"@dopt/javascript has no unit tests\"; exit 0;",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/javascript\"",
-    "test:sh": "./src/__tests__/environment-aware-builds.sh"
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/javascript\""
   },
   "files": [
     "dist"
@@ -56,21 +56,12 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@dopt/rollup": "workspace:*",
-    "@rollup/plugin-node-resolve": "15.1.0",
-    "@rollup/plugin-replace": "^5.0.0",
-    "@rollup/plugin-typescript": "11.1.1",
-    "rollup-plugin-dts": "6.0.0",
-    "rollup-plugin-peer-deps-external": "2.2.4",
-    "@types/node": "18.16.18",
-    "@types/rollup-plugin-peer-deps-external": "^2.2.1",
+    "@dopt/pkg-build": "workspace:*",
+    "@dopt/pkg-clean": "workspace:*",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "eslint": "8.42.0",
     "prettier": "2.8.8",
-    "rollup": "3.25.1",
-    "shx": "0.3.4",
-    "tslib": "^2.6.2",
     "typescript": "5.1.6"
   },
   "openSource": true
