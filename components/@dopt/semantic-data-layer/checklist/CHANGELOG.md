@@ -1,5 +1,12 @@
 # @dopt/semantic-data-layer-checklist
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [e8e8049bb]
+  - @dopt/core-rich-text@2.1.0
+
 ## 0.0.7
 
 ### Patch Changes

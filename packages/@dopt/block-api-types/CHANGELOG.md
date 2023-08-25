@@ -1,5 +1,11 @@
 # @dopt/block-api-types
 
+## 1.2.2
+
+### Patch Changes
+
+- @userstate/types@4.2.2
+
 ## 1.2.1
 
 ### Patch Changes
