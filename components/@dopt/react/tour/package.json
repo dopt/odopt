@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-tour",
-  "version": "6.2.0",
+  "version": "7.0.0",
   "description": "A React tour component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/tour",
   "repository": {

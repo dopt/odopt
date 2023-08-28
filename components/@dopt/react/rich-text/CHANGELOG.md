@@ -1,5 +1,12 @@
 # @dopt/react-rich-text
 
+## 5.2.1
+
+### Patch Changes
+
+- Updated dependencies [8bd8d1167]
+  - @dopt/core-rich-text@2.2.0
+
 ## 5.2.0
 
 ### Minor Changes
