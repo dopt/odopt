@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-modal",
-  "version": "6.2.0",
+  "version": "7.0.0",
   "description": "A React modal component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/modal",
   "repository": {
@@ -10,18 +10,19 @@
   },
   "license": "MIT",
   "private": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/cjs/index.cjs.js",
+  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs",
+      "require": "./dist/cjs/index.cjs.js",
+      "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
     },
     "./hooks": {
-      "require": "./dist/hooks.cjs",
-      "import": "./dist/hooks.mjs",
+      "require": "./dist/cjs/hooks.cjs.js",
+      "import": "./dist/hooks.esm.js",
       "types": "./dist/hooks.d.ts"
     },
     "./styles.css": "./dist/styles.css"
@@ -35,8 +36,8 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "unbuild",
-    "clean": "shx rm -rf ./dist",
+    "build": "pkg-build",
+    "clean": "pkg-clean",
     "dev": "nodemon --watch ./src --ext '*' --exec unbuild",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
@@ -56,6 +57,8 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
+    "@dopt/pkg-build": "workspace:*",
+    "@dopt/pkg-clean": "workspace:*",
     "@dopt/jest-style-transform": "workspace:*",
     "@dopt/react": "workspace:*",
     "@testing-library/jest-dom": "5.16.5",
@@ -65,9 +68,6 @@
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "@vanilla-extract/rollup-plugin": "1.2.2",
-    "concurrently": "8.2.0",
-    "esbuild": "0.18.2",
-    "esbuild-jest": "0.5.0",
     "eslint": "8.42.0",
     "eslint-plugin-react": "7.32.2",
     "jest": "29.5.0",
@@ -75,10 +75,8 @@
     "nodemon": "3.0.1",
     "prettier": "2.8.8",
     "react-dom": "18.2.0",
-    "shx": "0.3.4",
     "ts-jest": "^29.0.3",
-    "typescript": "5.1.6",
-    "unbuild": "1.2.1"
+    "typescript": "5.1.6"
   },
   "dependencies": {
     "@dopt/core-rich-text": "workspace:*",

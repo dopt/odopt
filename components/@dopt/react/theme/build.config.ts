@@ -1,17 +1,6 @@
-import { defineBuildConfig } from 'unbuild';
+import { external } from '@dopt/pkg-build';
 
-export default defineBuildConfig({
+export default external.react({
   entries: ['src/index', 'src/core'],
   externals: ['react'],
-  clean: false,
-  rollup: {
-    inlineDependencies: true,
-    emitCJS: true,
-    esbuild: {
-      target: 'ESNext',
-      jsx: 'automatic',
-      minify: true,
-    },
-  },
-  declaration: true,
 });

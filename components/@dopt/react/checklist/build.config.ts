@@ -1,36 +1,11 @@
-import { defineBuildConfig } from 'unbuild';
-import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import { external, hooks } from '@dopt/pkg-build';
 
-export default defineBuildConfig({
+export default external.react({
   entries: ['src/index', 'src/hooks'],
   externals: ['@dopt/react', 'react'],
-  clean: false,
-  rollup: {
-    inlineDependencies: true,
-    emitCJS: true,
-    esbuild: {
-      target: 'ESNext',
-      jsx: 'automatic',
-      minify: true,
-    },
-  },
-  declaration: true,
   hooks: {
-    'rollup:options'(_ctx, options) {
-      if (Array.isArray(options.plugins)) {
-        options.plugins = [...options.plugins, vanillaExtractPlugin()];
-      }
-
-      if (Array.isArray(options.output)) {
-        for (const outputOptions of options.output) {
-          outputOptions.assetFileNames = ({ name }) => {
-            const fileName = name
-              ?.replace(/^src.*\//, '')
-              .replace(/\.css\.ts\.vanilla.css$/, '.css');
-            return fileName || '';
-          };
-        }
-      }
+    'rollup:options': (ctx, options) => {
+      hooks.transformVanillaExtractExtensions(ctx, options);
     },
   },
 });

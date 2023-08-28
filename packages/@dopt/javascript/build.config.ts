@@ -3,7 +3,7 @@ import { external } from '@dopt/pkg-build';
 //@ts-ignore
 import pkg from './package.json';
 
-export default external.node({
+export default external.isomorphic({
   rollup: {
     replace: {
       values: {
