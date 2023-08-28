@@ -1,5 +1,13 @@
 # @examples/tour-custom-vue
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [8bd8d1167]
+  - @dopt/html-rich-text@0.2.0
+  - @dopt/javascript@3.5.0
+
 ## 0.1.0
 
 ### Minor Changes

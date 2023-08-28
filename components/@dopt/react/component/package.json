@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-component",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Type definitions for @dopt's React components",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/component",
   "repository": {
