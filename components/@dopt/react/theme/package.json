@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-theme",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A library for creating themes to style Dopt's React components",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/theme",
   "repository": {
@@ -10,18 +10,19 @@
   },
   "license": "MIT",
   "private": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/cjs/index.cjs.js",
+  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs",
+      "require": "./dist/cjs/index.cjs.js",
+      "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
     },
     "./core": {
-      "require": "./dist/core.cjs",
-      "import": "./dist/core.mjs",
+      "require": "./dist/cjs/core.cjs.js",
+      "import": "./dist/core.esm.js",
       "types": "./dist/core.d.ts"
     }
   },
@@ -34,8 +35,8 @@
   },
   "scripts": {
     "👇required package scripts": "",
-    "build": "unbuild",
-    "clean": "shx rm -rf ./dist",
+    "build": "pkg-build",
+    "clean": "pkg-clean",
     "dev": "nodemon --watch ./src --ext '*' --exec pnpm run build",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
@@ -54,22 +55,19 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
+    "@dopt/pkg-build": "workspace:*",
+    "@dopt/pkg-clean": "workspace:*",
     "@types/jest": "29.5.2",
     "@types/react": "18.2.12",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
-    "concurrently": "8.2.0",
-    "esbuild": "0.18.2",
-    "esbuild-jest": "0.5.0",
     "eslint": "8.42.0",
     "eslint-plugin-react": "7.32.2",
     "jest": "29.5.0",
     "nodemon": "3.0.1",
     "prettier": "2.8.8",
     "react-dom": "18.2.0",
-    "shx": "0.3.4",
-    "typescript": "5.1.6",
-    "unbuild": "1.2.1"
+    "typescript": "5.1.6"
   },
   "dependencies": {
     "@dopt/core-theme": "workspace:*",

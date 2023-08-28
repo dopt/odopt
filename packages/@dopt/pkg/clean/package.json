@@ -1,7 +1,7 @@
 {
   "name": "@dopt/pkg-clean",
-  "version": "0.0.0",
-  "description": "A utility/tool for cleaning up a package's build artifacts",
+  "version": "1.0.0",
+  "description": "A utility/tool for removing a package's build artifacts",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/pkg/clean",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@dopt/pkg-build",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A utility/tool for building packages",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/pkg/build",
   "repository": {
@@ -41,7 +41,8 @@
     "@dopt/env": "workspace:*",
     "citty": "0.1.2",
     "consola": "3.1.0",
-    "unbuild": "2.0.0"
+    "unbuild": "2.0.0",
+    "@vanilla-extract/rollup-plugin": "1.2.2"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",

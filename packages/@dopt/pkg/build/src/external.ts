@@ -15,8 +15,38 @@ export function node(options: BuildConfig) {
       emitCJS: true,
       ...options.rollup,
       esbuild: {
-        target: 'node16',
-        minify: true,
+        target: ['es2016', 'node16'],
+        minify: isProd(),
+        ...options.rollup?.esbuild,
+      },
+    },
+    hooks: {
+      ...options.hooks,
+      'rollup:options': (ctx, opts) => {
+        transformModernModuleExtensions(ctx, opts);
+
+        if (options?.hooks && options.hooks['rollup:options']) {
+          options.hooks['rollup:options'](ctx, opts);
+        }
+      },
+    },
+  });
+}
+
+export function isomorphic(options: BuildConfig) {
+  return defineBuildConfig({
+    entries: ['src/index'],
+    clean: isProd(),
+    sourcemap: true,
+    declaration: true,
+    ...options,
+    rollup: {
+      inlineDependencies: true,
+      emitCJS: true,
+      ...options.rollup,
+      esbuild: {
+        target: ['es2016', 'node16'],
+        minify: isProd(),
         ...options.rollup?.esbuild,
       },
     },
@@ -46,8 +76,8 @@ export function browser(options: BuildConfig) {
       emitCJS: true,
       ...options.rollup,
       esbuild: {
-        target: ['es2020'],
-        minify: true,
+        target: 'es2016',
+        minify: isProd(),
         ...options.rollup?.esbuild,
       },
     },
@@ -75,9 +105,9 @@ export function react(options: BuildConfig) {
       emitCJS: true,
       ...options.rollup,
       esbuild: {
-        target: ['es2020'],
+        target: 'es2016',
         jsx: 'automatic',
-        minify: true,
+        minify: isProd(),
         ...options.rollup?.esbuild,
       },
     },
