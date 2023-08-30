@@ -58,6 +58,7 @@
     "@dopt/config": "workspace:*",
     "@dopt/pkg-build": "workspace:*",
     "@dopt/pkg-clean": "workspace:*",
+    "@types/node": "18.16.18",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "eslint": "8.42.0",
