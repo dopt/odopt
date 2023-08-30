@@ -1123,6 +1123,7 @@ importers:
       '@dopt/semantic-data-layer-checklist': workspace:*
       '@dopt/semantic-data-layer-modal': workspace:*
       '@dopt/semantic-data-layer-tour': workspace:*
+      '@types/node': 18.16.18
       '@typescript-eslint/eslint-plugin': 5.59.11
       '@typescript-eslint/parser': 5.59.11
       eslint: 8.42.0
@@ -1145,6 +1146,7 @@ importers:
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
       '@dopt/pkg-clean': link:../pkg/clean
+      '@types/node': 18.16.18
       '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
       '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
