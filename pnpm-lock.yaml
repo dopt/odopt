@@ -22,7 +22,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
@@ -39,7 +38,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -59,7 +57,6 @@ importers:
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
       lodash.merge: 4.6.2
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0
       typescript: 5.1.6
@@ -79,7 +76,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
@@ -98,7 +94,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
@@ -115,7 +110,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -145,7 +139,6 @@ importers:
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
@@ -178,7 +171,6 @@ importers:
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
@@ -252,7 +244,6 @@ importers:
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
@@ -286,7 +277,6 @@ importers:
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
@@ -345,7 +335,6 @@ importers:
       '@typescript-eslint/parser': 5.59.11
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       typescript: 5.1.6
@@ -362,7 +351,6 @@ importers:
       '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -392,7 +380,6 @@ importers:
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
@@ -425,7 +412,6 @@ importers:
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
@@ -483,7 +469,6 @@ importers:
       '@typescript-eslint/parser': 5.59.11
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
@@ -503,7 +488,6 @@ importers:
       '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -522,7 +506,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
@@ -543,7 +526,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
@@ -563,7 +545,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
@@ -584,7 +565,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
@@ -619,7 +599,6 @@ importers:
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
@@ -656,7 +635,6 @@ importers:
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
@@ -714,7 +692,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0
       typescript: 5.1.6
@@ -730,7 +707,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
@@ -748,7 +724,6 @@ importers:
       concurrently: 8.2.0
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
@@ -764,7 +739,6 @@ importers:
       concurrently: 8.2.0
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -783,7 +757,6 @@ importers:
       esbuild-jest: 0.5.0
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
@@ -801,7 +774,6 @@ importers:
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -820,7 +792,6 @@ importers:
       esbuild-jest: 0.5.0
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
@@ -838,7 +809,6 @@ importers:
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -856,7 +826,6 @@ importers:
       esbuild-jest: 0.5.0
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
@@ -873,7 +842,6 @@ importers:
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -940,7 +908,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
@@ -959,7 +926,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -1123,6 +1089,7 @@ importers:
       '@dopt/semantic-data-layer-checklist': workspace:*
       '@dopt/semantic-data-layer-modal': workspace:*
       '@dopt/semantic-data-layer-tour': workspace:*
+      '@types/node': 18.16.18
       '@typescript-eslint/eslint-plugin': 5.59.11
       '@typescript-eslint/parser': 5.59.11
       eslint: 8.42.0
@@ -1145,6 +1112,7 @@ importers:
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
       '@dopt/pkg-clean': link:../pkg/clean
+      '@types/node': 18.16.18
       '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
       '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
@@ -1240,7 +1208,6 @@ importers:
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
       loglevel: 1.8.1
-      nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
       typescript: 5.1.6
@@ -1259,7 +1226,6 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2_eslint@8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
       typescript: 5.1.6
@@ -1306,6 +1272,7 @@ importers:
       '@dopt/tsup': workspace:*
       '@types/jest': 29.5.2
       '@types/minimist': 1.2.2
+      '@types/nodemon': 1.19.2
       '@typescript-eslint/eslint-plugin': 5.59.11
       '@typescript-eslint/parser': 5.59.11
       '@vanilla-extract/rollup-plugin': 1.2.2
@@ -1314,6 +1281,7 @@ importers:
       eslint: 8.42.0
       eslint-plugin-react: 7.32.2
       jest: 29.5.0
+      nodemon: 3.0.1
       prettier: 2.8.8
       shx: 0.3.4
       typescript: 5.1.6
@@ -1323,6 +1291,7 @@ importers:
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       citty: 0.1.2
       consola: 3.1.0
+      nodemon: 3.0.1
       unbuild: 2.0.0_typescript@5.1.6
     devDependencies:
       '@dopt/check-formatting': link:../../check-formatting
@@ -1330,6 +1299,7 @@ importers:
       '@dopt/tsup': link:../../tsup
       '@types/jest': 29.5.2
       '@types/minimist': 1.2.2
+      '@types/nodemon': 1.19.2
       '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
       '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
@@ -1481,7 +1451,6 @@ importers:
       '@typescript-eslint/parser': 5.59.11
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       react: 18.2.0
       typescript: 5.1.6
@@ -1499,7 +1468,6 @@ importers:
       '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
       jest: 29.5.0
-      nodemon: 3.0.1
       prettier: 2.8.8
       typescript: 5.1.6
 
@@ -5339,6 +5307,12 @@ packages:
   /@types/node/18.16.18:
     resolution: {integrity: sha512-/aNaQZD0+iSBAGnvvN2Cx92HqE5sZCPZtx2TsK+4nvV23fFe09jVDvpArXr2j9DnYlzuU9WuoykDDc6wqvpNcw==}
 
+  /@types/nodemon/1.19.2:
+    resolution: {integrity: sha512-4GWiTN3HevkxMIxEQ7OpD3MAHhlVsX2tairCMRmf8oYZxmhHw9+UpQpIdGdJrjsMT2Ty26FtJzUUcP/qM5fR8A==}
+    dependencies:
+      '@types/node': 18.16.18
+    dev: true
+
   /@types/prettier/2.7.0:
     resolution: {integrity: sha512-RI1L7N4JnW5gQw2spvL7Sllfuf1SaHdrZpCHiBlCXjIlufi1SMNnbu2teze3/QE67Fg2tBlH7W+mi4hVNk4p0A==}
     dev: true
@@ -5938,6 +5912,7 @@ packages:
 
   /abbrev/1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
+    dev: false
 
   /acorn-globals/7.0.1:
     resolution: {integrity: sha512-umOSDSDrfHbTNPuNpC2NSnnA3LUrqpevPb4T9jRx4MagXNS0rs+gwiTcAvqCRmsD6utzsrzNt+ebm00SNWiC3Q==}
@@ -7012,7 +6987,7 @@ packages:
     dependencies:
       ms: 2.1.3
       supports-color: 5.5.0
-    dev: true
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -8356,7 +8331,7 @@ packages:
 
   /ignore-by-default/1.0.1:
     resolution: {integrity: sha512-Ius2VYcGNk7T90CppJqcIkS5ooHUZyIQK+ClZfMfMNFEF9VSE73Fq+906u/CWu92x4gzZMWOwfFYckPObzdEbA==}
-    dev: true
+    dev: false
 
   /ignore-walk/5.0.1:
     resolution: {integrity: sha512-yemi4pMf51WKT7khInJqAvsIGzoqYXblnsz0ql8tM+yi1EKYTY1evX4NAbJrLL/Aanr2HyZeluqU+Oi7MGHokw==}
@@ -9987,6 +9962,7 @@ packages:
 
   /ms/2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+    dev: false
 
   /mz/2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
@@ -10099,14 +10075,14 @@ packages:
       supports-color: 5.5.0
       touch: 3.1.0
       undefsafe: 2.0.5
-    dev: true
+    dev: false
 
   /nopt/1.0.10:
     resolution: {integrity: sha512-NWmpvLSqUrgrAC9HCuxEvb+PSloHpqVu+FqcO4eeF2h5qYRhA7ev6KvelyQAKtegUbC6RypJnlEOhd8vloNKYg==}
     hasBin: true
     dependencies:
       abbrev: 1.1.1
-    dev: true
+    dev: false
 
   /nopt/5.0.0:
     resolution: {integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==}
@@ -10753,7 +10729,7 @@ packages:
 
   /pstree.remy/1.1.8:
     resolution: {integrity: sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w==}
-    dev: true
+    dev: false
 
   /pump/2.0.1:
     resolution: {integrity: sha512-ruPMNRkN3MHP1cWJc9OWr+T/xDP0jhXYCLfJcBuX54hhfIBnaQmAUMfDcG4DM5UMWByBbJY69QSphm3jtDKIkA==}
@@ -11316,7 +11292,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       semver: 7.5.3
-    dev: true
+    dev: false
 
   /sisteransi/1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
@@ -11845,7 +11821,7 @@ packages:
     hasBin: true
     dependencies:
       nopt: 1.0.10
-    dev: true
+    dev: false
 
   /tough-cookie/4.1.3:
     resolution: {integrity: sha512-aX/y5pVRkfRnfmuX+OdbSdXvPe6ieKX/G2s7e98f4poJHnqH3281gDPm/metm6E/WRamfx7WC4HUqkWHfQHprw==}
@@ -12268,7 +12244,7 @@ packages:
 
   /undefsafe/2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
-    dev: true
+    dev: false
 
   /union-value/1.0.1:
     resolution: {integrity: sha512-tJfXmxMeWYnczCVs7XAEvIV7ieppALdyepWMkHkwciRpZraG/xwT+s2JN8+pr1+8jCRf80FFzvr+MpQeeoF4Xg==}
