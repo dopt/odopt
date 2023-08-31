@@ -25,7 +25,7 @@
     "👇required package scripts": "",
     "build": "pkg-build",
     "clean": "shx rm -rf ./dist",
-    "dev": "pnpm run build --watch src",
+    "dev": "pkg-build -w",
     "format": "prettier --w .",
     "formatcheck": "pnpm exec check-formatting",
     "lint": "eslint .",

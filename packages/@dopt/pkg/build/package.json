@@ -39,10 +39,11 @@
   ],
   "dependencies": {
     "@dopt/env": "workspace:*",
+    "@vanilla-extract/rollup-plugin": "1.2.2",
     "citty": "0.1.2",
     "consola": "3.1.0",
-    "unbuild": "2.0.0",
-    "@vanilla-extract/rollup-plugin": "1.2.2"
+    "nodemon": "3.0.1",
+    "unbuild": "2.0.0"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
@@ -50,6 +51,7 @@
     "@dopt/tsup": "workspace:*",
     "@types/jest": "29.5.2",
     "@types/minimist": "1.2.2",
+    "@types/nodemon": "1.19.2",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "eslint": "8.42.0",
