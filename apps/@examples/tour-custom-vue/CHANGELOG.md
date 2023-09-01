@@ -1,5 +1,13 @@
 # @examples/tour-custom-vue
 
+## 0.1.2
+
+### Patch Changes
+
+- @dopt/html-rich-text@0.2.0
+- @dopt/javascript@3.5.0
+- @dopt/users-javascript-browser-client@1.0.7
+
 ## 0.1.1
 
 ### Patch Changes
