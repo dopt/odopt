@@ -1,6 +1,6 @@
 {
   "name": "@dopt/pkg-lint",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A utility/tool for lintting a packages source",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/pkg/lint",
   "repository": {
