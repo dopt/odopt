@@ -1,12 +1,12 @@
 {
-  "name": "@dopt/pkg-build",
-  "version": "1.1.0",
-  "description": "A utility/tool for building packages",
-  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/pkg/build",
+  "name": "@dopt/pkg-lint",
+  "version": "1.0.0",
+  "description": "A utility/tool for lintting a packages source",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/pkg/lint",
   "repository": {
     "type": "git",
     "url": "https://github.com/dopt/odopt.git",
-    "directory": "packages/@dopt/pkg/build"
+    "directory": "packages/@dopt/pkg/lint"
   },
   "license": "MIT",
   "private": false,
@@ -31,33 +31,33 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/pkg-build\""
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/pkg-lint\""
   },
   "files": [
     "cli.js",
     "dist"
   ],
   "dependencies": {
-    "@dopt/env": "workspace:*",
-    "@vanilla-extract/rollup-plugin": "1.2.2",
     "citty": "0.1.2",
     "consola": "3.1.0",
-    "nodemon": "3.0.1",
+    "eslint": "8.42.0",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "globby": "13.2.2",
+    "prettier": "2.8.8",
     "unbuild": "2.0.0"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/tsup": "workspace:*",
+    "@types/eslint": "8.44.2",
     "@types/jest": "29.5.2",
     "@types/minimist": "1.2.2",
-    "@types/nodemon": "1.19.2",
+    "@types/shelljs": "0.8.12",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
-    "eslint": "8.42.0",
-    "eslint-plugin-react": "7.32.2",
     "jest": "29.5.0",
-    "prettier": "2.8.8",
     "shx": "0.3.4",
     "typescript": "5.1.6"
   },
