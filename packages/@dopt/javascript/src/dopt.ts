@@ -21,12 +21,13 @@ import {
   Block,
   Field,
   FlowParams,
+  FlowIntentParams,
+  BlockIntentParams,
 } from '@dopt/javascript-common';
 
 import { Socket } from 'socket.io-client';
 
-import type { Blocks } from './store';
-import { blockStore, flowStore } from './store';
+import { Blocks, createBlockStore, createFlowStore } from './store';
 
 type PromiseWithResolver = {
   promise: Promise<boolean>;
@@ -92,15 +93,19 @@ export class Dopt {
   private optimisticUpdates: boolean;
 
   private _setup: boolean;
-  private _setupPromise: Promise<void>;
-  private _flowPromises: Map<Flow['sid'], PromiseWithResolver>;
+  private _socketPromise: PromiseWithResolver;
+  private _flowsPromise: PromiseWithResolver;
+  private _registeredFlowPromises: Map<Flow['sid'], PromiseWithResolver>;
 
   private logger: Logger;
-  private blocksApi: ReturnType<typeof blocksApi>;
+  private blocksApi: ReturnType<typeof blocksApi> | undefined;
   private flowBlocks: Map<Flow['sid'], Block['uid'][]>;
   private blockFields: Map<Block['uid'], Map<Field['sid'], Field>>;
   private socket: Socket | undefined;
   private blockUidBySid: Map<Block['sid'], Block['uid']>;
+
+  private blockStore: ReturnType<typeof createBlockStore>;
+  private flowStore: ReturnType<typeof createFlowStore>;
 
   /**
    * Creates a Dopt class instance.
@@ -131,9 +136,6 @@ export class Dopt {
     optimisticUpdates,
   }: DoptConfig) {
     this.apiKey = apiKey;
-    this.userId = userId;
-    this.groupId = groupId;
-    this.flowVersions = flowVersions;
 
     // optimisticUpdates defaults to true
     this.optimisticUpdates =
@@ -145,17 +147,39 @@ export class Dopt {
     this.blockUidBySid = new Map();
     this.blockFields = new Map();
 
-    this._flowPromises = new Map();
+    this.blockStore = createBlockStore();
+    this.flowStore = createFlowStore();
+
+    this._registeredFlowPromises = new Map();
 
     this._setup = false;
 
-    this._setupPromise = this.initialize();
+    let _socketResolve: PromiseWithResolver['resolver'];
+    let _flowsResolve: PromiseWithResolver['resolver'];
 
-    this._setupPromise.then(() => (this._setup = true));
+    this._socketPromise = {
+      promise: new Promise((resolve) => {
+        _socketResolve = resolve;
+      }),
+      resolver: (status: boolean) => _socketResolve(status),
+    };
+
+    this._flowsPromise = {
+      promise: new Promise((resolve) => {
+        _flowsResolve = resolve;
+      }),
+      resolver: (status: boolean) => _flowsResolve(status),
+    };
+
+    this.configure({ userId, groupId, flowVersions });
+
+    Promise.all([this._socketPromise.promise, this._flowsPromise.promise]).then(
+      () => (this._setup = true)
+    );
   }
 
   /**
-   * Returns `true` when this Dopt instance has been intiailized.
+   * Resolves to `true` when this Dopt instance has been intiailized.
    *
    * Dopt-level initialization is defined as:
    * - all flows have been fetched
@@ -181,39 +205,74 @@ export class Dopt {
    * the promise resolves to `true`.
    */
   async initialized(): Promise<boolean> {
-    await this._setupPromise;
-    await Promise.all(
-      Array.from(this._flowPromises.values()).map(({ promise }) => promise)
-    );
+    await Promise.all([
+      this._socketPromise.promise,
+      this._flowsPromise.promise,
+    ]);
 
     return true;
   }
 
-  private async flowInitialized(sid: Flow['sid']): Promise<boolean> {
-    await this._setupPromise;
-    const flowPromise = this._flowPromises.get(sid);
-    return flowPromise ? flowPromise.promise : false;
+  private registerFlowPromise(sid: Flow['sid']): PromiseWithResolver {
+    let flowPromise = this._registeredFlowPromises.get(sid);
+    if (!flowPromise) {
+      let _flowResolve: PromiseWithResolver['resolver'];
+      flowPromise = {
+        promise: new Promise((resolve) => {
+          _flowResolve = resolve;
+        }),
+        resolver: (status: boolean) => _flowResolve(status),
+      };
+      this._registeredFlowPromises.set(sid, flowPromise);
+    }
+
+    return flowPromise;
   }
 
-  private async initialize(config?: Partial<DoptConfig>): Promise<void> {
+  private async flowInitialized(sid: Flow['sid']): Promise<boolean> {
+    return this.registerFlowPromise(sid).promise;
+  }
+
+  async configure(
+    config: Partial<Pick<DoptConfig, 'userId' | 'groupId' | 'flowVersions'>>
+  ): Promise<void> {
     // Merge any updated properties into the instance
     Object.assign(this, config);
 
     const { apiKey, userId, groupId, flowVersions, logger } = this;
 
-    if (!userId) {
+    let proceed = true;
+
+    if (flowVersions == null || Object.keys(flowVersions).length === 0) {
       logger.error(
-        'The `userId` prop is undefined. The SDK will partially initialize, returning defaults for any requested blocks until the `userId` prop becomes defined.'
+        'The `flowVersions` prop is undefined or empty. The SDK will be pending initialization and will return defaults for flows and blocks until you call `configure` with a defined and valid `flowVersions` attribute.'
       );
 
-      throw new Error('The userId prop must be defined within the DoptConfig.');
+      proceed = false;
     }
 
-    if (!groupId) {
+    if (userId == null) {
+      logger.error(
+        'The `userId` prop is undefined. The SDK will be pending initialization and will return defaults for flows and blocks until you call `configure` with a defined `userId` attribute.'
+      );
+
+      proceed = false;
+    }
+
+    if (groupId == null) {
       logger.info(
-        'The `groupId` prop is undefined. The SDK wont be able to target the entry conditions and updates if you have identified and using groups properties.'
+        "The `groupId` prop is undefined. The SDK won't be able to target any entry conditions which use groups properties. You can call `configure` with a defined `groupId` attribute to reinitialize the SDK."
       );
     }
+
+    if (!proceed) {
+      return;
+    }
+
+    /**
+     * Clean up any pre-configured objects that might already exist
+     */
+    this.destroy();
 
     this.blocksApi = blocksApi({
       apiKey,
@@ -235,84 +294,55 @@ export class Dopt {
       groupId,
     });
 
-    const socketReadyPromise = new Promise<void>((resolve) => {
-      this.socket?.on('ready', () => resolve());
-    });
+    this.socket?.on('ready', () => {
+      this.socket?.on('blocks', (blocks: Blocks) => {
+        this.blockStore.setState(blocks);
+      });
 
-    const { getFlow, flowIntent } = this.blocksApi;
-
-    try {
-      const flows: Flow[] = await Promise.all(
-        Object.entries(flowVersions).map(([sid, version]) => {
-          return getFlow({ sid, version });
-        })
-      );
-
-      flows.forEach((flow) => {
-        const flowPromise: PromiseWithResolver = {
-          /**
-           * In its default state, the flowPromise
-           * resolves to true (i.e. the flow is already initialized).
-           */
-          promise: Promise.resolve(true),
-          /**
-           * In its default state, the flowPromise
-           * cannot be resolved. If a new flowPromise
-           * needs to be created (see below),
-           * the resolver will be overwritten.
-           */
-          resolver: (status: boolean) => {
-            status;
-          },
-        };
-
-        if (!flow.state.started) {
-          /**
-           * If the flow has not been started,
-           * we override the flowPromise.
-           */
-          flowPromise.promise = new Promise((resolve) => {
-            flowPromise.resolver = resolve;
-          });
-
-          flowIntent({
-            sid: flow.sid,
-            version: flow.version,
-            intent: 'start',
-          }).then(
-            (intentHasSideEffects) => {
-              /**
-               * If the intent doesn't have side effects,
-               * we can resolve the promise as successfully
-               * initialized.
-               */
-              if (!intentHasSideEffects) {
-                flowPromise.resolver(true);
-              }
-            },
-            () => {
-              /**
-               * If the intent fails,
-               * we can resolve the promise as unsuccessful.
-               */
-              flowPromise.resolver(false);
-            }
-          );
-        }
-
-        this._flowPromises.set(flow.sid, flowPromise);
-
-        // initialize the flow store
-        flowStore.setState(() => ({
+      this.socket?.on('flow', (flow: Flow) => {
+        this.flowStore.setState(() => ({
           [flow.sid]: flow,
         }));
+      });
+
+      this._socketPromise && this._socketPromise.resolver(true);
+    });
+
+    Promise.all(
+      Object.entries(flowVersions).map(async ([sid, tag]): Promise<void> => {
+        const _flowPromise = this.registerFlowPromise(sid);
+
+        if (this.blocksApi == null) {
+          logger.error(
+            `Didn't fetch flow '${sid}' at version ${tag} because the API client was unavailable`
+          );
+          _flowPromise.resolver(false);
+          return;
+        }
+
+        let flow: Flow;
+
+        try {
+          flow = await this.blocksApi.getFlow({ sid, version: tag });
+        } catch (e) {
+          logger.error(`Failed to fetch flow '${sid}' at version ${tag}`, e);
+          _flowPromise.resolver(false);
+          return;
+        }
+
+        // initialize the flow store
+        this.flowStore.setState(() => ({
+          [flow.sid]: flow,
+        }));
+
+        // watch this flow over the socket once the socket is ready
+        this._socketPromise.promise.then(() => {
+          this.socket?.emit('watch:flow', flow.sid, flow.version);
+        });
 
         this.flowBlocks.set(flow.sid, flow.blocks?.map(({ uid }) => uid) || []);
 
         flow.blocks?.forEach((block) => {
-          // initialize the block store
-          blockStore.setState({ [block.uid]: block });
-
           // initialize block uid look up map
           this.blockUidBySid.set(block.sid, block.uid);
 
@@ -323,56 +353,33 @@ export class Dopt {
               return map.set(field.sid, field);
             }, new Map<Field['sid'], Field>())
           );
+
+          // initialize the block store last
+          // this triggers listeners, so we initialize
+          // the block store after the UID and fields are set
+          this.blockStore.setState({ [block.uid]: block });
+
+          // watch this block over the socket once the socket is ready
+          this._socketPromise.promise.then(() => {
+            this.socket?.emit('watch:block', block.uid, block.version);
+          });
         });
-      });
-    } catch (error) {
-      logger.error(`
-            An error occurred while fetching blocks for the
-            flow versions specified: \`${JSON.stringify(flowVersions)}\`
-          `);
-    }
 
-    await socketReadyPromise;
-
-    const updateBlocksState = (blocks: Blocks): void => {
-      blockStore.setState(blocks);
-    };
-
-    const updateFlowState = (flow: Flow): void => {
-      flowStore.setState(() => ({
-        [flow.sid]: flow,
-      }));
-
+        _flowPromise.resolver(true);
+      })
+    ).then(() => {
       /**
-       * In the case where the intent did have side effects,
-       * those side effects will propagate back to the SDK
-       * as flow state updates. We resolve those respective
-       * promises here.
+       * If there are registered promises, they will:
+       * - already be resolved above (the flow loaded or failed)
+       * - they will correspond to a flow that wasn't included and so should fail
+       *
+       * Resolving an already resolved promise will not cause an error
        */
-      const flowPromise = this._flowPromises.get(flow.sid);
-      flowPromise && flowPromise.resolver(true);
-    };
+      for (const { resolver } of this._registeredFlowPromises.values()) {
+        resolver(false);
+      }
 
-    this.socket?.on('blocks', (blocks: Blocks) => {
-      updateBlocksState(blocks);
-    });
-
-    this.socket?.on('flow', (flow: Flow) => {
-      updateFlowState(flow);
-    });
-
-    Object.values(blockStore.getState()).forEach(({ uid, version }) => {
-      this.socket?.emit('watch:block', uid, version);
-      this.socket?.on(`${uid}_${version}`, (blocks: Blocks) => {
-        updateBlocksState(blocks);
-      });
-    });
-
-    Object.values(flowStore.getState()).forEach(({ sid, version }) => {
-      this.socket?.emit('watch:flow', sid, version);
-      this.socket?.on(`${sid}_${version}`, (flow: Flow) => {
-        updateFlowState(flow);
-      });
+      this._flowsPromise.resolver(true);
     });
   }
 
@@ -391,20 +398,18 @@ export class Dopt {
    *
    * @returns A {@link Flow} instance which matches the given `id`.
    */
-  public flow(sid: Flow['sid']) {
-    const {
-      logger,
-      flowBlocks,
-      blocksApi: { flowIntent: intent },
-    } = this;
+  flow(sid: Flow['sid']) {
+    const { flowBlocks } = this;
 
-    if (!this._setup) {
-      logger.info(
-        'Accessing flow() prior to initialization may return incomplete block states. Check `flow.initialized()`.'
-      );
-    }
+    const flow = this.flowStore.getState()[sid] || getDefaultFlowState(sid, -1);
 
-    const flow = flowStore.getState()[sid] || getDefaultFlowState(sid, -1);
+    const intent = async (options: FlowIntentParams) => {
+      if (this.blocksApi) {
+        return this.blocksApi.flowIntent(options);
+      }
+
+      return false;
+    };
 
     return new FlowClass({
       intent,
@@ -412,6 +417,7 @@ export class Dopt {
       flowBlocks,
       flowPromise: this.flowInitialized(sid),
       createBlock: this.block.bind(this),
+      flowStore: this.flowStore,
     });
   }
 
@@ -423,26 +429,31 @@ export class Dopt {
    *
    * @returns An array of all {@link Flow} instances stored by this {@link Dopt} class.
    */
-  public flows() {
-    const {
-      logger,
-      flowBlocks,
-      blocksApi: { flowIntent: intent },
-    } = this;
+  flows() {
+    const { logger, flowBlocks } = this;
+
+    const intent = async (options: FlowIntentParams) => {
+      if (this.blocksApi) {
+        return this.blocksApi.flowIntent(options);
+      }
+
+      return false;
+    };
 
     if (!this._setup) {
-      logger.info(
-        'Accessing flows() prior to initialization may return incomplete block states. Check `flow.initialized()`.'
+      logger.warn(
+        'Accessing flows() prior to initialization will not return all flows. Check `dopt.initialized()`.'
       );
     }
 
-    return Object.values(flowStore.getState()).map((flow) => {
+    return Object.values(this.flowStore.getState()).map((flow) => {
       return new FlowClass({
         intent,
         flow,
         flowBlocks,
         flowPromise: this.flowInitialized(flow.sid),
         createBlock: this.block.bind(this),
+        flowStore: this.flowStore,
       });
     });
   }
@@ -462,7 +473,7 @@ export class Dopt {
    * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
    * @returns A {@link Block} instance corresponding to the id.
    */
-  public block<T>(id: string) {
+  block<T>(id: string) {
     return this._block<BlockClass<T>>(id, (props) => new BlockClass<T>(props));
   }
 
@@ -470,26 +481,25 @@ export class Dopt {
     id: string,
     creator: (_: BlockProps) => C
   ) {
-    const {
-      logger,
-      blocksApi: { blockIntent: intent },
-    } = this;
+    const intent = async (options: BlockIntentParams) => {
+      if (this.blocksApi) {
+        return this.blocksApi.blockIntent(options);
+      }
 
-    if (!this._setup) {
-      logger.error(
-        'Accessing block() prior to initialization will return default block states.'
-      );
-    }
+      return false;
+    };
+
     const uid = this.blockUidBySid.get(id) || id;
-
     const block =
-      blockStore.getState()[uid] || getDefaultBlockState(uid, id, -1);
+      this.blockStore.getState()[uid] || getDefaultBlockState(uid, id, -1);
 
     return creator({
       intent,
       block,
       optimisticUpdates: this.optimisticUpdates,
-      fieldMap: this.blockFields.get(block.uid) || null,
+      blockFields: this.blockFields,
+      blockUidBySid: this.blockUidBySid,
+      blockStore: this.blockStore,
     });
   }
 
@@ -501,24 +511,31 @@ export class Dopt {
    *
    * @returns An array of all {@link Block} instances stored by this {@link Dopt} class.
    */
-  public blocks() {
-    const {
-      logger,
-      blocksApi: { blockIntent: intent },
-    } = this;
+  blocks() {
+    const { logger } = this;
+
+    const intent = async (options: BlockIntentParams) => {
+      if (this.blocksApi) {
+        return this.blocksApi.blockIntent(options);
+      }
+
+      return false;
+    };
 
     if (!this._setup) {
-      logger.error(
-        'Accessing blocks() prior to initialization may return incomplete block states.'
+      logger.info(
+        'Accessing blocks() prior to initialization will not return all blocks. Check `dopt.initialized()`.'
       );
     }
 
-    return Object.entries(blockStore.getState()).map(([, block]) => {
+    return Object.entries(this.blockStore.getState()).map(([, block]) => {
       return new BlockClass({
         intent,
         block,
         optimisticUpdates: this.optimisticUpdates,
-        fieldMap: this.blockFields.get(block.uid) || null,
+        blockFields: this.blockFields,
+        blockUidBySid: this.blockUidBySid,
+        blockStore: this.blockStore,
       });
     });
   }
@@ -538,7 +555,7 @@ export class Dopt {
    * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
    * @returns A {@link Modal} instance corresponding to the id.
    */
-  public modal(id: string) {
+  modal(id: string) {
     return this._block<ModalClass>(id, (props) => new ModalClass(props));
   }
 
@@ -557,7 +574,7 @@ export class Dopt {
    * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
    * @returns A {@link Card} instance corresponding to the id.
    */
-  public card(id: string) {
+  card(id: string) {
     return this._block<CardClass>(id, (props) => new CardClass(props));
   }
 
@@ -576,7 +593,7 @@ export class Dopt {
    * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
    * @returns A {@link Checklist} instance corresponding to the id.
    */
-  public checklist(id: string) {
+  checklist(id: string) {
     return this._block<ChecklistClass>(
       id,
       (props) =>
@@ -602,7 +619,7 @@ export class Dopt {
    * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
    * @returns A {@link ChecklistItem} instance corresponding to the id.
    */
-  public checklistItem(id: string) {
+  checklistItem(id: string) {
     return this._block<ChecklistItemClass>(
       id,
       (props) => new ChecklistItemClass(props)
@@ -624,7 +641,7 @@ export class Dopt {
    * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
    * @returns A {@link Tour} instance corresponding to the id.
    */
-  public tour(id: string) {
+  tour(id: string) {
     return this._block<TourClass>(
       id,
       (props) =>
@@ -650,7 +667,7 @@ export class Dopt {
    * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
    * @returns A {@link TourItem} instance corresponding to the id.
    */
-  public tourItem(id: string) {
+  tourItem(id: string) {
     return this._block<TourItemClass>(
       id,
       (props) =>
@@ -672,9 +689,14 @@ export class Dopt {
   }
 
   /**
-   * Closes the socket connection.
+   * Closes this instance's internal socket connection.
+   *
+   * @remarks
+   * You may want to do this when a component (or set of components)
+   * which depends on this instance is being unmounted and you don't
+   * want to leak an open socket connection.
    */
-  public destroy() {
+  destroy() {
     this.socket?.close();
   }
 }
