@@ -52,7 +52,7 @@ export class Checklist
     return this.children.sort((a, b) => (a.index || 0) - (b.index || 0));
   }
   get size() {
-    return this.childUids.length;
+    return this.childrenUids.length;
   }
   filter(on: FilterableField) {
     return this.items.filter((item) => {
