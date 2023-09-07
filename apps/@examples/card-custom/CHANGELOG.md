@@ -1,5 +1,11 @@
 # @examples/card-custom
 
+## 0.0.9
+
+### Patch Changes
+
+- @dopt/react-users@0.2.2
+
 ## 0.0.8
 
 ### Patch Changes
