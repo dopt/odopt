@@ -4,12 +4,7 @@ import {
   Field,
   BlockIntentParams,
 } from '@dopt/javascript-common';
-
-import { blockStore } from './store';
-
-function resolveBlock(block: BlockType): BlockType {
-  return blockStore.getState()[block.uid] || block;
-}
+import { createBlockStore } from './store';
 
 type BlockTransitions = BlockIntentParams['transitions'];
 
@@ -20,23 +15,45 @@ export interface BlockProps {
   intent: ReturnType<typeof blocksApi>['blockIntent'];
   block: BlockType;
   optimisticUpdates: boolean;
-  fieldMap: Map<Field['sid'], Field> | null;
+  blockFields: Map<BlockType['uid'], Map<Field['sid'], Field>>;
+  blockUidBySid: Map<BlockType['sid'], BlockType['uid']>;
+  blockStore: ReturnType<typeof createBlockStore>;
 }
 
 export class Block<T = unknown> {
-  private intent: BlockProps['intent'];
-  private block: BlockProps['block'];
-  private fieldMap: BlockProps['fieldMap'];
+  private intentApi: BlockProps['intent'];
+  private blockFields: BlockProps['blockFields'];
   private optimisticUpdates: BlockProps['optimisticUpdates'];
+
+  protected resolveInternalBlock: () => BlockType;
+  protected blockStore: BlockProps['blockStore'];
 
   /**
    * @internal
    */
-  constructor({ block, intent, optimisticUpdates, fieldMap }: BlockProps) {
-    this.intent = intent;
-    this.block = block;
+  constructor({
+    block,
+    intent,
+    optimisticUpdates,
+    blockFields,
+    blockUidBySid,
+    blockStore,
+  }: BlockProps) {
+    this.intentApi = intent;
     this.optimisticUpdates = optimisticUpdates;
-    this.fieldMap = fieldMap;
+    this.blockFields = blockFields;
+    this.blockStore = blockStore;
+
+    this.resolveInternalBlock = () => {
+      const uid = blockUidBySid.get(block.sid) || block.uid;
+      /**
+       * To obtain the underlying, non-proxied block, we try to use the blockStore.
+       *
+       * If unavailable, i.e. the block hasn't loaded or has errored,
+       * we use the static block instead.
+       */
+      return blockStore.getState()[uid] || block;
+    };
   }
 
   /**
@@ -49,13 +66,15 @@ export class Block<T = unknown> {
    * configured in app.dopt.com to have an empty value.
    */
   field<V extends Field['value']>(name: string): V | null | undefined {
+    const fieldMap = this.blockFields.get(this.uid);
+
     /**
      * If:
      * - a Block doesn't have fields (Dopt is still loading)
      * - a Block doesn't have the specified field
      * we return `undefined`.
      */
-    if (this.fieldMap == null || !this.fieldMap.has(name)) {
+    if (fieldMap == null || !fieldMap.has(name)) {
       return undefined;
     }
 
@@ -64,29 +83,29 @@ export class Block<T = unknown> {
      * that value has been explicitly configured in
      * Dopt to not have a value.
      */
-    const { value } = this.fieldMap.get(name) ?? { value: null };
+    const { value } = fieldMap.get(name) ?? { value: null };
 
     return value == null ? (value as null) : (value as V);
   }
 
   get type() {
-    return this.block.type;
+    return this.resolveInternalBlock().type;
   }
 
   get kind() {
-    return this.block.kind;
-  }
-
-  get uid() {
-    return this.block.uid;
+    return this.resolveInternalBlock().kind;
   }
 
   get sid() {
-    return this.block.sid;
+    return this.resolveInternalBlock().sid;
+  }
+
+  get uid() {
+    return this.resolveInternalBlock().uid;
   }
 
   get version() {
-    return this.block.version;
+    return this.resolveInternalBlock().version;
   }
 
   /**
@@ -95,7 +114,7 @@ export class Block<T = unknown> {
    * @returns The state of this instance.
    */
   get state(): BlockType['state'] {
-    return resolveBlock(this.block).state;
+    return this.resolveInternalBlock().state;
   }
 
   /**
@@ -125,7 +144,7 @@ export class Block<T = unknown> {
     ? Record<T[number], boolean | undefined>
     : Record<string, boolean | undefined> {
     // overwrite the type of transitioned using generics
-    return resolveBlock(this.block).transitioned as Block<T>['transitioned'];
+    return this.resolveInternalBlock().transitioned as Block<T>['transitioned'];
   }
 
   /**
@@ -164,16 +183,16 @@ export class Block<T = unknown> {
       ? [T[number], ...T[number][]]
       : BlockTransitions
   ) {
-    const { uid, sid, version } = this.block;
+    const { uid, sid, version } = this;
 
-    const storedBlock = blockStore.getState()[this.block.uid];
+    const storedBlock = this.blockStore.getState()[uid];
 
     if (storedBlock) {
-      this.intent({ uid, sid, version, transitions: input });
+      this.intentApi({ uid, sid, version, transitions: input });
 
       if (this.optimisticUpdates && storedBlock.state.active) {
-        blockStore.setState({
-          [this.block.uid]: {
+        this.blockStore.setState({
+          [uid]: {
             ...storedBlock,
             state: {
               entered: true,
@@ -206,8 +225,8 @@ export class Block<T = unknown> {
    * @returns A function which can be called to unsubscribe the listener.
    */
   subscribe(listener: (block: Block<T>) => void) {
-    return blockStore.subscribe(
-      (blocks) => blocks[this.block.uid],
+    return this.blockStore.subscribe(
+      (blocks) => blocks[this.uid],
       () => listener(this)
     );
   }
