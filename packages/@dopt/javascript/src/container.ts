@@ -1,4 +1,3 @@
-import { blockStore } from './store';
 import { Block, BlockProps } from './block';
 
 interface ContainerProps extends BlockProps {
@@ -21,14 +20,26 @@ export abstract class Container<C extends Block> extends Block<
     this.createBlock = createBlock;
   }
 
-  protected childUids(): string[] {
-    const blocks = blockStore.getState();
+  protected abstract childBlockCreator(_: BlockProps): C;
+
+  /**
+   * Returns the UIDs of the block children of this {@link Container}.
+   *
+   * @example
+   * ```js
+   * const uids = container.childrenUids;
+   * console.log(`I have ${uids.length} children!`);
+   *
+   * ```
+   *
+   * @returns An array of the container's children's UIDs.
+   */
+  get childrenUids(): string[] {
+    const blocks = this.blockStore.getState();
     return Object.values(blocks)
       .filter((block) => block.containerUid === this.uid)
       .map((block) => block.uid);
   }
-
-  protected abstract childBlockCreator(_: BlockProps): C;
 
   /**
    * Returns all the block children of this {@link Container}.
@@ -38,7 +49,7 @@ export abstract class Container<C extends Block> extends Block<
    *
    * @example
    * ```js
-   * const data = container.children();
+   * const data = container.children;
    *
    * // can access state properties safely
    * const states = data.map(({ state }) => state);
@@ -47,10 +58,10 @@ export abstract class Container<C extends Block> extends Block<
    * data.map(block => block.transition('default'));
    * ```
    *
-   * @returns An array of {@link Block} which are contained within this flow.
+   * @returns An array of the container's children {@link Block}s.
    */
   get children(): C[] {
-    return this.childUids().map((uid) =>
+    return this.childrenUids.map((uid) =>
       this.createBlock(uid, this.childBlockCreator)
     );
   }
@@ -86,7 +97,7 @@ export abstract class Container<C extends Block> extends Block<
    * @returns A function which can be called to unsubscribe the listener.
    */
   subscribe(listener: (container: Container<C>) => void) {
-    return blockStore.subscribe(
+    return this.blockStore.subscribe(
       (blocks) => {
         /**
          * The subscribed state of a container is **actually**
@@ -94,7 +105,7 @@ export abstract class Container<C extends Block> extends Block<
          *
          * We sort the uids to keep the equality check below stable.
          */
-        const uids = [this.uid, ...this.childUids()].sort();
+        const uids = [this.uid, ...this.childrenUids].sort();
         return uids.map((uid) => blocks[uid]);
       },
       () => listener(this),

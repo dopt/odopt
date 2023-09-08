@@ -1,5 +1,12 @@
 # @dopt/react-users
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [bf06071dc]
+  - @dopt/users-javascript-browser-client@1.1.0
+
 ## 0.2.1
 
 ### Patch Changes
