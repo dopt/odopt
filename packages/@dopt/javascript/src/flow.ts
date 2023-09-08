@@ -5,9 +5,8 @@ import {
   FlowIntentParams,
 } from '@dopt/javascript-common';
 
-import { flowStore } from './store';
-
 import { Block } from './block';
+import { createFlowStore } from './store';
 
 /**
  * @internal
@@ -17,15 +16,18 @@ export interface FlowProps {
   flow: FlowType;
   flowBlocks: Map<FlowType['sid'], BlockType['uid'][]>;
   flowPromise: Promise<boolean>;
+  flowStore: ReturnType<typeof createFlowStore>;
   createBlock: <T>(uid: string) => Block<T>;
 }
 
 export class Flow {
-  private intent: FlowProps['intent'];
-  private flow: FlowProps['flow'];
   private flowBlocks: FlowProps['flowBlocks'];
   private flowPromise: FlowProps['flowPromise'];
   private createBlock: FlowProps['createBlock'];
+  private intentApi: FlowProps['intent'];
+
+  protected resolveInternalFlow: () => FlowType;
+  protected flowStore: FlowProps['flowStore'];
 
   /**
    * @internal
@@ -36,32 +38,43 @@ export class Flow {
     flowBlocks,
     flowPromise,
     createBlock,
+    flowStore,
   }: FlowProps) {
-    this.intent = intent;
-    this.flow = flow;
     this.flowBlocks = flowBlocks;
     this.flowPromise = flowPromise;
     this.createBlock = createBlock;
+    this.intentApi = intent;
+    this.flowStore = flowStore;
+
+    this.resolveInternalFlow = () => {
+      /**
+       * To obtain the underlying, non-proxied flow, we try the flowStore.
+       *
+       * If unavailable, i.e. the flow hasn't loaded or has errored,
+       * we use the static flow instead.
+       */
+      return flowStore.getState()[flow.sid] || flow;
+    };
   }
 
   get type() {
-    return this.flow.type;
+    return this.resolveInternalFlow().type;
   }
 
   get kind() {
-    return this.flow.kind;
+    return this.resolveInternalFlow().kind;
   }
 
   get uid() {
-    return this.flow.uid;
+    return this.resolveInternalFlow().uid;
   }
 
   get sid() {
-    return this.flow.sid;
+    return this.resolveInternalFlow().sid;
   }
 
   get version() {
-    return this.flow.version;
+    return this.resolveInternalFlow().version;
   }
 
   /**
@@ -70,7 +83,7 @@ export class Flow {
    * @returns The state of this instance.
    */
   get state(): FlowType['state'] {
-    return flowStore.getState()[this.flow.sid]?.state || this.flow.state;
+    return this.resolveInternalFlow().state;
   }
 
   /**
@@ -125,16 +138,16 @@ export class Flow {
    * @returns An array of {@link Block} which are contained within this flow.
    */
   get blocks(): Block[] {
-    const uids = this.flowBlocks.get(this.flow.sid) || [];
+    const uids = this.flowBlocks.get(this.sid) || [];
     return uids?.map((uid) => this.createBlock(uid)) || [];
   }
 
-  private _intent(intent: FlowIntentParams['intent'], force?: boolean) {
-    const { sid, version } = this.flow;
-    const storedFlow = flowStore.getState()[this.flow.sid];
+  private _intent(intent: FlowIntentParams['intent'], force?: boolean): void {
+    const { sid, version } = this;
+    const storedFlow = this.flowStore.getState()[sid];
 
     if (storedFlow) {
-      this.intent({ sid, version, intent, force });
+      this.intentApi({ sid, version, intent, force });
     }
   }
 
@@ -226,8 +239,8 @@ export class Flow {
    * @returns A function which can be called to unsubscribe the listener.
    */
   subscribe(listener: (flow: Flow) => void) {
-    return flowStore.subscribe(
-      (flows) => flows[this.flow.sid],
+    return this.flowStore.subscribe(
+      (flows) => flows[this.sid],
       () => listener(this)
     );
   }
