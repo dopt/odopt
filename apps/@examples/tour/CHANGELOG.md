@@ -1,5 +1,11 @@
 # @examples/tour
 
+## 0.1.17
+
+### Patch Changes
+
+- @dopt/react-users@0.2.2
+
 ## 0.1.16
 
 ### Patch Changes

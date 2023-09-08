@@ -7,7 +7,11 @@ import { nanoid } from 'nanoid';
 
 import HomePage from './HomePage.vue';
 
-const dopt = ref<Dopt>();
+const dopt = new Dopt({
+  apiKey: import.meta.env.VITE_DOPT_BLOCKS_API_KEY,
+  flowVersions: { 'custom-tour-component': 1 },
+  userId: undefined,
+});
 
 /**
  * Create a provider for dopt for all children.
@@ -37,14 +41,7 @@ provide('dopt', readonly(dopt));
    */
   await usersClient.users.identifyUser(user);
 
-  /**
-   * Once the user has been created, we can initialize Dopt.
-   */
-  dopt.value = new Dopt({
-    apiKey: import.meta.env.VITE_DOPT_BLOCKS_API_KEY,
-    userId: user.identifier,
-    flowVersions: { 'custom-tour-component': 1 },
-  });
+  dopt.configure({ userId: user.identifier });
 })();
 </script>
 

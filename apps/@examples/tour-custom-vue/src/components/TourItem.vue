@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Dopt, TourItem } from '@dopt/javascript';
 import RichText from '@dopt/html-rich-text';
-import { ref, Ref, inject, onBeforeUnmount } from 'vue';
+import { ref, inject, onBeforeUnmount, shallowRef } from 'vue';
 import TourItemAction from './TourItemAction.vue';
 
 const indicators = ['🌑', '🌘', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
@@ -11,21 +11,18 @@ const { id, position = 'bottom' } = defineProps<{
   position?: 'top' | 'right' | 'bottom' | 'left';
 }>();
 
-const dopt = inject<Ref<Dopt>>('dopt');
+const dopt = inject<Dopt>('dopt');
 
-const state = ref<TourItem['state'] | undefined>();
-const item = ref<TourItem | undefined>();
-const unsubscribe = ref<(() => void) | undefined>();
+const state = ref<TourItem['state']>();
+const item = shallowRef<TourItem>();
+const unsubscribe = shallowRef<(() => void) | undefined>();
 
-/**
- * Once dopt is ready
- */
-dopt?.value.initialized().then(() => {
+if (dopt) {
   /**
    * Access the tourItem based on the id
    * passed into the component.
    */
-  item.value = dopt.value.tourItem(id);
+  item.value = dopt.tourItem(id);
 
   /**
    * State is mutable, so we create a ref which updates
@@ -35,7 +32,7 @@ dopt?.value.initialized().then(() => {
   unsubscribe.value = item.value.subscribe(({ state: updatedState }) => {
     state.value = updatedState;
   });
-});
+}
 
 /**
  * Before unmount, we unsubscribe any subscriptions.
