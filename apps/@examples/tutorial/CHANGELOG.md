@@ -1,5 +1,20 @@
 # @examples/tutorial
 
+## 0.2.0
+
+### Minor Changes
+
+- c01bd5a8b: Update the `TourItem` interface to allow the `tour:` attribute to be `undefined`. This more closely maps what happens when Dopt initializes in the browser. When using a `TourItem`, the item will be available with the appropriate defaults. The `Tour` that it belongs to will only become available once Dopt has loaded since this is a nested dependency.
+
+### Patch Changes
+
+- Updated dependencies [c01bd5a8b]
+- Updated dependencies [c01bd5a8b]
+  - @dopt/react-tour@7.1.0
+  - @dopt/react@3.3.1
+  - @dopt/react-checklist@7.0.1
+  - @dopt/react-modal@7.0.1
+
 ## 0.1.6
 
 ### Patch Changes

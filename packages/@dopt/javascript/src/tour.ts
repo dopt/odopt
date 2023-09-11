@@ -74,12 +74,15 @@ export class TourItem
   extends Block<['next', 'previous']>
   implements TourItemInterface
 {
-  private _tour: () => Tour;
+  private _tour: () => Tour | undefined;
 
   /**
    * @internal
    */
-  constructor({ tour, ...blockProps }: BlockProps & { tour: () => Tour }) {
+  constructor({
+    tour,
+    ...blockProps
+  }: BlockProps & { tour: () => Tour | undefined }) {
     super(blockProps);
     this._tour = tour;
   }

@@ -1,5 +1,12 @@
 # @examples/kanban
 
+## 0.0.51
+
+### Patch Changes
+
+- Updated dependencies [c01bd5a8b]
+  - @dopt/react@3.3.1
+
 ## 0.0.50
 
 ### Patch Changes

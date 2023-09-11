@@ -30,7 +30,7 @@ export interface Tour {
 export interface TourItem {
   id: string;
 
-  tour: Tour;
+  tour: Tour | undefined;
 
   index: number | null | undefined;
 

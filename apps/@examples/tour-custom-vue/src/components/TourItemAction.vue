@@ -24,6 +24,7 @@ const { variant } = defineProps<{
   border-radius: 8px;
   background: #212529;
   transition: background 200ms ease;
+  cursor: pointer;
 }
 
 .button:hover,

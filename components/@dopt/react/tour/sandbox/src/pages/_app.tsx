@@ -39,7 +39,7 @@ function TourStepItem1() {
         <Tour.Content>
           <Tour.Header>
             <Tour.Title>{tourStep.title}</Tour.Title>
-            <Tour.DismissIcon onClick={tourStep.tour.dismiss} />
+            <Tour.DismissIcon onClick={tourStep.tour?.dismiss} />
           </Tour.Header>
           <Tour.Body>{tourStep.body}</Tour.Body>
           <Tour.Footer>
@@ -48,7 +48,10 @@ function TourStepItem1() {
               {tourStep.nextLabel}
             </Tour.NextButton>
           </Tour.Footer>
-          <Tour.Progress count={tourStep.tour.size} index={tourStep.index} />
+          <Tour.Progress
+            count={tourStep.tour?.size || 1}
+            index={tourStep.index}
+          />
         </Tour.Content>
       </Tour.Popover>
     </Tour.Root>
@@ -71,7 +74,7 @@ function TourStepItem2() {
         <Tour.Content>
           <Tour.Header>
             <Tour.Title>{tourStep.title}</Tour.Title>
-            <Tour.DismissIcon onClick={tourStep.tour.dismiss} />
+            <Tour.DismissIcon onClick={tourStep.tour?.dismiss} />
           </Tour.Header>
           <Tour.Body>{tourStep.body}</Tour.Body>
           <Tour.Footer>
@@ -83,7 +86,7 @@ function TourStepItem2() {
             </Tour.NextButton>
           </Tour.Footer>
           <Tour.Progress
-            count={tourStep.tour.size}
+            count={tourStep.tour?.size || 1}
             index={tourStep.index || 0}
           />
         </Tour.Content>

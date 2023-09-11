@@ -1,5 +1,12 @@
 # @dopt/react-modal
 
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies [c01bd5a8b]
+  - @dopt/react@3.3.1
+
 ## 7.0.0
 
 ### Minor Changes
