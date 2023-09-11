@@ -18,7 +18,7 @@ const TourTest = (props: Partial<TourSdl.TourItem>) => (
       <Tour.Content>
         <Tour.Header>
           <Tour.Title>{props.title}</Tour.Title>
-          <Tour.DismissIcon onClick={props.tour && props.tour.dismiss} />
+          <Tour.DismissIcon onClick={props.tour?.dismiss} />
         </Tour.Header>
         <Tour.Body>{props.body}</Tour.Body>
         <Tour.Footer>
@@ -29,7 +29,7 @@ const TourTest = (props: Partial<TourSdl.TourItem>) => (
             {props.nextLabel}
           </Tour.NextButton>
         </Tour.Footer>
-        <Tour.Progress count={props.tour?.size || 0} index={props.index || 0} />
+        <Tour.Progress count={props.tour?.size || 1} index={props.index || 0} />
       </Tour.Content>
     </Tour.Popover>
   </Tour.Root>
