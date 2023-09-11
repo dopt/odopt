@@ -26,6 +26,13 @@ export function Tour(props: TourProps) {
         <div className="tour__popover" data-position={position}>
           <header className="tour__popover-header">
             <h1 className="tour__popover-title">{item.title}</h1>
+            <a
+              className="tour__popover-dismiss"
+              title="Exit tour"
+              onClick={() => item.tour?.dismiss()}
+            >
+              ✖
+            </a>
           </header>
           <RichText>{item.body}</RichText>
           <footer className="tour__popover-footer">

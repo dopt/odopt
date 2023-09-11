@@ -46,7 +46,7 @@ You can initialize Dopt in your app as follows:
 
 ```js
 const dopt = new Dopt({
-  blocksAPIKey,
+  apiKey: 'MY-BLOCKS-API-KEY',
   userId,
   flowVersions: {
     'new-user-onboarding': 3,
@@ -55,52 +55,98 @@ const dopt = new Dopt({
 });
 ```
 
+The Dopt constructor accepts the following parameters:
+
+```ts
+export interface DoptConfig {
+  userId: string | undefined;
+  groupId?: string | undefined;
+  apiKey: string;
+  flowVersions: Record<string, FlowParams['version']>;
+}
+```
+
 Flow versions can be pegged to a fixed version by specifying a number. Alternately, using `"uncommitted"` will reference the uncommitted version in Dopt, and using `"latest"` will references the most recently created version in Dopt.
 
 **⚠️ Warning ⚠️**: Using either `"uncommitted"` or `"latest"` for a flow version will cause updates made in Dopt to be reflected in the provider upon window reload without needing to update or deploy code.
 
-### Flows and blocks
+If your `userId` isn't available at `Dopt` initialization time, you can instead pass: `userId: undefined`. Then, `Dopt` will wait until your `userId` is available before initializing.
 
-The SDK gives you access to two related objects: flows and blocks. Flows are entities representing the flow you designed in Dopt. Blocks are a subset of the blocks in that flow.
+Once your `userId` is available, you can use the `dopt.configure` method to update the plugin:
 
-Flow objects available through the SDK are represented by the following type definition:
+```js
+dopt.configure({ userId });
+```
+
+This is useful in cases where you'd like to create a `Dopt` singleton but can only configure the singleton's user once some downstream asynchronous loading is complete.
+
+### Flows, blocks, and components
+
+The SDK gives you access to two related core classes: flows and blocks, and a set of higher-level component classes. Flows are entities representing the flow you designed in Dopt. Blocks are a subset of the blocks in that flow.
+
+Flow objects available through the SDK are represented by the following pseudo-type definition (the actual implementation uses a class with getters):
 
 ```ts
 interface Flow {
-  readonly uid: string;
-  readonly sid: string;
-  readonly version: number;
-  readonly state: {
+  uid: string;
+  sid: string;
+  version: number;
+  state: {
     started: boolean;
     finished: boolean;
     stopped: boolean;
   };
   blocks: Block[];
+  start(): void;
+  finish(): void;
+  stop(): void;
+  reset(): void;
 }
 ```
 
-The states of a flow are 1:1 with the actions you can perform on a flow. Flows have blocks, which are represented through the following type definition:
+The states of a flow are 1:1 with the actions you can perform on a flow. Flows have blocks, which are represented through the following pseudo-type definition (the actual implementation uses a class with getters):
 
 ```ts
 interface Block {
-  readonly uid: string;
-  readonly sid: string;
-  readonly version: number;
-  readonly state: {
+  uid: string;
+  sid: string;
+  version: number;
+  state: {
     active: boolean;
     entered: boolean;
     exited: boolean;
   };
-  readonly transitioned: Record<string, boolean> | undefined;
+  transitioned: Record<string, boolean> | undefined;
   field: <V extends string | number | boolean>(
     name: string
   ) => V | null | undefined;
+  transition(...input: string[]): void;
 }
 ```
 
 Unlike flows, the states of a block are not all 1:1 with actions you can perform. The `entered` and `exited` states do have an associated action, but the `active` state is special.
 
 **Key concept:** The `active` state of a block is controlled by Dopt and represents where the initialized user (specified by the `userId` prop) is in the flow. As you or other actors perform actions that implicitly transition the user through the flow, the `active` state is updated.
+
+In addition to flows and blocks, the JavaScript SDK also exposes headless component classes which map to the components you can define in Dopt. These components extend the interfaces outlined in: `@dopt/semantic-data-layer-*`. Components encapsulate a lot of the details that flows and blocks expose and allow you to perform simple, semantic actions instead of working with transitions, states, and fields. For example, here is the interface for a `TourItem`.
+
+```ts
+export interface TourItem {
+  id: string;
+  tour: Tour | undefined;
+  index: number | null | undefined;
+  title: string | null | undefined;
+  body: Children | null | undefined;
+  nextLabel: string | null | undefined;
+  backLabel: string | null | undefined;
+  active: boolean;
+  completed: boolean;
+  next: () => void;
+  back: () => void;
+}
+```
+
+**Key concept:** The `TourItem` converts internal fields and exposes values on the instance itself, like `body` which maps to the rich text within the item. Additionally, it also exposes important state parameters like `active` and `completed`, and it also exposes ways to transition state via `next()` and `back()`.
 
 ### Accessing flows and blocks
 
@@ -144,7 +190,7 @@ const flows = dopt.flows();
 flows.forEach((flow) => console.log(flow));
 ```
 
-Additionally, you can access individual flows via the `flow(id: string, version: number)` method:
+Additionally, you can access individual flows via the `flow(id: string)` method:
 
 ```js
 /**
@@ -166,9 +212,31 @@ dopt.initialized().then(() => {
 });
 ```
 
-### Subscribing to flow or block state change
+### Accessing components
 
-You can use the `subscribe()` method on the flow and block instances to listen for changes:
+As with flows and blocks, you can also access component blocks which you've defined within Dopt.
+
+These component classes provide semantic interfaces which translate to actions you can perform on the component.
+
+For example, the `TourItem` component maps to `@dopt/semantic-data-layer-tour`'s `TourItem` interface.
+Instead of using lower-level accessors like `.state` and `.transitioned`, you can instead rely on `.active` and `.completed`.
+Additionally, you can trigger transitions by calling `.next()` and `.back()` which will navigate the user
+forward and backward in the tour.
+
+These semantic accessors and functions provide a nice headless wrapper for building your own `TourItem` component.
+
+The JavaScript SDK has built in headless classes for all Dopt provided components:
+
+- `TourItem` (defined in `@dopt/semantic-data-layer-tour`)
+- `Tour` (defined in `@dopt/semantic-data-layer-tour`)
+- `Checklist` (defined in `@dopt/semantic-data-layer-checklist`)
+- `ChecklistItem` (defined in `@dopt/semantic-data-layer-checklist`)
+- `Modal` (defined in `@dopt/semantic-data-layer-modal`)
+- `Card` (defined in `@dopt/semantic-data-layer-card`)
+
+### Subscribing to state change
+
+You can use the `subscribe()` method on all Dopt JavaScript instances to listen for changes:
 
 ```js
 const block = dopt.block('new-user-onboarding.twenty-llamas-attack');
@@ -254,7 +322,7 @@ const dopt = new Dopt({
 
 ### Optimistic updates
 
-`DoptConfig` and `Dopt` also accept a `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intent method is called. This defaults to `true`. As of right now, only a step block's `complete` intent can be optimistically updated.
+`DoptConfig` and `Dopt` also accept an `optimisticUpdates` (`boolean`) prop that will optimistically update the state of a block when the complete intent method is called. This defaults to `true`. As of right now, only a step block's `complete` intent can be optimistically updated.
 
 ## Feedback
 

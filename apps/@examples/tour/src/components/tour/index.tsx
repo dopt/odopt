@@ -20,7 +20,7 @@ export function Tour(props: TourProps) {
         <DoptTour.Content>
           <DoptTour.Header>
             <DoptTour.Title>{item.title}</DoptTour.Title>
-            <DoptTour.DismissIcon onClick={item.tour.dismiss} />
+            <DoptTour.DismissIcon onClick={item.tour?.dismiss} />
           </DoptTour.Header>
           <DoptTour.Body>{item.body}</DoptTour.Body>
           <DoptTour.Footer>
@@ -33,7 +33,10 @@ export function Tour(props: TourProps) {
               {item.nextLabel}
             </DoptTour.NextButton>
           </DoptTour.Footer>
-          <DoptTour.Progress count={item.tour.size} index={item.index || 0} />
+          <DoptTour.Progress
+            count={item.tour?.size || 1}
+            index={item.index || 0}
+          />
         </DoptTour.Content>
       </DoptTour.Popover>
     </DoptTour.Root>

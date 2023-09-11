@@ -1,0 +1,67 @@
+{
+  "name": "@dopt/vue",
+  "private": false,
+  "version": "0.1.0",
+  "description": "A Vue SDK for accessing and transitioning block state in Dopt",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/vue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/vue"
+  },
+  "license": "MIT",
+  "main": "./dist/cjs/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.cjs.js",
+      "import": "./dist/index.esm.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "pkg-build",
+    "clean": "pkg-clean",
+    "dev": "pkg-build -w",
+    "format": "prettier --write .",
+    "formatcheck": "prettier --check .",
+    "lint": "eslint .",
+    "test": "echo \"@dopt/javascript has no unit tests\"; exit 0;",
+    "typecheck": "vue-tsc --noEmit",
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/vue\""
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "vue": ">= 2.7"
+  },
+  "dependencies": {
+    "@dopt/core-rich-text": "workspace:*",
+    "@dopt/javascript": "workspace:*",
+    "@dopt/javascript-common": "workspace:*",
+    "@dopt/semantic-data-layer-checklist": "workspace:*",
+    "@dopt/semantic-data-layer-card": "workspace:*",
+    "@dopt/semantic-data-layer-modal": "workspace:*",
+    "@dopt/semantic-data-layer-tour": "workspace:*"
+  },
+  "devDependencies": {
+    "@dopt/config": "workspace:*",
+    "@dopt/pkg-build": "workspace:*",
+    "@dopt/pkg-clean": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "5.59.11",
+    "@typescript-eslint/parser": "5.59.11",
+    "eslint": "8.42.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-vue": "9.17.0",
+    "prettier": "2.8.8",
+    "typescript": "5.1.6",
+    "vue-tsc": "1.6.5",
+    "vue-eslint-parser": "9.3.1"
+  },
+  "openSource": true
+}

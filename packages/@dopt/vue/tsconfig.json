@@ -1,0 +1,13 @@
+{
+  "extends": "@dopt/config/tsconfig/node.json",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "downlevelIteration": true,
+    "noEmit": false,
+    "rootDir": "."
+  },
+  "exclude": ["node_modules", "build.config.ts", "dist"],
+  "include": ["src"]
+}

@@ -1,5 +1,16 @@
 # @dopt/javascript
 
+## 3.6.0
+
+### Minor Changes
+
+- c01bd5a8b: No external facing APIs for @dopt/javascript have changed. However, in this release, we've rewritten @dopt/javascript to be more reactive and allow access of flows, blocks, and components before the instance has fully initialized. We've fixed a number of bugs with @dopt/javascript specifically around accessing these objects before the instance was initialized. Additionally, we've introduced a number of quality of life improvements with respect to typedocs, README.md, etc. The new release of @dopt/javascript is used internally by @dopt/vue to power our newly released Vue SDK.
+
+### Patch Changes
+
+- Updated dependencies [c01bd5a8b]
+  - @dopt/semantic-data-layer-tour@0.2.0
+
 ## 3.5.0
 
 ### Minor Changes

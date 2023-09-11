@@ -42,7 +42,7 @@ function MyTourStep({ children }) {
         <TourItem.Content>
           <TourItem.Header>
             <TourItem.Title>{tourItem.title}</TourItem.Title>
-            <TourItem.DismissIcon onClick={tourItem.tour.dismiss} />
+            <TourItem.DismissIcon onClick={tourItem.tour?.dismiss} />
           </TourItem.Header>
           <TourItem.Body>{tourItem.body}</TourItem.Body>
           <TourItem.Footer>
@@ -52,7 +52,7 @@ function MyTourStep({ children }) {
             </TourItem.NextButton>
           </TourItem.Footer>
           <TourItem.Progress
-            count={tourItem.tour.size}
+            count={tourItem.tour?.size || 1}
             index={tourItem.index}
           />
         </TourItem.Content>
@@ -380,7 +380,7 @@ A child of the tour. Includes state accessors and methods for updating state alo
 interface TourItem {
   id: string;
 
-  tour: Tour;
+  tour: Tour | undefined;
 
   index: number | null | undefined;
 

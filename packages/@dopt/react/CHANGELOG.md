@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.1
+
+### Patch Changes
+
+- c01bd5a8b: Adds to and updates typedocs.
+
 ## 3.3.0
 
 ### Minor Changes
