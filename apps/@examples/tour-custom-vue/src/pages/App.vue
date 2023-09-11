@@ -1,22 +1,10 @@
 <script setup lang="ts">
-import { Dopt } from '@dopt/javascript';
 import { DoptApiClient as UsersApiClient } from '@dopt/users-javascript-browser-client';
-
-import { provide, ref, readonly } from 'vue';
 import { nanoid } from 'nanoid';
+import { useUpdateUser } from '@dopt/vue';
 
 import HomePage from './HomePage.vue';
-
-const dopt = new Dopt({
-  apiKey: import.meta.env.VITE_DOPT_BLOCKS_API_KEY,
-  flowVersions: { 'custom-tour-component': 1 },
-  userId: undefined,
-});
-
-/**
- * Create a provider for dopt for all children.
- */
-provide('dopt', readonly(dopt));
+const updateUser = useUpdateUser();
 
 (async function () {
   /**
@@ -40,15 +28,12 @@ provide('dopt', readonly(dopt));
    * Identify the example user to Dopt during App setup.
    */
   await usersClient.users.identifyUser(user);
-
-  dopt.configure({ userId: user.identifier });
+  updateUser(user.identifier);
 })();
 </script>
 
 <template>
-  <template v-if="dopt">
-    <HomePage />
-  </template>
+  <HomePage />
 </template>
 
 <style>

@@ -29,7 +29,10 @@ export function Popover(props: PopoverProps) {
               {item.nextLabel}
             </TourItem.NextButton>
           </TourItem.Footer>
-          <TourItem.Progress count={item.tour.size} index={item.index || 0} />
+          <TourItem.Progress
+            count={item.tour?.size || 1}
+            index={item.index || 0}
+          />
         </TourItem.Content>
       </TourItem.Popover>
     </TourItem.Root>
