@@ -21,6 +21,8 @@ yarn add @dopt/react-card
 pnpm add @dopt/react-card
 ```
 
+If you are using a particular React framework like Next.js, please check out our [framework specific docs](https://docs.dopt.com/components/frameworks/).
+
 ## Usage
 
 ### Modal
