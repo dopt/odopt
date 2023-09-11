@@ -1,5 +1,12 @@
 # @dopt/react-card
 
+## 6.0.1
+
+### Patch Changes
+
+- Updated dependencies [c01bd5a8b]
+  - @dopt/react@3.3.1
+
 ## 6.0.0
 
 ### Minor Changes
