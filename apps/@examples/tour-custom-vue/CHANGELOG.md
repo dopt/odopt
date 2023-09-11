@@ -1,5 +1,16 @@
 # @examples/tour-custom-vue
 
+## 0.2.0
+
+### Minor Changes
+
+- c01bd5a8b: Create the first iteration of @dopt/vue and update @examples/tour-custom-vue to use this iteration. We're releasing @dopt/vue under a minor version while we update our tests and documentation.
+
+### Patch Changes
+
+- Updated dependencies [c01bd5a8b]
+  - @dopt/vue@0.1.0
+
 ## 0.1.3
 
 ### Patch Changes

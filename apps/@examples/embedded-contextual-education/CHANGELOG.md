@@ -1,5 +1,12 @@
 # @examples/embedded-contextual-education
 
+## 0.1.37
+
+### Patch Changes
+
+- Updated dependencies [c01bd5a8b]
+  - @dopt/react@3.3.1
+
 ## 0.1.36
 
 ### Patch Changes
