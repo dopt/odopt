@@ -1,5 +1,12 @@
 # @examples/tour-custom-vue
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [bf06071dc]
+  - @dopt/users-javascript-browser-client@1.1.0
+
 ## 0.1.2
 
 ### Patch Changes

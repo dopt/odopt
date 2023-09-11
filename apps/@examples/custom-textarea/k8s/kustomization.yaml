@@ -1,9 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - custom-textarea.yaml
-
-images:
-  - name: KUSTOMIZE_IMAGE
-    newName: NEW_IMAGE
-    newTag: 'GH_BUILD_TAG'
