@@ -77,6 +77,16 @@
   justify-content: space-between;
 }
 
+.tour__popover-dismiss {
+  cursor: pointer;
+  color: #212529;
+  transition: color 200ms ease;
+}
+
+.tour__popover-dismiss:hover {
+  color: #000;
+}
+
 .tour__popover-footer {
   display: flex;
   gap: 12px;

@@ -41,6 +41,9 @@ type PromiseWithResolver = {
 export interface DoptConfig {
   /**
    * The userId you're fetching block and flows for.
+   * If undefined, Dopt will not initialize.
+   * Instead, it will wait for a `configure({ userId })` call
+   * where a userId is passed in.
    */
   userId: string | undefined;
   /**
@@ -233,6 +236,26 @@ export class Dopt {
     return this.registerFlowPromise(sid).promise;
   }
 
+  /**
+   * Configures a Dopt instance with new properties. For example, if you didn't pass in a userId
+   * initially, you can use this method to configure Dopt to your user.
+   *
+   * @remarks
+   * Before using a Dopt instance, check whether the instance has been {@link Dopt.initialized}.
+   *
+   * @example
+   * ```js
+   * dopt.configure({
+   *   userId: "<MY USER'S ID>",
+   * });
+   * ```
+   *
+   * @param config - a partial {@link DoptConfig}, it only accepts `userId`, `groupId`, and `flowVersions` attributes.
+   *
+   * @returns A promise which resolves once the configuration is complete.
+   * However, you should not rely on this promise since there may be side effects which won't resolve before promise completion.
+   * Instead, rely on `dopt.initialized` to evaluate whether configuration is complete.
+   */
   async configure(
     config: Partial<Pick<DoptConfig, 'userId' | 'groupId' | 'flowVersions'>>
   ): Promise<void> {
@@ -330,11 +353,6 @@ export class Dopt {
           return;
         }
 
-        // initialize the flow store
-        this.flowStore.setState(() => ({
-          [flow.sid]: flow,
-        }));
-
         // watch this flow over the socket once the socket is ready
         this._socketPromise.promise.then(() => {
           this.socket?.emit('watch:flow', flow.sid, flow.version);
@@ -354,16 +372,34 @@ export class Dopt {
             }, new Map<Field['sid'], Field>())
           );
 
-          // initialize the block store last
-          // this triggers listeners, so we initialize
-          // the block store after the UID and fields are set
-          this.blockStore.setState({ [block.uid]: block });
-
           // watch this block over the socket once the socket is ready
           this._socketPromise.promise.then(() => {
             this.socket?.emit('watch:block', block.uid, block.version);
           });
         });
+
+        /**
+         * Initialize the flowStore and blockStore last.
+         * These initializations trigger downstream events
+         * in scenarios where someone has called `dopt.flow`
+         * or `dopt.block` before those objects are initialized.
+         */
+        // initialize the flow store
+        this.flowStore.setState(() => ({
+          [flow.sid]: flow,
+        }));
+
+        /**
+         * Initialize all blocks in this flow at once
+         * so that it doesn't trigger event listeners
+         * serially.
+         */
+        this.blockStore.setState(
+          (flow.blocks || []).reduce((acc, block) => {
+            acc[block.uid] = block;
+            return acc;
+          }, {} as Record<string, Block>)
+        );
 
         _flowPromise.resolver(true);
       })
@@ -385,9 +421,6 @@ export class Dopt {
 
   /**
    * Returns the {@link Flow} associated with the given `id` and `version`.
-   *
-   * @remarks
-   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
    *
    * @example
    * ```js
@@ -460,9 +493,6 @@ export class Dopt {
 
   /**
    * Returns the {@link Block} associated with this `id`.
-   *
-   * @remarks
-   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
    *
    * @example
    * ```js
@@ -543,9 +573,6 @@ export class Dopt {
   /**
    * Returns the {@link Modal} associated with this `id`.
    *
-   * @remarks
-   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
-   *
    * @example
    * ```js
    * const modal = dopt.modal("flow-one.my-modal");
@@ -562,9 +589,6 @@ export class Dopt {
   /**
    * Returns the {@link Card} associated with this `id`.
    *
-   * @remarks
-   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
-   *
    * @example
    * ```js
    * const card = dopt.card("flow-one.my-card");
@@ -580,9 +604,6 @@ export class Dopt {
 
   /**
    * Returns the {@link Checklist} associated with this `id`.
-   *
-   * @remarks
-   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
    *
    * @example
    * ```js
@@ -607,9 +628,6 @@ export class Dopt {
   /**
    * Returns the {@link ChecklistItem} associated with this `id`.
    *
-   * @remarks
-   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
-   *
    * @example
    * ```js
    * const checklistItem = dopt.checklistItem("flow-two.my-checklist-item");
@@ -629,12 +647,9 @@ export class Dopt {
   /**
    * Returns the {@link Tour} associated with this `id`.
    *
-   * @remarks
-   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
-   *
    * @example
    * ```js
-   * const checklist = dopt.checklist("flow-three.my-tour");
+   * const tour = dopt.tour("flow-three.my-tour");
    * ```
    *
    * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the modal.
@@ -655,9 +670,6 @@ export class Dopt {
   /**
    * Returns the {@link TourItem} associated with this `id`.
    *
-   * @remarks
-   * This function will return `undefined` if this {@link Dopt} instance is not initialized.
-   *
    * @example
    * ```js
    * const tourItem = dopt.tourItem("flow-three.my-tour-item");
@@ -674,15 +686,14 @@ export class Dopt {
         new TourItemClass({
           ...props,
           tour: () => {
-            const { containerUid } = props.block;
+            const uid = this.blockUidBySid.get(id) || id;
+            const block = this.blockStore.getState()[uid] || props.block;
 
-            if (!containerUid) {
-              throw new Error(
-                'Cannot construct tour item from block with no tour parent'
-              );
+            if (!block.containerUid) {
+              return undefined;
             }
 
-            return this.tour(containerUid);
+            return this.tour(block.containerUid);
           },
         })
     );

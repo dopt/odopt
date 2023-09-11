@@ -1,80 +1,54 @@
 <script setup lang="ts">
-import { Dopt, TourItem } from '@dopt/javascript';
 import RichText from '@dopt/html-rich-text';
-import { ref, inject, onBeforeUnmount, shallowRef } from 'vue';
 import TourItemAction from './TourItemAction.vue';
+import { useTourItem } from '@dopt/vue';
 
 const indicators = ['🌑', '🌘', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
 
 const { id, position = 'bottom' } = defineProps<{
-  id: TourItem['id'];
+  id: string;
   position?: 'top' | 'right' | 'bottom' | 'left';
 }>();
 
-const dopt = inject<Dopt>('dopt');
-
-const state = ref<TourItem['state']>();
-const item = shallowRef<TourItem>();
-const unsubscribe = shallowRef<(() => void) | undefined>();
-
-if (dopt) {
-  /**
-   * Access the tourItem based on the id
-   * passed into the component.
-   */
-  item.value = dopt.tourItem(id);
-
-  /**
-   * State is mutable, so we create a ref which updates
-   * whenever the item's state updates.
-   */
-  state.value = item.value.state;
-  unsubscribe.value = item.value.subscribe(({ state: updatedState }) => {
-    state.value = updatedState;
-  });
-}
-
-/**
- * Before unmount, we unsubscribe any subscriptions.
- */
-onBeforeUnmount(() => {
-  unsubscribe.value && unsubscribe.value();
-});
+const { active, title, body, index, backLabel, nextLabel, back, next, tour } =
+  useTourItem(id);
 </script>
 
 <template>
-  <div class="tour" :class="{ 'tour--active': item && state?.active }">
+  <div class="tour" :class="{ 'tour--active': active }">
     <div class="tour__anchor"><slot></slot></div>
-    <div
-      v-if="item && state?.active"
-      class="tour__popover"
-      :data-position="position"
-    >
+    <div v-if="active" class="tour__popover" :data-position="position">
       <header class="tour__popover-header">
-        <h1 class="tour__popover-title">{{ item.title }}</h1>
+        <h1 class="tour__popover-title">{{ title }}</h1>
+        <a
+          class="tour__popover-dismiss"
+          title="Exit tour"
+          @click="() => tour()?.dismiss()"
+          >✖</a
+        >
       </header>
       <div
         class="tour__popover-body"
-        v-html="RichText({ content: item.body })"
+        v-html="RichText({ content: body })"
       ></div>
       <footer class="tour__popover-footer">
         <TourItemAction
-          v-if="item.index !== 0"
+          v-if="index !== 0"
           variant="secondary"
-          @click="() => item?.back()"
+          @click="() => back()"
         >
-          {{ item.backLabel }}
+          {{ backLabel }}
         </TourItemAction>
-        <TourItemAction @click="() => item?.next()">{{
-          item.nextLabel
-        }}</TourItemAction>
+        <TourItemAction @click="() => next()">{{ nextLabel }}</TourItemAction>
       </footer>
       <ul class="tour__popover-indicator">
         <li
           v-for="(indicator, i) in indicators"
           :key="indicator"
           class="tour__popover-indicator-item"
-          :class="{ 'tour__popover-indicator-item--active': item.index == i }"
+          :class="{
+            'tour__popover-indicator-item--active': index === i,
+          }"
         >
           {{ indicator }}
         </li>
@@ -171,6 +145,16 @@ onBeforeUnmount(() => {
 .tour__popover-title {
   font-size: 1.25rem;
   margin: 0;
+}
+
+.tour__popover-dismiss {
+  cursor: pointer;
+  color: #212529;
+  transition: color 200ms ease;
+}
+
+.tour__popover-dismiss:hover {
+  color: #000;
 }
 
 .tour__popover-indicator {
