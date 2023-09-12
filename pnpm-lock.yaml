@@ -14,11 +14,11 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       '@vanilla-extract/css': 1.11.1
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
       '@vanilla-extract/css': 1.11.1
@@ -27,10 +27,10 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   components/@dopt/core/theme:
@@ -39,6 +39,7 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       '@types/lodash.merge': 4.6.7
@@ -46,7 +47,6 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       lodash.merge: 4.6.2
-      prettier: 2.8.8
       react-dom: 18.2.0
       typescript: 5.1.6
     dependencies:
@@ -58,11 +58,11 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       '@types/lodash.merge': 4.6.7
       jest: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
 
@@ -73,11 +73,11 @@ importers:
       '@dopt/core-rich-text': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       clsx: 1.2.1
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -87,10 +87,10 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   components/@dopt/react/card:
@@ -101,6 +101,7 @@ importers:
       '@dopt/jest-style-transform': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@dopt/react': workspace:*
       '@dopt/react-component': workspace:*
@@ -115,7 +116,6 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       ts-jest: ^29.0.3
@@ -135,6 +135,7 @@ importers:
       '@dopt/jest-style-transform': link:../../../../packages/@dopt/jest-style-transform
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@dopt/react': link:../../../../packages/@dopt/react
       '@testing-library/jest-dom': 5.16.5
@@ -143,7 +144,6 @@ importers:
       '@types/react': 18.2.12
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
       typescript: 5.1.6
@@ -197,6 +197,7 @@ importers:
       '@dopt/jest-style-transform': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@dopt/react': workspace:*
       '@dopt/react-rich-text': workspace:*
@@ -213,7 +214,6 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       ts-jest: ^29.0.3
@@ -234,6 +234,7 @@ importers:
       '@dopt/jest-style-transform': link:../../../../packages/@dopt/jest-style-transform
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@dopt/react': link:../../../../packages/@dopt/react
       '@testing-library/jest-dom': 5.16.5
@@ -243,7 +244,6 @@ importers:
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
       typescript: 5.1.6
@@ -295,11 +295,11 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       typescript: 5.1.6
     dependencies:
@@ -309,11 +309,11 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   components/@dopt/react/modal:
@@ -324,6 +324,7 @@ importers:
       '@dopt/jest-style-transform': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@dopt/react': workspace:*
       '@dopt/react-portal': workspace:*
@@ -339,7 +340,6 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       ts-jest: ^29.0.3
@@ -359,6 +359,7 @@ importers:
       '@dopt/jest-style-transform': link:../../../../packages/@dopt/jest-style-transform
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@dopt/react': link:../../../../packages/@dopt/react
       '@testing-library/jest-dom': 5.16.5
@@ -368,7 +369,6 @@ importers:
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
       typescript: 5.1.6
@@ -418,12 +418,12 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
       jest: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       typescript: 5.1.6
@@ -435,12 +435,12 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   components/@dopt/react/rich-text:
@@ -450,12 +450,12 @@ importers:
       '@dopt/core-rich-text': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       clsx: 1.2.1
       jest: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       typescript: 5.1.6
@@ -468,11 +468,11 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
 
@@ -483,12 +483,12 @@ importers:
       '@dopt/core-theme': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       '@vanilla-extract/dynamic': 2.0.3
       jest: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       typescript: 5.1.6
@@ -501,11 +501,11 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
 
@@ -517,6 +517,7 @@ importers:
       '@dopt/jest-style-transform': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@dopt/react': workspace:*
       '@dopt/react-portal': workspace:*
@@ -536,7 +537,6 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       react-dom: 18.2.0
       ts-jest: ^29.0.3
@@ -561,6 +561,7 @@ importers:
       '@dopt/jest-style-transform': link:../../../../packages/@dopt/jest-style-transform
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@dopt/react': link:../../../../packages/@dopt/react
       '@testing-library/jest-dom': 5.16.5
@@ -569,7 +570,6 @@ importers:
       '@types/react': 18.2.12
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
       typescript: 5.1.6
@@ -619,11 +619,11 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@dopt/react': workspace:*
       '@types/jest': 29.5.2
       jest: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0
       typescript: 5.1.6
     devDependencies:
@@ -631,11 +631,11 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@dopt/react': link:../../../../packages/@dopt/react
       '@types/jest': 29.5.2
       jest: 29.5.0
-      prettier: 2.8.8
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
 
@@ -646,10 +646,10 @@ importers:
       '@dopt/core-rich-text': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -658,10 +658,10 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   components/@dopt/semantic-data-layer/checklist:
@@ -671,12 +671,12 @@ importers:
       '@dopt/core-rich-text': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       esbuild: 0.18.2
       esbuild-jest: 0.5.0
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -685,12 +685,12 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   components/@dopt/semantic-data-layer/modal:
@@ -700,12 +700,12 @@ importers:
       '@dopt/core-rich-text': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       esbuild: 0.18.2
       esbuild-jest: 0.5.0
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -714,12 +714,12 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       '@types/jest': 29.5.2
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   components/@dopt/semantic-data-layer/tour:
@@ -729,11 +729,11 @@ importers:
       '@dopt/core-rich-text': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       esbuild: 0.18.2
       esbuild-jest: 0.5.0
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -742,11 +742,11 @@ importers:
       '@dopt/config': link:../../../../packages/@dopt/config
       '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
       '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
+      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
       '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   packages/@bodo/tokens:
@@ -802,6 +802,7 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@sinclair/typebox': 0.25.4
       '@types/jest': 29.5.2
@@ -809,7 +810,6 @@ importers:
       esbuild: 0.18.2
       esbuild-jest: 0.5.0
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
     dependencies:
       '@sinclair/typebox': 0.25.4
@@ -819,12 +819,12 @@ importers:
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
       '@dopt/pkg-clean': link:../pkg/clean
+      '@dopt/pkg-format': link:../pkg/format
       '@dopt/pkg-lint': link:../pkg/lint
       '@types/jest': 29.5.2
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   packages/@dopt/check-formatting:
@@ -983,13 +983,13 @@ importers:
       '@dopt/logger': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@dopt/semantic-data-layer-card': workspace:*
       '@dopt/semantic-data-layer-checklist': workspace:*
       '@dopt/semantic-data-layer-modal': workspace:*
       '@dopt/semantic-data-layer-tour': workspace:*
       '@types/node': 18.16.18
-      prettier: 2.8.8
       socket.io-client: 4.6.2
       typescript: 5.1.6
       zustand: ^4.1.3
@@ -1008,9 +1008,9 @@ importers:
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
       '@dopt/pkg-clean': link:../pkg/clean
+      '@dopt/pkg-format': link:../pkg/format
       '@dopt/pkg-lint': link:../pkg/lint
       '@types/node': 18.16.18
-      prettier: 2.8.8
       typescript: 5.1.6
 
   packages/@dopt/javascript-common:
@@ -1021,11 +1021,11 @@ importers:
       '@dopt/logger': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       '@types/node': 18.16.18
       jest: 29.5.0
-      prettier: 2.8.8
       socket.io-client: 4.6.2
       typescript: 5.1.6
     dependencies:
@@ -1037,11 +1037,11 @@ importers:
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
       '@dopt/pkg-clean': link:../pkg/clean
+      '@dopt/pkg-format': link:../pkg/format
       '@dopt/pkg-lint': link:../pkg/lint
       '@types/jest': 29.5.2
       '@types/node': 18.16.18
       jest: 29.5.0_@types+node@18.16.18
-      prettier: 2.8.8
       typescript: 5.1.6
 
   packages/@dopt/jest-style-transform:
@@ -1088,6 +1088,7 @@ importers:
       '@dopt/check-formatting': workspace:*
       '@dopt/config': workspace:*
       '@dopt/pkg-build': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/jest': 29.5.2
       chalk: 4.1.2
@@ -1095,7 +1096,6 @@ importers:
       esbuild-jest: 0.5.0
       jest: 29.5.0
       loglevel: 1.8.1
-      prettier: 2.8.8
       shx: 0.3.4
       typescript: 5.1.6
     dependencies:
@@ -1105,12 +1105,12 @@ importers:
       '@dopt/check-formatting': link:../check-formatting
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
+      '@dopt/pkg-format': link:../pkg/format
       '@dopt/pkg-lint': link:../pkg/lint
       '@types/jest': 29.5.2
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       jest: 29.5.0
-      prettier: 2.8.8
       shx: 0.3.4
       typescript: 5.1.6
 
@@ -1234,6 +1234,47 @@ importers:
       shx: 0.3.4
       typescript: 5.1.6
 
+  packages/@dopt/pkg/format:
+    specifiers:
+      '@dopt/check-formatting': workspace:*
+      '@dopt/config': workspace:*
+      '@dopt/tsup': workspace:*
+      '@types/jest': 29.5.2
+      '@types/minimist': 1.2.2
+      '@types/shelljs': 0.8.12
+      '@typescript-eslint/eslint-plugin': 5.59.11
+      '@typescript-eslint/parser': 5.59.11
+      chalk: 4.1.2
+      citty: 0.1.2
+      eslint: 8.42.0
+      eslint-plugin-react: 7.32.2
+      globby: 13.2.2
+      jest: 29.5.0
+      prettier: 2.8.8
+      shx: 0.3.4
+      typescript: 5.1.6
+      unbuild: 2.0.0
+    dependencies:
+      chalk: 4.1.2
+      citty: 0.1.2
+      globby: 13.2.2
+      prettier: 2.8.8
+      unbuild: 2.0.0_typescript@5.1.6
+    devDependencies:
+      '@dopt/check-formatting': link:../../check-formatting
+      '@dopt/config': link:../../config
+      '@dopt/tsup': link:../../tsup
+      '@types/jest': 29.5.2
+      '@types/minimist': 1.2.2
+      '@types/shelljs': 0.8.12
+      '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
+      '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
+      eslint: 8.42.0
+      eslint-plugin-react: 7.32.2_eslint@8.42.0
+      jest: 29.5.0
+      shx: 0.3.4
+      typescript: 5.1.6
+
   packages/@dopt/pkg/lint:
     specifiers:
       '@dopt/check-formatting': workspace:*
@@ -1338,10 +1379,10 @@ importers:
       '@dopt/logger': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
-      prettier: 2.8.8
       react: '>=16.8.0'
       socket.io-client: 4.6.2
       typescript: 5.1.6
@@ -1355,10 +1396,10 @@ importers:
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
       '@dopt/pkg-clean': link:../pkg/clean
+      '@dopt/pkg-format': link:../pkg/format
       '@dopt/pkg-lint': link:../pkg/lint
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
-      prettier: 2.8.8
       typescript: 5.1.6
 
   packages/@dopt/react-users:
@@ -1367,12 +1408,12 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@dopt/users-javascript-browser-client': '*'
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      prettier: 2.8.8
       react: 18.2.0
       typescript: 5.1.6
     dependencies:
@@ -1383,11 +1424,11 @@ importers:
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
       '@dopt/pkg-clean': link:../pkg/clean
+      '@dopt/pkg-format': link:../pkg/format
       '@dopt/pkg-lint': link:../pkg/lint
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      prettier: 2.8.8
       typescript: 5.1.6
 
   packages/@dopt/rollup:
@@ -1522,6 +1563,7 @@ importers:
       '@dopt/javascript-common': workspace:*
       '@dopt/pkg-build': workspace:*
       '@dopt/pkg-clean': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/semantic-data-layer-card': workspace:*
       '@dopt/semantic-data-layer-checklist': workspace:*
       '@dopt/semantic-data-layer-modal': workspace:*
@@ -1531,7 +1573,6 @@ importers:
       eslint: 8.42.0
       eslint-config-prettier: 8.8.0
       eslint-plugin-vue: 9.17.0
-      prettier: 2.8.8
       typescript: 5.1.6
       vue: '>= 2.7'
       vue-eslint-parser: 9.3.1
@@ -1549,12 +1590,12 @@ importers:
       '@dopt/config': link:../config
       '@dopt/pkg-build': link:../pkg/build
       '@dopt/pkg-clean': link:../pkg/clean
+      '@dopt/pkg-format': link:../pkg/format
       '@typescript-eslint/eslint-plugin': 5.59.11_35qmp7m56iklxcq7afme4kpjwa
       '@typescript-eslint/parser': 5.59.11_2hgafj6nysxfrciqm6sw63gw3m
       eslint: 8.42.0
       eslint-config-prettier: 8.8.0_eslint@8.42.0
       eslint-plugin-vue: 9.17.0_eslint@8.42.0
-      prettier: 2.8.8
       typescript: 5.1.6
       vue-eslint-parser: 9.3.1_eslint@8.42.0
       vue-tsc: 1.6.5_typescript@5.1.6
@@ -1612,13 +1653,13 @@ importers:
       '@dopt/config': workspace:*
       '@dopt/core-rich-text': workspace:*
       '@dopt/pkg-build': workspace:*
+      '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@sinclair/typebox': 0.25.4
       '@types/jest': 29.5.2
       esbuild: 0.18.2
       esbuild-jest: 0.5.0
       jest: 29.5.0
-      prettier: 2.8.8
       shx: 0.3.4
       typescript: 5.1.6
     dependencies:
@@ -1628,12 +1669,12 @@ importers:
       '@dopt/check-formatting': link:../../@dopt/check-formatting
       '@dopt/config': link:../../@dopt/config
       '@dopt/pkg-build': link:../../@dopt/pkg/build
+      '@dopt/pkg-format': link:../../@dopt/pkg/format
       '@dopt/pkg-lint': link:../../@dopt/pkg/lint
       '@types/jest': 29.5.2
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       jest: 29.5.0
-      prettier: 2.8.8
       shx: 0.3.4
       typescript: 5.1.6
 
@@ -3486,7 +3527,7 @@ packages:
     resolution: {integrity: sha512-8KG5RD0GVP4ydEzRn/I4BNDuxDtqVbOdm8675T49OIG/NGhaK0pjPX7ZcDlvKYbA+ulvVK3ztfcF4uBdOxuJbQ==}
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /@npmcli/move-file/1.1.2:
@@ -3705,7 +3746,7 @@ packages:
       path-exists: 4.0.0
       ramda: /@pnpm/ramda/0.28.1
       run-groups: 3.0.1
-      semver: 7.5.3
+      semver: 7.5.4
       version-selector-type: 3.0.0
     transitivePeerDependencies:
       - '@yarnpkg/core'
@@ -3743,7 +3784,7 @@ packages:
       ramda: /@pnpm/ramda/0.28.1
       right-pad: 1.0.1
       rxjs: 7.8.1
-      semver: 7.5.3
+      semver: 7.5.4
       stacktracey: 2.1.8
       string-length: 4.0.2
       strip-ansi: 6.0.1
@@ -3762,7 +3803,7 @@ packages:
       '@pnpm/crypto.base32-hash': 2.0.0
       '@pnpm/types': 9.0.0
       encode-registry: 3.0.0
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /@pnpm/directory-fetcher/6.0.0_@pnpm+logger@5.0.0:
@@ -3988,7 +4029,7 @@ packages:
       '@yarnpkg/extensions': 2.0.0-rc.22_@yarnpkg+core@4.0.0-rc.40
       normalize-path: 3.0.0
       ramda: /@pnpm/ramda/0.28.1
-      semver: 7.5.3
+      semver: 7.5.4
     transitivePeerDependencies:
       - '@yarnpkg/core'
     dev: false
@@ -4060,7 +4101,7 @@ packages:
       js-yaml: /@zkochan/js-yaml/0.0.6
       normalize-path: 3.0.0
       ramda: /@pnpm/ramda/0.28.1
-      semver: 7.5.3
+      semver: 7.5.4
       sort-keys: 4.2.0
       strip-bom: 4.0.0
       write-file-atomic: 5.0.0
@@ -4144,7 +4185,7 @@ packages:
       '@pnpm/lockfile-types': 5.0.0
       comver-to-semver: 1.0.0
       ramda: /@pnpm/ramda/0.28.1
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /@pnpm/modules-cleaner/14.0.0_@pnpm+logger@5.0.0:
@@ -4227,7 +4268,7 @@ packages:
     engines: {node: '>=14.6'}
     dependencies:
       hosted-git-info: 4.1.0
-      semver: 7.5.3
+      semver: 7.5.4
       validate-npm-package-name: 4.0.0
     dev: false
 
@@ -4256,7 +4297,7 @@ packages:
       path-temp: 2.0.0
       ramda: /@pnpm/ramda/0.28.1
       rename-overwrite: 4.0.3
-      semver: 7.5.3
+      semver: 7.5.4
       ssri: 10.0.1
       version-selector-type: 3.0.0
     transitivePeerDependencies:
@@ -4285,7 +4326,7 @@ packages:
       detect-libc: 2.0.1
       execa: /safe-execa/0.1.2
       mem: 8.1.1
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /@pnpm/package-requester/21.0.0_@pnpm+logger@5.0.0:
@@ -4317,7 +4358,7 @@ packages:
       ramda: /@pnpm/ramda/0.28.1
       rename-overwrite: 4.0.3
       safe-promise-defer: 1.0.1
-      semver: 7.5.3
+      semver: 7.5.4
       ssri: 10.0.1
     dev: false
 
@@ -4532,7 +4573,7 @@ packages:
       ramda: /@pnpm/ramda/0.28.1
       rename-overwrite: 4.0.3
       safe-promise-defer: 1.0.1
-      semver: 7.5.3
+      semver: 7.5.4
       semver-range-intersect: 0.3.1
       string.prototype.replaceall: 1.0.7
       version-selector-type: 3.0.0
@@ -4545,7 +4586,7 @@ packages:
     resolution: {integrity: sha512-iVjwmAf1exrc8fXeKnxs5hMFEB/DBqUtbJmUVukYzUYo7PNbs68uEesE3YKEPZa1zSSIrRDnTsECXH82ZBhuxw==}
     engines: {node: '>=16.14'}
     dependencies:
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /@pnpm/resolver-base/10.0.0:
@@ -5472,7 +5513,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.5.3
+      semver: 7.5.4
       tsutils: 3.21.0_typescript@5.1.6
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -5485,7 +5526,7 @@ packages:
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      '@eslint-community/eslint-utils': 4.3.0_eslint@8.42.0
+      '@eslint-community/eslint-utils': 4.4.0_eslint@8.42.0
       '@types/json-schema': 7.0.11
       '@types/semver': 7.3.12
       '@typescript-eslint/scope-manager': 5.59.11
@@ -5493,7 +5534,7 @@ packages:
       '@typescript-eslint/typescript-estree': 5.59.11_typescript@5.1.6
       eslint: 8.42.0
       eslint-scope: 5.1.1
-      semver: 7.5.3
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -5790,7 +5831,7 @@ packages:
       lodash: 4.17.21
       micromatch: 4.0.5
       p-limit: 2.3.0
-      semver: 7.5.3
+      semver: 7.5.4
       strip-ansi: 6.0.1
       tar: 6.1.11
       tinylogic: 2.0.0
@@ -5823,7 +5864,7 @@ packages:
       lodash: 4.17.21
       micromatch: 4.0.5
       p-limit: 2.3.0
-      semver: 7.5.3
+      semver: 7.5.4
       strip-ansi: 6.0.1
       tar: 6.1.11
       tinylogic: 2.0.0
@@ -6564,7 +6605,7 @@ packages:
   /builtins/5.0.1:
     resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
     dependencies:
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /bundle-require/4.0.0_esbuild@0.18.2:
@@ -9367,7 +9408,7 @@ packages:
       jest-util: 29.6.1
       natural-compare: 1.4.0
       pretty-format: 29.5.0
-      semver: 7.5.3
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -10154,7 +10195,7 @@ packages:
       nopt: 5.0.0
       npmlog: 6.0.2
       rimraf: 3.0.2
-      semver: 7.5.3
+      semver: 7.5.4
       tar: 6.1.11
       which: 2.0.2
     transitivePeerDependencies:
@@ -10207,7 +10248,7 @@ packages:
     dependencies:
       hosted-git-info: 6.1.1
       is-core-module: 2.10.0
-      semver: 7.5.3
+      semver: 7.5.4
       validate-npm-package-license: 3.0.4
     dev: false
 
@@ -11338,7 +11379,6 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-    dev: true
 
   /set-blocking/2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
@@ -11409,7 +11449,7 @@ packages:
     resolution: {integrity: sha512-a2B9Y0KlNXl9u/vsW6sTIu9vGEpfKu2wRV6l1H3XEas/0gUIzGzBoP/IouTcUQbm9JWZLH3COxyn03TYlFax6w==}
     engines: {node: '>=10'}
     dependencies:
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /sisteransi/1.0.5:
@@ -12501,7 +12541,7 @@ packages:
     resolution: {integrity: sha512-PSvMIZS7C1MuVNBXl/CDG2pZq8EXy/NW2dHIdm3bVP5N0PC8utDK8ttXLXj44Gn3J0lQE3U7Mpm1estAOd+eiA==}
     engines: {node: '>=10.13'}
     dependencies:
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /vite-node/0.28.5:
