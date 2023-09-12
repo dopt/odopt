@@ -1,5 +1,11 @@
 # @dopt/react-rich-text
 
+## 5.2.2
+
+### Patch Changes
+
+- 7461c0069: add docs for framework-specific setup
+
 ## 5.2.1
 
 ### Patch Changes
