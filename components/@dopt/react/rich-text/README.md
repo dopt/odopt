@@ -21,6 +21,8 @@ yarn add @dopt/react-rich-text
 pnpm add @dopt/react-rich-text
 ```
 
+If you are using a particular React framework like Next.js, please check out our [framework specific docs](https://docs.dopt.com/components/frameworks/).
+
 ## Usage
 
 The default export from `@dopt/react-rich-text` is a component that you can use to render the contents of Dopt's rich text field.
