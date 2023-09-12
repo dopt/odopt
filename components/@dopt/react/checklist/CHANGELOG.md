@@ -1,5 +1,15 @@
 # @dopt/react-checklist
 
+## 7.0.2
+
+### Patch Changes
+
+- 7461c0069: add docs for framework-specific setup
+- Updated dependencies [7461c0069]
+  - @dopt/react-rich-text@5.2.2
+  - @dopt/react@3.3.2
+  - @dopt/react-utilities@4.0.2
+
 ## 7.0.1
 
 ### Patch Changes
