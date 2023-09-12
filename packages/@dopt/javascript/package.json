@@ -31,8 +31,8 @@
     "build": "pkg-build",
     "clean": "pkg-clean",
     "dev": "pkg-build -w",
-    "format": "prettier --w .",
-    "formatcheck": "pnpm exec check-formatting",
+    "format": "pkg-format",
+    "formatcheck": "pkg-format -c",
     "lint": "pkg-lint",
     "test": "echo \"@dopt/javascript has no unit tests\"; exit 0;",
     "typecheck": "tsc --noEmit",
@@ -60,7 +60,7 @@
     "@dopt/pkg-lint": "workspace:*",
     "@dopt/pkg-clean": "workspace:*",
     "@types/node": "18.16.18",
-    "prettier": "2.8.8",
+    "@dopt/pkg-format": "workspace:*",
     "typescript": "5.1.6"
   },
   "openSource": true
