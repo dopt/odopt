@@ -21,6 +21,8 @@ yarn add @dopt/react-modal
 pnpm add @dopt/react-modal
 ```
 
+If you are using a particular React framework like Next.js, please check out our [framework specific docs](https://docs.dopt.com/components/frameworks/).
+
 ## Usage
 
 The default export from `@dopt/react-modal` is a collection of components that you can use to structure and compose a modal.

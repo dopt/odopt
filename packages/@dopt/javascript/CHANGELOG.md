@@ -1,5 +1,13 @@
 # @dopt/javascript
 
+## 3.6.1
+
+### Patch Changes
+
+- Updated dependencies [1f5499ee6]
+  - @dopt/logger@0.2.0
+  - @dopt/javascript-common@2.3.1
+
 ## 3.6.0
 
 ### Minor Changes

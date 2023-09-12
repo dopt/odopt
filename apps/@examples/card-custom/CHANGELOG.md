@@ -1,5 +1,14 @@
 # @examples/card-custom
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [7461c0069]
+  - @dopt/react-rich-text@5.2.2
+  - @dopt/react-card@6.0.2
+  - @dopt/react@3.3.2
+
 ## 0.0.10
 
 ### Patch Changes

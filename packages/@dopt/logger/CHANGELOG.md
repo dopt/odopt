@@ -1,5 +1,11 @@
 # @dopt/logger
 
+## 0.2.0
+
+### Minor Changes
+
+- 1f5499ee6: Rewrite logger's `loglevel` dependency to use more friendly ES6 module import syntax to be friendly with next's bundler.
+
 ## 0.1.0
 
 ### Minor Changes
