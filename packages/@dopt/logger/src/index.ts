@@ -1,4 +1,4 @@
-import * as log from 'loglevel';
+import log from 'loglevel';
 import { nodeStyle, browserStyle } from './style';
 
 export interface LogLevelsOrder {
