@@ -21,6 +21,8 @@ yarn add @dopt/react-tour
 pnpm add @dopt/react-tour
 ```
 
+If you are using a particular React framework like Next.js, please check out our [framework specific docs](https://docs.dopt.com/components/frameworks/).
+
 ## Usage
 
 The default export from `@dopt/react-tour` is a collection of components that you can use to structure and compose a tour item.

@@ -1,5 +1,12 @@
 # @dopt/vue
 
+## 0.1.1
+
+### Patch Changes
+
+- @dopt/javascript@3.6.1
+- @dopt/javascript-common@2.3.1
+
 ## 0.1.0
 
 ### Minor Changes

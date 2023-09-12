@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-card",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "A React card component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/card",
   "repository": {
@@ -39,8 +39,8 @@
     "build": "pkg-build",
     "clean": "pkg-clean",
     "dev": "pkg-build -w",
-    "format": "prettier --w .",
-    "formatcheck": "pnpm exec check-formatting",
+    "format": "pkg-format",
+    "formatcheck": "pkg-format -c",
     "lint": "pkg-lint -i sandbox",
     "test": "jest",
     "typecheck": "tsc --noEmit",
@@ -68,7 +68,7 @@
     "@types/react": "18.2.12",
     "jest": "29.5.0",
     "jest-environment-jsdom": "29.5.0",
-    "prettier": "2.8.8",
+    "@dopt/pkg-format": "workspace:*",
     "react-dom": "18.2.0",
     "ts-jest": "^29.0.3",
     "typescript": "5.1.6"
