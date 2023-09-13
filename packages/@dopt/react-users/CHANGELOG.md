@@ -1,5 +1,12 @@
 # @dopt/react-users
 
+## 0.2.3
+
+### Patch Changes
+
+- a3a2cec21: - add explicit react import
+  - add eslint rules for react/react-in-jsx-scope and react/jsx-uses-react
+
 ## 0.2.2
 
 ### Patch Changes

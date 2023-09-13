@@ -1,6 +1,6 @@
 {
   "name": "@dopt/config",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "description": "Centralized and shared configuration for eslint, jest,prettier, and tsconfig ",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/config",

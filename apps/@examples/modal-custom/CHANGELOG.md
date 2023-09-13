@@ -1,5 +1,15 @@
 # @examples/modal-custom
 
+## 0.0.22
+
+### Patch Changes
+
+- Updated dependencies [a3a2cec21]
+  - @dopt/react-rich-text@5.2.3
+  - @dopt/react-modal@7.0.3
+  - @dopt/react@3.3.3
+  - @dopt/react-users@0.2.3
+
 ## 0.0.21
 
 ### Patch Changes
