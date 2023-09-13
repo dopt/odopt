@@ -1,4 +1,4 @@
-import { type PropsWithChildren, createContext, useState } from 'react';
+import React, { type PropsWithChildren, createContext, useState } from 'react';
 
 import { type StyleProps, ThemeContext } from '@dopt/react-theme';
 

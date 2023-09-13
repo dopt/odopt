@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { blocksApi, setupSocket } from '@dopt/javascript-common';
 import { Logger } from '@dopt/logger';
