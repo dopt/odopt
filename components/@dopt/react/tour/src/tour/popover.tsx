@@ -1,7 +1,7 @@
 import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 
-import { useContext, type ComponentPropsWithRef } from 'react';
+import React, { useContext, type ComponentPropsWithRef } from 'react';
 
 import {
   useFloating,

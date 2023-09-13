@@ -1,7 +1,7 @@
 import * as classes from './styles.css';
 import { classNameRoot } from './const';
 
-import {
+import React, {
   forwardRef,
   type ForwardedRef,
   type ComponentPropsWithoutRef,

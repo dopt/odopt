@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-modal",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "description": "A React modal component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/modal",
   "repository": {
@@ -52,7 +52,7 @@
   ],
   "peerDependencies": {
     "@dopt/react": "workspace:*",
-    "react": "18.2.0"
+    "react": ">=17.0.2"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
@@ -70,7 +70,6 @@
     "jest": "29.5.0",
     "jest-environment-jsdom": "29.5.0",
     "@dopt/pkg-format": "workspace:*",
-    "react-dom": "18.2.0",
     "ts-jest": "^29.0.3",
     "typescript": "5.1.6"
   },

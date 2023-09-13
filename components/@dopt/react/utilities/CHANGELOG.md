@@ -1,5 +1,14 @@
 # @dopt/react-utilities
 
+## 4.0.3
+
+### Patch Changes
+
+- a3a2cec21: - add explicit react import
+  - add eslint rules for react/react-in-jsx-scope and react/jsx-uses-react
+- Updated dependencies [a3a2cec21]
+  - @dopt/react@3.3.3
+
 ## 4.0.2
 
 ### Patch Changes

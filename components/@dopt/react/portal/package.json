@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-portal",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Portal component used in other @dopt React components",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/portal",
   "repository": {
@@ -37,8 +37,8 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
