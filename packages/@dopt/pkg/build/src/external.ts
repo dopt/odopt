@@ -106,7 +106,7 @@ export function react(options: BuildConfig) {
       ...options.rollup,
       esbuild: {
         target: 'es2016',
-        jsx: 'automatic',
+        jsx: 'transform',
         minify: isProd(),
         ...options.rollup?.esbuild,
       },

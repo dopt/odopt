@@ -1,5 +1,13 @@
 # @dopt/react-rich-text
 
+## 5.2.3
+
+### Patch Changes
+
+- a3a2cec21: - add explicit react import
+  - add eslint rules for react/react-in-jsx-scope and react/jsx-uses-react
+  - @dopt/core-rich-text@2.2.0
+
 ## 5.2.2
 
 ### Patch Changes

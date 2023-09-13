@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { render, RenderResult } from '@testing-library/react';
 
 import Checklist from '../';

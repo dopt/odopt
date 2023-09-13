@@ -1,6 +1,6 @@
 {
   "name": "@dopt/pkg-build",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A utility/tool for building packages",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/pkg/build",
   "repository": {

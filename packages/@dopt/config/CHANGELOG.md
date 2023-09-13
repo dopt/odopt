@@ -1,5 +1,11 @@
 # @dopt/config
 
+## 1.1.0
+
+### Minor Changes
+
+- a3a2cec21: add react eslint rules
+
 ## 1.0.0
 
 ### Major Changes

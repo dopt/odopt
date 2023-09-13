@@ -1,5 +1,20 @@
 # @dopt/react-tour
 
+## 7.1.2
+
+### Patch Changes
+
+- a3a2cec21: - add explicit react import
+  - add eslint rules for react/react-in-jsx-scope and react/jsx-uses-react
+- Updated dependencies [a3a2cec21]
+  - @dopt/react-rich-text@5.2.3
+  - @dopt/react-utilities@4.0.3
+  - @dopt/react-portal@1.1.1
+  - @dopt/react-theme@1.2.1
+  - @dopt/react@3.3.3
+  - @dopt/core-rich-text@2.2.0
+  - @dopt/semantic-data-layer-tour@0.2.0
+
 ## 7.1.1
 
 ### Patch Changes

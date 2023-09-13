@@ -102,7 +102,7 @@ export interface Block<T = unknown> {
  *
  * @returns a {@link Block} the state of the block and methods to manipulate block state
  */
-export function useBlock<T = unknown>(id: BlockClass['sid']): Block {
+export function useBlock<T = unknown>(id: BlockClass['sid']): Block<T> {
   const dopt = inject(DOPT_KEY);
 
   if (!dopt) {
@@ -111,16 +111,16 @@ export function useBlock<T = unknown>(id: BlockClass['sid']): Block {
 
   const _block = dopt.block<T>(id);
 
-  const block = {
+  const block: Block<T> = {
     type: ref(_block.type),
     kind: ref(_block.kind),
     uid: ref(_block.uid),
     sid: ref(_block.sid),
     version: ref(_block.version),
     state: ref(_block.state),
-    transitioned: ref(_block.transitioned) as Ref<
-      BlockClass<T>['transitioned']
-    >,
+    transitioned: ref(
+      _block.transitioned
+    ) as unknown as Block<T>['transitioned'],
     transition: (
       ...input: T extends BlockTransitions
         ? [T[number], ...T[number][]]
