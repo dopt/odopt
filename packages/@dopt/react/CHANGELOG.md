@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.3.3
+
+### Patch Changes
+
+- a3a2cec21: - add explicit react import
+  - add eslint rules for react/react-in-jsx-scope and react/jsx-uses-react
+  - @dopt/javascript-common@2.3.1
+  - @dopt/logger@0.2.0
+
 ## 3.3.2
 
 ### Patch Changes

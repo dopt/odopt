@@ -1,3 +1,4 @@
+import React from 'react';
 import * as classes from './styles.css';
 import { classNameRoot } from '../const';
 

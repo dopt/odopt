@@ -1,5 +1,13 @@
 # @dopt/react-tour-sandbox
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [a3a2cec21]
+  - @dopt/react-theme@1.2.1
+  - @dopt/react-tour@7.1.2
+
 ## 0.1.1
 
 ### Patch Changes
