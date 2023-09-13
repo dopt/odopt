@@ -74,7 +74,6 @@
   },
   "dependencies": {
     "@dopt/core-rich-text": "workspace:*",
-    "@dopt/react-component": "workspace:*",
     "@dopt/react-rich-text": "workspace:*",
     "@dopt/react-theme": "workspace:*",
     "@dopt/semantic-data-layer-card": "workspace:*",
