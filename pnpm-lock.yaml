@@ -104,7 +104,6 @@ importers:
       '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@dopt/react': workspace:*
-      '@dopt/react-component': workspace:*
       '@dopt/react-rich-text': workspace:*
       '@dopt/react-theme': workspace:*
       '@dopt/semantic-data-layer-card': workspace:*
@@ -116,13 +115,11 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      react: 18.2.0
-      react-dom: 18.2.0
+      react: '>=17.0.2'
       ts-jest: ^29.0.3
       typescript: 5.1.6
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
-      '@dopt/react-component': link:../component
       '@dopt/react-rich-text': link:../rich-text
       '@dopt/react-theme': link:../theme
       '@dopt/semantic-data-layer-card': link:../../semantic-data-layer/card
@@ -144,7 +141,6 @@ importers:
       '@types/react': 18.2.12
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
       typescript: 5.1.6
 
@@ -214,8 +210,7 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      react: 18.2.0
-      react-dom: 18.2.0
+      react: '>=17.0.2'
       ts-jest: ^29.0.3
       typescript: 5.1.6
     dependencies:
@@ -244,7 +239,6 @@ importers:
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
       typescript: 5.1.6
 
@@ -289,33 +283,6 @@ importers:
       typescript: 5.1.6
       vite: 4.3.9
 
-  components/@dopt/react/component:
-    specifiers:
-      '@dopt/check-formatting': workspace:*
-      '@dopt/config': workspace:*
-      '@dopt/pkg-build': workspace:*
-      '@dopt/pkg-clean': workspace:*
-      '@dopt/pkg-format': workspace:*
-      '@dopt/pkg-lint': workspace:*
-      '@types/jest': 29.5.2
-      '@types/react': 18.2.12
-      jest: 29.5.0
-      react: 18.2.0
-      typescript: 5.1.6
-    dependencies:
-      react: 18.2.0
-    devDependencies:
-      '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
-      '@dopt/config': link:../../../../packages/@dopt/config
-      '@dopt/pkg-build': link:../../../../packages/@dopt/pkg/build
-      '@dopt/pkg-clean': link:../../../../packages/@dopt/pkg/clean
-      '@dopt/pkg-format': link:../../../../packages/@dopt/pkg/format
-      '@dopt/pkg-lint': link:../../../../packages/@dopt/pkg/lint
-      '@types/jest': 29.5.2
-      '@types/react': 18.2.12
-      jest: 29.5.0
-      typescript: 5.1.6
-
   components/@dopt/react/modal:
     specifiers:
       '@dopt/check-formatting': workspace:*
@@ -340,8 +307,7 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      react: 18.2.0
-      react-dom: 18.2.0
+      react: '>=17.0.2'
       ts-jest: ^29.0.3
       typescript: 5.1.6
     dependencies:
@@ -369,7 +335,6 @@ importers:
       '@vanilla-extract/rollup-plugin': 1.2.2_rollup@3.25.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
       typescript: 5.1.6
 
@@ -424,8 +389,8 @@ importers:
       '@types/react': 18.2.12
       '@types/react-dom': 18.2.5
       jest: 29.5.0
-      react: 18.2.0
-      react-dom: 18.2.0
+      react: '>=17.0.2'
+      react-dom: '>=17.0.2'
       typescript: 5.1.6
     dependencies:
       react: 18.2.0
@@ -456,8 +421,7 @@ importers:
       '@types/react': 18.2.12
       clsx: 1.2.1
       jest: 29.5.0
-      react: 18.2.0
-      react-dom: 18.2.0
+      react: '>=17.0.2'
       typescript: 5.1.6
     dependencies:
       '@dopt/core-rich-text': link:../../core/rich-text
@@ -473,7 +437,6 @@ importers:
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
 
   components/@dopt/react/theme:
@@ -489,8 +452,7 @@ importers:
       '@types/react': 18.2.12
       '@vanilla-extract/dynamic': 2.0.3
       jest: 29.5.0
-      react: 18.2.0
-      react-dom: 18.2.0
+      react: '>=17.0.2'
       typescript: 5.1.6
     dependencies:
       '@dopt/core-theme': link:../../core/theme
@@ -506,7 +468,6 @@ importers:
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
 
   components/@dopt/react/tour:
@@ -537,8 +498,7 @@ importers:
       clsx: 1.2.1
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      react: 18.2.0
-      react-dom: 18.2.0
+      react: '>=17.0.2'
       ts-jest: ^29.0.3
       typescript: 5.1.6
     dependencies:
@@ -570,7 +530,6 @@ importers:
       '@types/react': 18.2.12
       jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      react-dom: 18.2.0_react@18.2.0
       ts-jest: 29.1.1_cdsbat44atvxhgj3zmnooh32iq
       typescript: 5.1.6
 
@@ -624,7 +583,6 @@ importers:
       '@dopt/react': workspace:*
       '@types/jest': 29.5.2
       jest: 29.5.0
-      react-dom: 18.2.0
       typescript: 5.1.6
     devDependencies:
       '@dopt/check-formatting': link:../../../../packages/@dopt/check-formatting
@@ -636,7 +594,6 @@ importers:
       '@dopt/react': link:../../../../packages/@dopt/react
       '@types/jest': 29.5.2
       jest: 29.5.0
-      react-dom: 18.2.0_react@18.2.0
       typescript: 5.1.6
 
   components/@dopt/semantic-data-layer/card:
@@ -843,6 +800,7 @@ importers:
       esbuild: 0.18.2
       esbuild-jest: 0.5.0
       eslint: 8.42.0
+      eslint-plugin-react: 7.32.2
       eslint-plugin-react-hooks: 4.6.0
       jest: 29.5.0
       prettier: 2.8.8
@@ -862,6 +820,7 @@ importers:
       esbuild: 0.18.2
       esbuild-jest: 0.5.0_esbuild@0.18.2
       eslint: 8.42.0
+      eslint-plugin-react: 7.32.2_eslint@8.42.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.42.0
       jest: 29.5.0
       prettier: 2.8.8
@@ -1382,8 +1341,7 @@ importers:
       '@dopt/pkg-format': workspace:*
       '@dopt/pkg-lint': workspace:*
       '@types/react': 18.2.12
-      '@types/react-dom': 18.2.5
-      react: '>=16.8.0'
+      react: '>=17.0.2'
       socket.io-client: 4.6.2
       typescript: 5.1.6
     dependencies:
@@ -1399,7 +1357,6 @@ importers:
       '@dopt/pkg-format': link:../pkg/format
       '@dopt/pkg-lint': link:../pkg/lint
       '@types/react': 18.2.12
-      '@types/react-dom': 18.2.5
       typescript: 5.1.6
 
   packages/@dopt/react-users:
@@ -1414,7 +1371,7 @@ importers:
       '@types/jest': 29.5.2
       '@types/react': 18.2.12
       jest: 29.5.0
-      react: 18.2.0
+      react: '>=17.0.2'
       typescript: 5.1.6
     dependencies:
       '@dopt/users-javascript-browser-client': 1.0.5
