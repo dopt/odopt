@@ -38,7 +38,7 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=17.0.2"
   },
   "dependencies": {
     "@dopt/javascript-common": "workspace:*",
@@ -52,7 +52,6 @@
     "@dopt/pkg-lint": "workspace:*",
     "@dopt/pkg-clean": "workspace:*",
     "@types/react": "18.2.12",
-    "@types/react-dom": "18.2.5",
     "@dopt/pkg-format": "workspace:*",
     "typescript": "5.1.6"
   },

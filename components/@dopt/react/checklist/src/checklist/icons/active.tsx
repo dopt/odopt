@@ -1,6 +1,6 @@
 import { classNameRoot } from '../../const';
 
-import {
+import React, {
   forwardRef,
   type ForwardedRef,
   type ComponentPropsWithRef,

@@ -1,6 +1,6 @@
 import * as classes from './styles.css';
 
-import {
+import React, {
   forwardRef,
   type ForwardedRef,
   type ComponentPropsWithoutRef,

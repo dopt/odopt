@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import type { Node, Alignment } from '@dopt/core-rich-text';
 import { isTextNode } from '@dopt/core-rich-text';
 import { themes, classes } from '@dopt/core-rich-text';
