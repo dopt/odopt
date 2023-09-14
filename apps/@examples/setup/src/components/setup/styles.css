@@ -1,0 +1,41 @@
+.setup-section {
+  display: grid;
+  grid-template-columns: 1fr 40%;
+  grid-template-areas: 'content media';
+  min-height: 100vh;
+}
+
+.setup-panel {
+  display: grid;
+  place-items: center;
+  grid-template: 1fr;
+  padding: 64px;
+}
+
+.setup-panel--content {
+  grid-area: content;
+}
+
+.setup-panel--media {
+  grid-area: media;
+  background: var(--color-primary-light);
+}
+
+.setup-container {
+  width: 100%;
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.setup-body {
+  display: grid;
+  gap: 8px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.setup-form {
+  display: grid;
+  gap: 16px;
+}
