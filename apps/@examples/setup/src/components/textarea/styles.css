@@ -1,0 +1,14 @@
+.textarea {
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  resize: vertical;
+  background: var(--color-background);
+}
+
+.textarea:focus {
+  outline: solid var(--color-primary);
+}
