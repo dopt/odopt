@@ -52,6 +52,7 @@
     "@dopt/pkg-lint": "workspace:*",
     "@dopt/pkg-clean": "workspace:*",
     "@types/react": "18.2.12",
+    "@types/node": "18.16.18",
     "@dopt/pkg-format": "workspace:*",
     "typescript": "5.1.6"
   },
