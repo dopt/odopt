@@ -1,6 +1,6 @@
 {
   "name": "@dopt/config",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "description": "Centralized and shared configuration for eslint, jest,prettier, and tsconfig ",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/config",
@@ -53,6 +53,7 @@
     "esbuild": "0.18.2",
     "esbuild-jest": "0.5.0",
     "eslint": "8.42.0",
+    "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "jest": "29.5.0",
     "prettier": "2.8.8",

@@ -1,5 +1,11 @@
 # @dopt/vue
 
+## 0.1.2
+
+### Patch Changes
+
+- c9104b298: Added a usage guide (and general vue-friendly) updates to docs.dopt.com. Additionally, fixed a type discrepancy for the `useBlock` composable's `.transitioned` attribute.
+
 ## 0.1.1
 
 ### Patch Changes

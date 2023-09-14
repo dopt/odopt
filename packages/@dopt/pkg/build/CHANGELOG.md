@@ -1,5 +1,12 @@
 # @dopt/pkg-build
 
+## 1.1.1
+
+### Patch Changes
+
+- a3a2cec21: use transform setting for jsx transformations
+  - @dopt/env@1.0.0
+
 ## 1.1.0
 
 ### Minor Changes

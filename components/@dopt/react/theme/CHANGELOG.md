@@ -1,5 +1,13 @@
 # @dopt/react-theme
 
+## 1.2.1
+
+### Patch Changes
+
+- a3a2cec21: - add explicit react import
+  - add eslint rules for react/react-in-jsx-scope and react/jsx-uses-react
+  - @dopt/core-theme@2.1.0
+
 ## 1.2.0
 
 ### Minor Changes
