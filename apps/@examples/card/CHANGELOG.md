@@ -1,5 +1,15 @@
 # @examples/card
 
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [a3a2cec21]
+- Updated dependencies [62277a005]
+  - @dopt/react-card@6.0.3
+  - @dopt/react@3.3.3
+  - @dopt/react-users@0.2.3
+
 ## 0.0.12
 
 ### Patch Changes

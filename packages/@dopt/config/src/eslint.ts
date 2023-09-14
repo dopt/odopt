@@ -5,6 +5,7 @@ const eslint = {
       parser: '@typescript-eslint/parser',
       extends: [
         'plugin:@typescript-eslint/recommended',
+        'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended',
       ],
       plugins: ['@typescript-eslint', 'react-hooks'],

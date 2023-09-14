@@ -1,5 +1,12 @@
 # @dopt/react-portal
 
+## 1.1.1
+
+### Patch Changes
+
+- a3a2cec21: - add explicit react import
+  - add eslint rules for react/react-in-jsx-scope and react/jsx-uses-react
+
 ## 1.1.0
 
 ### Minor Changes
