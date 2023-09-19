@@ -1,7 +1,7 @@
 {
   "name": "@examples/tour-custom-vue",
   "private": true,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5633",
@@ -16,7 +16,7 @@
     "vue": "3.3.4",
     "nanoid": "4.0.2",
     "@dopt/html-rich-text": "workspace:*",
-    "@dopt/users-javascript-browser-client": "*",
+    "@dopt/users-javascript-browser-client": "workspace:*",
     "@dopt/vue": "workspace:*"
   },
   "devDependencies": {
