@@ -1,5 +1,11 @@
 # @examples/tour-custom-vue
 
+## 0.2.3
+
+### Patch Changes
+
+- @dopt/users-javascript-browser-client@1.1.1
+
 ## 0.2.2
 
 ### Patch Changes

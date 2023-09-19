@@ -1,5 +1,11 @@
 # @examples/embedded-tip
 
+## 0.0.48
+
+### Patch Changes
+
+- @dopt/react-users@0.2.4
+
 ## 0.0.47
 
 ### Patch Changes
