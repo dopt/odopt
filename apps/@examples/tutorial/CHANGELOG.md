@@ -1,5 +1,11 @@
 # @examples/tutorial
 
+## 0.2.3
+
+### Patch Changes
+
+- @dopt/react-users@0.2.4
+
 ## 0.2.2
 
 ### Patch Changes
