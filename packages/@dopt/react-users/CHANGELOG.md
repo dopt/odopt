@@ -1,5 +1,11 @@
 # @dopt/react-users
 
+## 0.2.4
+
+### Patch Changes
+
+- @dopt/users-javascript-browser-client@1.1.1
+
 ## 0.2.3
 
 ### Patch Changes
