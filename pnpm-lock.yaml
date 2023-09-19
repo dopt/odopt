@@ -46,8 +46,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/core/rich-text/dist/cjs: {}
-
   components/@dopt/core/theme:
     dependencies:
       '@vanilla-extract/css':
@@ -94,8 +92,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/core/theme/dist/cjs: {}
-
   components/@dopt/html/rich-text:
     dependencies:
       '@dopt/core-rich-text':
@@ -132,8 +128,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-
-  components/@dopt/html/rich-text/dist/cjs: {}
 
   components/@dopt/react/card:
     dependencies:
@@ -207,8 +201,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-
-  components/@dopt/react/card/dist/cjs: {}
 
   components/@dopt/react/card/sandbox:
     dependencies:
@@ -336,7 +328,7 @@ importers:
         version: 18.2.12
       '@vanilla-extract/rollup-plugin':
         specifier: 1.2.2
-        version: 1.2.2(rollup@3.25.1)
+        version: 1.2.2(rollup@3.28.1)
       jest:
         specifier: 29.5.0
         version: 29.5.0(@types/node@18.16.18)
@@ -349,8 +341,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-
-  components/@dopt/react/checklist/dist/cjs: {}
 
   components/@dopt/react/checklist/sandbox:
     dependencies:
@@ -409,8 +399,6 @@ importers:
       vite:
         specifier: 4.3.9
         version: 4.3.9
-
-  components/@dopt/react/component/dist/cjs: {}
 
   components/@dopt/react/modal:
     dependencies:
@@ -477,7 +465,7 @@ importers:
         version: 18.2.12
       '@vanilla-extract/rollup-plugin':
         specifier: 1.2.2
-        version: 1.2.2(rollup@3.25.1)
+        version: 1.2.2(rollup@3.28.1)
       jest:
         specifier: 29.5.0
         version: 29.5.0(@types/node@18.16.18)
@@ -490,8 +478,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-
-  components/@dopt/react/modal/dist/cjs: {}
 
   components/@dopt/react/modal/sandbox:
     dependencies:
@@ -591,8 +577,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/react/portal/dist/cjs: {}
-
   components/@dopt/react/rich-text:
     dependencies:
       '@dopt/core-rich-text':
@@ -636,8 +620,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/react/rich-text/dist/cjs: {}
-
   components/@dopt/react/theme:
     dependencies:
       '@dopt/core-theme':
@@ -680,8 +662,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-
-  components/@dopt/react/theme/dist/cjs: {}
 
   components/@dopt/react/tour:
     dependencies:
@@ -774,8 +754,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/react/tour/dist/cjs: {}
-
   components/@dopt/react/tour/sandbox:
     dependencies:
       '@dopt/react-theme':
@@ -864,8 +842,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/react/utilities/dist/cjs: {}
-
   components/@dopt/semantic-data-layer/card:
     dependencies:
       '@dopt/core-rich-text':
@@ -899,8 +875,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-
-  components/@dopt/semantic-data-layer/card/dist/cjs: {}
 
   components/@dopt/semantic-data-layer/checklist:
     dependencies:
@@ -942,8 +916,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/semantic-data-layer/checklist/dist/cjs: {}
-
   components/@dopt/semantic-data-layer/modal:
     dependencies:
       '@dopt/core-rich-text':
@@ -984,8 +956,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/semantic-data-layer/modal/dist/cjs: {}
-
   components/@dopt/semantic-data-layer/tour:
     dependencies:
       '@dopt/core-rich-text':
@@ -1023,71 +993,30 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  components/@dopt/semantic-data-layer/tour/dist/cjs: {}
-
   packages/@bodo/tokens:
     dependencies:
       chroma-js:
         specifier: 2.4.2
         version: 2.4.2
     devDependencies:
-      '@dopt/check-formatting':
+      '@dopt/pkg-build':
         specifier: workspace:*
-        version: link:../../@dopt/check-formatting
-      '@dopt/config':
+        version: link:../../@dopt/pkg/build
+      '@dopt/pkg-clean':
         specifier: workspace:*
-        version: link:../../@dopt/config
-      '@dopt/rollup':
+        version: link:../../@dopt/pkg/clean
+      '@dopt/pkg-format':
         specifier: workspace:*
-        version: link:../../@dopt/rollup
-      '@rollup/plugin-node-resolve':
-        specifier: 15.1.0
-        version: 15.1.0(rollup@3.25.1)
-      '@rollup/plugin-typescript':
-        specifier: 11.1.1
-        version: 11.1.1(rollup@3.25.1)(tslib@2.6.2)(typescript@5.1.6)
+        version: link:../../@dopt/pkg/format
+      '@dopt/pkg-lint':
+        specifier: workspace:*
+        version: link:../../@dopt/pkg/lint
       '@types/chroma-js':
         specifier: 2.4.0
         version: 2.4.0
-      '@types/jest':
-        specifier: 29.5.2
-        version: 29.5.2
-      '@types/react':
-        specifier: 18.2.12
-        version: 18.2.12
-      '@typescript-eslint/eslint-plugin':
-        specifier: 5.59.11
-        version: 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.42.0)(typescript@5.1.6)
-      '@typescript-eslint/parser':
-        specifier: 5.59.11
-        version: 5.59.11(eslint@8.42.0)(typescript@5.1.6)
-      esbuild:
-        specifier: 0.18.2
-        version: 0.18.2
-      esbuild-jest:
-        specifier: 0.5.0
-        version: 0.5.0(esbuild@0.18.2)
-      eslint:
-        specifier: 8.42.0
-        version: 8.42.0
-      eslint-plugin-react:
-        specifier: 7.32.2
-        version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
         version: 29.5.0(@types/node@18.16.18)
-      prettier:
-        specifier: 2.8.8
-        version: 2.8.8
-      rollup:
-        specifier: 3.25.1
-        version: 3.25.1
-      shx:
-        specifier: 0.3.4
-        version: 0.3.4
-      tslib:
-        specifier: ^2.6.2
-        version: 2.6.2
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1134,8 +1063,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-
-  packages/@dopt/block-api-types/dist/cjs: {}
 
   packages/@dopt/check-formatting: {}
 
@@ -1440,10 +1367,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  packages/@dopt/javascript-common/dist/cjs: {}
-
-  packages/@dopt/javascript/dist/cjs: {}
-
   packages/@dopt/jest-style-transform:
     dependencies:
       '@vanilla-extract/jest-transform':
@@ -1542,8 +1465,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  packages/@dopt/logger/dist/cjs: {}
-
   packages/@dopt/mercator:
     devDependencies:
       '@dopt/check-formatting':
@@ -1599,7 +1520,7 @@ importers:
         version: link:../../env
       '@vanilla-extract/rollup-plugin':
         specifier: 1.2.2
-        version: 1.2.2(rollup@3.25.1)
+        version: 1.2.2(rollup@3.28.1)
       citty:
         specifier: 0.1.2
         version: 0.1.2
@@ -1992,83 +1913,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  packages/@dopt/react-users/dist/cjs: {}
-
-  packages/@dopt/react/dist/cjs: {}
-
-  packages/@dopt/rollup:
-    dependencies:
-      '@rollup/plugin-typescript':
-        specifier: 11.1.1
-        version: 11.1.1(rollup@3.25.1)(tslib@2.6.2)(typescript@5.1.6)
-      rollup:
-        specifier: 3.25.1
-        version: 3.25.1
-      rollup-plugin-dts:
-        specifier: 6.0.0
-        version: 6.0.0(rollup@3.25.1)(typescript@5.1.6)
-      rollup-plugin-peer-deps-external:
-        specifier: 2.2.4
-        version: 2.2.4(rollup@3.25.1)
-    devDependencies:
-      '@dopt/check-formatting':
-        specifier: workspace:*
-        version: link:../check-formatting
-      '@dopt/config':
-        specifier: workspace:*
-        version: link:../config
-      '@dopt/env':
-        specifier: workspace:*
-        version: link:../env
-      '@dopt/esbuild-plugins':
-        specifier: workspace:*
-        version: link:../esbuild-plugins
-      '@dopt/tsup':
-        specifier: workspace:*
-        version: link:../tsup
-      '@types/jest':
-        specifier: 29.5.2
-        version: 29.5.2
-      '@types/rollup-plugin-peer-deps-external':
-        specifier: ^2.2.1
-        version: 2.2.1
-      '@typescript-eslint/eslint-plugin':
-        specifier: 5.59.11
-        version: 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.42.0)(typescript@5.1.6)
-      '@typescript-eslint/parser':
-        specifier: 5.59.11
-        version: 5.59.11(eslint@8.42.0)(typescript@5.1.6)
-      esbuild:
-        specifier: 0.18.2
-        version: 0.18.2
-      esbuild-jest:
-        specifier: 0.5.0
-        version: 0.5.0(esbuild@0.18.2)
-      eslint:
-        specifier: 8.42.0
-        version: 8.42.0
-      eslint-plugin-react:
-        specifier: 7.32.2
-        version: 7.32.2(eslint@8.42.0)
-      jest:
-        specifier: 29.5.0
-        version: 29.5.0(@types/node@18.16.18)
-      package-json-type:
-        specifier: 1.0.3
-        version: 1.0.3
-      prettier:
-        specifier: 2.8.8
-        version: 2.8.8
-      shx:
-        specifier: 0.3.4
-        version: 0.3.4
-      tsup:
-        specifier: 7.0.0
-        version: 7.0.0(typescript@5.1.6)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-
   packages/@dopt/topoftree:
     devDependencies:
       '@dopt/check-formatting':
@@ -2345,8 +2189,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-
-  packages/@userstate/types/dist/cjs: {}
 
 packages:
 
@@ -5608,24 +5450,6 @@ packages:
       '@rollup/pluginutils': 5.0.3(rollup@3.28.1)
       rollup: 3.28.1
 
-  /@rollup/plugin-node-resolve@15.1.0(rollup@3.25.1):
-    resolution: {integrity: sha512-xeZHCgsiZ9pzYVgAo9580eCGqwh/XCEUM9q6iQfGNocjgkufHAqC3exA+45URvhiYV8sBF9RlBai650eNs7AsA==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^2.78.0||^3.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-    dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.25.1)
-      '@types/resolve': 1.20.2
-      deepmerge: 4.2.2
-      is-builtin-module: 3.2.1
-      is-module: 1.0.0
-      resolve: 1.22.1
-      rollup: 3.25.1
-    dev: true
-
   /@rollup/plugin-node-resolve@15.2.1(rollup@3.28.1):
     resolution: {integrity: sha512-nsbUg588+GDSu8/NS8T4UAshO6xeaOfINNuXeVHcKV02LJtoRaM1SiOacClw4kws1SFiNhdLGxlbMY9ga/zs/w==}
     engines: {node: '>=14.0.0'}
@@ -5655,39 +5479,6 @@ packages:
       '@rollup/pluginutils': 5.0.3(rollup@3.28.1)
       magic-string: 0.27.0
       rollup: 3.28.1
-
-  /@rollup/plugin-typescript@11.1.1(rollup@3.25.1)(tslib@2.6.2)(typescript@5.1.6):
-    resolution: {integrity: sha512-Ioir+x5Bejv72Lx2Zbz3/qGg7tvGbxQZALCLoJaGrkNXak/19+vKgKYJYM3i/fJxvsb23I9FuFQ8CUBEfsmBRg==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^2.14.0||^3.0.0
-      tslib: '*'
-      typescript: '>=3.7.0'
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-      tslib:
-        optional: true
-    dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.25.1)
-      resolve: 1.22.1
-      rollup: 3.25.1
-      tslib: 2.6.2
-      typescript: 5.1.6
-
-  /@rollup/pluginutils@5.0.2(rollup@3.25.1):
-    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-    dependencies:
-      '@types/estree': 1.0.0
-      estree-walker: 2.0.2
-      picomatch: 2.3.1
-      rollup: 3.25.1
 
   /@rollup/pluginutils@5.0.3(rollup@3.28.1):
     resolution: {integrity: sha512-hfllNN4a80rwNQ9QCxhxuHCGHMAvabXqxNdaChUSSadMre7t4iEUI6fFAhBOn/eIYTgYVhBv7vCLsAJ4u3lf3g==}
@@ -5866,10 +5657,6 @@ packages:
       '@types/json-schema': 7.0.11
     dev: true
 
-  /@types/estree@0.0.39:
-    resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
-    dev: true
-
   /@types/estree@1.0.0:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
 
@@ -5999,13 +5786,6 @@ packages:
     dependencies:
       '@types/node': 18.16.18
     dev: false
-
-  /@types/rollup-plugin-peer-deps-external@2.2.1:
-    resolution: {integrity: sha512-CUK4Mi3M3A/0coRUeo4McvUFOxR5H6UYd6Wt3D+K4c4fJupolMSoIxsZaBG1g/BJQOaujf78Pf7KhgfhrX1FZA==}
-    dependencies:
-      '@types/node': 18.16.18
-      rollup: 0.63.5
-    dev: true
 
   /@types/scheduler@0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
@@ -6298,13 +6078,13 @@ packages:
       '@vanilla-extract/css': 1.11.1
     dev: false
 
-  /@vanilla-extract/rollup-plugin@1.2.2(rollup@3.25.1):
+  /@vanilla-extract/rollup-plugin@1.2.2(rollup@3.28.1):
     resolution: {integrity: sha512-cTuErEVzw8hoPfnwJzFyzQ5pnpKyp3/R6BwUS93opqvcrDPJWCH7crLdw+lgY5GDT7hlpNNXQ/RCSMZaXjuIQA==}
     peerDependencies:
       rollup: ^2.0.0 || ^3.0.0
     dependencies:
       '@vanilla-extract/integration': 6.2.1
-      rollup: 3.25.1
+      rollup: 3.28.1
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -11131,10 +10911,6 @@ packages:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
 
-  /package-json-type@1.0.3:
-    resolution: {integrity: sha512-Bey4gdRuOwDbS8Fj1qA3/pTq5r8pqiI5E3tjSqCdhaLSsyGG364VFzXLTIexN5AaNGe/vgdBzLfoKdr7EVg2KQ==}
-    dev: true
-
   /pako@0.2.9:
     resolution: {integrity: sha512-NUcwaKxUxWrZLpDG+z/xZaCgQITkA/Dv4V/T6bw7VON6l1Xz/VnrBqrYjZQ12TamKHzITTfOEIYUj48y2KXImA==}
     dev: false
@@ -11738,20 +11514,6 @@ packages:
     dependencies:
       glob: 7.2.3
 
-  /rollup-plugin-dts@6.0.0(rollup@3.25.1)(typescript@5.1.6):
-    resolution: {integrity: sha512-A996xSZDAqnx/KfFttzC8mDEuyMjsRpiLCrlGc8effhK8KhE3AG0g1woQiITgFc5HSE8HWU7ccR9CiQ3vXgUlQ==}
-    engines: {node: '>=v18.17.1'}
-    peerDependencies:
-      rollup: ^3.25.0
-      typescript: ^4.5 || ^5.0
-    dependencies:
-      magic-string: 0.30.3
-      rollup: 3.25.1
-      typescript: 5.1.6
-    optionalDependencies:
-      '@babel/code-frame': 7.22.10
-    dev: false
-
   /rollup-plugin-dts@6.0.0(rollup@3.28.1)(typescript@5.1.6):
     resolution: {integrity: sha512-A996xSZDAqnx/KfFttzC8mDEuyMjsRpiLCrlGc8effhK8KhE3AG0g1woQiITgFc5HSE8HWU7ccR9CiQ3vXgUlQ==}
     engines: {node: '>=v18.17.1'}
@@ -11764,22 +11526,6 @@ packages:
       typescript: 5.1.6
     optionalDependencies:
       '@babel/code-frame': 7.22.10
-
-  /rollup-plugin-peer-deps-external@2.2.4(rollup@3.25.1):
-    resolution: {integrity: sha512-AWdukIM1+k5JDdAqV/Cxd+nejvno2FVLVeZ74NKggm3Q5s9cbbcOgUPGdbxPi4BXu7xGaZ8HG12F+thImYu/0g==}
-    peerDependencies:
-      rollup: '*'
-    dependencies:
-      rollup: 3.25.1
-    dev: false
-
-  /rollup@0.63.5:
-    resolution: {integrity: sha512-dFf8LpUNzIj3oE0vCvobX6rqOzHzLBoblyFp+3znPbjiSmSvOoK2kMKx+Fv9jYduG1rvcCfCveSgEaQHjWRF6g==}
-    hasBin: true
-    dependencies:
-      '@types/estree': 0.0.39
-      '@types/node': 18.16.18
-    dev: true
 
   /rollup@2.79.1:
     resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
