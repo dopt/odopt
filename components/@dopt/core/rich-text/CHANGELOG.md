@@ -1,5 +1,12 @@
 # @dopt/core-rich-text
 
+## 2.3.0
+
+### Minor Changes
+
+- 5815a3783: - add video vendor url list
+  - add video vendor url check
+
 ## 2.2.0
 
 ### Minor Changes

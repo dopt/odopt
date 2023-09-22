@@ -1,5 +1,17 @@
 # @dopt/html-rich-text
 
+## 1.0.0
+
+### Major Changes
+
+- 5815a3783: - use iframe element when rendering video node for vendor urls (youtube, vimeo, wistia, and loom)
+  - use video element when rendering video node for non-vendor urls
+
+### Patch Changes
+
+- Updated dependencies [5815a3783]
+  - @dopt/core-rich-text@2.3.0
+
 ## 0.2.0
 
 ### Minor Changes

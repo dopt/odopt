@@ -34,3 +34,10 @@ export const classes = {
     element: `${classRoot}__video`,
   },
 };
+
+export const videoVendorUrls = [
+  'https://www.youtube.com/embed/',
+  'https://player.vimeo.com/video/',
+  'https://fast.wistia.net/embed/iframe/',
+  'https://www.loom.com/embed/',
+];
