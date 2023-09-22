@@ -1,5 +1,16 @@
 # @dopt/react-modal
 
+## 7.0.4
+
+### Patch Changes
+
+- Updated dependencies [5815a3783]
+- Updated dependencies [5815a3783]
+  - @dopt/core-rich-text@2.3.0
+  - @dopt/react-rich-text@6.0.0
+  - @dopt/semantic-data-layer-modal@0.1.1
+  - @dopt/react@3.3.4
+
 ## 7.0.3
 
 ### Patch Changes

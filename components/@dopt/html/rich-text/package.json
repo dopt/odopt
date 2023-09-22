@@ -1,6 +1,6 @@
 {
   "name": "@dopt/html-rich-text",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "A package which contains an HTML renderer for Dopt's rich text fields",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/html/rich-text",
   "repository": {

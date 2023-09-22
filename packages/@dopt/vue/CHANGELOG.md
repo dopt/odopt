@@ -1,5 +1,18 @@
 # @dopt/vue
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [5815a3783]
+  - @dopt/core-rich-text@2.3.0
+  - @dopt/semantic-data-layer-card@1.1.1
+  - @dopt/semantic-data-layer-checklist@0.1.1
+  - @dopt/semantic-data-layer-modal@0.1.1
+  - @dopt/semantic-data-layer-tour@0.2.1
+  - @dopt/javascript@3.6.2
+  - @dopt/javascript-common@2.3.2
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @dopt/react-tour
 
+## 7.1.3
+
+### Patch Changes
+
+- Updated dependencies [5815a3783]
+- Updated dependencies [5815a3783]
+  - @dopt/core-rich-text@2.3.0
+  - @dopt/react-rich-text@6.0.0
+  - @dopt/semantic-data-layer-tour@0.2.1
+  - @dopt/react@3.3.4
+  - @dopt/react-utilities@4.0.4
+
 ## 7.1.2
 
 ### Patch Changes
