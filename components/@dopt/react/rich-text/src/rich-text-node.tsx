@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 import type { Node, Alignment } from '@dopt/core-rich-text';
-import { isTextNode } from '@dopt/core-rich-text';
+import { isTextNode, isVideoVendorUrl } from '@dopt/core-rich-text';
 import { themes, classes } from '@dopt/core-rich-text';
 import { clsx } from 'clsx';
 
@@ -95,17 +95,30 @@ export const RichTextNode = (props: RichTextNodeProps) => {
       case 'video':
         return (
           <div className={clsx([classes.video.wrapper, alignment])}>
-            <iframe
-              src={node.url}
-              width={node.width}
-              height={node.height}
-              allowFullScreen
-              allow="autoplay; picture-in-picture; fullscreen"
-              className={clsx([
-                noStyles ? null : themes.video,
-                classes.video.element,
-              ])}
-            />
+            {isVideoVendorUrl(node.url) ? (
+              <iframe
+                src={node.url}
+                width={node.width}
+                height={node.height}
+                allowFullScreen
+                allow="autoplay; picture-in-picture; fullscreen"
+                className={clsx([
+                  noStyles ? null : themes.video,
+                  classes.video.element,
+                ])}
+              />
+            ) : (
+              <video
+                src={node.url}
+                width={node.width}
+                height={node.height}
+                controls
+                className={clsx([
+                  noStyles ? null : themes.video,
+                  classes.video.element,
+                ])}
+              />
+            )}
           </div>
         );
       default:
