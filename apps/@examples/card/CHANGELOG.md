@@ -1,5 +1,12 @@
 # @examples/card
 
+## 0.0.15
+
+### Patch Changes
+
+- @dopt/react-card@6.0.4
+- @dopt/react@3.3.4
+
 ## 0.0.14
 
 ### Patch Changes
