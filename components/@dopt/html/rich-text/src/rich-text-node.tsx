@@ -1,5 +1,5 @@
 import type { Node, Alignment } from '@dopt/core-rich-text';
-import { isTextNode } from '@dopt/core-rich-text';
+import { isTextNode, isVideoVendorUrl } from '@dopt/core-rich-text';
 import { themes, classes } from '@dopt/core-rich-text';
 import { clsx } from 'clsx';
 
@@ -93,15 +93,25 @@ export const RichTextNode = (options: RichTextNodeOptions) => {
           alignment,
         ])}">${image}</div>`;
       case 'video':
-        const video = `<iframe class="${clsx([
-          noStyles ? null : themes.video,
-          classes.video.element,
-        ])}" ${attributesToString({
-          src: node.url,
-          height: node.height,
-          width: node.width,
-          allow: 'autoplay; picture-in-picture; fullscreen',
-        })}></iframe>`;
+        const video = isVideoVendorUrl(node.url)
+          ? `<iframe class="${clsx([
+              noStyles ? null : themes.video,
+              classes.video.element,
+            ])}" ${attributesToString({
+              src: node.url,
+              height: node.height,
+              width: node.width,
+              allow: 'autoplay; picture-in-picture; fullscreen',
+            })}></iframe>`
+          : `<video class="${clsx([
+              noStyles ? null : themes.video,
+              classes.video.element,
+            ])}" ${attributesToString({
+              src: node.url,
+              height: node.height,
+              width: node.width,
+              controls: true,
+            })}></video>`;
         return `<div class="${clsx([
           classes.video.wrapper,
           alignment,
