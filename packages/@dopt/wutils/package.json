@@ -43,7 +43,7 @@
     "@pnpm/find-workspace-packages": "^6.0.0",
     "@pnpm/logger": "5.0.0",
     "find-nearest-package-json": "2.0.1",
-    "pnpm": "^7.12.2"
+    "pnpm": "^8.0.0"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
