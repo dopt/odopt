@@ -1,5 +1,11 @@
 # @dopt/react-modal
 
+## 7.0.5
+
+### Patch Changes
+
+- @dopt/react@3.3.5
+
 ## 7.0.4
 
 ### Patch Changes

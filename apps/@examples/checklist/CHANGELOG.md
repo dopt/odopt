@@ -1,5 +1,12 @@
 # @examples/checklist
 
+## 0.1.46
+
+### Patch Changes
+
+- @dopt/react@3.3.5
+- @dopt/react-checklist@7.0.5
+
 ## 0.1.45
 
 ### Patch Changes

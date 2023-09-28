@@ -1,5 +1,11 @@
 # @dopt/javascript-common
 
+## 2.3.3
+
+### Patch Changes
+
+- 0dcb8f37f: Ensure query parameters sent over the socket are encoded correctly
+
 ## 2.3.2
 
 ### Patch Changes

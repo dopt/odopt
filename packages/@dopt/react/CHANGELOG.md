@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.3.5
+
+### Patch Changes
+
+- Updated dependencies [0dcb8f37f]
+  - @dopt/javascript-common@2.3.3
+
 ## 3.3.4
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @examples/tour-custom
 
+## 0.1.5
+
+### Patch Changes
+
+- @dopt/react@3.3.5
+- @dopt/react-tour@7.1.4
+
 ## 0.1.4
 
 ### Patch Changes
