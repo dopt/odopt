@@ -22,13 +22,23 @@ export function setupSocket({
     return undefined;
   }
 
-  const query = `/v2/client?endUserIdentifier=${userId}${
-    groupId ? `&groupIdentifier=${groupId}` : ``
-  }`;
+  const params: {
+    endUserIdentifier: string;
+    groupIdentifier?: string;
+  } = {
+    endUserIdentifier: userId,
+  };
+
+  if (groupId) {
+    params['groupIdentifier'] = groupId;
+  }
 
   log.debug('Initializing socket connection.');
 
-  const socket = io(urlPrefix + query, {
+  const socket = io(`${urlPrefix}/v2/client`, {
+    query: {
+      ...params,
+    },
     path: SOCKET_PATH,
     transports: ['websocket'],
     withCredentials: true,
