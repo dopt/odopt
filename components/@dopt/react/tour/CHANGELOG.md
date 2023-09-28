@@ -1,5 +1,12 @@
 # @dopt/react-tour
 
+## 7.1.4
+
+### Patch Changes
+
+- @dopt/react@3.3.5
+- @dopt/react-utilities@4.0.5
+
 ## 7.1.3
 
 ### Patch Changes
