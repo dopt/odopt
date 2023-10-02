@@ -1,5 +1,11 @@
 # @examples/checklist
 
+## 0.1.47
+
+### Patch Changes
+
+- @dopt/react-users@0.2.5
+
 ## 0.1.46
 
 ### Patch Changes

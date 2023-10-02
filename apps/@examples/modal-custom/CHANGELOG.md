@@ -1,5 +1,11 @@
 # @examples/modal-custom
 
+## 0.0.26
+
+### Patch Changes
+
+- @dopt/react-users@0.2.5
+
 ## 0.0.25
 
 ### Patch Changes
