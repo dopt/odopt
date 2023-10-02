@@ -1,5 +1,11 @@
 # @examples/embedded-contextual-education
 
+## 0.1.43
+
+### Patch Changes
+
+- @dopt/react-users@0.2.5
+
 ## 0.1.42
 
 ### Patch Changes

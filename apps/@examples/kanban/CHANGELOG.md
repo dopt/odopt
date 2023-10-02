@@ -1,5 +1,11 @@
 # @examples/kanban
 
+## 0.0.57
+
+### Patch Changes
+
+- @dopt/react-users@0.2.5
+
 ## 0.0.56
 
 ### Patch Changes
