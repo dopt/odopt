@@ -20,9 +20,30 @@ const DoptUsersContext = createContext<DoptUsersContext>(
   {} as DoptUsersContext
 );
 
+/**
+ * @property apiKey Your users API key.
+ * @interface
+ */
 export type DoptUserProps = ConstructorParameters<typeof UsersApiClient>[0] &
   PropsWithChildren;
 
+/**
+ * A React context provider for accessing Dopt's users API.
+ *
+ * @example
+ * ```tsx
+ * import { DoptUsersProvider } from '@dopt/react-users';
+ * import Application from './application';
+ *
+ * const rootElement = document.getElementById('root');
+ * ReactDOM.render(
+ *  <DoptUsersProvider apiKey={usersApiKey}>
+ *    <Application />
+ *  </DoptProvider>,
+ *  rootElement
+ * );
+ * ```
+ */
 export function DoptUsersProvider({
   apiKey,
   children,
