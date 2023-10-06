@@ -1,5 +1,11 @@
 # @dopt/react-users
 
+## 0.2.6
+
+### Patch Changes
+
+- 6a55efb5b: add typedocs for DoptUsersProvider
+
 ## 0.2.5
 
 ### Patch Changes
