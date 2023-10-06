@@ -1,5 +1,12 @@
 # @examples/checklist-custom
 
+## 0.0.27
+
+### Patch Changes
+
+- Updated dependencies [6a55efb5b]
+  - @dopt/react-users@0.2.6
+
 ## 0.0.26
 
 ### Patch Changes
