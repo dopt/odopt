@@ -1,5 +1,12 @@
 # @examples/tour-custom
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [6a55efb5b]
+  - @dopt/react-users@0.2.6
+
 ## 0.1.6
 
 ### Patch Changes
