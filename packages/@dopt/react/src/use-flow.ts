@@ -47,8 +47,16 @@ export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
   } = useContext(DoptContext);
 
   if (fetching) {
-    log.info(
+    log.current?.info(
       'Accessing flow prior to initialization will return default block states.'
+    );
+  } else if (flows[sid] == null) {
+    log.current?.warn(
+      `
+      Could not find any flow matching "${sid}" within \`useFlow("${sid}")\`.
+      Returning a default flow.
+      Check your \`flowVersions\` props to ensure "${sid}" and its version are specified there.
+    `.trim()
     );
   }
 
@@ -60,10 +68,6 @@ export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
     const flow = flows[sid];
 
     if (flow == null) {
-      log.error(`
-        Error using \`useFlow(${sid})\` - check your \`flowVersions\`
-        props to ensure \`${sid}\` and its version is specified there`);
-
       return -1;
     }
 
@@ -109,7 +113,16 @@ export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
     );
 
     return { ...updatedFlow, blocks: updatedBlocks };
-  }, [fetching, sid, version, flows, flowBlocks, blocks, blockFields]);
+  }, [
+    fetching,
+    sid,
+    version,
+    flows,
+    flowBlocks,
+    blocks,
+    blockFields,
+    blockIntention,
+  ]);
 
   return [flow, { start, reset, stop, finish }];
 }

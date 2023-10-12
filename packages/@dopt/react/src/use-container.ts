@@ -48,7 +48,7 @@ export function useContainer(id: string): Container {
     useContext(DoptContext);
 
   if (fetching) {
-    log.info(
+    log.current?.info(
       'Accessing container prior to initialization will return default block states.'
     );
   }
@@ -70,7 +70,16 @@ export function useContainer(id: string): Container {
       );
 
     return { ...container, children };
-  }, [uid, fetching, blocks, blockFields]);
+  }, [uid, fetching, blocks, blockFields, blockIntention]);
+
+  if (!fetching && container.version === -1) {
+    log.current?.warn(
+      `
+      Could not find any container matching "${id}" within \`useContainer("${id}")\`.
+      Returning a default container.
+    `.trim()
+    );
+  }
 
   return container;
 }

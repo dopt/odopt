@@ -1,5 +1,13 @@
 # @dopt/react-checklist
 
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies [798085827]
+  - @dopt/react@4.0.0
+  - @dopt/react-utilities@5.0.0
+
 ## 7.0.5
 
 ### Patch Changes
