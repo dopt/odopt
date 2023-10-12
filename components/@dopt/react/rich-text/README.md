@@ -10,6 +10,8 @@ It matches rich text types you might find in traditional content management syst
 
 ## Installation
 
+ℹ️ **If you are using a particular React framework like [Next.js](https://docs.dopt.com/components/react/frameworks/nextjs/), please check out our [framework specific docs](https://docs.dopt.com/components/react/frameworks/).**
+
 ```bash
 # npm
 npm install @dopt/react-rich-text
@@ -20,8 +22,6 @@ yarn add @dopt/react-rich-text
 # pnpm
 pnpm add @dopt/react-rich-text
 ```
-
-If you are using a particular React framework like Next.js, please check out our [framework specific docs](https://docs.dopt.com/components/frameworks/).
 
 ## Usage
 
@@ -49,7 +49,7 @@ function MyContent() {
 
 ## Styling API
 
-[Learn more about styling and theming →](https://docs.dopt.com/components/styling/)
+[Learn more about styling and theming →](https://docs.dopt.com/components/react/styling/)
 
 | Name         | Selector                         | Description                             |
 | ------------ | -------------------------------- | --------------------------------------- |

@@ -32,7 +32,24 @@ import { Blocks, createBlockStore, createFlowStore } from './store';
 type PromiseWithResolver = {
   promise: Promise<boolean>;
   resolver: (status: boolean) => void;
+  resolved: () => boolean;
 };
+
+function createPromiseWithResolver(): PromiseWithResolver {
+  let _resolver: PromiseWithResolver['resolver'];
+  let _resolved = false;
+
+  return {
+    promise: new Promise((resolve) => {
+      _resolver = resolve;
+    }),
+    resolver: function (status: boolean) {
+      _resolver(status);
+      _resolved = true;
+    },
+    resolved: () => _resolved,
+  };
+}
 
 /**
  * Providing this configuration to {@link Dopt} allows the
@@ -157,22 +174,8 @@ export class Dopt {
 
     this._setup = false;
 
-    let _socketResolve: PromiseWithResolver['resolver'];
-    let _flowsResolve: PromiseWithResolver['resolver'];
-
-    this._socketPromise = {
-      promise: new Promise((resolve) => {
-        _socketResolve = resolve;
-      }),
-      resolver: (status: boolean) => _socketResolve(status),
-    };
-
-    this._flowsPromise = {
-      promise: new Promise((resolve) => {
-        _flowsResolve = resolve;
-      }),
-      resolver: (status: boolean) => _flowsResolve(status),
-    };
+    this._socketPromise = createPromiseWithResolver();
+    this._flowsPromise = createPromiseWithResolver();
 
     this.configure({ userId, groupId, flowVersions });
 
@@ -219,13 +222,7 @@ export class Dopt {
   private registerFlowPromise(sid: Flow['sid']): PromiseWithResolver {
     let flowPromise = this._registeredFlowPromises.get(sid);
     if (!flowPromise) {
-      let _flowResolve: PromiseWithResolver['resolver'];
-      flowPromise = {
-        promise: new Promise((resolve) => {
-          _flowResolve = resolve;
-        }),
-        resolver: (status: boolean) => _flowResolve(status),
-      };
+      flowPromise = createPromiseWithResolver();
       this._registeredFlowPromises.set(sid, flowPromise);
     }
 
@@ -317,18 +314,37 @@ export class Dopt {
       groupId,
     });
 
+    this.socket?.on('blocks', (blocks: Blocks) => {
+      this.blockStore.setState(blocks);
+    });
+
+    this.socket?.on('flow', (flow: Flow) => {
+      this.flowStore.setState(() => ({
+        [flow.sid]: flow,
+      }));
+    });
+
     this.socket?.on('ready', () => {
-      this.socket?.on('blocks', (blocks: Blocks) => {
-        this.blockStore.setState(blocks);
-      });
-
-      this.socket?.on('flow', (flow: Flow) => {
-        this.flowStore.setState(() => ({
-          [flow.sid]: flow,
-        }));
-      });
-
-      this._socketPromise && this._socketPromise.resolver(true);
+      if (!this._socketPromise.resolved()) {
+        /**
+         * If the socketPromise hasn't been resolved previously,
+         * this is the first time the socket is ready after init.
+         * As flows are loaded, they will individually 'watch:flow' events.
+         */
+        this._socketPromise && this._socketPromise.resolver(true);
+      } else {
+        /**
+         * Else, we've already initialized and we're instead
+         * reconnecting because the socket lost its connection.
+         * In the reconnection case, we should emit 'watch:flow' events
+         * based on the flowStore.
+         */
+        Object.values(this.flowStore.getState()).forEach((flow) => {
+          if (flow.version !== -1) {
+            this.socket?.emit('watch:flow', flow.sid, flow.version);
+          }
+        });
+      }
     });
 
     Promise.all(
@@ -355,7 +371,9 @@ export class Dopt {
 
         // watch this flow over the socket once the socket is ready
         this._socketPromise.promise.then(() => {
-          this.socket?.emit('watch:flow', flow.sid, flow.version);
+          if (flow.version !== -1) {
+            this.socket?.emit('watch:flow', flow.sid, flow.version);
+          }
         });
 
         this.flowBlocks.set(flow.sid, flow.blocks?.map(({ uid }) => uid) || []);
@@ -371,11 +389,6 @@ export class Dopt {
               return map.set(field.sid, field);
             }, new Map<Field['sid'], Field>())
           );
-
-          // watch this block over the socket once the socket is ready
-          this._socketPromise.promise.then(() => {
-            this.socket?.emit('watch:block', block.uid, block.version);
-          });
         });
 
         /**
@@ -401,7 +414,7 @@ export class Dopt {
           }, {} as Record<string, Block>)
         );
 
-        _flowPromise.resolver(true);
+        _flowPromise.resolver(flow.version !== -1);
       })
     ).then(() => {
       /**

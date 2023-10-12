@@ -6,9 +6,11 @@ A React checklist component for building experiences with Dopt.
 
 You can use the checklist component out of the box as a pre-built component or break out and use it headlessly with your own UI component.
 
-[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/checklist/)
+[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/react/checklist/)
 
 ## Installation
+
+ℹ️ **If you are using a particular React framework like [Next.js](https://docs.dopt.com/components/react/frameworks/nextjs/), please check out our [framework specific docs](https://docs.dopt.com/components/react/frameworks/).**
 
 ```bash
 # npm
@@ -20,8 +22,6 @@ yarn add @dopt/react-checklist
 # pnpm
 pnpm add @dopt/react-checklist
 ```
-
-If you are using a particular React framework like Next.js, please check out our [framework specific docs](https://docs.dopt.com/components/frameworks/).
 
 ## Usage
 
@@ -88,83 +88,83 @@ Check out our [checklist example](https://www.dopt.com/examples/checklist) and o
 
 The root element of the checklist. Extends `HTMLElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Header
 
 The header of the checklist. Extends `HTMLElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Title
 
 The title of the checklist. Extends `HTMLHeadingElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### DismissIcon
 
 The dismiss icon of the checklist. Extends `HTMLButtonElement`.
 
-| Name   | Type                                                               | Description                                   |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name   | Type                                                                     | Description                                   |
+| ------ | ------------------------------------------------------------------------ | --------------------------------------------- |
+| theme? | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Body
 
 The body of the tour item popover. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | [RichText](https://docs.dopt.com/components/rich-text/#richtext-1) | The rich text contents of the component       |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | [RichText](https://docs.dopt.com/components/rich-text/#richtext-1)       | The rich text contents of the component       |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Progress
 
 The progress meter of the checklist. Extends `HTMLDivElement`.
 
-| Name   | Type                                                               | Description                                        |
-| ------ | ------------------------------------------------------------------ | -------------------------------------------------- |
-| max    | number                                                             | The maximum number of items that can be progressed |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component      |
-| value  | number                                                             | The current number of items progressed             |
+| Name   | Type                                                                     | Description                                        |
+| ------ | ------------------------------------------------------------------------ | -------------------------------------------------- |
+| max    | number                                                                   | The maximum number of items that can be progressed |
+| theme? | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component      |
+| value  | number                                                                   | The current number of items progressed             |
 
 ### Items
 
 The items of the checklist. Extends `HTMLUListElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Item
 
 A checklist item. Extends `HTMLLIElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| index?    | number                                                             | The index of the item                         |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| index?    | number                                                                   | The index of the item                         |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### ItemIcon
 
 The icon of a checklist item. Extends `HTMLDivElement`.
 
-| Name      | Type                                   | Description                                   |
-| --------- | -------------------------------------- | --------------------------------------------- |
-| children? | ReactNode                              | The contents of the component                 |
-| theme?    | [Theme](./styling.mdx#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### IconActive
 
@@ -182,46 +182,46 @@ The skipped icon. Extends `SVGSVGElement`.
 
 The content of a checklist item. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### ItemTitle
 
 The title of a checklist item. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### ItemBody
 
 The body of a checklist item. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                                   |
-| --------- | ------------------------------------------------------------------ | ------------------------------------------------------------- |
-| children? | [RichText](https://docs.dopt.com/components/rich-text/#richtext-1) | The rich text contents of the component                       |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component                 |
-| disabled? | boolean                                                            | Determines if the body is show as disabled (default: `false`) |
+| Name      | Type                                                                     | Description                                                   |
+| --------- | ------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| children? | [RichText](https://docs.dopt.com/components/react/rich-text/#richtext-1) | The rich text contents of the component                       |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component                 |
+| disabled? | boolean                                                                  | Determines if the body is show as disabled (default: `false`) |
 
 ### CompleteButton
 
 The complete button of a checklist item. Extends `HTMLButtonElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### SkipIcon
 
 The skip icon of a checklist item. Extends `HTMLButtonElement`.
 
-| Name   | Type                                                               | Description                                   |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name   | Type                                                                     | Description                                   |
+| ------ | ------------------------------------------------------------------------ | --------------------------------------------- |
+| theme? | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ## Hooks
 
@@ -355,7 +355,7 @@ export function MyChecklistItem() {
 
 ## Styling API
 
-[Learn more about styling and theming →](https://docs.dopt.com/components/styling/)
+[Learn more about styling and theming →](https://docs.dopt.com/components/react/styling/)
 
 | Name             | Selector                              | Description                                     |
 | ---------------- | ------------------------------------- | ----------------------------------------------- |

@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.0.0
+
+### Major Changes
+
+- 798085827: Several major updates have been made to `@dopt/react` to improve client-side performance, socket connection stability, and hook triggering patterns.
+
+  `@dopt/react` no longer calls `flow.start` -- since version 3.x, Dopt's @blocks/api backend already supported automatically triggering start calls as necessary without client-side intervention, but the code was left in the SDK in case any changes needed to be made to @blocks/api.
+
+  Hooks within `@dopt/react `have been rewritten to have cleaner dependencies and several hooks have been removed where unnecessary.
+
+  `@dopt/react` now automatically reconnects with our backend when connectivity across our websocket connection drops -- previously, this process was manual and somewhat error-prone.
+
+  The only breaking change in this update is that `@dopt/react` has dropped support for our `withBlock` and `withFlow` higher-order-components (HOCs). When `@dopt/react` was initially published in 2021, a significant minority of users were still using legacy class components and requested these HOC abstractions. With this version, we no longer ship these HOCs within the package -- users can still create their own HOC abstractions using our `useBlock` and `useFlow` hooks if they desire.
+
+  No other exposed SDK methods, APIs, or accessors have changed as a result of this major update.
+
 ## 3.3.5
 
 ### Patch Changes
