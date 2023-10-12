@@ -10,6 +10,8 @@ You can use the modal component out of the box as a pre-built component or break
 
 ## Installation
 
+ℹ️ **If you are using a particular React framework like [Next.js](https://docs.dopt.com/components/react/frameworks/nextjs/), please check out our [framework specific docs](https://docs.dopt.com/components/react/frameworks/).**
+
 ```bash
 # npm
 npm install @dopt/react-modal
@@ -20,8 +22,6 @@ yarn add @dopt/react-modal
 # pnpm
 pnpm add @dopt/react-modal
 ```
-
-If you are using a particular React framework like Next.js, please check out our [framework specific docs](https://docs.dopt.com/components/frameworks/).
 
 ## Usage
 
@@ -64,93 +64,93 @@ Check out our [modal example](https://www.dopt.com/examples/modal) and our [head
 
 The root element of the modal. Extends `HTMLDivElement`.
 
-| Name        | Type                                                               | Description                                                                                           |
-| ----------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| active?     | boolean                                                            | Determines the visibility of the component (default: `false`)                                         |
-| children?   | ReactNode                                                          | The contents of the component                                                                         |
-| container?  | HTMLElement                                                        | An HTML element to portal the component to (default: `document.body`)                                 |
-| lockScroll? | boolean                                                            | Determines if the document body should be scrollable when the component is `active` (default: `true`) |
-| theme?      | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component                                                         |
+| Name        | Type                                                                     | Description                                                                                           |
+| ----------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| active?     | boolean                                                                  | Determines the visibility of the component (default: `false`)                                         |
+| children?   | ReactNode                                                                | The contents of the component                                                                         |
+| container?  | HTMLElement                                                              | An HTML element to portal the component to (default: `document.body`)                                 |
+| lockScroll? | boolean                                                                  | Determines if the document body should be scrollable when the component is `active` (default: `true`) |
+| theme?      | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component                                                         |
 
 ### Overlay
 
 The overlay element that renders behind the modal content. Extends `HTMLDivElement`.
 
-| Name       | Type                                                               | Description                                                           |
-| ---------- | ------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| container? | HTMLElement                                                        | An HTML element to portal the component to (default: `document.body`) |
-| theme?     | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component                         |
+| Name       | Type                                                                     | Description                                                           |
+| ---------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| container? | HTMLElement                                                              | An HTML element to portal the component to (default: `document.body`) |
+| theme?     | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component                         |
 
 ### Content
 
 The modal content. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Header
 
 The header of the modal. Extends `HTMLElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Title
 
 The title of the modal. Extends `HTMLHeadingElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### DismissIcon
 
 The dismiss icon of the modal. Extends `HTMLButtonElement`.
 
-| Name   | Type                                                               | Description                                   |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name   | Type                                                                     | Description                                   |
+| ------ | ------------------------------------------------------------------------ | --------------------------------------------- |
+| theme? | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Body
 
 The body of the modal. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | [RichText](https://docs.dopt.com/components/rich-text/#richtext-1) | The rich text contents of the component       |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | [RichText](https://docs.dopt.com/components/react/rich-text/#richtext-1) | The rich text contents of the component       |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Footer
 
 The footer of the modal. Extends `HTMLElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### DismissButton
 
 The dismiss button of the modal. Extends `HTMLButtonElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### CompleteButton
 
 The complete button of the modal. Extends `HTMLButtonElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ## Hooks
 
@@ -206,7 +206,7 @@ function MyModal() {
 
 ## Styling API
 
-[Learn more about styling and theming →](https://docs.dopt.com/components/styling/)
+[Learn more about styling and theming →](https://docs.dopt.com/components/react/styling/)
 
 | Name           | Selector                       | Description                                    |
 | -------------- | ------------------------------ | ---------------------------------------------- |

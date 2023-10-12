@@ -1,5 +1,12 @@
 # @examples/setup
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [798085827]
+  - @dopt/react@4.0.0
+
 ## 0.0.5
 
 ### Patch Changes

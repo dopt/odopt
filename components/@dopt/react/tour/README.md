@@ -10,6 +10,8 @@ You can use the tour component out of the box as a pre-built component or break 
 
 ## Installation
 
+ℹ️ **If you are using a particular React framework like [Next.js](https://docs.dopt.com/components/react/frameworks/nextjs/), please check out our [framework specific docs](https://docs.dopt.com/components/react/frameworks/).**
+
 ```bash
 # npm
 npm install @dopt/react-tour
@@ -20,8 +22,6 @@ yarn add @dopt/react-tour
 # pnpm
 pnpm add @dopt/react-tour
 ```
-
-If you are using a particular React framework like Next.js, please check out our [framework specific docs](https://docs.dopt.com/components/frameworks/).
 
 ## Usage
 
@@ -72,11 +72,11 @@ Check out our [tour example](https://www.dopt.com/examples/tour) and our [headle
 
 The root element of the tour item.
 
-| Name      | Type                                                               | Description                                                   |
-| --------- | ------------------------------------------------------------------ | ------------------------------------------------------------- |
-| active?   | boolean                                                            | Determines the visibility of the component (default: `false`) |
-| children? | ReactNode                                                          | The contents of the component                                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component                 |
+| Name      | Type                                                                     | Description                                                   |
+| --------- | ------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| active?   | boolean                                                                  | Determines the visibility of the component (default: `false`) |
+| children? | ReactNode                                                                | The contents of the component                                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component                 |
 
 ### Anchor
 
@@ -90,103 +90,103 @@ The element to anchor the tour item to.
 
 The tour item popover. Extends `HTMLDivElement`.
 
-| Name       | Type                                                               | Description                                                                                   |
-| ---------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
-| alignment? | [Alignment](#alignment)                                            | Determines how the component should align relative to the anchor element (default: `center`)  |
-| children?  | ReactNode                                                          | The contents of the component                                                                 |
-| offset?    | number                                                             | The distance in `px` to position the component relative to the anchor element (default: `10`) |
-| position?  | [Side](#side)                                                      | The side that the component should position relative to the anchor element (default: `top`)   |
-| theme?     | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component                                                 |
+| Name       | Type                                                                     | Description                                                                                   |
+| ---------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| alignment? | [Alignment](#alignment)                                                  | Determines how the component should align relative to the anchor element (default: `center`)  |
+| children?  | ReactNode                                                                | The contents of the component                                                                 |
+| offset?    | number                                                                   | The distance in `px` to position the component relative to the anchor element (default: `10`) |
+| position?  | [Side](#side)                                                            | The side that the component should position relative to the anchor element (default: `top`)   |
+| theme?     | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component                                                 |
 
 ### Content
 
 The content of the tour item popover. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Header
 
 The header of the tour item popover. Extends `HTMLElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Title
 
 The title of the tour item popover. Extends `HTMLHeadingElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Content
 
 The content of the tour item popover. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### DismissIcon
 
 The dismiss icon of the tour item popover. Extends `HTMLButtonElement`.
 
-| Name   | Type                                                               | Description                                   |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name   | Type                                                                     | Description                                   |
+| ------ | ------------------------------------------------------------------------ | --------------------------------------------- |
+| theme? | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Body
 
 The body of the tour item popover. Extends `HTMLDivElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | [RichText](https://docs.dopt.com/components/rich-text/#richtext-1) | The rich text contents of the component       |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | [RichText](https://docs.dopt.com/components/react/rich-text/#richtext-1) | The rich text contents of the component       |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Footer
 
 The footer of the tour item popover. Extends `HTMLElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### NextButton
 
 The next button of the tour item popover. Extends `HTMLButtonElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### BackButton
 
 The back button of the tour item popover. Extends `HTMLButtonElement`.
 
-| Name      | Type                                                               | Description                                   |
-| --------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                          | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                     | Description                                   |
+| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| children? | ReactNode                                                                | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Progress
 
 The progress indicators of the tour item popover. Extends `HTMLOListElement`.
 
-| Name   | Type                                                               | Description                                   |
-| ------ | ------------------------------------------------------------------ | --------------------------------------------- |
-| count  | number                                                             | The total count of items                      |
-| index  | number                                                             | The current item index                        |
-| theme? | [Theme](https://docs.dopt.com/components/styling/#theme-interface) | A theme definition to attach to the component |
+| Name   | Type                                                                     | Description                                   |
+| ------ | ------------------------------------------------------------------------ | --------------------------------------------- |
+| count  | number                                                                   | The total count of items                      |
+| index  | number                                                                   | The current item index                        |
+| theme? | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ## Hooks
 
@@ -301,7 +301,7 @@ export function Application() {
 
 ## Styling API
 
-[Learn more about styling and theming →](https://docs.dopt.com/components/styling/)
+[Learn more about styling and theming →](https://docs.dopt.com/components/react/styling/)
 
 | Name         | Selector                         | Description                              |
 | ------------ | -------------------------------- | ---------------------------------------- |

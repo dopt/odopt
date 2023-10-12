@@ -1,5 +1,12 @@
 # @examples/tour-custom-vue
 
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [f9050b07b]
+  - @dopt/vue@0.2.0
+
 ## 0.2.6
 
 ### Patch Changes

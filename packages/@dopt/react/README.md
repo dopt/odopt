@@ -117,11 +117,11 @@ Unlike flows, the states of a block are not all 1:1 with actions you can perform
 
 Now that you know what objects are available through the SDK, let's talk about how you access them.
 
-By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L77) prop, and their associated blocks using the following React hooks and HOCs.
+By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L77) prop, and their associated blocks using the following React hooks.
 
 ### Using transitions
 
-Our hooks and HOCs provide a transition function which you can use to progress and update the state of flows and blocks. The transition function accepts the path names you've defined on the flow canvas as inputs. These inputs will determine which paths the user will transition along.
+Our hooks provide a transition function which you can use to progress and update the state of flows and blocks. The transition function accepts the path names you've defined on the flow canvas as inputs. These inputs will determine which paths the user will transition along.
 
 This function is defined with a signature that explicitly does not return a value: `(...inputs: string[]) => void | undefined`. We do this because a transition may cause a flow and / or block transition along with other side effects. These changes will eventually propagate back to the client. Then, the client will reactively update and re-render the components which depend on these flow and block states. Calling an transition only means that at sometime in the future, the client's state will be updated.
 
@@ -153,13 +153,6 @@ declare const useBlock: (
   id: string
 ) => [block: Block, transition: BlockTransition];
 ```
-
-### Using React HOCs
-
-We offer analogous functionality through higher order components for those who are limited by their version of React or prefer that pattern.
-
-- [withFlow](./src/with-flow.tsx)
-- [withBlock](./src/with-block.tsx)
 
 ### Example usage
 

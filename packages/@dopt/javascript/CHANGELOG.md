@@ -1,5 +1,13 @@
 # @dopt/javascript
 
+## 3.7.0
+
+### Minor Changes
+
+- f9050b07b: Updates socket connection re-try handling within @dopt/javascript and @dopt/vue so that if the socket connection is lost, we will make sure to listen to all flows and blocks once the connection re-opens.
+
+  Also, update @dopt/javascript and @dopt/vue to return `failed: true` in scenarios where a flow doesn't fetch correctly, i.e. when the requested flow doesn't exist.
+
 ## 3.6.3
 
 ### Patch Changes

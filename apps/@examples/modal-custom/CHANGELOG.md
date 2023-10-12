@@ -1,5 +1,13 @@
 # @examples/modal-custom
 
+## 0.0.28
+
+### Patch Changes
+
+- Updated dependencies [798085827]
+  - @dopt/react@4.0.0
+  - @dopt/react-modal@8.0.0
+
 ## 0.0.27
 
 ### Patch Changes
