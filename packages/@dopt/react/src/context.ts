@@ -1,5 +1,5 @@
 import { Logger } from '@dopt/logger';
-import { createContext } from 'react';
+import { RefObject, createContext } from 'react';
 import type {
   Flow as APIFlow,
   Block as APIBlock,
@@ -17,8 +17,7 @@ import {
 /**
  * The context stored within Dopt's provider. It is
  * partially accessible through hooks like
- * {@link useBlock} and {@link useFlow} or through
- * their HOCs like {@link withBlock} and {@link withFlow}.
+ * {@link useBlock} and {@link useFlow}.
  */
 type DoptContext = {
   fetching: boolean;
@@ -30,7 +29,7 @@ type DoptContext = {
   blockUidBySid: Map<APIBlock['sid'], APIBlock['uid']>;
   blockIntention: BlockTransitionHandler;
   blockFields: Map<APIBlock['uid'], Map<APIField['sid'], APIField>>;
-  log: Logger;
+  log: RefObject<Logger>;
 };
 
 const DoptContext = createContext<DoptContext>({} as DoptContext);

@@ -43,7 +43,7 @@ export function useBlock<T>(
     useContext(DoptContext);
 
   if (fetching) {
-    log.info(
+    log.current?.info(
       'Accessing block prior to initialization will return default block states.'
     );
   }
@@ -52,8 +52,17 @@ export function useBlock<T>(
   const block = useMemo(
     () =>
       createBlock<T>({ uid, fetching, blocks, blockFields, blockIntention }),
-    [uid, fetching, blocks, blockFields]
+    [uid, fetching, blocks, blockFields, blockIntention]
   );
+
+  if (!fetching && block.version === -1) {
+    log.current?.warn(
+      `
+      Could not find any block matching "${id}" within \`useBlock("${id}")\`.
+      Returning a default block.
+    `.trim()
+    );
+  }
 
   return [block, block.transition];
 }

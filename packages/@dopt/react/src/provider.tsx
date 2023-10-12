@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { blocksApi, setupSocket } from '@dopt/javascript-common';
 import { Logger } from '@dopt/logger';
@@ -19,6 +25,28 @@ import type {
   Flow as APIFlow,
   Field as APIField,
 } from '@dopt/javascript-common';
+
+type Socket = ReturnType<typeof setupSocket>;
+
+function flowVersionsEqual(
+  previous: ProviderConfig['flowVersions'],
+  current: ProviderConfig['flowVersions']
+): boolean {
+  const previousFlows = Object.keys(previous);
+  const currentFlows = Object.keys(current);
+
+  if (previousFlows.length !== currentFlows.length) {
+    return false;
+  }
+
+  for (const previousFlow of previousFlows) {
+    if (previous[previousFlow] !== current[previousFlow]) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 /**
  * A React context provider for accessing block state.
@@ -57,9 +85,10 @@ export function DoptProvider(props: ProviderConfig) {
     optimisticUpdates = true,
   } = props;
 
-  const log = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
-
   const [flows, setFlows] = useState<Flows>({});
+  const [flowStatuses, setFlowStatuses] = useState<
+    Record<APIFlow['sid'], FlowStatus>
+  >({});
   const [flowBlocks, setFlowBlocks] = useState<
     Map<APIFlow['sid'], APIBlock['uid'][]>
   >(new Map());
@@ -72,16 +101,40 @@ export function DoptProvider(props: ProviderConfig) {
     new Map<string, string>()
   );
 
-  const [fetching, setFetching] = useState<boolean>(true);
-  const [socket, setSocket] = useState<ReturnType<typeof setupSocket>>();
+  const [socket, setSocket] = useState<Socket>();
+  const [socketDirty, setSocketDirty] = useState<boolean>(false);
 
-  const [flowStatuses, setFlowStatuses] = useState<
-    Record<APIFlow['sid'], FlowStatus>
-  >({});
+  const [resolvedFlowVersions, setResolvedFlowVersions] =
+    useState<Record<APIFlow['sid'], APIFlow['version']>>();
+  const fetching = resolvedFlowVersions === undefined;
+
+  /**
+   * Create a stable state variable for flowVersions so that
+   * we can use it as a dependency in hooks.
+   */
+  const [stableFlowVersions, setStableFlowVersions] = useState(flowVersions);
+  useEffect(() => {
+    setStableFlowVersions((stableFlowVersions) => {
+      return !flowVersionsEqual(stableFlowVersions, flowVersions)
+        ? flowVersions
+        : stableFlowVersions;
+    });
+  }, [flowVersions]);
+
+  /**
+   * Create a ref around Logger so that
+   * we can use it within hooks.
+   */
+  const logger = useRef<Logger>(
+    new Logger({ logLevel, prefix: ` ${PKG_NAME} ` })
+  );
+  useEffect(() => {
+    logger.current = new Logger({ logLevel, prefix: ` ${PKG_NAME} ` });
+  }, [logLevel]);
 
   useEffect(() => {
     if (userId === undefined) {
-      log.info(
+      logger.current.info(
         'The `userId` prop is undefined. The SDK will partially initialize, returning defaults for any requested blocks until the `userId` prop becomes defined.'
       );
     }
@@ -89,15 +142,15 @@ export function DoptProvider(props: ProviderConfig) {
 
   useEffect(() => {
     if (groupId === undefined) {
-      log.info(
+      logger.current.info(
         'The `groupId` prop is undefined. The SDK wont be able to target the entry conditions and update blocks if you are actively using groups properties.'
       );
     }
   }, [groupId]);
 
   useEffect(() => {
-    log.debug('<DoptProvider /> mounted');
-    return () => log.debug('<DoptProvider /> unmounted');
+    logger.current.debug('<DoptProvider /> mounted');
+    return () => logger.current.debug('<DoptProvider /> unmounted');
   }, []);
 
   /*
@@ -109,7 +162,7 @@ export function DoptProvider(props: ProviderConfig) {
         apiKey,
         userId,
         groupId,
-        logger: log,
+        logger: logger.current,
         config: {
           urlPrefix: URL_PREFIX,
           packageVersion: PKG_VERSION,
@@ -125,19 +178,29 @@ export function DoptProvider(props: ProviderConfig) {
       return;
     }
 
+    /**
+     * Begin the fetching process.
+     */
+    setResolvedFlowVersions(undefined);
+
     /*
      * Fetch all Flows based on the **in parallel**
      * provided (Flow['sid'], Flow['version'])
      * tuples (via the `flowVersions` props)
      */
     Promise.all(
-      Object.entries(flowVersions).map(([sid, version]) =>
+      Object.entries(stableFlowVersions).map(([sid, version]) =>
         getFlow({ sid, version })
       )
     )
       .then((flows) => {
         const _flows: Flows = {};
         const _flowBlocks: typeof flowBlocks = new Map();
+        const _flowStatuses: Record<APIFlow['sid'], FlowStatus> = {};
+        const _resolvedFlowVersions: Record<
+          APIFlow['sid'],
+          APIFlow['version']
+        > = {};
 
         const _blocks: Blocks = {};
         const _blockFields: typeof blockFields = new Map();
@@ -145,6 +208,11 @@ export function DoptProvider(props: ProviderConfig) {
 
         flows.forEach((flow) => {
           _flows[flow.sid] = flow;
+          _flowStatuses[flow.sid] = {
+            pending: false,
+            failed: flow.version === -1,
+          };
+          _resolvedFlowVersions[flow.sid] = flow.version;
 
           _flowBlocks.set(flow.sid, flow.blocks?.map(({ uid }) => uid) || []);
 
@@ -163,27 +231,23 @@ export function DoptProvider(props: ProviderConfig) {
         });
 
         setFlows(_flows);
+        setFlowStatuses(_flowStatuses);
+        setResolvedFlowVersions(_resolvedFlowVersions);
         setFlowBlocks(_flowBlocks);
 
         setBlocks(_blocks);
         setBlockFields(_blockFields);
         setBlockSidMap(_blockUidBySid);
 
-        /*
-         * If we've made it here we can safely progress i.e. the
-         * SDK has fetched correctly.
-         */
-        setFetching(false);
-
-        log.info('Flows & Blocks fetching successful');
+        logger.current.info('Flows and blocks fetched successfully');
       })
       .catch((_) => {
-        log.error(`
+        logger.current.error(`
             An error occurred while fetching blocks for the
-            flow versions specified: \`${JSON.stringify(flowVersions)}\`
+            flow versions specified: \`${JSON.stringify(stableFlowVersions)}\`
           `);
       });
-  }, [JSON.stringify(flowVersions), userId, groupId]);
+  }, [userId, groupId, getFlow, stableFlowVersions]);
 
   const updateBlockState = useCallback(
     (updated: Record<APIBlock['uid'], APIBlock>) =>
@@ -201,57 +265,14 @@ export function DoptProvider(props: ProviderConfig) {
         [flow.sid]: flow,
       };
     });
-
-    setFlowStatuses((previousFlowStatuses) => {
-      /*
-       *  Some flow intents generate side effects (they start flows if not started),
-       *  this tracks that those intents are propagated back to the client
-       */
-      if (previousFlowStatuses[flow.sid]?.pending) {
-        return {
-          ...previousFlowStatuses,
-          [flow.sid]: { pending: false, failed: false },
-        };
-      } else {
-        return previousFlowStatuses;
-      }
-    });
   }, []);
-
-  const blocksSocketCallback = useCallback(
-    (updatedBlocks: Blocks) => {
-      log.debug(
-        `The following blocks were updated and pushed from the server.\n${Object.values(
-          updatedBlocks
-        )
-          .map((block) => JSON.stringify(block, null, 2))
-          .join('\n')}`
-      );
-      updateBlockState(updatedBlocks);
-    },
-    [updateBlockState]
-  );
-
-  const flowSocketCallback = useCallback(
-    (updatedFlow: APIFlow) => {
-      log.debug(
-        `The following flow was updated and pushed from the server.\n${JSON.stringify(
-          updatedFlow,
-          null,
-          2
-        )}`
-      );
-      updateFlowState(updatedFlow);
-    },
-    [updateFlowState]
-  );
 
   useEffect(() => {
     const _socket = setupSocket({
       apiKey,
       userId,
       groupId,
-      log,
+      log: logger.current,
       urlPrefix: SOCKET_PREFIX,
     });
 
@@ -262,19 +283,16 @@ export function DoptProvider(props: ProviderConfig) {
     }
 
     _socket.on('ready', () => {
-      log.debug(
-        `Socket is ready for user ${userId}; group ${groupId}; flows ${Object.keys(
-          flowVersions
-        ).join(' ')}`
+      logger.current.debug(
+        `Socket is ready for user "${userId}" and group "${groupId}"`
       );
       setSocket(_socket);
+      setSocketDirty(true);
     });
 
     return () => {
-      log.debug(
-        `Closing socket for user ${userId}; group ${groupId}; flows ${Object.keys(
-          flowVersions
-        ).join(' ')}`
+      logger.current.debug(
+        `Closing socket for user "${userId}" and group "${groupId}"`
       );
       _socket.close();
     };
@@ -282,91 +300,55 @@ export function DoptProvider(props: ProviderConfig) {
 
   useEffect(() => {
     if (!socket) {
-      return;
+      return () => {
+        /* no-op */
+      };
     }
 
-    if (!(Object.keys(blocks).length > 0) || !(Object.keys(flows).length > 0)) {
-      return;
-    }
+    const blocksHandler = (updatedBlocks: Blocks) => {
+      logger.current.debug(
+        `The following blocks were updated and pushed from the server.\n${Object.values(
+          updatedBlocks
+        )
+          .map((block) => JSON.stringify(block, null, 2))
+          .join('\n')}`
+      );
+      updateBlockState(updatedBlocks);
+    };
 
-    socket.on('blocks', blocksSocketCallback);
-    socket.on('flow', flowSocketCallback);
+    const flowHandler = (updatedFlow: APIFlow) => {
+      logger.current.debug(
+        `The following flow was updated and pushed from the server.\n${JSON.stringify(
+          updatedFlow,
+          null,
+          2
+        )}`
+      );
+      updateFlowState(updatedFlow);
+    };
 
-    // Log a warning if we end up in the situation above
-    if (socket.listeners('blocks').length > 1) {
-      log.warn('Socket listeners to `blocks` are growing unexpectedly.');
-    }
+    socket.on('blocks', blocksHandler);
+    socket.on('flow', flowHandler);
 
-    if (socket.listeners('flow').length > 1) {
-      log.warn('Socket listeners to `flow` are growing unexpectedly.');
-    }
-
-    for (const uid in blocks) {
-      const version = blocks[uid].version;
-
-      socket.emit('watch:block', uid, version);
-
-      socket.on(`${uid}_${version}`, (block) => {
-        updateBlockState(block);
-      });
-
-      if (socket.listeners(`${uid}_${version}`).length > 1) {
-        log.error(
-          `Socket listeners to \`${uid}_${version}\` are growing unexpectedly.`
-        );
-      }
-    }
-
-    Object.values(flows).forEach(({ sid, version }) => {
-      socket.emit('watch:flow', sid, version);
-      socket.on(`${sid}_${version}`, updateFlowState);
-    });
-  }, [
-    JSON.stringify(Object.keys(blocks).sort()),
-    JSON.stringify(Object.keys(flows).sort()),
-    socket,
-  ]);
+    return () => {
+      socket.off('blocks', blocksHandler);
+      socket.off('flows', flowHandler);
+    };
+  }, [socket, updateBlockState, updateFlowState]);
 
   useEffect(() => {
-    if (!fetching && socket) {
-      setFlowStatuses(
-        Object.values(flows).reduce((statuses, flow) => {
-          let pending = false;
-
-          if (!flow.state.started) {
-            /*
-             * Start the Flow if it hasn't been started
-             */
-            pending = true;
-
-            flowIntent({
-              sid: flow.sid,
-              version: flow.version,
-              intent: 'start',
-            }).then(
-              (intentHasSideEffects) => {
-                if (!intentHasSideEffects) {
-                  setFlowStatuses((previousFlowStatuses) => ({
-                    ...previousFlowStatuses,
-                    [flow.sid]: { pending: false, failed: false },
-                  }));
-                }
-              },
-              () => {
-                setFlowStatuses((previousFlowStatuses) => ({
-                  ...previousFlowStatuses,
-                  [flow.sid]: { pending: false, failed: true },
-                }));
-              }
-            );
-          }
-
-          statuses[flow.sid] = { pending, failed: false };
-          return statuses;
-        }, {} as Record<APIFlow['sid'], FlowStatus>)
-      );
+    if (!socket || !resolvedFlowVersions || !socketDirty) {
+      return;
     }
-  }, [socket, fetching]);
+
+    Object.entries(resolvedFlowVersions).forEach(([sid, version]) => {
+      if (version !== -1) {
+        socket.emit('watch:flow', sid, version);
+      }
+    });
+
+    setSocketDirty(false);
+  }, [socket, socketDirty, resolvedFlowVersions]);
 
   const blockIntention: BlockTransitionHandler = useMemo(() => {
     if (fetching) {
@@ -400,7 +382,7 @@ export function DoptProvider(props: ProviderConfig) {
         }
       }
     };
-  }, [fetching, blockIntent, blocks]);
+  }, [fetching, blockIntent, blocks, optimisticUpdates, updateBlockState]);
 
   const flowIntention: FlowIntentHandler = useMemo(() => {
     if (fetching) {
@@ -434,7 +416,7 @@ export function DoptProvider(props: ProviderConfig) {
         flowIntent({ sid, version, intent: 'stop' });
       },
     };
-  }, [fetching, flows]);
+  }, [fetching, flowIntent]);
 
   return (
     <DoptContext.Provider
@@ -448,7 +430,7 @@ export function DoptProvider(props: ProviderConfig) {
         blockUidBySid,
         blockIntention,
         blockFields,
-        log,
+        log: logger,
       }}
     >
       {children}
