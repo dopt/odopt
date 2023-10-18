@@ -27,6 +27,7 @@ export const ChecklistItem = Type.Object(
 export type ChecklistItem = Static<typeof ChecklistItem>;
 
 export type ChecklistFieldKeys = 'title' | 'body';
+export const ChecklistFieldKeys: ChecklistFieldKeys[] = ['title', 'body'];
 
 /**
  * This captures field definitions that are created when a checklist is created.
@@ -63,6 +64,12 @@ export type ChecklistItemFieldKeys =
   | 'body'
   | 'complete-label'
   | 'display-index';
+export const ChecklistItemFieldKeys: ChecklistItemFieldKeys[] = [
+  'title',
+  'body',
+  'complete-label',
+  'display-index',
+];
 
 /**
  * This captures field definitions that are created when a checklist is created.

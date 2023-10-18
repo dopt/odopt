@@ -1,5 +1,11 @@
 # @dopt/react-rich-text
 
+## 6.0.1
+
+### Patch Changes
+
+- e9e1b01f8: update README
+
 ## 6.0.0
 
 ### Major Changes

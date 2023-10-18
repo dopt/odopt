@@ -1,5 +1,13 @@
 # @dopt/react-card
 
+## 7.0.1
+
+### Patch Changes
+
+- e9e1b01f8: update README
+- Updated dependencies [e9e1b01f8]
+  - @dopt/react-rich-text@6.0.1
+
 ## 7.0.0
 
 ### Patch Changes
