@@ -1,5 +1,12 @@
 # @examples/setup
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [e9e1b01f8]
+  - @dopt/react-rich-text@6.0.1
+
 ## 0.0.6
 
 ### Patch Changes

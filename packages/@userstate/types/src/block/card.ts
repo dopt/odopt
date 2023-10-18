@@ -27,6 +27,12 @@ export type CardFieldKeys =
   | 'body'
   | 'complete-label'
   | 'dismiss-label';
+export const CardFieldKeys: CardFieldKeys[] = [
+  'title',
+  'body',
+  'complete-label',
+  'dismiss-label',
+];
 
 export const CardFieldDefinitions: ComponentFieldDefinition<CardFieldKeys>[] = [
   {
