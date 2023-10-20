@@ -19,7 +19,7 @@ export const cardContent = style({
   all: 'unset',
   position: 'relative',
   display: 'block',
-  padding: vars.space[6],
+  padding: vars.space[4],
   borderWidth: vars.borderWidths[2],
   borderStyle: 'solid',
   borderColor: vars.colors.border,
