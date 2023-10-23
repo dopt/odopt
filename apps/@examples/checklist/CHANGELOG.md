@@ -1,5 +1,12 @@
 # @examples/checklist
 
+## 0.1.50
+
+### Patch Changes
+
+- Updated dependencies [e9e1b01f8]
+  - @dopt/react-checklist@8.0.1
+
 ## 0.1.49
 
 ### Patch Changes
