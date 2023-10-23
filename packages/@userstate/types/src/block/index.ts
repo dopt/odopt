@@ -11,6 +11,7 @@ import { Webhook } from './webhook';
 import { Nary } from './base';
 import { ContainerStart, ContainerEnd } from './container';
 import { Checklist, ChecklistItem } from './checklist';
+import { Hints, HintsItem } from './hints';
 import { Tour, TourItem } from './tour';
 
 export * from './entry';
@@ -22,6 +23,7 @@ export * from './card';
 export * from './webhook';
 export * from './gate';
 export * from './checklist';
+export * from './hints';
 export * from './tour';
 export * from './container';
 
@@ -38,6 +40,8 @@ export const BLOCK_TYPES = {
   containerEnd: ContainerEnd.properties.type.const,
   checklist: Checklist.properties.type.const,
   checklistItem: ChecklistItem.properties.type.const,
+  hints: Hints.properties.type.const,
+  hintsItem: HintsItem.properties.type.const,
   tour: Tour.properties.type.const,
   tourItem: TourItem.properties.type.const,
 } as const;
@@ -55,6 +59,8 @@ export const BlockTypes = Type.Union([
   ContainerEnd.properties.type,
   Checklist.properties.type,
   ChecklistItem.properties.type,
+  Hints.properties.type,
+  HintsItem.properties.type,
   Tour.properties.type,
   TourItem.properties.type,
 ]);
@@ -74,6 +80,8 @@ export const Block = Type.Union(
     Type.Ref(ContainerEnd),
     Type.Ref(Checklist),
     Type.Ref(ChecklistItem),
+    Type.Ref(Hints),
+    Type.Ref(HintsItem),
     Type.Ref(Tour),
     Type.Ref(TourItem),
   ],
@@ -97,6 +105,8 @@ export type Block =
   | ContainerEnd
   | Checklist
   | ChecklistItem
+  | Hints
+  | HintsItem
   | Tour
   | TourItem;
 
@@ -110,6 +120,8 @@ export function isExternalBlock(type: BlockTypes) {
     type === BLOCK_TYPES.card ||
     type === BLOCK_TYPES.checklist ||
     type === BLOCK_TYPES.checklistItem ||
+    type === BLOCK_TYPES.hints ||
+    type === BLOCK_TYPES.hintsItem ||
     type === BLOCK_TYPES.tour ||
     type === BLOCK_TYPES.tourItem
   );
@@ -121,6 +133,8 @@ export type ExternalBlock =
   | Card
   | Checklist
   | ChecklistItem
+  | Hints
+  | HintsItem
   | Tour
   | TourItem;
 
@@ -259,6 +273,29 @@ export function getDefaultBlock(props: {
         kind: 'block',
         transitioned: {
           ...{ complete: false, skip: false },
+          ...transitioned,
+        },
+        containerUid: getContainerUid(props),
+        fields: [],
+      };
+    case 'hints':
+      return {
+        ...props,
+        type: 'hints',
+        kind: 'block',
+        transitioned: {
+          ...{ complete: false, dismiss: false },
+          ...transitioned,
+        },
+        fields: [],
+      };
+    case 'hintsItem':
+      return {
+        ...props,
+        type: 'hintsItem',
+        kind: 'block',
+        transitioned: {
+          ...{ complete: false, dismiss: false },
           ...transitioned,
         },
         containerUid: getContainerUid(props),
