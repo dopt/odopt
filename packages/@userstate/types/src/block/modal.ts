@@ -27,6 +27,12 @@ export type ModalFieldKeys =
   | 'body'
   | 'complete-label'
   | 'dismiss-label';
+export const ModalFieldKeys: ModalFieldKeys[] = [
+  'title',
+  'body',
+  'complete-label',
+  'dismiss-label',
+];
 
 export const ModalFieldDefinitions: ComponentFieldDefinition<ModalFieldKeys>[] =
   [

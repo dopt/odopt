@@ -32,6 +32,13 @@ export type TourItemFieldKeys =
   | 'next-label'
   | 'back-label'
   | 'display-index';
+export const TourItemFieldKeys: TourItemFieldKeys[] = [
+  'title',
+  'body',
+  'next-label',
+  'back-label',
+  'display-index',
+];
 
 /**
  * This captures field definitions that are created when a tour is created.
