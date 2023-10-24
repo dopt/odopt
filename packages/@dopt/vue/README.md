@@ -241,6 +241,8 @@ The Vue SDK has built in headless composables for all Dopt provided components:
 
 - `useTourItem` (maps to `@dopt/semantic-data-layer-tour`)
 - `useTour` (maps to `@dopt/semantic-data-layer-tour`)
+- `useHints` (maps to `@dopt/semantic-data-layer-hints`)
+- `useHintsItem` (maps to `@dopt/semantic-data-layer-hints`)
 - `useChecklist` (maps to `@dopt/semantic-data-layer-checklist`)
 - `useChecklistItem` (maps to `@dopt/semantic-data-layer-checklist`)
 - `useModal` (maps to `@dopt/semantic-data-layer-modal`)

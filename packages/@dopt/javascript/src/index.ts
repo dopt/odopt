@@ -4,6 +4,7 @@ export * from './block';
 export * from './card';
 export * from './modal';
 export * from './checklist';
+export * from './hints';
 export * from './tour';
 export * from './container';
 

@@ -44,6 +44,7 @@
     "@dopt/core-rich-text": "workspace:*",
     "@dopt/javascript": "workspace:*",
     "@dopt/javascript-common": "workspace:*",
+    "@dopt/semantic-data-layer-hints": "workspace:*",
     "@dopt/semantic-data-layer-checklist": "workspace:*",
     "@dopt/semantic-data-layer-card": "workspace:*",
     "@dopt/semantic-data-layer-modal": "workspace:*",

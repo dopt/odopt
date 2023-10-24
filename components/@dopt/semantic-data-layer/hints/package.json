@@ -1,15 +1,14 @@
 {
-  "name": "@dopt/react-users",
-  "version": "0.2.6",
-  "private": false,
-  "description": "React hooks for identifying users and groups to Dopt's Users API",
-  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/react-users",
+  "name": "@dopt/semantic-data-layer-hints",
+  "version": "0.0.0",
+  "description": "An interface definition for Dopt's hints component",
+  "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/semantic-data-layer/hints",
   "repository": {
     "type": "git",
     "url": "https://github.com/dopt/odopt.git",
-    "directory": "packages/@dopt/react-users"
+    "directory": "components/@dopt/semantic-data-layer/hints"
   },
-  "license": "MIT",
+  "private": false,
   "main": "./dist/cjs/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -32,14 +31,11 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
-    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/react-users\""
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/semantic-data-layer-hints\""
   },
   "files": [
     "dist"
   ],
-  "peerDependencies": {
-    "react": ">=17.0.2"
-  },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
@@ -47,13 +43,14 @@
     "@dopt/pkg-lint": "workspace:*",
     "@dopt/pkg-clean": "workspace:*",
     "@types/jest": "29.5.2",
-    "@types/react": "18.2.12",
+    "esbuild": "0.18.2",
+    "esbuild-jest": "0.5.0",
     "jest": "29.5.0",
     "@dopt/pkg-format": "workspace:*",
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "@dopt/users-javascript-browser-client": "workspace:*"
+    "@dopt/core-rich-text": "workspace:*"
   },
   "openSource": true
 }

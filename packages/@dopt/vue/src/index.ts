@@ -12,6 +12,9 @@ export type { Block } from './block';
 export { useTourItem, useTour } from './tour';
 export type { TourItem, Tour } from './tour';
 
+export { useHintsItem, useHints } from './hints';
+export type { HintsItem, Hints } from './hints';
+
 export { useChecklist, useChecklistItem } from './checklist';
 export type { Checklist, ChecklistItem } from './checklist';
 

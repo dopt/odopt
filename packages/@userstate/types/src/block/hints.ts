@@ -30,17 +30,16 @@ export type HintsItemFieldKeys =
   | 'title'
   | 'body'
   | 'complete-label'
-  | 'dismiss-label'
+  | 'dismiss-all-label'
   | 'display-index';
 
 export const HintsItemFieldKeys: HintsItemFieldKeys[] = [
   'title',
   'body',
   'complete-label',
-  'dismiss-label',
+  'dismiss-all-label',
   'display-index',
 ];
-
 /**
  * This captures field definitions that are created when a hints is created.
  * These definitions are *always* expected to be present for a given hints.
@@ -78,7 +77,7 @@ export const HintsItemFieldDefinitions: ComponentFieldDefinition<HintsItemFieldK
     },
     {
       displayName: 'Dismiss label',
-      sid: 'dismiss-label',
+      sid: 'dismiss-all-label',
       description: 'Content for the dismiss button',
       type: 'string',
       initialValue: fieldToString('Dismiss') as string,
