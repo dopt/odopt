@@ -1,5 +1,11 @@
 # @dopt/semantic-data-layer-card
 
+## 1.2.0
+
+### Minor Changes
+
+- d3480408d: expose field accessor for component blocks and their children
+
 ## 1.1.1
 
 ### Patch Changes

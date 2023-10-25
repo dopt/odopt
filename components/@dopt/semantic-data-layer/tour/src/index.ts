@@ -1,4 +1,5 @@
 import type { Children } from '@dopt/core-rich-text';
+import { Field } from '@dopt/block-api-types';
 
 export type FilterableField =
   | 'completed'
@@ -23,6 +24,8 @@ export interface Tour {
 
   size: number;
 
+  field: <V extends Field['value']>(name: string) => V | null | undefined;
+
   filter(on: FilterableField): TourItem[];
   count(where: CountableField): number;
 }
@@ -43,6 +46,8 @@ export interface TourItem {
   active: boolean;
 
   completed: boolean;
+
+  field: <V extends Field['value']>(name: string) => V | null | undefined;
 
   next: () => void;
   back: () => void;

@@ -990,6 +990,9 @@ importers:
 
   components/@dopt/semantic-data-layer/card:
     dependencies:
+      '@dopt/block-api-types':
+        specifier: workspace:*
+        version: link:../../../../packages/@dopt/block-api-types
       '@dopt/core-rich-text':
         specifier: workspace:*
         version: link:../../core/rich-text
@@ -1024,6 +1027,9 @@ importers:
 
   components/@dopt/semantic-data-layer/checklist:
     dependencies:
+      '@dopt/block-api-types':
+        specifier: workspace:*
+        version: link:../../../../packages/@dopt/block-api-types
       '@dopt/core-rich-text':
         specifier: workspace:*
         version: link:../../core/rich-text
@@ -1064,6 +1070,9 @@ importers:
 
   components/@dopt/semantic-data-layer/hints:
     dependencies:
+      '@dopt/block-api-types':
+        specifier: workspace:*
+        version: link:../../../../packages/@dopt/block-api-types
       '@dopt/core-rich-text':
         specifier: workspace:*
         version: link:../../core/rich-text
@@ -1104,6 +1113,9 @@ importers:
 
   components/@dopt/semantic-data-layer/modal:
     dependencies:
+      '@dopt/block-api-types':
+        specifier: workspace:*
+        version: link:../../../../packages/@dopt/block-api-types
       '@dopt/core-rich-text':
         specifier: workspace:*
         version: link:../../core/rich-text
@@ -1144,6 +1156,9 @@ importers:
 
   components/@dopt/semantic-data-layer/tour:
     dependencies:
+      '@dopt/block-api-types':
+        specifier: workspace:*
+        version: link:../../../../packages/@dopt/block-api-types
       '@dopt/core-rich-text':
         specifier: workspace:*
         version: link:../../core/rich-text
