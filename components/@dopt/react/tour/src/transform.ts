@@ -28,6 +28,8 @@ export function transform(container: Container): Tour {
       return items.length;
     },
 
+    field: (name: string) => container.field(name),
+
     filter: (on: FilterableField) => {
       switch (on) {
         case 'completed':
@@ -74,6 +76,8 @@ export function transformItem(
     active: block.state.active,
 
     completed: block.transitioned.next || false,
+
+    field: (name: string) => block.field(name),
 
     next: () => block.transition('next'),
     back: () => block.transition('previous'),

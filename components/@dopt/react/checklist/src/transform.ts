@@ -14,7 +14,7 @@ export function transform(container: Container): Checklist {
   const { children } = container;
   const items = children.sort(displayIndexComparator).map(transformItem);
 
-  const transformed = {
+  const transformed: Checklist = {
     id: container.sid,
 
     title: container.field<string>('title'),
@@ -26,6 +26,8 @@ export function transform(container: Container): Checklist {
 
     completed: container.transitioned.complete || false,
     dismissed: container.transitioned.dismiss || false,
+
+    field: (name: string) => container.field(name),
 
     complete: () => container.transition('complete'),
     dismiss: () => container.transition('dismiss'),
@@ -80,6 +82,8 @@ export function transformItem(
 
     completed: block.transitioned.complete || false,
     skipped: block.transitioned.skip || false,
+
+    field: (name: string) => block.field(name),
 
     complete: () => block.transition('complete'),
     skip: () => block.transition('skip'),
