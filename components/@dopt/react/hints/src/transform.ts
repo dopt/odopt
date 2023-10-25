@@ -21,6 +21,8 @@ export function transform(container: Container): Hints {
     completed: container.transitioned.complete || false,
     dismissed: container.transitioned.dismiss || false,
 
+    field: (name: string) => container.field(name),
+
     complete: () => container.transition('complete'),
     dismiss: () => container.transition('dismiss'),
 
@@ -75,6 +77,8 @@ export function transformItem(
 
     completed: block.transitioned.complete || false,
     dismissed: block.transitioned.dismiss || false,
+
+    field: (name: string) => block.field(name),
 
     complete: () => block.transition('complete'),
     dismiss: () => block.transition('dismiss'),

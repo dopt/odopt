@@ -1,5 +1,17 @@
 # @dopt/react-card
 
+## 7.1.0
+
+### Minor Changes
+
+- d3480408d: expose field accessor for component blocks and their children
+
+### Patch Changes
+
+- 4791a1080: reduce content padding
+- Updated dependencies [d3480408d]
+  - @dopt/semantic-data-layer-card@1.2.0
+
 ## 7.0.1
 
 ### Patch Changes

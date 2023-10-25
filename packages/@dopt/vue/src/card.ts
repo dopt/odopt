@@ -3,6 +3,8 @@ import { DOPT_KEY } from './plugin-keys';
 import { Card as SemanticCard } from '@dopt/semantic-data-layer-card';
 import { Card as CardClass } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
+import { Block } from './block';
+import { Field } from '@dopt/javascript-common';
 
 /**
  * Card generally follows the card interface
@@ -19,6 +21,7 @@ export interface Card {
   active: Ref<boolean>;
   completed: Ref<boolean>;
   dismissed: Ref<boolean>;
+  field: Block['field'];
   complete: () => void;
   dismiss: () => void;
 }
@@ -37,6 +40,7 @@ function updateCard(card: Card, _card: CardClass): void {
 function createCard(_card: CardClass): Card {
   return {
     id: ref(_card.id),
+    field: <T extends Field['value']>(name: string) => _card.field<T>(name),
     complete: () => _card.complete(),
     dismiss: () => _card.dismiss(),
     title: ref(_card.title),

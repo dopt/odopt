@@ -3,10 +3,10 @@ import { UPDATE_USER_KEY } from './plugin-keys';
 import { DoptConfig } from '@dopt/javascript';
 
 /**
- * A Vue composable to access a setter to update the page's current user.
+ * A Vue composable to access a setter to update the page's current user (and group).
  *
  * @remarks
- * This is useful if you did't specify a user when initializing {@link DoptPlugin}.
+ * This is useful if you didn't specify a user when initializing {@link DoptPlugin}.
  * You might not have been able to specify a user at plugin time because
  * a user was not available (for example, a user was being fetched asynchronously).
  *

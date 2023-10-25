@@ -1,5 +1,26 @@
 # @dopt/vue
 
+## 0.3.0
+
+### Minor Changes
+
+- d3480408d: expose field accessor for component blocks and their children
+- d3480408d: expose field accesors for hints and hint items
+- 92b5e1a1e: Release the 1.0.0 of the hints component SDKs.
+
+### Patch Changes
+
+- 80bf827c3: Fix `updateUser` to not override previously set values if the values passed in as arguments are null. For example, calling `updateUser('new-id')` should not override the original value of `groupId` that was set. Same for `updateUser(null, 'new-group-id')`.
+- Updated dependencies [d3480408d]
+- Updated dependencies [d3480408d]
+- Updated dependencies [92b5e1a1e]
+  - @dopt/semantic-data-layer-checklist@0.2.0
+  - @dopt/semantic-data-layer-modal@0.2.0
+  - @dopt/semantic-data-layer-card@1.2.0
+  - @dopt/semantic-data-layer-tour@0.3.0
+  - @dopt/semantic-data-layer-hints@1.0.0
+  - @dopt/javascript@3.8.0
+
 ## 0.2.0
 
 ### Minor Changes
