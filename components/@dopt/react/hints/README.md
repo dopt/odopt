@@ -28,38 +28,48 @@ pnpm add @dopt/react-hints
 The default export from `@dopt/react-hints` is a collection of components that you can use to structure and compose a hints item.
 
 ```jsx
-import HintsItem, { useHintsItem } from '@dopt/react-hints';
+import Hint, { useHintsItem } from '@dopt/react-hints';
 
 function MyHintsStep({ children }) {
-  const hintsItem = useHintsItem('hints.shaggy-horses-sniff');
+  const hintItem = useHintsItem('hints.project-creation');
 
-  if (!hintsItem) {
+  if (!hintItem) {
     return children;
   }
 
   return (
-    <HintsItem.Root active={hintsItem.active}>
-      <HintsItem.Anchor>{children}</HintsItem.Anchor>
-      <HintsItem.Popover>
-        <HintsItem.Content>
-          <HintsItem.Header>
-            <HintsItem.Title>{hintsItem.title}</HintsItem.Title>
-            <HintsItem.DismissIcon onClick={hintsItem.hints?.dismiss} />
-          </HintsItem.Header>
-          <HintsItem.Body>{hintsItem.body}</HintsItem.Body>
-          <HintsItem.Footer>
-            <HintsItem.BackButton>{hintsItem.backLabel}</HintsItem.BackButton>
-            <HintsItem.NextButton onClick={hintsItem.next}>
-              {hintsItem.nextLabel}
-            </HintsItem.NextButton>
-          </HintsItem.Footer>
-          <HintsItem.Progress
-            count={hintsItem.hints?.size || 1}
-            index={hintsItem.index}
+
+    <Hints.Root active={hintItem.active}>
+      <Hints.Anchor>
+        <button style={{ position: 'relative' }}>
+          Create a project
+          <Hints.Indicator
+            onClick={() => hintItem.setOpen(!hintItem.open)}
+            style={{
+              bottom: -8,
+              right: -8,
+            }}
           />
-        </HintsItem.Content>
-      </HintsItem.Popover>
-    </HintsItem.Root>
+        </button>
+      </Hints.Anchor>
+      <Hints.Popover position="bottom" open={hintItem.open}>
+        <Hints.Content>
+          <Hints.Header>
+            <Hints.Title>{hintItem.title}</Hints.Title>
+            <Hints.CloseIcon onClick={() => hintItem.setOpen(false)} />
+          </Hints.Header>
+          <Hints.Body>{hintItem.body}</Hints.Body>
+          <Hints.Footer>
+            <Hints.CompleteButton onClick={hintItem.complete}>
+              {hintItem.completeLabel}
+            </Hints.CompleteButton>
+            <Hints.DismissAllButton>
+              {hintItem.dismissAllLabel}
+            </Hints.DismissAllButton>
+          </Hints.Footer>
+        </Hints.Content>
+      </Hints.Popover>
+    </Hint.Root>
   );
 }
 ```
@@ -72,11 +82,11 @@ Check out our [hints example](https://www.dopt.com/examples/hints) and our [head
 
 The root element of the hints item.
 
-| Name      | Type                                                                     | Description                                                   |
-| --------- | ------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| active?   | boolean                                                                  | Determines the visibility of the component (default: `false`) |
-| children? | ReactNode                                                                | The contents of the component                                 |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component                 |
+| Name      | Type                                                                    | Description                                                   |
+| --------- | ----------------------------------------------------------------------- | ------------------------------------------------------------- |
+| active?   | boolean                                                                 | Determines the visibility of the component (default: `false`) |
+| children? | ReactNode                                                               | The contents of the component                                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component                 |
 
 ### Anchor
 
@@ -86,107 +96,107 @@ The element to anchor the hints item to.
 | -------- | ------------ | ---------------------------- |
 | children | ReactElement | A React element to anchor to |
 
+### Indicator
+
+The element to anchor the hints item to.
+
+| Name     | Type                | Description                                                   |
+| -------- | ------------------- | ------------------------------------------------------------- |
+| onClick? | () => void          | A handler for click that can be used to show the hint popover |
+| style?   | React.CSSProperties | Style object for custom positioning of the indicator          |
+
 ### Popover
 
 The hints item popover. Extends `HTMLDivElement`.
 
-| Name       | Type                                                                     | Description                                                                                   |
-| ---------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
-| alignment? | [Alignment](#alignment)                                                  | Determines how the component should align relative to the anchor element (default: `center`)  |
-| children?  | ReactNode                                                                | The contents of the component                                                                 |
-| offset?    | number                                                                   | The distance in `px` to position the component relative to the anchor element (default: `10`) |
-| position?  | [Side](#side)                                                            | The side that the component should position relative to the anchor element (default: `top`)   |
-| theme?     | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component                                                 |
+| Name       | Type                                                                    | Description                                                                                   |
+| ---------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| alignment? | [Alignment](#alignment)                                                 | Determines how the component should align relative to the anchor element (default: `center`)  |
+| children?  | ReactNode                                                               | The contents of the component                                                                 |
+| open?      | boolean                                                                 | A boolean determining whether the hint popover is open                                        |
+| offset?    | number                                                                  | The distance in `px` to position the component relative to the anchor element (default: `10`) |
+| position?  | [Side](#side)                                                           | The side that the component should position relative to the anchor element (default: `top`)   |
+| theme?     | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component                                                 |
 
 ### Content
 
 The content of the hints item popover. Extends `HTMLDivElement`.
 
-| Name      | Type                                                                     | Description                                   |
-| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                                | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                    | Description                                   |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------- |
+| children? | ReactNode                                                               | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
 ### Header
 
 The header of the hints item popover. Extends `HTMLElement`.
 
-| Name      | Type                                                                     | Description                                   |
-| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                                | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                    | Description                                   |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------- |
+| children? | ReactNode                                                               | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
 ### Title
 
 The title of the hints item popover. Extends `HTMLHeadingElement`.
 
-| Name      | Type                                                                     | Description                                   |
-| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                                | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                    | Description                                   |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------- |
+| children? | ReactNode                                                               | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
 ### Content
 
 The content of the hints item popover. Extends `HTMLDivElement`.
 
-| Name      | Type                                                                     | Description                                   |
-| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                                | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                    | Description                                   |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------- |
+| children? | ReactNode                                                               | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
 ### DismissIcon
 
 The dismiss icon of the hints item popover. Extends `HTMLButtonElement`.
 
-| Name   | Type                                                                     | Description                                   |
-| ------ | ------------------------------------------------------------------------ | --------------------------------------------- |
-| theme? | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name   | Type                                                                    | Description                                   |
+| ------ | ----------------------------------------------------------------------- | --------------------------------------------- |
+| theme? | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
 ### Body
 
 The body of the hints item popover. Extends `HTMLDivElement`.
 
-| Name      | Type                                                                     | Description                                   |
-| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | [RichText](https://docs.dopt.com/components/react/rich-text/#richtext-1) | The rich text contents of the component       |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                    | Description                                   |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------- |
+| children? | [RichText](./rich-text.mdx#richtext-1)                                  | The rich text contents of the component       |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
 ### Footer
 
 The footer of the hints item popover. Extends `HTMLElement`.
 
-| Name      | Type                                                                     | Description                                   |
-| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                                | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                    | Description                                   |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------- |
+| children? | ReactNode                                                               | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
-### NextButton
-
-The next button of the hints item popover. Extends `HTMLButtonElement`.
-
-| Name      | Type                                                                     | Description                                   |
-| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                                | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
-
-### BackButton
+### CompleteButton
 
 The back button of the hints item popover. Extends `HTMLButtonElement`.
 
-| Name      | Type                                                                     | Description                                   |
-| --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | ReactNode                                                                | The contents of the component                 |
-| theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                    | Description                                   |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------- |
+| children? | ReactNode                                                               | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
-### Progress
+### DismissAllButton
 
-The progress indicators of the hints item popover. Extends `HTMLOListElement`.
+The next button of the hints item popover. Extends `HTMLButtonElement`.
 
-| Name   | Type                                                                     | Description                                   |
-| ------ | ------------------------------------------------------------------------ | --------------------------------------------- |
-| count  | number                                                                   | The total count of items                      |
-| index  | number                                                                   | The current item index                        |
-| theme? | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
+| Name      | Type                                                                    | Description                                   |
+| --------- | ----------------------------------------------------------------------- | --------------------------------------------- |
+| children? | ReactNode                                                               | The contents of the component                 |
+| theme?    | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component |
 
 ## Hooks
 
@@ -247,9 +257,9 @@ export function MyHintsStep() {
 
 ### useHintsItem
 
-- **useHintsItem**(`id`): [HintsItem](#hintsitem)
+- **useHintsItem**(`id`): [HintsItem](#hintsitem-1)
 
-A React hook for accessing and updating a hints item's state.
+A React hook for accessing and updating a hints item's state and content.
 
 ```tsx
 import { useHintsItem } from '@dopt/react-hints';
@@ -259,13 +269,13 @@ export function Application() {
   const {
     id,
     hints,
-    index,
     title,
     body,
-    nextLabel,
-    backLabel,
+    completeLabel,
+    dismissAllLabel,
     active,
     completed,
+    dismissed,
     next,
     back,
   } = useHintsItem('onboarding-hints.step-1');
@@ -275,24 +285,22 @@ export function Application() {
       <div id="states">
         <div>hintsItem.active: {active}</div>
         <div>hintsItem.completed: {completed}</div>
+        <div>hintsItem.dismissed: {dismissed}</div>
       </div>
       <div id="actions">
-        <button onClick={next}>{nextLabel}</button>
-        <button onClick={back}>{backLabel}</button>
+        <button onClick={next}>{completeLabel}</button>
+        <button onClick={back}>{dismissAllLabel}</button>
       </div>
       <div id="content">
         <div>hintsItem.title: {title}</div>
         <div>
           hintsItem.body: <RichText>{body}</RichText>
         </div>
-        <div>hintsItem.nextLabel: {nextLabel}</div>
-        <div>hintsItem.backLabel: {backLabel}</div>
+        <div>hintsItem.completeLabel: {completeLabel}</div>
+        <div>hintsItem.dismissAllLabel: {dismissAllLabel}</div>
       </div>
       <div id="parent">
-        <div>hintsItem.hints: {JSON.stringify(hints)}</div>
-      </div>
-      <div id="metadata">
-        <div>hintsItem.index: {hintsItem.index}</div>
+        <div>hintsItem.hints: {hints?.id}</div>
       </div>
     </div>
   );
@@ -389,22 +397,31 @@ interface HintsItem {
   title: string | null | undefined;
   body: RichText | null | undefined;
 
-  nextLabel: string | null | undefined;
-  backLabel: string | null | undefined;
+  completeLabel: string | null | undefined;
+  dismissAllLabel: string | null | undefined;
 
   active: boolean;
 
   completed: boolean;
+  dismissed: boolean;
 
-  next: () => void;
-  back: () => void;
+  complete: () => void;
+  dismiss: () => void;
 }
 ```
 
 ### FilterableField
 
 ```ts
-type FilterableField = 'completed' | 'not-completed' | 'active' | 'not-active';
+type FilterableField =
+  | 'completed'
+  | 'not-completed'
+  | 'dismissed'
+  | 'not-dismissed'
+  | 'active'
+  | 'not-active'
+  | 'done'
+  | 'not-done';
 ```
 
 ### CountableField

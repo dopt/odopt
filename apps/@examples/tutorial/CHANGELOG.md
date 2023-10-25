@@ -1,5 +1,14 @@
 # @examples/tutorial
 
+## 0.2.10
+
+### Patch Changes
+
+- Updated dependencies [d3480408d]
+  - @dopt/react-checklist@8.1.0
+  - @dopt/react-modal@8.1.0
+  - @dopt/react-tour@8.1.0
+
 ## 0.2.9
 
 ### Patch Changes

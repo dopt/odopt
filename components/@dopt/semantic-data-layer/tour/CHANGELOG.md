@@ -1,5 +1,11 @@
 # @dopt/semantic-data-layer-tour
 
+## 0.3.0
+
+### Minor Changes
+
+- d3480408d: expose field accessor for component blocks and their children
+
 ## 0.2.1
 
 ### Patch Changes

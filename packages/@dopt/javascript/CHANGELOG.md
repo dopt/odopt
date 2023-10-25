@@ -1,5 +1,22 @@
 # @dopt/javascript
 
+## 3.8.0
+
+### Minor Changes
+
+- 92b5e1a1e: Release the 1.0.0 of the hints component SDKs.
+
+### Patch Changes
+
+- Updated dependencies [d3480408d]
+- Updated dependencies [d3480408d]
+- Updated dependencies [92b5e1a1e]
+  - @dopt/semantic-data-layer-checklist@0.2.0
+  - @dopt/semantic-data-layer-modal@0.2.0
+  - @dopt/semantic-data-layer-card@1.2.0
+  - @dopt/semantic-data-layer-tour@0.3.0
+  - @dopt/semantic-data-layer-hints@1.0.0
+
 ## 3.7.0
 
 ### Minor Changes

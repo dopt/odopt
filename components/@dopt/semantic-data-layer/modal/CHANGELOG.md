@@ -1,5 +1,11 @@
 # @dopt/semantic-data-layer-modal
 
+## 0.2.0
+
+### Minor Changes
+
+- d3480408d: expose field accessor for component blocks and their children
+
 ## 0.1.1
 
 ### Patch Changes

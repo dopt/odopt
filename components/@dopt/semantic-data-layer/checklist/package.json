@@ -1,6 +1,6 @@
 {
   "name": "@dopt/semantic-data-layer-checklist",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "An interface definition for Dopt's checklist component",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/semantic-data-layer/checklist",
   "repository": {
@@ -50,7 +50,8 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "@dopt/core-rich-text": "workspace:*"
+    "@dopt/core-rich-text": "workspace:*",
+    "@dopt/block-api-types": "workspace:*"
   },
   "openSource": true
 }

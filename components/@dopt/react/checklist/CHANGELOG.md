@@ -1,5 +1,16 @@
 # @dopt/react-checklist
 
+## 8.1.0
+
+### Minor Changes
+
+- d3480408d: expose field accessor for component blocks and their children
+
+### Patch Changes
+
+- Updated dependencies [d3480408d]
+  - @dopt/semantic-data-layer-checklist@0.2.0
+
 ## 8.0.1
 
 ### Patch Changes
