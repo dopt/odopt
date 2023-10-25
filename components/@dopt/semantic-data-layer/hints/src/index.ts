@@ -1,4 +1,5 @@
 import type { Children } from '@dopt/core-rich-text';
+import { Field } from '@dopt/block-api-types';
 
 export type FilterableField =
   | 'completed'
@@ -27,6 +28,8 @@ export interface Hints {
 
   size: number;
 
+  field: <V extends Field['value']>(name: string) => V | null | undefined;
+
   filter(on: FilterableField): HintsItem[];
   count(where: CountableField): number;
 }
@@ -48,6 +51,8 @@ export interface HintsItem {
 
   completed: boolean;
   dismissed: boolean;
+
+  field: <V extends Field['value']>(name: string) => V | null | undefined;
 
   complete: () => void;
   dismiss: () => void;

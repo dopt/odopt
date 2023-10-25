@@ -8,6 +8,8 @@ import {
 } from '@dopt/semantic-data-layer-tour';
 import { TourItem as TourItemClass, Tour as TourClass } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
+import { Block } from './block';
+import { Field } from '@dopt/javascript-common';
 
 /**
  * TourItem generally follows the card interface
@@ -24,6 +26,7 @@ export interface TourItem {
   backLabel: Ref<string | null | undefined>;
   active: Ref<boolean>;
   completed: Ref<boolean>;
+  field: Block['field'];
   tour: () => Tour | undefined;
   next: () => void;
   back: () => void;
@@ -44,6 +47,7 @@ export interface Tour {
   complete: () => void;
   dismiss: () => void;
   items: () => TourItem[];
+  field: Block['field'];
   filter(on: FilterableField): TourItem[];
   count(where: CountableField): number;
 }
@@ -85,6 +89,7 @@ function createTour(_tour: TourClass): Tour {
     complete: () => _tour.complete(),
     dismiss: () => _tour.dismiss(),
     items: () => items,
+    field: <T extends Field['value']>(name: string) => _tour.field<T>(name),
     filter: (on: FilterableField) => {
       const filtered = new Set(_tour.filter(on).map((_item) => _item.id));
       return items.filter(({ id }) => filtered.has(id.value));
@@ -121,6 +126,7 @@ function createItem(
     tour,
     next: () => _item.next(),
     back: () => _item.back(),
+    field: <T extends Field['value']>(name: string) => _item.field<T>(name),
     index: ref(_item.index),
     title: ref(_item.title),
     body: ref(_item.body),

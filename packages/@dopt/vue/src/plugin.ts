@@ -92,10 +92,13 @@ export const DoptPlugin: Plugin<DoptPluginOptions[]> = {
     });
 
     const updateUser = (
-      userId: DoptConfig['userId'],
-      groupId?: DoptConfig['groupId']
+      newUserId: DoptConfig['userId'],
+      newGroupId?: DoptConfig['groupId']
     ) => {
-      dopt.configure({ userId, groupId });
+      dopt.configure({
+        userId: newUserId != null ? newUserId : userId,
+        groupId: newGroupId != null ? newGroupId : groupId,
+      });
     };
 
     app.provide(DOPT_KEY, dopt);
