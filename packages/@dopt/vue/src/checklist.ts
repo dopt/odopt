@@ -11,6 +11,8 @@ import {
   Checklist as ChecklistClass,
 } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
+import { Block } from './block';
+import { Field } from '@dopt/javascript-common';
 
 /**
  * ChecklistItem generally follows the card interface
@@ -28,6 +30,7 @@ export interface ChecklistItem {
   active: Ref<boolean>;
   completed: Ref<boolean>;
   skipped: Ref<boolean>;
+  field: Block['field'];
   complete: () => void;
   skip: () => void;
 }
@@ -49,6 +52,7 @@ export interface Checklist {
   complete: () => void;
   dismiss: () => void;
   items: () => ChecklistItem[];
+  field: Block['field'];
   filter(on: FilterableField): ChecklistItem[];
   count(where: CountableField): number;
 }
@@ -98,6 +102,8 @@ function createChecklist(_checklist: ChecklistClass): Checklist {
     complete: () => _checklist.complete(),
     dismiss: () => _checklist.dismiss(),
     items: () => items,
+    field: <T extends Field['value']>(name: string) =>
+      _checklist.field<T>(name),
     filter: (on: FilterableField) => {
       const filtered = new Set(_checklist.filter(on).map((_item) => _item.id));
       return items.filter(({ id }) => filtered.has(id.value));
@@ -127,6 +133,7 @@ function createItem(_item: ChecklistItemClass): ChecklistItem {
     id: ref(_item.id),
     complete: () => _item.complete(),
     skip: () => _item.skip(),
+    field: <T extends Field['value']>(name: string) => _item.field<T>(name),
     index: ref(_item.index),
     title: ref(_item.title),
     body: ref(_item.body),

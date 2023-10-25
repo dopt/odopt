@@ -1,4 +1,5 @@
 import type { Children } from '@dopt/core-rich-text';
+import { Field } from '@dopt/block-api-types';
 
 export type FilterableField =
   | 'completed'
@@ -30,6 +31,8 @@ export interface Checklist {
 
   size: number;
 
+  field: <V extends Field['value']>(name: string) => V | null | undefined;
+
   filter(on: FilterableField): ChecklistItem[];
   count(where: CountableField): number;
 }
@@ -50,6 +53,8 @@ export interface ChecklistItem {
 
   skipped: boolean;
   completed: boolean;
+
+  field: <V extends Field['value']>(name: string) => V | null | undefined;
 
   complete: () => void;
   skip: () => void;
