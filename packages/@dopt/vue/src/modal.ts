@@ -3,6 +3,8 @@ import { DOPT_KEY } from './plugin-keys';
 import { Modal as SemanticModal } from '@dopt/semantic-data-layer-modal';
 import { Modal as ModalClass } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
+import { Block } from './block';
+import { Field } from '@dopt/javascript-common';
 
 /**
  * Modal generally follows the card interface
@@ -19,6 +21,7 @@ export interface Modal {
   active: Ref<boolean>;
   completed: Ref<boolean>;
   dismissed: Ref<boolean>;
+  field: Block['field'];
   complete: () => void;
   dismiss: () => void;
 }
@@ -37,6 +40,7 @@ function updateModal(modal: Modal, _modal: ModalClass): void {
 function createModal(_modal: ModalClass): Modal {
   return {
     id: ref(_modal.id),
+    field: <T extends Field['value']>(name: string) => _modal.field<T>(name),
     complete: () => _modal.complete(),
     dismiss: () => _modal.dismiss(),
     title: ref(_modal.title),

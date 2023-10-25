@@ -11,6 +11,8 @@ import {
   Hints as HintsClass,
 } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
+import { Block } from './block';
+import { Field } from '@dopt/javascript-common';
 
 /**
  * HintsItem generally follows the card interface
@@ -28,6 +30,7 @@ export interface HintsItem {
   active: Ref<boolean>;
   completed: Ref<boolean>;
   dismissed: Ref<boolean>;
+  field: Block['field'];
   hints: () => Hints | undefined;
   complete: () => void;
   dismiss: () => void;
@@ -45,6 +48,7 @@ export interface Hints {
   completed: Ref<boolean>;
   dismissed: Ref<boolean>;
   size: Ref<number>;
+  field: Block['field'];
   complete: () => void;
   dismiss: () => void;
   items: () => HintsItem[];
@@ -86,6 +90,7 @@ function createHints(_hints: HintsClass): Hints {
     completed: ref(_hints.completed),
     dismissed: ref(_hints.dismissed),
     size: ref(_hints.size),
+    field: <T extends Field['value']>(name: string) => _hints.field<T>(name),
     complete: () => _hints.complete(),
     dismiss: () => _hints.dismiss(),
     items: () => items,
@@ -123,6 +128,7 @@ function createItem(
 ): HintsItem {
   return {
     id: ref(_item.id),
+    field: <T extends Field['value']>(name: string) => _item.field<T>(name),
     hints,
     complete: () => _item.complete(),
     dismiss: () => _item.dismiss(),

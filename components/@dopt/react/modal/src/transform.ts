@@ -24,6 +24,8 @@ export function transform({
     completed: block.transitioned.complete || false,
     dismissed: block.transitioned.dismiss || false,
 
+    field: (name: string) => block.field(name),
+
     complete: () => transition('complete'),
     dismiss: () => transition('dismiss'),
   };

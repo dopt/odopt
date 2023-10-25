@@ -138,6 +138,7 @@ describe('@dopt/react-checklist', () => {
       active: true,
       skipped: false,
       completed: false,
+      field: () => null,
       complete: () => {
         /* no-op */
       },

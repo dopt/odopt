@@ -49,7 +49,8 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "@dopt/core-rich-text": "workspace:*"
+    "@dopt/core-rich-text": "workspace:*",
+    "@dopt/block-api-types": "workspace:*"
   },
   "openSource": true
 }
