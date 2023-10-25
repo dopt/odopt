@@ -10,6 +10,7 @@ import {
   ChecklistItem as ChecklistItemClass,
   Checklist as ChecklistClass,
 } from './checklist';
+import { HintsItem as HintsItemClass, Hints as HintsClass } from './hints';
 import { TourItem as TourItemClass, Tour as TourClass } from './tour';
 
 import {
@@ -654,6 +655,61 @@ export class Dopt {
     return this._block<ChecklistItemClass>(
       id,
       (props) => new ChecklistItemClass(props)
+    );
+  }
+
+  /**
+   * Returns the {@link Hints} associated with this `id`.
+   *
+   * @example
+   * ```js
+   * const hints = dopt.hints("flow-two.my-hints");
+   * ```
+   *
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the modal.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link Hints} instance corresponding to the id.
+   */
+  hints(id: string) {
+    return this._block<HintsClass>(
+      id,
+      (props) =>
+        new HintsClass({
+          ...props,
+          createBlock: this._block.bind(this),
+        })
+    );
+  }
+
+  /**
+   * Returns the {@link HintsItem} associated with this `id`.
+   *
+   * @example
+   * ```js
+   * const hintsItem = dopt.hintsItem("flow-two.my-hints-item");
+   * ```
+   *
+   * @param id one of {@link Block['uid']} | {@link Block['sid']} The id of the hints item.
+   * this param accepts either the user defined identifier (sid) or the system created identifier (the uid)
+   * @returns A {@link HintsItem} instance corresponding to the id.
+   */
+  hintsItem(id: string) {
+    return this._block<HintsItemClass>(
+      id,
+      (props) =>
+        new HintsItemClass({
+          ...props,
+          hints: () => {
+            const uid = this.blockUidBySid.get(id) || id;
+            const block = this.blockStore.getState()[uid] || props.block;
+
+            if (!block.containerUid) {
+              return undefined;
+            }
+
+            return this.hints(block.containerUid);
+          },
+        })
     );
   }
 

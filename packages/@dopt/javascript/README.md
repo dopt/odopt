@@ -229,6 +229,8 @@ The JavaScript SDK has built in headless classes for all Dopt provided component
 
 - `TourItem` (defined in `@dopt/semantic-data-layer-tour`)
 - `Tour` (defined in `@dopt/semantic-data-layer-tour`)
+- `Hints` (defined in `@dopt/semantic-data-layer-hints`)
+- `HintsItem` (defined in `@dopt/semantic-data-layer-hints`)
 - `Checklist` (defined in `@dopt/semantic-data-layer-checklist`)
 - `ChecklistItem` (defined in `@dopt/semantic-data-layer-checklist`)
 - `Modal` (defined in `@dopt/semantic-data-layer-modal`)
