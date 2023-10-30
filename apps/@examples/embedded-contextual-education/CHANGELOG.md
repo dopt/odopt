@@ -1,5 +1,11 @@
 # @examples/embedded-contextual-education
 
+## 0.1.46
+
+### Patch Changes
+
+- 1ba2d914f: add missing framer-motion dependency
+
 ## 0.1.45
 
 ### Patch Changes
