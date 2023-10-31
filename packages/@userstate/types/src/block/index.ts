@@ -8,6 +8,7 @@ import { Model } from './model';
 import { Modal } from './modal';
 import { Card } from './card';
 import { Webhook } from './webhook';
+import { FlowTrigger } from './flow-trigger';
 import { Nary } from './base';
 import { ContainerStart, ContainerEnd } from './container';
 import { Checklist, ChecklistItem } from './checklist';
@@ -21,6 +22,7 @@ export * from './model';
 export * from './modal';
 export * from './card';
 export * from './webhook';
+export * from './flow-trigger';
 export * from './gate';
 export * from './checklist';
 export * from './hints';
@@ -33,6 +35,7 @@ export const BLOCK_TYPES = {
   model: Model.properties.type.const,
   finish: Finish.properties.type.const,
   webhook: Webhook.properties.type.const,
+  flowTrigger: FlowTrigger.properties.type.const,
   gate: Gate.properties.type.const,
   card: Card.properties.type.const,
   modal: Modal.properties.type.const,
@@ -52,6 +55,7 @@ export const BlockTypes = Type.Union([
   Model.properties.type,
   Finish.properties.type,
   Webhook.properties.type,
+  FlowTrigger.properties.type,
   Gate.properties.type,
   Card.properties.type,
   Modal.properties.type,
@@ -73,6 +77,7 @@ export const Block = Type.Union(
     Type.Ref(BooleanType),
     Type.Ref(Finish),
     Type.Ref(Webhook),
+    Type.Ref(FlowTrigger),
     Type.Ref(Gate),
     Type.Ref(Card),
     Type.Ref(Modal),
@@ -98,6 +103,7 @@ export type Block =
   | BooleanType
   | Model
   | Webhook
+  | FlowTrigger
   | Gate
   | Card
   | Modal
@@ -190,6 +196,20 @@ export function getDefaultBlock(props: {
       return {
         ...props,
         type: 'webhook',
+        kind: 'block',
+        transitioned: getDefaultTransition({ transitioned }),
+        request: async () => ({
+          ok: true,
+          redirected: false,
+          status: 204,
+          statusText: '',
+          url: '',
+        }),
+      };
+    case 'flowTrigger':
+      return {
+        ...props,
+        type: 'flowTrigger',
         kind: 'block',
         transitioned: getDefaultTransition({ transitioned }),
         request: async () => ({
