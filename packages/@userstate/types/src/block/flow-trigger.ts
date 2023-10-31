@@ -1,12 +1,12 @@
 import { Static, Type } from '@sinclair/typebox';
 import { Unary } from './base';
 
-export const Webhook = Type.Object(
+export const FlowTrigger = Type.Object(
   {
     ...Unary.properties,
-    type: Type.Literal('webhook'),
+    type: Type.Literal('flowTrigger'),
     request: Type.Function([], Type.Unknown()),
   },
-  { $id: 'Webhook' }
+  { $id: 'FlowTrigger' }
 );
-export type Webhook = Static<typeof Webhook>;
+export type FlowTrigger = Static<typeof FlowTrigger>;
