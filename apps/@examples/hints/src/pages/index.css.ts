@@ -14,3 +14,10 @@ export const example = style({
   gap: '100px',
   justifyContent: 'center',
 });
+
+export const skeleton = style({
+  position: 'relative',
+  height: '200px',
+  width: '200px',
+  backgroundColor: '#F1F3F5',
+});

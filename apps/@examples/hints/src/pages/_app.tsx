@@ -32,7 +32,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ hotspots: 4 }}
+      flowVersions={{ 'hints-component': 1 }}
     >
       <Example />
     </DoptProvider>
