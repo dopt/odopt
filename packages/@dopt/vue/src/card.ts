@@ -3,8 +3,7 @@ import { DOPT_KEY } from './plugin-keys';
 import { Card as SemanticCard } from '@dopt/semantic-data-layer-card';
 import { Card as CardClass } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
-import { Block } from './block';
-import { Field } from '@dopt/javascript-common';
+import { createFieldGetter, Block, useInitializeFields } from './block';
 
 /**
  * Card generally follows the card interface
@@ -21,9 +20,12 @@ export interface Card {
   active: Ref<boolean>;
   completed: Ref<boolean>;
   dismissed: Ref<boolean>;
-  field: Block['field'];
   complete: () => void;
   dismiss: () => void;
+  /**
+   * Use this to access custom fields on the card.
+   */
+  field: Block['field'];
 }
 
 function updateCard(card: Card, _card: CardClass): void {
@@ -40,7 +42,7 @@ function updateCard(card: Card, _card: CardClass): void {
 function createCard(_card: CardClass): Card {
   return {
     id: ref(_card.id),
-    field: <T extends Field['value']>(name: string) => _card.field<T>(name),
+    field: ref(createFieldGetter(_card)),
     complete: () => _card.complete(),
     dismiss: () => _card.dismiss(),
     title: ref(_card.title),
@@ -74,6 +76,8 @@ export function useCard(id: SemanticCard['id']): Card {
 
   const _card = dopt.card(id);
   const card: Card = createCard(_card);
+
+  useInitializeFields(card.field, _card);
 
   const unsubscribeCard = _card.subscribe(() => {
     updateCard(card, _card);
