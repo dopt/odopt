@@ -8,8 +8,7 @@ import {
 } from '@dopt/semantic-data-layer-tour';
 import { TourItem as TourItemClass, Tour as TourClass } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
-import { Block } from './block';
-import { Field } from '@dopt/javascript-common';
+import { Block, createFieldGetter, useInitializeFields } from './block';
 
 /**
  * TourItem generally follows the card interface
@@ -26,10 +25,13 @@ export interface TourItem {
   backLabel: Ref<string | null | undefined>;
   active: Ref<boolean>;
   completed: Ref<boolean>;
-  field: Block['field'];
-  tour: () => Tour | undefined;
+  tour: Ref<() => Tour | undefined>;
   next: () => void;
   back: () => void;
+  /**
+   * Use this to access custom fields on the tour item.
+   */
+  field: Block['field'];
 }
 
 /**
@@ -46,10 +48,26 @@ export interface Tour {
   size: Ref<number>;
   complete: () => void;
   dismiss: () => void;
-  items: () => TourItem[];
+  items: Ref<() => TourItem[]>;
+  filter: Ref<(on: FilterableField) => TourItem[]>;
+  count: Ref<(where: CountableField) => number>;
+  /**
+   * Use this to access custom fields on the tour.
+   */
   field: Block['field'];
-  filter(on: FilterableField): TourItem[];
-  count(where: CountableField): number;
+}
+
+function createTourFilter(items: TourItem[], _tour: TourClass) {
+  return (on: FilterableField) => {
+    const filtered = new Set(_tour.filter(on).map((_item) => _item.id));
+    return items.filter(({ id }) => filtered.has(id.value));
+  };
+}
+
+function createTourCount(_tour: TourClass) {
+  return (where: CountableField) => {
+    return _tour.count(where);
+  };
 }
 
 function updateTour(tour: Tour, _tour: TourClass): void {
@@ -59,23 +77,27 @@ function updateTour(tour: Tour, _tour: TourClass): void {
   tour.dismissed.value = _tour.dismissed;
   tour.size.value = _tour.size;
 
-  const itemsById = tour.items().reduce((acc, item) => {
+  const itemsById = tour.items.value().reduce((acc, item) => {
     acc.set(item.id.value, item);
     return acc;
   }, new Map<string, TourItem>());
 
-  const newItems = [] as TourItem[];
-
-  _tour.items.forEach((_item) => {
+  const items = _tour.items.map((_item) => {
     const item = itemsById.get(_item.id);
     if (item) {
       updateItem(item, _item);
+      return item;
     } else {
-      newItems.push(createItem(_item, () => tour));
+      return createItem(_item, tour);
     }
   });
 
-  tour.items().push(...newItems);
+  /**
+   * Update all refs related to children.
+   */
+  tour.items.value = () => items;
+  tour.filter.value = createTourFilter(items, _tour);
+  tour.count.value = createTourCount(_tour);
 }
 
 function createTour(_tour: TourClass): Tour {
@@ -88,19 +110,14 @@ function createTour(_tour: TourClass): Tour {
     size: ref(_tour.size),
     complete: () => _tour.complete(),
     dismiss: () => _tour.dismiss(),
-    items: () => items,
-    field: <T extends Field['value']>(name: string) => _tour.field<T>(name),
-    filter: (on: FilterableField) => {
-      const filtered = new Set(_tour.filter(on).map((_item) => _item.id));
-      return items.filter(({ id }) => filtered.has(id.value));
-    },
-    count: (where: CountableField) => {
-      return _tour.count(where);
-    },
+    items: ref(() => items),
+    field: ref(createFieldGetter(_tour)),
+    filter: ref(createTourFilter(items, _tour)),
+    count: ref(createTourCount(_tour)),
   } satisfies Record<keyof SemanticTour, NonNullable<unknown>>;
 
   _tour.items.forEach((_item) => {
-    items.push(createItem(_item, () => tour));
+    items.push(createItem(_item, tour));
   });
 
   return tour;
@@ -117,16 +134,13 @@ function updateItem(item: TourItem, _item: TourItemClass): void {
   item.completed.value = _item.completed;
 }
 
-function createItem(
-  _item: TourItemClass,
-  tour: () => Tour | undefined
-): TourItem {
+function createItem(_item: TourItemClass, tour: Tour | undefined): TourItem {
   return {
     id: ref(_item.id),
-    tour,
+    tour: ref(() => tour),
     next: () => _item.next(),
     back: () => _item.back(),
-    field: <T extends Field['value']>(name: string) => _item.field<T>(name),
+    field: ref(createFieldGetter(_item)),
     index: ref(_item.index),
     title: ref(_item.title),
     body: ref(_item.body),
@@ -157,34 +171,56 @@ export function useTourItem(id: SemanticTourItem['id']): TourItem {
   }
 
   const _item = dopt.tourItem(id);
+  const item: TourItem = createItem(
+    _item,
+    _item.tour != null ? createTour(_item.tour) : undefined
+  );
 
-  let tour: Tour;
-  let unsubscribeTour: () => void;
-  const wrapTour = (_tour: TourClass | undefined) => {
-    if (_tour) {
-      tour = createTour(_tour);
-      unsubscribeTour = _tour.subscribe(() => {
-        updateTour(tour, _tour);
+  let maybeUnsubscribeTour = () => {
+    /* no-op */
+  };
+
+  const maybeSubscribeTour = () => {
+    const _tour = _item.tour;
+    if (_tour && !item.tour.value()) {
+      /**
+       * Defensively clean up any old listeners
+       */
+      maybeUnsubscribeTour();
+
+      item.tour.value = () => createTour(_tour);
+      maybeUnsubscribeTour = _tour.subscribe(() => {
+        const tour = item.tour.value();
+        if (_tour && tour) {
+          updateTour(tour, _tour);
+        }
       });
     }
   };
 
-  wrapTour(_item.tour);
-  const item: TourItem = createItem(_item, () => tour);
+  useInitializeFields(item.field, _item);
 
   const unsubscribeItem = _item.subscribe(() => {
+    /**
+     * If the tour item previously had no ref to its parent,
+     * overwrite the tour parent to trigger that it's ready.
+     *
+     * This ensures that users who are referring to the parent
+     * get an update.
+     */
+    maybeSubscribeTour();
+
     updateItem(item, _item);
-    if (!tour) {
-      wrapTour(_item.tour);
-    }
   });
+
+  maybeSubscribeTour();
 
   /**
    * Before unmount, we unsubscribe any subscriptions.
    */
   onBeforeUnmount(() => {
     unsubscribeItem();
-    unsubscribeTour && unsubscribeTour();
+    maybeUnsubscribeTour();
   });
 
   return item;
@@ -211,6 +247,8 @@ export function useTour(id: SemanticTour['id']): Tour {
 
   const _tour = dopt.tour(id);
   const tour = createTour(_tour);
+
+  useInitializeFields(tour.field, _tour);
 
   const unsubscribeTour = _tour.subscribe(() => {
     updateTour(tour, _tour);

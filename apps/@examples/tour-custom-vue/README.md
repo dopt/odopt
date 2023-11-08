@@ -1,6 +1,6 @@
-# Custom @dopt/javascript tour example with Vue
+# Custom @dopt/vue tour example
 
-A demo app showcasing how a custom tour built on top of `@dopt/javascript`'s [`Tour`](https://github.com/dopt/odopt/blob/main/packages/%40dopt/javascript/src/tour.ts) works.
+A demo app showcasing how to build a custom tour on top of `@dopt/vue`'s [`useTourItem and useTour`](https://github.com/dopt/odopt/blob/main/packages/%40dopt/vue/src/tour.ts).
 
 ## Requirements
 
@@ -32,9 +32,9 @@ Replace the values prefixed with `$` with your API keys.
 
 Create a Dopt flow with a [tour block](https://docs.dopt.com/concepts/blocks/tour/). Note the flow and tour block's identifiers.
 
-Update line 32 in [`src/pages/App.vue`](./src/pages/App.vuetsx#L32) with the flow's identifier and version number.
+Update line 9 in [`src/main.ts`](./src/main.ts#L9) with the flow's identifier and version number.
 
-Update lines 11-60 in [`src/pages/HomePage.vue`](./src/pages/index.tsx#L11-L60) with the identifiers of the tour block items.
+Update lines 7-30 in [`src/pages/HomePage.vue`](./src/pages/HomePage.vue#L7-L30) with the identifiers of the tour block items.
 
 ## Starting the app
 

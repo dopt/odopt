@@ -53,7 +53,7 @@ export interface Block<T = unknown> {
    * `null` is returned when the field has been explicitly
    * configured in app.dopt.com to have an empty value.
    */
-  field<V extends Field['value']>(name: string): V | null | undefined;
+  field: Ref<<V extends Field['value']>(name: string) => V | null | undefined>;
 
   /**
    * Transition this block. Will also update the state of blocks within this flow, as appropriate.
@@ -92,6 +92,32 @@ export interface Block<T = unknown> {
       : BlockTransitions
   ): void;
 }
+
+export function createFieldGetter(_block: BlockClass) {
+  return <T extends Field['value']>(name: string) => _block.field<T>(name);
+}
+
+export function useInitializeFields(
+  ref: Ref<ReturnType<typeof createFieldGetter>>,
+  _block: BlockClass
+) {
+  /**
+   * If the block was previously an empty block (pending),
+   * overwrite the field ref to trigger that it's ready.
+   *
+   * This ensures that users who are passing around the field function
+   * can listen to changes.
+   */
+  if (_block.version === -1) {
+    const unsubscribeBlock = _block.subscribe(() => {
+      if (_block.version !== -1) {
+        ref.value = createFieldGetter(_block);
+        unsubscribeBlock();
+      }
+    });
+  }
+}
+
 /**
  * A Vue composable for accessing a block's state and methods
  * corresponding to an intent-based API for manipulating
@@ -126,10 +152,12 @@ export function useBlock<T = unknown>(id: BlockClass['sid']): Block<T> {
         ? [T[number], ...T[number][]]
         : BlockTransitions
     ) => _block.transition(...input),
-    field: <V extends Field['value']>(name: string) => _block.field<V>(name),
+    field: ref(createFieldGetter(_block)),
   };
 
-  const unsubscribeFlow = _block.subscribe(() => {
+  useInitializeFields(block.field, _block);
+
+  const unsubscribeBlock = _block.subscribe(() => {
     block.type.value = _block.type;
     block.kind.value = _block.kind;
     block.uid.value = _block.uid;
@@ -143,7 +171,7 @@ export function useBlock<T = unknown>(id: BlockClass['sid']): Block<T> {
    * Before unmount, we unsubscribe any subscriptions.
    */
   onBeforeUnmount(() => {
-    unsubscribeFlow();
+    unsubscribeBlock();
   });
 
   return block;
