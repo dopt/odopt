@@ -1,5 +1,19 @@
 # @dopt/vue
 
+## 1.0.0
+
+### Major Changes
+
+- 2df085f85: Having built a number of custom examples which use @dopt/vue's composables (hints, checklists, tours, cards, and modals) as well as flow and block accessors, we're bumping @dopt/vue up to v1.0.0.
+
+  The **major backwards incompatible** change with this version is that field accessors and item / parent accessors are now `Ref`s which point to functions instead of unwrapped functions.
+
+  By exposing `Ref`s which point to functions, the @dopt/vue SDK allows you to pass the Ref to the function around and the function will be updated whenever fields are initialized and when parents and children have loaded their relationships.
+
+  You can still protect against loading states by using our `useDoptInitialized` and `useFlowStatus` composables if you'd like.
+
+  You can visit the examples and dig into the vue specific ones which expose how simply our cleaned-up primitives allow you to bind to state and content.
+
 ## 0.3.0
 
 ### Minor Changes

@@ -11,8 +11,7 @@ import {
   Checklist as ChecklistClass,
 } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
-import { Block } from './block';
-import { Field } from '@dopt/javascript-common';
+import { createFieldGetter, Block, useInitializeFields } from './block';
 
 /**
  * ChecklistItem generally follows the card interface
@@ -30,9 +29,12 @@ export interface ChecklistItem {
   active: Ref<boolean>;
   completed: Ref<boolean>;
   skipped: Ref<boolean>;
-  field: Block['field'];
   complete: () => void;
   skip: () => void;
+  /**
+   * Use this to access custom fields on the checklist item.
+   */
+  field: Block['field'];
 }
 
 /**
@@ -51,10 +53,29 @@ export interface Checklist {
   size: Ref<number>;
   complete: () => void;
   dismiss: () => void;
-  items: () => ChecklistItem[];
+  items: Ref<() => ChecklistItem[]>;
+  filter: Ref<(on: FilterableField) => ChecklistItem[]>;
+  count: Ref<(where: CountableField) => number>;
+  /**
+   * Use this to access custom fields on the checklist.
+   */
   field: Block['field'];
-  filter(on: FilterableField): ChecklistItem[];
-  count(where: CountableField): number;
+}
+
+function createChecklistFilter(
+  items: ChecklistItem[],
+  _checklist: ChecklistClass
+) {
+  return (on: FilterableField) => {
+    const filtered = new Set(_checklist.filter(on).map((_item) => _item.id));
+    return items.filter(({ id }) => filtered.has(id.value));
+  };
+}
+
+function createChecklistCount(_checklist: ChecklistClass) {
+  return (where: CountableField) => {
+    return _checklist.count(where);
+  };
 }
 
 function updateChecklist(
@@ -69,29 +90,33 @@ function updateChecklist(
   checklist.dismissed.value = _checklist.dismissed;
   checklist.size.value = _checklist.size;
 
-  const itemsById = checklist.items().reduce((acc, item) => {
+  const itemsById = checklist.items.value().reduce((acc, item) => {
     acc.set(item.id.value, item);
     return acc;
   }, new Map<string, ChecklistItem>());
 
-  const newItems = [] as ChecklistItem[];
-
-  _checklist.items.forEach((_item) => {
+  const items = _checklist.items.map((_item) => {
     const item = itemsById.get(_item.id);
     if (item) {
       updateItem(item, _item);
+      return item;
     } else {
-      newItems.push(createItem(_item));
+      return createItem(_item);
     }
   });
 
-  checklist.items().push(...newItems);
+  /**
+   * Update all refs related to children.
+   */
+  checklist.items.value = () => items;
+  checklist.filter.value = createChecklistFilter(items, _checklist);
+  checklist.count.value = createChecklistCount(_checklist);
 }
 
 function createChecklist(_checklist: ChecklistClass): Checklist {
   const items = _checklist.items.map((_item) => createItem(_item));
 
-  const checklist = {
+  return {
     id: ref(_checklist.id),
     title: ref(_checklist.title),
     body: ref(_checklist.body),
@@ -101,19 +126,11 @@ function createChecklist(_checklist: ChecklistClass): Checklist {
     size: ref(_checklist.size),
     complete: () => _checklist.complete(),
     dismiss: () => _checklist.dismiss(),
-    items: () => items,
-    field: <T extends Field['value']>(name: string) =>
-      _checklist.field<T>(name),
-    filter: (on: FilterableField) => {
-      const filtered = new Set(_checklist.filter(on).map((_item) => _item.id));
-      return items.filter(({ id }) => filtered.has(id.value));
-    },
-    count: (where: CountableField) => {
-      return _checklist.count(where);
-    },
+    items: ref(() => items),
+    filter: ref(createChecklistFilter(items, _checklist)),
+    count: ref(createChecklistCount(_checklist)),
+    field: ref(createFieldGetter(_checklist)),
   } satisfies Record<keyof SemanticChecklist, NonNullable<unknown>>;
-
-  return checklist;
 }
 
 function updateItem(item: ChecklistItem, _item: ChecklistItemClass): void {
@@ -133,7 +150,7 @@ function createItem(_item: ChecklistItemClass): ChecklistItem {
     id: ref(_item.id),
     complete: () => _item.complete(),
     skip: () => _item.skip(),
-    field: <T extends Field['value']>(name: string) => _item.field<T>(name),
+    field: ref(createFieldGetter(_item)),
     index: ref(_item.index),
     title: ref(_item.title),
     body: ref(_item.body),
@@ -168,6 +185,8 @@ export function useChecklistItem(
 
   const _item = dopt.checklistItem(id);
   const item: ChecklistItem = createItem(_item);
+
+  useInitializeFields(item.field, _item);
 
   const unsubscribeItem = _item.subscribe(() => {
     updateItem(item, _item);
@@ -204,6 +223,8 @@ export function useChecklist(id: SemanticChecklist['id']): Checklist {
 
   const _checklist = dopt.checklist(id);
   const checklist: Checklist = createChecklist(_checklist);
+
+  useInitializeFields(checklist.field, _checklist);
 
   const unsubscribeChecklist = _checklist.subscribe(() => {
     updateChecklist(checklist, _checklist);

@@ -11,8 +11,7 @@ import {
   Hints as HintsClass,
 } from '@dopt/javascript';
 import { Children } from '@dopt/core-rich-text';
-import { Block } from './block';
-import { Field } from '@dopt/javascript-common';
+import { Block, createFieldGetter, useInitializeFields } from './block';
 
 /**
  * HintsItem generally follows the card interface
@@ -30,10 +29,13 @@ export interface HintsItem {
   active: Ref<boolean>;
   completed: Ref<boolean>;
   dismissed: Ref<boolean>;
-  field: Block['field'];
-  hints: () => Hints | undefined;
+  hints: Ref<() => Hints | undefined>;
   complete: () => void;
   dismiss: () => void;
+  /**
+   * Use this to access custom fields on the hints item.
+   */
+  field: Block['field'];
 }
 
 /**
@@ -48,12 +50,28 @@ export interface Hints {
   completed: Ref<boolean>;
   dismissed: Ref<boolean>;
   size: Ref<number>;
-  field: Block['field'];
   complete: () => void;
   dismiss: () => void;
-  items: () => HintsItem[];
-  filter(on: FilterableField): HintsItem[];
-  count(where: CountableField): number;
+  items: Ref<() => HintsItem[]>;
+  filter: Ref<(on: FilterableField) => HintsItem[]>;
+  count: Ref<(where: CountableField) => number>;
+  /**
+   * Use this to access custom fields on the hints container.
+   */
+  field: Block['field'];
+}
+
+function createHintsFilter(items: HintsItem[], _hints: HintsClass) {
+  return (on: FilterableField) => {
+    const filtered = new Set(_hints.filter(on).map((_item) => _item.id));
+    return items.filter(({ id }) => filtered.has(id.value));
+  };
+}
+
+function createHintsCount(_hints: HintsClass) {
+  return (where: CountableField) => {
+    return _hints.count(where);
+  };
 }
 
 function updateHints(hints: Hints, _hints: HintsClass): void {
@@ -63,23 +81,27 @@ function updateHints(hints: Hints, _hints: HintsClass): void {
   hints.dismissed.value = _hints.dismissed;
   hints.size.value = _hints.size;
 
-  const itemsById = hints.items().reduce((acc, item) => {
+  const itemsById = hints.items.value().reduce((acc, item) => {
     acc.set(item.id.value, item);
     return acc;
   }, new Map<string, HintsItem>());
 
-  const newItems = [] as HintsItem[];
-
-  _hints.items.forEach((_item) => {
+  const items = _hints.items.map((_item) => {
     const item = itemsById.get(_item.id);
     if (item) {
       updateItem(item, _item);
+      return item;
     } else {
-      newItems.push(createItem(_item, () => hints));
+      return createItem(_item, hints);
     }
   });
 
-  hints.items().push(...newItems);
+  /**
+   * Update all refs related to children.
+   */
+  hints.items.value = () => items;
+  hints.filter.value = createHintsFilter(items, _hints);
+  hints.count.value = createHintsCount(_hints);
 }
 
 function createHints(_hints: HintsClass): Hints {
@@ -90,21 +112,16 @@ function createHints(_hints: HintsClass): Hints {
     completed: ref(_hints.completed),
     dismissed: ref(_hints.dismissed),
     size: ref(_hints.size),
-    field: <T extends Field['value']>(name: string) => _hints.field<T>(name),
+    field: ref(createFieldGetter(_hints)),
     complete: () => _hints.complete(),
     dismiss: () => _hints.dismiss(),
-    items: () => items,
-    filter: (on: FilterableField) => {
-      const filtered = new Set(_hints.filter(on).map((_item) => _item.id));
-      return items.filter(({ id }) => filtered.has(id.value));
-    },
-    count: (where: CountableField) => {
-      return _hints.count(where);
-    },
+    items: ref(() => items),
+    filter: ref(createHintsFilter(items, _hints)),
+    count: ref(createHintsCount(_hints)),
   } satisfies Record<keyof SemanticHints, NonNullable<unknown>>;
 
   _hints.items.forEach((_item) => {
-    items.push(createItem(_item, () => hints));
+    items.push(createItem(_item, hints));
   });
 
   return hints;
@@ -124,12 +141,12 @@ function updateItem(item: HintsItem, _item: HintsItemClass): void {
 
 function createItem(
   _item: HintsItemClass,
-  hints: () => Hints | undefined
+  hints: Hints | undefined
 ): HintsItem {
   return {
     id: ref(_item.id),
-    field: <T extends Field['value']>(name: string) => _item.field<T>(name),
-    hints,
+    field: ref(createFieldGetter(_item)),
+    hints: ref(() => hints),
     complete: () => _item.complete(),
     dismiss: () => _item.dismiss(),
     index: ref(_item.index),
@@ -163,34 +180,56 @@ export function useHintsItem(id: SemanticHintsItem['id']): HintsItem {
   }
 
   const _item = dopt.hintsItem(id);
+  const item: HintsItem = createItem(
+    _item,
+    _item.hints ? createHints(_item.hints) : undefined
+  );
 
-  let hints: Hints;
-  let unsubscribeHints: () => void;
-  const wrapHints = (_hints: HintsClass | undefined) => {
-    if (_hints) {
-      hints = createHints(_hints);
-      unsubscribeHints = _hints.subscribe(() => {
-        updateHints(hints, _hints);
+  let maybeUnsubscribeHints = () => {
+    /* no-op */
+  };
+
+  const maybeSubscribeHints = () => {
+    const _hints = _item.hints;
+    if (_hints && !item.hints.value()) {
+      /**
+       * Defensively clean up any old listeners
+       */
+      maybeUnsubscribeHints();
+
+      item.hints.value = () => createHints(_hints);
+      maybeUnsubscribeHints = _hints.subscribe(() => {
+        const hints = item.hints.value();
+        if (_hints && hints) {
+          updateHints(hints, _hints);
+        }
       });
     }
   };
 
-  wrapHints(_item.hints);
-  const item: HintsItem = createItem(_item, () => hints);
+  useInitializeFields(item.field, _item);
 
   const unsubscribeItem = _item.subscribe(() => {
+    /**
+     * If the hints item previously had no ref to its parent,
+     * overwrite the hints parent to trigger that it's ready.
+     *
+     * This ensures that users who are referring to the parent
+     * get an update.
+     */
+    maybeSubscribeHints();
+
     updateItem(item, _item);
-    if (!hints) {
-      wrapHints(_item.hints);
-    }
   });
+
+  maybeSubscribeHints();
 
   /**
    * Before unmount, we unsubscribe any subscriptions.
    */
   onBeforeUnmount(() => {
     unsubscribeItem();
-    unsubscribeHints && unsubscribeHints();
+    maybeUnsubscribeHints();
   });
 
   return item;
@@ -217,6 +256,8 @@ export function useHints(id: SemanticHints['id']): Hints {
 
   const _hints = dopt.hints(id);
   const hints = createHints(_hints);
+
+  useInitializeFields(hints.field, _hints);
 
   const unsubscribeHints = _hints.subscribe(() => {
     updateHints(hints, _hints);
