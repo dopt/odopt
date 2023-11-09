@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  padding-top: 250px;
+  padding-bottom: 250px;
+}
+
+.skeleton {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background: #f1f3f5;
+}
