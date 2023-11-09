@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 
 import { Example } from '@/pages/';
 
-import 'react-loading-skeleton/dist/skeleton.css';
+import './_app.css';
 
 export function App() {
   /**
