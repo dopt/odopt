@@ -1,6 +1,6 @@
 import Hint, { useHintsItem } from '@dopt/react-hints';
 
-import { example, skeleton } from '@/pages/index.css';
+import './index.css';
 
 export function Example() {
   const hintA = useHintsItem('hints-component.a');
@@ -8,10 +8,10 @@ export function Example() {
   const hintC = useHintsItem('hints-component.c');
 
   return (
-    <div className={example}>
+    <div className="container">
       <Hint.Root active={hintA.active}>
         <Hint.Anchor>
-          <div className={skeleton}>
+          <div className="skeleton">
             <Hint.Indicator
               onClick={() => hintA.setOpen(!hintA.open)}
               style={{
@@ -42,7 +42,7 @@ export function Example() {
       </Hint.Root>
       <Hint.Root active={hintB.active}>
         <Hint.Anchor>
-          <div className={skeleton}>
+          <div className="skeleton">
             <Hint.Indicator
               onClick={() => hintB.setOpen(!hintB.open)}
               style={{
@@ -72,7 +72,7 @@ export function Example() {
       </Hint.Root>
       <Hint.Root active={hintC.active}>
         <Hint.Anchor>
-          <div className={skeleton}>
+          <div className="skeleton">
             <Hint.Indicator
               onClick={() => hintC.setOpen(!hintC.open)}
               style={{
