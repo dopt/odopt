@@ -1961,6 +1961,64 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
+  packages/@dopt/pkg/sync:
+    dependencies:
+      '@dopt/resolve-workspace-dependencies':
+        specifier: workspace:*
+        version: link:../../resolve-workspace-dependencies
+      '@octokit/rest':
+        specifier: 20.0.2
+        version: 20.0.2
+      citty:
+        specifier: 0.1.2
+        version: 0.1.2
+    devDependencies:
+      '@dopt/check-formatting':
+        specifier: workspace:*
+        version: link:../../check-formatting
+      '@dopt/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@types/jest':
+        specifier: 29.5.2
+        version: 29.5.2
+      '@types/minimist':
+        specifier: 1.2.2
+        version: 1.2.2
+      '@types/shelljs':
+        specifier: 0.8.12
+        version: 0.8.12
+      '@typescript-eslint/eslint-plugin':
+        specifier: 5.59.11
+        version: 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.42.0)(typescript@5.1.6)
+      '@typescript-eslint/parser':
+        specifier: 5.59.11
+        version: 5.59.11(eslint@8.42.0)(typescript@5.1.6)
+      eslint:
+        specifier: 8.42.0
+        version: 8.42.0
+      eslint-plugin-react:
+        specifier: 7.32.2
+        version: 7.32.2(eslint@8.42.0)
+      jest:
+        specifier: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
+      prettier:
+        specifier: 2.8.8
+        version: 2.8.8
+      shx:
+        specifier: 0.3.4
+        version: 0.3.4
+      type-fest:
+        specifier: 4.6.0
+        version: 4.6.0
+      typescript:
+        specifier: 5.1.6
+        version: 5.1.6
+      unbuild:
+        specifier: 2.0.0
+        version: 2.0.0(typescript@5.1.6)
+
   packages/@dopt/please:
     dependencies:
       '@pnpm/find-workspace-dir':
@@ -2116,6 +2174,58 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
+
+  packages/@dopt/resolve-workspace-dependencies:
+    dependencies:
+      '@dopt/wutils':
+        specifier: workspace:*
+        version: link:../wutils
+      citty:
+        specifier: 0.1.2
+        version: 0.1.2
+    devDependencies:
+      '@dopt/check-formatting':
+        specifier: workspace:*
+        version: link:../check-formatting
+      '@dopt/config':
+        specifier: workspace:*
+        version: link:../config
+      '@types/jest':
+        specifier: 29.5.2
+        version: 29.5.2
+      '@typescript-eslint/eslint-plugin':
+        specifier: 5.59.11
+        version: 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.42.0)(typescript@5.1.6)
+      '@typescript-eslint/parser':
+        specifier: 5.59.11
+        version: 5.59.11(eslint@8.42.0)(typescript@5.1.6)
+      esbuild:
+        specifier: 0.18.2
+        version: 0.18.2
+      esbuild-jest:
+        specifier: 0.5.0
+        version: 0.5.0(esbuild@0.18.2)
+      eslint:
+        specifier: 8.42.0
+        version: 8.42.0
+      eslint-plugin-react:
+        specifier: 7.32.2
+        version: 7.32.2(eslint@8.42.0)
+      jest:
+        specifier: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
+      prettier:
+        specifier: 2.8.8
+        version: 2.8.8
+      shx:
+        specifier: 0.3.4
+        version: 0.3.4
+      typescript:
+        specifier: 5.1.6
+        version: 5.1.6
+      unbuild:
+        specifier: 2.0.0
+        version: 2.0.0(typescript@5.1.6)
 
   packages/@dopt/topoftree:
     devDependencies:
@@ -4256,6 +4366,111 @@ packages:
     dependencies:
       mkdirp: 1.0.4
       rimraf: 3.0.2
+    dev: false
+
+  /@octokit/auth-token@4.0.0:
+    resolution: {integrity: sha512-tY/msAuJo6ARbK6SPIxZrPBms3xPbfwBrulZe0Wtr/DIY9lje2HeV1uoebShn6mx7SjCHif6EjMvoREj+gZ+SA==}
+    engines: {node: '>= 18'}
+    dev: false
+
+  /@octokit/core@5.0.1:
+    resolution: {integrity: sha512-lyeeeZyESFo+ffI801SaBKmCfsvarO+dgV8/0gD8u1d87clbEdWsP5yC+dSj3zLhb2eIf5SJrn6vDz9AheETHw==}
+    engines: {node: '>= 18'}
+    dependencies:
+      '@octokit/auth-token': 4.0.0
+      '@octokit/graphql': 7.0.2
+      '@octokit/request': 8.1.5
+      '@octokit/request-error': 5.0.1
+      '@octokit/types': 12.3.0
+      before-after-hook: 2.2.3
+      universal-user-agent: 6.0.1
+    dev: false
+
+  /@octokit/endpoint@9.0.2:
+    resolution: {integrity: sha512-qhKW8YLIi+Kmc92FQUFGr++DYtkx/1fBv+Thua6baqnjnOsgBYJDCvWZR1YcINuHGOEQt416WOfE+A/oG60NBQ==}
+    engines: {node: '>= 18'}
+    dependencies:
+      '@octokit/types': 12.3.0
+      is-plain-object: 5.0.0
+      universal-user-agent: 6.0.1
+    dev: false
+
+  /@octokit/graphql@7.0.2:
+    resolution: {integrity: sha512-OJ2iGMtj5Tg3s6RaXH22cJcxXRi7Y3EBqbHTBRq+PQAqfaS8f/236fUrWhfSn8P4jovyzqucxme7/vWSSZBX2Q==}
+    engines: {node: '>= 18'}
+    dependencies:
+      '@octokit/request': 8.1.5
+      '@octokit/types': 12.3.0
+      universal-user-agent: 6.0.1
+    dev: false
+
+  /@octokit/openapi-types@19.0.2:
+    resolution: {integrity: sha512-8li32fUDUeml/ACRp/njCWTsk5t17cfTM1jp9n08pBrqs5cDFJubtjsSnuz56r5Tad6jdEPJld7LxNp9dNcyjQ==}
+    dev: false
+
+  /@octokit/plugin-paginate-rest@9.1.4(@octokit/core@5.0.1):
+    resolution: {integrity: sha512-MvZx4WvfhBnt7PtH5XE7HORsO7bBk4er1FgRIUr1qJ89NR2I6bWjGyKsxk8z42FPQ34hFQm0Baanh4gzdZR4gQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@octokit/core': '>=5'
+    dependencies:
+      '@octokit/core': 5.0.1
+      '@octokit/types': 12.3.0
+    dev: false
+
+  /@octokit/plugin-request-log@4.0.0(@octokit/core@5.0.1):
+    resolution: {integrity: sha512-2uJI1COtYCq8Z4yNSnM231TgH50bRkheQ9+aH8TnZanB6QilOnx8RMD2qsnamSOXtDj0ilxvevf5fGsBhBBzKA==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@octokit/core': '>=5'
+    dependencies:
+      '@octokit/core': 5.0.1
+    dev: false
+
+  /@octokit/plugin-rest-endpoint-methods@10.1.4(@octokit/core@5.0.1):
+    resolution: {integrity: sha512-e8dSb9ypW1Q2I+qkOPzs3A9f4/EGpSZSI45wWBfXiqcvpoxSywVcZajZRhFwAutKI+/NNoeKxsxMwCx73oQyWw==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@octokit/core': '>=5'
+    dependencies:
+      '@octokit/core': 5.0.1
+      '@octokit/types': 12.3.0
+    dev: false
+
+  /@octokit/request-error@5.0.1:
+    resolution: {integrity: sha512-X7pnyTMV7MgtGmiXBwmO6M5kIPrntOXdyKZLigNfQWSEQzVxR4a4vo49vJjTWX70mPndj8KhfT4Dx+2Ng3vnBQ==}
+    engines: {node: '>= 18'}
+    dependencies:
+      '@octokit/types': 12.3.0
+      deprecation: 2.3.1
+      once: 1.4.0
+    dev: false
+
+  /@octokit/request@8.1.5:
+    resolution: {integrity: sha512-zVKbNbX1xUluD9ZR4/tPs1yuYrK9xeh5fGZUXA6u04XGsTvomg0YO8/ZUC0FqAd49hAOEMFPAVUTh+2lBhOhLA==}
+    engines: {node: '>= 18'}
+    dependencies:
+      '@octokit/endpoint': 9.0.2
+      '@octokit/request-error': 5.0.1
+      '@octokit/types': 12.3.0
+      is-plain-object: 5.0.0
+      universal-user-agent: 6.0.1
+    dev: false
+
+  /@octokit/rest@20.0.2:
+    resolution: {integrity: sha512-Ux8NDgEraQ/DMAU1PlAohyfBBXDwhnX2j33Z1nJNziqAfHi70PuxkFYIcIt8aIAxtRE7KVuKp8lSR8pA0J5iOQ==}
+    engines: {node: '>= 18'}
+    dependencies:
+      '@octokit/core': 5.0.1
+      '@octokit/plugin-paginate-rest': 9.1.4(@octokit/core@5.0.1)
+      '@octokit/plugin-request-log': 4.0.0(@octokit/core@5.0.1)
+      '@octokit/plugin-rest-endpoint-methods': 10.1.4(@octokit/core@5.0.1)
+    dev: false
+
+  /@octokit/types@12.3.0:
+    resolution: {integrity: sha512-nJ8X2HRr234q3w/FcovDlA+ttUU4m1eJAourvfUUtwAWeqL8AsyRqfnLvVnYn3NFbUnsmzQCzLNdFerPwdmcDQ==}
+    dependencies:
+      '@octokit/openapi-types': 19.0.2
     dev: false
 
   /@pnpm/build-modules@11.0.0(@pnpm/logger@5.0.0)(typanion@3.9.0):
@@ -7107,6 +7322,10 @@ packages:
       pascalcase: 0.1.1
     dev: true
 
+  /before-after-hook@2.2.3:
+    resolution: {integrity: sha512-NzUnlZexiaH/46WDhANlyR2bXRopNg4F/zuSA3OpZnllCUgRaOF2znDioDWrmbNVsuZk6l9pMquQB38cfBZwkQ==}
+    dev: false
+
   /better-path-resolve@1.0.0:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
     engines: {node: '>=4'}
@@ -7885,6 +8104,10 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /deprecation@2.3.1:
+    resolution: {integrity: sha512-xmHIy4F3scKVwMsQ4WnVaS8bHOx0DmVwRywosKhaILI0ywMDWPtBSku2HNxRvF7jtwDRsoEwYQSfbxj8b7RlJQ==}
+    dev: false
+
   /dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
@@ -8303,7 +8526,7 @@ packages:
       object.values: 1.1.6
       prop-types: 15.8.1
       resolve: 2.0.0-next.4
-      semver: 6.3.0
+      semver: 6.3.1
       string.prototype.matchall: 4.0.8
 
   /eslint-plugin-vue@9.17.0(eslint@8.42.0):
@@ -9418,6 +9641,11 @@ packages:
     dependencies:
       isobject: 3.0.1
     dev: true
+
+  /is-plain-object@5.0.0:
+    resolution: {integrity: sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /is-potential-custom-element-name@1.0.1:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}
@@ -11867,10 +12095,6 @@ packages:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
 
-  /semver@6.3.0:
-    resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
-    hasBin: true
-
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
@@ -12835,6 +13059,11 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /type-fest@4.6.0:
+    resolution: {integrity: sha512-rLjWJzQFOq4xw7MgJrCZ6T1jIOvvYElXT12r+y0CC6u67hegDHaxcPqb2fZHOGlqxugGQPNB1EnTezjBetkwkw==}
+    engines: {node: '>=16'}
+    dev: true
+
   /typedarray-to-buffer@3.1.5:
     resolution: {integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==}
     dependencies:
@@ -12944,6 +13173,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       crypto-random-string: 2.0.0
+    dev: false
+
+  /universal-user-agent@6.0.1:
+    resolution: {integrity: sha512-yCzhz6FN2wU1NiiQRogkTQszlQSlpWaw8SvVegAc+bDxbzHgh1vX8uIe8OYyMH6DwH+sdTJsgMl36+mSMdRJIQ==}
     dev: false
 
   /universalify@0.2.0:
