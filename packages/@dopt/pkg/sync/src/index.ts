@@ -3,7 +3,11 @@ import path from 'node:path';
 
 import { readFile } from 'fs/promises';
 
+import { makeDedicatedLockfile } from '@pnpm/make-dedicated-lockfile';
+
 import { resolveWorkspaceDependencies } from '@dopt/resolve-workspace-dependencies';
+
+import { TOPOFTREE } from '@dopt/topoftree';
 
 import { promisify } from 'node:util';
 import { exec as execAsync } from 'node:child_process';
@@ -54,6 +58,22 @@ export async function sync() {
   // Resolve workspace dependencies to their current version
   await resolveWorkspaceDependencies(name);
 
+  // ::SPECIAL CASE::
+  // Copy the monorepos top-level package.json's
+  // packageManager field to ensure consistent builds
+  // downstream
+  try {
+    const { packageManager } = JSON.parse(
+      await readFile(path.join(TOPOFTREE, 'package.json'), 'utf8')
+    );
+    await exec(`pnpm pkg set packageManager=${packageManager}`);
+  } catch (e) {
+    console.warn(
+      "Ran into issues while copying the monorepo's packageManager field",
+      e
+    );
+  }
+
   const fileBlobs = [];
   for (const filePath of filePaths) {
     try {
@@ -67,6 +87,38 @@ export async function sync() {
     } catch (e) {
       console.log(`Error while creating file blob for file ${filePath}`, e);
     }
+  }
+
+  // ::SPECIAL CASE::
+  // Create a lockfile for this package
+  try {
+    await makeDedicatedLockfile(TOPOFTREE, process.cwd());
+    filePaths.push('pnpm-lock.yaml');
+    const { data: lockfile } = await octokit.git.createBlob({
+      owner,
+      repo,
+      content: await readFile(path.resolve('pnpm-lock.yaml'), 'utf8'),
+      encoding: 'utf8',
+    });
+    fileBlobs.push(lockfile);
+  } catch (e) {
+    console.warn('Error while create a dedicated lockfile for this package', e);
+  }
+
+  // ::SPECIAL CASE::
+  // Include the monorepos .nvmrc to ensure consitent
+  // builds in the downstream repo's CI
+  try {
+    filePaths.push('.nvmrc');
+    const { data: nvmrc } = await octokit.git.createBlob({
+      owner,
+      repo,
+      content: await readFile(path.join(TOPOFTREE, '.nvmrc'), 'utf8'),
+      encoding: 'utf8',
+    });
+    fileBlobs.push(nvmrc);
+  } catch (e) {
+    console.warn("Ran into issues while porting the monorepo's .nvmrc file", e);
   }
 
   const { data: ref } = await octokit.git.getRef({
