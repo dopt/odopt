@@ -19,7 +19,8 @@ const main = defineCommand({
       await sync();
     } catch (error) {
       console.error(
-        `Error syncing package at ${directory} to its open source repository`
+        `Error syncing package at ${directory} to its open source repository`,
+        error
       );
     }
   },
