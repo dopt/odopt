@@ -28,6 +28,22 @@ import type {
 
 type Socket = ReturnType<typeof setupSocket>;
 
+/**
+ * The time in milliseconds that the page should wait
+ * after its visibility changes before disconnecting
+ * the socket.
+ *
+ * The value is fixed at 600,000 millseconds (10 minutes).
+ */
+const SOCKET_DISCONNECT_TIMEOUT = 600000;
+
+/**
+ * A boolean which checks whether the package
+ * is being loaded in a browser environment.
+ */
+const IS_BROWSER =
+  typeof window !== 'undefined' && typeof window.document !== 'undefined';
+
 function flowVersionsEqual(
   previous: ProviderConfig['flowVersions'],
   current: ProviderConfig['flowVersions']
@@ -101,11 +117,13 @@ export function DoptProvider(props: ProviderConfig) {
     new Map<string, string>()
   );
 
-  const [socket, setSocket] = useState<Socket>();
-  const [socketDirty, setSocketDirty] = useState<boolean>(false);
+  const [socketWaiting, setSocketWaiting] = useState<boolean>(false);
+  const socket = useRef<Socket | null>(null);
 
-  const [resolvedFlowVersions, setResolvedFlowVersions] =
-    useState<Record<APIFlow['sid'], APIFlow['version']>>();
+  const [resolvedFlowVersions, setResolvedFlowVersions] = useState<Record<
+    APIFlow['sid'],
+    APIFlow['version']
+  > | null>(null);
   const fetching = resolvedFlowVersions === undefined;
 
   /**
@@ -172,6 +190,17 @@ export function DoptProvider(props: ProviderConfig) {
     [userId, apiKey, groupId]
   );
 
+  const fetchFlows = useCallback(
+    (flowVersions: ProviderConfig['flowVersions']) => {
+      return Promise.all(
+        Object.entries(flowVersions).map(([sid, version]) =>
+          getFlow({ sid, version })
+        )
+      );
+    },
+    [getFlow]
+  );
+
   useEffect(() => {
     // Avoid any fetching until the user is defined
     if (!userId) {
@@ -181,18 +210,13 @@ export function DoptProvider(props: ProviderConfig) {
     /**
      * Begin the fetching process.
      */
-    setResolvedFlowVersions(undefined);
+    setResolvedFlowVersions(null);
 
     /*
-     * Fetch all Flows based on the **in parallel**
-     * provided (Flow['sid'], Flow['version'])
-     * tuples (via the `flowVersions` props)
+     * Fetch all Flows based on the Record<Flow['sid'], Flow['version']>
+     * entries passed in as props (via `flowVersions`)
      */
-    Promise.all(
-      Object.entries(stableFlowVersions).map(([sid, version]) =>
-        getFlow({ sid, version })
-      )
-    )
+    fetchFlows(stableFlowVersions)
       .then((flows) => {
         const _flows: Flows = {};
         const _flowBlocks: typeof flowBlocks = new Map();
@@ -231,13 +255,14 @@ export function DoptProvider(props: ProviderConfig) {
         });
 
         setFlows(_flows);
-        setFlowStatuses(_flowStatuses);
-        setResolvedFlowVersions(_resolvedFlowVersions);
         setFlowBlocks(_flowBlocks);
 
         setBlocks(_blocks);
         setBlockFields(_blockFields);
         setBlockSidMap(_blockUidBySid);
+
+        setFlowStatuses(_flowStatuses);
+        setResolvedFlowVersions(_resolvedFlowVersions);
 
         logger.current.info('Flows and blocks fetched successfully');
       })
@@ -247,28 +272,10 @@ export function DoptProvider(props: ProviderConfig) {
             flow versions specified: \`${JSON.stringify(stableFlowVersions)}\`
           `);
       });
-  }, [userId, groupId, getFlow, stableFlowVersions]);
-
-  const updateBlockState = useCallback(
-    (updated: Record<APIBlock['uid'], APIBlock>) =>
-      setBlocks((prevBlocks) => ({
-        ...prevBlocks,
-        ...updated,
-      })),
-    []
-  );
-
-  const updateFlowState = useCallback((flow: APIFlow) => {
-    setFlows((prev) => {
-      return {
-        ...prev,
-        [flow.sid]: flow,
-      };
-    });
-  }, []);
+  }, [userId, stableFlowVersions, fetchFlows]);
 
   useEffect(() => {
-    const _socket = setupSocket({
+    socket.current = setupSocket({
       apiKey,
       userId,
       groupId,
@@ -276,36 +283,13 @@ export function DoptProvider(props: ProviderConfig) {
       urlPrefix: SOCKET_PREFIX,
     });
 
-    if (!_socket) {
+    if (!socket.current) {
       return () => {
         /* no-op */
       };
     }
 
-    _socket.on('ready', () => {
-      logger.current.debug(
-        `Socket is ready for user "${userId}" and group "${groupId}"`
-      );
-      setSocket(_socket);
-      setSocketDirty(true);
-    });
-
-    return () => {
-      logger.current.debug(
-        `Closing socket for user "${userId}" and group "${groupId}"`
-      );
-      _socket.close();
-    };
-  }, [apiKey, userId, groupId]);
-
-  useEffect(() => {
-    if (!socket) {
-      return () => {
-        /* no-op */
-      };
-    }
-
-    const blocksHandler = (updatedBlocks: Blocks) => {
+    socket.current.on('blocks', (updatedBlocks: Blocks) => {
       logger.current.debug(
         `The following blocks were updated and pushed from the server.\n${Object.values(
           updatedBlocks
@@ -313,10 +297,14 @@ export function DoptProvider(props: ProviderConfig) {
           .map((block) => JSON.stringify(block, null, 2))
           .join('\n')}`
       );
-      updateBlockState(updatedBlocks);
-    };
 
-    const flowHandler = (updatedFlow: APIFlow) => {
+      setBlocks((previousBlocks) => ({
+        ...previousBlocks,
+        ...updatedBlocks,
+      }));
+    });
+
+    socket.current.on('flow', (updatedFlow: APIFlow) => {
       logger.current.debug(
         `The following flow was updated and pushed from the server.\n${JSON.stringify(
           updatedFlow,
@@ -324,31 +312,148 @@ export function DoptProvider(props: ProviderConfig) {
           2
         )}`
       );
-      updateFlowState(updatedFlow);
-    };
 
-    socket.on('blocks', blocksHandler);
-    socket.on('flow', flowHandler);
+      setFlows((previousFlows) => {
+        return {
+          ...previousFlows,
+          [updatedFlow.sid]: updatedFlow,
+        };
+      });
+    });
+
+    socket.current.on('ready', () => {
+      logger.current.debug(
+        `Socket is ready for user "${userId}" and group "${groupId}"`
+      );
+
+      setSocketWaiting(true);
+    });
 
     return () => {
-      socket.off('blocks', blocksHandler);
-      socket.off('flows', flowHandler);
+      logger.current.debug(
+        `Closing socket for user "${userId}" and group "${groupId}"`
+      );
+      socket.current?.close();
+      socket.current = null;
     };
-  }, [socket, updateBlockState, updateFlowState]);
+  }, [apiKey, userId, groupId]);
 
   useEffect(() => {
-    if (!socket || !resolvedFlowVersions || !socketDirty) {
+    if (!IS_BROWSER || !socket.current || !resolvedFlowVersions) {
+      return () => {
+        /* no-op */
+      };
+    }
+
+    /**
+     * Closed-over variables which track
+     * whether other disconnect or reconnect attempts
+     * are in-progress.
+     */
+    let disconnectTimeoutId: any = null;
+    let socketReconnecting = false;
+
+    const onVisibilityChange = () => {
+      clearTimeout(disconnectTimeoutId);
+      disconnectTimeoutId = null;
+
+      if (document.visibilityState === 'visible') {
+        if (socket.current?.disconnected && !socketReconnecting) {
+          socketReconnecting = true;
+
+          fetchFlows(resolvedFlowVersions)
+            .then((flows) => {
+              const _flows: Flows = {};
+              const _flowBlocks: typeof flowBlocks = new Map();
+
+              const _blocks: Blocks = {};
+
+              flows.forEach((flow) => {
+                _flows[flow.sid] = flow;
+                _flowBlocks.set(
+                  flow.sid,
+                  flow.blocks?.map(({ uid }) => uid) || []
+                );
+
+                flow.blocks?.forEach((block) => {
+                  _blocks[block.uid] = block;
+                });
+              });
+
+              /**
+               * Note, we don't set other states like blockUidBySid or blockFields.
+               * Block `sid` values and fields are editable, so we don't want to
+               * overwrite those and break callers.
+               *
+               * We don't set flowStatuses because all flows have already been
+               * initialized, we're just re-examining whether any changes have
+               * occurred.
+               *
+               * flows, flowBlocks, and blocks are all UID based with frozen
+               * topologies, so these updates on reconnection are much safer.
+               */
+              setFlows(_flows);
+              setFlowBlocks(_flowBlocks);
+              setBlocks(_blocks);
+
+              logger.current.info(
+                'Flows and blocks updated successfully when page foregrounded'
+              );
+
+              /**
+               * We connect after all flows are fetched to avoid
+               * race conditions from the side effects of `getFlow`.
+               */
+              socket.current?.connect();
+            })
+            .catch((_) => {
+              logger.current.error(`
+                  An error occurred while fetching blocks for the
+                  flow versions specified: \`${JSON.stringify(
+                    resolvedFlowVersions
+                  )}\`
+                `);
+            })
+            .finally(() => {
+              socketReconnecting = false;
+            });
+        }
+      } else {
+        disconnectTimeoutId = setTimeout(() => {
+          disconnectTimeoutId = null;
+
+          if (socket.current?.connected) {
+            socket.current?.disconnect();
+            socketReconnecting = false;
+            logger.current.info(
+              'Socket disconnected because page backgrounded'
+            );
+          }
+        }, SOCKET_DISCONNECT_TIMEOUT);
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    return () => {
+      clearTimeout(disconnectTimeoutId);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, [resolvedFlowVersions, fetchFlows]);
+
+  useEffect(() => {
+    if (!resolvedFlowVersions || !socketWaiting) {
       return;
     }
 
     Object.entries(resolvedFlowVersions).forEach(([sid, version]) => {
       if (version !== -1) {
-        socket.emit('watch:flow', sid, version);
+        socket.current?.emit('watch:flow', sid, version);
       }
     });
 
-    setSocketDirty(false);
-  }, [socket, socketDirty, resolvedFlowVersions]);
+    setSocketWaiting(false);
+  }, [socketWaiting, resolvedFlowVersions]);
 
   const blockIntention: BlockTransitionHandler = useMemo(() => {
     if (fetching) {
@@ -369,7 +474,8 @@ export function DoptProvider(props: ProviderConfig) {
         });
 
         if (optimisticUpdates && block.state.active) {
-          updateBlockState({
+          setBlocks((previousBlocks) => ({
+            ...previousBlocks,
             [uid]: {
               ...block,
               state: {
@@ -378,11 +484,11 @@ export function DoptProvider(props: ProviderConfig) {
                 active: false,
               },
             },
-          });
+          }));
         }
       }
     };
-  }, [fetching, blockIntent, blocks, optimisticUpdates, updateBlockState]);
+  }, [fetching, blockIntent, blocks, optimisticUpdates]);
 
   const flowIntention: FlowIntentHandler = useMemo(() => {
     if (fetching) {
