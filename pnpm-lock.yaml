@@ -1966,6 +1966,9 @@ importers:
       '@dopt/resolve-workspace-dependencies':
         specifier: workspace:*
         version: link:../../resolve-workspace-dependencies
+      '@dopt/topoftree':
+        specifier: workspace:*
+        version: link:../../topoftree
       '@octokit/rest':
         specifier: 20.0.2
         version: 20.0.2
