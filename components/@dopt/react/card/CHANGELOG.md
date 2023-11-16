@@ -1,5 +1,12 @@
 # @dopt/react-card
 
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies [5a072a2c2]
+  - @dopt/react@4.1.0
+
 ## 7.1.0
 
 ### Minor Changes

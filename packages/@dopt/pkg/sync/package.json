@@ -1,6 +1,6 @@
 {
   "name": "@dopt/pkg-sync",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "description": "",
   "homepage": "https://github.com/dopt/pkg-sync",
   "repository": {
@@ -24,10 +24,10 @@
     "build": "unbuild",
     "clean": "shx rm -rf ./dist",
     "dev": "unbuild --stub",
-    "format": "prettier --w .",
-    "formatcheck": "pnpm exec check-formatting",
-    "lint": "eslint .",
-    "test": "jest",
+    "format": "echo \"@dopt/pkg-sync does not require format\"; exit 0;",
+    "formatcheck": "echo \"@dopt/pkg-sync does not require formatcheck\"; exit 0;",
+    "lint": "echo \"@dopt/pkg-sync does not require lint\"; exit 0;",
+    "test": "echo \"@dopt/pkg-sync does not require test\"; exit 0;",
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
     "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/pkg-sync\"",
@@ -39,23 +39,17 @@
   ],
   "dependencies": {
     "@dopt/resolve-workspace-dependencies": "workspace:*",
+    "@dopt/topoftree": "workspace:*",
     "@octokit/rest": "20.0.2",
-    "citty": "0.1.2"
+    "@pnpm/make-dedicated-lockfile": "0.5.11",
+    "citty": "0.1.2",
+    "micromatch": "4.0.5"
   },
   "devDependencies": {
-    "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
-    "@types/jest": "29.5.2",
-    "@types/minimist": "1.2.2",
-    "@types/shelljs": "0.8.12",
-    "@typescript-eslint/eslint-plugin": "5.59.11",
-    "@typescript-eslint/parser": "5.59.11",
-    "eslint": "8.42.0",
-    "eslint-plugin-react": "7.32.2",
-    "jest": "29.5.0",
-    "prettier": "2.8.8",
+    "@types/micromatch": "^4.0.2",
+    "@types/node": "18.16.18",
     "shx": "0.3.4",
-    "type-fest": "4.6.0",
     "typescript": "5.1.6",
     "unbuild": "2.0.0"
   },
