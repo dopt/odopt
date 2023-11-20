@@ -1,5 +1,13 @@
 # @examples/checklist-custom
 
+## 0.0.32
+
+### Patch Changes
+
+- Updated dependencies [5a072a2c2]
+  - @dopt/react@4.1.0
+  - @dopt/react-checklist@9.0.0
+
 ## 0.0.31
 
 ### Patch Changes
