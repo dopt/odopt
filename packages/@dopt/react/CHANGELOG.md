@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.0
+
+### Minor Changes
+
+- 5a072a2c2: We've refactored how `@dopt/react` disconnects its internal socket when the parent `document` is backgrounded. When `@dopt/react` is used within a browser, we add a new `useEffect` hook which listens for `'visibilitychange'` events on the `document`. If the `document` is backgrounded (non-visible) for more than 10 minutes, we will disconnect `@dopt/react`'s internal socket. When the tab is foregrounded again, we fetch all necessary state and re-connect the socket. These changes improve session and socket stability and ensure state consistency across backgrounding and foregrounding.
+
 ## 4.0.0
 
 ### Major Changes
