@@ -2,12 +2,10 @@ import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
   entries: ['src/index', 'src/cli'],
-  clean: false,
+  clean: true,
   rollup: {
-    inlineDependencies: true,
     esbuild: {
       target: 'ESNext',
-      jsx: 'automatic',
       minify: true,
     },
   },
