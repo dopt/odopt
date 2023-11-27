@@ -1,5 +1,13 @@
 # @examples/card
 
+## 0.0.22
+
+### Patch Changes
+
+- Updated dependencies [5a072a2c2]
+  - @dopt/react@4.1.0
+  - @dopt/react-card@8.0.0
+
 ## 0.0.21
 
 ### Patch Changes
