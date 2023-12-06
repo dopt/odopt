@@ -2028,6 +2028,9 @@ importers:
       '@dopt/config':
         specifier: workspace:*
         version: link:../config
+      '@dopt/pkg-sync':
+        specifier: workspace:*
+        version: link:../pkg/sync
       '@dopt/tsup':
         specifier: workspace:*
         version: link:../tsup
