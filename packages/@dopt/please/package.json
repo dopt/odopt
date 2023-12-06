@@ -1,13 +1,12 @@
 {
   "name": "@dopt/please",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "private": false,
   "description": "A CLI for developing in monorepos - not building them",
-  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/please",
+  "homepage": "https://github.com/dopt/please",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dopt/odopt.git",
-    "directory": "packages/@dopt/please"
+    "url": "https://github.com/dopt/please.git"
   },
   "license": "MIT",
   "main": "./dist/index.js",
@@ -33,7 +32,8 @@
     "typecheck": "tsc --noEmit",
     "☝️ required package scripts": "",
     "generate-parser": "node ./generate-parser.js",
-    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/please\"; pnpm test;"
+    "prepublishOnly": "pnpm -w exec turbo run build --filter=\"@dopt/please\"; pnpm test;",
+    "postpublish": "pkg-sync"
   },
   "files": [
     "dist"
@@ -49,6 +49,7 @@
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
+    "@dopt/pkg-sync": "workspace:*",
     "@dopt/tsup": "workspace:*",
     "@types/jest": "29.5.2",
     "@typescript-eslint/eslint-plugin": "5.59.11",
