@@ -1,5 +1,11 @@
 # @dopt/please
 
+## 1.0.2
+
+### Patch Changes
+
+- 591b0f309: Utilize pkg-sync CLI to create individual repo for please.
+
 ## 1.0.1
 
 ### Patch Changes
