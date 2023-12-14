@@ -1,0 +1,139 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
+  --color-primary: #20c997;
+  --color-primary-light: #e6fcf5;
+  --color-primary-dark: #12b886;
+  --color-secondary: #f1f3f5;
+  --color-text: #000;
+  --color-text-inverse: #fff;
+  --color-border: #e9ecef;
+  --color-background: #fff;
+
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-background);
+}
+
+[data-theme='dark'] {
+  --color-primary: #0ca678;
+  --color-primary-light: #333;
+  --color-primary-dark: #12b886;
+  --color-secondary: #f1f3f5;
+  --color-text: #fff;
+  --color-text-inverse: #fff;
+  --color-border: #495057;
+  --color-background: #222;
+}
+
+/* reset */
+button,
+fieldset,
+input {
+  all: unset;
+}
+
+.DialogOverlay {
+  background-color: var(--black-a9);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogContent {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 475px;
+  max-height: 85vh;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogContent > *:first-child {
+  background-color: transparent;
+}
+
+.DialogContent > *:not(:first-child) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 25px;
+  justify-content: flex-end;
+}
+
+.DialogButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.DialogButtons > * {
+  width: 100%;
+}
+
+.DialogTitle {
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  color: var(--color-text);
+  flex-direction: row;
+  justify-content: center;
+}
+
+.DialogDescription {
+  margin: 10px 0 20px;
+  color: var(--color-text);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.Button {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  border: 1px solid #ced4da;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0 15px;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+  height: 35px;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
