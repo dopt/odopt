@@ -1,5 +1,11 @@
 # @dopt/pkg-sync
 
+## 1.1.7
+
+### Patch Changes
+
+- 9f8115dcd: The pkg-sync CLI reads package meta based on process cwd
+
 ## 1.1.6
 
 ### Patch Changes
