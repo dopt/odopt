@@ -1,5 +1,17 @@
 # @dopt/please
 
+## 1.0.3
+
+### Patch Changes
+
+- 9f8115dcd: The pkg-sync CLI reads package meta based on process cwd
+
+## 1.0.2
+
+### Patch Changes
+
+- 591b0f309: Utilize pkg-sync CLI to create individual repo for please.
+
 ## 1.0.1
 
 ### Patch Changes
