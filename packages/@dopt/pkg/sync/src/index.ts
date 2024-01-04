@@ -15,15 +15,21 @@ import { promisify } from 'node:util';
 import { exec as execAsync } from 'node:child_process';
 const exec = promisify(execAsync);
 
-import { name, version, repository } from '../package.json';
+import { PackageJson } from 'type-fest';
+
 import { initialize } from './repo';
+import { readFileSync } from 'node:fs';
 
 export async function sync() {
+  const { name, version, repository } = JSON.parse(
+    readFileSync(path.resolve(process.cwd(), './package.json'), 'utf8')
+  ) as PackageJson;
+
   const octokit = new Octokit({
     auth: process.env.PKG_SYNC_PAT,
   });
 
-  if (!repository || !repository.url) {
+  if (!repository || typeof repository === 'string' || !repository.url) {
     throw new Error(
       'Pacakges using the `sync` CLI need to defined the repository property with a `url` field'
     );
@@ -110,7 +116,7 @@ export async function sync() {
     .filter(({ path }) => !micromatch.isMatch(path as string, ignorePatterns));
 
   // Resolve workspace dependencies to their current version
-  await resolveWorkspaceDependencies(name);
+  await resolveWorkspaceDependencies(name as string);
 
   // ::SPECIAL CASE::
   // Copy the monorepos top-level package.json's
