@@ -7,9 +7,11 @@ export function node(options: BuildConfig) {
     rollup: {
       inlineDependencies: true,
       emitCJS: true,
+      ...options.rollup,
       esbuild: {
         target: 'ESNext',
         minify: true,
+        ...options.rollup?.esbuild,
       },
     },
     declaration: true,
