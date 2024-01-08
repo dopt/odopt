@@ -23,7 +23,7 @@
     "@tabler/icons": "1.119.0",
     "@vanilla-extract/css": "1.11.1",
     "@vanilla-extract/vite-plugin": "3.8.2",
-    "nanoid": "4.0.2",
+    "nanoid": "5.0.4",
     "react": "18.2.0",
     "react-confetti": "6.1.0",
     "react-markdown": "8.0.7",
