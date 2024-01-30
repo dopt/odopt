@@ -4,7 +4,7 @@ Dopt's React components leverage a unified theme which consists of tokens for th
 
 All of Dopt's React components have a `theme` prop that you can use to pass in your custom theme definition.
 
-[Learn more about Dopt's styling and theming →](https://docs.dopt.com/components/styling/).
+[Learn more about Dopt's styling and theming →](https://docs.dopt.com/components/react/styling/).
 
 ## Installation
 
@@ -41,7 +41,7 @@ function MyModal() {
 
 ## Theme interface
 
-When defining a custom theme, you will need adhere to a strict interface that maps to specific [theme tokens](https://docs.dopt.com/components/tokens/) as defined in [@dopt/core-theme](https://www.npmjs.com/package/@dopt/core-theme).
+When defining a custom theme, you will need adhere to a strict interface that maps to specific [theme tokens](https://docs.dopt.com/components/react/tokens/) as defined in [@dopt/core-theme](https://www.npmjs.com/package/@dopt/core-theme).
 
 ```ts
 interface Theme {
