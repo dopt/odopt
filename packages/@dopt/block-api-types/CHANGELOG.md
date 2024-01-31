@@ -1,5 +1,11 @@
 # @dopt/block-api-types
 
+## 1.3.2
+
+### Patch Changes
+
+- eaf9872d3: Update package version.
+
 ## 1.3.1
 
 ### Patch Changes
