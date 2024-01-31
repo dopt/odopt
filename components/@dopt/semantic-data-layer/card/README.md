@@ -1,6 +1,6 @@
 # @dopt/semantic-data-layer-card
 
-An interface definition for Dopt's [card component](https://docs.dopt.com/components/card/).
+An interface definition for Dopt's [card component](https://docs.dopt.com/components/react/card/).
 
 ```ts
 export interface Card {

@@ -1,6 +1,6 @@
 # @dopt/semantic-data-layer-modal
 
-An interface definition for Dopt's [modal component](https://docs.dopt.com/components/modal/).
+An interface definition for Dopt's [modal component](https://docs.dopt.com/components/react/modal/).
 
 ```ts
 export interface Modal {
