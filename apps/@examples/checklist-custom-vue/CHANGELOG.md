@@ -1,5 +1,11 @@
 # @examples/checklist-custom-vue
 
+## 0.2.10
+
+### Patch Changes
+
+- @dopt/vue@1.0.1
+
 ## 0.2.9
 
 ### Patch Changes
