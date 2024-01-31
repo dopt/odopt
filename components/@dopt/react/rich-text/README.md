@@ -6,7 +6,7 @@ The rich text component is powered by a [rich text field](https://docs.dopt.com/
 
 It matches rich text types you might find in traditional content management systems and can be helpful for adding custom in-product content.
 
-[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/rich-text/)
+[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/react/rich-text/)
 
 ## Installation
 
