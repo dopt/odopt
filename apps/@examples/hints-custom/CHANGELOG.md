@@ -1,5 +1,12 @@
 # @examples/hints-custom
 
+## 0.0.53
+
+### Patch Changes
+
+- @dopt/react-hints@2.0.1
+- @dopt/react@4.1.1
+
 ## 0.0.52
 
 ### Patch Changes
