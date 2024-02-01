@@ -1,7 +1,7 @@
 {
   "name": "@examples/hints-custom-vue",
   "private": true,
-  "version": "0.2.9",
+  "version": "0.2.10",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5633",
@@ -17,7 +17,7 @@
     "nanoid": "5.0.4",
     "radix-vue": "1.1.1",
     "@dopt/html-rich-text": "workspace:*",
-    "@dopt/users-javascript-browser-client": "*",
+    "@dopt/users-javascript-browser-client": "workspace:*",
     "@dopt/vue": "workspace:*"
   },
   "devDependencies": {
