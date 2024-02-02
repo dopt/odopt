@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.1
+
+### Patch Changes
+
+- @dopt/javascript-common@2.3.4
+
 ## 4.1.0
 
 ### Minor Changes
