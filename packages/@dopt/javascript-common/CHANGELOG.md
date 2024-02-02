@@ -1,5 +1,12 @@
 # @dopt/javascript-common
 
+## 2.3.4
+
+### Patch Changes
+
+- Updated dependencies [eaf9872d3]
+  - @dopt/block-api-types@1.3.2
+
 ## 2.3.3
 
 ### Patch Changes
