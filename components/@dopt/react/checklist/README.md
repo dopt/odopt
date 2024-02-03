@@ -125,7 +125,7 @@ The body of the tour item popover. Extends `HTMLDivElement`.
 
 | Name      | Type                                                                     | Description                                   |
 | --------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| children? | [RichText](https://docs.dopt.com/components/rich-text/#richtext-1)       | The rich text contents of the component       |
+| children? | [RichText](https://docs.dopt.com/components/react/rich-text/#richtext-1) | The rich text contents of the component       |
 | theme?    | [Theme](https://docs.dopt.com/components/react/styling/#theme-interface) | A theme definition to attach to the component |
 
 ### Progress
