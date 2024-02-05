@@ -6,7 +6,7 @@ A React modal component for building experiences with Dopt.
 
 You can use the modal component out of the box as a pre-built component or break out and use it headlessly with your own UI component.
 
-[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/modal/)
+[Learn more about how to use this component with Dopt →](https://docs.dopt.com/components/react/modal/)
 
 ## Installation
 

@@ -1,5 +1,17 @@
 # @dopt/vue
 
+## 1.0.1
+
+### Patch Changes
+
+- @dopt/semantic-data-layer-card@1.2.1
+- @dopt/semantic-data-layer-checklist@0.2.1
+- @dopt/semantic-data-layer-hints@1.0.1
+- @dopt/semantic-data-layer-modal@0.2.1
+- @dopt/semantic-data-layer-tour@0.3.1
+- @dopt/javascript-common@2.3.4
+- @dopt/javascript@3.8.1
+
 ## 1.0.0
 
 ### Major Changes
