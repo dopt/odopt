@@ -1,0 +1,20 @@
+{
+  "extends": "@dopt/config/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declarationMap": false,
+    "declaration": true,
+    "declarationDir": "./types",
+    "jsx": "react-jsx",
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
+    "noEmit": false,
+    "outDir": "./dist",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "rootDir": "./src",
+    "target": "ESNext"
+  },
+  "exclude": ["node_modules", "dist", "build.config.ts", "src/__tests__/*"],
+  "include": ["**/*.ts", "**/*.tsx"]
+}
