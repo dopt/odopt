@@ -1,0 +1,64 @@
+{
+  "name": "@dopt/ai-assistant-react",
+  "version": "0.0.1",
+  "private": false,
+  "description": "A React SDK accessing AI functionality",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/ai-assistant-react"
+  },
+  "license": "MIT",
+  "main": "./dist/cjs/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.cjs.js",
+      "import": "./dist/index.esm.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "pkg-build",
+    "clean": "pkg-clean",
+    "dev": "pkg-build -w",
+    "format": "pkg-format",
+    "formatcheck": "pkg-format -c",
+    "lint": "pkg-lint",
+    "test": "echo \"@dopt/ai-assistant-react has no unit tests\"; exit 0;",
+    "typecheck": "tsc --noEmit",
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/ai-assistant-react\""
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
+  },
+  "dependencies": {
+    "@dopt/ai-assistant-context": "workspace:*",
+    "@dopt/ai-assistant-definition": "workspace:*",
+    "@dopt/ai-assistant-javascript": "workspace:*",
+    "@dopt/logger": "workspace:*",
+    "react-hotkeys-hook": "4.4.0"
+  },
+  "devDependencies": {
+    "@dopt/check-formatting": "workspace:*",
+    "@dopt/config": "workspace:*",
+    "@dopt/pkg-build": "workspace:*",
+    "@dopt/pkg-clean": "workspace:*",
+    "@dopt/pkg-format": "workspace:*",
+    "@dopt/pkg-lint": "workspace:*",
+    "@types/node": "18.16.18",
+    "@types/react": "18.2.12",
+    "@types/react-dom": "18.2.5",
+    "typescript": "5.1.6"
+  },
+  "openSource": true
+}

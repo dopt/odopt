@@ -1,6 +1,6 @@
 # @dopt/semantic-data-layer-checklist
 
-An interface definition for Dopt's [checklist and checklist item components](https://docs.dopt.com/components/checklist/).
+An interface definition for Dopt's [checklist and checklist item components](https://docs.dopt.com/components/react/checklist/).
 
 ```ts
 export interface Checklist {
