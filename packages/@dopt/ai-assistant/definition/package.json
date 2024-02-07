@@ -1,0 +1,58 @@
+{
+  "name": "@dopt/ai-assistant-definition",
+  "version": "0.0.1",
+  "private": false,
+  "description": "An API definition/spec for the AI assistant",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-definition",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/ai-assistant-definition"
+  },
+  "license": "MIT",
+  "main": "./dist/cjs/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.esm.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/cjs/index.cjs.js"
+      }
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "pkg-build",
+    "clean": "pkg-clean",
+    "dev": "pkg-build -s",
+    "format": "pkg-format",
+    "formatcheck": "pkg-format -c",
+    "lint": "pkg-lint",
+    "test": "echo \"@dopt/ai-assistant-definition has no unit tests\"; exit 0;",
+    "typecheck": "tsc --noEmit",
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/ai-assistant-definition\""
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@sinclair/typebox": "0.25.4"
+  },
+  "devDependencies": {
+    "@dopt/config": "workspace:*",
+    "@dopt/pkg-build": "workspace:*",
+    "@dopt/pkg-lint": "workspace:*",
+    "@dopt/pkg-clean": "workspace:*",
+    "@dopt/pkg-format": "workspace:*",
+    "@types/node": "18.16.18",
+    "typescript": "5.1.6"
+  },
+  "openSource": true
+}
