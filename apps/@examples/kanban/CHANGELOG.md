@@ -1,5 +1,11 @@
 # @examples/kanban
 
+## 0.0.61
+
+### Patch Changes
+
+- @dopt/react@4.1.1
+
 ## 0.0.60
 
 ### Patch Changes

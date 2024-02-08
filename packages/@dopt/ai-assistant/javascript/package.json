@@ -1,0 +1,61 @@
+{
+  "name": "@dopt/ai-assistant-javascript",
+  "version": "0.0.1",
+  "private": false,
+  "description": "An SDK for the AI assistant",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-javascript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dopt/odopt.git",
+    "directory": "packages/@dopt/ai-assistant-javascript"
+  },
+  "license": "MIT",
+  "main": "./dist/cjs/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.esm.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/cjs/index.cjs.js"
+      }
+    }
+  },
+  "scripts": {
+    "👇required package scripts": "",
+    "build": "pkg-build",
+    "clean": "pkg-clean",
+    "dev": "pkg-build -s",
+    "format": "pkg-format",
+    "formatcheck": "pkg-format -c",
+    "lint": "pkg-lint",
+    "test": "echo \"@dopt/ai-assistant-javascript has no unit tests\"; exit 0;",
+    "typecheck": "tsc --noEmit",
+    "☝️ required package scripts": "",
+    "prepublishOnly": "NODE_ENV=production pnpm -w exec turbo run build --filter=\"@dopt/ai-assistant-javascript\""
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@dopt/ai-javascript-client": "workspace:*",
+    "@dopt/ai-assistant-context": "workspace:*",
+    "@dopt/ai-assistant-definition": "workspace:*",
+    "@dopt/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@dopt/config": "workspace:*",
+    "@dopt/pkg-build": "workspace:*",
+    "@dopt/pkg-lint": "workspace:*",
+    "@dopt/pkg-clean": "workspace:*",
+    "@dopt/pkg-format": "workspace:*",
+    "@types/node": "18.16.18",
+    "typescript": "5.1.6"
+  },
+  "openSource": true
+}

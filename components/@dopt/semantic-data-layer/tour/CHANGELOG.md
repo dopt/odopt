@@ -1,5 +1,12 @@
 # @dopt/semantic-data-layer-tour
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [eaf9872d3]
+  - @dopt/block-api-types@1.3.2
+
 ## 0.3.0
 
 ### Minor Changes
