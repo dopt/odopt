@@ -1,6 +1,6 @@
 # @dopt/semantic-data-layer-tour
 
-An interface definition for Dopt's [tour and tour item components](https://docs.dopt.com/components/tour/).
+An interface definition for Dopt's [tour and tour item components](https://docs.dopt.com/components/react/tour/).
 
 ```ts
 export interface Tour {
