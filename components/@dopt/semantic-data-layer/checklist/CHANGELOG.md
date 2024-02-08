@@ -1,5 +1,12 @@
 # @dopt/semantic-data-layer-checklist
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [eaf9872d3]
+  - @dopt/block-api-types@1.3.2
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @dopt/react-card-sandbox
 
+## 0.0.31
+
+### Patch Changes
+
+- @dopt/react-card@8.0.1
+
 ## 0.0.30
 
 ### Patch Changes
