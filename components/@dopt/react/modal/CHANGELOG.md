@@ -1,5 +1,12 @@
 # @dopt/react-modal
 
+## 9.0.1
+
+### Patch Changes
+
+- @dopt/semantic-data-layer-modal@0.2.1
+- @dopt/react@4.1.1
+
 ## 9.0.0
 
 ### Patch Changes
