@@ -1,5 +1,12 @@
 # @dopt/react-card
 
+## 8.0.1
+
+### Patch Changes
+
+- @dopt/semantic-data-layer-card@1.2.1
+- @dopt/react@4.1.1
+
 ## 8.0.0
 
 ### Patch Changes
