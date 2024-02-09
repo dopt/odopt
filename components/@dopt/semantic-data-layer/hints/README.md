@@ -1,6 +1,6 @@
 # @dopt/semantic-data-layer-hint
 
-An interface definition for Dopt's [hint and hint item components](https://docs.dopt.com/components/hint/).
+An interface definition for Dopt's [hint and hint item components](https://docs.dopt.com/components/react/hints/).
 
 ```ts
 export interface Hints {
