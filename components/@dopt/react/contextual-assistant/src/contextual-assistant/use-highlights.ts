@@ -49,8 +49,7 @@ export function useHighlights({
 
   useEffect(() => {
     if (visible) {
-      function onResize(e: Event) {
-        console.log(e?.type);
+      function onResize() {
         if (selection) {
           setRect(selection.getBoundingClientRect());
         }
@@ -108,16 +107,24 @@ export function useHighlights({
     if (visible) {
       document.addEventListener('keyup', onKeyPress);
     }
-    return () => document.addEventListener('keyup', onKeyPress);
-  }, [visible]);
+    return () => document.removeEventListener('keyup', onKeyPress);
+  }, [visible, setActive, setSelection]);
 
   useEffect(() => {
+    function captureClick(e: Event) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      window.removeEventListener('click', captureClick, true);
+    }
+
     function onPointerDown(e: Event) {
       const target = e.target as HTMLElement;
 
       if (active) {
-        e.stopPropagation();
+        e.stopImmediatePropagation();
         e.preventDefault();
+
+        window.addEventListener('click', captureClick, true);
         /*
          * If the highlights are active and we get a click,
          * we will assume it's on an overlay element.
