@@ -2,7 +2,6 @@ import {
   AssistantCompletionsRequestBody,
   DocumentContext,
   ElementContext,
-  RuntimeContext,
   SemanticContext,
   VisualContext,
 } from '@dopt/ai-assistant-definition';
@@ -10,85 +9,67 @@ import {
 import * as ctx from '@dopt/ai-assistant-context';
 
 export interface AssistantContextProps {
-  document?: boolean | DocumentContext['value'];
+  document?: DocumentContext['value'];
   element?: HTMLElement | ElementContext['value'];
-  runtime?: RuntimeContext['value'] | RuntimeContext['value'][];
-  semantic?: boolean | SemanticContext['value'];
+  semantic?: SemanticContext['value'];
   visual?: boolean | VisualContext['value'];
 }
 
 export async function formAssistantContext({
-  document = true,
+  document,
   element,
-  semantic = true,
+  semantic,
   visual = true,
-  runtime,
 }: AssistantContextProps) {
-  const context: AssistantCompletionsRequestBody['context'] = {};
-
-  if (typeof document === 'boolean') {
-    if (document) {
-      context.document = await ctx.document.generate();
-    }
-  } else {
-    context.document = {
-      type: 'document',
-      value: document,
-    };
-  }
+  const context: AssistantCompletionsRequestBody['context'] = {
+    document:
+      document == null
+        ? await ctx.document.generate()
+        : {
+            type: 'document',
+            value: document,
+          },
+  };
 
   if (element instanceof HTMLElement) {
     context.element = await ctx.element.generate({ element });
-  } else if (element !== undefined) {
+  } else if (element != null) {
     context.element = {
       type: 'element',
       value: element,
     };
+  } else {
+    throw new Error(
+      `Element context generation expects a valid HTML element or  cannot be ${element}`
+    );
   }
 
-  if (typeof semantic === 'boolean') {
-    if (element instanceof HTMLElement) {
-      if (semantic) {
-        context.semantic = await ctx.semantic.generate({ element });
-      }
-    } else {
-      throw new Error(
-        `Semantic context generation expects a valid HTML element. The provided element ${element} is not valid.`
-      );
-    }
-  } else {
+  if (semantic != null) {
     context.semantic = {
       type: 'semantic',
       value: semantic,
     };
+  } else if (element instanceof HTMLElement) {
+    context.semantic = await ctx.semantic.generate({ element });
+  } else {
+    throw new Error(
+      `Semantic context generation expects a valid HTML element. When semantic is \`${semantic}\`, element must be an \`HTMLElement\`.`
+    );
   }
 
-  if (typeof visual === 'boolean') {
+  if (visual === true) {
     if (element instanceof HTMLElement) {
-      if (visual) {
-        context.visual = await ctx.visual.generate({ element });
-      }
+      context.visual = await ctx.visual.generate({ element });
     } else {
       throw new Error(
-        `Visual context generation expects a valid HTML element. The provided element ${element} is not valid.`
+        `Visual context generation expects a valid HTML element. When visual is \`true\`, element must be an \`HTMLElement\`.`
       );
     }
-  } else {
+  } else if (!!visual) {
     context.visual = {
       type: 'visual',
       value: visual,
     };
-  }
-
-  if (runtime) {
-    context.runtime = (Array.isArray(runtime) ? runtime : [runtime]).map(
-      (value) => {
-        return {
-          type: 'runtime',
-          value,
-        };
-      }
-    );
   }
 
   return context;
