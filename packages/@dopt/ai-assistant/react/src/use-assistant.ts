@@ -17,7 +17,7 @@ import { AssistantContextProps } from '@dopt/ai-assistant-javascript';
  *
  * @example
  * ```tsx
- * import { useAssitant } from "@dopt/react-ai";
+ * import { useAssistant } from "@dopt/react-ai";
  *
  * export function Application() {
  *   const assitant = useAssitant("HNWvcT78tyTwygnbzU6SW", { query, context });
