@@ -1,5 +1,11 @@
 # @examples/setup
 
+## 0.0.9
+
+### Patch Changes
+
+- @dopt/react@4.1.1
+
 ## 0.0.8
 
 ### Patch Changes
