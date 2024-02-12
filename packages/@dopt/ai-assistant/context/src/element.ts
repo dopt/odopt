@@ -14,6 +14,7 @@ export default {
           left,
         },
         content: element.innerText,
+        tag: element.tagName.toLowerCase(),
       },
     };
   },
