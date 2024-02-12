@@ -1,5 +1,11 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.2
+
+### Patch Changes
+
+- 8ac58e0e8: Clear document state across requests. Ensure clicks for AI assist do not propagate.
+
 ## 0.0.1
 
 ### Patch Changes
