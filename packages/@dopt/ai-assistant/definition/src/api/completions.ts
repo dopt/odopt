@@ -4,7 +4,6 @@ import {
   DocumentContext,
   VisualContext,
   SemanticContext,
-  RuntimeContext,
   ElementContext,
 } from '../context';
 
@@ -29,21 +28,10 @@ export const AssistantCompletionsRequestBody = Type.Object({
   query: Type.Optional(Type.String()),
   context: Type.Optional(
     Type.Object({
-      document: Type.Optional(
-        Type.Union([DocumentContext, Type.Array(DocumentContext)])
-      ),
-      visual: Type.Optional(
-        Type.Union([VisualContext, Type.Array(VisualContext)])
-      ),
-      element: Type.Optional(
-        Type.Union([ElementContext, Type.Array(ElementContext)])
-      ),
-      semantic: Type.Optional(
-        Type.Union([SemanticContext, Type.Array(SemanticContext)])
-      ),
-      runtime: Type.Optional(
-        Type.Union([RuntimeContext, Type.Array(RuntimeContext)])
-      ),
+      document: Type.Optional(DocumentContext),
+      visual: Type.Optional(VisualContext),
+      element: Type.Optional(ElementContext),
+      semantic: Type.Optional(SemanticContext),
     })
   ),
 });

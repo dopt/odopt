@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { ContextualAssistantContext } from './contextual-assistant';
 
 import {
@@ -28,19 +28,22 @@ export function useContextualAssistant(sid: string) {
     null
   );
 
+  const clearState = useCallback(() => {
+    setDocuments(null);
+    setContent(null);
+    setStatus(null);
+    setAnswer(null);
+  }, [setDocuments, setAnswer, setContent, setStatus]);
+
   useEffect(() => {
     if (!rest.selection) {
-      setContent(null);
-      setStatus(null);
-      setAnswer(null);
+      clearState();
     }
-  }, [rest.selection]);
+  }, [rest.selection, clearState]);
 
   useEffect(() => {
     async function onSelectionCallback(element: HTMLElement) {
-      setContent(null);
-      setStatus(null);
-      setAnswer(null);
+      clearState();
       const stream = await assistant.completions(sid, {
         query: '',
         context: {
@@ -92,7 +95,7 @@ export function useContextualAssistant(sid: string) {
     registerAssistant(sid, onSelectionCallback);
 
     return () => deregisterAssistant(sid, onSelectionCallback);
-  }, [assistant, registerAssistant, sid]);
+  }, [assistant, registerAssistant, deregisterAssistant, sid, clearState]);
 
   return {
     answer,
