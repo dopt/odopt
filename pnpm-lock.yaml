@@ -41,7 +41,7 @@ importers:
         version: 29.5.2
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -84,7 +84,7 @@ importers:
         version: 4.6.7
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
@@ -124,7 +124,7 @@ importers:
         version: 29.5.2
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -191,7 +191,7 @@ importers:
         version: 18.2.12
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       jest-environment-jsdom:
         specifier: 29.5.0
         version: 29.5.0
@@ -331,7 +331,7 @@ importers:
         version: 1.2.2(rollup@3.28.1)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       jest-environment-jsdom:
         specifier: 29.5.0
         version: 29.5.0
@@ -486,7 +486,7 @@ importers:
         version: 18.2.5
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       jest-environment-jsdom:
         specifier: 29.5.0
         version: 29.5.0
@@ -577,7 +577,7 @@ importers:
         version: 18.2.12
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       jest-environment-jsdom:
         specifier: 29.5.0
         version: 29.5.0
@@ -711,7 +711,7 @@ importers:
         version: 1.2.2(rollup@3.28.1)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       jest-environment-jsdom:
         specifier: 29.5.0
         version: 29.5.0
@@ -815,7 +815,7 @@ importers:
         version: 18.2.5
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -858,7 +858,7 @@ importers:
         version: 18.2.12
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -901,7 +901,7 @@ importers:
         version: 18.2.12
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -986,7 +986,7 @@ importers:
         version: 18.2.12
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       jest-environment-jsdom:
         specifier: 29.5.0
         version: 29.5.0
@@ -1080,7 +1080,7 @@ importers:
         version: 29.5.2
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1117,7 +1117,7 @@ importers:
         version: 29.5.2
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1160,7 +1160,7 @@ importers:
         version: 0.5.0(esbuild@0.18.2)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1203,7 +1203,7 @@ importers:
         version: 0.5.0(esbuild@0.18.2)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1246,7 +1246,7 @@ importers:
         version: 0.5.0(esbuild@0.18.2)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1286,7 +1286,7 @@ importers:
         version: 0.5.0(esbuild@0.18.2)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1314,7 +1314,7 @@ importers:
         version: 2.4.0
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1390,8 +1390,8 @@ importers:
         specifier: workspace:*
         version: link:../definition
       '@dopt/ai-javascript-client':
-        specifier: '*'
-        version: 0.0.1
+        specifier: latest
+        version: 0.0.4
       '@dopt/logger':
         specifier: workspace:*
         version: link:../../logger
@@ -1511,7 +1511,7 @@ importers:
         version: 0.5.0(esbuild@0.18.2)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1561,7 +1561,7 @@ importers:
         version: 4.6.0(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -1698,7 +1698,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -1863,7 +1863,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -1912,7 +1912,7 @@ importers:
         version: 0.5.0(esbuild@0.18.2)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       shx:
         specifier: 0.3.4
         version: 0.3.4
@@ -1954,7 +1954,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -2021,7 +2021,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -2079,7 +2079,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -2140,7 +2140,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       shx:
         specifier: 0.3.4
         version: 0.3.4
@@ -2204,7 +2204,7 @@ importers:
         version: 5.59.11(eslint@8.42.0)(typescript@5.1.6)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       shx:
         specifier: 0.3.4
         version: 0.3.4
@@ -2308,7 +2308,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       peggy:
         specifier: 2.0.1
         version: 2.0.1
@@ -2374,8 +2374,8 @@ importers:
   packages/@dopt/react-users:
     dependencies:
       '@dopt/users-javascript-browser-client':
-        specifier: '*'
-        version: 1.0.5
+        specifier: latest
+        version: 1.1.2
       react:
         specifier: '>=17.0.2'
         version: 18.2.0
@@ -2406,7 +2406,7 @@ importers:
         version: 18.2.12
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -2500,7 +2500,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -2558,7 +2558,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -2689,7 +2689,7 @@ importers:
         version: 7.32.2(eslint@8.42.0)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -2738,7 +2738,7 @@ importers:
         version: 0.5.0(esbuild@0.18.2)
       jest:
         specifier: 29.5.0
-        version: 29.5.0
+        version: 29.5.0(@types/node@18.16.18)
       shx:
         specifier: 0.3.4
         version: 0.3.4
@@ -3270,8 +3270,8 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /@dopt/ai-javascript-client@0.0.1:
-    resolution: {integrity: sha512-tYaUB/bbEb9DvO7S7PLn46DKxNXV2Q1bD9x5PwxCysQQp7OzdYtOCWIAIr2vI4CwyCgNavPbp+7LjG0EcwHQqQ==}
+  /@dopt/ai-javascript-client@0.0.4:
+    resolution: {integrity: sha512-6QuoXhkoVeLsNKDBIRSSLNoyQyZWTYboImNbmN37Jn01PVb7xY2+VhByR35JeutE1aqNIa/irztaLO/Qk7t8Sw==}
     dependencies:
       form-data: 4.0.0
       js-base64: 3.7.2
@@ -3282,14 +3282,15 @@ packages:
       - encoding
     dev: false
 
-  /@dopt/users-javascript-browser-client@1.0.5:
-    resolution: {integrity: sha512-zNyJ+JQsvYodMH5WKhMQO/s77wQ+M/CmzaC4vpx0tgZFMUtlY3kfUmPPXK11J9aXua5JcjkgBKnvg2wBKppQUQ==}
+  /@dopt/users-javascript-browser-client@1.1.2:
+    resolution: {integrity: sha512-7v5zbR6kOneDg8BU9DIz6xdgfD+h7W+HEZ9avd2GDyeU8wK3QfxvREd1He3H4wtFwe1m/w07k8DGmkxpp3wPNA==}
     dependencies:
       '@types/url-join': 4.0.1
       '@ungap/url-search-params': 0.2.2
       axios: 1.4.0
       form-data: 4.0.0
       js-base64: 3.7.2
+      tslib: 2.6.2
       url-join: 4.0.1
     transitivePeerDependencies:
       - debug
@@ -10884,26 +10885,6 @@ packages:
       supports-color: 8.1.1
     dev: true
 
-  /jest@29.5.0:
-    resolution: {integrity: sha512-juMg3he2uru1QoXX078zTa7pO85QyB9xajZc6bU+d9yEGwrKX6+vGmJQ3UdVZsvTEUARIdObzH68QItim6OSSQ==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    hasBin: true
-    peerDependencies:
-      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
-    peerDependenciesMeta:
-      node-notifier:
-        optional: true
-    dependencies:
-      '@jest/core': 29.5.0
-      '@jest/types': 29.5.0
-      import-local: 3.1.0
-      jest-cli: 29.5.0(@types/node@18.16.18)
-    transitivePeerDependencies:
-      - '@types/node'
-      - supports-color
-      - ts-node
-    dev: true
-
   /jest@29.5.0(@types/node@18.16.18):
     resolution: {integrity: sha512-juMg3he2uru1QoXX078zTa7pO85QyB9xajZc6bU+d9yEGwrKX6+vGmJQ3UdVZsvTEUARIdObzH68QItim6OSSQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -10915,7 +10896,7 @@ packages:
         optional: true
     dependencies:
       '@jest/core': 29.5.0
-      '@jest/types': 29.6.1
+      '@jest/types': 29.5.0
       import-local: 3.1.0
       jest-cli: 29.5.0(@types/node@18.16.18)
     transitivePeerDependencies:
@@ -13810,7 +13791,7 @@ packages:
       '@babel/core': 7.22.11
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0
+      jest: 29.5.0(@types/node@18.16.18)
       jest-util: 29.6.1
       json5: 2.2.3
       lodash.memoize: 4.1.2
