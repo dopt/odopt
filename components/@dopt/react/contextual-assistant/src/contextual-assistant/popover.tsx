@@ -54,7 +54,13 @@ function ContextualAssistantPopover(props: ContextualAssistantPopoverProps) {
   const theme = useTheme(injectedTheme, true);
 
   const { refs, floatingStyles, placement } = useFloating({
-    middleware: [offset(assistantOffset), flip(), shift()],
+    middleware: [
+      offset(assistantOffset),
+      flip({
+        fallbackAxisSideDirection: 'end',
+      }),
+      shift(),
+    ],
     placement: alignment === 'center' ? position : `${position}-${alignment}`,
     whileElementsMounted: autoUpdate,
     elements: {

@@ -20,8 +20,6 @@ function ellipsize(input: string, length: number) {
   return input.substring(0, length) + '...';
 }
 
-const ANCESTRAL_CONTENT_RATIO = 4;
-
 const INVALID_ELEMENTS = new Set([
   'iframe',
   'style',
@@ -80,7 +78,7 @@ function stringify(node: SemanticNode): string {
   function walk(current: SemanticNode | TextNode) {
     if (current.type === 'text') {
       current = current as TextNode;
-      const text = ` ${current.value} `;
+      const text = `<text>${current.value}</text>`;
       content.push(text);
       return;
     }
@@ -119,21 +117,19 @@ function crawl(element: HTMLElement): string {
     );
   }
 
-  const body: SemanticNode = {
-    type: 'body',
+  const component: SemanticNode = {
+    type: 'component',
     attributes: {},
     children: [],
   };
 
-  const queue: Array<{ parent: SemanticNode; child: ChildNode }> = [];
-
-  element.childNodes.forEach((child) => {
-    queue.push({ parent: body, child });
-  });
+  const queue: Array<{ parent: SemanticNode; child: ChildNode }> = [
+    { parent: component, child: element },
+  ];
 
   const labels: Map<string, string> = new Map();
 
-  element.querySelectorAll('label').forEach((label) => {
+  document.querySelectorAll('label').forEach((label) => {
     labels.set(label.htmlFor, label.innerText);
   });
 
@@ -288,45 +284,34 @@ function crawl(element: HTMLElement): string {
     }
   }
 
-  return stringify(body);
+  return stringify(component);
 }
 
 export default {
   async generate({ element }: { element: HTMLElement }) {
-    const startingInnerText = element.innerText;
-
     let parent: HTMLElement = element.parentElement ?? element;
-    let parentalDescendants = parent.childElementCount;
-
-    while (parent.innerText === startingInnerText) {
-      if (parent.parentElement) {
-        parent = parent.parentElement;
-        parentalDescendants += parent.childElementCount;
-      } else {
-        break;
-      }
-    }
-
-    let ancestor: HTMLElement = parent;
-    let ancestralDescendants = parentalDescendants;
 
     while (
-      ancestralDescendants <
-      parentalDescendants * ANCESTRAL_CONTENT_RATIO
+      parent.parentElement &&
+      parent.parentElement.innerText === parent.innerText
     ) {
-      if (ancestor.parentElement) {
-        ancestor = ancestor.parentElement;
-        ancestralDescendants += ancestor.childElementCount;
-      } else {
-        break;
-      }
+      parent = parent.parentElement;
+    }
+
+    let grandparent: HTMLElement = parent.parentElement ?? parent;
+
+    while (
+      grandparent.parentElement &&
+      grandparent.parentElement.innerText === grandparent.innerText
+    ) {
+      grandparent = grandparent.parentElement;
     }
 
     return {
       type: 'semantic',
       value: {
         semanticContent: crawl(parent),
-        neighboringSemanticContent: crawl(ancestor),
+        neighboringSemanticContent: crawl(grandparent),
       },
     };
   },

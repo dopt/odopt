@@ -8,13 +8,10 @@ export default {
       throw new Error('Cannot generate page context in a headless environment');
     }
 
-    const url = new URL(document.URL);
-
     return {
       type: 'document',
       value: {
-        hostname: url.hostname,
-        path: url.pathname,
+        url: document.URL,
         title: document.title,
         width: window.innerWidth,
         height: window.innerHeight,
