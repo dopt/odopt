@@ -1,5 +1,13 @@
 # @dopt/ai-assistant-context
 
+## 0.0.2
+
+### Patch Changes
+
+- 0dd1ec27e: Create a changeset to capture work in @dopt/ai-assistant-\*.
+- Updated dependencies [0dd1ec27e]
+  - @dopt/ai-assistant-definition@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
