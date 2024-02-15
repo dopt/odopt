@@ -66,6 +66,8 @@ function ContextualAssistantSource(
           }),
           `${sourceClassName}-link`,
         ])}
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {children}
       </a>
