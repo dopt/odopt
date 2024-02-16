@@ -43,7 +43,7 @@
     "dist"
   ],
   "dependencies": {
-    "@dopt/ai-javascript-client": "workspace:*",
+    "@dopt/ai-javascript-client": "latest",
     "@dopt/ai-assistant-context": "workspace:*",
     "@dopt/ai-assistant-definition": "workspace:*",
     "@dopt/logger": "workspace:*",
