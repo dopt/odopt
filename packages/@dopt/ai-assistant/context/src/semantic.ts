@@ -110,7 +110,7 @@ function stringify(node: SemanticNode): string {
   return content.join('').replace(/[ ]+/g, ' ');
 }
 
-function crawl(element: HTMLElement): string {
+function crawl(element: Element): string {
   if (!window || !document) {
     throw new Error(
       'Cannot generate semantic content in a headless environment'
@@ -288,21 +288,23 @@ function crawl(element: HTMLElement): string {
 }
 
 export default {
-  async generate({ element }: { element: HTMLElement }) {
-    let parent: HTMLElement = element.parentElement ?? element;
+  async generate({ element }: { element: Element }) {
+    let parent: HTMLElement | Element = element.parentElement ?? element;
 
     while (
       parent.parentElement &&
-      parent.parentElement.innerText === parent.innerText
+      parent.parentElement.innerText ===
+        (parent instanceof HTMLElement ? parent.innerText : '')
     ) {
       parent = parent.parentElement;
     }
 
-    let grandparent: HTMLElement = parent.parentElement ?? parent;
+    let grandparent: HTMLElement | Element = parent.parentElement ?? parent;
 
     while (
       grandparent.parentElement &&
-      grandparent.parentElement.innerText === grandparent.innerText
+      grandparent.parentElement.innerText ===
+        (grandparent instanceof HTMLElement ? grandparent.innerText : '')
     ) {
       grandparent = grandparent.parentElement;
     }

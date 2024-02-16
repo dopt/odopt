@@ -9,11 +9,8 @@ const SCALED_DIMENSION = 512; // we want to scale the image down to 512px
 const ELEMENT_STROKE_WIDTH = 4;
 const ELEMENT_STROKE_COLOR = 'red';
 
-const EMPTY_IMAGE =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=';
-
 export default {
-  async generate({ element }: { element: HTMLElement }, logger?: Logger) {
+  async generate({ element }: { element: Element }, logger?: Logger) {
     if (!window || !document) {
       throw new Error(
         'Cannot generate visual context in a headless environment'
@@ -123,16 +120,13 @@ export default {
     } catch (err) {
       logger?.error(
         [
-          'Failed to capture the page, returning empty image.',
+          'Failed to capture the page, returning null.',
           `Details: ${(err as Error).message}`,
           `Stack: ${(err as Error).stack}`,
         ].join('\n')
       );
 
-      return {
-        type: 'visual',
-        value: EMPTY_IMAGE,
-      };
+      return null;
     }
   },
-} satisfies ContextGenerator<VisualContext>;
+} satisfies ContextGenerator<VisualContext | null>;
