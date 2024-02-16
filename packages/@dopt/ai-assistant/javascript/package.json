@@ -43,10 +43,11 @@
     "dist"
   ],
   "dependencies": {
-    "@dopt/ai-javascript-client": "latest",
+    "@dopt/ai-javascript-client": "workspace:*",
     "@dopt/ai-assistant-context": "workspace:*",
     "@dopt/ai-assistant-definition": "workspace:*",
-    "@dopt/logger": "workspace:*"
+    "@dopt/logger": "workspace:*",
+    "@sinclair/typebox": "0.25.4"
   },
   "devDependencies": {
     "@dopt/config": "workspace:*",
