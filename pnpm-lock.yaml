@@ -1395,6 +1395,9 @@ importers:
       '@dopt/logger':
         specifier: workspace:*
         version: link:../../logger
+      '@sinclair/typebox':
+        specifier: 0.25.4
+        version: 0.25.4
     devDependencies:
       '@dopt/config':
         specifier: workspace:*
