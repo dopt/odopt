@@ -1,5 +1,14 @@
 # @dopt/ai-assistant-react
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [910cb4815]
+- Updated dependencies [930f4476c]
+  - @dopt/ai-assistant-context@0.0.3
+  - @dopt/ai-assistant-javascript@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes

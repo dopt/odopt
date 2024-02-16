@@ -1,5 +1,12 @@
 # @dopt/ai-assistant-context
 
+## 0.0.3
+
+### Patch Changes
+
+- 910cb4815: Exclude the popover element by classname when taking a screenshot.
+- 930f4476c: In `@dopt/ai-assistant-context`, update context generation to accept `Element` instead of `HTMLElement` since the selection process sometimes returns foreign nodes like `svg`, etc. Also, update `visual.ts` to generate `null` in case of errors rather than an empty image. In `@dopt/ai-assistant-javascript`, update validation logic to check whether incoming objects have the appropriate types. Additionally, clean up `instanceof` verification to match with `@dopt/ai-assistant-context`.
+
 ## 0.0.2
 
 ### Patch Changes
