@@ -90,6 +90,13 @@ export default {
     try {
       const canvas = await toCanvas(document.body, {
         skipFonts: true,
+        filter: (node: Element) => {
+          if (!node || !node.classList) {
+            return true;
+          }
+
+          return !node.classList.contains('dopt-contextual-assistant__popover');
+        },
         height: croppedHeight,
         width: croppedWidth,
         pixelRatio: scale,
