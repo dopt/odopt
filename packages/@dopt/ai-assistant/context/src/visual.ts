@@ -88,11 +88,21 @@ export default {
       const canvas = await toCanvas(document.body, {
         skipFonts: true,
         filter: (node: Element) => {
-          if (!node || !node.classList) {
-            return true;
+          if (
+            node.classList &&
+            node.classList.contains('dopt-contextual-assistant__popover')
+          ) {
+            return false;
           }
 
-          return !node.classList.contains('dopt-contextual-assistant__popover');
+          if (
+            node.tagName &&
+            ['video', 'img'].includes(node.tagName.toLowerCase())
+          ) {
+            return false;
+          }
+
+          return true;
         },
         height: croppedHeight,
         width: croppedWidth,
