@@ -104,11 +104,11 @@ export function useHighlights({
       }
     }
 
-    if (visible) {
-      document.addEventListener('keyup', onKeyPress);
+    if (active || visible) {
+      document.addEventListener('keydown', onKeyPress);
     }
-    return () => document.removeEventListener('keyup', onKeyPress);
-  }, [visible, setActive, setSelection]);
+    return () => document.removeEventListener('keydown', onKeyPress);
+  }, [active, visible, setActive, setSelection]);
 
   useEffect(() => {
     function captureClick(e: Event) {
