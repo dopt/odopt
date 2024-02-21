@@ -36,32 +36,17 @@ export function useHighlights({
     }
   }, [selection]);
 
-  const [rect, setRect] = useState<
-    Pick<DOMRect, 'width' | 'height' | 'top' | 'left'>
+  const [highlight, setHighlight] = useState<
+    Pick<DOMRect, 'width' | 'height'> & {
+      element: Element | null;
+    }
   >({
     width: 0,
     height: 0,
-    top: 0,
-    left: 0,
+    element: null,
   });
 
   const element = resolveScope({ scope });
-
-  useEffect(() => {
-    if (visible) {
-      function onResize() {
-        if (selection) {
-          setRect(selection.getBoundingClientRect());
-        }
-      }
-      window.addEventListener('scroll', onResize);
-      window.addEventListener('resize', onResize);
-      return () => {
-        window.removeEventListener('scroll', onResize);
-        window.removeEventListener('resize', onResize);
-      };
-    }
-  }, [visible, selection]);
 
   useEffect(() => {
     /*
@@ -84,7 +69,11 @@ export function useHighlights({
         ) {
           setVisible(true);
 
-          setRect(offset);
+          setHighlight({
+            width: offset.width,
+            height: offset.height,
+            element: target,
+          });
         } else {
           setVisible(false);
         }
@@ -104,11 +93,11 @@ export function useHighlights({
       }
     }
 
-    if (visible) {
-      document.addEventListener('keyup', onKeyPress);
+    if (active || visible) {
+      document.addEventListener('keydown', onKeyPress);
     }
-    return () => document.removeEventListener('keyup', onKeyPress);
-  }, [visible, setActive, setSelection]);
+    return () => document.removeEventListener('keydown', onKeyPress);
+  }, [active, visible, setActive, setSelection]);
 
   useEffect(() => {
     function captureClick(e: Event) {
@@ -187,7 +176,7 @@ export function useHighlights({
 
   return {
     visible,
-    rect,
+    highlight,
   };
 }
 
