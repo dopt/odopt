@@ -1,5 +1,13 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.7
+
+### Patch Changes
+
+- dfee879a6: add styling for answer markdown elements
+  - @dopt/ai-assistant-javascript@0.0.6
+  - @dopt/ai-assistant-react@0.0.6
+
 ## 0.0.6
 
 ### Patch Changes
