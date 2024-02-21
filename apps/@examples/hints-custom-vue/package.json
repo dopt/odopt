@@ -17,7 +17,7 @@
     "nanoid": "5.0.4",
     "radix-vue": "1.1.1",
     "@dopt/html-rich-text": "workspace:*",
-    "@dopt/users-javascript-browser-client": "workspace:*",
+    "@dopt/users-javascript-browser-client": "latest",
     "@dopt/vue": "workspace:*"
   },
   "devDependencies": {
