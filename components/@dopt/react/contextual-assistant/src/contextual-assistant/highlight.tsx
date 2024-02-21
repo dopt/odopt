@@ -12,6 +12,7 @@ import * as classes from './styles.css';
 import { classNameRoot } from './const';
 import { useHighlights } from './use-highlights';
 import { ContextualAssistantContext } from './provider';
+import { autoUpdate, useFloating } from '@floating-ui/react-dom';
 
 const highlightClassName = `${classNameRoot}__highlight` as const;
 
@@ -36,16 +37,22 @@ export function Highlight({
     ContextualAssistantContext
   );
 
-  const {
-    visible,
-    rect: { width, height, top, left },
-  } = useHighlights({
+  const { highlight, visible } = useHighlights({
     active,
     setActive,
     selection,
     setSelection,
     scope,
     selectors,
+  });
+
+  const { refs, floatingStyles } = useFloating({
+    middleware: [],
+    whileElementsMounted: autoUpdate,
+    placement: 'right',
+    elements: {
+      reference: highlight.element || selection,
+    },
   });
 
   return (
@@ -65,12 +72,13 @@ export function Highlight({
             ])}
             style={{
               ...themeStyle({ theme, style }),
-              width: `calc(${width}px + var(--dopt-padding-right, 0px) + var(--dopt-padding-left, 0px))`,
-              height: `calc(${height}px + var(--dopt-padding-top, 0px) + var(--dopt-padding-bottom, 0px))`,
-              top: `calc(${top}px - var(--dopt-padding-top, 0px))`,
-              left: `calc(${left}px - var(--dopt-padding-left, 0px))`,
+              width: `calc(${highlight.width}px + var(--dopt-padding-right, 0px) + var(--dopt-padding-left, 0px))`,
+              height: `calc(${highlight.height}px + var(--dopt-padding-top, 0px) + var(--dopt-padding-bottom, 0px))`,
+              ...floatingStyles,
+              left: `calc(-${highlight.width}px - var(--dopt-padding-right, 0px))`,
             }}
             {...restProps}
+            ref={refs.setFloating}
           />,
           document.body
         )}

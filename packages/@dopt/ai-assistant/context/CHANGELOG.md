@@ -1,5 +1,11 @@
 # @dopt/ai-assistant-context
 
+## 0.0.4
+
+### Patch Changes
+
+- 780a2cf9d: Visual context filters our <video /> and <img /> tags.
+
 ## 0.0.3
 
 ### Patch Changes
