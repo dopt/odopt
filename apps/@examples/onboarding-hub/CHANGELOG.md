@@ -1,5 +1,15 @@
 # @examples/onboarding-hub
 
+## 0.0.2
+
+### Patch Changes
+
+- @dopt/react-theme@1.2.2
+- @dopt/react-card@8.0.2
+- @dopt/react-checklist@9.0.2
+- @dopt/react-modal@9.0.2
+- @dopt/react-tour@9.0.2
+
 ## 0.0.1
 
 ### Patch Changes
