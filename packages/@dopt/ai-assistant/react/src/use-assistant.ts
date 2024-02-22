@@ -5,7 +5,6 @@ import {
   AnswerChunk,
   ChatStreamChunk,
   ContentStreamChunk,
-  DocumentsChunk,
   StatusChunk,
 } from '@dopt/ai-assistant-definition';
 
@@ -42,7 +41,7 @@ export function useAssistant(
   const [_, setChunks] = useState<ChatStreamChunk[]>([]);
 
   const [status, setStatus] = useState<StatusChunk['status'] | null>(null);
-  const [documents, setDocuments] = useState<DocumentsChunk['sources'] | null>(
+  const [documents, setDocuments] = useState<AnswerChunk['sources'] | null>(
     null
   );
   const [answer, setAnswer] = useState<AnswerChunk['answer'] | null>(null);
@@ -53,78 +52,43 @@ export function useAssistant(
   const { assistant } = useContext(DoptAiContext);
 
   useEffect(() => {
-    (async function () {
-      const stream = await assistant.completions(sid, {
+    /**
+     * Clear previous states.
+     */
+    setStatus(null);
+    setDocuments(null);
+    setAnswer(null);
+    setContent(null);
+
+    assistant
+      .completions(sid, {
         query,
         context,
-      });
-      //@ts-ignore
-      const reader = (stream.stream as ReadableStream<Uint8Array>).getReader();
-      const decoder = new TextDecoder();
-
-      let done = false;
-      do {
-        const next = await reader.read();
-
-        if (next.value) {
-          const messages = decoder
-            .decode(next.value)
-            .split('\n')
-            .filter((m) => m);
-
-          for (const message of messages) {
-            const chunk = JSON.parse(message) as ChatStreamChunk;
-            setChunks((chunks) => {
-              return [...chunks, chunk];
-            });
-            switch (chunk.type) {
-              case 'status':
-                setStatus(chunk.status);
-                break;
-              case 'documents':
-                setDocuments(chunk.sources);
-                break;
-              case 'answer':
-                setAnswer(chunk.answer);
-                break;
-              case 'content':
-                setContent((content) =>
-                  content == null ? chunk.content : content + chunk.content
-                );
-                break;
-            }
+      })
+      .then(async (stream) => {
+        for await (const chunk of stream) {
+          setChunks((chunks) => {
+            return [...chunks, chunk];
+          });
+          switch (chunk.type) {
+            case 'status':
+              setStatus(chunk.status);
+              break;
+            case 'answer':
+              setAnswer(chunk.answer);
+              setDocuments(chunk.sources);
+              break;
+            case 'content':
+              setContent((prevContent) =>
+                prevContent == null
+                  ? chunk.content
+                  : prevContent + chunk.content
+              );
+              break;
           }
         }
-        done = next.done;
-      } while (!done);
-
-      /*
-       * This code doesn't work given fern's node-only streaming
-       * client implementation
-      for await (const chunk of stream) {
-        setChunks((chunks) => {
-          return [...chunks, chunk];
-        });
-        switch (chunk.type) {
-          case 'status':
-            setStatus(chunk.status);
-            break;
-          case 'documents':
-            setDocuments(chunk.sources);
-            break;
-          case 'answer':
-            setAnswer(chunk.answer);
-            break;
-          case 'content':
-            setContent((content) =>
-              content == null ? chunk.content : content + chunk.content
-            );
-            break;
-        }
-      }
-      */
-    })();
-  }, []);
+      });
+  }, [assistant, context, query, sid]);
 
   return {
     answer,
