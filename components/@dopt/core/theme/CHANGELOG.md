@@ -1,5 +1,11 @@
 # @dopt/core-theme
 
+## 2.2.0
+
+### Minor Changes
+
+- ef850c969: add easeFast transition
+
 ## 2.1.0
 
 ### Minor Changes

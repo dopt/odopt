@@ -1,5 +1,11 @@
 # @examples/modal-custom
 
+## 0.0.33
+
+### Patch Changes
+
+- @dopt/react-modal@9.0.2
+
 ## 0.0.32
 
 ### Patch Changes

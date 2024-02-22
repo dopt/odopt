@@ -1,5 +1,11 @@
 # @examples/checklist-custom
 
+## 0.0.34
+
+### Patch Changes
+
+- @dopt/react-checklist@9.0.2
+
 ## 0.0.33
 
 ### Patch Changes
