@@ -27,7 +27,7 @@ export const contextualAssistantHighlight = recipe({
     border: `${vars.borderWidths[2]} solid ${vars.colors.primary}`,
     borderRadius: vars.radii[2],
     opacity: 0,
-    transition: `all ${vars.transitions.ease}`,
+    transition: `all ${vars.transitions.easeFast}`,
   },
   variants: {
     visible: {
@@ -376,6 +376,129 @@ export const contextualAssistantAnswer = style({
   all: 'unset',
   boxSizing: 'border-box',
   display: 'block',
+});
+
+globalStyle(`${contextualAssistantAnswer} *:first-child`, {
+  marginBlockStart: 0,
+});
+
+globalStyle(`${contextualAssistantAnswer} *:last-child`, {
+  marginBlockEnd: 0,
+});
+
+globalStyle(
+  `${contextualAssistantAnswer} h1, ${contextualAssistantAnswer} h2, ${contextualAssistantAnswer} h3, ${contextualAssistantAnswer} h4, ${contextualAssistantAnswer} h5, ${contextualAssistantAnswer} h6`,
+  {
+    all: 'unset',
+    boxSizing: 'border-box',
+    display: 'block',
+    fontSize: vars.fontSizes.base,
+    fontWeight: vars.fontWeights.bold,
+    lineHeight: vars.lineHeights.base,
+    marginBlockStart: vars.space[4],
+    marginBlockEnd: vars.space[1],
+  }
+);
+
+globalStyle(`${contextualAssistantAnswer} p`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${contextualAssistantAnswer} ul`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  listStyle: 'disc',
+  paddingInlineStart: '1.5em',
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${contextualAssistantAnswer} ol`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  listStyle: 'decimal',
+  paddingInlineStart: '1.5em',
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${contextualAssistantAnswer} pre`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  whiteSpace: 'pre',
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${contextualAssistantAnswer} blockquote`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${contextualAssistantAnswer} a`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.primary,
+  cursor: 'pointer',
+});
+
+globalStyle(`${contextualAssistantAnswer} a:hover`, {
+  textDecoration: 'underline',
+  color: vars.colors.primaryDark,
+});
+
+globalStyle(`${contextualAssistantAnswer} code`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  fontFamily: vars.fonts.mono,
+});
+
+globalStyle(`${contextualAssistantAnswer} strong`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  fontWeight: vars.fontWeights.bold,
+});
+
+globalStyle(`${contextualAssistantAnswer} em`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  fontStyle: 'italic',
+});
+
+globalStyle(`${contextualAssistantAnswer} img`, {
+  all: 'unset',
+  display: 'none',
+});
+
+globalStyle(`${contextualAssistantAnswer} br`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+});
+
+globalStyle(`${contextualAssistantAnswer} hr`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  borderBottomWidth: vars.borderWidths[1],
+  borderBottomStyle: 'solid',
+  borderBottomColor: vars.colors.border,
+  marginBlock: vars.space[4],
 });
 
 export const contextualAssistantCitationLink = style({
