@@ -9,9 +9,7 @@ import React, {
 
 import {
   AnswerChunk,
-  ChatStreamChunk,
   ContentStreamChunk,
-  DocumentsChunk,
   StatusChunk,
 } from '@dopt/ai-assistant-definition';
 
@@ -21,7 +19,7 @@ import { DoptAiContext } from '@dopt/ai-assistant-react';
 export interface ContextualAssistantContext {
   active: boolean;
   selection: HTMLElement | null;
-  documents: DocumentsChunk['sources'] | null;
+  documents: AnswerChunk['sources'] | null;
   status: StatusChunk['status'] | null;
   answer: AnswerChunk['answer'] | null;
   content: ContentStreamChunk['content'] | null;
@@ -84,12 +82,12 @@ export interface ContextualAssistantProps
 
 type Selection = ContextualAssistantContext['selection'];
 type Status = StatusChunk['status'] | null;
-type Document = DocumentsChunk['sources'] | null;
+type Document = AnswerChunk['sources'] | null;
 type Answer = AnswerChunk['answer'] | null;
 type Content = ContentStreamChunk['content'] | null;
 
 function ContextualAssistant(props: ContextualAssistantProps) {
-  const { children, defaultActive, theme } = props;
+  const { children, defaultActive, theme, assistant: sid } = props;
 
   const { assistant } = useContext(DoptAiContext);
   const [active, setActive] = useState<boolean>(!!defaultActive);
@@ -101,78 +99,52 @@ function ContextualAssistant(props: ContextualAssistantProps) {
   const [answer, setAnswer] = useState<Answer>(null);
   const [content, setContent] = useState<Content>(null);
 
-  const clearState = useCallback(() => {
-    setStatus(null);
-    setDocuments(null);
-    setAnswer(null);
-    setContent(null);
-  }, [setAnswer, setContent, setDocuments, setStatus]);
-
   const close = useCallback(() => {
     setActive(false);
     setSelection(null);
   }, [setActive, setSelection]);
 
   useEffect(() => {
-    if (!selection) {
-      clearState();
-    }
-  }, [selection, clearState]);
+    /**
+     * Clear previous state.
+     */
+    setStatus(null);
+    setDocuments(null);
+    setAnswer(null);
+    setContent(null);
 
-  useEffect(() => {
     if (!selection) {
       return;
     }
-    (async function onSelectionCallback(element: HTMLElement) {
-      clearState();
-      const stream = await assistant.completions(props.assistant, {
-        query: '',
+
+    assistant
+      .completions(sid, {
+        query: undefined,
         context: {
-          element,
+          element: selection,
         },
-      });
-
-      const reader = //@ts-ignore
-        (stream.stream as ReadableStream<Uint8Array>).getReader();
-      const decoder = new TextDecoder();
-
-      let done = false;
-      do {
-        const next = await reader.read();
-
-        if (next.value) {
-          const messages = decoder
-            .decode(next.value)
-            .split('\n')
-            .filter((m) => m);
-
-          for (const message of messages) {
-            const chunk = JSON.parse(message) as ChatStreamChunk;
-            switch (chunk.type) {
-              case 'status':
-                setStatus(chunk.status);
-                break;
-              case 'documents':
-                setDocuments(chunk.sources);
-                break;
-              case 'answer':
-                setAnswer(chunk.answer);
-                break;
-              case 'content':
-                setContent((prevContent) => {
-                  if (prevContent === null) {
-                    return chunk.content;
-                  }
-                  return prevContent + chunk.content;
-                });
-                break;
-            }
+      })
+      .then(async (stream) => {
+        for await (const chunk of stream) {
+          switch (chunk.type) {
+            case 'status':
+              setStatus(chunk.status);
+              break;
+            case 'answer':
+              setAnswer(chunk.answer);
+              setDocuments(chunk.sources);
+              break;
+            case 'content':
+              setContent((prevContent) =>
+                prevContent == null
+                  ? chunk.content
+                  : prevContent + chunk.content
+              );
+              break;
           }
         }
-        done = next.done;
-      } while (!done);
-    })(selection);
-  }, [selection, clearState, assistant, props.assistant]);
+      });
+  }, [selection, assistant, sid]);
 
   return (
     <ContextualAssistantContext.Provider
