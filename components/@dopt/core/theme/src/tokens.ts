@@ -79,6 +79,7 @@ export const tokens = {
   },
   transitions: {
     ease: '200ms ease',
+    easeFast: '100ms ease',
   },
 };
 
