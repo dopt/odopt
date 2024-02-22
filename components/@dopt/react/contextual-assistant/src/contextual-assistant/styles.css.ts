@@ -502,14 +502,24 @@ globalStyle(`${contextualAssistantAnswer} hr`, {
 });
 
 export const contextualAssistantCitationLink = style({
-  all: 'unset',
-  boxSizing: 'border-box',
-  cursor: 'pointer',
   selectors: {
     '& + &': {
       marginLeft: vars.space[1],
     },
   },
+});
+
+// This requires extra specificity to override the markdown component styles
+globalStyle(`a.${contextualAssistantCitationLink}`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.content,
+  cursor: 'pointer',
+});
+
+globalStyle(`a.${contextualAssistantCitationLink}:hover`, {
+  color: vars.colors.content,
+  textDecoration: 'none',
 });
 
 export const contextualAssistantCitation = style({
