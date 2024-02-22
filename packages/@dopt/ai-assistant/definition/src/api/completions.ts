@@ -24,7 +24,7 @@ export const AssistantRequestParams = Type.Object({
 });
 export type AssistantRequestParams = Static<typeof AssistantRequestParams>;
 
-export const AssistantCompletionsRequestBody = Type.Object({
+export const AssistantRequestBody = Type.Object({
   query: Type.Optional(Type.String()),
   context: Type.Optional(
     Type.Object({
@@ -36,19 +36,21 @@ export const AssistantCompletionsRequestBody = Type.Object({
   ),
 });
 
+export const AssistantCompletionsRequestBody = AssistantRequestBody;
+
 export type AssistantCompletionsRequestBody = Static<
   typeof AssistantCompletionsRequestBody
 >;
 
-export const AssistantSearchRequestBody = AssistantCompletionsRequestBody;
+export const AssistantSearchRequestBody = AssistantRequestBody;
 
 export type AssistantSearchRequestBody = Static<
   typeof AssistantSearchRequestBody
 >;
 
-export const AssistantSearchResponse = Type.Array(
+export const AssistantDocumentSources = Type.Array(
   Type.Object({
-    documentId: Type.Number(),
+    id: Type.Number(),
     title: Type.String(),
     url: Type.String(),
     chunks: Type.Array(
@@ -60,17 +62,14 @@ export const AssistantSearchResponse = Type.Array(
     ),
   })
 );
+export type AssistantDocumentSources = Static<typeof AssistantDocumentSources>;
 
+export const AssistantSearchResponse = AssistantDocumentSources;
 export type AssistantSearchResponse = Static<typeof AssistantSearchResponse>;
 
 export const AssistantCompletionsResponse = Type.Object({
-  documents: AssistantSearchResponse,
   answer: Type.String(),
-  citations: Type.Array(
-    Type.Object({
-      id: Type.Number(),
-    })
-  ),
+  sources: AssistantDocumentSources,
 });
 
 export type AssistantCompletionsResponse = Static<
