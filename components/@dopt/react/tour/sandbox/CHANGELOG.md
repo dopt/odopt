@@ -1,5 +1,12 @@
 # @dopt/react-tour-sandbox
 
+## 0.1.10
+
+### Patch Changes
+
+- @dopt/react-theme@1.2.2
+- @dopt/react-tour@9.0.2
+
 ## 0.1.9
 
 ### Patch Changes
