@@ -1,5 +1,11 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.9
+
+### Patch Changes
+
+- c97f4e881: set correct citation link styles
+
 ## 0.0.8
 
 ### Patch Changes
