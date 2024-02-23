@@ -16,10 +16,10 @@ import { AssistantContextProps } from '@dopt/ai-assistant-javascript';
  *
  * @example
  * ```tsx
- * import { useAssistant } from "@dopt/react-ai";
+ * import { useAssistant } from '@dopt/ai-assistant-react';
  *
  * export function Application() {
- *   const assitant = useAssitant("HNWvcT78tyTwygnbzU6SW", { query, context });
+ *   const assistant = useAssistant("HNWvcT78tyTwygnbzU6SW", { query, context });
  * }
  * ```
  *

@@ -14,18 +14,18 @@ export function DoptAiProvider({
   groupId,
   logLevel,
   userId,
+  model,
 }: AiProviderProps) {
   const assistant = useMemo<Assistant>(
     () =>
       new Assistant({
         apiKey,
-        // TODO: jm - How do we want to handle
-        // the userId potentially being undefined?
-        userId: userId ?? '',
+        userId,
         groupId,
         environment,
+        model,
       }),
-    [apiKey, userId, groupId, environment]
+    [apiKey, userId, groupId, environment, model]
   );
 
   /**
