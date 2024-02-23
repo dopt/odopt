@@ -1,5 +1,16 @@
 # @dopt/ai-assistant-react
 
+## 0.0.8
+
+### Patch Changes
+
+- b5245658b: Fix incorrect tag and minor formatting issues in documented code examples
+- c52328d20: Adds the ability to toggle between `GPT` and `Gemini` models for answer summarization. This feature is still being alpha tested and the default is `Gemini`.
+- Updated dependencies [c52328d20]
+  - @dopt/ai-assistant-definition@0.0.4
+  - @dopt/ai-assistant-javascript@0.0.8
+  - @dopt/ai-assistant-context@0.0.6
+
 ## 0.0.7
 
 ### Patch Changes

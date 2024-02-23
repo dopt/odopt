@@ -61,18 +61,18 @@ ReactDOM.render(
 ```ts
 interface AssistantProps {
   query: string | undefined;
-  context: AssistantContextProps
-
+  context: AssistantContextProps;
 }
-declare const useAssistant: (sid: string, { query, context}: AssistantProps): {
-    answer: string | null;
-    content: string | null;
-    documents: {
-        title: string;
-        url: string;
-        id: number;
-    }[] | null;
-    status: "searching" | "summarizing" | "answering" | "citing" | null;
+
+declare const useAssistant: (sid: string, { query, context }: AssistantProps): {
+  answer: string | null;
+  content: string | null;
+  documents: {
+    title: string;
+    url: string;
+    id: number;
+  }[] | null;
+  status: "searching" | "summarizing" | "answering" | "citing" | null;
 };
 ```
 
@@ -87,20 +87,20 @@ import { useAssistant } from '@dopt/ai-assistant-react';
 import { Modal } from '@your-company/modal';
 
 export function Application() {
-  const assistant = useAssistant('dopt-assistant',  {
-      query,
-      context
+  const assistant = useAssistant('dopt-assistant', {
+    query,
+    context
   });
 
   return (
-    <main>
+    <Modal>
       <div className='ai-assistant-content'>
         {assistant.content}
       <div>
       <div className='ai-assistant-documents'>
         {assistant.documents}
       <div>
-    </main>
+    </Modal>
   );
 }
 ```

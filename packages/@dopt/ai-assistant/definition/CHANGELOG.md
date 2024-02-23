@@ -1,5 +1,11 @@
 # @dopt/ai-assistant-definition
 
+## 0.0.4
+
+### Patch Changes
+
+- c52328d20: Adds the ability to toggle between `GPT` and `Gemini` models for answer summarization. This feature is still being alpha tested and the default is `Gemini`.
+
 ## 0.0.3
 
 ### Patch Changes

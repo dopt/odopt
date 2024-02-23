@@ -11,6 +11,15 @@ import './_app.css';
 
 export function App() {
   /**
+   * Extract AI model (super secret)
+   */
+  const urlParams = new URLSearchParams(window.location.search);
+  let model = urlParams.get('secretAI') ?? undefined;
+  if (model !== 'gpt' && model !== 'gemini') {
+    model = undefined;
+  }
+
+  /**
    * Create a static example user.
    */
   const user = useMemo(
@@ -34,6 +43,7 @@ export function App() {
     <DoptAiProvider
       userId={userId}
       apiKey={import.meta.env.VITE_AI_EXTERNAL_API_KEY}
+      model={model}
     >
       <ContextualAssistant.Provider assistant="ai-segment-destination">
         <ContextualAssistant.Highlight>
