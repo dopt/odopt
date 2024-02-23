@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { LoggerProps } from '@dopt/logger';
+import { AssistantQueryParams } from '@dopt/ai-assistant-definition';
 
 /**
  * Providing this configuration to the {@link DoptAiProvider} allows the
@@ -19,6 +20,13 @@ export interface AiProviderProps extends PropsWithChildren {
    */
   apiKey: string;
   environment?: string;
+
+  /**
+   * The underlying model you want answers generated with.
+   * Defaults to `gemini` if undefined.
+   * Can be `gemini` or `gpt`.
+   */
+  model?: AssistantQueryParams['model'];
 
   logLevel?: LoggerProps['logLevel'];
 }
