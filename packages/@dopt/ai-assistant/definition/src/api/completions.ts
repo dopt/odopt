@@ -16,6 +16,9 @@ export type UserIdentifierParams = Static<typeof UserIdentifierParams>;
 
 export const AssistantQueryParams = Type.Object({
   ...UserIdentifierParams.properties,
+  model: Type.Optional(
+    Type.Union([Type.Literal('gemini'), Type.Literal('gpt')])
+  ),
 });
 export type AssistantQueryParams = Static<typeof AssistantQueryParams>;
 
