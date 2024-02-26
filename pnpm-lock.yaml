@@ -3143,8 +3143,8 @@ importers:
         specifier: workspace:*
         version: link:../definition
       '@dopt/ai-javascript-client':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       '@dopt/logger':
         specifier: workspace:*
         version: link:../../logger
@@ -6276,8 +6276,8 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /@dopt/ai-javascript-client@0.0.5:
-    resolution: {integrity: sha512-T1hDca535edTFe2LSX2M6Dk975iVtQl1Qe0qkOt9V43J03kPVC8X5tfPYZBY+tIXrIf8HR1/JC9mS0/iaveoXg==}
+  /@dopt/ai-javascript-client@0.0.6:
+    resolution: {integrity: sha512-yIUYqR0bX/mPTSafod6FfYUWKOR6fAQaIX1YaRPLnWZoXcxRc8qszS9g+K+WZvRKCpxxnRbC7n/2QDFKF9CqgQ==}
     dependencies:
       form-data: 4.0.0
       js-base64: 3.7.2
@@ -10426,6 +10426,10 @@ packages:
   /@types/semver@7.5.7:
     resolution: {integrity: sha512-/wdoPq1QqkSj9/QOeKkFquEuPzQbHTWAMPH/PaUMB+JuR31lXhlWXRZ52IpfDYVlDOUBvX09uBrPwxGT1hjNBg==}
 
+  /@types/semver@7.5.8:
+    resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
+    dev: false
+
   /@types/shelljs@0.8.12:
     resolution: {integrity: sha512-ZA8U81/gldY+rR5zl/7HSHrG2KDfEb3lzG6uCUDhW1DTQE9yC/VBQ45fXnXq8f3CgInfhZmjtdu/WOUlrXRQUg==}
     dependencies:
@@ -10950,7 +10954,7 @@ packages:
     engines: {node: '>=18.12.0'}
     dependencies:
       '@arcanis/slice-ansi': 1.1.1
-      '@types/semver': 7.5.7
+      '@types/semver': 7.5.8
       '@types/treeify': 1.0.3
       '@yarnpkg/fslib': 3.0.2
       '@yarnpkg/libzip': 3.0.1(@yarnpkg/fslib@3.0.2)
