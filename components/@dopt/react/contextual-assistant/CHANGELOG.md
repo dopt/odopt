@@ -1,5 +1,21 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [b5245658b]
+- Updated dependencies [c52328d20]
+  - @dopt/ai-assistant-react@0.0.8
+  - @dopt/ai-assistant-definition@0.0.4
+  - @dopt/ai-assistant-javascript@0.0.8
+
+## 0.0.9
+
+### Patch Changes
+
+- c97f4e881: set correct citation link styles
+
 ## 0.0.8
 
 ### Patch Changes
