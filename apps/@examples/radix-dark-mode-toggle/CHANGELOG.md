@@ -1,5 +1,11 @@
 # @examples/radix-dark-mode-toggle
 
+## 0.0.3
+
+### Patch Changes
+
+- @dopt/react-modal@9.0.3
+
 ## 0.0.2
 
 ### Patch Changes

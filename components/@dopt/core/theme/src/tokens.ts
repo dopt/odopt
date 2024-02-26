@@ -78,8 +78,10 @@ export const tokens = {
     2: '2px',
   },
   transitions: {
+    linear: '200ms linear',
+    linearFast: '150ms linear',
     ease: '200ms ease',
-    easeFast: '100ms ease',
+    easeFast: '150ms ease',
   },
 };
 

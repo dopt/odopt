@@ -1,5 +1,11 @@
 # @examples/dark-mode-toggle
 
+## 0.0.55
+
+### Patch Changes
+
+- @dopt/react-tour@9.0.3
+
 ## 0.0.54
 
 ### Patch Changes

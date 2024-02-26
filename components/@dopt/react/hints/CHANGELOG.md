@@ -1,5 +1,11 @@
 # @dopt/react-hints
 
+## 2.0.3
+
+### Patch Changes
+
+- @dopt/react-theme@1.2.3
+
 ## 2.0.2
 
 ### Patch Changes

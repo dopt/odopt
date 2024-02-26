@@ -34,6 +34,7 @@ export function App() {
     <DoptAiProvider
       userId={userId}
       apiKey={import.meta.env.VITE_AI_EXTERNAL_API_KEY}
+      model="gpt"
     >
       <ContextualAssistant.Provider assistant="ai-segment-destination">
         <ContextualAssistant.Highlight>

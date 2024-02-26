@@ -1,5 +1,12 @@
 # @dopt/react-theme
 
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [1ff5afe41]
+  - @dopt/core-theme@2.3.0
+
 ## 1.2.2
 
 ### Patch Changes
