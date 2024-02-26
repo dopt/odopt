@@ -3,6 +3,7 @@ import { Logger, LoggerProps } from '@dopt/logger';
 import { DoptApiClient } from '@dopt/ai-javascript-client';
 import {
   AssistantCompletionsRequestBody,
+  AssistantQueryParams,
   AssistantSearchRequestBody,
 } from '@dopt/ai-assistant-definition';
 import { AssistantContextProps, formAssistantContext } from './context';
@@ -22,6 +23,13 @@ export interface Properties {
   apiKey: string;
   environment?: string;
 
+  /**
+   * The underlying model you want answers generated with.
+   * Defaults to `gemini` if undefined.
+   * Can be `gemini` or `gpt`.
+   */
+  model?: AssistantQueryParams['model'];
+
   logLevel?: LoggerProps['logLevel'];
 }
 
@@ -33,16 +41,27 @@ export class Assistant {
 
   private environment: Properties['environment'];
 
+  private model: Properties['model'];
+
   private logger: Logger;
 
   private client: DoptApiClient;
 
-  constructor({ apiKey, userId, groupId, environment, logLevel }: Properties) {
+  constructor({
+    apiKey,
+    userId,
+    groupId,
+    environment,
+    model,
+    logLevel,
+  }: Properties) {
     this.apiKey = apiKey;
     this.userId = userId;
     this.groupId = groupId;
 
     this.environment = environment;
+
+    this.model = model;
 
     this.logger = new Logger({
       logLevel,
@@ -88,6 +107,7 @@ export class Assistant {
     return this.client.assistant.completions.stream(sid, {
       userIdentifier: this.userId,
       groupIdentifier: this.groupId,
+      model: this.model,
       query,
       context: await formAssistantContext(context),
     });

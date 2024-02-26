@@ -1,5 +1,13 @@
 # @examples/invite-users
 
+## 0.0.55
+
+### Patch Changes
+
+- @dopt/react-theme@1.2.3
+- @dopt/react-checklist@9.0.3
+- @dopt/react-modal@9.0.3
+
 ## 0.0.54
 
 ### Patch Changes

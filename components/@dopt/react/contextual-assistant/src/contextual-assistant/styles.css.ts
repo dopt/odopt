@@ -27,7 +27,7 @@ export const contextualAssistantHighlight = recipe({
     border: `${vars.borderWidths[2]} solid ${vars.colors.primary}`,
     borderRadius: vars.radii[2],
     opacity: 0,
-    transition: `all ${vars.transitions.easeFast}`,
+    transition: `all ${vars.transitions.linearFast}`,
   },
   variants: {
     visible: {

@@ -1,5 +1,11 @@
 # @dopt/react-checklist
 
+## 9.0.3
+
+### Patch Changes
+
+- @dopt/react-theme@1.2.3
+
 ## 9.0.2
 
 ### Patch Changes
