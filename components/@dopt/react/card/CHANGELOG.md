@@ -1,5 +1,11 @@
 # @dopt/react-card
 
+## 8.0.3
+
+### Patch Changes
+
+- @dopt/react-theme@1.2.3
+
 ## 8.0.2
 
 ### Patch Changes

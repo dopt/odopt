@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-checklist",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "description": "A React checklist component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/checklist",
   "repository": {

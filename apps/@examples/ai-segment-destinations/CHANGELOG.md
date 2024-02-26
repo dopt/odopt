@@ -1,5 +1,30 @@
 # @examples/ai-segment-destinations
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [1ff5afe41]
+  - @dopt/react-contextual-assistant@0.0.11
+  - @dopt/react-theme@1.2.3
+
+## 0.0.4
+
+### Patch Changes
+
+- c52328d20: Adds the ability to toggle between `GPT` and `Gemini` models for answer summarization. This feature is still being alpha tested and the default is `Gemini`.
+- Updated dependencies [b5245658b]
+- Updated dependencies [c52328d20]
+  - @dopt/ai-assistant-react@0.0.8
+  - @dopt/react-contextual-assistant@0.0.10
+
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [c97f4e881]
+  - @dopt/react-contextual-assistant@0.0.9
+
 ## 0.0.2
 
 ### Patch Changes

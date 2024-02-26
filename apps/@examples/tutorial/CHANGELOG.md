@@ -1,5 +1,13 @@
 # @examples/tutorial
 
+## 0.2.14
+
+### Patch Changes
+
+- @dopt/react-checklist@9.0.3
+- @dopt/react-modal@9.0.3
+- @dopt/react-tour@9.0.3
+
 ## 0.2.13
 
 ### Patch Changes

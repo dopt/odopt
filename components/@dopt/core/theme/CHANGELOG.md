@@ -1,5 +1,12 @@
 # @dopt/core-theme
 
+## 2.3.0
+
+### Minor Changes
+
+- 1ff5afe41: - adjust easeFast transition
+  - add linear and linearFast transitions
+
 ## 2.2.0
 
 ### Minor Changes
