@@ -1,5 +1,15 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.12
+
+### Patch Changes
+
+- afe048d2e: Adds `query`, `setQuery` to assistant context provider and hook
+- Updated dependencies [afe048d2e]
+  - @dopt/ai-assistant-definition@0.0.5
+  - @dopt/ai-assistant-javascript@0.0.9
+  - @dopt/ai-assistant-react@0.0.9
+
 ## 0.0.11
 
 ### Patch Changes

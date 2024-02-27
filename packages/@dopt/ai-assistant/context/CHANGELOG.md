@@ -1,5 +1,13 @@
 # @dopt/ai-assistant-context
 
+## 0.0.7
+
+### Patch Changes
+
+- 58dcf5165: Fix a bug in `SemanticContext` generation where we would overeagerly traverse from a node to its parent when initializing the semantic content traversal algorithm.
+- Updated dependencies [afe048d2e]
+  - @dopt/ai-assistant-definition@0.0.5
+
 ## 0.0.6
 
 ### Patch Changes

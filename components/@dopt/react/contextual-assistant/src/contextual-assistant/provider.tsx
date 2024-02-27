@@ -33,18 +33,6 @@ export interface ContextualAssistantContext {
   setQuery: React.Dispatch<
     React.SetStateAction<AssistantRequestBody['query'] | null>
   >;
-  setStatus: React.Dispatch<
-    React.SetStateAction<ContextualAssistantContext['status']>
-  >;
-  setAnswer: React.Dispatch<
-    React.SetStateAction<ContextualAssistantContext['answer']>
-  >;
-  setContent: React.Dispatch<
-    React.SetStateAction<ContextualAssistantContext['content']>
-  >;
-  setDocuments: React.Dispatch<
-    React.SetStateAction<ContextualAssistantContext['documents']>
-  >;
 }
 
 export const ContextualAssistantContext =
@@ -58,25 +46,13 @@ export const ContextualAssistantContext =
     close: () => {
       /* noop */
     },
-    setDocuments: () => {
-      /* noop */
-    },
     setActive: () => {
-      /* noop */
-    },
-    setAnswer: () => {
-      /* noop */
-    },
-    setContent: () => {
       /* noop */
     },
     setSelection: () => {
       /* noop */
     },
     setQuery: () => {
-      /* noop */
-    },
-    setStatus: () => {
       /* noop */
     },
     status: null,
@@ -103,7 +79,7 @@ function ContextualAssistant(props: ContextualAssistantProps) {
   const [active, setActive] = useState<boolean>(!!defaultActive);
 
   const [selection, setSelection] = useState<Selection>(null);
-  const [query, setQuery] = useState<Query>(undefined);
+  const [query, setQuery] = useState<Query>(null);
 
   const [status, setStatus] = useState<Status>(null);
   const [documents, setDocuments] = useState<Document>(null);
@@ -113,7 +89,8 @@ function ContextualAssistant(props: ContextualAssistantProps) {
   const close = useCallback(() => {
     setActive(false);
     setSelection(null);
-  }, [setActive, setSelection]);
+    setQuery(null);
+  }, []);
 
   useEffect(() => {
     /**
@@ -125,37 +102,34 @@ function ContextualAssistant(props: ContextualAssistantProps) {
     setContent(null);
 
     if (!selection) {
-      return;
+      return () => {
+        /* no-op */
+      };
     }
 
-    assistant
-      .completions(sid, {
+    const terminate = assistant.completions(
+      sid,
+      {
         query: query ?? undefined,
         context: {
+          document: true,
           element: selection,
+          semantic: true,
+          visual: true,
         },
-      })
-      .then(async (stream) => {
-        for await (const chunk of stream) {
-          switch (chunk.type) {
-            case 'status':
-              setStatus(chunk.status);
-              break;
-            case 'answer':
-              setAnswer(chunk.answer);
-              setDocuments(chunk.sources);
-              break;
-            case 'content':
-              setContent((prevContent) =>
-                prevContent == null
-                  ? chunk.content
-                  : prevContent + chunk.content
-              );
-              break;
-          }
-        }
-      });
-  }, [selection, assistant, sid, query]);
+      },
+      {
+        onStatus: (status) => setStatus(status),
+        onContent: (content) => setContent(content),
+        onComplete: (answer, sources) => {
+          setAnswer(answer);
+          setDocuments(sources);
+        },
+      }
+    );
+
+    return () => terminate();
+  }, [selection, query, assistant, sid]);
 
   return (
     <ContextualAssistantContext.Provider
@@ -169,11 +143,7 @@ function ContextualAssistant(props: ContextualAssistantProps) {
         query,
         setQuery,
         setActive,
-        setAnswer,
-        setContent,
-        setDocuments,
         setSelection,
-        setStatus,
         status,
       }}
     >
