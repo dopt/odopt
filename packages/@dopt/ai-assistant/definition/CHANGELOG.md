@@ -1,5 +1,11 @@
 # @dopt/ai-assistant-definition
 
+## 0.0.5
+
+### Patch Changes
+
+- afe048d2e: Adds `query`, `setQuery` to assistant context provider and hook
+
 ## 0.0.4
 
 ### Patch Changes
