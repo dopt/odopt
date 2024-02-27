@@ -11,6 +11,7 @@ import {
   AnswerChunk,
   ContentStreamChunk,
   StatusChunk,
+  AssistantRequestBody,
 } from '@dopt/ai-assistant-definition';
 
 import { type StyleProps, ThemeContext } from '@dopt/react-theme';
@@ -19,6 +20,7 @@ import { DoptAiContext } from '@dopt/ai-assistant-react';
 export interface ContextualAssistantContext {
   active: boolean;
   selection: HTMLElement | null;
+  query: AssistantRequestBody['query'] | null;
   documents: AnswerChunk['sources'] | null;
   status: StatusChunk['status'] | null;
   answer: AnswerChunk['answer'] | null;
@@ -28,6 +30,9 @@ export interface ContextualAssistantContext {
 
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
   setSelection: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+  setQuery: React.Dispatch<
+    React.SetStateAction<AssistantRequestBody['query'] | null>
+  >;
   setStatus: React.Dispatch<
     React.SetStateAction<ContextualAssistantContext['status']>
   >;
@@ -49,6 +54,7 @@ export const ContextualAssistantContext =
     content: null,
     documents: null,
     selection: null,
+    query: null,
     close: () => {
       /* noop */
     },
@@ -67,6 +73,9 @@ export const ContextualAssistantContext =
     setSelection: () => {
       /* noop */
     },
+    setQuery: () => {
+      /* noop */
+    },
     setStatus: () => {
       /* noop */
     },
@@ -81,6 +90,7 @@ export interface ContextualAssistantProps
 }
 
 type Selection = ContextualAssistantContext['selection'];
+type Query = AssistantRequestBody['query'] | null;
 type Status = StatusChunk['status'] | null;
 type Document = AnswerChunk['sources'] | null;
 type Answer = AnswerChunk['answer'] | null;
@@ -93,6 +103,7 @@ function ContextualAssistant(props: ContextualAssistantProps) {
   const [active, setActive] = useState<boolean>(!!defaultActive);
 
   const [selection, setSelection] = useState<Selection>(null);
+  const [query, setQuery] = useState<Query>(undefined);
 
   const [status, setStatus] = useState<Status>(null);
   const [documents, setDocuments] = useState<Document>(null);
@@ -119,7 +130,7 @@ function ContextualAssistant(props: ContextualAssistantProps) {
 
     assistant
       .completions(sid, {
-        query: undefined,
+        query: query ?? undefined,
         context: {
           element: selection,
         },
@@ -144,7 +155,7 @@ function ContextualAssistant(props: ContextualAssistantProps) {
           }
         }
       });
-  }, [selection, assistant, sid]);
+  }, [selection, assistant, sid, query]);
 
   return (
     <ContextualAssistantContext.Provider
@@ -155,6 +166,8 @@ function ContextualAssistant(props: ContextualAssistantProps) {
         content,
         documents,
         selection,
+        query,
+        setQuery,
         setActive,
         setAnswer,
         setContent,
