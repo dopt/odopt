@@ -9,6 +9,8 @@ export function useContextualAssistant() {
     content,
     documents,
     selection,
+    query,
+    setQuery,
     setActive,
     status,
   } = useContext(ContextualAssistantContext);
@@ -20,6 +22,8 @@ export function useContextualAssistant() {
     content,
     documents,
     selection,
+    query,
+    setQuery,
     setActive,
     status,
   };

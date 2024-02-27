@@ -39,6 +39,8 @@ export const AssistantRequestBody = Type.Object({
   ),
 });
 
+export type AssistantRequestBody = Static<typeof AssistantRequestBody>;
+
 export const AssistantCompletionsRequestBody = AssistantRequestBody;
 
 export type AssistantCompletionsRequestBody = Static<

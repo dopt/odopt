@@ -289,7 +289,17 @@ function crawl(element: Element): string {
 
 export default {
   async generate({ element }: { element: Element }) {
-    let parent: HTMLElement | Element = element.parentElement ?? element;
+    let leaf: HTMLElement | Element = element;
+
+    while (
+      leaf.parentElement &&
+      leaf.parentElement.innerText ===
+        (leaf instanceof HTMLElement ? leaf.innerText : '')
+    ) {
+      leaf = leaf.parentElement;
+    }
+
+    let parent: HTMLElement | Element = leaf;
 
     while (
       parent.parentElement &&
@@ -299,21 +309,11 @@ export default {
       parent = parent.parentElement;
     }
 
-    let grandparent: HTMLElement | Element = parent.parentElement ?? parent;
-
-    while (
-      grandparent.parentElement &&
-      grandparent.parentElement.innerText ===
-        (grandparent instanceof HTMLElement ? grandparent.innerText : '')
-    ) {
-      grandparent = grandparent.parentElement;
-    }
-
     return {
       type: 'semantic',
       value: {
-        semanticContent: crawl(parent),
-        neighboringSemanticContent: crawl(grandparent),
+        semanticContent: crawl(leaf),
+        neighboringSemanticContent: crawl(parent),
       },
     };
   },
