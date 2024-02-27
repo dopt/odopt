@@ -11,9 +11,9 @@ import { Value } from '@sinclair/typebox/value';
 import * as ctx from '@dopt/ai-assistant-context';
 
 export interface AssistantContextProps {
-  document?: DocumentContext['value'];
+  document?: boolean | DocumentContext['value'];
   element?: Element | ElementContext['value'];
-  semantic?: SemanticContext['value'];
+  semantic?: boolean | SemanticContext['value'];
   visual?: boolean | VisualContext['value'];
 }
 
@@ -21,65 +21,76 @@ export async function formAssistantContext({
   document,
   element,
   semantic,
-  visual = true,
+  visual,
 }: AssistantContextProps) {
-  const context: AssistantCompletionsRequestBody['context'] = {
-    document:
-      document == null
-        ? await ctx.document.generate()
-        : {
-            type: 'document',
-            value: document,
-          },
-  };
+  const context: AssistantCompletionsRequestBody['context'] = {};
+
+  if (document === true) {
+    context.document = await ctx.document.generate();
+  } else if (!!document) {
+    if (Value.Check(DocumentContext['value'], document)) {
+      context.document = {
+        type: 'document',
+        value: document,
+      };
+    } else {
+      throw new Error(
+        `Document context generation expects an object of type \`DocumentContext\``
+      );
+    }
+  }
 
   if (element instanceof Element) {
     context.element = await ctx.element.generate({ element });
-  } else if (element != null && Value.Check(ElementContext['value'], element)) {
-    context.element = {
-      type: 'element',
-      value: element,
-    };
-  } else {
-    throw new Error(
-      `Element context generation expects element to be a valid HTML \`Element\` or an object of type \`ElementContext\` and cannot be ${element}`
-    );
+  } else if (element != null) {
+    if (Value.Check(ElementContext['value'], element)) {
+      context.element = {
+        type: 'element',
+        value: element,
+      };
+    } else {
+      throw new Error(
+        `Element context generation expects an object of type \`ElementContext\``
+      );
+    }
   }
 
-  if (semantic != null && Value.Check(SemanticContext['value'], semantic)) {
-    context.semantic = {
-      type: 'semantic',
-      value: semantic,
-    };
-  } else if (element instanceof Element) {
-    context.semantic = await ctx.semantic.generate({ element });
-  } else {
-    throw new Error(
-      `Semantic context generation expects element to be a valid HTML \`Element\` or semantic to be an object of type \`SemanticContext\``
-    );
+  if (semantic === true) {
+    if (element instanceof Element) {
+      context.semantic = await ctx.semantic.generate({ element });
+    } else {
+      throw new Error(
+        `Semantic context generation expects element to be a valid HTML \`Element\` when semantic is \`true\``
+      );
+    }
+  } else if (!!semantic) {
+    if (Value.Check(SemanticContext['value'], semantic)) {
+      context.semantic = {
+        type: 'semantic',
+        value: semantic,
+      };
+    } else {
+      throw new Error(
+        `Semantic context generation expects an object of type \`SemanticContext\``
+      );
+    }
   }
 
   if (visual === true) {
-    if (element instanceof Element) {
-      const visualContext = await ctx.visual.generate({ element });
-      if (visualContext != null) {
-        context.visual = visualContext;
-      }
-    } else {
-      throw new Error(
-        `Visual context generation expects element to be a valid HTML \`Element\` when visual is \`true\``
-      );
+    const visualContext = await ctx.visual.generate({
+      element: element instanceof Element ? element : undefined,
+    });
+    if (visualContext != null) {
+      context.visual = visualContext;
     }
-  } else if (Boolean(visual)) {
+  } else if (!!visual) {
     if (typeof visual === 'string') {
       context.visual = {
         type: 'visual',
         value: visual,
       };
     } else {
-      throw new Error(
-        `Visual context generation expects visual to be either a boolean or a string`
-      );
+      throw new Error(`Visual context generation expects a string`);
     }
   }
 

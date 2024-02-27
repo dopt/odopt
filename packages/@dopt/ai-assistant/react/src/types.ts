@@ -23,8 +23,8 @@ export interface AiProviderProps extends PropsWithChildren {
 
   /**
    * The underlying model you want answers generated with.
-   * Defaults to `gemini` if undefined.
-   * Can be `gemini` or `gpt`.
+   * This parameter is currently ignored by the API.
+   * It may be exposed in the future.
    */
   model?: AssistantQueryParams['model'];
 

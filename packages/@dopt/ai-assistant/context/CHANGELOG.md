@@ -1,5 +1,21 @@
 # @dopt/ai-assistant-context
 
+## 0.0.8
+
+### Patch Changes
+
+- 538edaa80: Across `ai.dopt.com` and our SDKs, we now support using a `query` parameter which will be passed in as an input to our backend LLM models both for search and retrieval and for generative answers. We also remove support for (read: ignore) the `model` parameter -- specified values will just be ignored. We may expose this parameter in the future. Finally, we clean up context generation to truly make element, document, and visual contexts optional. In an upcoming change, we will add question-answer functionality to `@dopt/react-contextual-assistant`.
+- Updated dependencies [538edaa80]
+  - @dopt/ai-assistant-definition@0.0.6
+
+## 0.0.7
+
+### Patch Changes
+
+- 58dcf5165: Fix a bug in `SemanticContext` generation where we would overeagerly traverse from a node to its parent when initializing the semantic content traversal algorithm.
+- Updated dependencies [afe048d2e]
+  - @dopt/ai-assistant-definition@0.0.5
+
 ## 0.0.6
 
 ### Patch Changes
