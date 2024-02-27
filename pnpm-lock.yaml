@@ -3143,8 +3143,8 @@ importers:
         specifier: workspace:*
         version: link:../definition
       '@dopt/ai-javascript-client':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.8
+        version: 0.0.8
       '@dopt/logger':
         specifier: workspace:*
         version: link:../../logger
@@ -6276,8 +6276,8 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /@dopt/ai-javascript-client@0.0.6:
-    resolution: {integrity: sha512-yIUYqR0bX/mPTSafod6FfYUWKOR6fAQaIX1YaRPLnWZoXcxRc8qszS9g+K+WZvRKCpxxnRbC7n/2QDFKF9CqgQ==}
+  /@dopt/ai-javascript-client@0.0.8:
+    resolution: {integrity: sha512-aAlwUWZMJqKa8V3nzGzC0b7GGMDoQEXIh1p9gCIdQv+o5d9+Zfkl/fpWtL4SMHbSGj78Xx98B8b2dqjND0tlEA==}
     dependencies:
       form-data: 4.0.0
       js-base64: 3.7.2
@@ -10195,7 +10195,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 20.11.20
+      '@types/node': 20.11.21
       '@types/responselike': 1.0.3
     dev: false
 
@@ -10357,8 +10357,8 @@ packages:
   /@types/node@18.16.18:
     resolution: {integrity: sha512-/aNaQZD0+iSBAGnvvN2Cx92HqE5sZCPZtx2TsK+4nvV23fFe09jVDvpArXr2j9DnYlzuU9WuoykDDc6wqvpNcw==}
 
-  /@types/node@20.11.20:
-    resolution: {integrity: sha512-7/rR21OS+fq8IyHTgtLkDK949uzsa6n8BkziAKtPVpugIkO6D+/ooXMvzXxDnZrmtXVfjb1bKQafYpb8s89LOg==}
+  /@types/node@20.11.21:
+    resolution: {integrity: sha512-/ySDLGscFPNasfqStUuWWPfL78jompfIoVzLJPVVAHBh6rpG68+pI2Gk+fNLeI8/f1yPYL4s46EleVIc20F1Ow==}
     dependencies:
       undici-types: 5.26.5
     dev: false
@@ -10413,7 +10413,7 @@ packages:
   /@types/responselike@1.0.3:
     resolution: {integrity: sha512-H/+L+UkTV33uf49PH5pCAUBVPNj2nDBXTN+qS1dOwyyg24l3CcicicCA7ca+HMvJBZcFgl5r8e+RR6elsb4Lyw==}
     dependencies:
-      '@types/node': 20.11.20
+      '@types/node': 20.11.21
     dev: false
 
   /@types/scheduler@0.16.2:
