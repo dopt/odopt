@@ -1,10 +1,11 @@
 import { Logger, LoggerProps } from '@dopt/logger';
 
-import { DoptApiClient } from '@dopt/ai-javascript-client';
+import { DoptApiClient, DoptApi } from '@dopt/ai-javascript-client';
 import {
+  AnswerChunk,
   AssistantCompletionsRequestBody,
   AssistantQueryParams,
-  AssistantSearchRequestBody,
+  StatusChunk,
 } from '@dopt/ai-assistant-definition';
 import { AssistantContextProps, formAssistantContext } from './context';
 
@@ -25,8 +26,8 @@ export interface Properties {
 
   /**
    * The underlying model you want answers generated with.
-   * Defaults to `gemini` if undefined.
-   * Can be `gemini` or `gpt`.
+   * This parameter is currently ignored by the API.
+   * It may be exposed in the future.
    */
   model?: AssistantQueryParams['model'];
 
@@ -89,7 +90,7 @@ export class Assistant {
     }
   }
 
-  async completions(
+  completions(
     sid: string,
     {
       query,
@@ -97,42 +98,83 @@ export class Assistant {
     }: {
       query: AssistantCompletionsRequestBody['query'];
       context: AssistantContextProps;
+    },
+    callbacks?: {
+      onStatus?: (status: StatusChunk['status']) => void;
+      onContent?: (content: string) => void;
+      onComplete?: (
+        answer: AnswerChunk['answer'],
+        sources: AnswerChunk['sources']
+      ) => void;
     }
   ) {
-    if (!this.userId) {
+    const userId = this.userId;
+
+    if (!userId) {
       throw new Error(
         "The Assistant SDK cannot be accessed until you've configured a userId"
       );
     }
-    return this.client.assistant.completions.stream(sid, {
-      userIdentifier: this.userId,
-      groupIdentifier: this.groupId,
-      model: this.model,
-      query,
-      context: await formAssistantContext(context),
-    });
-  }
 
-  async search(
-    sid: string,
-    {
-      query,
-      context,
-    }: {
-      query: AssistantSearchRequestBody['query'];
-      context: AssistantContextProps;
-    }
-  ) {
-    if (!this.userId) {
-      throw new Error(
-        "Completions cannot be accessed until you've configured a userId"
+    /**
+     * TODO: after https://github.com/fern-api/fern/issues/2960 is completed
+     * create an actual AbortSignal pattern
+     */
+    let terminated = false;
+
+    formAssistantContext(context).then(async (formed) => {
+      /**
+       * If we terminate before streaming, don't start the stream.
+       */
+      if (terminated) {
+        return;
+      }
+
+      const request: DoptApi.assistant.completions.CompletionsStreamRequest = {
+        userIdentifier: userId,
+        groupIdentifier: this.groupId,
+        model: this.model,
+        context: formed,
+      };
+
+      /**
+       * We inject query optionally, otherwise Fern casts it to null.
+       */
+      if (query) {
+        request.query = query;
+      }
+
+      const events = await this.client.assistant.completions.stream(
+        sid,
+        request
       );
-    }
-    return this.client.assistant.search(sid, {
-      userIdentifier: this.userId,
-      groupIdentifier: this.groupId,
-      query,
-      context: await formAssistantContext(context),
+
+      let content = '';
+
+      for await (const event of events) {
+        if (terminated) {
+          /**
+           * If we terminate while streaming, `continue` will drain the stream.
+           */
+          continue;
+        }
+
+        switch (event.type) {
+          case 'status':
+            callbacks?.onStatus && callbacks?.onStatus(event.status);
+            break;
+          case 'answer':
+            callbacks?.onComplete &&
+              callbacks?.onComplete(event.answer, event.sources);
+            break;
+          case 'content':
+            content += event.content;
+            callbacks?.onContent && callbacks?.onContent(content);
+            break;
+        }
+      }
     });
+
+    return () => (terminated = true);
   }
 }

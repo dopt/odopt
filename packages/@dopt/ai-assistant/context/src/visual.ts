@@ -10,7 +10,7 @@ const ELEMENT_STROKE_WIDTH = 4;
 const ELEMENT_STROKE_COLOR = 'red';
 
 export default {
-  async generate({ element }: { element: Element }, logger?: Logger) {
+  async generate({ element }: { element?: Element }, logger?: Logger) {
     if (!window || !document) {
       throw new Error(
         'Cannot generate visual context in a headless environment'
