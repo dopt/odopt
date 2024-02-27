@@ -43,18 +43,18 @@
     "dist"
   ],
   "dependencies": {
-    "@dopt/ai-javascript-client": "latest",
     "@dopt/ai-assistant-context": "workspace:*",
     "@dopt/ai-assistant-definition": "workspace:*",
+    "@dopt/ai-javascript-client": "^0.0.7",
     "@dopt/logger": "workspace:*",
     "@sinclair/typebox": "0.25.4"
   },
   "devDependencies": {
     "@dopt/config": "workspace:*",
     "@dopt/pkg-build": "workspace:*",
-    "@dopt/pkg-lint": "workspace:*",
     "@dopt/pkg-clean": "workspace:*",
     "@dopt/pkg-format": "workspace:*",
+    "@dopt/pkg-lint": "workspace:*",
     "@types/node": "18.16.18",
     "typescript": "5.1.6"
   },
