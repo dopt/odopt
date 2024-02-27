@@ -1,6 +1,6 @@
 {
   "name": "@dopt/ai-assistant-definition",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "description": "An API definition/spec for the AI assistant",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-definition",
