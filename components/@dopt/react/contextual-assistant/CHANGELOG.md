@@ -1,5 +1,25 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.13
+
+### Patch Changes
+
+- 538edaa80: Across `ai.dopt.com` and our SDKs, we now support using a `query` parameter which will be passed in as an input to our backend LLM models both for search and retrieval and for generative answers. We also remove support for (read: ignore) the `model` parameter -- specified values will just be ignored. We may expose this parameter in the future. Finally, we clean up context generation to truly make element, document, and visual contexts optional. In an upcoming change, we will add question-answer functionality to `@dopt/react-contextual-assistant`.
+- Updated dependencies [538edaa80]
+  - @dopt/ai-assistant-definition@0.0.6
+  - @dopt/ai-assistant-javascript@0.0.10
+  - @dopt/ai-assistant-react@0.0.10
+
+## 0.0.12
+
+### Patch Changes
+
+- afe048d2e: Adds `query`, `setQuery` to assistant context provider and hook
+- Updated dependencies [afe048d2e]
+  - @dopt/ai-assistant-definition@0.0.5
+  - @dopt/ai-assistant-javascript@0.0.9
+  - @dopt/ai-assistant-react@0.0.9
+
 ## 0.0.11
 
 ### Patch Changes

@@ -3,13 +3,11 @@ import { DoptAiContext } from './context';
 
 import {
   AnswerChunk,
-  ChatStreamChunk,
   ContentStreamChunk,
   StatusChunk,
 } from '@dopt/ai-assistant-definition';
 
 import { AssistantCompletionsRequestBody } from '@dopt/ai-assistant-definition';
-import { AssistantContextProps } from '@dopt/ai-assistant-javascript';
 
 /**
  * A React hook for accessing an AI assistant
@@ -24,22 +22,32 @@ import { AssistantContextProps } from '@dopt/ai-assistant-javascript';
  * ```
  *
  * @param sid - {@link Assistant['sid']}
+ * @param query - string, the query to be passed to the assistant
+ * @param context.document - boolean, whether to use page level context like title and URL (default false)
+ * @param context.element - the element the user is interacting with (default undefined)
+ * @param context.visual - boolean, whether to use a screenshot of the page (default false)
  * this param accepts the user defined identifier (sid)
- * @returns TODO
  *
+ * @returns an object of: `answer`, `content`, `status`, and `documents`
+ * Each value in the object maps to the current state of the assistant.
+ * As the answer streams back, `content` will be updated.
+ * Once the answer is completed, `answer` and `documents` will be updated.
+ * `status` reflects either `searching` or `answering` depending on the state of the stream.
  */
 export function useAssistant(
   sid: string,
   {
     query,
-    context,
+    context: { document, element, visual },
   }: {
     query: AssistantCompletionsRequestBody['query'];
-    context: AssistantContextProps;
+    context: {
+      document?: boolean;
+      element?: Element;
+      visual?: boolean;
+    };
   }
 ) {
-  const [_, setChunks] = useState<ChatStreamChunk[]>([]);
-
   const [status, setStatus] = useState<StatusChunk['status'] | null>(null);
   const [documents, setDocuments] = useState<AnswerChunk['sources'] | null>(
     null
@@ -60,35 +68,35 @@ export function useAssistant(
     setAnswer(null);
     setContent(null);
 
-    assistant
-      .completions(sid, {
+    if (!query || query.length === 0) {
+      return () => {
+        /* no-op */
+      };
+    }
+
+    const terminate = assistant.completions(
+      sid,
+      {
         query,
-        context,
-      })
-      .then(async (stream) => {
-        for await (const chunk of stream) {
-          setChunks((chunks) => {
-            return [...chunks, chunk];
-          });
-          switch (chunk.type) {
-            case 'status':
-              setStatus(chunk.status);
-              break;
-            case 'answer':
-              setAnswer(chunk.answer);
-              setDocuments(chunk.sources);
-              break;
-            case 'content':
-              setContent((prevContent) =>
-                prevContent == null
-                  ? chunk.content
-                  : prevContent + chunk.content
-              );
-              break;
-          }
-        }
-      });
-  }, [assistant, context, query, sid]);
+        context: {
+          document,
+          element,
+          semantic: element != null,
+          visual,
+        },
+      },
+      {
+        onStatus: (status) => setStatus(status),
+        onContent: (content) => setContent(content),
+        onComplete: (answer, sources) => {
+          setAnswer(answer);
+          setDocuments(sources);
+        },
+      }
+    );
+
+    return () => terminate();
+  }, [assistant, document, element, visual, query, sid]);
 
   return {
     answer,
