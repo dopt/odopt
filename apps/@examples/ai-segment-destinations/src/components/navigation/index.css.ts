@@ -19,6 +19,7 @@ export const subNavigationItem = style({
   gap: '18px',
   selectors: {
     '&:hover': {
+      cursor: 'pointer',
       backgroundColor: 'rgba(71, 77, 102, 0.64)',
     },
   },
@@ -33,6 +34,7 @@ export const navigationItem = style({
   boxShadow: 'rgba(0, 0, 0, 0) 4px 0px 0px inset',
   selectors: {
     '&:hover': {
+      cursor: 'pointer',
       backgroundColor: 'rgba(71, 77, 102, 0.64)',
     },
   },
