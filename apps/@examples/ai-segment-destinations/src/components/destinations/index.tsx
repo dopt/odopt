@@ -37,7 +37,7 @@ export function Destinations() {
             <input
               className={searchInput}
               type="search"
-              placeholder="Search for destinations by name"
+              placeholder="Search..."
             ></input>
           </div>
           <div className={button}>
