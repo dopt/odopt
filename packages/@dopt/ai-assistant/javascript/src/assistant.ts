@@ -100,7 +100,7 @@ export class Assistant {
       context: AssistantContextProps;
     },
     callbacks?: {
-      onStatus?: (status: StatusChunk['status']) => void;
+      onStatus?: (status: StatusChunk['status'] | null) => void;
       onContent?: (content: string) => void;
       onComplete?: (
         answer: AnswerChunk['answer'],
@@ -166,6 +166,7 @@ export class Assistant {
           case 'answer':
             callbacks?.onComplete &&
               callbacks?.onComplete(event.answer, event.sources);
+            callbacks?.onStatus && callbacks?.onStatus(null);
             break;
           case 'content':
             content += event.content;
