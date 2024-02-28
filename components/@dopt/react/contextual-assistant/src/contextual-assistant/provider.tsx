@@ -94,6 +94,13 @@ function ContextualAssistant(props: ContextualAssistantProps) {
 
   useEffect(() => {
     /**
+     * If selection changes, we should clear the assistant's query state
+     */
+    setQuery(null);
+  }, [selection]);
+
+  useEffect(() => {
+    /**
      * Clear previous state.
      */
     setStatus(null);
