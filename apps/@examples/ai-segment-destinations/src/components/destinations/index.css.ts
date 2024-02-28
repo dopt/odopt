@@ -57,6 +57,7 @@ export const controlsRight = style({
 export const tabs = style({
   display: 'flex',
   flexDirection: 'row',
+  color: 'var(--dopt-colors-content)',
   gap: '15px',
 });
 export const tab = style({
@@ -67,6 +68,7 @@ export const tab = style({
   selectors: {
     '&:hover': {
       backgroundColor: 'rgb(237, 239, 245)',
+      cursor: 'pointer',
     },
     '&.selected': {
       backgroundColor: 'rgb(244, 245, 249)',
@@ -105,6 +107,8 @@ export const tableCell = style({
   display: 'flex',
   flex: '0 0 auto',
   padding: '12px',
+  alignItems: 'center',
+  color: 'var(--dopt-colors-content)',
   fontSize: '14px',
   fontWeight: 400,
   width: '132px',
@@ -130,7 +134,7 @@ export const tableHead = style({
   alignItems: 'center',
   width: '132px',
   fontWeight: 500,
-  fontSize: '16px !important',
+  fontSize: '14px !important',
 });
 
 export const tableRow = style({
