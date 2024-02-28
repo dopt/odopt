@@ -56,7 +56,7 @@ ReactDOM.render(
 
 ### Hooks
 
-- [useAssitant](./src/use-assistant.ts)
+- [useAssistant](./src/use-assistant.ts)
 
 ```ts
 interface AssistantProps {
@@ -80,7 +80,7 @@ declare const useAssistant: (sid: string, { query, context }: AssistantProps): {
 
 #### Accessing an AI Assistant
 
-Using the [useAssitant](./src/use-assistant.ts) hook:
+Using the [useAssistant](./src/use-assistant.ts) hook:
 
 ```tsx
 import { useAssistant } from '@dopt/ai-assistant-react';
