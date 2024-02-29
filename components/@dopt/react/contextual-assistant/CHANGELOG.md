@@ -1,5 +1,16 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.14
+
+### Patch Changes
+
+- 955c75560: feat: unset status when assistant response is complete
+  fix: unset query when selection changes
+- Updated dependencies [077f32d1a]
+- Updated dependencies [955c75560]
+  - @dopt/ai-assistant-react@0.0.11
+  - @dopt/ai-assistant-javascript@0.0.11
+
 ## 0.0.13
 
 ### Patch Changes
