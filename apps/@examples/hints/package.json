@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@dopt/react": "workspace:*",
-    "@dopt/react-users": "workspace:*",
     "@dopt/react-hints": "workspace:*",
+    "@dopt/react-users": "workspace:*",
     "nanoid": "5.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -33,5 +33,6 @@
     "typescript": "5.1.6",
     "vite": "4.3.9"
   },
-  "openSource": true
+  "openSource": true,
+  "license": "MIT"
 }
