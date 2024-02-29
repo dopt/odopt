@@ -40,18 +40,19 @@
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/pkg-build": "workspace:*",
-    "@dopt/pkg-lint": "workspace:*",
     "@dopt/pkg-clean": "workspace:*",
+    "@dopt/pkg-format": "workspace:*",
+    "@dopt/pkg-lint": "workspace:*",
     "@types/jest": "29.5.2",
     "esbuild": "0.18.2",
     "esbuild-jest": "0.5.0",
     "jest": "29.5.0",
-    "@dopt/pkg-format": "workspace:*",
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "@dopt/core-rich-text": "workspace:*",
-    "@dopt/block-api-types": "workspace:*"
+    "@dopt/block-api-types": "workspace:*",
+    "@dopt/core-rich-text": "workspace:*"
   },
-  "openSource": true
+  "openSource": true,
+  "license": "MIT"
 }

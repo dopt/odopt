@@ -15,8 +15,8 @@
   "dependencies": {
     "@dopt/react": "workspace:*",
     "@dopt/react-modal": "workspace:*",
-    "@dopt/react-users": "workspace:*",
     "@dopt/react-rich-text": "workspace:*",
+    "@dopt/react-users": "workspace:*",
     "@radix-ui/colors": "3.0.0",
     "@radix-ui/react-dialog": "1.0.5",
     "@tabler/icons": "1.119.0",
@@ -40,5 +40,6 @@
     "typescript": "5.1.6",
     "vite": "4.3.9"
   },
-  "openSource": true
+  "openSource": true,
+  "license": "MIT"
 }

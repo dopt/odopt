@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@dopt/html-rich-text": "workspace:*",
-    "@dopt/users-javascript-browser-client": "^1.1.2",
+    "@dopt/users-javascript-browser-client": "workspace:*",
     "@dopt/vue": "workspace:*",
     "nanoid": "5.0.4",
     "radix-vue": "1.1.1",
@@ -33,5 +33,6 @@
     "vue-eslint-parser": "9.3.1",
     "vue-tsc": "1.6.5"
   },
-  "openSource": true
+  "openSource": true,
+  "license": "MIT"
 }
