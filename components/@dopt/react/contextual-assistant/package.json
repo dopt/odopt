@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-contextual-assistant",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "A React contextual assistant for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/contextual-assistant",
   "repository": {
