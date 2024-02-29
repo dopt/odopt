@@ -1,5 +1,13 @@
 # @dopt/ai-assistant-react
 
+## 0.0.11
+
+### Patch Changes
+
+- 077f32d1a: Fix misspellings in docs.
+- Updated dependencies [955c75560]
+  - @dopt/ai-assistant-javascript@0.0.11
+
 ## 0.0.10
 
 ### Patch Changes
