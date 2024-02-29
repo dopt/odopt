@@ -1,5 +1,12 @@
 # @dopt/ai-assistant-javascript
 
+## 0.0.11
+
+### Patch Changes
+
+- 955c75560: feat: unset status when assistant response is complete
+  fix: unset query when selection changes
+
 ## 0.0.10
 
 ### Patch Changes
