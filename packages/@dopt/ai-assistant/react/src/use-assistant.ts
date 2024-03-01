@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { DoptAiContext } from './context';
 
 import {
   AnswerChunk,
+  AssistantDefaultCompletionsErrorMessage,
   ContentStreamChunk,
   StatusChunk,
 } from '@dopt/ai-assistant-definition';
@@ -27,6 +28,8 @@ import { AssistantCompletionsRequestBody } from '@dopt/ai-assistant-definition';
  * @param context.element - the element the user is interacting with (default undefined)
  * @param context.visual - boolean, whether to use a screenshot of the page (default false)
  * this param accepts the user defined identifier (sid)
+ * @param errorMessage - string, an optional Markdown-friendly error message in case the assistant fails to load
+ * a system default is used otherwise
  *
  * @returns an object of: `answer`, `content`, `status`, and `documents`
  * Each value in the object maps to the current state of the assistant.
@@ -46,6 +49,11 @@ export function useAssistant(
       element?: Element;
       visual?: boolean;
     };
+  },
+  {
+    errorMessage,
+  }: {
+    errorMessage?: string;
   }
 ) {
   const [status, setStatus] = useState<StatusChunk['status'] | null>(null);
@@ -58,6 +66,15 @@ export function useAssistant(
   );
 
   const { assistant } = useContext(DoptAiContext);
+
+  const errorMessageRef = useRef<string>(
+    errorMessage ?? AssistantDefaultCompletionsErrorMessage
+  );
+
+  useEffect(() => {
+    errorMessageRef.current =
+      errorMessage ?? AssistantDefaultCompletionsErrorMessage;
+  }, [errorMessage]);
 
   useEffect(() => {
     /**
@@ -91,6 +108,10 @@ export function useAssistant(
         onComplete: (answer, sources) => {
           setAnswer(answer);
           setDocuments(sources);
+        },
+        onError: () => {
+          setAnswer(errorMessageRef.current);
+          setDocuments([]);
         },
       }
     );
