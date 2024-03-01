@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useCallback,
   useContext,
+  useRef,
 } from 'react';
 
 import {
@@ -12,6 +13,7 @@ import {
   ContentStreamChunk,
   StatusChunk,
   AssistantRequestBody,
+  AssistantDefaultCompletionsErrorMessage,
 } from '@dopt/ai-assistant-definition';
 
 import { type StyleProps, ThemeContext } from '@dopt/react-theme';
@@ -62,6 +64,7 @@ export interface ContextualAssistantProps
   extends PropsWithChildren,
     StyleProps {
   assistant: string;
+  errorMessage?: string;
   defaultActive?: boolean;
 }
 
@@ -73,7 +76,13 @@ type Answer = AnswerChunk['answer'] | null;
 type Content = ContentStreamChunk['content'] | null;
 
 function ContextualAssistant(props: ContextualAssistantProps) {
-  const { children, defaultActive, theme, assistant: sid } = props;
+  const {
+    children,
+    defaultActive,
+    theme,
+    assistant: sid,
+    errorMessage,
+  } = props;
 
   const { assistant } = useContext(DoptAiContext);
   const [active, setActive] = useState<boolean>(!!defaultActive);
@@ -85,6 +94,15 @@ function ContextualAssistant(props: ContextualAssistantProps) {
   const [documents, setDocuments] = useState<Document>(null);
   const [answer, setAnswer] = useState<Answer>(null);
   const [content, setContent] = useState<Content>(null);
+
+  const errorMessageRef = useRef<string>(
+    errorMessage ?? AssistantDefaultCompletionsErrorMessage
+  );
+
+  useEffect(() => {
+    errorMessageRef.current =
+      errorMessage ?? AssistantDefaultCompletionsErrorMessage;
+  }, [errorMessage]);
 
   const close = useCallback(() => {
     setActive(false);
@@ -131,6 +149,10 @@ function ContextualAssistant(props: ContextualAssistantProps) {
         onComplete: (answer, sources) => {
           setAnswer(answer);
           setDocuments(sources);
+        },
+        onError: () => {
+          setAnswer(errorMessageRef.current);
+          setDocuments([]);
         },
       }
     );
