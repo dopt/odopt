@@ -1,5 +1,12 @@
 # @dopt/ai-assistant-context
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [87e55c3a0]
+  - @dopt/ai-assistant-definition@0.0.7
+
 ## 0.0.8
 
 ### Patch Changes
