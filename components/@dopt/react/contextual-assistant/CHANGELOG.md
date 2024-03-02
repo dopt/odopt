@@ -1,5 +1,32 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.16
+
+### Patch Changes
+
+- b39c05018: Add a `ContextualAssistant.Question` child component and expose helper functions which allow us to wire it up.
+
+## 0.0.15
+
+### Patch Changes
+
+- 87e55c3a0: fixes error management by adding client-side error handlers; exposes these handlers in both `@dopt/react-contextual-assistant` and `@dopt/ai-assistant-react`; allows users to configure default error messages via an `errorMessages` property
+- Updated dependencies [87e55c3a0]
+  - @dopt/ai-assistant-definition@0.0.7
+  - @dopt/ai-assistant-javascript@0.0.12
+  - @dopt/ai-assistant-react@0.0.12
+
+## 0.0.14
+
+### Patch Changes
+
+- 955c75560: feat: unset status when assistant response is complete
+  fix: unset query when selection changes
+- Updated dependencies [077f32d1a]
+- Updated dependencies [955c75560]
+  - @dopt/ai-assistant-react@0.0.11
+  - @dopt/ai-assistant-javascript@0.0.11
+
 ## 0.0.13
 
 ### Patch Changes
