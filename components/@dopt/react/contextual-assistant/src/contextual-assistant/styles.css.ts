@@ -106,6 +106,7 @@ export const contextualAssistantPopover = recipe({
     boxSizing: 'border-box',
     position: 'absolute',
     zIndex: 10000,
+    width: 400,
     fontFamily: vars.fonts.sans,
     fontSize: vars.fontSizes.base,
     color: vars.colors.content,
@@ -286,10 +287,6 @@ export const contextualAssistantContent = style({
   all: 'unset',
   boxSizing: 'border-box',
   display: 'block',
-  width: 400,
-  maxHeight: 500,
-  overflow: 'auto',
-  padding: vars.space[6],
   borderWidth: vars.borderWidths[1],
   borderStyle: 'solid',
   borderColor: vars.colors.border,
@@ -305,6 +302,9 @@ export const contextualAssistantHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
+  paddingLeft: vars.space[6],
+  paddingRight: vars.space[6],
+  paddingTop: vars.space[6],
   paddingBottom: vars.space[2],
 });
 
@@ -322,6 +322,7 @@ export const contextualAssistantDismissIcon = style({
   padding: vars.space[1],
   borderRadius: vars.radii[2],
   transition: `background-color ${vars.transitions.ease}`,
+  cursor: 'pointer',
   ':hover': {
     backgroundColor: vars.colors.primaryLight,
   },
@@ -359,6 +360,12 @@ export const contextualAssistantBody = style({
   all: 'unset',
   boxSizing: 'border-box',
   display: 'block',
+  maxHeight: 450,
+  overflow: 'auto',
+  paddingLeft: vars.space[6],
+  paddingRight: vars.space[6],
+  paddingTop: vars.space[3],
+  paddingBottom: vars.space[3],
 });
 
 export const contextualAssistantBodyHeading = style({
@@ -369,6 +376,7 @@ export const contextualAssistantBodyHeading = style({
   paddingTop: vars.space[4],
   ':first-child': {
     paddingTop: 0,
+    paddingBottom: vars.space[4],
   },
 });
 
@@ -563,5 +571,71 @@ export const contextualAssistantSourceLink = style({
   ':hover': {
     textDecoration: 'underline',
     color: vars.colors.primaryDark,
+  },
+});
+
+export const contextualAssistantQuestion = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'flex',
+  gap: vars.space[2],
+  paddingInline: vars.space[6],
+  paddingTop: vars.space[3],
+  paddingBottom: vars.space[6],
+});
+
+export const contextualAssistantQuestionInput = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  flexGrow: 1,
+  fontFamily: vars.fonts.sans,
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  border: `${vars.borderWidths[1]} solid ${vars.colors.border}`,
+  padding: `${vars.space[2]} ${vars.space[3]}`,
+  background: vars.colors.white,
+  borderRadius: vars.space[2],
+  transition: `all ${vars.transitions.ease}`,
+  '::placeholder': {
+    color: vars.colors.contentLight,
+  },
+  ':focus-visible': {
+    borderColor: vars.colors.primary,
+    outline: `${vars.colors.primary} solid ${vars.borderWidths[1]}`,
+  },
+});
+
+export const contextualAssistantQuestionButton = recipe({
+  base: {
+    all: 'unset',
+    boxSizing: 'border-box',
+    fontFamily: vars.fonts.sans,
+    fontSize: vars.fontSizes.base,
+    fontWeight: vars.fontWeights.medium,
+    lineHeight: vars.lineHeights.base,
+    transition: `all ${vars.transitions.ease}`,
+    border: `${vars.borderWidths[1]} solid ${vars.colors.border}`,
+    padding: `${vars.space[2]} ${vars.space[3]}`,
+    borderRadius: vars.space[2],
+  },
+  variants: {
+    disabled: {
+      true: {
+        cursor: 'not-allowed',
+        opacity: 0.4,
+      },
+      false: {
+        cursor: 'pointer',
+        color: vars.colors.content,
+        ':hover': {
+          color: vars.colors.primary,
+        },
+        ':focus-visible': {
+          color: vars.colors.primary,
+          borderColor: vars.colors.primary,
+          outline: `${vars.colors.primary} solid ${vars.borderWidths[1]}`,
+        },
+      },
+    },
   },
 });
