@@ -5,6 +5,8 @@ import React, {
   useEffect,
   useCallback,
   useContext,
+  useRef,
+  useMemo,
 } from 'react';
 
 import {
@@ -12,6 +14,7 @@ import {
   ContentStreamChunk,
   StatusChunk,
   AssistantRequestBody,
+  AssistantDefaultCompletionsErrorMessage,
 } from '@dopt/ai-assistant-definition';
 
 import { type StyleProps, ThemeContext } from '@dopt/react-theme';
@@ -19,31 +22,37 @@ import { DoptAiContext } from '@dopt/ai-assistant-react';
 
 export interface ContextualAssistantContext {
   active: boolean;
+  canSubmitQuery: boolean;
   selection: HTMLElement | null;
-  query: AssistantRequestBody['query'] | null;
+  submittedQuery: AssistantRequestBody['query'] | null;
   documents: AnswerChunk['sources'] | null;
   status: StatusChunk['status'] | null;
   answer: AnswerChunk['answer'] | null;
   content: ContentStreamChunk['content'] | null;
+  enteredQuery: string;
 
   close: () => void;
+  submitQuery: () => void;
 
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
   setSelection: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
-  setQuery: React.Dispatch<
-    React.SetStateAction<AssistantRequestBody['query'] | null>
-  >;
+  onEnteredQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const ContextualAssistantContext =
   createContext<ContextualAssistantContext>({
     active: false,
     answer: null,
+    canSubmitQuery: false,
     content: null,
     documents: null,
     selection: null,
-    query: null,
+    submittedQuery: null,
+    enteredQuery: '',
     close: () => {
+      /* noop */
+    },
+    submitQuery: () => {
       /* noop */
     },
     setActive: () => {
@@ -52,7 +61,7 @@ export const ContextualAssistantContext =
     setSelection: () => {
       /* noop */
     },
-    setQuery: () => {
+    onEnteredQuery: () => {
       /* noop */
     },
     status: null,
@@ -62,6 +71,7 @@ export interface ContextualAssistantProps
   extends PropsWithChildren,
     StyleProps {
   assistant: string;
+  errorMessage?: string;
   defaultActive?: boolean;
 }
 
@@ -73,30 +83,59 @@ type Answer = AnswerChunk['answer'] | null;
 type Content = ContentStreamChunk['content'] | null;
 
 function ContextualAssistant(props: ContextualAssistantProps) {
-  const { children, defaultActive, theme, assistant: sid } = props;
+  const {
+    children,
+    defaultActive,
+    theme,
+    assistant: sid,
+    errorMessage,
+  } = props;
 
   const { assistant } = useContext(DoptAiContext);
   const [active, setActive] = useState<boolean>(!!defaultActive);
 
   const [selection, setSelection] = useState<Selection>(null);
-  const [query, setQuery] = useState<Query>(null);
+  const [submittedQuery, setSubmittedQuery] = useState<Query>(null);
+  const [enteredQuery, setEnteredQuery] = useState('');
 
   const [status, setStatus] = useState<Status>(null);
   const [documents, setDocuments] = useState<Document>(null);
   const [answer, setAnswer] = useState<Answer>(null);
   const [content, setContent] = useState<Content>(null);
 
+  const errorMessageRef = useRef<string>(
+    errorMessage ?? AssistantDefaultCompletionsErrorMessage
+  );
+
+  useEffect(() => {
+    errorMessageRef.current =
+      errorMessage ?? AssistantDefaultCompletionsErrorMessage;
+  }, [errorMessage]);
+
+  const canSubmitQuery = useMemo(() => {
+    return answer != null && enteredQuery.trim().length > 0;
+  }, [answer, enteredQuery]);
+
+  const submitQuery = useCallback(() => {
+    if (canSubmitQuery) {
+      setSubmittedQuery(enteredQuery);
+      setEnteredQuery('');
+    }
+  }, [canSubmitQuery, enteredQuery]);
+
   const close = useCallback(() => {
     setActive(false);
     setSelection(null);
-    setQuery(null);
+    setSubmittedQuery(null);
+    setEnteredQuery('');
   }, []);
 
   useEffect(() => {
     /**
      * If selection changes, we should clear the assistant's query state
      */
-    setQuery(null);
+    setSubmittedQuery(null);
+    setEnteredQuery('');
   }, [selection]);
 
   useEffect(() => {
@@ -117,7 +156,7 @@ function ContextualAssistant(props: ContextualAssistantProps) {
     const terminate = assistant.completions(
       sid,
       {
-        query: query ?? undefined,
+        query: submittedQuery ?? undefined,
         context: {
           document: true,
           element: selection,
@@ -132,26 +171,33 @@ function ContextualAssistant(props: ContextualAssistantProps) {
           setAnswer(answer);
           setDocuments(sources);
         },
+        onError: () => {
+          setAnswer(errorMessageRef.current);
+          setDocuments([]);
+        },
       }
     );
 
     return () => terminate();
-  }, [selection, query, assistant, sid]);
+  }, [selection, submittedQuery, assistant, sid]);
 
   return (
     <ContextualAssistantContext.Provider
       value={{
         active,
         answer,
+        canSubmitQuery,
         close,
         content,
         documents,
+        enteredQuery,
+        submittedQuery,
         selection,
-        query,
-        setQuery,
         setActive,
+        onEnteredQuery: setEnteredQuery,
         setSelection,
         status,
+        submitQuery,
       }}
     >
       <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>

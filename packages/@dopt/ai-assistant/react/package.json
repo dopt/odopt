@@ -1,6 +1,6 @@
 {
   "name": "@dopt/ai-assistant-react",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "private": false,
   "description": "A React SDK accessing AI functionality",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-react",
