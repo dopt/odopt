@@ -8,7 +8,7 @@ The SDK lives in our open-source monorepo [odopt](https://github.com/dopt/odopt)
 
 It is published to npm as [`@dopt/react`](https://www.npmjs.com/package/@dopt/react).
 
-Check out our [TypeDoc docs](https://docs.dopt.com/sdks/react/modules/) for source code level documentation. For a more in-depth guide, check out the [React SDK guide](https://docs.dopt.com/guides/react-sdk/) in our docs.
+Check out our [TypeDoc docs](https://docs.dopt.com/sdks/react/modules/) for source code level documentation. For a more in-depth guide, check out the [React SDK guide](https://docs.dopt.com/build/react-sdk/) in our docs.
 
 ## Installation
 
