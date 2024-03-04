@@ -1,6 +1,6 @@
 {
   "name": "@dopt/ai-assistant-context",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": false,
   "description": "Input context for the AI assistants",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-context",
