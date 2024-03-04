@@ -12,3 +12,4 @@ export * from './skeleton';
 export * from './source';
 export * from './sources';
 export * from './title';
+export * from './question';
