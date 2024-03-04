@@ -9,10 +9,13 @@ export function useContextualAssistant() {
     content,
     documents,
     selection,
-    query,
-    setQuery,
     setActive,
     status,
+    submittedQuery,
+    enteredQuery,
+    onEnteredQuery,
+    canSubmitQuery,
+    submitQuery,
   } = useContext(ContextualAssistantContext);
 
   return {
@@ -22,9 +25,12 @@ export function useContextualAssistant() {
     content,
     documents,
     selection,
-    query,
-    setQuery,
     setActive,
     status,
+    submittedQuery,
+    enteredQuery,
+    onEnteredQuery,
+    canSubmitQuery,
+    submitQuery,
   };
 }
