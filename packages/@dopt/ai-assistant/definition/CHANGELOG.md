@@ -1,5 +1,11 @@
 # @dopt/ai-assistant-definition
 
+## 0.0.7
+
+### Patch Changes
+
+- 87e55c3a0: fixes error management by adding client-side error handlers; exposes these handlers in both `@dopt/react-contextual-assistant` and `@dopt/ai-assistant-react`; allows users to configure default error messages via an `errorMessages` property
+
 ## 0.0.6
 
 ### Patch Changes

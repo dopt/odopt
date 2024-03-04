@@ -8,7 +8,7 @@ The SDK lives in our open-source monorepo [odopt](https://github.com/dopt/odopt)
 
 It is published to npm as [`@dopt/vue`](https://www.npmjs.com/package/@dopt/vue).
 
-Check out our [TypeDoc docs](https://docs.dopt.com/sdks/vue/modules/) for source code level documentation.
+Check out our [TypeDoc docs](https://docs.dopt.com/sdks/vue/modules/) for source code level documentation. For a more in-depth guide, check out the [Vue SDK guide](https://docs.dopt.com/build/vue-sdk/) in our docs.
 
 ## Installation
 

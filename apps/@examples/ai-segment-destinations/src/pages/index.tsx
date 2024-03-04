@@ -13,8 +13,19 @@ import ContextualAssistant, {
 import { useEffect } from 'react';
 
 export function Example() {
-  const { close, selection, setActive, answer, content, documents } =
-    useContextualAssistant();
+  const {
+    close,
+    selection,
+    setActive,
+    answer,
+    content,
+    documents,
+    submittedQuery,
+    enteredQuery,
+    canSubmitQuery,
+    onEnteredQuery,
+    submitQuery,
+  } = useContextualAssistant();
 
   useEffect(() => {
     function keyboardShortcut(e: KeyboardEvent) {
@@ -57,6 +68,11 @@ export function Example() {
               <ContextualAssistant.DismissIcon onClick={() => close()} />
             </ContextualAssistant.Header>
             <ContextualAssistant.Body>
+              {submittedQuery && (
+                <ContextualAssistant.BodyHeading>
+                  {submittedQuery}
+                </ContextualAssistant.BodyHeading>
+              )}
               {answer || content ? (
                 <ContextualAssistant.Answer>
                   {answer || content}
@@ -83,6 +99,13 @@ export function Example() {
                 </>
               )}
             </ContextualAssistant.Body>
+            <ContextualAssistant.Question
+              canSubmitQuery={canSubmitQuery}
+              onEnteredQuery={onEnteredQuery}
+              submitQuery={submitQuery}
+            >
+              {enteredQuery}
+            </ContextualAssistant.Question>
           </ContextualAssistant.Content>
         </ContextualAssistant.Popover>
       )}
