@@ -13,6 +13,7 @@ import {
   Source,
   Sources,
   Title,
+  Question,
 } from './contextual-assistant';
 
 export default {
@@ -30,6 +31,7 @@ export default {
   Source,
   Sources,
   Title,
+  Question,
 };
 
 export * from './use-contextual-assistant';

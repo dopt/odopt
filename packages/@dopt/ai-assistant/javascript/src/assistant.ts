@@ -106,6 +106,7 @@ export class Assistant {
         answer: AnswerChunk['answer'],
         sources: AnswerChunk['sources']
       ) => void;
+      onError?: (error: unknown) => void;
     }
   ) {
     const userId = this.userId;
@@ -122,59 +123,69 @@ export class Assistant {
      */
     let terminated = false;
 
-    formAssistantContext(context).then(async (formed) => {
-      /**
-       * If we terminate before streaming, don't start the stream.
-       */
-      if (terminated) {
-        return;
-      }
-
-      const request: DoptApi.assistant.completions.CompletionsStreamRequest = {
-        userIdentifier: userId,
-        groupIdentifier: this.groupId,
-        model: this.model,
-        context: formed,
-      };
-
-      /**
-       * We inject query optionally, otherwise Fern casts it to null.
-       */
-      if (query) {
-        request.query = query;
-      }
-
-      const events = await this.client.assistant.completions.stream(
-        sid,
-        request
-      );
-
-      let content = '';
-
-      for await (const event of events) {
+    formAssistantContext(context)
+      .then(async (formed) => {
+        /**
+         * If we terminate before streaming, don't start the stream.
+         */
         if (terminated) {
-          /**
-           * If we terminate while streaming, `continue` will drain the stream.
-           */
-          continue;
+          return;
         }
 
-        switch (event.type) {
-          case 'status':
-            callbacks?.onStatus && callbacks?.onStatus(event.status);
-            break;
-          case 'answer':
-            callbacks?.onComplete &&
-              callbacks?.onComplete(event.answer, event.sources);
-            callbacks?.onStatus && callbacks?.onStatus(null);
-            break;
-          case 'content':
-            content += event.content;
-            callbacks?.onContent && callbacks?.onContent(content);
-            break;
+        const request: DoptApi.assistant.completions.CompletionsStreamRequest =
+          {
+            userIdentifier: userId,
+            groupIdentifier: this.groupId,
+            model: this.model,
+            context: formed,
+          };
+
+        /**
+         * We inject query optionally, otherwise Fern casts it to null.
+         */
+        if (query) {
+          request.query = query;
         }
-      }
-    });
+
+        const events = await this.client.assistant.completions.stream(
+          sid,
+          request
+        );
+
+        let content = '';
+
+        for await (const event of events) {
+          if (terminated) {
+            /**
+             * If we terminate while streaming, `continue` will drain the stream.
+             */
+            continue;
+          }
+
+          switch (event.type) {
+            case 'status':
+              callbacks?.onStatus && callbacks?.onStatus(event.status);
+              break;
+            case 'answer':
+              callbacks?.onComplete &&
+                callbacks?.onComplete(event.answer, event.sources);
+              callbacks?.onStatus && callbacks?.onStatus(null);
+              break;
+            case 'content':
+              content += event.content;
+              callbacks?.onContent && callbacks?.onContent(content);
+              break;
+          }
+        }
+      })
+      .catch((err) => {
+        this.logger.error(
+          `[@dopt/ai-assistant-javascript] Failed to generate a completion`,
+          err
+        );
+        callbacks?.onError && callbacks?.onError(err);
+        callbacks?.onStatus && callbacks?.onStatus(null);
+      });
 
     return () => (terminated = true);
   }
