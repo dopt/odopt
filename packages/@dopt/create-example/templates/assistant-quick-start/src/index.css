@@ -1,0 +1,41 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
+}
+
+header {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+  padding: 12px;
+}
+
+main {
+  min-height: 100vh;
+  padding: 64px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: start;
+  justify-items: start;
+  gap: 64px;
+}
+
+section {
+  position: fixed;
+  top: 48px;
+  right: 48px;
+  z-index: 9999;
+  width: 300px;
+  padding: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: #fff;
+}
+
+section h1 {
+  display: flex;
+  justify-content: space-between;
+}

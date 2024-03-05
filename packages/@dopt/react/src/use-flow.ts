@@ -123,6 +123,7 @@ export function useFlow(sid: Flow['sid']): [flow: Flow, intent: FlowIntent] {
     blockFields,
     blockIntention,
   ]);
+  flow.version;
 
   return [flow, { start, reset, stop, finish }];
 }
