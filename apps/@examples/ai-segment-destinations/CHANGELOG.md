@@ -1,5 +1,13 @@
 # @examples/ai-segment-destinations
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [dec67720c]
+  - @dopt/react@4.1.2
+  - @dopt/react-contextual-assistant@0.0.16
+
 ## 0.0.10
 
 ### Patch Changes
