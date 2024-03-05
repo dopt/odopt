@@ -3,11 +3,11 @@
   "version": "0.0.9",
   "private": false,
   "description": "Input context for the AI assistants",
-  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-context",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant/context",
   "repository": {
     "type": "git",
     "url": "https://github.com/dopt/odopt.git",
-    "directory": "packages/@dopt/ai-assistant-context"
+    "directory": "packages/@dopt/ai-assistant/context"
   },
   "license": "MIT",
   "main": "./dist/cjs/index.cjs.js",
