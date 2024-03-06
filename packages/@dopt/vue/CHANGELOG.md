@@ -1,5 +1,11 @@
 # @dopt/vue
 
+## 1.0.2
+
+### Patch Changes
+
+- dec67720c: Update broken links to point to correct URLs given changes to docs.dopt.com.
+
 ## 1.0.1
 
 ### Patch Changes
