@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.2
+
+### Patch Changes
+
+- dec67720c: Update broken links to point to correct URLs given changes to docs.dopt.com.
+
 ## 4.1.1
 
 ### Patch Changes
