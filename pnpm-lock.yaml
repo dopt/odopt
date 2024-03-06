@@ -3143,8 +3143,8 @@ importers:
         specifier: workspace:*
         version: link:../definition
       '@dopt/ai-javascript-client':
-        specifier: ^0.0.9
-        version: 0.0.9
+        specifier: ^0.0.10
+        version: 0.0.10
       '@dopt/logger':
         specifier: workspace:*
         version: link:../../logger
@@ -6376,8 +6376,8 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /@dopt/ai-javascript-client@0.0.9:
-    resolution: {integrity: sha512-1NEb0Jy9mU6GWirG2FhmB+UgIJp64U7lAA+THEgBICD4QyNWVzvzQdBmFosqiKUc+5rIZZtOQ3FJvrK6hc4pSg==}
+  /@dopt/ai-javascript-client@0.0.10:
+    resolution: {integrity: sha512-iq9wvt47fa6f9+bUitA3AWAud2qL90kEwalB6+RscYVf1zLtUqQ1fgrD5Pa2y03Hn/MZb4Ywg6GEl4ISBeQ20A==}
     dependencies:
       form-data: 4.0.0
       js-base64: 3.7.2
