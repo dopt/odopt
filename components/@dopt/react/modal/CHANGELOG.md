@@ -1,5 +1,12 @@
 # @dopt/react-modal
 
+## 9.0.4
+
+### Patch Changes
+
+- Updated dependencies [dec67720c]
+  - @dopt/react@4.1.2
+
 ## 9.0.3
 
 ### Patch Changes

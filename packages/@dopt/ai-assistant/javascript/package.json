@@ -1,13 +1,13 @@
 {
   "name": "@dopt/ai-assistant-javascript",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "private": false,
   "description": "An SDK for the AI assistant",
-  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-javascript",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant/javascript",
   "repository": {
     "type": "git",
     "url": "https://github.com/dopt/odopt.git",
-    "directory": "packages/@dopt/ai-assistant-javascript"
+    "directory": "packages/@dopt/ai-assistant/javascript"
   },
   "license": "MIT",
   "main": "./dist/cjs/index.cjs.js",
@@ -45,7 +45,7 @@
   "dependencies": {
     "@dopt/ai-assistant-context": "workspace:*",
     "@dopt/ai-assistant-definition": "workspace:*",
-    "@dopt/ai-javascript-client": "^0.0.9",
+    "@dopt/ai-javascript-client": "^0.0.10",
     "@dopt/logger": "workspace:*",
     "@sinclair/typebox": "0.25.4"
   },

@@ -1,5 +1,19 @@
 # @dopt/react-hints
 
+## 2.0.5
+
+### Patch Changes
+
+- 11e3a7eb4: These changes update their respective components' documentation to accurately match the full functionality of the component. They also fix quite a few typos and formatting errors that existed within the documentation.
+
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [dec67720c]
+  - @dopt/react@4.1.2
+  - @dopt/react-utilities@6.0.2
+
 ## 2.0.3
 
 ### Patch Changes
