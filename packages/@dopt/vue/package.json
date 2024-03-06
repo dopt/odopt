@@ -1,7 +1,7 @@
 {
   "name": "@dopt/vue",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Vue SDK for accessing and transitioning block state in Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/vue",
   "repository": {
