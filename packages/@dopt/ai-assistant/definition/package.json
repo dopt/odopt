@@ -1,13 +1,13 @@
 {
   "name": "@dopt/ai-assistant-definition",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": false,
   "description": "An API definition/spec for the AI assistant",
-  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant-definition",
+  "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant/definition",
   "repository": {
     "type": "git",
     "url": "https://github.com/dopt/odopt.git",
-    "directory": "packages/@dopt/ai-assistant-definition"
+    "directory": "packages/@dopt/ai-assistant/definition"
   },
   "license": "MIT",
   "main": "./dist/cjs/index.cjs.js",
