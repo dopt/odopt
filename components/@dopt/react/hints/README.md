@@ -38,12 +38,11 @@ function MyHintsStep({ children }) {
   }
 
   return (
-
-    <Hints.Root active={hintItem.active}>
-      <Hints.Anchor>
+    <Hint.Root active={hintItem.active}>
+      <Hint.Anchor>
         <button style={{ position: 'relative' }}>
           Create a project
-          <Hints.Indicator
+          <Hint.Indicator
             onClick={() => hintItem.setOpen(!hintItem.open)}
             style={{
               bottom: -8,
@@ -51,24 +50,24 @@ function MyHintsStep({ children }) {
             }}
           />
         </button>
-      </Hints.Anchor>
-      <Hints.Popover position="bottom" open={hintItem.open}>
-        <Hints.Content>
-          <Hints.Header>
-            <Hints.Title>{hintItem.title}</Hints.Title>
-            <Hints.CloseIcon onClick={() => hintItem.setOpen(false)} />
-          </Hints.Header>
-          <Hints.Body>{hintItem.body}</Hints.Body>
-          <Hints.Footer>
-            <Hints.CompleteButton onClick={hintItem.complete}>
+      </Hint.Anchor>
+      <Hint.Popover position="bottom" open={hintItem.open}>
+        <Hint.Content>
+          <Hint.Header>
+            <Hint.Title>{hintItem.title}</Hint.Title>
+            <Hint.CloseIcon onClick={() => hintItem.setOpen(false)} />
+          </Hint.Header>
+          <Hint.Body>{hintItem.body}</Hint.Body>
+          <Hint.Footer>
+            <Hint.CompleteButton onClick={hintItem.complete}>
               {hintItem.completeLabel}
-            </Hints.CompleteButton>
-            <Hints.DismissAllButton>
+            </Hint.CompleteButton>
+            <Hint.DismissAllButton>
               {hintItem.dismissAllLabel}
-            </Hints.DismissAllButton>
-          </Hints.Footer>
-        </Hints.Content>
-      </Hints.Popover>
+            </Hint.DismissAllButton>
+          </Hint.Footer>
+        </Hint.Content>
+      </Hint.Popover>
     </Hint.Root>
   );
 }

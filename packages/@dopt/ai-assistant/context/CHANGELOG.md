@@ -1,5 +1,13 @@
 # @dopt/ai-assistant-context
 
+## 0.0.10
+
+### Patch Changes
+
+- 2b7e6af6b: Update READMEs + fix repo/homepage fields in package.json
+- Updated dependencies [2b7e6af6b]
+  - @dopt/ai-assistant-definition@0.0.8
+
 ## 0.0.9
 
 ### Patch Changes

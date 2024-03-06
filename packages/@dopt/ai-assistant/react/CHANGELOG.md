@@ -1,5 +1,15 @@
 # @dopt/ai-assistant-react
 
+## 0.0.13
+
+### Patch Changes
+
+- 2b7e6af6b: Update READMEs + fix repo/homepage fields in package.json
+- Updated dependencies [2b7e6af6b]
+  - @dopt/ai-assistant-definition@0.0.8
+  - @dopt/ai-assistant-javascript@0.0.13
+  - @dopt/ai-assistant-context@0.0.10
+
 ## 0.0.12
 
 ### Patch Changes

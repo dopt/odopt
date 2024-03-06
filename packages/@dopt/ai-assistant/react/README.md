@@ -58,23 +58,70 @@ ReactDOM.render(
 
 - [useAssistant](./src/use-assistant.ts)
 
-```ts
-interface AssistantProps {
-  query: string | undefined;
-  context: AssistantContextProps;
-}
-
-declare const useAssistant: (sid: string, { query, context }: AssistantProps): {
+````ts
+/**
+ * A React hook for accessing an AI assistant
+ *
+ * @example
+ * ```tsx
+ * import { useAssistant } from '@dopt/ai-assistant-react';
+ *
+ * export function Application() {
+ *   const assistant = useAssistant("HNWvcT78tyTwygnbzU6SW", { query, context });
+ * }
+ * ```
+ *
+ * @param sid - {@link Assistant['sid']}
+ * @param query - string, the query to be passed to the assistant
+ * @param context.document - boolean, whether to use page level context like title and URL (default false)
+ * @param context.element - the element the user is interacting with (default undefined)
+ * @param context.visual - boolean, whether to use a screenshot of the page (default false)
+ * this param accepts the user defined identifier (sid)
+ * @param errorMessage - string, an optional Markdown-friendly error message in case the assistant fails to load
+ * a system default is used otherwise
+ *
+ * @returns an object of: `answer`, `content`, `status`, and `documents`
+ * Each value in the object maps to the current state of the assistant.
+ * As the answer streams back, `content` will be updated.
+ * Once the answer is completed, `answer` and `documents` will be updated.
+ * `status` reflects either `searching` or `answering` depending on the state of the stream.
+ */
+declare function useAssistant(
+  sid: string,
+  {
+    query,
+    context: { document, element, visual },
+  }: {
+    query: AssistantCompletionsRequestBody['query'];
+    context: {
+      document?: boolean;
+      element?: Element;
+      visual?: boolean;
+    };
+  },
+  {
+    errorMessage,
+  }: {
+    errorMessage?: string;
+  }
+): {
   answer: string | null;
   content: string | null;
-  documents: {
-    title: string;
-    url: string;
-    id: number;
-  }[] | null;
-  status: "searching" | "summarizing" | "answering" | "citing" | null;
+  documents:
+    | {
+        title: string;
+        url: string;
+        id: number;
+        chunks: {
+          text: string;
+          chunkId: number;
+          score: number;
+        }[];
+      }[]
+    | null;
+  status: 'searching' | 'answering' | null;
 };
-```
+````
 
 ### Example usage
 

@@ -1,5 +1,12 @@
 # @examples/modal-custom-vue
 
+## 0.2.11
+
+### Patch Changes
+
+- Updated dependencies [dec67720c]
+  - @dopt/vue@1.0.2
+
 ## 0.2.10
 
 ### Patch Changes
