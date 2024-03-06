@@ -1,5 +1,16 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.17
+
+### Patch Changes
+
+- 11e3a7eb4: These changes update their respective components' documentation to accurately match the full functionality of the component. They also fix quite a few typos and formatting errors that existed within the documentation.
+- 2b7e6af6b: Update READMEs + fix repo/homepage fields in package.json
+- Updated dependencies [2b7e6af6b]
+  - @dopt/ai-assistant-definition@0.0.8
+  - @dopt/ai-assistant-javascript@0.0.13
+  - @dopt/ai-assistant-react@0.0.13
+
 ## 0.0.16
 
 ### Patch Changes
