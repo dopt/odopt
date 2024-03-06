@@ -1,5 +1,13 @@
 # @dopt/react-hints
 
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [dec67720c]
+  - @dopt/react@4.1.2
+  - @dopt/react-utilities@6.0.2
+
 ## 2.0.3
 
 ### Patch Changes

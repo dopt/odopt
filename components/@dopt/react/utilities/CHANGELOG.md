@@ -1,5 +1,12 @@
 # @dopt/react-utilities
 
+## 6.0.2
+
+### Patch Changes
+
+- Updated dependencies [dec67720c]
+  - @dopt/react@4.1.2
+
 ## 6.0.1
 
 ### Patch Changes
