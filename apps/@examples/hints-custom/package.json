@@ -1,7 +1,7 @@
 {
   "name": "@examples/hints-custom",
   "private": true,
-  "version": "0.0.55",
+  "version": "0.0.57",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5633",

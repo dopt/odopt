@@ -1,5 +1,11 @@
 # @dopt/ai-assistant-definition
 
+## 0.0.8
+
+### Patch Changes
+
+- 2b7e6af6b: Update READMEs + fix repo/homepage fields in package.json
+
 ## 0.0.7
 
 ### Patch Changes
