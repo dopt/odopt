@@ -1,5 +1,18 @@
 # @dopt/react-hints-sandbox
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [11e3a7eb4]
+  - @dopt/react-hints@2.0.5
+
+## 0.0.6
+
+### Patch Changes
+
+- @dopt/react-hints@2.0.4
+
 ## 0.0.5
 
 ### Patch Changes

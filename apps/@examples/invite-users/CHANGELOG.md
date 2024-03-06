@@ -1,5 +1,14 @@
 # @examples/invite-users
 
+## 0.0.56
+
+### Patch Changes
+
+- Updated dependencies [dec67720c]
+  - @dopt/react@4.1.2
+  - @dopt/react-checklist@9.0.4
+  - @dopt/react-modal@9.0.4
+
 ## 0.0.55
 
 ### Patch Changes
