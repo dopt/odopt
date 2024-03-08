@@ -15,6 +15,7 @@ import { Checklist, ChecklistItem } from './checklist';
 import { Hints, HintsItem } from './hints';
 import { Tour, TourItem } from './tour';
 
+export { Nary } from './base';
 export * from './entry';
 export * from './finish';
 export * from './boolean';

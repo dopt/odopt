@@ -1,11 +1,14 @@
 import { Static, Type } from '@sinclair/typebox';
-import { Binary } from './base';
+import { Binary, Nary } from './base';
 
 export const Boolean = Type.Object(
   {
     ...Binary.properties,
     type: Type.Literal('boolean'),
-    expression: Type.Function([], Type.Promise(Type.Boolean())),
+    expression: Type.Function(
+      Type.Tuple([Type.Array(Nary)]),
+      Type.Promise(Type.Boolean())
+    ),
   },
   { $id: 'Boolean' }
 );
