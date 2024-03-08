@@ -8,7 +8,6 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base:
-    process.env.NODE_ENV === 'production' ? `/ai-segment-destinations/` : '/',
+  base: process.env.NODE_ENV === 'production' ? `/ai-assistant/` : '/',
   plugins: [react(), vanillaExtractPlugin()],
 });

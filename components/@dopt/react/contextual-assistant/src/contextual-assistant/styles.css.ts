@@ -443,6 +443,8 @@ globalStyle(`${contextualAssistantAnswer} pre`, {
   all: 'unset',
   boxSizing: 'border-box',
   display: 'block',
+  maxWidth: '100%',
+  overflow: 'auto',
   fontSize: vars.fontSizes.base,
   lineHeight: vars.lineHeights.base,
   whiteSpace: 'pre',

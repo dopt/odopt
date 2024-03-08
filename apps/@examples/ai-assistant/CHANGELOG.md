@@ -1,4 +1,4 @@
-# @examples/ai-segment-destinations
+# @examples/ai-assistant
 
 ## 0.0.12
 
