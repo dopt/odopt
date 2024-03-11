@@ -1,5 +1,11 @@
 # @dopt/semantic-data-layer-modal
 
+## 0.2.2
+
+### Patch Changes
+
+- @dopt/block-api-types@1.3.3
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @dopt/react-contextual-assistant
 
+## 0.0.18
+
+### Patch Changes
+
+- b5d64ca05: allow code blocks to scroll horizontally
+
 ## 0.0.17
 
 ### Patch Changes

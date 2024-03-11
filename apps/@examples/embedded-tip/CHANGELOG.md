@@ -1,5 +1,11 @@
 # @examples/embedded-tip
 
+## 0.0.57
+
+### Patch Changes
+
+- @dopt/react@4.1.3
+
 ## 0.0.56
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @dopt/react-hints
 
+## 2.0.6
+
+### Patch Changes
+
+- @dopt/semantic-data-layer-hints@1.0.2
+- @dopt/react@4.1.3
+- @dopt/react-utilities@6.0.3
+
 ## 2.0.5
 
 ### Patch Changes

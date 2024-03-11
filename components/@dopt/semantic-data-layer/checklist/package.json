@@ -1,6 +1,6 @@
 {
   "name": "@dopt/semantic-data-layer-checklist",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "An interface definition for Dopt's checklist component",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/semantic-data-layer/checklist",
   "repository": {

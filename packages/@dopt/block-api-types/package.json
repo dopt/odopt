@@ -1,6 +1,6 @@
 {
   "name": "@dopt/block-api-types",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "A package of types corresponding to @dopt's public Block API",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/block-api-types",
   "repository": {
