@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 4.3.2
+
+### Patch Changes
+
+- 04492fca2: Update `boolean.expression` in `@userstate/types` to accept blocks. This enables boolean expressions to respond to block state changes.
+
 ## 4.3.1
 
 ### Patch Changes

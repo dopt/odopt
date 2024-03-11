@@ -1,5 +1,13 @@
 # @dopt/react-tour
 
+## 9.0.5
+
+### Patch Changes
+
+- @dopt/semantic-data-layer-tour@0.3.2
+- @dopt/react@4.1.3
+- @dopt/react-utilities@6.0.3
+
 ## 9.0.4
 
 ### Patch Changes

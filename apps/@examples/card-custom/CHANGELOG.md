@@ -1,5 +1,12 @@
 # @examples/card-custom
 
+## 0.0.26
+
+### Patch Changes
+
+- @dopt/react-card@8.0.5
+- @dopt/react@4.1.3
+
 ## 0.0.25
 
 ### Patch Changes
