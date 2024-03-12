@@ -1,5 +1,11 @@
 # @dopt/create-example
 
+## 0.3.1
+
+### Patch Changes
+
+- 84d152013: Add a template for the AI Assistant
+
 ## 0.3.0
 
 ### Minor Changes
