@@ -1,0 +1,5 @@
+package.json
+src/**/*
+public/**/*
+index.html
+README.md
