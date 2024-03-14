@@ -1,0 +1,109 @@
+.error {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #f03e3e;
+}
+
+.error-btn {
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #f03e3e;
+  padding: 2px 4px;
+  border: 1px solid #f03e3e;
+  border-radius: 6px;
+  background: #fff;
+  transition: background 200ms ease;
+  outline-color: #f03e3e;
+
+  &:hover {
+    background: #fff5f5;
+  }
+}
+
+.error-panel {
+  position: absolute;
+  top: 0;
+  right: -12px;
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  width: 400px;
+  padding: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  translate: 100% 0;
+
+  header {
+    display: flex;
+    justify-self: stretch;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 1rem;
+  }
+}
+
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+
+  100% {
+    rotate: 360deg;
+  }
+}
+
+.error-panel-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000;
+  background: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 8px 12px;
+  outline-color: #2f9e44;
+  transition: background 200ms ease;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+
+  svg {
+    color: #868e96;
+    animation-name: spin;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+}
+
+.error-panel-close {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.error-loading {
+  display: grid;
+  width: 100%;
+  gap: 8px;
+}
