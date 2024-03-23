@@ -1,0 +1,4 @@
+package.json
+src/**/*
+public/**/*
+index.html
