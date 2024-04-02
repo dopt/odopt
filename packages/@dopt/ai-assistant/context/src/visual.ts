@@ -10,7 +10,14 @@ const ELEMENT_STROKE_WIDTH = 4;
 const ELEMENT_STROKE_COLOR = 'red';
 
 export default {
-  async generate({ element }: { element?: Element }, logger?: Logger) {
+  async generate(
+    {
+      element,
+    }: {
+      element?: Element;
+    },
+    logger?: Logger
+  ) {
     if (!window || !document) {
       throw new Error(
         'Cannot generate visual context in a headless environment'
@@ -21,15 +28,23 @@ export default {
 
     let croppedHeight: number, croppedWidth: number;
 
-    if (height > width) {
-      croppedHeight = Math.min(CROPPED_DIMENSION, height);
-      croppedWidth = (croppedHeight * width) / height;
+    if (element) {
+      if (height > width) {
+        croppedHeight = Math.min(CROPPED_DIMENSION, height);
+        croppedWidth = (croppedHeight * width) / height;
+      } else {
+        croppedWidth = Math.min(CROPPED_DIMENSION, width);
+        croppedHeight = (croppedWidth * height) / width;
+      }
     } else {
-      croppedWidth = Math.min(CROPPED_DIMENSION, width);
-      croppedHeight = (croppedWidth * height) / width;
+      croppedHeight = height;
+      croppedWidth = width;
     }
 
-    const scale = SCALED_DIMENSION / Math.max(croppedHeight, croppedWidth);
+    const scale = Math.max(
+      0.5,
+      SCALED_DIMENSION / Math.max(croppedHeight, croppedWidth)
+    );
 
     const style: Partial<CSSStyleDeclaration> = {};
     const elementBounds = { x: 0, y: 0, width: 0, height: 0 };
@@ -90,7 +105,8 @@ export default {
         filter: (node: Element) => {
           if (
             node.classList &&
-            node.classList.contains('dopt-contextual-assistant__popover')
+            (node.classList.contains('dopt-contextual-assistant__popover') ||
+              node.classList.contains('dopt-help-hub__popover'))
           ) {
             return false;
           }
