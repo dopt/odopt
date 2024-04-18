@@ -1,5 +1,11 @@
 # @dopt/core-theme
 
+## 2.3.1
+
+### Patch Changes
+
+- b1c8bd515: Add a new fontSize token, `xs` which is smaller than the `sm` token.
+
 ## 2.3.0
 
 ### Minor Changes

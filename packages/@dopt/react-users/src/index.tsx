@@ -10,7 +10,7 @@ import React, {
 import {
   DoptApiClient as UsersApiClient,
   DoptApiError,
-} from '@dopt/users-javascript-browser-client';
+} from '@dopt/users-javascript-client';
 
 export type DoptUsersContext = {
   client: UsersApiClient;
@@ -68,7 +68,7 @@ export type IdentifyUserRequest = Parameters<
 >[0];
 
 /**
- * This hook wraps `@dopt/users-javascript-browser-client` `users.identifyUser`.
+ * This hook wraps `@dopt/users-javascript-client` `users.identifyUser`.
  *
  * The first time this hook is called, it will return `undefined` and
  * call `users.identifyUser`. Once the `identifyUser` call completes,
@@ -111,7 +111,7 @@ export type IdentifyGroupRequest = Parameters<
 >[0];
 
 /**
- * This hook wraps `@dopt/users-javascript-browser-client` `groups.identifyGroup`.
+ * This hook wraps `@dopt/users-javascript-client` `groups.identifyGroup`.
  *
  * The first time this hook is called, it will return `undefined` and
  * call `groups.identifyGroup`. Once the `identifyGroup` call completes,

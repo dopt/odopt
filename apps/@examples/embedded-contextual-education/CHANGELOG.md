@@ -1,5 +1,21 @@
 # @examples/embedded-contextual-education
 
+## 0.1.52
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/react@4.2.1
+  - @dopt/react-users@0.2.8
+
+## 0.1.51
+
+### Patch Changes
+
+- Updated dependencies [33edbe1f1]
+  - @dopt/react@4.2.0
+  - @dopt/react-users@0.2.7
+
 ## 0.1.50
 
 ### Patch Changes
@@ -185,14 +201,14 @@
 ### Patch Changes
 
 - Updated dependencies [6eef0f305]
-  - @dopt/users-javascript-browser-client@1.0.1
+  - @dopt/users-javascript-client@1.0.1
 
 ## 0.1.22
 
 ### Patch Changes
 
 - Updated dependencies [9d0a4c592]
-  - @dopt/users-javascript-browser-client@1.0.0
+  - @dopt/users-javascript-client@1.0.0
 
 ## 0.1.21
 

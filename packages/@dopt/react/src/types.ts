@@ -90,6 +90,8 @@ export interface ProviderConfig {
    *
    */
   flowVersions: Record<string, FlowParams['version']>;
+
+  surfaces?: string[];
   /**
    * A boolean which defines whether transitions on step blocks should
    * optimistically update the client before hearing back that the change

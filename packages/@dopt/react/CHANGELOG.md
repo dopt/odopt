@@ -1,5 +1,25 @@
 # Changelog
 
+## 4.2.1
+
+### Patch Changes
+
+- 14582c5db: A previous combination of minor and patch upgrades failed to publish because of upstream issues with NPM and other parts of our build chain. This change re-publishes all the affected packages. To look through previous changes, look into the changelog(s) of any affected packages.
+- Updated dependencies [14582c5db]
+  - @dopt/surfaces-javascript-client@0.1.1
+
+## 4.2.0
+
+### Minor Changes
+
+- 33edbe1f1: Expose Surfaces/Messages in the SDK.
+
+### Patch Changes
+
+- Updated dependencies [78ed01b9a]
+- Updated dependencies [33edbe1f1]
+  - @dopt/surfaces-javascript-client@0.1.0
+
 ## 4.1.3
 
 ### Patch Changes

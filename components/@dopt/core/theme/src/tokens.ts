@@ -58,6 +58,7 @@ export const tokens = {
   },
   fontSizes: {
     base: '16px',
+    xs: '12px',
     sm: '14px',
     md: '18px',
     lg: '24px',

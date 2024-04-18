@@ -1,5 +1,27 @@
 # @examples/tutorial
 
+## 0.2.18
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/react@4.2.1
+  - @dopt/react-users@0.2.8
+  - @dopt/react-checklist@10.0.1
+  - @dopt/react-modal@10.0.1
+  - @dopt/react-tour@10.0.1
+
+## 0.2.17
+
+### Patch Changes
+
+- Updated dependencies [33edbe1f1]
+  - @dopt/react@4.2.0
+  - @dopt/react-users@0.2.7
+  - @dopt/react-checklist@10.0.0
+  - @dopt/react-modal@10.0.0
+  - @dopt/react-tour@10.0.0
+
 ## 0.2.16
 
 ### Patch Changes
@@ -224,7 +246,7 @@
 - @dopt/react-modal@6.0.0
 - @dopt/react-tour@6.0.0
 - @dopt/react@3.2.0
-- @dopt/users-javascript-browser-client@1.0.5
+- @dopt/users-javascript-client@1.0.5
 
 ## 0.0.17
 
@@ -276,14 +298,14 @@
 ### Patch Changes
 
 - Updated dependencies [6eef0f305]
-  - @dopt/users-javascript-browser-client@1.0.1
+  - @dopt/users-javascript-client@1.0.1
 
 ## 0.0.9
 
 ### Patch Changes
 
 - Updated dependencies [9d0a4c592]
-  - @dopt/users-javascript-browser-client@1.0.0
+  - @dopt/users-javascript-client@1.0.0
 
 ## 0.0.8
 

@@ -546,34 +546,84 @@ export const contextualAssistantCitation = style({
 export const contextualAssistantSources = style({
   all: 'unset',
   boxSizing: 'border-box',
-  display: 'block',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: vars.space[2],
   fontSize: vars.fontSizes.sm,
   lineHeight: vars.lineHeights.sm,
-  listStyle: 'decimal',
-  paddingLeft: vars.space[6],
   paddingTop: vars.space[2],
 });
 
 export const contextualAssistantSource = style({
   all: 'unset',
   boxSizing: 'border-box',
-  display: 'list-item',
-  marginBottom: vars.space[1],
-  ':last-child': {
-    marginBottom: 0,
+  display: 'flex',
+  transition: `background-color ${vars.transitions.ease}`,
+  border: `${vars.borderWidths[1]} solid ${vars.colors.border}`,
+  background: vars.colors.white,
+  borderRadius: vars.space[2],
+  cursor: 'pointer',
+  ':hover': {
+    backgroundColor: vars.colors.secondaryLight,
   },
 });
 
 export const contextualAssistantSourceLink = style({
   all: 'unset',
   boxSizing: 'border-box',
-  color: vars.colors.primary,
-  transition: `color ${vars.transitions.ease}`,
-  cursor: 'pointer',
-  ':hover': {
-    textDecoration: 'underline',
-    color: vars.colors.primaryDark,
-  },
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: vars.space[3],
+  padding: `${vars.space[2]} ${vars.space[3]}`,
+});
+
+export const contextualAssistantSourceLinkIndex = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+  width: vars.sizes[5],
+  height: vars.sizes[5],
+  borderRadius: '100%',
+  backgroundColor: vars.colors.secondaryLight,
+  color: vars.colors.secondary,
+  font: vars.fonts.mono,
+  fontSize: vars.fontSizes.xs,
+});
+
+export const contextualAssistantSourceLinkMetadata = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+export const contextualAssistantSourceLinkMetadataTitle = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.secondaryDark,
+  fontWeight: vars.fontWeights.medium,
+  fontSize: vars.fontSizes.sm,
+  overflow: 'hidden',
+  wordBreak: 'break-all',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '1',
+});
+
+export const contextualAssistantSourceLinkMetadataUrl = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.secondary,
+  fontSize: vars.fontSizes.xs,
+  overflow: 'hidden',
+  wordBreak: 'break-all',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '1',
 });
 
 export const contextualAssistantQuestion = style({

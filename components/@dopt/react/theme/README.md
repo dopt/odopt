@@ -104,6 +104,7 @@ interface Theme {
   };
   fontSizes?: {
     base?: string;
+    xs?: string;
     sm?: string;
     md?: string;
     lg?: string;
@@ -124,7 +125,10 @@ interface Theme {
     2?: string;
   };
   transitions?: {
+    linear?: string;
+    linearFast?: string;
     ease?: string;
+    easeFast?: string;
   };
 }
 ```

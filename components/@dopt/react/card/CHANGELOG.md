@@ -1,5 +1,20 @@
 # @dopt/react-card
 
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/react@4.2.1
+  - @dopt/react-theme@1.2.4
+
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies [33edbe1f1]
+  - @dopt/react@4.2.0
+
 ## 8.0.5
 
 ### Patch Changes

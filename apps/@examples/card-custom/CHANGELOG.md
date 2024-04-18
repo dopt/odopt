@@ -1,5 +1,23 @@
 # @examples/card-custom
 
+## 0.0.28
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/react@4.2.1
+  - @dopt/react-users@0.2.8
+  - @dopt/react-card@9.0.1
+
+## 0.0.27
+
+### Patch Changes
+
+- Updated dependencies [33edbe1f1]
+  - @dopt/react@4.2.0
+  - @dopt/react-users@0.2.7
+  - @dopt/react-card@9.0.0
+
 ## 0.0.26
 
 ### Patch Changes
