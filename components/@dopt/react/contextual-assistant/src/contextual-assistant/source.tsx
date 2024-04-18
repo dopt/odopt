@@ -42,6 +42,16 @@ function ContextualAssistantSource(
 
   const theme = useTheme(injectedTheme);
 
+  let urlMetadata = '...';
+
+  try {
+    if (url) {
+      urlMetadata = new URL(url).hostname;
+    }
+  } catch (err) {
+    /** do nothing, we provide a fallback above */
+  }
+
   return children == undefined ? null : (
     <li
       className={clsx([
@@ -69,7 +79,49 @@ function ContextualAssistantSource(
         target="_blank"
         rel="noopener noreferrer"
       >
-        {children}
+        <div
+          className={clsx([
+            themeClassName({
+              theme,
+              className: classes.contextualAssistantSourceLinkIndex,
+            }),
+            `${sourceClassName}-link-index`,
+          ])}
+        >
+          {index}
+        </div>
+        <div
+          className={clsx([
+            themeClassName({
+              theme,
+              className: classes.contextualAssistantSourceLinkMetadata,
+            }),
+            `${sourceClassName}-link-metadata`,
+          ])}
+        >
+          <div
+            className={clsx([
+              themeClassName({
+                theme,
+                className: classes.contextualAssistantSourceLinkMetadataTitle,
+              }),
+              `${sourceClassName}-link-metadata-title`,
+            ])}
+          >
+            {children}
+          </div>
+          <div
+            className={clsx([
+              themeClassName({
+                theme,
+                className: classes.contextualAssistantSourceLinkMetadataUrl,
+              }),
+              `${sourceClassName}-link-metadata-url`,
+            ])}
+          >
+            {urlMetadata}
+          </div>
+        </div>
       </a>
     </li>
   );

@@ -5,9 +5,12 @@ import {
   AnswerChunk,
   AssistantCompletionsRequestBody,
   AssistantQueryParams,
+  AssistantSearchRequestBody,
   StatusChunk,
 } from '@dopt/ai-assistant-definition';
 import { AssistantContextProps, formAssistantContext } from './context';
+
+export type SearchResponseItem = DoptApi.SearchResponseItem;
 
 export interface Properties {
   /**
@@ -188,5 +191,39 @@ export class Assistant {
       });
 
     return () => (terminated = true);
+  }
+
+  async search(
+    sid: string,
+    {
+      query,
+      context,
+    }: {
+      query: AssistantSearchRequestBody['query'];
+      context: AssistantContextProps;
+    }
+  ): Promise<SearchResponseItem[] | undefined> {
+    const userId = this.userId;
+
+    if (!userId) {
+      throw new Error(
+        "The Assistant SDK cannot be accessed until you've configured a userId"
+      );
+    }
+
+    try {
+      return await this.client.assistant.search(sid, {
+        query,
+        userIdentifier: userId,
+        groupIdentifier: this.groupId,
+        model: this.model,
+        context: await formAssistantContext(context),
+      });
+    } catch (err) {
+      this.logger.error(
+        `[@dopt/ai-assistant-javascript] Failed to generate search results`,
+        err
+      );
+    }
   }
 }

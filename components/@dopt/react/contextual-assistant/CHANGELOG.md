@@ -1,5 +1,24 @@
 # @dopt/react-contextual-assistant
 
+## 0.1.0
+
+### Minor Changes
+
+- b1c8bd515: Updates how sources are rendered. Instead of being rendered as individual numbered list items, we render them as metadata cards with indices, titles, and URLs / hostnames. This matches our new approach to be reused across AI components.
+
+### Patch Changes
+
+- @dopt/ai-assistant-javascript@0.0.15
+- @dopt/react-theme@1.2.4
+- @dopt/ai-assistant-react@0.0.15
+
+## 0.0.19
+
+### Patch Changes
+
+- @dopt/ai-assistant-javascript@0.0.14
+- @dopt/ai-assistant-react@0.0.14
+
 ## 0.0.18
 
 ### Patch Changes

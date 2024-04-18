@@ -1,5 +1,18 @@
 # @dopt/react-hints-sandbox
 
+## 0.0.10
+
+### Patch Changes
+
+- @dopt/react-hints@3.0.1
+- @dopt/react-theme@1.2.4
+
+## 0.0.9
+
+### Patch Changes
+
+- @dopt/react-hints@3.0.0
+
 ## 0.0.8
 
 ### Patch Changes

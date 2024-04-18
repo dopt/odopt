@@ -1,5 +1,23 @@
 # @examples/checklist-custom
 
+## 0.0.39
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/react@4.2.1
+  - @dopt/react-users@0.2.8
+  - @dopt/react-checklist@10.0.1
+
+## 0.0.38
+
+### Patch Changes
+
+- Updated dependencies [33edbe1f1]
+  - @dopt/react@4.2.0
+  - @dopt/react-users@0.2.7
+  - @dopt/react-checklist@10.0.0
+
 ## 0.0.37
 
 ### Patch Changes
@@ -290,7 +308,7 @@
 ### Patch Changes
 
 - Updated dependencies [6eef0f305]
-  - @dopt/users-javascript-browser-client@1.0.1
+  - @dopt/users-javascript-client@1.0.1
 
 ## 0.0.1
 
@@ -298,4 +316,4 @@
 
 - ef43c3be4: add to ingress
 - Updated dependencies [9d0a4c592]
-  - @dopt/users-javascript-browser-client@1.0.0
+  - @dopt/users-javascript-client@1.0.0

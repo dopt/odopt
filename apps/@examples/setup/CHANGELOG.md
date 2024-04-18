@@ -1,5 +1,21 @@
 # @examples/setup
 
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/react@4.2.1
+  - @dopt/react-users@0.2.8
+
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [33edbe1f1]
+  - @dopt/react@4.2.0
+  - @dopt/react-users@0.2.7
+
 ## 0.0.11
 
 ### Patch Changes

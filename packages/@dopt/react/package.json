@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react",
-  "version": "4.1.3",
+  "version": "4.2.1",
   "private": false,
   "description": "A React SDK for accessing and transitioning block state in Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/react",
@@ -43,17 +43,18 @@
   "dependencies": {
     "@dopt/javascript-common": "workspace:*",
     "@dopt/logger": "workspace:*",
+    "@dopt/surfaces-javascript-client": "^0.1.1",
     "socket.io-client": "4.6.2"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
     "@dopt/config": "workspace:*",
     "@dopt/pkg-build": "workspace:*",
-    "@dopt/pkg-lint": "workspace:*",
     "@dopt/pkg-clean": "workspace:*",
-    "@types/react": "18.2.12",
-    "@types/node": "18.16.18",
     "@dopt/pkg-format": "workspace:*",
+    "@dopt/pkg-lint": "workspace:*",
+    "@types/node": "18.16.18",
+    "@types/react": "18.2.12",
     "typescript": "5.1.6"
   },
   "openSource": true

@@ -1,5 +1,19 @@
 # @examples/tour-custom-vue
 
+## 0.2.14
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/users-javascript-client@0.1.1
+
+## 0.2.13
+
+### Patch Changes
+
+- Updated dependencies [78ed01b9a]
+  - @dopt/users-javascript-client@0.1.0
+
 ## 0.2.12
 
 ### Patch Changes
@@ -47,7 +61,7 @@
 
 ### Patch Changes
 
-- @dopt/users-javascript-browser-client@1.1.2
+- @dopt/users-javascript-client@1.1.2
 
 ## 0.2.5
 
@@ -67,7 +81,7 @@
 
 ### Patch Changes
 
-- @dopt/users-javascript-browser-client@1.1.1
+- @dopt/users-javascript-client@1.1.1
 
 ## 0.2.2
 
@@ -98,7 +112,7 @@
 ### Patch Changes
 
 - Updated dependencies [bf06071dc]
-  - @dopt/users-javascript-browser-client@1.1.0
+  - @dopt/users-javascript-client@1.1.0
 
 ## 0.1.2
 
@@ -106,7 +120,7 @@
 
 - @dopt/html-rich-text@0.2.0
 - @dopt/javascript@3.5.0
-- @dopt/users-javascript-browser-client@1.0.7
+- @dopt/users-javascript-client@1.0.7
 
 ## 0.1.1
 
@@ -127,4 +141,4 @@
 - Updated dependencies [e8e8049bb]
   - @dopt/html-rich-text@0.1.0
   - @dopt/javascript@3.4.1
-  - @dopt/users-javascript-browser-client@1.0.6
+  - @dopt/users-javascript-client@1.0.6

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DoptApiClient as UsersApiClient } from '@dopt/users-javascript-browser-client';
+import { DoptApiClient as UsersApiClient } from '@dopt/users-javascript-client';
 import { nanoid } from 'nanoid';
 import { useUpdateUser } from '@dopt/vue';
 

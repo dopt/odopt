@@ -1,5 +1,19 @@
 # @dopt/react-users
 
+## 0.2.8
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/users-javascript-client@0.1.1
+
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [78ed01b9a]
+  - @dopt/users-javascript-client@0.1.0
+
 ## 0.2.6
 
 ### Patch Changes
@@ -10,13 +24,13 @@
 
 ### Patch Changes
 
-- @dopt/users-javascript-browser-client@1.1.2
+- @dopt/users-javascript-client@1.1.2
 
 ## 0.2.4
 
 ### Patch Changes
 
-- @dopt/users-javascript-browser-client@1.1.1
+- @dopt/users-javascript-client@1.1.1
 
 ## 0.2.3
 
@@ -30,13 +44,13 @@
 ### Patch Changes
 
 - Updated dependencies [bf06071dc]
-  - @dopt/users-javascript-browser-client@1.1.0
+  - @dopt/users-javascript-client@1.1.0
 
 ## 0.2.1
 
 ### Patch Changes
 
-- @dopt/users-javascript-browser-client@1.0.7
+- @dopt/users-javascript-client@1.0.7
 
 ## 0.2.0
 
@@ -61,7 +75,7 @@
 
 ### Patch Changes
 
-- @dopt/users-javascript-browser-client@1.0.6
+- @dopt/users-javascript-client@1.0.6
 
 ## 0.1.0
 

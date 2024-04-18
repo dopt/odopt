@@ -1,5 +1,27 @@
 # @examples/ai-assistant
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+- Updated dependencies [b1c8bd515]
+  - @dopt/react@4.2.1
+  - @dopt/react-contextual-assistant@0.1.0
+  - @dopt/react-users@0.2.8
+  - @dopt/react-theme@1.2.4
+  - @dopt/ai-assistant-react@0.0.15
+
+## 0.0.14
+
+### Patch Changes
+
+- Updated dependencies [33edbe1f1]
+  - @dopt/react@4.2.0
+  - @dopt/react-users@0.2.7
+  - @dopt/react-contextual-assistant@0.0.19
+  - @dopt/ai-assistant-react@0.0.14
+
 ## 0.0.13
 
 ### Patch Changes

@@ -280,19 +280,22 @@ If users should not have the ability to ask follow-up questions, this component 
 
 [Learn more about styling and theming →](https://docs.dopt.com/components/react/styling/)
 
-| Name            | Selector                                      | Description                              |
-| --------------- | --------------------------------------------- | ---------------------------------------- |
-| popover         | `.dopt-contextual-assistant__popover`         | Popover element                          |
-| content         | `.dopt-contextual-assistant__content`         | Content container                        |
-| header          | `.dopt-contextual-assistant__header`          | Header containing title and dismiss icon |
-| title           | `.dopt-contextual-assistant__title`           | Title heading                            |
-| dismissIcon     | `.dopt-contextual-assistant__dismiss-icon`    | Dismiss icon button                      |
-| body            | `.dopt-contextual-assistant__body`            | Body content                             |
-| bodyHeading     | `.dopt-contextual-assistant__body-heading`    | Body heading                             |
-| skeleton        | `.dopt-contextual-assistant__skeleton`        | Loading skeleton                         |
-| answer          | `.dopt-contextual-assistant__answer`          | Text answer from AI API                  |
-| sources         | `.dopt-contextual-assistant__sources`         | Collection of sources matching query     |
-| source          | `.dopt-contextual-assistant__source`          | Individual source matching query         |
-| question        | `.dopt-contextual-assistant__question`        | Follow-up question element               |
-| question input  | `.dopt-contextual-assistant__question-input`  | Follow-up question input                 |
-| question button | `.dopt-contextual-assistant__question-button` | Follow-up question button                |
+| Name            | Selector                                                 | Description                              |
+| --------------- | -------------------------------------------------------- | ---------------------------------------- |
+| popover         | `.dopt-contextual-assistant__popover`                    | Popover element                          |
+| content         | `.dopt-contextual-assistant__content`                    | Content container                        |
+| header          | `.dopt-contextual-assistant__header`                     | Header containing title and dismiss icon |
+| title           | `.dopt-contextual-assistant__title`                      | Title heading                            |
+| dismissIcon     | `.dopt-contextual-assistant__dismiss-icon`               | Dismiss icon button                      |
+| body            | `.dopt-contextual-assistant__body`                       | Body content                             |
+| bodyHeading     | `.dopt-contextual-assistant__body-heading`               | Body heading                             |
+| skeleton        | `.dopt-contextual-assistant__skeleton`                   | Loading skeleton                         |
+| answer          | `.dopt-contextual-assistant__answer`                     | Text answer from AI API                  |
+| sources         | `.dopt-contextual-assistant__sources`                    | Collection of sources matching query     |
+| source          | `.dopt-contextual-assistant__source`                     | Individual source matching query         |
+| source          | `.dopt-contextual-assistant__source-link-index`          | Index of source matching query           |
+| source          | `.dopt-contextual-assistant__source-link-metadata-title` | Title of source matching query           |
+| source          | `.dopt-contextual-assistant__source-link-metadata-url`   | URL of source matching query             |
+| question        | `.dopt-contextual-assistant__question`                   | Follow-up question element               |
+| question input  | `.dopt-contextual-assistant__question-input`             | Follow-up question input                 |
+| question button | `.dopt-contextual-assistant__question-button`            | Follow-up question button                |

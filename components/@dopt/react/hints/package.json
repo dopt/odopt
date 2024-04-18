@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-hints",
-  "version": "2.0.6",
+  "version": "3.0.1",
   "description": "A React hints component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/hints",
   "repository": {

@@ -1,5 +1,20 @@
 # @dopt/ai-assistant-javascript
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [14582c5db]
+  - @dopt/ai-javascript-client@0.1.1
+
+## 0.0.14
+
+### Patch Changes
+
+- Updated dependencies [78ed01b9a]
+- Updated dependencies [db4e1b580]
+  - @dopt/ai-javascript-client@0.1.0
+
 ## 0.0.13
 
 ### Patch Changes

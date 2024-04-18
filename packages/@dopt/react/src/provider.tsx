@@ -25,6 +25,7 @@ import type {
   Flow as APIFlow,
   Field as APIField,
 } from '@dopt/javascript-common';
+import { SurfaceProvider } from './surface-provider';
 
 type Socket = ReturnType<typeof setupSocket>;
 
@@ -96,6 +97,7 @@ export function DoptProvider(props: ProviderConfig) {
     groupId,
     apiKey,
     flowVersions,
+    surfaces = [],
     children,
     logLevel,
     optimisticUpdates = true,
@@ -539,7 +541,20 @@ export function DoptProvider(props: ProviderConfig) {
         log: logger,
       }}
     >
-      {children}
+      {surfaces.length > 0 ? (
+        <SurfaceProvider
+          apiKey={apiKey}
+          groupId={groupId}
+          logger={logger}
+          socket={socket}
+          surfaces={surfaces}
+          userId={userId}
+        >
+          {children}
+        </SurfaceProvider>
+      ) : (
+        children
+      )}
     </DoptContext.Provider>
   );
 }

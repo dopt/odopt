@@ -4,7 +4,7 @@
 
 The Dopt Users API hooks are React-specific utility for identifying users and groups to Dopt.
 
-If you aren't using React and / or want a lower-level interface for identifying users and groups, check out [@dopt/users-javascript-browser-client](https://github.com/dopt/blocks-javascript-browser-client) or [@dopt/users-javascript-node-client](https://github.com/dopt/blocks-javascript-node-client).
+If you aren't using React and / or want a lower-level interface for identifying users and groups, check out [@dopt/users-javascript-client](https://github.com/dopt/blocks-javascript-client).
 
 This package published to npm as [`@dopt/react-users`](https://www.npmjs.com/package/@dopt/react-users).
 
