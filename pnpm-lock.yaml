@@ -2216,12 +2216,6 @@ importers:
 
   components/@dopt/react/contextual-assistant:
     dependencies:
-      '@dopt/ai-assistant-definition':
-        specifier: workspace:*
-        version: link:../../../../packages/@dopt/ai-assistant/definition
-      '@dopt/ai-assistant-javascript':
-        specifier: workspace:*
-        version: link:../../../../packages/@dopt/ai-assistant/javascript
       '@dopt/ai-assistant-react':
         specifier: workspace:*
         version: link:../../../../packages/@dopt/ai-assistant/react
@@ -2234,9 +2228,6 @@ importers:
       '@floating-ui/react-dom':
         specifier: 2.0.1
         version: 2.0.1(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-compose-refs':
-        specifier: 1.0.1
-        version: 1.0.1(@types/react@18.2.12)(react@18.2.0)
       '@vanilla-extract/css':
         specifier: 1.11.1
         version: 1.11.1
@@ -2313,9 +2304,6 @@ importers:
 
   components/@dopt/react/help-hub:
     dependencies:
-      '@dopt/ai-assistant-context':
-        specifier: workspace:*
-        version: link:../../../../packages/@dopt/ai-assistant/context
       '@dopt/ai-assistant-react':
         specifier: workspace:*
         version: link:../../../../packages/@dopt/ai-assistant/react
@@ -2352,6 +2340,9 @@ importers:
       react-markdown:
         specifier: 9.0.1
         version: 9.0.1(@types/react@18.2.12)(react@18.2.0)
+      use-debounce:
+        specifier: 9.0.4
+        version: 9.0.4(react@18.2.0)
     devDependencies:
       '@dopt/check-formatting':
         specifier: workspace:*
@@ -20006,6 +19997,15 @@ packages:
     resolution: {integrity: sha512-GLMG0Jc/jiKov/3Ulid1wbv3r54K9HlMW29IWcDFPEqFkSO2nS0MuefWgMJpeHQ9YJeXDL3ZUF+P3jdXlZX/cQ==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /use-debounce@9.0.4(react@18.2.0):
+    resolution: {integrity: sha512-6X8H/mikbrt0XE8e+JXRtZ8yYVvKkdYRfmIhWZYsP8rcNs9hk3APV8Ua2mFkKRLcJKVdnX2/Vwrmg2GWKUQEaQ==}
+    engines: {node: '>= 10.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
     dependencies:
       react: 18.2.0
     dev: false
