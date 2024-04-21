@@ -29,7 +29,7 @@ export interface PopoverProps extends ComponentPropsWithRef<'div'>, StyleProps {
   position?: Side;
   alignment?: Alignment | 'center';
   offset?: number;
-  open?: boolean;
+  isOpen?: boolean;
 }
 
 const popoverClassName = `${classNameRoot}__popover` as const;
@@ -43,7 +43,7 @@ function HelpHubPopover(props: PopoverProps) {
     offset: popoverOffset = 10,
     position = 'top',
     alignment = 'center',
-    open,
+    isOpen,
     ...restProps
   } = props;
 
@@ -60,12 +60,12 @@ function HelpHubPopover(props: PopoverProps) {
     },
   });
 
-  if (!anchor || !open) {
+  if (!anchor || !isOpen) {
     return null;
   }
 
   const [computedPosition, computedAlignment] =
-    getPositonAndAlignFromPlacement(placement);
+    getPositionAndAlignFromPlacement(placement);
 
   return (
     <Portal>
@@ -95,7 +95,7 @@ function HelpHubPopover(props: PopoverProps) {
   );
 }
 
-function getPositonAndAlignFromPlacement(placement: Placement) {
+function getPositionAndAlignFromPlacement(placement: Placement) {
   const [position, align = 'center'] = placement.split('-');
   return [position as Side, align as Alignment | 'center'] as const;
 }

@@ -11,7 +11,7 @@ import {
 import { AssistantCompletionsRequestBody } from '@dopt/ai-assistant-definition';
 
 /**
- * A React hook for accessing an AI assistant
+ * A React hook for retrieving a complete answer from an AI assistant
  *
  * @example
  * ```tsx

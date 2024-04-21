@@ -15,14 +15,14 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-export interface CloseIconProps
+export interface BackIconProps
   extends ComponentPropsWithRef<'button'>,
     StyleProps {}
 
-const closeIconClassName = `${classNameRoot}__close-icon` as const;
+const backIconClassName = `${classNameRoot}__back-icon` as const;
 
-function HelpHubCloseIcon(
-  props: CloseIconProps,
+function HelpHubBackIcon(
+  props: BackIconProps,
   ref?: ForwardedRef<HTMLButtonElement>
 ) {
   const { theme: injectedTheme, className, style, ...restProps } = props;
@@ -41,9 +41,8 @@ function HelpHubCloseIcon(
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-      <path d="M18 6l-12 12"></path>
-      <path d="M6 6l12 12"></path>
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M15 6l-6 6l6 6" />
     </svg>
   );
 
@@ -54,7 +53,7 @@ function HelpHubCloseIcon(
           theme,
           className: classes.helpHubHeaderIcon,
         }),
-        closeIconClassName,
+        backIconClassName,
         className,
       ])}
       style={themeStyle({ theme, style })}
@@ -66,5 +65,5 @@ function HelpHubCloseIcon(
   );
 }
 
-const CloseIcon = forwardRef(HelpHubCloseIcon);
-export { CloseIcon };
+const BackIcon = forwardRef(HelpHubBackIcon);
+export { BackIcon };

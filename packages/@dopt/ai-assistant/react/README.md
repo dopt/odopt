@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Dopt AI Assistant React SDK is a framework-specific client for accessing Dopt's AI API, allowing you to bind user flow state defined in Dopt to your UI to build onboarding and engagement flows.
+The Dopt AI Assistant React SDK is a React framework-specific client for accessing Dopt's AI API. This SDK is a thin abstraction on top of [`@dopt/ai-assistant-javascript`](https://www.npmjs.com/package/@dopt/ai-assistant-javascript) and is useful mainly for wrapping asynchronous and streaming javascript functions into meaningful React hooks.
 
 The SDK lives in our open-source monorepo [odopt](https://github.com/dopt/odopt).
 
@@ -58,70 +58,11 @@ ReactDOM.render(
 
 - [useAssistant](./src/use-assistant.ts)
 
-````ts
-/**
- * A React hook for accessing an AI assistant
- *
- * @example
- * ```tsx
- * import { useAssistant } from '@dopt/ai-assistant-react';
- *
- * export function Application() {
- *   const assistant = useAssistant("HNWvcT78tyTwygnbzU6SW", { query, context });
- * }
- * ```
- *
- * @param sid - {@link Assistant['sid']}
- * @param query - string, the query to be passed to the assistant
- * @param context.document - boolean, whether to use page level context like title and URL (default false)
- * @param context.element - the element the user is interacting with (default undefined)
- * @param context.visual - boolean, whether to use a screenshot of the page (default false)
- * this param accepts the user defined identifier (sid)
- * @param errorMessage - string, an optional Markdown-friendly error message in case the assistant fails to load
- * a system default is used otherwise
- *
- * @returns an object of: `answer`, `content`, `status`, and `documents`
- * Each value in the object maps to the current state of the assistant.
- * As the answer streams back, `content` will be updated.
- * Once the answer is completed, `answer` and `documents` will be updated.
- * `status` reflects either `searching` or `answering` depending on the state of the stream.
- */
-declare function useAssistant(
-  sid: string,
-  {
-    query,
-    context: { document, element, visual },
-  }: {
-    query: AssistantCompletionsRequestBody['query'];
-    context: {
-      document?: boolean;
-      element?: Element;
-      visual?: boolean;
-    };
-  },
-  {
-    errorMessage,
-  }: {
-    errorMessage?: string;
-  }
-): {
-  answer: string | null;
-  content: string | null;
-  documents:
-    | {
-        title: string;
-        url: string;
-        id: number;
-        chunks: {
-          text: string;
-          chunkId: number;
-          score: number;
-        }[];
-      }[]
-    | null;
-  status: 'searching' | 'answering' | null;
-};
-````
+A hook for getting complete answers (and citations, if any) from an assistant given a `query` and / or `context`. This hook wraps the streaming API into a stateful abstraction which will be updated as more results are streamed from the AI API.
+
+- [useSearch](./src/use-search.ts)
+
+A hook for getting search results (a list of documents) from an assistant given a `query` and / or `context`. This hook wraps an async fetch request into a stateful abstraction which will be completed once the documents are returned from the search.
 
 ### Example usage
 
