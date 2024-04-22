@@ -17,12 +17,12 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
-import { Activator } from './activator';
-
 export interface LauncherProps
   extends PropsWithChildren,
     ComponentPropsWithRef<'div'>,
-    StyleProps {}
+    StyleProps {
+  isOpen: boolean;
+}
 
 const HelpIcon = () => (
   <svg
@@ -49,28 +49,32 @@ function HelpHubLauncher(
   props: LauncherProps,
   ref?: ForwardedRef<HTMLDivElement>
 ) {
-  const { theme: injectedTheme, className, style, ...restProps } = props;
+  const {
+    theme: injectedTheme,
+    className,
+    style,
+    isOpen,
+    ...restProps
+  } = props;
 
   const theme = useTheme(injectedTheme);
 
   return (
-    <Activator>
-      <div
-        className={clsx([
-          themeClassName({
-            theme,
-            className: classes.helpHubLauncher,
-          }),
-          footerClassName,
-          className,
-        ])}
-        style={themeStyle({ theme, style })}
-        {...restProps}
-        ref={ref}
-      >
-        <HelpIcon />
-      </div>
-    </Activator>
+    <div
+      className={clsx([
+        themeClassName({
+          theme,
+          className: classes.helpHubLauncher({ open: isOpen }),
+        }),
+        footerClassName,
+        className,
+      ])}
+      style={themeStyle({ theme, style })}
+      {...restProps}
+      ref={ref}
+    >
+      <HelpIcon />
+    </div>
   );
 }
 

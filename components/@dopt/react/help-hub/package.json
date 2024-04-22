@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-help-hub",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A React contextual assistant for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/help-hub",
   "repository": {
@@ -9,7 +9,7 @@
     "directory": "components/@dopt/react/help-hub"
   },
   "license": "MIT",
-  "private": true,
+  "private": false,
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -41,7 +41,6 @@
     "react-dom": ">=17.0.2"
   },
   "dependencies": {
-    "@dopt/ai-assistant-context": "workspace:*",
     "@dopt/ai-assistant-react": "workspace:*",
     "@dopt/react-portal": "workspace:*",
     "@dopt/react-theme": "workspace:*",
@@ -51,7 +50,8 @@
     "@vanilla-extract/css-utils": "0.1.3",
     "@vanilla-extract/recipes": "0.4.0",
     "clsx": "1.2.1",
-    "react-markdown": "9.0.1"
+    "react-markdown": "9.0.1",
+    "use-debounce": "9.0.4"
   },
   "devDependencies": {
     "@dopt/check-formatting": "workspace:*",
