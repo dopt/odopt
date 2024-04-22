@@ -8,7 +8,6 @@ import {
 import { vars } from '@dopt/react-theme/core';
 
 import { recipe } from '@vanilla-extract/recipes';
-import { calc } from '@vanilla-extract/css-utils';
 
 const highlightPaddingVar = '--dopt-contextual-assistant-highlight-padding';
 
@@ -38,15 +37,14 @@ export const contextualAssistantHighlight = recipe({
   },
 });
 
-const popoverArrowSizeVar = '--dopt-contextual-assistant-popover-arrow-size';
-const popoverArrowGapVar = '--dopt-contextual-assistant-popover-arrow-gap';
+const popoverGapVar = '--dopt-contextual-assistant-popover-gap';
 
 const alignment: Record<string, Record<string, ComplexStyleRule>> = {
   horizontal: {
     start: {
       selectors: {
         '&:before, &:after': {
-          left: `var(${popoverArrowGapVar})`,
+          left: `var(${popoverGapVar})`,
         },
       },
     },
@@ -63,7 +61,7 @@ const alignment: Record<string, Record<string, ComplexStyleRule>> = {
     end: {
       selectors: {
         '&:before, &:after': {
-          right: `var(${popoverArrowGapVar})`,
+          right: `var(${popoverGapVar})`,
         },
       },
     },
@@ -72,7 +70,7 @@ const alignment: Record<string, Record<string, ComplexStyleRule>> = {
     start: {
       selectors: {
         '&:before, &:after': {
-          top: `var(${popoverArrowGapVar})`,
+          top: `var(${popoverGapVar})`,
         },
       },
     },
@@ -89,7 +87,7 @@ const alignment: Record<string, Record<string, ComplexStyleRule>> = {
     end: {
       selectors: {
         '&:before, &:after': {
-          bottom: `var(${popoverArrowGapVar})`,
+          bottom: `var(${popoverGapVar})`,
         },
       },
     },
@@ -98,10 +96,6 @@ const alignment: Record<string, Record<string, ComplexStyleRule>> = {
 
 export const contextualAssistantPopover = recipe({
   base: {
-    vars: {
-      [popoverArrowSizeVar]: vars.sizes[3],
-      [popoverArrowGapVar]: vars.sizes[6],
-    },
     all: 'revert',
     boxSizing: 'border-box',
     position: 'absolute',
@@ -111,80 +105,13 @@ export const contextualAssistantPopover = recipe({
     fontSize: vars.fontSizes.base,
     color: vars.colors.content,
     lineHeight: vars.lineHeights.base,
-    selectors: {
-      '&:before, &:after': {
-        content: '',
-        position: 'absolute',
-        zIndex: 1,
-        width: `var(${popoverArrowSizeVar})`,
-        height: `var(${popoverArrowSizeVar})`,
-      },
-      '&:before': {
-        background: vars.colors.border,
-      },
-      '&:after': {
-        background: vars.colors.background,
-      },
-    },
   },
   variants: {
     position: {
-      bottom: {
-        selectors: {
-          '&:before, &:after': {
-            top: calc(`var(${popoverArrowSizeVar})`)
-              .divide(2)
-              .negate()
-              .toString(),
-            clipPath: 'polygon(50% 0, 100% 50%, 0 50%)',
-          },
-          '&:after': {
-            translate: `0 ${vars.borderWidths[1]}`,
-          },
-        },
-      },
-      left: {
-        selectors: {
-          '&:before, &:after': {
-            right: calc(`var(${popoverArrowSizeVar})`)
-              .divide(2)
-              .negate()
-              .toString(),
-            clipPath: 'polygon(50% 100%, 100% 50%, 50% 0)',
-          },
-          '&:after': {
-            translate: `${calc.negate(vars.borderWidths[1])} 0`,
-          },
-        },
-      },
-      top: {
-        selectors: {
-          '&:before, &:after': {
-            bottom: calc(`var(${popoverArrowSizeVar})`)
-              .divide(2)
-              .negate()
-              .toString(),
-            clipPath: 'polygon(50% 100%, 0 50%, 100% 50%)',
-          },
-          '&:after': {
-            translate: `0 ${calc.negate(vars.borderWidths[1])}`,
-          },
-        },
-      },
-      right: {
-        selectors: {
-          '&:before, &:after': {
-            left: calc(`var(${popoverArrowSizeVar})`)
-              .divide(2)
-              .negate()
-              .toString(),
-            clipPath: 'polygon(50% 100%, 0 50%, 50% 0)',
-          },
-          '&:after': {
-            translate: `${vars.borderWidths[1]} 0`,
-          },
-        },
-      },
+      bottom: {},
+      left: {},
+      top: {},
+      right: {},
     },
     alignment: {
       start: {},
@@ -575,7 +502,7 @@ export const contextualAssistantSourceLink = style({
   flexDirection: 'row',
   alignItems: 'center',
   gap: vars.space[3],
-  padding: `${vars.space[2]} ${vars.space[3]}`,
+  padding: `${vars.space[3]} ${vars.space[3]}`,
 });
 
 export const contextualAssistantSourceLinkIndex = style({
@@ -587,7 +514,7 @@ export const contextualAssistantSourceLinkIndex = style({
   flexShrink: 0,
   width: vars.sizes[5],
   height: vars.sizes[5],
-  borderRadius: '100%',
+  borderRadius: vars.radii.round,
   backgroundColor: vars.colors.secondaryLight,
   color: vars.colors.secondary,
   font: vars.fonts.mono,
@@ -606,7 +533,7 @@ export const contextualAssistantSourceLinkMetadataTitle = style({
   boxSizing: 'border-box',
   color: vars.colors.secondaryDark,
   fontWeight: vars.fontWeights.medium,
-  fontSize: vars.fontSizes.sm,
+  fontSize: vars.fontSizes.base,
   overflow: 'hidden',
   wordBreak: 'break-all',
   display: '-webkit-box',

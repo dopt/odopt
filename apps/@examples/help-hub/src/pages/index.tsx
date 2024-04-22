@@ -27,26 +27,108 @@ export function Example() {
         <Destinations />
       </div>
       <HelpHub.Root>
-        <HelpHub.Launcher onClick={() => helpHub.setOpen(!helpHub.open)} />
-        <HelpHub.Popover position="top" alignment="end" open={helpHub.open}>
+        <HelpHub.Activator>
+          <HelpHub.Launcher
+            isOpen={helpHub.isOpen}
+            onClick={() => (helpHub.isOpen ? helpHub.close() : helpHub.open())}
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              zIndex: 10000,
+            }}
+          />
+        </HelpHub.Activator>
+        <HelpHub.Popover position="top" alignment="end" isOpen={helpHub.isOpen}>
           <HelpHub.Content>
             <HelpHub.Header>
-              <HelpHub.Title>Title</HelpHub.Title>
-              <HelpHub.CloseIcon onClick={() => helpHub.setOpen(false)} />
+              {helpHub.askQuery ? (
+                <HelpHub.BackIcon onClick={() => helpHub.backToSearch()} />
+              ) : (
+                <HelpHub.Title>Learn more about Datashift</HelpHub.Title>
+              )}
+              <HelpHub.CloseIcon onClick={() => helpHub.close()} />
             </HelpHub.Header>
+            {!helpHub.askQuery && (
+              <HelpHub.SearchInput onEnteredSearch={helpHub.search}>
+                {helpHub.searchQuery}
+              </HelpHub.SearchInput>
+            )}
             <HelpHub.Body>
-              {(helpHub.documents || []).map((document, i) => {
-                const chunk = document.chunks[0] || { text: '' };
-                return (
-                  <div key={i}>
-                    <div>Title: {document.title}</div>
-                    <div>Url: {document.url}</div>
-                    <div>Preview: {chunk.text.substring(0, 50)}</div>
-                    <div>===</div>
-                  </div>
-                );
-              })}
+              {helpHub.askQuery ? (
+                <>
+                  <HelpHub.BodyHeading>{helpHub.askQuery}</HelpHub.BodyHeading>
+                  {helpHub.askAnswer ? (
+                    <HelpHub.Answer>{helpHub.askAnswer}</HelpHub.Answer>
+                  ) : (
+                    <HelpHub.Loader />
+                  )}
+                  {helpHub.askSources && helpHub.askSources.length > 0 && (
+                    <>
+                      <HelpHub.BodyHeading>Sources</HelpHub.BodyHeading>
+                      <HelpHub.SourceList>
+                        {helpHub.askSources.map((document) => {
+                          return (
+                            <HelpHub.Source
+                              key={document.id}
+                              index={document.id}
+                              url={document.url}
+                              title={document.title}
+                            />
+                          );
+                        })}
+                      </HelpHub.SourceList>
+                    </>
+                  )}
+                </>
+              ) : (
+                <HelpHub.SourceList>
+                  {helpHub.searchQuery ? (
+                    <>
+                      <HelpHub.AskItem
+                        query={helpHub.searchQuery}
+                        onClick={() => helpHub.ask()}
+                      />
+                      {!helpHub.searchResults ? (
+                        <HelpHub.Loader />
+                      ) : (
+                        helpHub.searchResults.map((document) => {
+                          return (
+                            <HelpHub.Source
+                              key={document.id}
+                              url={document.url}
+                              title={document.title}
+                              content={document.chunks[0]?.text}
+                            />
+                          );
+                        })
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <HelpHub.Source
+                        url="https://www.docs.developers.amplitude.com/"
+                        title="Visit the Datashift Docs"
+                        hideUrl
+                      />
+                      <HelpHub.Source
+                        url="https://help.amplitude.com/"
+                        title="Get Help!"
+                        hideUrl
+                      />
+                      <HelpHub.Source
+                        url="https://community.amplitude.com/"
+                        title="Join our Community"
+                        hideUrl
+                      />
+                    </>
+                  )}
+                </HelpHub.SourceList>
+              )}
             </HelpHub.Body>
+            {helpHub.askQuery && (
+              <HelpHub.Question canAsk={helpHub.canAsk} ask={helpHub.ask} />
+            )}
           </HelpHub.Content>
         </HelpHub.Popover>
       </HelpHub.Root>

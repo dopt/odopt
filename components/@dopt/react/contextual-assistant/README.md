@@ -25,7 +25,7 @@ pnpm add @dopt/react-contextual-assistant
 
 ## Usage
 
-The default export from `@dopt/react-contexutal-assistant` is a collection of components that you can use to structure and compose the contextual assistant.
+The default export from `@dopt/react-contextual-assistant` is a collection of components that you can use to structure and compose the contextual assistant.
 
 There are two parts to the usage: initialization and the contextual assistant popover.
 
@@ -267,14 +267,14 @@ The input where users can ask follow-up questions. Extends `HTMLDivElement`.
 
 If users should not have the ability to ask follow-up questions, this component can simply not be used.
 
-| Name           | Type                                                                    | Description                                                                                                       |
-| -------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| children?      | `string \| null`                                                        | The current typed follow-up question.                                                                             |
-| placeholder?   | string                                                                  | A placeholder to show if no question is entered. Defaults to "Ask a follow-up question".                          |
-| canSubmitQuery | boolean                                                                 | A boolean which controls if users can send their question. This boolean controls the toggle and pressing "Enter". |
-| submitQuery    | `() => void`                                                            | A function which is called when users submit their question.                                                      |
-| onEnteredQuery | `(enteredQuery: string) => void;`                                       | a function which is called when users type in their question.                                                     |
-| theme?         | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component                                                                     |
+| Name           | Type                                                                    | Description                                                                             |
+| -------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| children?      | `string \| null`                                                        | The current typed follow-up question                                                    |
+| placeholder?   | string                                                                  | A placeholder to show if no question is entered. Defaults to "Ask a follow-up question" |
+| canSubmitQuery | boolean                                                                 | A boolean which controls if users can send their question                               |
+| submitQuery    | `() => void`                                                            | A function which is called when users submit their question                             |
+| onEnteredQuery | `(enteredQuery: string) => void;`                                       | a function which is called when users type in their question                            |
+| theme?         | [Theme](https://docs.dopt.com/components/react/styling#theme-interface) | A theme definition to attach to the component                                           |
 
 ## Styling API
 

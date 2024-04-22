@@ -1,11 +1,10 @@
 import * as classes from './styles.css';
-import { classNameRoot } from './const';
+import { classNameRoot } from '../const';
 
 import React, {
   type ForwardedRef,
   forwardRef,
   type ComponentPropsWithRef,
-  type ReactNode,
 } from 'react';
 import clsx from 'clsx';
 
@@ -16,27 +15,30 @@ import {
   useTheme,
 } from '@dopt/react-theme';
 
+import Markdown from 'react-markdown';
+
 export interface SourceProps
   extends Omit<ComponentPropsWithRef<'li'>, 'children'>,
     StyleProps {
-  index?: number;
   url: string;
-  children?: ReactNode;
+  title: string;
+  hideUrl?: boolean;
+  index?: number;
+  content?: string;
 }
 
 const sourceClassName = `${classNameRoot}__source` as const;
 
-function ContextualAssistantSource(
-  props: SourceProps,
-  ref?: ForwardedRef<HTMLLIElement>
-) {
+function HelpHubSource(props: SourceProps, ref?: ForwardedRef<HTMLLIElement>) {
   const {
     theme: injectedTheme,
     className,
     style,
     index,
     url,
-    children,
+    title,
+    content,
+    hideUrl,
     ...restProps
   } = props;
 
@@ -52,12 +54,12 @@ function ContextualAssistantSource(
     /** do nothing, we provide a fallback above */
   }
 
-  return children == undefined ? null : (
+  return (
     <li
       className={clsx([
         themeClassName({
           theme,
-          className: classes.contextualAssistantSource,
+          className: classes.helpHubSource,
         }),
         sourceClassName,
         index !== undefined ? `${sourceClassName}--${index}` : null,
@@ -72,29 +74,31 @@ function ContextualAssistantSource(
         className={clsx([
           themeClassName({
             theme,
-            className: classes.contextualAssistantSourceLink,
+            className: classes.helpHubSourceLink,
           }),
           `${sourceClassName}-link`,
         ])}
         target="_blank"
         rel="noopener noreferrer"
       >
+        {index != null && (
+          <div
+            className={clsx([
+              themeClassName({
+                theme,
+                className: classes.helpHubSourceLinkIndex,
+              }),
+              `${sourceClassName}-link-index`,
+            ])}
+          >
+            {index}
+          </div>
+        )}
         <div
           className={clsx([
             themeClassName({
               theme,
-              className: classes.contextualAssistantSourceLinkIndex,
-            }),
-            `${sourceClassName}-link-index`,
-          ])}
-        >
-          {index}
-        </div>
-        <div
-          className={clsx([
-            themeClassName({
-              theme,
-              className: classes.contextualAssistantSourceLinkMetadata,
+              className: classes.helpHubSourceLinkMetadata,
             }),
             `${sourceClassName}-link-metadata`,
           ])}
@@ -103,29 +107,44 @@ function ContextualAssistantSource(
             className={clsx([
               themeClassName({
                 theme,
-                className: classes.contextualAssistantSourceLinkMetadataTitle,
+                className: classes.helpHubSourceLinkMetadataTitle,
               }),
               `${sourceClassName}-link-metadata-title`,
             ])}
           >
-            {children}
+            {title}
           </div>
-          <div
-            className={clsx([
-              themeClassName({
-                theme,
-                className: classes.contextualAssistantSourceLinkMetadataUrl,
-              }),
-              `${sourceClassName}-link-metadata-url`,
-            ])}
-          >
-            {urlMetadata}
-          </div>
+          {content != null && (
+            <div
+              className={clsx([
+                themeClassName({
+                  theme,
+                  className: classes.helpHubSourceLinkMetadataContent,
+                }),
+                `${sourceClassName}-link-metadata-content`,
+              ])}
+            >
+              <Markdown>{content}</Markdown>
+            </div>
+          )}
+          {!hideUrl && (
+            <div
+              className={clsx([
+                themeClassName({
+                  theme,
+                  className: classes.helpHubSourceLinkMetadataUrl,
+                }),
+                `${sourceClassName}-link-metadata-url`,
+              ])}
+            >
+              {urlMetadata}
+            </div>
+          )}
         </div>
       </a>
     </li>
   );
 }
 
-const Source = forwardRef(ContextualAssistantSource);
+const Source = forwardRef(HelpHubSource);
 export { Source };

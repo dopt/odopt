@@ -73,7 +73,7 @@ function ContextualAssistantPopover(props: ContextualAssistantPopoverProps) {
   }
 
   const [computedPosition, computedAlignment] =
-    getPositonAndAlignFromPlacement(placement);
+    getPositionAndAlignFromPlacement(placement);
 
   return (
     <Portal>
@@ -103,7 +103,7 @@ function ContextualAssistantPopover(props: ContextualAssistantPopoverProps) {
   );
 }
 
-function getPositonAndAlignFromPlacement(placement: Placement) {
+function getPositionAndAlignFromPlacement(placement: Placement) {
   const [position, align = 'center'] = placement.split('-');
   return [position as Side, align as Alignment | 'center'] as const;
 }

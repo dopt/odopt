@@ -1,5 +1,12 @@
 # @examples/ai-error
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [35de19b3e]
+  - @dopt/ai-assistant-react@0.1.0
+
 ## 0.0.2
 
 ### Patch Changes
