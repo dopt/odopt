@@ -15,10 +15,10 @@ import {
   StatusChunk,
   AssistantRequestBody,
   AssistantDefaultCompletionsErrorMessage,
-} from '@dopt/ai-assistant-definition';
+  DoptAiContext,
+} from '@dopt/ai-assistant-react';
 
 import { type StyleProps, ThemeContext } from '@dopt/react-theme';
-import { DoptAiContext } from '@dopt/ai-assistant-react';
 
 export interface ContextualAssistantContext {
   active: boolean;

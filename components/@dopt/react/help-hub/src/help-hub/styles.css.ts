@@ -5,62 +5,16 @@ import {
   keyframes,
 } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
-import { calc } from '@vanilla-extract/css-utils';
 import { vars } from '@dopt/react-theme/core';
 
-const pulseAnimationScale = '--dopt-pulse-animation-scale';
-const pulseAnimationOpacity = '--dopt-pulse-animation-opacity';
-
-const pulseAnimation = keyframes({
-  '100%': {
-    scale: `var(${pulseAnimationScale})`,
-    opacity: `var(${pulseAnimationOpacity})`,
-  },
-});
-
-export const helpHubIndicator = recipe({
-  base: {
-    vars: {
-      [pulseAnimationScale]: '2.5',
-      [pulseAnimationOpacity]: '0',
-    },
-    all: 'unset',
-    boxSizing: 'border-box',
-    position: 'absolute',
-    display: 'block',
-    width: vars.sizes[3],
-    height: vars.sizes[3],
-    borderRadius: vars.radii.round,
-    background: vars.colors.primary,
-  },
-  variants: {
-    animate: {
-      true: {
-        ':before': {
-          content: '',
-          display: 'block',
-          width: '100%',
-          height: '100%',
-          borderRadius: vars.radii.round,
-          background: vars.colors.primary,
-          animationName: pulseAnimation,
-          animationDuration: '1s',
-          animationTimingFunction: 'ease',
-          animationIterationCount: 'infinite',
-        },
-      },
-    },
-  },
-});
-
-const arrowGap = '--dopt-arrow-gap';
+const helpHubGap = '--dopt-help-hub-popover-gap';
 
 const alignment: Record<string, Record<string, ComplexStyleRule>> = {
   horizontal: {
     start: {
       selectors: {
         '&:before, &:after': {
-          left: `var(${arrowGap})`,
+          left: `var(${helpHubGap})`,
         },
       },
     },
@@ -77,7 +31,7 @@ const alignment: Record<string, Record<string, ComplexStyleRule>> = {
     end: {
       selectors: {
         '&:before, &:after': {
-          right: `var(${arrowGap})`,
+          right: `var(${helpHubGap})`,
         },
       },
     },
@@ -86,7 +40,7 @@ const alignment: Record<string, Record<string, ComplexStyleRule>> = {
     start: {
       selectors: {
         '&:before, &:after': {
-          top: `var(${arrowGap})`,
+          top: `var(${helpHubGap})`,
         },
       },
     },
@@ -103,7 +57,7 @@ const alignment: Record<string, Record<string, ComplexStyleRule>> = {
     end: {
       selectors: {
         '&:before, &:after': {
-          bottom: `var(${arrowGap})`,
+          bottom: `var(${helpHubGap})`,
         },
       },
     },
@@ -113,7 +67,7 @@ const alignment: Record<string, Record<string, ComplexStyleRule>> = {
 export const helpHubPopover = recipe({
   base: {
     vars: {
-      [arrowGap]: vars.sizes[6],
+      [helpHubGap]: vars.sizes[6],
     },
     all: 'revert',
     boxSizing: 'border-box',
@@ -123,17 +77,14 @@ export const helpHubPopover = recipe({
     color: vars.colors.content,
     lineHeight: vars.lineHeights.base,
     zIndex: 10000,
+    width: 400,
   },
   variants: {
     position: {
       bottom: {},
       left: {},
-      top: {
-        selectors: {},
-      },
-      right: {
-        selectors: {},
-      },
+      top: {},
+      right: {},
     },
     alignment: {
       start: {},
@@ -237,8 +188,6 @@ export const helpHubContent = style({
   boxSizing: 'border-box',
   position: 'relative',
   display: 'block',
-  width: 600,
-  padding: vars.space[6],
   borderWidth: vars.borderWidths[2],
   borderStyle: 'solid',
   borderColor: vars.colors.border,
@@ -249,15 +198,23 @@ export const helpHubContent = style({
 });
 
 globalStyle(`${helpHubContent} > *`, {
+  all: 'unset',
   boxSizing: 'border-box',
+  padding: `${vars.space[2]} ${vars.space[6]}`,
+});
+
+globalStyle(`${helpHubContent} > *:first-child`, {
+  paddingTop: vars.space[6],
+});
+
+globalStyle(`${helpHubContent} > *:last-child`, {
+  paddingBottom: vars.space[6],
 });
 
 export const helpHubHeader = style({
-  all: 'unset',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
-  paddingBottom: vars.space[2],
 });
 
 export const helpHubTitle = style({
@@ -267,11 +224,13 @@ export const helpHubTitle = style({
   lineHeight: vars.lineHeights.md,
 });
 
-export const helpHubCloseIcon = style({
+export const helpHubHeaderIcon = style({
   all: 'unset',
+  boxSizing: 'border-box',
   padding: vars.space[1],
   borderRadius: vars.radii[2],
   transition: `background-color ${vars.transitions.ease}`,
+  cursor: 'pointer',
   ':hover': {
     backgroundColor: vars.colors.primaryLight,
   },
@@ -280,58 +239,442 @@ export const helpHubCloseIcon = style({
   },
 });
 
-globalStyle(`${helpHubCloseIcon} > svg`, {
+globalStyle(`${helpHubHeaderIcon} > svg`, {
   display: 'block',
 });
 
-export const helpHubLauncher = style({
-  position: 'absolute',
-  bottom: 0,
-  right: 0,
-  margin: '20px',
-  zIndex: 10000,
+export const helpHubLauncher = recipe({
+  base: {
+    margin: vars.space[5],
+    color: vars.colors.secondary,
+    cursor: 'pointer',
+    transition: `color ${vars.transitions.ease}`,
+    ':hover': {
+      color: vars.colors.secondaryDark,
+    },
+  },
+  variants: {
+    open: {
+      true: {
+        color: vars.colors.secondaryDark,
+      },
+    },
+  },
+});
+
+export const helpHubLoader = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'grid',
+  gap: vars.space[3],
+  paddingBlock: vars.space[3],
+});
+
+const skeletonFadeInOut = keyframes({
+  '0%': {
+    opacity: 0.2,
+  },
+  '100%': {
+    opacity: 1,
+  },
+});
+
+export const helpHubSkeleton = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  width: '100%',
+  height: vars.sizes[6],
+  borderRadius: vars.radii[2],
+  backgroundColor: vars.colors.secondaryLight,
+  animation: `${skeletonFadeInOut} 600ms linear infinite alternate`,
 });
 
 export const helpHubBody = style({
+  boxSizing: 'border-box',
+  display: 'block',
+  maxHeight: 450,
+  overflow: 'auto',
+});
+
+export const helpHubBodyHeading = style({
   all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontWeight: vars.fontWeights.medium,
+  paddingTop: vars.space[4],
+  ':first-child': {
+    paddingTop: 0,
+    paddingBottom: vars.space[4],
+  },
+});
+
+export const helpHubAnswer = style({
+  all: 'unset',
+  boxSizing: 'border-box',
   display: 'block',
 });
 
-export const helpHubFooter = style({
+globalStyle(`${helpHubAnswer} *:first-child`, {
+  marginBlockStart: 0,
+});
+
+globalStyle(`${helpHubAnswer} *:last-child`, {
+  marginBlockEnd: 0,
+});
+
+globalStyle(
+  `${helpHubAnswer} h1, ${helpHubAnswer} h2, ${helpHubAnswer} h3, ${helpHubAnswer} h4, ${helpHubAnswer} h5, ${helpHubAnswer} h6`,
+  {
+    all: 'unset',
+    boxSizing: 'border-box',
+    display: 'block',
+    fontSize: vars.fontSizes.base,
+    fontWeight: vars.fontWeights.bold,
+    lineHeight: vars.lineHeights.base,
+    marginBlockStart: vars.space[4],
+    marginBlockEnd: vars.space[1],
+  }
+);
+
+globalStyle(`${helpHubAnswer} p`, {
   all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${helpHubAnswer} ul`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  listStyle: 'disc',
+  paddingInlineStart: '1.5em',
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${helpHubAnswer} ol`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  listStyle: 'decimal',
+  paddingInlineStart: '1.5em',
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${helpHubAnswer} pre`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  maxWidth: '100%',
+  overflow: 'auto',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  whiteSpace: 'pre',
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${helpHubAnswer} blockquote`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  marginBlockEnd: vars.space[4],
+});
+
+globalStyle(`${helpHubAnswer} a`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.primary,
+  cursor: 'pointer',
+});
+
+globalStyle(`${helpHubAnswer} a:hover`, {
+  textDecoration: 'underline',
+  color: vars.colors.primaryDark,
+});
+
+globalStyle(`${helpHubAnswer} code`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  fontFamily: vars.fonts.mono,
+});
+
+globalStyle(`${helpHubAnswer} strong`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  fontWeight: vars.fontWeights.bold,
+});
+
+globalStyle(`${helpHubAnswer} em`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  fontStyle: 'italic',
+});
+
+globalStyle(`${helpHubAnswer} img`, {
+  all: 'unset',
+  display: 'none',
+});
+
+globalStyle(`${helpHubAnswer} br`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+});
+
+globalStyle(`${helpHubAnswer} hr`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'block',
+  borderBottomWidth: vars.borderWidths[1],
+  borderBottomStyle: 'solid',
+  borderBottomColor: vars.colors.border,
+  marginBlock: vars.space[4],
+});
+
+export const helpHubCitationLink = style({
+  selectors: {
+    '& + &': {
+      marginLeft: vars.space[1],
+    },
+  },
+});
+
+// This requires extra specificity to override the markdown component styles
+globalStyle(`a.${helpHubCitationLink}`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.content,
+  cursor: 'pointer',
+});
+
+globalStyle(`a.${helpHubCitationLink}:hover`, {
+  color: vars.colors.content,
+  textDecoration: 'none',
+});
+
+export const helpHubCitation = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  fontFamily: vars.fonts.mono,
+  fontSize: vars.fontSizes.sm,
+  lineHeight: vars.lineHeights.sm,
+  paddingInline: vars.space[1],
+  borderRadius: vars.radii[1],
+  backgroundColor: vars.colors.secondaryLight,
+});
+
+export const helpHubSources = style({
+  all: 'unset',
+  boxSizing: 'border-box',
   display: 'flex',
-  alignItems: 'flex-start',
+  flexDirection: 'column',
   gap: vars.space[2],
+  fontSize: vars.fontSizes.sm,
+  lineHeight: vars.lineHeights.sm,
   paddingTop: vars.space[2],
 });
 
-export const helpHubDismissAllButton = style({
+export const helpHubAskItem = style({
   all: 'unset',
-  padding: `${vars.space[2]} ${vars.space[3]}`,
-  borderRadius: vars.radii[2],
-  fontWeight: vars.fontWeights.medium,
-  color: vars.colors.content,
+  boxSizing: 'border-box',
+  display: 'flex',
   transition: `background-color ${vars.transitions.ease}`,
+  border: `${vars.borderWidths[1]} solid ${vars.colors.border}`,
+  background: vars.colors.white,
+  borderRadius: vars.space[2],
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: vars.space[3],
+  padding: `${vars.space[3]} ${vars.space[3]}`,
+  cursor: 'pointer',
   ':hover': {
-    backgroundColor: vars.colors.primaryLight,
-  },
-  ':focus-visible': {
-    outline: 'revert',
+    backgroundColor: vars.colors.secondaryLight,
   },
 });
 
-export const helpHubCompleteButton = style({
+export const helpHubAskItemIcon = style({
   all: 'unset',
-  padding: `${vars.space[2]} ${vars.space[3]}`,
-  borderRadius: vars.radii[2],
+  boxSizing: 'border-box',
+});
+
+export const helpHubAskItemContent = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.secondaryDark,
   fontWeight: vars.fontWeights.medium,
-  color: vars.colors.contentContrast,
-  backgroundColor: vars.colors.primary,
+  fontSize: vars.fontSizes.base,
+  overflow: 'hidden',
+  wordBreak: 'break-all',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '1',
+});
+
+export const helpHubSource = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'flex',
   transition: `background-color ${vars.transitions.ease}`,
+  border: `${vars.borderWidths[1]} solid ${vars.colors.border}`,
+  background: vars.colors.white,
+  borderRadius: vars.space[2],
+  cursor: 'pointer',
+  padding: `${vars.space[3]} ${vars.space[3]}`,
   ':hover': {
-    backgroundColor: vars.colors.primaryDark,
+    backgroundColor: vars.colors.secondaryLight,
+  },
+});
+
+export const helpHubSourceLink = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: vars.space[3],
+});
+
+export const helpHubSourceLinkIndex = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+  width: vars.sizes[5],
+  height: vars.sizes[5],
+  borderRadius: vars.radii.round,
+  backgroundColor: vars.colors.secondaryLight,
+  color: vars.colors.secondary,
+  font: vars.fonts.mono,
+  fontSize: vars.fontSizes.xs,
+});
+
+export const helpHubSourceLinkMetadata = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+export const helpHubSourceLinkMetadataTitle = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.secondaryDark,
+  fontWeight: vars.fontWeights.medium,
+  fontSize: vars.fontSizes.base,
+  overflow: 'hidden',
+  wordBreak: 'break-all',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '1',
+});
+
+export const helpHubSourceLinkMetadataContent = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.secondaryDark,
+  fontSize: vars.fontSizes.xs,
+  overflow: 'hidden',
+  wordBreak: 'break-all',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '1',
+});
+
+globalStyle(`${helpHubSourceLinkMetadataContent} *`, {
+  all: 'unset',
+  boxSizing: 'border-box',
+});
+
+export const helpHubSourceLinkMetadataUrl = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  color: vars.colors.secondary,
+  fontSize: vars.fontSizes.xs,
+  overflow: 'hidden',
+  wordBreak: 'break-all',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '1',
+});
+
+export const helpHubQuestion = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  display: 'flex',
+  gap: vars.space[2],
+  paddingInline: vars.space[6],
+  paddingTop: vars.space[3],
+  paddingBottom: vars.space[6],
+});
+
+export const helpHubInputContainer = style({
+  width: '100%',
+  display: 'flex',
+});
+
+export const helpHubInput = style({
+  all: 'unset',
+  boxSizing: 'border-box',
+  flexGrow: 1,
+  fontFamily: vars.fonts.sans,
+  fontSize: vars.fontSizes.base,
+  lineHeight: vars.lineHeights.base,
+  border: `${vars.borderWidths[1]} solid ${vars.colors.border}`,
+  padding: `${vars.space[2]} ${vars.space[3]}`,
+  background: vars.colors.white,
+  borderRadius: vars.space[2],
+  transition: `all ${vars.transitions.ease}`,
+  '::placeholder': {
+    color: vars.colors.contentLight,
   },
   ':focus-visible': {
-    outline: 'revert',
+    borderColor: vars.colors.primary,
+    outline: `${vars.colors.primary} solid ${vars.borderWidths[1]}`,
+  },
+});
+
+export const helpHubQuestionButton = recipe({
+  base: {
+    all: 'unset',
+    boxSizing: 'border-box',
+    fontFamily: vars.fonts.sans,
+    fontSize: vars.fontSizes.base,
+    fontWeight: vars.fontWeights.medium,
+    lineHeight: vars.lineHeights.base,
+    transition: `all ${vars.transitions.ease}`,
+    border: `${vars.borderWidths[1]} solid ${vars.colors.border}`,
+    padding: `${vars.space[2]} ${vars.space[3]}`,
+    borderRadius: vars.space[2],
+  },
+  variants: {
+    disabled: {
+      true: {
+        cursor: 'not-allowed',
+        opacity: 0.4,
+      },
+      false: {
+        cursor: 'pointer',
+        color: vars.colors.content,
+        ':hover': {
+          color: vars.colors.primary,
+        },
+        ':focus-visible': {
+          color: vars.colors.primary,
+          borderColor: vars.colors.primary,
+          outline: `${vars.colors.primary} solid ${vars.borderWidths[1]}`,
+        },
+      },
+    },
   },
 });

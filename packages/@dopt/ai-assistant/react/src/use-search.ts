@@ -8,7 +8,7 @@ import {
 import { AssistantContextProps } from '@dopt/ai-assistant-javascript';
 
 /**
- * A React hook for accessing an AI assistant
+ * A React hook for getting search results from an AI assistant
  *
  * @example
  * ```tsx
