@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@dopt/javascript-common": "workspace:*",
-    "@dopt/surfaces-javascript-client": "workspace:*",
+    "@dopt/surfaces-javascript-client": "latest",
     "@dopt/logger": "workspace:*",
     "socket.io-client": "4.6.2"
   },
