@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SurfaceContext, Messages } from './surface-provider';
+import { ChannelContext, Messages } from './channel-provider';
 
 type ApiMessage = Messages[number];
 
@@ -8,47 +8,47 @@ interface Message {
   uid: ApiMessage['uid'];
   status: ApiMessage['status'];
   engagement: (
-    engagement: 'click' | 'seen' | (string & {}),
-    effect?: 'complete' | 'dismiss' | (string & {})
+    engagement: 'click' | 'seen' | string,
+    effect?: 'complete' | 'dismiss' | string
   ) => void;
-  trackClick: (effect?: 'complete' | 'dismiss' | (string & {})) => void;
+  trackClick: (effect?: 'complete' | 'dismiss' | string) => void;
   trackSeen: () => void;
 }
 
-interface Surface {
+interface Channel {
   sid: string;
   messages: Message[];
 }
 
 //TODO [jm] - the return type is off / we need somethign SDK specific
 //that wraps the engagements concept
-export function useSurface(sid: string): Surface {
+export function useChannel(sid: string): Channel {
   const {
     client,
     userIdentifier,
     groupIdentifier,
-    surfaceMessages,
+    channelMessages,
     fetching,
     logger,
-  } = useContext(SurfaceContext);
+  } = useContext(ChannelContext);
 
   if (fetching) {
     logger.current?.info(
-      'Accessing messages prior to Surface initialization will return an empty array.'
+      'Accessing messages prior to Channel initialization will return an empty array.'
     );
   }
 
-  if (surfaceMessages.get(sid) == null) {
+  if (channelMessages.get(sid) == null) {
     logger.current?.warn(
       `
-      Could not find any surfaces matching "${sid}" within \`useSurface("${sid}")\`.
+      Could not find any channels matching "${sid}" within \`useChannel("${sid}")\`.
       Returning an empty array of messages.
-      Check your \`surfaces\` props to ensure "${sid}" is specified there.
+      Check your \`channels\` props to ensure "${sid}" is specified there.
     `.trim()
     );
   }
 
-  const messages: Message[] = (surfaceMessages.get(sid) || []).map(
+  const messages: Message[] = (channelMessages.get(sid) || []).map(
     (message) => {
       return {
         ...message,

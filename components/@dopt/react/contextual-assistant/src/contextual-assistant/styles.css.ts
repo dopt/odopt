@@ -502,6 +502,7 @@ export const contextualAssistantSourceLink = style({
   flexDirection: 'row',
   alignItems: 'center',
   gap: vars.space[3],
+  flexGrow: 1,
   padding: `${vars.space[3]} ${vars.space[3]}`,
 });
 

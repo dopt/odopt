@@ -6,7 +6,7 @@ export function App() {
     <DoptProvider
       userId="joe_mckenney"
       apiKey="blocks-blocksKey_Mg=="
-      flowVersions={{
+      flows={{
         'hints-component': 0,
       }}
     >

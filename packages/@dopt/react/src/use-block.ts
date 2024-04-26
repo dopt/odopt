@@ -1,8 +1,8 @@
 import { useContext, useMemo } from 'react';
-import { DoptContext } from './context';
 
 import { Block, BlockTransition } from './types';
 import { createBlock } from './create-sdk-block';
+import { FlowContext } from './flow-provider';
 
 /**
  * A React hook for accessing a block's state and methods
@@ -39,10 +39,16 @@ import { createBlock } from './create-sdk-block';
 export function useBlock<T>(
   id: string
 ): [block: Block<T>, transition: BlockTransition<T>] {
-  const { fetching, blocks, blockIntention, log, blockFields, blockUidBySid } =
-    useContext(DoptContext);
+  const {
+    uninitialized,
+    blocks,
+    blockIntention,
+    log,
+    blockFields,
+    blockUidBySid,
+  } = useContext(FlowContext);
 
-  if (fetching) {
+  if (uninitialized) {
     log.current?.info(
       'Accessing block prior to initialization will return default block states.'
     );
@@ -51,11 +57,17 @@ export function useBlock<T>(
   const uid = blockUidBySid.get(id) || id;
   const block = useMemo(
     () =>
-      createBlock<T>({ uid, fetching, blocks, blockFields, blockIntention }),
-    [uid, fetching, blocks, blockFields, blockIntention]
+      createBlock<T>({
+        uid,
+        uninitialized,
+        blocks,
+        blockFields,
+        blockIntention,
+      }),
+    [uid, uninitialized, blocks, blockFields, blockIntention]
   );
 
-  if (!fetching && block.version === -1) {
+  if (!uninitialized && block.version === -1) {
     log.current?.warn(
       `
       Could not find any block matching "${id}" within \`useBlock("${id}")\`.

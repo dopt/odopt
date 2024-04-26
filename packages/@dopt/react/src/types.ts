@@ -1,5 +1,7 @@
 import { LoggerProps } from '@dopt/logger';
-import { ReactNode } from 'react';
+import { ReactNode, useRef } from 'react';
+
+import { setupSocket } from '@dopt/javascript-common';
 import type {
   Flow as APIFlow,
   FlowIntentParams,
@@ -38,6 +40,8 @@ export type FlowIntentHandler = Record<
     force?: boolean
   ) => void | undefined
 >;
+
+export type FlowVersion = FlowParams['version'];
 
 /**
  * This type encapsulates Flow initialization status.
@@ -89,9 +93,14 @@ export interface ProviderConfig {
    * ```
    *
    */
-  flowVersions: Record<string, FlowParams['version']>;
+  flows?: Record<string, FlowParams['version']>;
 
-  surfaces?: string[];
+  /**
+   * @deprecated This property was renamed to `flows`. Please use that property instead.
+   */
+  flowVersions?: ProviderConfig['flows'];
+
+  channels?: string[];
   /**
    * A boolean which defines whether transitions on step blocks should
    * optimistically update the client before hearing back that the change
@@ -318,3 +327,8 @@ export interface Container extends Block {
    */
   children: Block[];
 }
+
+export type Socket = ReturnType<typeof setupSocket> | null;
+export type SocketRef = ReturnType<typeof useRef<Socket | null>>;
+
+export type SocketStatus = 'ready' | 'disconnected' | null;

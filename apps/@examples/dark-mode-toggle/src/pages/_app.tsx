@@ -32,7 +32,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'dark-mode-toggle': 0 }}
+      flows={{ 'dark-mode-toggle': 0 }}
     >
       <Example />
     </DoptProvider>

@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <DoptProvider
       userId="$USER_ID"
       apiKey="$BLOCKS_API_KEY"
-      flowVersions={{ [DOPT_FLOW_ID]: 1 }}
+      flows={{ [DOPT_FLOW_ID]: 1 }}
     >
       <App />
     </DoptProvider>

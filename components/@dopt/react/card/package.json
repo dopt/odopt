@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-card",
-  "version": "9.0.1",
+  "version": "10.0.0",
   "description": "A React card component for building experiences with Dopt",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/card",
   "repository": {

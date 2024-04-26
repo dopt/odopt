@@ -38,7 +38,7 @@ function App() {
     <DoptProvider
       userId={userId}
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
-      flowVersions={{ [DOPT_FLOW_ID]: 2 }}
+      flows={{ [DOPT_FLOW_ID]: 2 }}
     >
       <Header />
       <ChecklistWrapper />

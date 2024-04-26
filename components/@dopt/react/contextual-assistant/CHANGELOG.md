@@ -1,5 +1,12 @@
 # @dopt/react-contextual-assistant
 
+## 0.2.1
+
+### Patch Changes
+
+- cc40963bf: Update link styles so that the entire click area of the source links out to the URL. Update styling of launcher icon to shade background on hover; also, make it more easily resizable if / when styles are overridden.
+  - @dopt/ai-assistant-react@0.1.1
+
 ## 0.2.0
 
 ### Minor Changes

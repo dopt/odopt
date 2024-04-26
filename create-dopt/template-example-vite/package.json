@@ -1,7 +1,7 @@
 {
   "name": "@examples/__PACKAGE_NAME__",
   "private": true,
-  "version": "0.0.56",
+  "version": "0.0.57",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5633",

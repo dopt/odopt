@@ -1,5 +1,11 @@
 # @dopt/ai-assistant-javascript
 
+## 0.0.16
+
+### Patch Changes
+
+- @dopt/ai-javascript-client@0.1.2
+
 ## 0.0.15
 
 ### Patch Changes

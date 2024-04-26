@@ -1,5 +1,11 @@
 # @dopt/ai-assistant-react
 
+## 0.1.1
+
+### Patch Changes
+
+- @dopt/ai-assistant-javascript@0.0.16
+
 ## 0.1.0
 
 ### Minor Changes

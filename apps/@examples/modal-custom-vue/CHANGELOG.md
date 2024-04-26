@@ -1,5 +1,11 @@
 # @examples/modal-custom-vue
 
+## 0.2.15
+
+### Patch Changes
+
+- @dopt/users-javascript-client@0.1.2
+
 ## 0.2.14
 
 ### Patch Changes

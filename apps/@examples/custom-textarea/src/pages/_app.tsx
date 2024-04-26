@@ -31,7 +31,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'custom-textarea': 2 }}
+      flows={{ 'custom-textarea': 2 }}
     >
       <Example />
     </DoptProvider>

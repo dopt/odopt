@@ -1,5 +1,14 @@
 # @dopt/react-modal
 
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies [a6cfcb0fa]
+- Updated dependencies [e027a3980]
+- Updated dependencies [b1aa72063]
+  - @dopt/react@5.0.0
+
 ## 10.0.1
 
 ### Patch Changes

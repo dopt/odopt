@@ -1,5 +1,15 @@
 # @examples/**PACKAGE_NAME**
 
+## 0.0.57
+
+### Patch Changes
+
+- Updated dependencies [a6cfcb0fa]
+- Updated dependencies [e027a3980]
+- Updated dependencies [b1aa72063]
+  - @dopt/react@5.0.0
+  - @dopt/react-users@0.2.9
+
 ## 0.0.56
 
 ### Patch Changes

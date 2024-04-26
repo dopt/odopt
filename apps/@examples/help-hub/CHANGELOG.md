@@ -1,5 +1,18 @@
 # @examples/help-hub
 
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies [cc40963bf]
+- Updated dependencies [a6cfcb0fa]
+- Updated dependencies [e027a3980]
+- Updated dependencies [b1aa72063]
+  - @dopt/react-help-hub@0.1.1
+  - @dopt/react@5.0.0
+  - @dopt/react-users@0.2.9
+  - @dopt/ai-assistant-react@0.1.1
+
 ## 0.0.16
 
 ### Patch Changes

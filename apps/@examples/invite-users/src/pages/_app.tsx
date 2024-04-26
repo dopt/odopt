@@ -34,7 +34,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'invite-users': 0 }}
+      flows={{ 'invite-users': 0 }}
     >
       <Example />
       <DemoHelper />

@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react';
-import { DoptContext } from './context';
+import { FlowContext } from './flow-provider';
 
 /**
  * A React hook for accessing whether Dopt has been initialized.
@@ -17,7 +17,7 @@ import { DoptContext } from './context';
  * @returns A boolean, `true` if Dopt is initialized, `false` otherwise.
  */
 export function useDoptInitialized(): boolean {
-  const { flowStatuses } = useContext(DoptContext);
+  const { flowStatuses } = useContext(FlowContext);
   const initialized = useMemo(() => {
     const statuses = Object.values(flowStatuses);
     return statuses.length > 0 && statuses.every((status) => !status.pending);

@@ -8,9 +8,18 @@ import {
 
 import { Brand, Destinations, Navigation, User } from '@/components';
 import HelpHub, { useHelpHub } from '@dopt/react-help-hub';
+import { useEffect } from 'react';
 
 export function Example() {
   const helpHub = useHelpHub('ai-segment-destination');
+
+  useEffect(() => {
+    helpHub.open();
+    /**
+     * On mount, open the helpHub.
+     */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={example}>
@@ -36,6 +45,8 @@ export function Example() {
               bottom: 0,
               right: 0,
               zIndex: 10000,
+              width: 45,
+              height: 45,
             }}
           />
         </HelpHub.Activator>
@@ -107,17 +118,17 @@ export function Example() {
                   ) : (
                     <>
                       <HelpHub.Source
-                        url="https://www.docs.developers.amplitude.com/"
+                        url="https://segment.com/docs/"
                         title="Visit the Datashift Docs"
                         hideUrl
                       />
                       <HelpHub.Source
-                        url="https://help.amplitude.com/"
+                        url="https://community.segment.com/p/help"
                         title="Get Help!"
                         hideUrl
                       />
                       <HelpHub.Source
-                        url="https://community.amplitude.com/"
+                        url="https://community.segment.com/"
                         title="Join our Community"
                         hideUrl
                       />

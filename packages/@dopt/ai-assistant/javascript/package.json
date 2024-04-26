@@ -1,6 +1,6 @@
 {
   "name": "@dopt/ai-assistant-javascript",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "private": false,
   "description": "An SDK for the AI assistant",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/ai-assistant/javascript",
@@ -45,7 +45,7 @@
   "dependencies": {
     "@dopt/ai-assistant-context": "workspace:*",
     "@dopt/ai-assistant-definition": "workspace:*",
-    "@dopt/ai-javascript-client": "^0.1.1",
+    "@dopt/ai-javascript-client": "^0.1.2",
     "@dopt/logger": "workspace:*",
     "@sinclair/typebox": "0.25.4"
   },
