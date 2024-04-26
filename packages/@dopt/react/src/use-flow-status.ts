@@ -1,7 +1,7 @@
 import { FlowStatus } from './types';
 import type { Flow } from '@dopt/javascript-common';
 import { useContext, useMemo } from 'react';
-import { DoptContext } from './context';
+import { FlowContext } from './flow-provider';
 
 /**
  * A React hook for accessing a Flow's initialization status.
@@ -21,7 +21,7 @@ import { DoptContext } from './context';
  * @returns A flow's {@link FlowStatus}.
  */
 export function useFlowStatus(sid: Flow['sid']): FlowStatus {
-  const { flowStatuses } = useContext(DoptContext);
+  const { flowStatuses } = useContext(FlowContext);
   const flowStatus = useMemo(
     () => flowStatuses[sid] || { pending: true, failed: false },
     [sid, flowStatuses]

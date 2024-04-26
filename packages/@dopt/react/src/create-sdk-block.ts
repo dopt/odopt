@@ -1,28 +1,31 @@
 import { getDefaultBlockState } from '@dopt/javascript-common';
-import type { DoptContext } from './context';
+
+import type { FlowContext } from './flow-provider';
 import { Block, BlockTransitionInputs, Field } from './types';
 
 export function createBlock<T>({
   uid,
-  fetching,
+  uninitialized,
   blocks,
   blockFields,
   blockIntention,
 }: {
   uid: string;
-  fetching: DoptContext['fetching'];
-  blocks: DoptContext['blocks'];
-  blockFields: DoptContext['blockFields'];
-  blockIntention: DoptContext['blockIntention'];
+  uninitialized: FlowContext['uninitialized'];
+  blocks: FlowContext['blocks'];
+  blockFields: FlowContext['blockFields'];
+  blockIntention: FlowContext['blockIntention'];
 }): Block<T> {
   const block =
-    fetching || !blocks[uid] ? getDefaultBlockState(uid, uid, -1) : blocks[uid];
+    uninitialized || !blocks[uid]
+      ? getDefaultBlockState(uid, uid, -1)
+      : blocks[uid];
 
   // overwrite the type of transitioned using generics
   const transitioned = block.transitioned as Block<T>['transitioned'];
 
   const transition = (...inputs: BlockTransitionInputs) => {
-    if (!fetching) {
+    if (!uninitialized) {
       blockIntention(uid, inputs);
     }
   };
@@ -32,12 +35,12 @@ export function createBlock<T>({
 
     /**
      * If:
-     * - Dopt is still fetching (loading)
+     * - Dopt is uninitialized
      * - a Block doesn't have fields
      * - a Block doesn't have the specified field
      * we return `undefined`.
      */
-    if (fetching || fieldMap == null || !fieldMap.get(name)) {
+    if (uninitialized || fieldMap == null || !fieldMap.get(name)) {
       return undefined;
     }
 

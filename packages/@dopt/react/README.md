@@ -53,7 +53,7 @@ ReactDOM.render(
   <DoptProvider
     userId={userId}
     apiKey={blocksAPIKey}
-    flowVersions={{
+    flows={{
       'new-user-onboarding': 2,
       'plan-upsell': 4,
     }}
@@ -117,7 +117,7 @@ Unlike flows, the states of a block are not all 1:1 with actions you can perform
 
 Now that you know what objects are available through the SDK, let's talk about how you access them.
 
-By integrating the provider, all descendants of it can now access the flows configured in the [flowVersions](./src/types.ts#L77) prop, and their associated blocks using the following React hooks.
+By integrating the provider, all descendants of it can now access the flows configured in the [flows](./src/types.ts#L96) prop, and their associated blocks using the following React hooks.
 
 ### Using transitions
 
@@ -210,7 +210,7 @@ The `DoptProvider` accepts a `logLevel` prop that allows you to set the minimum 
 <DoptProvider
   userId={userId}
   apiKey={blocksAPIKey}
-  flowVersions={flowVersions}
+  flows={flows}
   logLevel="warn" // 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent'
 >
   <Application />

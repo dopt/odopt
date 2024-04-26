@@ -1,5 +1,12 @@
 # @examples/ai-error
 
+## 0.0.4
+
+### Patch Changes
+
+- @dopt/react-users@0.2.9
+- @dopt/ai-assistant-react@0.1.1
+
 ## 0.0.3
 
 ### Patch Changes

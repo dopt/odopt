@@ -31,7 +31,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'embedded-tip': 3 }}
+      flows={{ 'embedded-tip': 3 }}
     >
       <Example />
     </DoptProvider>

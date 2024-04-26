@@ -243,20 +243,31 @@ globalStyle(`${helpHubHeaderIcon} > svg`, {
   display: 'block',
 });
 
-export const helpHubLauncher = recipe({
+export const helpHubLauncher = style({
+  margin: vars.space[4],
+  width: vars.sizes[6],
+  height: vars.sizes[6],
+});
+
+export const helpHubLauncherIcon = recipe({
   base: {
-    margin: vars.space[5],
-    color: vars.colors.secondary,
+    display: 'block',
+    borderRadius: vars.radii.round,
+    border: `${vars.borderWidths[2]} solid ${vars.colors.content}`,
+    width: '100%',
+    height: '100%',
+    color: vars.colors.content,
+    backgroundColor: vars.colors.white,
     cursor: 'pointer',
-    transition: `color ${vars.transitions.ease}`,
+    transition: `background-color ${vars.transitions.ease}`,
     ':hover': {
-      color: vars.colors.secondaryDark,
+      backgroundColor: vars.colors.secondaryLight,
     },
   },
   variants: {
     open: {
       true: {
-        color: vars.colors.secondaryDark,
+        backgroundColor: vars.colors.secondaryLight,
       },
     },
   },
@@ -528,7 +539,6 @@ export const helpHubSource = style({
   background: vars.colors.white,
   borderRadius: vars.space[2],
   cursor: 'pointer',
-  padding: `${vars.space[3]} ${vars.space[3]}`,
   ':hover': {
     backgroundColor: vars.colors.secondaryLight,
   },
@@ -541,6 +551,8 @@ export const helpHubSourceLink = style({
   flexDirection: 'row',
   alignItems: 'center',
   gap: vars.space[3],
+  flexGrow: 1,
+  padding: `${vars.space[3]} ${vars.space[3]}`,
 });
 
 export const helpHubSourceLinkIndex = style({

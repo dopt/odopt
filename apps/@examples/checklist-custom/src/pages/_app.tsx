@@ -32,7 +32,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ 'custom-checklist-component': 2 }}
+      flows={{ 'custom-checklist-component': 2 }}
     >
       <Home />
     </DoptProvider>

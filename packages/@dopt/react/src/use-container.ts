@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
-import { DoptContext } from './context';
 import { createBlock } from './create-sdk-block';
 import { Container } from './types';
+import { FlowContext } from './flow-provider';
 
 /**
  * A React hook for accessing a container's state and
@@ -44,10 +44,16 @@ import { Container } from './types';
  *
  */
 export function useContainer(id: string): Container {
-  const { fetching, blocks, blockIntention, log, blockFields, blockUidBySid } =
-    useContext(DoptContext);
+  const {
+    uninitialized,
+    blocks,
+    blockIntention,
+    log,
+    blockFields,
+    blockUidBySid,
+  } = useContext(FlowContext);
 
-  if (fetching) {
+  if (uninitialized) {
     log.current?.info(
       'Accessing container prior to initialization will return default block states.'
     );
@@ -57,7 +63,7 @@ export function useContainer(id: string): Container {
   const container = useMemo(() => {
     const container = createBlock({
       uid,
-      fetching,
+      uninitialized,
       blocks,
       blockFields,
       blockIntention,
@@ -66,13 +72,13 @@ export function useContainer(id: string): Container {
     const children = Object.values(blocks)
       .filter(({ containerUid }) => containerUid === container.uid)
       .map(({ uid }) =>
-        createBlock({ uid, fetching, blocks, blockFields, blockIntention })
+        createBlock({ uid, uninitialized, blocks, blockFields, blockIntention })
       );
 
     return { ...container, children };
-  }, [uid, fetching, blocks, blockFields, blockIntention]);
+  }, [uid, uninitialized, blocks, blockFields, blockIntention]);
 
-  if (!fetching && container.version === -1) {
+  if (!uninitialized && container.version === -1) {
     log.current?.warn(
       `
       Could not find any container matching "${id}" within \`useContainer("${id}")\`.

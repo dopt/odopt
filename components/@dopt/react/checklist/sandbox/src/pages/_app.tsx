@@ -10,7 +10,7 @@ export function App() {
     <DoptProvider
       userId="0"
       apiKey="blocks-blocksKey_Mg=="
-      flowVersions={{
+      flows={{
         checklist: 0,
       }}
     >

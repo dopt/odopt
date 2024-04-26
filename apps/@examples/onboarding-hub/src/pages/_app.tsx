@@ -34,7 +34,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{
+      flows={{
         'onboarding-hub': 0,
         'onboarding-hub-tour': 0,
         'onboarding-hub-video': 0,

@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.0.0
+
+### Major Changes
+
+- e027a3980: Significant refactoring of the SDK's initialization logic as we introduce a hierarchy of contexts to support Announcements and Forms in the SDK.
+
+  Additionally, the `flowVersions` prop on the DoptProvider has been renamed to `flows`. The old property remains present and has been marked deprecated.
+
+- b1aa72063: Rename the Surfaces concept to Channels. Update code and rename files.
+
+### Minor Changes
+
+- a6cfcb0fa: Simplify socketStatus management by wrapping `disconnected` updates into a timeout which only updates the status if a socket has been disconnected for > 5 seconds. This ensures that when the socket is volatile (i.e. many disconnects and reconnects are happening simultaneously) that we don't churn our statuses too often.
+
+  Additionally, simplify how `watch:flow` is emitted by enabling our sockets service to understand `latest` and `uncommitted` versions rather than waiting for version resolution. Overall, this greatly simplifies the internal state machine which determines how and when to update flows and blocks.
+
+  This change also makes socketStatus updates more robust and easier to understand.
+
+### Patch Changes
+
+- Updated dependencies [b1aa72063]
+  - @dopt/channels-javascript-client@0.0.1
+
 ## 4.2.1
 
 ### Patch Changes

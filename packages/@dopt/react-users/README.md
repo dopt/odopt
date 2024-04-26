@@ -94,7 +94,7 @@ export function Application() {
     <DoptProvider
       userId={userId}
       apiKey={blocksAPIKey}
-      flowVersions={{
+      flows={{
         'new-user-onboarding': 2,
         'plan-upsell': 4,
       }}
@@ -142,7 +142,7 @@ export function Application() {
       userId={userId}
       groupId={groupId}
       apiKey={blocksAPIKey}
-      flowVersions={{
+      flows={{
         'new-user-onboarding': 2,
         'plan-upsell': 4,
       }}

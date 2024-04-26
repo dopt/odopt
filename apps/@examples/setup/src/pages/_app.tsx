@@ -32,7 +32,7 @@ export function App() {
     <DoptProvider
       apiKey={import.meta.env.VITE_DOPT_BLOCKS_API_KEY}
       userId={userId}
-      flowVersions={{ setup: 1 }}
+      flows={{ setup: 1 }}
     >
       <Home />
     </DoptProvider>

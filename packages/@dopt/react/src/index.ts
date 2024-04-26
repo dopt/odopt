@@ -17,6 +17,7 @@ export type {
   Field,
   BlockTransition,
   FlowIntent,
+  FlowVersion,
 } from './types';
 
 /**
