@@ -38,7 +38,7 @@ export function useChannel(sid: string): Channel {
     );
   }
 
-  if (channelMessages.get(sid) == null) {
+  if (channelMessages[sid] == null) {
     logger.current?.warn(
       `
       Could not find any channels matching "${sid}" within \`useChannel("${sid}")\`.
@@ -48,45 +48,43 @@ export function useChannel(sid: string): Channel {
     );
   }
 
-  const messages: Message[] = (channelMessages.get(sid) || []).map(
-    (message) => {
-      return {
-        ...message,
-        engagement(engagement, effect) {
-          if (!userIdentifier) {
-            throw new Error();
-          }
-          client.messages.engagement(message.uid, {
-            userIdentifier,
-            groupIdentifier,
-            engagement,
-            effect,
-          });
-        },
-        trackClick(effect) {
-          if (!userIdentifier) {
-            throw new Error();
-          }
-          client.messages.engagement(message.uid, {
-            userIdentifier,
-            groupIdentifier,
-            engagement: 'click',
-            effect,
-          });
-        },
-        trackSeen() {
-          if (!userIdentifier) {
-            throw new Error();
-          }
-          client.messages.engagement(message.uid, {
-            userIdentifier,
-            groupIdentifier,
-            engagement: 'seen',
-          });
-        },
-      };
-    }
-  );
+  const messages: Message[] = (channelMessages[sid] || []).map((message) => {
+    return {
+      ...message,
+      engagement(engagement, effect) {
+        if (!userIdentifier) {
+          throw new Error();
+        }
+        client.messages.engagement(message.uid, {
+          userIdentifier,
+          groupIdentifier,
+          engagement,
+          effect,
+        });
+      },
+      trackClick(effect) {
+        if (!userIdentifier) {
+          throw new Error();
+        }
+        client.messages.engagement(message.uid, {
+          userIdentifier,
+          groupIdentifier,
+          engagement: 'click',
+          effect,
+        });
+      },
+      trackSeen() {
+        if (!userIdentifier) {
+          throw new Error();
+        }
+        client.messages.engagement(message.uid, {
+          userIdentifier,
+          groupIdentifier,
+          engagement: 'seen',
+        });
+      },
+    };
+  });
 
   return {
     sid,
