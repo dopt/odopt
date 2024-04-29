@@ -22,7 +22,7 @@ type ChannelContext = {
   client: DoptApiClient;
   userIdentifier?: string;
   groupIdentifier?: string;
-  channelMessages: Map<string, Messages>;
+  channelMessages: Record<string, Messages>;
 };
 
 export const ChannelContext = createContext<ChannelContext>(
@@ -41,12 +41,13 @@ export function ChannelProvider({
   const client = useMemo(() => {
     return new DoptApiClient({
       apiKey,
+      environment: process.env.CHANNELS_PREFIX,
     });
   }, [apiKey]);
 
-  const [channelMessages, setChannelMessages] = useState<Map<string, Messages>>(
-    new Map()
-  );
+  const [channelMessages, setChannelMessages] = useState<
+    Record<string, Messages>
+  >({});
 
   const [fetching, setFetching] = useState<boolean>(false);
 
@@ -73,9 +74,9 @@ export function ChannelProvider({
       setFetching(true);
 
       fetchChannels(channels, userId, groupId).then((channels) => {
-        const _channelMessages: typeof channelMessages = new Map();
+        const _channelMessages: typeof channelMessages = {};
         channels.forEach((channel) => {
-          _channelMessages.set(channel.sid, channel.messages);
+          _channelMessages[channel.sid] = channel.messages;
         });
         setChannelMessages(_channelMessages);
 
@@ -85,6 +86,45 @@ export function ChannelProvider({
       });
     })();
   }, [socket, fetchChannels, userId, groupId, channels, socketStatus]);
+
+  const handleMessagesFromServer = useCallback((channel: string) => {
+    return (messages: Messages) => {
+      logger.current.debug(
+        `The following message were updated and pushed from the server.\n${Object.values(
+          messages
+        )
+          .map((message) => JSON.stringify(message, null, 2))
+          .join('\n')}`
+      );
+
+      channelMessages[channel] = messages;
+
+      setChannelMessages((prev) => ({
+        ...prev,
+        [channel]: messages,
+      }));
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+    channels.map((channel) => {
+      socket.on(
+        `channel[${channel}].messages`,
+        handleMessagesFromServer(channel)
+      );
+    });
+    return () => {
+      channels.map((channel) => {
+        socket.off(
+          `channel[${channel}].messages`,
+          handleMessagesFromServer(channel)
+        );
+      });
+    };
+  }, [socket, logger, channels, channelMessages]);
 
   return (
     <ChannelContext.Provider
