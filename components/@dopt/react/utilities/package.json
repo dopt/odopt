@@ -1,6 +1,6 @@
 {
   "name": "@dopt/react-utilities",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Common utilities shared between @dopt React components",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/react/utilities",
   "repository": {

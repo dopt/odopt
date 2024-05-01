@@ -1,7 +1,7 @@
 {
   "name": "@examples/dark-mode-toggle",
   "private": true,
-  "version": "0.0.60",
+  "version": "0.0.61",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5633",
