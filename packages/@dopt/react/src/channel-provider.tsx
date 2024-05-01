@@ -22,7 +22,7 @@ type ChannelContext = {
   client: DoptApiClient;
   userIdentifier?: string;
   groupIdentifier?: string;
-  channelMessages: Map<string, Messages>;
+  channelMessages: Record<string, Messages>;
 };
 
 export const ChannelContext = createContext<ChannelContext>(
@@ -31,22 +31,22 @@ export const ChannelContext = createContext<ChannelContext>(
 
 type ChannelProviderProps = Pick<ProviderConfig, 'channels' | 'children'>;
 
-export function ChannelProvider({
-  channels = [],
-  children,
-}: ChannelProviderProps) {
+export function ChannelProvider(props: ChannelProviderProps) {
+  const { channels, children } = props;
+
   const { apiKey, groupId, userId, logger, socket, socketStatus } =
     useContext(DoptContext);
 
   const client = useMemo(() => {
     return new DoptApiClient({
       apiKey,
+      environment: process.env.CHANNELS_PREFIX,
     });
   }, [apiKey]);
 
-  const [channelMessages, setChannelMessages] = useState<Map<string, Messages>>(
-    new Map()
-  );
+  const [channelMessages, setChannelMessages] = useState<
+    Record<string, Messages>
+  >({});
 
   const [fetching, setFetching] = useState<boolean>(false);
 
@@ -65,7 +65,7 @@ export function ChannelProvider({
   );
 
   useEffect(() => {
-    if (!socket || !userId || socketStatus !== 'ready') {
+    if (!socket || !userId || !channels || socketStatus !== 'ready') {
       return;
     }
 
@@ -73,9 +73,9 @@ export function ChannelProvider({
       setFetching(true);
 
       fetchChannels(channels, userId, groupId).then((channels) => {
-        const _channelMessages: typeof channelMessages = new Map();
+        const _channelMessages: typeof channelMessages = {};
         channels.forEach((channel) => {
-          _channelMessages.set(channel.sid, channel.messages);
+          _channelMessages[channel.sid] = channel.messages;
         });
         setChannelMessages(_channelMessages);
 
@@ -85,6 +85,44 @@ export function ChannelProvider({
       });
     })();
   }, [socket, fetchChannels, userId, groupId, channels, socketStatus]);
+
+  const handleMessagesFromServer = useCallback(
+    (channel: string) => {
+      return (messages: Messages) => {
+        logger.current.debug(
+          `The following message were updated and pushed from the server.\n${Object.values(
+            messages
+          )
+            .map((message) => JSON.stringify(message, null, 2))
+            .join('\n')}`
+        );
+
+        setChannelMessages((prev) => ({
+          ...prev,
+          [channel]: messages,
+        }));
+      };
+    },
+    [logger]
+  );
+
+  useEffect(() => {
+    if (!socket || !channels) {
+      return;
+    }
+
+    const listeners = channels.map((channel) => {
+      const listener = handleMessagesFromServer(channel);
+      socket.on(`channel[${channel}].messages`, listener);
+      return listener;
+    });
+
+    return () => {
+      channels.map((channel, index) => {
+        socket.off(`channel[${channel}].messages`, listeners[index]);
+      });
+    };
+  }, [socket, logger, channels, channelMessages, handleMessagesFromServer]);
 
   return (
     <ChannelContext.Provider

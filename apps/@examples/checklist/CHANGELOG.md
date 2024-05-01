@@ -1,5 +1,13 @@
 # @examples/checklist
 
+## 0.1.61
+
+### Patch Changes
+
+- Updated dependencies [00764ba3e]
+  - @dopt/react@5.0.1
+  - @dopt/react-checklist@11.0.1
+
 ## 0.1.60
 
 ### Patch Changes
