@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.1
+
+### Patch Changes
+
+- 00764ba3e: Remove the default prop from the Channel provider, which caused the useEffect it was involved in to be triggered infinitely.
+
 ## 5.0.0
 
 ### Major Changes

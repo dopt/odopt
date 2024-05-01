@@ -1,6 +1,7 @@
 export { useBlock } from './use-block';
 export { useFlow } from './use-flow';
 export { useContainer } from './use-container';
+export { useChannel } from './use-channel';
 export { useDoptInitialized } from './use-dopt-initialized';
 export { useFlowStatus } from './use-flow-status';
 
