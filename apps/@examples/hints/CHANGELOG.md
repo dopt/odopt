@@ -1,5 +1,13 @@
 # @examples/hints
 
+## 0.0.63
+
+### Patch Changes
+
+- Updated dependencies [00764ba3e]
+  - @dopt/react@5.0.1
+  - @dopt/react-hints@4.0.1
+
 ## 0.0.62
 
 ### Patch Changes

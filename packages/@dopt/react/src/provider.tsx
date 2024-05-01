@@ -221,8 +221,8 @@ export function DoptProvider(props: ProviderConfig) {
         socketStatus,
       }}
     >
-      <FlowProvider flows={userId ? flows : {}}>
-        <ChannelProvider channels={userId ? channels : []}>
+      <FlowProvider flows={userId ? flows : undefined}>
+        <ChannelProvider channels={userId ? channels : undefined}>
           {children}
         </ChannelProvider>
       </FlowProvider>
