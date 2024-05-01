@@ -1,5 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useMemo, useEffect, RefCallback, useState } from 'react';
 import { ChannelContext, Messages } from './channel-provider';
+
+import { observe } from 'react-intersection-observer';
 
 type ApiMessage = Messages[number];
 
@@ -11,8 +13,9 @@ interface Message {
     engagement: 'click' | 'seen' | string,
     effect?: 'complete' | 'dismiss' | string
   ) => void;
-  trackClick: (effect?: 'complete' | 'dismiss' | string) => void;
-  trackSeen: () => void;
+  complete: () => void;
+  dismiss: () => void;
+  ref: RefCallback<HTMLElement>;
 }
 
 interface Channel {
@@ -48,6 +51,66 @@ export function useChannel(sid: string): Channel {
     );
   }
 
+  const [refs, setRefs] = useState<Record<string, HTMLElement>>({});
+  const [seen, setSeen] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (!userIdentifier) {
+      return () => {
+        /* */
+      };
+    }
+
+    const unobserves = Object.entries(refs).map(([messageUid, element]) => {
+      if (element && !seen[messageUid]) {
+        return observe(
+          element,
+          (inView) => {
+            if (!inView) {
+              return;
+            }
+            setSeen((prev) => ({
+              ...prev,
+              [messageUid]: true,
+            }));
+            client.messages.engagement(messageUid, {
+              userIdentifier,
+              groupIdentifier,
+              engagement: 'seen',
+            });
+          },
+          {
+            threshold: 1,
+          }
+        );
+      } else {
+        return () => {
+          /* */
+        };
+      }
+    });
+
+    return () => unobserves.map((unobserve) => unobserve());
+  }, [refs, userIdentifier, groupIdentifier, client, seen]);
+
+  const _messages = useMemo(
+    () => channelMessages[sid] || [],
+    [channelMessages, sid]
+  );
+
+  const refsById = useMemo(() => {
+    const refs: Record<string, RefCallback<HTMLElement>> = {};
+    _messages.forEach((message) => {
+      refs[message.uid] = (node: HTMLElement) => {
+        setRefs((prev) => ({
+          ...prev,
+          [message.uid]: node,
+        }));
+      };
+    });
+    return refs;
+  }, [_messages]);
+
   const messages: Message[] = (channelMessages[sid] || []).map((message) => {
     return {
       ...message,
@@ -62,7 +125,7 @@ export function useChannel(sid: string): Channel {
           effect,
         });
       },
-      trackClick(effect) {
+      complete() {
         if (!userIdentifier) {
           throw new Error();
         }
@@ -70,19 +133,21 @@ export function useChannel(sid: string): Channel {
           userIdentifier,
           groupIdentifier,
           engagement: 'click',
-          effect,
+          effect: 'complete',
         });
       },
-      trackSeen() {
+      dismiss() {
         if (!userIdentifier) {
           throw new Error();
         }
         client.messages.engagement(message.uid, {
           userIdentifier,
           groupIdentifier,
-          engagement: 'seen',
+          engagement: 'click',
+          effect: 'complete',
         });
       },
+      ref: refsById[message.uid],
     };
   });
 
