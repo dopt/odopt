@@ -17,7 +17,7 @@ export type Channel = DoptApi.GetChannelResponse;
 export type Messages = DoptApi.GetChannelResponse['messages'];
 
 type ChannelContext = {
-  fetching: boolean;
+  uninitialized: boolean;
   logger: RefObject<Logger>;
   client: DoptApiClient;
   userIdentifier?: string;
@@ -48,7 +48,7 @@ export function ChannelProvider(props: ChannelProviderProps) {
     Record<string, Messages>
   >({});
 
-  const [fetching, setFetching] = useState<boolean>(false);
+  const [uninitialized, setUninitialized] = useState<boolean>(true);
 
   const fetchChannels = useCallback(
     (sids: string[], userIdentifier: string, groupIdentifier?: string) => {
@@ -70,21 +70,21 @@ export function ChannelProvider(props: ChannelProviderProps) {
     }
 
     (async function handleSocketReady() {
-      setFetching(true);
-
       fetchChannels(channels, userId, groupId).then((channels) => {
         const _channelMessages: typeof channelMessages = {};
         channels.forEach((channel) => {
           _channelMessages[channel.sid] = channel.messages;
         });
         setChannelMessages(_channelMessages);
+        setUninitialized(false);
+        logger.current.debug('Channels fetched successfully');
 
         channels.forEach((channel) => {
           socket.emit('watch:channel', channel.sid);
         });
       });
     })();
-  }, [socket, fetchChannels, userId, groupId, channels, socketStatus]);
+  }, [socket, fetchChannels, userId, groupId, channels, socketStatus, logger]);
 
   const handleMessagesFromServer = useCallback(
     (channel: string) => {
@@ -128,7 +128,7 @@ export function ChannelProvider(props: ChannelProviderProps) {
     <ChannelContext.Provider
       value={{
         client,
-        fetching,
+        uninitialized,
         logger,
         userIdentifier: userId,
         groupIdentifier: groupId,
