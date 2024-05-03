@@ -41,7 +41,7 @@
     "react": ">=17.0.2"
   },
   "dependencies": {
-    "@dopt/channels-javascript-client": "workspace:*",
+    "@dopt/channels-javascript-client": "latest",
     "@dopt/javascript-common": "workspace:*",
     "@dopt/logger": "workspace:*",
     "react-intersection-observer": "9.10.1",
