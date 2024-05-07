@@ -189,7 +189,7 @@ export function FlowProvider(props: FlowProviderProps) {
       return;
     }
 
-    function handleReadyFromServer() {
+    function emitWatchFlows() {
       if (stableFlowVersions) {
         Object.entries(stableFlowVersions).forEach(([sid, version]) => {
           socket?.emit('watch:flow', sid, version);
@@ -200,10 +200,23 @@ export function FlowProvider(props: FlowProviderProps) {
       }
     }
 
-    socket.on('ready', handleReadyFromServer);
+    /**
+     * If the socket is already connected, we've reached this point
+     * because of a change in flowVersions. In that case, we should just
+     * emit the `watch:flow` events right away.
+     */
+    if (socket.connected) {
+      emitWatchFlows();
+    }
+
+    /**
+     * Additionally, on each disconnect <> ready transition,
+     * we should also emit `watch:flow` events.
+     */
+    socket.on('ready', emitWatchFlows);
 
     return () => {
-      socket.off('ready', handleReadyFromServer);
+      socket.off('ready', emitWatchFlows);
     };
   }, [socket, stableFlowVersions, logger]);
 
