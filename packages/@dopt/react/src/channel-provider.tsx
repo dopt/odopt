@@ -17,7 +17,7 @@ export type Channel = DoptApi.GetChannelResponse;
 export type Messages = DoptApi.GetChannelResponse['messages'];
 
 type ChannelContext = {
-  fetching: boolean;
+  uninitialized: boolean;
   logger: RefObject<Logger>;
   client: DoptApiClient;
   userIdentifier?: string;
@@ -31,8 +31,31 @@ export const ChannelContext = createContext<ChannelContext>(
 
 type ChannelProviderProps = Pick<ProviderConfig, 'channels' | 'children'>;
 
+function channelSidsEqual(
+  previousSids: ProviderConfig['channels'],
+  currentSids: ProviderConfig['channels']
+): boolean {
+  if (!previousSids || !currentSids) {
+    return false;
+  }
+
+  if (previousSids.length !== currentSids.length) {
+    return false;
+  }
+
+  const previousSet = new Set(previousSids);
+
+  for (const currentSid of currentSids) {
+    if (!previousSet.has(currentSid)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export function ChannelProvider(props: ChannelProviderProps) {
-  const { channels, children } = props;
+  const { channels: channelSids, children } = props;
 
   const { apiKey, groupId, userId, logger, socket, socketStatus } =
     useContext(DoptContext);
@@ -48,12 +71,29 @@ export function ChannelProvider(props: ChannelProviderProps) {
     Record<string, Messages>
   >({});
 
-  const [fetching, setFetching] = useState<boolean>(false);
+  const [uninitialized, setUninitialized] = useState<boolean>(true);
+
+  /**
+   * Create a stable state variable for channelSids so that
+   * we can use it as a dependency in hooks.
+   */
+  const [stableChannelSids, setStableChannelSids] = useState(channelSids);
+  useEffect(() => {
+    setStableChannelSids((stableChannelSids) => {
+      return !channelSidsEqual(stableChannelSids, channelSids)
+        ? channelSids
+        : stableChannelSids;
+    });
+  }, [channelSids]);
 
   const fetchChannels = useCallback(
-    (sids: string[], userIdentifier: string, groupIdentifier?: string) => {
+    (
+      sids: string[] | undefined,
+      userIdentifier: string,
+      groupIdentifier?: string
+    ) => {
       return Promise.all(
-        sids.map((sid) =>
+        (sids || []).map((sid) =>
           client.channels.getChannel(sid, {
             userIdentifier,
             groupIdentifier,
@@ -65,70 +105,101 @@ export function ChannelProvider(props: ChannelProviderProps) {
   );
 
   useEffect(() => {
-    if (!socket || !userId || !channels || socketStatus !== 'ready') {
+    if (!socket || !userId || socketStatus !== 'ready') {
       return;
     }
 
     (async function handleSocketReady() {
-      setFetching(true);
-
-      fetchChannels(channels, userId, groupId).then((channels) => {
+      fetchChannels(stableChannelSids, userId, groupId).then((channels) => {
         const _channelMessages: typeof channelMessages = {};
         channels.forEach((channel) => {
           _channelMessages[channel.sid] = channel.messages;
         });
         setChannelMessages(_channelMessages);
+        setUninitialized(false);
+        logger.current.debug('Channels fetched successfully');
 
         channels.forEach((channel) => {
           socket.emit('watch:channel', channel.sid);
         });
       });
     })();
-  }, [socket, fetchChannels, userId, groupId, channels, socketStatus]);
-
-  const handleMessagesFromServer = useCallback(
-    (channel: string) => {
-      return (messages: Messages) => {
-        logger.current.debug(
-          `The following message were updated and pushed from the server.\n${Object.values(
-            messages
-          )
-            .map((message) => JSON.stringify(message, null, 2))
-            .join('\n')}`
-        );
-
-        setChannelMessages((prev) => ({
-          ...prev,
-          [channel]: messages,
-        }));
-      };
-    },
-    [logger]
-  );
+  }, [
+    socket,
+    fetchChannels,
+    userId,
+    groupId,
+    stableChannelSids,
+    socketStatus,
+    logger,
+  ]);
 
   useEffect(() => {
-    if (!socket || !channels) {
+    if (!socket || !stableChannelSids) {
       return;
     }
 
-    const listeners = channels.map((channel) => {
-      const listener = handleMessagesFromServer(channel);
-      socket.on(`channel[${channel}].messages`, listener);
-      return listener;
-    });
+    function emitWatchChannels() {
+      if (stableChannelSids) {
+        stableChannelSids.forEach((sid) => {
+          socket?.emit('watch:channel', sid);
+          logger.current.debug(`Watching channel "${sid}" for message updates`);
+        });
+      }
+    }
+
+    /**
+     * If the socket is already connected, we've reached this point
+     * because of a change in flowVersions. In that case, we should just
+     * emit the `watch:flow` events right away.
+     */
+    if (socket.connected) {
+      emitWatchChannels();
+    }
+
+    /**
+     * Additionally, on each disconnect <> ready transition,
+     * we should also emit `watch:flow` events.
+     */
+    socket.on('ready', emitWatchChannels);
 
     return () => {
-      channels.map((channel, index) => {
-        socket.off(`channel[${channel}].messages`, listeners[index]);
-      });
+      socket.off('ready', emitWatchChannels);
     };
-  }, [socket, logger, channels, channelMessages, handleMessagesFromServer]);
+  }, [socket, stableChannelSids, logger]);
+
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+
+    const handleMessagesFromServer = (channel: string, messages: Messages) => {
+      logger.current.debug(
+        `The following message were updated and pushed from the server.\n${Object.values(
+          messages
+        )
+          .map((message) => JSON.stringify(message, null, 2))
+          .join('\n')}`
+      );
+
+      setChannelMessages((prev) => ({
+        ...prev,
+        [channel]: messages,
+      }));
+    };
+
+    socket.on('messages', handleMessagesFromServer);
+
+    return () => {
+      socket.off('messages', handleMessagesFromServer);
+    };
+  }, [socket, logger]);
 
   return (
     <ChannelContext.Provider
       value={{
         client,
-        fetching,
+        uninitialized,
         logger,
         userIdentifier: userId,
         groupIdentifier: groupId,
