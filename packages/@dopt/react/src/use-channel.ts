@@ -1,5 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useMemo, useEffect, RefCallback, useState } from 'react';
 import { ChannelContext, Messages } from './channel-provider';
+
+import { observe } from 'react-intersection-observer';
 
 type ApiMessage = Messages[number];
 
@@ -7,12 +9,10 @@ interface Message {
   name: ApiMessage['name'];
   uid: ApiMessage['uid'];
   status: ApiMessage['status'];
-  engagement: (
-    engagement: 'click' | 'seen' | string,
-    effect?: 'complete' | 'dismiss' | string
-  ) => void;
-  trackClick: (effect?: 'complete' | 'dismiss' | string) => void;
-  trackSeen: () => void;
+  engage: (engagement: string) => void;
+  complete: () => void;
+  dismiss: () => void;
+  ref: RefCallback<HTMLElement>;
 }
 
 interface Channel {
@@ -20,25 +20,21 @@ interface Channel {
   messages: Message[];
 }
 
-//TODO [jm] - the return type is off / we need somethign SDK specific
-//that wraps the engagements concept
 export function useChannel(sid: string): Channel {
   const {
     client,
     userIdentifier,
     groupIdentifier,
     channelMessages,
-    fetching,
+    uninitialized,
     logger,
   } = useContext(ChannelContext);
 
-  if (fetching) {
+  if (uninitialized) {
     logger.current?.info(
       'Accessing messages prior to Channel initialization will return an empty array.'
     );
-  }
-
-  if (channelMessages[sid] == null) {
+  } else if (channelMessages[sid] == null) {
     logger.current?.warn(
       `
       Could not find any channels matching "${sid}" within \`useChannel("${sid}")\`.
@@ -48,43 +44,103 @@ export function useChannel(sid: string): Channel {
     );
   }
 
-  const messages: Message[] = (channelMessages[sid] || []).map((message) => {
-    return {
-      ...message,
-      engagement(engagement, effect) {
-        if (!userIdentifier) {
-          throw new Error();
-        }
-        client.messages.engagement(message.uid, {
-          userIdentifier,
-          groupIdentifier,
-          engagement,
-          effect,
-        });
-      },
-      trackClick(effect) {
-        if (!userIdentifier) {
-          throw new Error();
-        }
-        client.messages.engagement(message.uid, {
-          userIdentifier,
-          groupIdentifier,
-          engagement: 'click',
-          effect,
-        });
-      },
-      trackSeen() {
-        if (!userIdentifier) {
-          throw new Error();
-        }
-        client.messages.engagement(message.uid, {
-          userIdentifier,
-          groupIdentifier,
-          engagement: 'seen',
-        });
-      },
-    };
-  });
+  const [refs, setRefs] = useState<Record<string, HTMLElement>>({});
+  const [seen, setSeen] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (uninitialized || !userIdentifier) {
+      return () => {
+        /* */
+      };
+    }
+
+    const unobserves = Object.entries(refs).map(([messageUid, element]) => {
+      if (element && !seen[messageUid]) {
+        return observe(
+          element,
+          (inView) => {
+            if (!inView) {
+              return;
+            }
+            setSeen((prev) => ({
+              ...prev,
+              [messageUid]: true,
+            }));
+            client.messages.see(messageUid, {
+              userIdentifier,
+              groupIdentifier,
+            });
+          },
+          {
+            threshold: 1,
+          }
+        );
+      } else {
+        return () => {
+          /* */
+        };
+      }
+    });
+
+    return () => unobserves.map((unobserve) => unobserve());
+  }, [refs, uninitialized, userIdentifier, groupIdentifier, client, seen]);
+
+  const messages: Message[] = useMemo(() => {
+    if (uninitialized || !userIdentifier) {
+      return [];
+    }
+
+    const messages = channelMessages[sid];
+
+    if (!messages) {
+      return [];
+    }
+
+    const refsById: Record<string, RefCallback<HTMLElement>> = {};
+    for (const message of messages) {
+      refsById[message.uid] = (node: HTMLElement) => {
+        setRefs((prev) => ({
+          ...prev,
+          [message.uid]: node,
+        }));
+      };
+    }
+
+    return messages.map((message) => {
+      return {
+        ...message,
+        engage(engagement) {
+          client.messages.engage(message.uid, {
+            userIdentifier,
+            groupIdentifier,
+            engagement,
+          });
+        },
+        complete() {
+          client.messages.complete(message.uid, {
+            userIdentifier,
+            groupIdentifier,
+            effect: 'complete',
+          });
+        },
+        dismiss() {
+          client.messages.complete(message.uid, {
+            userIdentifier,
+            groupIdentifier,
+            effect: 'dismiss',
+          });
+        },
+        ref: refsById[message.uid],
+      };
+    });
+  }, [
+    uninitialized,
+    userIdentifier,
+    groupIdentifier,
+    channelMessages,
+    sid,
+    client,
+  ]);
 
   return {
     sid,
