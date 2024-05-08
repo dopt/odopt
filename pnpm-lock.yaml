@@ -11900,8 +11900,8 @@ packages:
       '@arcanis/slice-ansi': 1.1.1
       '@types/semver': 7.5.8
       '@types/treeify': 1.0.3
-      '@yarnpkg/fslib': 3.0.2
-      '@yarnpkg/libzip': 3.0.1(@yarnpkg/fslib@3.0.2)
+      '@yarnpkg/fslib': 3.1.0
+      '@yarnpkg/libzip': 3.1.0(@yarnpkg/fslib@3.1.0)
       '@yarnpkg/parsers': 3.0.2
       '@yarnpkg/shell': 4.0.2(typanion@3.14.0)
       camelcase: 5.3.1
@@ -11951,8 +11951,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@yarnpkg/fslib@3.0.2:
-    resolution: {integrity: sha512-dqSpZCj9ZeqMZzITHvpi5qKS9MCLWZYCl6NHCSl3a+BqiyLApehWAy60zjv9F1fxKZ6RKDgHLhBWhx8RwPm6Dw==}
+  /@yarnpkg/fslib@3.1.0:
+    resolution: {integrity: sha512-wsj7/sUVSdXOIX/qwaON/Ky5GsP5gs9ry9DKwgLbWT7k3qw4/EcHAtfTtPhBYu33UibzBFI+fgB4wBRVH2XVaw==}
     engines: {node: '>=18.12.0'}
     dependencies:
       tslib: 2.6.2
@@ -11977,14 +11977,14 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@yarnpkg/libzip@3.0.1(@yarnpkg/fslib@3.0.2):
-    resolution: {integrity: sha512-fiqRLk2fyd2r34/Qc7HlP8fKIo1CK5CZpLNObJwnbFmZQN2hVanovFlG++3oH3qYJymEmjPl5EGsygcEJZl4Pg==}
+  /@yarnpkg/libzip@3.1.0(@yarnpkg/fslib@3.1.0):
+    resolution: {integrity: sha512-x66/F8wEOUL8Hi4NZFVVKCFNITN0keQt0ZNlY5V9dRb+judyO8aJv4hazO3WyblnGhClvuBPbx+a2X4LNS5ziA==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
-      '@yarnpkg/fslib': ^3.0.2
+      '@yarnpkg/fslib': ^3.1.0
     dependencies:
       '@types/emscripten': 1.39.11
-      '@yarnpkg/fslib': 3.0.2
+      '@yarnpkg/fslib': 3.1.0
       tslib: 2.6.2
     dev: false
 
@@ -12084,7 +12084,7 @@ packages:
     engines: {node: '>=18.12.0'}
     hasBin: true
     dependencies:
-      '@yarnpkg/fslib': 3.0.2
+      '@yarnpkg/fslib': 3.1.0
       '@yarnpkg/parsers': 3.0.2
       chalk: 3.0.0
       clipanion: 4.0.0-rc.3(typanion@3.14.0)
