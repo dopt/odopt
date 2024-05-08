@@ -1,6 +1,6 @@
 {
   "name": "@userstate/types",
-  "version": "4.3.2",
+  "version": "4.4.0",
   "description": "A package of schema and type definitions for @dopt's @userstate/machine(s)",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40userstate/types",
   "repository": {

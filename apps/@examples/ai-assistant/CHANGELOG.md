@@ -1,5 +1,13 @@
 # @examples/ai-assistant
 
+## 0.0.19
+
+### Patch Changes
+
+- Updated dependencies [a4209f4df]
+  - @dopt/react@5.0.2
+  - @dopt/react-contextual-assistant@0.2.1
+
 ## 0.0.18
 
 ### Patch Changes

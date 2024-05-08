@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.2
+
+### Patch Changes
+
+- a4209f4df: Adds full end-to-end support for channels in both our API and SDK. In the API, we rename a few APIs to have better name parallelism and expose a `channels/:sid/reset` API for developing with resets in development. We also ensure that fields are propagated along with messages for channels. In our SDK, we consume these fields and reset function and expose them via our `Channel` and `Message` interfaces returned from `use-channel`. After this change, we will update typedocs, comments, and help before publishing a subsequent minor version where `channels` are fully ready to use.
+  - @dopt/javascript-common@2.3.6
+  - @dopt/channels-javascript-client@0.0.2
+
 ## 5.0.1
 
 ### Patch Changes

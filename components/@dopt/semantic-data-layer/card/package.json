@@ -1,6 +1,6 @@
 {
   "name": "@dopt/semantic-data-layer-card",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "An interface definition for Dopt's card component",
   "homepage": "https://github.com/dopt/odopt/tree/main/components/%40dopt/semantic-data-layer/card",
   "repository": {
