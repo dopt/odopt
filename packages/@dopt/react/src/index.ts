@@ -21,6 +21,8 @@ export type {
   FlowVersion,
 } from './types';
 
+export type { Channel, Message } from './use-channel';
+
 /**
  * @internal
  *

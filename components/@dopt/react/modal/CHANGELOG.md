@@ -1,5 +1,13 @@
 # @dopt/react-modal
 
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies [a4209f4df]
+  - @dopt/react@5.0.2
+  - @dopt/semantic-data-layer-modal@0.2.3
+
 ## 11.0.1
 
 ### Patch Changes

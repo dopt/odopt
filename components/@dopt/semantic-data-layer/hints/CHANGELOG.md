@@ -1,5 +1,11 @@
 # @dopt/semantic-data-layer-hints
 
+## 1.0.3
+
+### Patch Changes
+
+- @dopt/block-api-types@1.3.4
+
 ## 1.0.2
 
 ### Patch Changes

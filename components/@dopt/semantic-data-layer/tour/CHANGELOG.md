@@ -1,5 +1,11 @@
 # @dopt/semantic-data-layer-tour
 
+## 0.3.3
+
+### Patch Changes
+
+- @dopt/block-api-types@1.3.4
+
 ## 0.3.2
 
 ### Patch Changes

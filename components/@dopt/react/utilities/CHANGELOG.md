@@ -1,5 +1,12 @@
 # @dopt/react-utilities
 
+## 8.0.2
+
+### Patch Changes
+
+- Updated dependencies [a4209f4df]
+  - @dopt/react@5.0.2
+
 ## 8.0.1
 
 ### Patch Changes

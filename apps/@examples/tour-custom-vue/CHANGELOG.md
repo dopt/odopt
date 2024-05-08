@@ -1,5 +1,11 @@
 # @examples/tour-custom-vue
 
+## 0.2.16
+
+### Patch Changes
+
+- @dopt/vue@1.0.4
+
 ## 0.2.15
 
 ### Patch Changes

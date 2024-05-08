@@ -1,5 +1,11 @@
 # @dopt/block-types
 
+## 4.4.0
+
+### Minor Changes
+
+- f9db1d0dd: add form block
+
 ## 4.3.2
 
 ### Patch Changes
