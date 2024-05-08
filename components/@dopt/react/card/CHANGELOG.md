@@ -1,5 +1,13 @@
 # @dopt/react-card
 
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies [a4209f4df]
+  - @dopt/react@5.0.2
+  - @dopt/semantic-data-layer-card@1.2.3
+
 ## 10.0.1
 
 ### Patch Changes

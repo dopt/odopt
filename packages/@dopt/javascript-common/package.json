@@ -1,6 +1,6 @@
 {
   "name": "@dopt/javascript-common",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "Common utilities used by @dopt/react and @dopt/javascript",
   "homepage": "https://github.com/dopt/odopt/tree/main/packages/%40dopt/javascript-common",
   "repository": {

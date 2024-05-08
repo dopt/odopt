@@ -1,5 +1,11 @@
 # @dopt/semantic-data-layer-card
 
+## 1.2.3
+
+### Patch Changes
+
+- @dopt/block-api-types@1.3.4
+
 ## 1.2.2
 
 ### Patch Changes

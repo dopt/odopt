@@ -1,7 +1,7 @@
 {
   "name": "@examples/tutorial",
   "private": true,
-  "version": "0.2.20",
+  "version": "0.2.21",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5633",

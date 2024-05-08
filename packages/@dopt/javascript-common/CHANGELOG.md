@@ -1,5 +1,11 @@
 # @dopt/javascript-common
 
+## 2.3.6
+
+### Patch Changes
+
+- @dopt/block-api-types@1.3.4
+
 ## 2.3.5
 
 ### Patch Changes

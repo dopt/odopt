@@ -14,6 +14,7 @@ import { ContainerStart, ContainerEnd } from './container';
 import { Checklist, ChecklistItem } from './checklist';
 import { Hints, HintsItem } from './hints';
 import { Tour, TourItem } from './tour';
+import { Form } from './form';
 
 export { Nary } from './base';
 export * from './entry';
@@ -29,6 +30,7 @@ export * from './checklist';
 export * from './hints';
 export * from './tour';
 export * from './container';
+export * from './form';
 
 export const BLOCK_TYPES = {
   entry: Entry.properties.type.const,
@@ -48,6 +50,7 @@ export const BLOCK_TYPES = {
   hintsItem: HintsItem.properties.type.const,
   tour: Tour.properties.type.const,
   tourItem: TourItem.properties.type.const,
+  form: Form.properties.type.const,
 } as const;
 
 export const BlockTypes = Type.Union([
@@ -68,6 +71,7 @@ export const BlockTypes = Type.Union([
   HintsItem.properties.type,
   Tour.properties.type,
   TourItem.properties.type,
+  Form.properties.type,
 ]);
 export type BlockTypes = Static<typeof BlockTypes>;
 
@@ -90,6 +94,7 @@ export const Block = Type.Union(
     Type.Ref(HintsItem),
     Type.Ref(Tour),
     Type.Ref(TourItem),
+    Type.Ref(Form),
   ],
   { $id: 'Block' }
 );
@@ -115,7 +120,8 @@ export type Block =
   | Hints
   | HintsItem
   | Tour
-  | TourItem;
+  | TourItem
+  | Form;
 
 export const Blocks = Type.Array(Type.Ref(Block));
 export type Blocks = Static<typeof Blocks>;
@@ -130,7 +136,8 @@ export function isExternalBlock(type: BlockTypes) {
     type === BLOCK_TYPES.hints ||
     type === BLOCK_TYPES.hintsItem ||
     type === BLOCK_TYPES.tour ||
-    type === BLOCK_TYPES.tourItem
+    type === BLOCK_TYPES.tourItem ||
+    type === BLOCK_TYPES.form
   );
 }
 
@@ -143,7 +150,8 @@ export type ExternalBlock =
   | Hints
   | HintsItem
   | Tour
-  | TourItem;
+  | TourItem
+  | Form;
 
 function getDefaultTransition(props: { transitioned: Nary['transitioned'] }): {
   default: boolean;
@@ -343,6 +351,17 @@ export function getDefaultBlock(props: {
           ...transitioned,
         },
         containerUid: getContainerUid(props),
+        fields: [],
+      };
+    case 'form':
+      return {
+        ...props,
+        type: 'form',
+        kind: 'block',
+        transitioned: {
+          ...{ complete: false, dismiss: false },
+          ...transitioned,
+        },
         fields: [],
       };
     case 'containerEnd':

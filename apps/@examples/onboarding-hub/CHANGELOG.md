@@ -1,5 +1,16 @@
 # @examples/onboarding-hub
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [a4209f4df]
+  - @dopt/react@5.0.2
+  - @dopt/react-card@10.0.2
+  - @dopt/react-checklist@11.0.2
+  - @dopt/react-modal@11.0.2
+  - @dopt/react-tour@11.0.2
+
 ## 0.0.9
 
 ### Patch Changes

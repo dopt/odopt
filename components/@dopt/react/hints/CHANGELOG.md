@@ -1,5 +1,14 @@
 # @dopt/react-hints
 
+## 4.0.2
+
+### Patch Changes
+
+- Updated dependencies [a4209f4df]
+  - @dopt/react@5.0.2
+  - @dopt/react-utilities@8.0.2
+  - @dopt/semantic-data-layer-hints@1.0.3
+
 ## 4.0.1
 
 ### Patch Changes

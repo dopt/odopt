@@ -1,5 +1,15 @@
 # @examples/tutorial
 
+## 0.2.21
+
+### Patch Changes
+
+- Updated dependencies [a4209f4df]
+  - @dopt/react@5.0.2
+  - @dopt/react-checklist@11.0.2
+  - @dopt/react-modal@11.0.2
+  - @dopt/react-tour@11.0.2
+
 ## 0.2.20
 
 ### Patch Changes
