@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@dopt/html-rich-text": "workspace:*",
-    "@dopt/users-javascript-client": "workspace:*",
+    "@dopt/users-javascript-client": "latest",
     "@dopt/vue": "workspace:*",
     "nanoid": "5.0.4",
     "radix-vue": "1.1.1",
